@@ -1,4 +1,4 @@
-// handoff 觀察 START1.EXE 交棒之後、按 Esc 略過片頭那一段。只讀不寫。
+// handoff 觀察 EOB1 從 START1.EXE 到主選單這一段。只讀不寫。
 package main
 
 import (
@@ -10,10 +10,22 @@ import (
 	"github.com/wicanr2/dosgolem/oracle"
 )
 
+func nonZero(o *oracle.Oracle) int {
+	_, _, px := o.Screen()
+	n := 0
+	for _, p := range px {
+		if p != 0 {
+			n++
+		}
+	}
+	return n
+}
+
 func main() {
 	exe := flag.String("exe", "", "START1.EXE 路徑")
 	root := flag.String("root", "", "原版資料目錄")
-	budget := flag.Uint64("budget", 200_000_000, "指令預算")
+	escape := flag.Bool("esc", true, "按 Esc 略過片頭")
+	budget := flag.Uint64("budget", 300_000_000, "指令預算")
 	flag.Parse()
 	o, err := oracle.Load(*exe, *root)
 	if err != nil {
@@ -21,22 +33,33 @@ func main() {
 		os.Exit(1)
 	}
 	defer o.Close()
-	fmt.Println("標誌:", eob1.ToWestwoodLogo(o))
-	o.PressKey(oracle.KeyEscape)
-	fmt.Println("主選單資產:", o.RunUntil(oracle.Opened("EOBDATA3.PAK"), oracle.Budget(*budget)))
-	fmt.Println("開過的檔:", o.Opened())
-	fmt.Println("找不到:", o.Missing())
-	w, h, px := o.Screen()
-	nz := 0
-	for _, p := range px {
-		if p != 0 {
-			nz++
+	o.Type(eob1.LauncherInput)
+	fmt.Println("等 EOBDATA4.PAK:", o.RunUntil(oracle.Opened("EOBDATA4.PAK"), oracle.Budget(60_000_000)))
+	fmt.Println("  畫面非零:", nonZero(o), "步數:", o.Steps())
+	fmt.Println("等畫面靜止:", o.RunUntil(oracle.ScreenIdle(1_000_000), oracle.Budget(60_000_000)))
+	fmt.Println("  畫面非零:", nonZero(o), "步數:", o.Steps())
+	o.TraceInt21()
+	before := len(o.Int21Trace())
+	if *escape {
+		for i := 0; i < 1; i++ {
+			o.PressKey(oracle.KeyEscape)
+			err := o.RunUntil(oracle.Opened("EOBDATA3.PAK"), oracle.Budget(*budget/6))
+			fmt.Printf("  Esc#%d 之後：非零=%d 步數=%d err=%v\n", i+1, nonZero(o), o.Steps(), err != nil)
+			if err == nil {
+				break
+			}
 		}
 	}
-	fmt.Printf("畫面 %dx%d 非零 %d\n", w, h, nz)
-	fmt.Println("沒實作:", o.Unimplemented())
-	fmt.Printf("步數=%d 幀=%d 計時器已設定=%v %.2fHz 每tick步數=%d\n",
-		o.Steps(), o.Frames(), o.TimerProgrammed(), o.TimerHz(), o.StepsPerTick())
-	fmt.Println("port 讀取:", o.PortReads())
-	fmt.Println("滑鼠呼叫:", o.MouseCalls())
+	fmt.Println("  畫面非零:", nonZero(o), "步數:", o.Steps())
+	tr := o.Int21Trace()
+	fmt.Printf("== Esc 之後的 int 21h（共 %d 筆，前 40 筆）==\n", len(tr)-before)
+	for i, r := range tr[before:] {
+		if i >= 40 {
+			break
+		}
+		fmt.Printf("  step=%-10d AH=%02X AL=%02X\n", r.Step, r.AH, r.AL)
+	}
+	fmt.Println("port:", o.PortReads())
+	tick := o.Bytes(oracle.Addr{Seg: 0x0040, Off: 0x006C}, 4)
+	fmt.Printf("BIOS tick 0040:006C = % X\n", tick)
 }
