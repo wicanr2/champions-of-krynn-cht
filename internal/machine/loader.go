@@ -311,6 +311,8 @@ func (m *Machine) initPSPAt(pspSeg uint16) {
 	blk = append(blk, []byte(name)...)
 	blk = append(blk, 0x00)
 	m.WriteBytes(uint32(EnvSeg)*16, blk)
+	// 環境區塊也要有 MCB，見 EnvMCBSeg 的說明。段數往上取整。
+	m.WriteMCB(EnvMCBSeg, false, pspSeg, uint16((len(blk)+15)/16))
 	m.Write16(psp+0x2C, EnvSeg)
 
 	// PSP+32h／34h 是檔案表大小與位址。

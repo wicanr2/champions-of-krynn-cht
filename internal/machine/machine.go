@@ -41,7 +41,16 @@ const (
 
 	// EnvSeg 是環境區塊；`PSP+2Ch` 指向它。內容只有幾十 bytes，
 	// 但要留在 stub 區之後、PSP 之前。
-	EnvSeg = 0x00D0
+	//
+	// ⚠ **它前面那一段是它的 MCB**（`EnvSeg-1` ＝ `EnvMCBSeg`）。真 DOS 的環境
+	// 是用 `AH=48h` 配出來的，所以一定有 MCB；程式問「我的環境有多大」的標準寫法
+	// 是 `mov es,[psp+2Ch] / dec es / mov cx,es:[3]`。沒有 MCB 的話那一讀會落在
+	// 中斷 stub 區上，讀到的段數是殘值——**而殘值會隨 stub 佈局改變**，
+	// 於是同一支程式在不同版本上算出不同的環境大小，行為跟著岔開。
+	// EOB1 的鏈式載入器就是這樣：它照環境大小決定要留多少空間給子行程，
+	// 讀到 0 就不留，接著整條路徑都不一樣。
+	EnvMCBSeg = 0x00CF
+	EnvSeg    = 0x00D0
 
 	// EMSFrameSeg 是 EMS 的 64 KB page frame。D0000–DFFFF 在 1 MB
 	// 空間裡沒有別的用途，程式對它的讀寫就是普通記憶體存取。
