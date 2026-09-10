@@ -16,6 +16,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/wicanr2/dosgolem/apps/eob1"
@@ -36,6 +37,7 @@ func main() {
 	root := flag.String("root", "", "原版資料目錄")
 	stage := flag.String("stage", "title", "停在哪：title／stats／alfa／level1")
 	walk := flag.Uint64("walk", 50_000_000, "從初值 1 最多往前推幾步找對應")
+	dump := flag.Int("dump", 0, "把前幾筆 rand 回傳值與 roll 呼叫印出來當 fixture")
 	flag.Parse()
 	o, err := oracle.Load(*exe, *root)
 	if err != nil {
@@ -78,6 +80,13 @@ func main() {
 	}
 	var rolls []rollCall
 	var pending *rollCall
+	type rangeCall struct {
+		low, high int
+		got       int
+	}
+	var ranges []rangeCall
+	var pendingRange *rangeCall
+	callers := map[uint32]int{}
 	o.OnCall(ida(0x155A6), func(o *oracle.Oracle) {
 		if !live {
 			return
@@ -86,6 +95,8 @@ func main() {
 		// EOB.EXE 就位之前，INTRO.EXE 的碼會跑過同一批線性位址，
 		// 攔到的都是雜訊。**播種是這一輪的起點**，在這裡把帳歸零。
 		rands, outs, rolls, pending = 0, nil, nil, nil
+		callers = map[uint32]int{}
+		ranges, pendingRange = nil, nil
 		c := o.Caller()
 		fmt.Printf("srand(%04X)  呼叫端 %04X:%04X（IDA %05X）  步數=%d  "+
 			"此前 rand 被叫 %d 次  BIOS tick=%d\n",
@@ -94,6 +105,8 @@ func main() {
 	o.OnCall(ida(0x155B7), func(o *oracle.Oracle) {
 		if live {
 			rands++
+			c := o.Caller()
+			callers[uint32(c.Linear())-eobBase+0x10000]++
 		}
 	})
 	// 155DC 是 rand 的 retf，AX 已經是遮好的回傳值。
@@ -111,6 +124,14 @@ func main() {
 			times: int(int8(o.Arg(0))), pips: int(int8(o.Arg(1))), add: int(int8(o.Arg(2))),
 		})
 		pending = &rolls[len(rolls)-1]
+	})
+	// 2AAA5 是範圍取值 rnd(low, high)，2AADF 之後是它的收尾。
+	o.OnCall(ida(0x2AAA5), func(o *oracle.Oracle) {
+		if !live {
+			return
+		}
+		ranges = append(ranges, rangeCall{low: int(int16(o.Arg(0))), high: int(int16(o.Arg(1)))})
+		pendingRange = &ranges[len(ranges)-1]
 	})
 	o.OnCall(ida(0x18780), func(o *oracle.Oracle) {
 		if live && pending != nil {
@@ -164,6 +185,27 @@ func main() {
 			fmt.Printf("rand 回傳值逐次核對：%d 次全部相符\n", len(outs))
 		}
 	}
+	fmt.Println("rand 的呼叫端（IDA 位址 → 次數）：")
+	keys := make([]uint32, 0, len(callers))
+	for k := range callers {
+		keys = append(keys, k)
+	}
+	sort.Slice(keys, func(i, j int) bool { return callers[keys[i]] > callers[keys[j]] })
+	for _, k := range keys {
+		fmt.Printf("   %05X → %d 次\n", k, callers[k])
+	}
+	if len(ranges) > 0 {
+		fmt.Printf("rnd(low,high) 被叫 %d 次：", len(ranges))
+		for i, r := range ranges {
+			if i < 12 {
+				fmt.Printf(" (%d,%d)", r.low, r.high)
+			}
+		}
+		fmt.Println()
+	} else {
+		fmt.Println("rnd(low,high) 一次都沒被叫到")
+	}
+	_ = pendingRange
 	// 逐次驗證骰子映射。
 	if len(rolls) > 0 {
 		v := seed
@@ -191,6 +233,33 @@ func main() {
 		}
 		if ok {
 			fmt.Printf("骰子映射逐次核對：%d 次呼叫全部相符\n", checked)
+		}
+	}
+
+	if *dump > 0 {
+		n := *dump
+		if n > len(outs) {
+			n = len(outs)
+		}
+		fmt.Printf("前 %d 次 rand 回傳值（種子 %04X）：\n", n, seed)
+		for i := 0; i < n; i += 8 {
+			end := i + 8
+			if end > n {
+				end = n
+			}
+			line := ""
+			for _, v := range outs[i:end] {
+				line += fmt.Sprintf(" 0x%04X,", v)
+			}
+			fmt.Println("   " + line)
+		}
+		m := *dump
+		if m > len(rolls) {
+			m = len(rolls)
+		}
+		fmt.Printf("前 %d 次 roll(times,pips,add) → 回傳：\n", m)
+		for _, r := range rolls[:m] {
+			fmt.Printf("    {%d, %d, %d, %d},\n", r.times, r.pips, r.add, r.got)
 		}
 	}
 
