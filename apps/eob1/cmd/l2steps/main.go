@@ -12,6 +12,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"sort"
 	"strings"
 
 	"github.com/wicanr2/dosgolem/apps/eob1"
@@ -95,6 +96,27 @@ func main() {
 		_ = o.WritePNG(*shots + "/l2-000-start.png")
 	}
 
+	// 攔骰子的呼叫端，才知道那些消費是誰在抽。
+	// 第一層已經認過的：43499 屬性 d6、1A8EC/1A907/1A925 生命骰、
+	// 1BB6B 遊戲時鐘、1A23C 怪物生命值、24E48/24E5E/24E7A 怪物槽位置。
+	const eobBase = 0x0110 * 16
+	rollEntry := func(linear uint32) oracle.Addr {
+		run := linear - 0x10000 + eobBase
+		return oracle.Addr{Seg: uint16(run >> 4), Off: uint16(run & 0xF)}
+	}
+	type shape struct {
+		from             uint32
+		times, pips, add int
+	}
+	stepCalls := map[shape]int{}
+	o.OnCall(rollEntry(0x18718), func(o *oracle.Oracle) {
+		c := o.Caller()
+		stepCalls[shape{
+			from:  uint32(c.Linear()) - eobBase + 0x10000,
+			times: int(int8(o.Arg(0))), pips: int(int8(o.Arg(1))), add: int(int8(o.Arg(2))),
+		}]++
+	})
+
 	fmt.Println()
 	fmt.Printf("%-4s %-12s %-8s %-10s %s\n", "#", "操作", "方塊", "RANDSEED", "這一步消費")
 	previous := seed
@@ -126,6 +148,18 @@ func main() {
 		}
 		fmt.Printf("%-4d %-12s %-8d %08X   %d 次 %s\n",
 			index+1, what, now[0], seedNow, draws(previous, seedNow), note)
+		if len(stepCalls) > 0 {
+			keys := make([]shape, 0, len(stepCalls))
+			for k := range stepCalls {
+				keys = append(keys, k)
+			}
+			sort.Slice(keys, func(i, j int) bool { return stepCalls[keys[i]] > stepCalls[keys[j]] })
+			for _, k := range keys {
+				fmt.Printf("        呼叫端 %05X  roll(%d,%d,%d) × %d\n",
+					k.from, k.times, k.pips, k.add, stepCalls[k])
+			}
+			stepCalls = map[shape]int{}
+		}
 		previous = seedNow
 		if *shots != "" {
 			_ = o.WritePNG(fmt.Sprintf("%s/l2-%03d-%s.png", *shots, index+1, what))
