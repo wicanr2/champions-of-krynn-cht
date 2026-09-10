@@ -614,6 +614,10 @@ func (o *Oracle) TraceInt21() {
 // Int21Trace 回傳 TraceInt21 打開之後累積的紀錄。沒打開就是空的。
 func (o *Oracle) Int21Trace() []dos.CallRec { return o.d.CallTrace }
 
+// Overlays 是每一次 `AH=4Bh AL=03` 的載入紀錄：載到哪一段、參數區在哪、
+// 呼叫端是誰。overlay 載錯位置時，這是唯一能把「跑飛的位址」接回成因的東西。
+func (o *Oracle) Overlays() []dos.OverlayLoad { return o.d.Overlays }
+
 func (o *Oracle) Opened() []string                  { return o.d.Opened }
 func (o *Oracle) Missing() []string                 { return o.d.Missing }
 func (o *Oracle) Wrote() []dos.Write                { return o.d.Wrote }

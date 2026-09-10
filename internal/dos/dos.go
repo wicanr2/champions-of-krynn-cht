@@ -964,6 +964,12 @@ type KeyRead struct {
 }
 
 // CallRec 是一次 int 21h 的暫存器快照。
+// lastDrive 是 `AH=0Eh` 回報的邏輯磁碟數。
+//
+// DOSBox-X 的 `case 0x0e` 回「最後一台存在的磁碟編號」；這裡只掛一台工作磁碟
+// （`d.Drive`，預設 C），所以回它的編號 ＋ 1。回 0 會讓程式判定一台磁碟都沒有。
+const lastDrive = 3 // A、B 佔位 ＋ 工作磁碟 C
+
 type CallRec struct {
 	Step         uint64
 	AH, AL       uint8

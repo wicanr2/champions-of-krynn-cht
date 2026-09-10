@@ -13,7 +13,7 @@ import (
 func main() {
 	exe := flag.String("exe", "", "START1.EXE 路徑")
 	root := flag.String("root", "", "原版資料目錄")
-	tail := flag.Int("tail", 25, "印最後幾筆 int 21h")
+	budget := flag.Uint64("budget", 200_000_000, "指令預算")
 	flag.Parse()
 	o, err := oracle.Load(*exe, *root)
 	if err != nil {
@@ -21,28 +21,22 @@ func main() {
 		os.Exit(1)
 	}
 	defer o.Close()
-	o.TraceInt21()
-	if err := eob1.ToWestwoodLogo(o); err != nil {
-		fmt.Println("標誌:", err)
-		return
-	}
-	fmt.Println("標誌 OK")
+	fmt.Println("標誌:", eob1.ToWestwoodLogo(o))
 	o.PressKey(oracle.KeyEscape)
-	err = o.RunUntil(oracle.Opened("EOBDATA3.PAK"), oracle.Budget(20_000_000))
-	fmt.Println("主選單:", err)
-	fmt.Println("== EXEC ==")
-	for _, r := range o.ExecLog() {
-		fmt.Printf("  %+v\n", r)
+	fmt.Println("主選單資產:", o.RunUntil(oracle.Opened("EOBDATA3.PAK"), oracle.Budget(*budget)))
+	fmt.Println("開過的檔:", o.Opened())
+	fmt.Println("找不到:", o.Missing())
+	w, h, px := o.Screen()
+	nz := 0
+	for _, p := range px {
+		if p != 0 {
+			nz++
+		}
 	}
-	fmt.Println("== 開過的檔 ==", o.Opened())
-	trace := o.Int21Trace()
-	start := len(trace) - *tail
-	if start < 0 {
-		start = 0
-	}
-	fmt.Printf("== int 21h 共 %d 筆，最後 %d 筆 ==\n", len(trace), *tail)
-	for _, r := range trace[start:] {
-		fmt.Printf("  step=%-10d AH=%02X AL=%02X ES:BX in=%04X:%04X out=%04X:%04X\n",
-			r.Step, r.AH, r.AL, r.ESIn, r.BXIn, r.ESOut, r.BXOut)
-	}
+	fmt.Printf("畫面 %dx%d 非零 %d\n", w, h, nz)
+	fmt.Println("沒實作:", o.Unimplemented())
+	fmt.Printf("步數=%d 幀=%d 計時器已設定=%v %.2fHz 每tick步數=%d\n",
+		o.Steps(), o.Frames(), o.TimerProgrammed(), o.TimerHz(), o.StepsPerTick())
+	fmt.Println("port 讀取:", o.PortReads())
+	fmt.Println("滑鼠呼叫:", o.MouseCalls())
 }
