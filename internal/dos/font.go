@@ -50,10 +50,11 @@ func DefaultFont() Font {
 	return Font{Full: "END_S13.DAT", Half: "END_S14.DAT", FullBytes: 30, HalfBytes: 15}
 }
 
-// 字型 stub 在 StubSeg 裡的位移。**不能與 mouseStubOff 撞**。
+// 字型 stub 在 StubSeg 裡的位移。**位址由 machine 統一分配**——
+// 見 `machine.specialStubBase` 上方的佈局圖與那條事故紀錄。
 const (
-	fontFullOff = 0x20
-	fontHalfOff = 0x24
+	fontFullOff = machine.FontFullOff
+	fontHalfOff = machine.FontHalfOff
 )
 
 // 字型 stub 用的中斷號。真機沒有這兩支，所以不會與遊戲搶。
@@ -221,8 +222,8 @@ func (d *DOS) fontBytes(name string, off, size int) []byte {
 // 的前 8 個 byte 蓋掉，而程式讀自己的環境時只會看到一段亂碼，
 // 不會有任何錯誤。0x440 起這一段前後都留得開。
 const (
-	sysConfigOff = 0x440
-	inDOSOff     = 0x450
+	sysConfigOff = machine.SysConfigOff
+	inDOSOff     = machine.InDOSOff
 )
 
 // int15Move 是 `AH=87h`：用 GDT 描述子搬移延伸記憶體。

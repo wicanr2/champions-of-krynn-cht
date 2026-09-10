@@ -9,10 +9,6 @@ import "github.com/wicanr2/dosgolem/internal/cpu"
 // 一樣要做——否則被打斷的那段程式會莫名其妙拿到別的 `AX`，
 // 而症狀出現在很後面，完全不指向這裡。
 
-// CallbackRetOff 是返回哨兵在 StubSeg 裡的位移，內容是 `CD F3`。
-// **不能與字型 stub 或 mouseStubOff 撞。**
-const CallbackRetOff = 0x30
-
 // IntCallbackReturn 是返回哨兵用的中斷號。真機沒有這一支。
 //
 // ⚠ **F2–F6 已經被服務型中斷的 trampoline 佔走**（`machine.initVectors`）：

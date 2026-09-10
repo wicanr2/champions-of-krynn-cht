@@ -614,6 +614,20 @@ func (o *Oracle) TraceInt21() {
 // Int21Trace 回傳 TraceInt21 打開之後累積的紀錄。沒打開就是空的。
 func (o *Oracle) Int21Trace() []dos.CallRec { return o.d.CallTrace }
 
+// TimerHealth 回報計時器中斷實際送出去幾次，以及此刻擋著它的是什麼。
+//
+// 「程式在等一個 tick」和「程式在等別的東西」從外面看一模一樣——都是不做 I/O
+// 的空轉。有這三個值才分得開：送了幾次、IF 是不是關著、IRQ0 是不是被遮住。
+func (o *Oracle) TimerHealth() (ticks uint64, ifSet, irq0Masked bool) {
+	return o.m.Ticks, o.m.CPU.Flag(cpu.IF), o.m.PICMasked0()
+}
+
+// Resizes 是每一次 `AH=4Ah` 的紀錄，含呼叫端的 CS:IP。
+//
+// 呼叫端位址是「這個 want 是怎麼算出來的」唯一的入口：光看 want 的值，
+// 「程式決定只要這麼多」和「它把某個讀來的數字算錯了」長得一模一樣。
+func (o *Oracle) Resizes() []dos.ResizeCall { return o.d.Resizes }
+
 // Overlays 是每一次 `AH=4Bh AL=03` 的載入紀錄：載到哪一段、參數區在哪、
 // 呼叫端是誰。overlay 載錯位置時，這是唯一能把「跑飛的位址」接回成因的東西。
 func (o *Oracle) Overlays() []dos.OverlayLoad { return o.d.Overlays }
