@@ -41,7 +41,16 @@ const (
 
 	// EnvSeg 是環境區塊；`PSP+2Ch` 指向它。內容只有幾十 bytes，
 	// 但要留在 stub 區之後、PSP 之前。
-	EnvSeg = 0x00D0
+	//
+	// ⚠ **它前面那一段是它的 MCB**（`EnvSeg-1` ＝ `EnvMCBSeg`）。真 DOS 的環境
+	// 是用 `AH=48h` 配出來的，所以一定有 MCB；程式問「我的環境有多大」的標準寫法
+	// 是 `mov es,[psp+2Ch] / dec es / mov cx,es:[3]`。沒有 MCB 的話那一讀會落在
+	// 中斷 stub 區上，讀到的段數是殘值——**而殘值會隨 stub 佈局改變**，
+	// 於是同一支程式在不同版本上算出不同的環境大小，行為跟著岔開。
+	// EOB1 的鏈式載入器就是這樣：它照環境大小決定要留多少空間給子行程，
+	// 讀到 0 就不留，接著整條路徑都不一樣。
+	EnvMCBSeg = 0x00CF
+	EnvSeg    = 0x00D0
 
 	// EMSFrameSeg 是 EMS 的 64 KB page frame。D0000–DFFFF 在 1 MB
 	// 空間裡沒有別的用途，程式對它的讀寫就是普通記憶體存取。
@@ -51,8 +60,24 @@ const (
 	PSPSeg  = 0x0100
 	LoadSeg = PSPSeg + 0x10
 
-	// MemTop 是傳統記憶體上緣（640 KB）。
-	MemTop = 0x9FFF
+	// MemTop 是傳統記憶體上緣（640 KB），**不含**——可配置區是 [.., MemTop)。
+	//
+	// 640 KB ＝ 0xA0000 ＝ 段 A000h，所以不含的上界是 A000h 而不是 9FFFh。
+	// 用處都是不含語意：`availFrom` 回 `MemTop - seg`、`initArena` 用
+	// `size = MemTop - base - 1`（MCB 在 base、資料從 base+1 起）、
+	// PSP+2 的「記憶體上限」欄位填的是「程式記憶體之後的第一段」。
+	//
+	// DOSBox-X 的 `DOS_SetupMemory`（src/dos/dos_memory.cpp）：
+	// `seg_limit = mem_readw(BIOS_MEMORY_SIZE) << 6` ＝ A000h，
+	// 最後一塊 MCB `mcb.SetSize(seg_limit-1 - DOS_MEM_START)`，
+	// 資料從 `DOS_MEM_START+1` 起算，剛好用到 A000h（不含）。
+	// 同一份程式裡 `dpmi.go` 的 `dosMemTop = 0xa0000` 也是這個值。
+	//
+	// 少這一段的症狀離成因很遠：EOB1 的 START1.EXE／INTRO.EXE 是鏈式載入器，
+	// 先把自己搬到記憶體頂端、再用 `AH=4Bh AL=03` 把下一支載到 0110h 蓋掉原位。
+	// 搬家的位置是從「我擁有的頂端」往回算的。少一段，stub 就落在 9FE8h
+	// 而只剩 180h bytes 可用，執行到 offset 180h 正好撞上 A0000h。
+	MemTop = 0xA000
 
 	// VideoSeg 是 mode 13h 的畫面。
 	VideoSeg = 0xA000

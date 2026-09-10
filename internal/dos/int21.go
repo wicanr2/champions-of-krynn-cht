@@ -76,6 +76,19 @@ func (d *DOS) int21(c *cpu.CPU) {
 		// 沒有可 flush 的東西——靜默收下（`docs/spec/009` §3），不是「沒實作」。
 		clearCarry(c)
 
+	case 0x0E: // 選預設磁碟機：DL ＝ 磁碟（0＝A），回 AL ＝ 邏輯磁碟數
+		// 不實作的話 AL 留著呼叫端的值，程式拿它當「有幾台磁碟」去掃，
+		// 掃到的都是不存在的代號，然後停在「找不到資料片」的迴圈裡——
+		// 畫面全黑、沒有任何錯誤訊息（EOB1 的 EOB.EXE 就停在這裡）。
+		//
+		// DOSBox-X 的 `DOS_SetDefaultDrive` 只認 0..DOS_DRIVES 且該台要存在；
+		// 這裡只有一台工作磁碟，所以只接受它、其餘忽略，AL 一律回 LASTDRIVE。
+		if uint8(c.R[cpu.DX]) == d.Drive {
+			d.Drive = uint8(c.R[cpu.DX])
+		}
+		setAL(c, lastDrive)
+		clearCarry(c)
+
 	case 0x19: // 取目前磁碟機
 		// 不實作的話 AL 是垃圾，遊戲把它拼進路徑就變成 `A:\…`，
 		// 而 open 還是會成功（我們按檔名解析），**錯誤完全不顯現**。
@@ -183,13 +196,19 @@ func (d *DOS) int21(c *cpu.CPU) {
 		d.fileAttr(c)
 
 	case 0x44: // IOCTL
-		if al(c) == 0x00 { // 取裝置資訊：bit7 = 0 表示是檔案
+		switch al(c) {
+		case 0x00: // 取裝置資訊：bit7 = 0 表示是檔案
 			c.R[cpu.DX] = uint16(d.Drive)
-		} else {
+			c.R[cpu.AX] = 0
+		case 0x0E: // 取邏輯磁碟對應：BL ＝ 磁碟（0＝預設）
+			// 一個實體機只對一個代號時 DOS 回 AL=0。回別的值等於告訴程式
+			// 「這台是某個實體機的第 n 個代號」，它會去切換代號再找一次檔。
+			setAL(c, 0)
+		default:
 			// 其他子功能沒實作——記下來，別讓「成功」假象藏住。
 			d.note(0x21, 0x44, al(c))
+			c.R[cpu.AX] = 0
 		}
-		c.R[cpu.AX] = 0
 		clearCarry(c)
 
 	case 0x47: // 取目前目錄 → DS:SI（64 bytes）
@@ -465,10 +484,55 @@ func availFrom(seg uint16) uint16 {
 	return uint16(machine.MemTop) - seg
 }
 
+// maxBlock 是 blk 這個區塊最大能長到多少段——`AH=4Ah` 失敗時回報的那個值。
+//
+// DOSBox-X 的 `DOS_ResizeMemory`（src/dos/dos_memory.cpp）：
+//
+//	uint16_t total=mcb.GetSize();
+//	DOS_MCB mcb_next(segment+total);
+//	if (mcb.GetType()!=0x5a) {
+//	    if (mcb_next.GetPSPSeg()==MCB_FREE) total+=mcb_next.GetSize()+1;
+//	}
+//
+// 上限 ＝ 自己的大小 ＋（**緊接在後的那一塊**若是自由，再加它的大小 ＋ 1）。
+// 只看一塊，而且只在它自由時才併——後面還有別人配走的區塊就到此為止。
+//
+// ⚠ 這不是 `MemTop - blk`。差別在於「上面有沒有人配走東西」，而那正是
+// EOB1 走不下去的原因：START1.EXE／INTRO.EXE 是鏈式載入器，先 `AH=48h` 配一小塊
+// 放子行程的環境（first fit 落在記憶體頂端 9FFCh），再把自己的區塊撐到上限、
+// 然後從「我擁有的頂端」往回算一段放搬家後的自己，最後用 `AH=4Bh AL=03`
+// 把下一支載到 0110h 蓋掉原位。用 `MemTop - blk` 當上限的話它會撐過那塊環境區，
+// 搬家的位置因此往上多了幾段、和環境區重疊——被蓋掉的正好是 stub 尾端那個
+// 跳進子程式的遠跳，於是程式往下把環境字串當機器碼執行，
+// 最後停在 `A0000h`。症狀（跑出可用記憶體）離成因（上限多算）中間隔了
+// 一次搬家和一次 overlay 載入，看不出關聯。
+//
+// 舊版註解記著「試過收緊反而讓智冠《三國演義》更早死」——那一版收成
+// 「第一個已配置區塊的起點」，和這裡不同：那條規則會跳過中間的自由區塊，
+// 這條只看緊鄰的下一塊。
+func (d *DOS) maxBlock(blk uint16) uint16 {
+	if blk >= uint16(machine.MemTop) {
+		return 0
+	}
+	// arena 還沒建 ＝ 沒有人配置過，上面整片都是自由的。
+	// 非 PSP 區塊交給 resize 走 arena 自己的規則，維持原本的寬鬆上限。
+	if blk != d.curPSP || d.arena == nil {
+		return availFrom(blk)
+	}
+	if d.freeSeg <= blk {
+		return 0
+	}
+	size := d.freeSeg - blk
+	if len(d.arena) > 0 && d.arena[0].seg == d.freeSeg && d.arena[0].free {
+		size += d.arena[0].size + 1
+	}
+	return size
+}
+
 func (d *DOS) setBlock(c *cpu.CPU) {
 	want := c.R[cpu.BX]
 	blk := c.Seg[cpu.ES]
-	avail := availFrom(blk)
+	avail := d.maxBlock(blk)
 	if want > avail {
 		d.MemOps = append(d.MemOps, MemOp{Fn: 0x4A, BX: want, ES: blk,
 			AX: avail, Step: d.M.Steps})
@@ -513,7 +577,22 @@ func (d *DOS) setBlock(c *cpu.CPU) {
 		// 當交叉 oracle 量一次。在那之前保留原本的寬鬆做法：
 		// 它讓目標程式走得更遠，而走得更遠才有更多可觀測的東西。
 		// 這是刻意的取捨，不是疏漏。
-		d.setPSPBlock(blk + want + 1)
+		// 下一個 MCB 落在「資料起點 ＋ 區塊段數」，不是再加一。
+		//
+		// setPSPBlock／initArena 收的是 **MCB 的位置**（initArena 用
+		// `size = MemTop - base - 1`、資料從 base+1 起算），所以這裡再 +1
+		// 等於同一個 paragraph 被扣兩次，可配置區永遠比真 DOS 少一段。
+		//
+		// DOSBox-X 的 `DOS_ResizeMemory`（src/dos/dos_memory.cpp）兩處都寫死這個關係：
+		// 縮小走 `DOS_MCB mcb_new_next(segment+(*blocks))`，放大走
+		// `mcb_next.SetPt(segment+*blocks)`，剩下那塊的大小都是 `total-*blocks-1`。
+		//
+		// 症狀離這裡很遠：EOB1 的 START1.EXE（Turbo C++）在交棒前先用
+		// `AH=4Ah BX=FFFFh` 探出上限 9EFFh，再把自己撐到 9EFBh，然後
+		// `AH=48h` 要 3 段放子行程的環境。少一段就只剩 2，配置失敗 →
+		// Turbo C 的 exec 回 -1 → `exit(-1)`，外面看到的是「跑完設定畫面後
+		// 退出碼 255」，跟記憶體帳一點關係都看不出來。
+		d.setPSPBlock(blk + want)
 	}
 	// arena 內的區塊走真正的 resize（規格 009）。不在 arena 內的
 	// （PSP、映像本體）維持原本的行為：那條路是記憶體探測協定，
