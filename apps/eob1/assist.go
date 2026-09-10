@@ -243,3 +243,48 @@ func Blocked(err error) bool {
 	var noResponse *oracle.NoResponseError
 	return errors.As(err, &noResponse)
 }
+
+// 三個同步的「目前所在方塊」全域在 DGROUP 裡的位移。
+//
+// 判準有兩道：走一格之後三個都跟著變成對的值；而且移動時**各由不同的常式寫**
+// （IDA 4232B／222F1／1BBA1），也就是互相同步的副本，不是同一個變數的別名。
+// 要寫就三個一起寫——只寫一個的話其餘兩個會把它蓋回去。
+var BlockVars = []uint32{0xA9E8, 0xFBCA, 0xFC58}
+
+// DGroup 算出 EOB.EXE 的 DGROUP 線性起點。
+func DGroup(o *oracle.Oracle) (uint32, error) {
+	for _, ov := range o.Overlays() {
+		if strings.Contains(strings.ToUpper(ov.Name), "EOB.EXE") {
+			return uint32(ov.Seg)*16 + dgroupInModule, nil
+		}
+	}
+	return 0, fmt.Errorf("找不到 EOB.EXE 的 overlay 載入紀錄")
+}
+
+// CurrentBlock 讀三個副本。**不合的話要說出來**——三個不一致表示轉場正在進行，
+// 或位址不對，兩者的處置完全不同。
+func CurrentBlock(o *oracle.Oracle) ([]uint16, error) {
+	base, err := DGroup(o)
+	if err != nil {
+		return nil, err
+	}
+	out := make([]uint16, 0, len(BlockVars))
+	for _, off := range BlockVars {
+		at := base + off
+		out = append(out, o.Word(oracle.Addr{Seg: uint16(at >> 4), Off: uint16(at & 0xF)}))
+	}
+	return out, nil
+}
+
+// SetCurrentBlock 三個副本一起寫。
+func SetCurrentBlock(o *oracle.Oracle, block uint16) error {
+	base, err := DGroup(o)
+	if err != nil {
+		return err
+	}
+	for _, off := range BlockVars {
+		at := base + off
+		o.SetWord(oracle.Addr{Seg: uint16(at >> 4), Off: uint16(at & 0xF)}, block)
+	}
+	return nil
+}
