@@ -240,6 +240,27 @@ func (o *Oracle) AllowFileWrites(names ...string) error { return o.d.AllowFileWr
 // 完全不指向寫檔（`docs/spec/009` §1）。
 func (o *Oracle) SetScratch(dir string) { o.d.Scratch = dir }
 
+// SetClock 把 `AH=2Ch` 的基準時刻釘死（`AH=2Ah` 的日期固定是 1993-01-01）。
+//
+// ⭐ **播種靠時鐘的程式要用它。** Borland 的 `randomize()` 是
+// `srand((unsigned)time(NULL))`，而 `time()` 走 `getdate`／`gettime`；
+// 不釘的話種子雖然是決定性的，卻**綁在 tick 數上**——時序模型一改，
+// 秒數跨過整數邊界，種子就跳一格，而症狀是「同一份輸入跑出另一條亂數流」，
+// 看起來像遊戲自己變了。EOB1 的種子 CFD0 就落在這種邊界內側
+// （播種時只過了 0.65 秒）。
+//
+// 時刻仍會隨 PIT tick 往前走，這一支只設基準。
+func (o *Oracle) SetClock(hour, min, sec, hundredth uint8) {
+	o.d.Now = dos.Time{Hour: hour, Min: min, Sec: sec, Hundredth: hundredth}
+}
+
+// Clock 回目前的時刻（基準加上 tick 推出來的部分），也就是程式問
+// `AH=2Ch` 會拿到的值。
+func (o *Oracle) Clock() (hour, min, sec, hundredth uint8) {
+	t := o.d.Clock()
+	return t.Hour, t.Min, t.Sec, t.Hundredth
+}
+
 // ---- 位址 ----------------------------------------------------------------
 
 // Addr 是一個執行期位址。用 DS／IDA／At 造，不要自己填。

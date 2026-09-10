@@ -35,9 +35,10 @@ func lcg(s uint32) uint32 { return s*0x015A4E35 + 1 }
 func main() {
 	exe := flag.String("exe", "", "START1.EXE 路徑")
 	root := flag.String("root", "", "原版資料目錄")
-	stage := flag.String("stage", "title", "停在哪：title／stats／alfa／level1")
+	stage := flag.String("stage", "title", "停在哪：title／stats／alfa／party／level1")
 	walk := flag.Uint64("walk", 50_000_000, "從初值 1 最多往前推幾步找對應")
 	dump := flag.Int("dump", 0, "把前幾筆 rand 回傳值與 roll 呼叫印出來當 fixture")
+	clockHour := flag.Int("hour", 0, "把 DOS 時鐘的基準時釘在這個小時")
 	flag.Parse()
 	o, err := oracle.Load(*exe, *root)
 	if err != nil {
@@ -45,11 +46,15 @@ func main() {
 		os.Exit(1)
 	}
 	defer o.Close()
+	// 種子來自 time(NULL)，所以時鐘就是輸入的一部分。釘死它，
+	// 這條流才是靠構造穩定而不是靠「剛好還沒過一秒」。
+	o.SetClock(uint8(*clockHour), 0, 0, 0)
 
 	steps := map[string]func(*oracle.Oracle) error{
 		"title":  eob1.ToTitleMenu,
 		"stats":  eob1.ToFirstCharacterStats,
 		"alfa":   eob1.ToFirstCharacterALFA,
+		"party":  eob1.ToFourthCharacterDELTA,
 		"level1": eob1.ToLevel1Entrance,
 	}
 	run, ok := steps[*stage]
@@ -77,6 +82,7 @@ func main() {
 	type rollCall struct {
 		times, pips, add int
 		got              int
+		from             uint32
 	}
 	var rolls []rollCall
 	var pending *rollCall
@@ -120,8 +126,10 @@ func main() {
 		if !live {
 			return
 		}
+		c := o.Caller()
 		rolls = append(rolls, rollCall{
 			times: int(int8(o.Arg(0))), pips: int(int8(o.Arg(1))), add: int(int8(o.Arg(2))),
+			from: uint32(c.Linear()) - eobBase + 0x10000,
 		})
 		pending = &rolls[len(rolls)-1]
 	})
@@ -184,6 +192,19 @@ func main() {
 		if bad < 0 {
 			fmt.Printf("rand 回傳值逐次核對：%d 次全部相符\n", len(outs))
 		}
+	}
+	rollFrom := map[uint32]int{}
+	for _, r := range rolls {
+		rollFrom[r.from]++
+	}
+	fmt.Println("roll 的呼叫端（IDA 位址 → 次數）：")
+	rk := make([]uint32, 0, len(rollFrom))
+	for k := range rollFrom {
+		rk = append(rk, k)
+	}
+	sort.Slice(rk, func(i, j int) bool { return rollFrom[rk[i]] > rollFrom[rk[j]] })
+	for _, k := range rk {
+		fmt.Printf("   %05X → %d 次\n", k, rollFrom[k])
 	}
 	fmt.Println("rand 的呼叫端（IDA 位址 → 次數）：")
 	keys := make([]uint32, 0, len(callers))
@@ -257,9 +278,9 @@ func main() {
 		if m > len(rolls) {
 			m = len(rolls)
 		}
-		fmt.Printf("前 %d 次 roll(times,pips,add) → 回傳：\n", m)
+		fmt.Printf("前 %d 次 roll(times,pips,add) → 回傳｜呼叫端：\n", m)
 		for _, r := range rolls[:m] {
-			fmt.Printf("    {%d, %d, %d, %d},\n", r.times, r.pips, r.add, r.got)
+			fmt.Printf("    {%d, %d, %d, %d},  // %05X\n", r.times, r.pips, r.add, r.got, r.from)
 		}
 	}
 

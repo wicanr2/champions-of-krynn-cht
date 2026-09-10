@@ -44,6 +44,9 @@ type Time struct{ Hour, Min, Sec, Hundredth uint8 }
 // 同樣的輸入永遠得到同樣的時刻，對拍才是決定性的
 // （與 `machine.tick` 的模型一致）。18.2 Hz ＝ 一個 tick 約 5.4925 個
 // 百分之一秒。
+// Clock 讓上層讀目前的時刻，內容與 `AH=2Ch` 回報的一致。
+func (d *DOS) Clock() Time { return d.clock() }
+
 func (d *DOS) clock() Time {
 	base := (uint64(d.Now.Hour)*3600+uint64(d.Now.Min)*60+uint64(d.Now.Sec))*100 +
 		uint64(d.Now.Hundredth)
