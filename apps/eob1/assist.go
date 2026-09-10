@@ -213,3 +213,33 @@ func AttackAll(o *oracle.Oracle, count int) (int, error) {
 	}
 	return swings, nil
 }
+
+// 方向盤的按鈕，來源 `buttonDefs[49..54]`，順序與 callback 一致：
+// 前進、後退、左移、右移、左轉、右轉。各 21×16。
+var moveRect = map[string][2]int{
+	"forward": {24, 128}, "back": {24, 144},
+	"strafeLeft": {3, 144}, "strafeRight": {45, 144},
+	"turnLeft": {3, 128}, "turnRight": {45, 128},
+}
+
+// Move 按一次方向盤。
+//
+// 用點擊而不是按鍵：按鍵碼要猜，座標表則與 CAMP、武器格出自同一張表，
+// 而那張表已經被既有腳本驗過。
+//
+// ⚠ **回 NoResponseError 是有意義的**：牆擋著時原版畫面真的不動。
+// 呼叫端要自己決定那算不算失敗——把它一律當錯誤的話，
+// 「撞牆」與「腳本壞了」就分不出來。
+func Move(o *oracle.Oracle, what string) error {
+	rect, ok := moveRect[what]
+	if !ok {
+		return fmt.Errorf("不認得的移動 %q", what)
+	}
+	return o.Click(rect[0]+10, rect[1]+8, oracle.Hover(0), oracle.Hold(200_000), oracle.Settle(1_500_000))
+}
+
+// Blocked 判斷一個錯誤是不是「畫面沒動」。
+func Blocked(err error) bool {
+	var noResponse *oracle.NoResponseError
+	return errors.As(err, &noResponse)
+}
