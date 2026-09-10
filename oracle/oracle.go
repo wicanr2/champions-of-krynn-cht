@@ -600,6 +600,20 @@ func (o *Oracle) OnTick(f func(*Oracle)) {
 	}
 	o.m.SetOnTick(func() { f(o) })
 }
+// TraceInt21 打開 int 21h 的逐次紀錄。
+//
+// 預設關著：筆數可達數萬。要它的場合只有兩種——查「殼鏈走到哪一跳就停了」
+// （開檔清單、EXEC 紀錄與離開碼三者兜不起來時），以及查某個服務有沒有動壞
+// 呼叫端的 ES:BX。
+func (o *Oracle) TraceInt21() {
+	if o.d.CallTrace == nil {
+		o.d.CallTrace = []dos.CallRec{}
+	}
+}
+
+// Int21Trace 回傳 TraceInt21 打開之後累積的紀錄。沒打開就是空的。
+func (o *Oracle) Int21Trace() []dos.CallRec { return o.d.CallTrace }
+
 func (o *Oracle) Opened() []string                  { return o.d.Opened }
 func (o *Oracle) Missing() []string                 { return o.d.Missing }
 func (o *Oracle) Wrote() []dos.Write                { return o.d.Wrote }

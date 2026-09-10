@@ -513,7 +513,22 @@ func (d *DOS) setBlock(c *cpu.CPU) {
 		// 當交叉 oracle 量一次。在那之前保留原本的寬鬆做法：
 		// 它讓目標程式走得更遠，而走得更遠才有更多可觀測的東西。
 		// 這是刻意的取捨，不是疏漏。
-		d.setPSPBlock(blk + want + 1)
+		// 下一個 MCB 落在「資料起點 ＋ 區塊段數」，不是再加一。
+		//
+		// setPSPBlock／initArena 收的是 **MCB 的位置**（initArena 用
+		// `size = MemTop - base - 1`、資料從 base+1 起算），所以這裡再 +1
+		// 等於同一個 paragraph 被扣兩次，可配置區永遠比真 DOS 少一段。
+		//
+		// DOSBox-X 的 `DOS_ResizeMemory`（src/dos/dos_memory.cpp）兩處都寫死這個關係：
+		// 縮小走 `DOS_MCB mcb_new_next(segment+(*blocks))`，放大走
+		// `mcb_next.SetPt(segment+*blocks)`，剩下那塊的大小都是 `total-*blocks-1`。
+		//
+		// 症狀離這裡很遠：EOB1 的 START1.EXE（Turbo C++）在交棒前先用
+		// `AH=4Ah BX=FFFFh` 探出上限 9EFFh，再把自己撐到 9EFBh，然後
+		// `AH=48h` 要 3 段放子行程的環境。少一段就只剩 2，配置失敗 →
+		// Turbo C 的 exec 回 -1 → `exit(-1)`，外面看到的是「跑完設定畫面後
+		// 退出碼 255」，跟記憶體帳一點關係都看不出來。
+		d.setPSPBlock(blk + want)
 	}
 	// arena 內的區塊走真正的 resize（規格 009）。不在 arena 內的
 	// （PSP、映像本體）維持原本的行為：那條路是記憶體探測協定，
