@@ -231,11 +231,20 @@ var moveRect = map[string][2]int{
 // 呼叫端要自己決定那算不算失敗——把它一律當錯誤的話，
 // 「撞牆」與「腳本壞了」就分不出來。
 func Move(o *oracle.Oracle, what string) error {
+	return MoveSettle(o, what, 1_500_000)
+}
+
+// MoveSettle 是 Move 但可以指定放開之後要跑多久。
+//
+// ⚠ **這個數字會改變原版消費多少亂數。** 來源的方向鍵處理沒有任何延遲，
+// 時間是靠真實流逝推的；跑得越久，計時器觸發的次數越多。
+// 所以「每個動作幾個 tick」是**工具的參數**，不是原版的性質。
+func MoveSettle(o *oracle.Oracle, what string, settle uint64) error {
 	rect, ok := moveRect[what]
 	if !ok {
 		return fmt.Errorf("不認得的移動 %q", what)
 	}
-	return o.Click(rect[0]+10, rect[1]+8, oracle.Hover(0), oracle.Hold(200_000), oracle.Settle(1_500_000))
+	return o.Click(rect[0]+10, rect[1]+8, oracle.Hover(0), oracle.Hold(200_000), oracle.Settle(settle))
 }
 
 // Blocked 判斷一個錯誤是不是「畫面沒動」。

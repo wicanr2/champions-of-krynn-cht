@@ -64,6 +64,7 @@ func main() {
 		"要走的操作，逗號分隔")
 	shots := flag.String("shots", "", "PNG 輸出目錄")
 	scratch := flag.String("scratch", "", "設了就在走完之後 CAMP 存檔")
+	settle := flag.Uint64("settle", 1_500_000, "每個動作放開之後跑多久")
 	flag.Parse()
 	o, err := oracle.Load(*exe, *root)
 	if err != nil {
@@ -157,8 +158,9 @@ func main() {
 	})
 
 	fmt.Println()
-	fmt.Printf("%-4s %-12s %-8s %-10s %s\n", "#", "操作", "方塊", "RANDSEED", "這一步消費")
+	fmt.Printf("%-4s %-12s %-8s %-10s %-10s %s\n", "#", "操作", "方塊", "RANDSEED", "這一步消費", "tick")
 	previous := seed
+	previousTicks := o.Ticks()
 	for index, what := range strings.Split(*steps, ",") {
 		what = strings.TrimSpace(what)
 		if what == "" {
@@ -172,7 +174,7 @@ func main() {
 			}
 			err = eob1.AttackSlot(o, character, 0)
 		} else {
-			err = eob1.Move(o, what)
+			err = eob1.MoveSettle(o, what, *settle)
 		}
 		blocked := err != nil && eob1.Blocked(err)
 		if err != nil && !blocked {
@@ -185,8 +187,10 @@ func main() {
 		if blocked {
 			note = "（畫面沒動）"
 		}
-		fmt.Printf("%-4d %-12s %-8d %08X   %d 次 %s\n",
-			index+1, what, now[0], seedNow, draws(previous, seedNow), note)
+		fmt.Printf("%-4d %-12s %-8d %08X   %-10d %d（+%d）%s\n",
+			index+1, what, now[0], seedNow, draws(previous, seedNow),
+			o.Ticks(), o.Ticks()-previousTicks, note)
+		previousTicks = o.Ticks()
 		if len(stepCalls) > 0 {
 			keys := make([]shape, 0, len(stepCalls))
 			for k := range stepCalls {
