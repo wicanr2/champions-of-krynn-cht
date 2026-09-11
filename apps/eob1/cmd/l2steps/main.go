@@ -30,12 +30,40 @@ func draws(from, to uint32) int {
 	return -1
 }
 
+// campSave 走 CAMP → Game Options → Save Game → Yes。
+func campSave(o *oracle.Oracle) error {
+	if err := o.Click(304, 187, oracle.Hover(0), oracle.Hold(200_000), oracle.Settle(2_000_000)); err != nil && !eob1.Blocked(err) {
+		return err
+	}
+	for i := 0; i < 5; i++ {
+		o.PressKey(oracle.KeyDown)
+		if err := o.Run(300_000); err != nil {
+			return err
+		}
+	}
+	o.PressKey(oracle.KeyEnter)
+	if err := o.Run(3_000_000); err != nil {
+		return err
+	}
+	o.PressKey(oracle.KeyDown)
+	if err := o.Run(300_000); err != nil {
+		return err
+	}
+	o.PressKey(oracle.KeyEnter)
+	if err := o.Run(3_000_000); err != nil {
+		return err
+	}
+	o.PressKey(oracle.KeyEnter)
+	return o.Run(6_000_000)
+}
+
 func main() {
 	exe := flag.String("exe", "", "START1.EXE 路徑")
 	root := flag.String("root", "", "含第二層存檔的資料目錄")
 	steps := flag.String("steps", "forward,forward,turnRight,forward,turnRight,back,turnRight",
 		"要走的操作，逗號分隔")
 	shots := flag.String("shots", "", "PNG 輸出目錄")
+	scratch := flag.String("scratch", "", "設了就在走完之後 CAMP 存檔")
 	flag.Parse()
 	o, err := oracle.Load(*exe, *root)
 	if err != nil {
@@ -45,6 +73,17 @@ func main() {
 	defer o.Close()
 	o.SetClock(0, 0, 0, 0)
 
+	// ⚠ 可寫層要**在程式開始跑之前**就開。開太晚的話載入與換層途中的
+	// LEVELS.TMP 寫入被吞掉，而症狀不是報錯——是之後存出來的檔案裡
+	// 那一層的暫存狀態是空的（PackedBytesUsed 掉到幾十、怪物全不見），
+	// 看起來像「原版把牆移走了」。
+	if *scratch != "" {
+		o.SetScratch(*scratch)
+		if err := o.AllowFileWrites("EOBDATA.SAV", "LEVELS.TMP"); err != nil {
+			fmt.Fprintln(os.Stderr, "開放寫入:", err)
+			os.Exit(1)
+		}
+	}
 	if err := eob1.ToTitleMenu(o); err != nil {
 		fmt.Fprintln(os.Stderr, "到標題:", err)
 		os.Exit(1)
@@ -163,6 +202,13 @@ func main() {
 		previous = seedNow
 		if *shots != "" {
 			_ = o.WritePNG(fmt.Sprintf("%s/l2-%03d-%s.png", *shots, index+1, what))
+		}
+	}
+	if *scratch != "" {
+		if err := campSave(o); err != nil {
+			fmt.Fprintln(os.Stderr, "存檔:", err)
+		} else {
+			fmt.Println("已 CAMP 存檔")
 		}
 	}
 	fmt.Printf("\n總計：RANDSEED %08X → %08X，共消費 %d 次；結束步數 %d\n",
