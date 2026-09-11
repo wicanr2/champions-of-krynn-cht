@@ -86,11 +86,13 @@ func TestToSavedGameProtectionCastOnArielRealData(t *testing.T) {
 	if err := eob1.ToSavedGameProtectionCastOnAriel(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digestRegion(o.Indexed(), 0, 168, 320, 32); got != "fd53da2992f12eda5ce14e4256a3e5f08aeea342aeac3f5ef5f4eb1b5ffbb934" {
+	if got := digestRegion(o.Indexed(), 0, 168, 320, 32); got != "5f28857d5ebc0794e16ff18583f39306ccfbeb5f343b57808888fce90a1ad8f6" {
 		t.Fatalf("Protection From Evil施放訊息區SHA-256=%s", got)
 	}
-	if got := o.PortReads()[0x60]; got != 32 {
-		t.Fatalf("Protection From Evil施放port 60h讀取%d次，預期十六鍵make／break共32次", got)
+	// 30 而不是 32：休息完成時畫面已在 CAMP 根選單，路徑少按了一次多餘的 Escape
+	// （見 ToSavedGameProtectionBook 的註解），一鍵 make／break 就是兩次。
+	if got := o.PortReads()[0x60]; got != 30 {
+		t.Fatalf("Protection From Evil施放port 60h讀取%d次，預期十五鍵make／break共30次", got)
 	}
 }
 
@@ -110,8 +112,9 @@ func TestSavedGameProtectionTargetIgnoresZAndEnterRealData(t *testing.T) {
 	if got := digest(o.Indexed()); got != digest(want) {
 		t.Fatalf("Z／Enter改變原版目標畫面SHA-256=%s", got)
 	}
-	if got := o.PortReads()[0x60]; got != 36 {
-		t.Fatalf("原版目標鍵盤探針port 60h讀取%d次，預期十八鍵make／break共36次", got)
+	// 34 而不是 36：同上，路徑少按了一次 Escape。
+	if got := o.PortReads()[0x60]; got != 34 {
+		t.Fatalf("原版目標鍵盤探針port 60h讀取%d次，預期十七鍵make／break共34次", got)
 	}
 }
 
@@ -124,8 +127,9 @@ func TestToSavedGameProtectionBookClosedRealData(t *testing.T) {
 	if got := digestRegion(o.Indexed(), 0, 0, 176, 100); got != "689c6d86fd088a78820474561dc899094714b396184bd492598e4f36d066100a" {
 		t.Fatalf("法術書關閉後地城視窗SHA-256=%s", got)
 	}
-	if got := o.PortReads()[0x60]; got != 32 {
-		t.Fatalf("法術書中止關閉port 60h讀取%d次，預期十六鍵make／break共32次", got)
+	// 30 而不是 32：同上，路徑少按了一次 Escape。
+	if got := o.PortReads()[0x60]; got != 30 {
+		t.Fatalf("法術書中止關閉port 60h讀取%d次，預期十五鍵make／break共30次", got)
 	}
 }
 
@@ -472,10 +476,10 @@ func TestToLevel1FirstPickupRealData(t *testing.T) {
 	if err := eob1.ToLevel1FirstPickup(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "1d123d4fe9a5a1001446f2d180601e8713fa2dd02f00caac4c9f406f31b59375" {
+	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "f6112e7a45d8bd0e4ba037aee0f7feeaabf40ace17c59fe21441399141220256" {
 		t.Fatalf("LEVEL1起始石塊拾取視窗SHA-256=%s", got)
 	}
-	if got := digest(o.Indexed()); got != "e282a5980cb8ce9d5fee0dc64b6d66ad399cabf3e3bae6edb1cde64e6618909f" {
+	if got := digest(o.Indexed()); got != "427f80000a5583a8964f96e54205b14889ed4708f6afa2de558ca81e8bd6851e" {
 		t.Fatalf("LEVEL1起始石塊拾取全畫面SHA-256=%s", got)
 	}
 	if got := o.PortReads()[0x60]; got != 84 {
@@ -489,10 +493,10 @@ func TestToLevel1FirstDropRealData(t *testing.T) {
 	if err := eob1.ToLevel1FirstDrop(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "4cf790c278d6a9115094c61eebacf894d13ad12a118403ed25056c42523352d2" {
+	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "2ef2c0240070bce02b59735c5266fc6163eee170ea8c135982a469f04bb2abbc" {
 		t.Fatalf("LEVEL1起始石塊放回視窗SHA-256=%s", got)
 	}
-	if got := digest(o.Indexed()); got != "9ce3f36cf412325f991ef4bf542361661376e840fb1fcc17436c1cb99028d9f3" {
+	if got := digest(o.Indexed()); got != "cda5756dcca9640bdfbb23690f34c73a36bde8d8009614048ff932ed577bd9db" {
 		t.Fatalf("LEVEL1起始石塊放回全畫面SHA-256=%s", got)
 	}
 	if got := o.PortReads()[0x60]; got != 84 {
@@ -578,7 +582,7 @@ func TestToLevel1CampSaveCancelRealData(t *testing.T) {
 		want string
 	}{
 		{"confirmation", eob1.ToLevel1CampSaveConfirmation, "40002452b7022088be0995c5dcc3a98c394786e3481774db36ab50c2c978e768"},
-		{"cancel", eob1.ToLevel1CampSaveCancel, "152007f23678f6d424ebe6db999fba60044b044ed645930cb36c4d1f17011d49"},
+		{"cancel", eob1.ToLevel1CampSaveCancel, "83b085fc46120b84f55b8439c5cf1566c3f8386205c717e11b58b0624830bf07"},
 	}
 	for _, test := range tests {
 		t.Run(test.name, func(t *testing.T) {
@@ -728,8 +732,8 @@ func TestToLevel1MemorizeSpellsRealData(t *testing.T) {
 	if err := eob1.ToLevel1MemorizeSpells(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digest(o.Indexed()); got != "1c430348d1f4d21309d1b553fb3f21597baa97c6682563c9d599ad9b9bf6c00a" {
-		t.Fatalf("LEVEL1記憶法術頁SHA-256=%s", got)
+	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "7dcbcff21d5261b2043e4100b92680d56fb13134d26b1c1a3a4f628031ba51a0" {
+		t.Fatalf("LEVEL1記憶法術頁左panel SHA-256=%s", got)
 	}
 	if got := o.PortReads()[0x60]; got != 88 {
 		t.Fatalf("LEVEL1記憶法術頁port 60h讀取%d次，預期四十四鍵make／break共88次", got)
@@ -742,8 +746,8 @@ func TestToLevel1MemorizeFirstSpellRealData(t *testing.T) {
 	if err := eob1.ToLevel1MemorizeFirstSpell(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digest(o.Indexed()); got != "2d78cd6c8a1886cb8d06b14a708d70ffc6fd9529422c0ade2eff36b2df386da8" {
-		t.Fatalf("LEVEL1第一個待記憶法術SHA-256=%s", got)
+	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "e088e9fe4467bd9067f4639896ef1194150a922c285592ff3f8b759425beead5" {
+		t.Fatalf("LEVEL1第一個待記憶法術左panel SHA-256=%s", got)
 	}
 	if got := o.PortReads()[0x60]; got != 90 {
 		t.Fatalf("LEVEL1第一個待記憶法術port 60h讀取%d次，預期四十五鍵make／break共90次", got)
@@ -756,8 +760,8 @@ func TestToLevel1MemorizeReturnRealData(t *testing.T) {
 	if err := eob1.ToLevel1MemorizeReturn(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digest(o.Indexed()); got != "8bd3e9866787810347ed38d1929b8dbb1a12683359037056f5fc369df3b2962c" {
-		t.Fatalf("LEVEL1記憶法術返回CAMP SHA-256=%s", got)
+	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "afd93e9bdab019dafb01d040b082e835b3bc2c84ae06f7f844f37ef3d7f988ee" {
+		t.Fatalf("LEVEL1記憶法術返回CAMP左panel SHA-256=%s", got)
 	}
 	if got := o.PortReads()[0x60]; got != 92 {
 		t.Fatalf("LEVEL1記憶法術返回port 60h讀取%d次，預期四十六鍵make／break共92次", got)
@@ -770,11 +774,14 @@ func TestToLevel1RestAfterMemorizeRealData(t *testing.T) {
 	if err := eob1.ToLevel1RestAfterMemorize(o); err != nil {
 		t.Fatal(err)
 	}
-	if got := digest(o.Indexed()); got != "79e080c1a738e5ecd7d26ff379d7a126cb9ba4cee7ea998af94555b7a3d4f8ae" {
-		t.Fatalf("LEVEL1正常休息完成SHA-256=%s", got)
+	if got := digestRegion(o.Indexed(), 0, 0, 176, 120); got != "1b8043aa48d2750b69035371be462cfa78e72af289d7fc36dae434bbfc9d668b" {
+		t.Fatalf("LEVEL1正常休息完成左panel SHA-256=%s", got)
 	}
-	if got := o.PortReads()[0x60]; got != 96 {
-		t.Fatalf("LEVEL1正常休息完成port 60h讀取%d次，預期四十八鍵make／break共96次", got)
+	// 95 而不是 96：路徑停在休息剛完成的那一刻，最後一個 Enter 的 break code 還沒被
+	// 輪詢。不能為了湊成雙數再跑一段——實測那會讓 break 被讀到，CAMP 立刻開始第二次
+	// 休息（見 ToLevel1RestAfterMemorize 的註解）。
+	if got := o.PortReads()[0x60]; got != 95 {
+		t.Fatalf("LEVEL1正常休息完成port 60h讀取%d次，預期四十七鍵make／break加最後一個Enter的make共95次", got)
 	}
 }
 

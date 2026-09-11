@@ -621,6 +621,7 @@ func (o *Oracle) OnTick(f func(*Oracle)) {
 	}
 	o.m.SetOnTick(func() { f(o) })
 }
+
 // TraceInt21 打開 int 21h 的逐次紀錄。
 //
 // 預設關著：筆數可達數萬。要它的場合只有兩種——查「殼鏈走到哪一跳就停了」
