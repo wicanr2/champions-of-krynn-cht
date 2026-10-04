@@ -465,10 +465,25 @@ func availFrom(seg uint16) uint16 {
 	return uint16(machine.MemTop) - seg
 }
 
+// growLimit 是 PSP 區塊從 blk 起最多能長到幾段：到 arena 裡第一個已配出區塊的
+// MCB 之前（真 DOS 的 `AH=4Ah` 只能吃相鄰的自由區塊）。沒有已配出區塊時就是 avail。
+// 只在 `StrictPSPGrowth` 打開時用（`docs/spec/199-psp-block-resize-boundary` §3）。
+func (d *DOS) growLimit(blk, avail uint16) uint16 {
+	for _, b := range d.arena {
+		if !b.free && b.seg > blk && b.seg-blk < avail {
+			avail = b.seg - blk
+		}
+	}
+	return avail
+}
+
 func (d *DOS) setBlock(c *cpu.CPU) {
 	want := c.R[cpu.BX]
 	blk := c.Seg[cpu.ES]
 	avail := availFrom(blk)
+	if d.StrictPSPGrowth && blk == d.curPSP {
+		avail = d.growLimit(blk, avail)
+	}
 	if want > avail {
 		d.MemOps = append(d.MemOps, MemOp{Fn: 0x4A, BX: want, ES: blk,
 			AX: avail, Step: d.M.Steps})
@@ -513,7 +528,13 @@ func (d *DOS) setBlock(c *cpu.CPU) {
 		// 當交叉 oracle 量一次。在那之前保留原本的寬鬆做法：
 		// 它讓目標程式走得更遠，而走得更遠才有更多可觀測的東西。
 		// 這是刻意的取捨，不是疏漏。
-		d.setPSPBlock(blk + want + 1)
+		//
+		// ⚠ **下一個 MCB 在 `blk + want`，不是 `+ 1`**（`docs/spec/199-psp-block-resize-boundary`）。
+		// 資料區塊是 `[blk, blk+want)`，DOS 的 `AH=4Ah` 把自由區塊的 MCB 放在
+		// 緊接著的 `blk+want`（DOSBox-X `DOS_ResizeMemory` 的 `mcb_new_next(segment+*blocks)`）。
+		// 舊寫法多算一段，剩餘空間少一段：Borland C++ 的 `exec` 把自己撐到「最大值減 5」
+		// 再要 4 段放參數，少一段就 ENOMEM（AESOP.EXE 的 `launch`）。
+		d.setPSPBlock(blk + want)
 	}
 	// arena 內的區塊走真正的 resize（規格 009）。不在 arena 內的
 	// （PSP、映像本體）維持原本的行為：那條路是記憶體探測協定，

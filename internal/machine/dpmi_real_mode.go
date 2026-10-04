@@ -130,7 +130,7 @@ func (h *DPMIHost) simulateRealModeInterrupt(c *cpu386.CPU) error {
 			r.R[i] = word(o)
 		}
 	}
-	r.EAXHi = word(30)
+	r.Hi[cpu.AX] = word(30)
 	r.Seg[cpu.DS], r.Seg[cpu.ES], r.Seg[cpu.SS] = word(36), word(34), ss
 	r.R[cpu.SP] = sp
 	r.SetFlags(word(32))
@@ -178,7 +178,7 @@ func (h *DPMIHost) simulateRealModeInterrupt(c *cpu386.CPU) error {
 					binary.LittleEndian.PutUint16(packet[o:], r.R[i])
 				}
 			}
-			binary.LittleEndian.PutUint16(packet[30:], r.EAXHi)
+			binary.LittleEndian.PutUint16(packet[30:], r.Hi[cpu.AX])
 			binary.LittleEndian.PutUint16(packet[32:], r.Flags)
 			binary.LittleEndian.PutUint16(packet[34:], r.Seg[cpu.ES])
 			binary.LittleEndian.PutUint16(packet[36:], r.Seg[cpu.DS])

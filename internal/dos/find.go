@@ -117,10 +117,19 @@ func (d *DOS) emitFind(c *cpu.CPU, id, idx uint16) {
 // 順序不固定的話，同一支程式兩次跑會處理到不同的檔，而對拍會歸咎到別處。
 func (d *DOS) searchFor(pattern string) *findState {
 	pat := strings.ToUpper(baseName(pattern))
+	// 樣式帶真實存在的子目錄（`SAVEGAME\*.BIN`）時掃那個目錄（`docs/spec/198`）；
+	// 否則維持舊行為，掃 Root 與 Scratch 的最上層。
+	dirs, _ := d.relComponents(pattern)
+	nested := d.dirsExist(dirs)
 	seen := map[string]string{}
 	for _, dir := range []string{d.Root, d.Scratch} {
 		if dir == "" {
 			continue
+		}
+		if nested {
+			if dir = walkDirs(dir, dirs); dir == "" {
+				continue
+			}
 		}
 		entries, err := os.ReadDir(dir)
 		if err != nil {

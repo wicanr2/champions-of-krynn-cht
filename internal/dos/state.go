@@ -75,8 +75,11 @@ type dosState struct {
 
 	Drive uint8
 	Dir   string
-	Now   Time
-	Mouse Mouse
+	// RootDir 是 Root 在 DOS 樹上的位置（`docs/spec/198`）。舊檔沒有它：
+	// 讀進來是空字串時沿用目前這一台的設定。
+	RootDir string
+	Now     Time
+	Mouse   Mouse
 	// MouseExtra 是 Mouse 以外要留的滑鼠設定（`docs/spec/196-mouse-handler-survives-state-file`）。
 	// **漏掉 Handler 的話讀檔之後注入的輸入不會呼叫事件常式**，
 	// 靠它畫游標的遊戲看起來像滑鼠沒接上。舊檔讀進來是零值。
@@ -117,7 +120,7 @@ type dosState struct {
 func (d *DOS) SaveState(w io.Writer) error {
 	s := dosState{
 		Magic: dosStateMagic, Version: dosStateVersion,
-		Drive: d.Drive, Dir: d.Dir, Now: d.Now, Root: d.Root,
+		Drive: d.Drive, Dir: d.Dir, RootDir: d.RootDir, Now: d.Now, Root: d.Root,
 		FreeSeg: d.freeSeg,
 
 		CurPSP:   d.curPSP,
@@ -186,6 +189,9 @@ func (d *DOS) LoadState(r io.Reader) error {
 		h.f.Close()
 	}
 	d.Drive, d.Dir, d.Now = s.Drive, s.Dir, s.Now
+	if s.RootDir != "" {
+		d.RootDir = s.RootDir
+	}
 	// **舊的狀態檔沒有 Root**，那時就沿用目前這一台的設定，
 	// 不要把它清成空字串。
 	if s.Root != "" {

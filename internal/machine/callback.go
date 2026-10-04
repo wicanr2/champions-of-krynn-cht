@@ -33,6 +33,10 @@ type callbackFrame struct {
 	segs  [4]uint16
 	ip    uint16
 	flags uint16
+	// 80386 暫存器高半與 FS／GS（`docs/spec/197`）：回呼用 32 位元暫存器時，
+	// 沒存的話被打斷的程式高半會被改掉，而 16 位元暫存器全對。
+	hi         [8]uint16
+	fseg, gseg uint16
 }
 
 // QueueCallback 排一次遠呼叫。**排隊不丟**——丟掉的話快速移動的軌跡
@@ -70,7 +74,8 @@ func (m *Machine) startCallback() bool {
 	m.cbQueue = m.cbQueue[1:]
 
 	c := m.CPU
-	m.cbSaved = callbackFrame{regs: c.R, segs: c.Seg, ip: c.IP, flags: c.Flags}
+	m.cbSaved = callbackFrame{regs: c.R, segs: c.Seg, ip: c.IP, flags: c.Flags,
+		hi: c.Hi, fseg: c.FSeg, gseg: c.GSeg}
 	m.cbActive = true
 	m.cbMade++
 
@@ -92,6 +97,7 @@ func (m *Machine) FinishCallback() bool {
 	}
 	c := m.CPU
 	c.R, c.Seg, c.IP = m.cbSaved.regs, m.cbSaved.segs, m.cbSaved.ip
+	c.Hi, c.FSeg, c.GSeg = m.cbSaved.hi, m.cbSaved.fseg, m.cbSaved.gseg
 	c.SetFlags(m.cbSaved.flags)
 	m.cbActive = false
 	return true

@@ -81,6 +81,9 @@ func (m *Machine) SetVideoMode(mode uint8) {
 		// 狀態對每一種模式都有意義，而 mode 13h 正是輪詢它最兇的那一種
 		// （`docs/spec/193`）。
 		setModeTiming(&m.VGA.crtc, mode)
+		if mode == 0x13 {
+			m.VGA.setMode13()
+		}
 	}
 	m.planarOn = m.planarActive()
 }

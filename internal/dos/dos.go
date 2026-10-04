@@ -249,6 +249,16 @@ type DOS struct {
 	Drive uint8
 	Dir   string
 
+	// RootDir 是 Root 這個主機目錄在 DOS 樹上的位置（`docs/spec/198`），
+	// 預設與 Dir 的初值相同；`New` 看到機器的 ProgramPath 就改成程式所在的目錄。
+	RootDir string
+
+	// StrictChdir 為真時，`AH=3Bh` 目標目錄不存在就失敗（CF，AX=3），目前目錄不變。
+	// 預設為假＝舊行為：一律成功，因為既有程式切到不存在的目錄後，回失敗會被判成
+	// 安裝不完整（`chdir` 的註解）。需要真 DOS 語意的程式由轉接層打開
+	// （EOB3 的 `launch` 會 `chdir` 到一個不存在的目錄名，`docs/spec/198` §5）。
+	StrictChdir bool
+
 	// SwitchChar 是 `AH=37h` 的選項字元。DOS 從 2.0 起固定是 `/`
 	// （`SWITCHAR=` 那個設定在 5.0 之後就沒有作用了）。
 	SwitchChar uint8
@@ -321,6 +331,14 @@ type DOS struct {
 	// MemOps 記下每一次 AH=48h／49h／4Ah 記憶體操作的輸入與結果。
 	// 除錯「模組載到沒人配置過的位址」用：先確定配置器到底發過哪些段。
 	MemOps []MemOp
+
+	// StrictPSPGrowth 為真時，行程的 PSP 區塊只能長到下一個**已配出去**的區塊之前
+	// （`AH=4Ah` 的探測與放大都受限，`docs/spec/199-psp-block-resize-boundary` §3）。
+	//
+	// 預設為假＝舊行為：探測一律回「到 MemTop 還有多少」，不看 arena 裡已配出的區塊。
+	// 那是對智冠《三國演義》刻意保留的取捨（`setBlock` 的註解），**預設不能改**；
+	// 要真 DOS 語意的程式（EOB3 的 Borland exec，`docs/spec/200`）由轉接層打開。
+	StrictPSPGrowth bool
 
 	// Exited 為真表示程式呼叫了 `AH=4Ch`／`AH=00h`；ExitCode 是它的回傳碼。
 	Exited   bool
@@ -606,6 +624,31 @@ func (c Call) String() string {
 
 // New 造一個服務層。root 是原版素材目錄。
 func New(m *machine.Machine, root string) *DOS {
+	d := newDOS(m, root)
+	// 機器知道程式的全路徑（`C:\EOB3\AESOP.EXE`）時，Root 就是它所在的目錄：
+	// 目前目錄與 RootDir 都設成那裡，相對路徑才會落在 Root 底下，
+	// 之後 `chdir` 到子目錄（`CHARGEN`）再回來也對得上（`docs/spec/198`）。
+	if dir := programDir(m.ProgramPath); dir != "" {
+		d.Dir, d.RootDir = dir, dir
+	}
+	return d
+}
+
+// programDir 取出 DOS 程式全路徑的目錄部分，大寫、不含磁碟機與開頭的 `\`。
+// 沒有目錄部分（或給的是空字串）回 ""，呼叫端沿用預設。
+func programDir(p string) string {
+	p = strings.ToUpper(strings.ReplaceAll(p, "/", `\`))
+	if len(p) >= 2 && p[1] == ':' {
+		p = p[2:]
+	}
+	i := strings.LastIndex(p, `\`)
+	if i < 0 {
+		return ""
+	}
+	return strings.Trim(p[:i], `\`)
+}
+
+func newDOS(m *machine.Machine, root string) *DOS {
 	return &DOS{
 		M: m, Root: root,
 		Now:           Time{}, // 全 0：與原版的固定種子版對齊，見 Time 的說明
@@ -615,6 +658,7 @@ func New(m *machine.Machine, root string) *DOS {
 		Drive:         2, // C:，見 Drive 欄位的說明
 		SwitchChar:    '/',
 		Dir:           "RICH2",
+		RootDir:       "RICH2",
 		Unimplemented: map[Call]int{},
 		handles:       map[uint16]*handle{},
 		MaxHandles:    maxHandles, // DOS 預設 20；AH=67h 可調
@@ -693,6 +737,10 @@ func (d *DOS) handle(c *cpu.CPU, n uint8) bool {
 		d.emsCall(c)
 	case 0x2F: // XMS 偵測（AH=43h）
 		d.int2F(c)
+	case 0x09:
+		// BIOS 的鍵盤處理：程式的 ISR 只是包裝、chain 回舊向量（我們的 stub）時
+		// 要有人把埠 0x60 的掃描碼翻進 BDA 緩衝（`docs/spec/202`）。
+		d.biosInt9(c)
 	case 0x08, 0x1C:
 		// 計時器中斷鏈上的空 stub。向量還在 StubSeg ＝ 沒人裝，
 		// 它的語意就是 IRET——**不記一筆**，否則每次 tick 都會

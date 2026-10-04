@@ -25,6 +25,9 @@ type modrm struct {
 // 其餘都是 DS。這一條寫錯不會報錯——它會讓堆疊上的區域變數讀到資料段的內容，
 // 而那看起來像「資料解錯了」。
 func (c *CPU) decodeModRM() modrm {
+	if c.addr32 {
+		return c.decodeModRM32()
+	}
 	b := c.fetch8()
 	mod := b >> 6
 	reg := int(b>>3) & 7
@@ -75,6 +78,70 @@ func (c *CPU) decodeModRM() modrm {
 	}
 
 	return modrm{reg: reg, mod: mod, rm: operand{seg: c.dataSeg(def), off: off}}
+}
+
+// decodeModRM32 是 0x67 位址大小前綴下的 ModRM（含 SIB），`docs/spec/197` §3。
+//
+// 語意照 DOSBox-X 的 `src/cpu/core_normal/table_ea.h`：
+//   - r/m＝4 帶一個 SIB 位元組；index＝4 表示沒有索引；
+//   - base＝5 且 mod＝0 是沒有基底的 disp32（SIB 與非 SIB 的 r/m＝5 都一樣）；
+//   - 預設段：基底是 ESP 或 EBP 用 SS，其餘 DS。**看的是基底暫存器，
+//     不是索引暫存器**（`[eax+ebp*2]` 仍是 DS）。
+//
+// ⚠ 實模式的段限是 64 KB：有效位址超過 `0xFFFF` 在真機是 #GP。這裡
+// **不截斷了事**，改記一個 fault 讓 `Step` 回報（LEA 例外，見 `eaNoLimit`）。
+// DOSBox-X 預設不查段限（`do_seg_limits` 關），所以那邊會悄悄讀到 64 KB 之外。
+func (c *CPU) decodeModRM32() modrm {
+	b := c.fetch8()
+	mod := b >> 6
+	reg := int(b>>3) & 7
+	rm := int(b) & 7
+	if mod == 3 {
+		return modrm{reg: reg, mod: mod, rm: operand{isReg: true, reg: rm}}
+	}
+	c.charge(cycMem)
+
+	def := DS
+	var ea uint32
+	switch {
+	case rm == 4:
+		sib := c.fetch8()
+		scale := sib >> 6
+		idx := int(sib>>3) & 7
+		base := int(sib) & 7
+		switch {
+		case base == 5 && mod == 0:
+			ea = c.fetch32()
+		case base == 4:
+			ea, def = c.reg32(SP), SS
+		case base == 5:
+			ea, def = c.reg32(BP), SS
+		default:
+			ea = c.reg32(base)
+		}
+		if idx != 4 {
+			ea += c.reg32(idx) << scale
+		}
+	case rm == 5 && mod == 0:
+		ea = c.fetch32()
+	default:
+		ea = c.reg32(rm)
+		if rm == 5 {
+			def = SS
+		}
+	}
+	switch mod {
+	case 1:
+		ea += uint32(int32(int8(c.fetch8())))
+	case 2:
+		ea += c.fetch32()
+	}
+
+	c.ea32 = ea
+	if ea > 0xFFFF && !c.eaNoLimit {
+		c.failf("32 位元有效位址 %08X 超出實模式 64 KB 段限（docs/spec/197 §3）", ea)
+	}
+	return modrm{reg: reg, mod: mod, rm: operand{seg: c.dataSeg(def), off: uint16(ea)}}
 }
 
 func (c *CPU) get8(o operand) uint8 {

@@ -14,6 +14,8 @@ func (c *CPU) Step() error {
 	c.repPrefix = 0
 	c.lock = false
 	c.operand32 = false
+	c.addr32 = false
+	c.ext386 = false
 	c.opCS, c.opIP = c.Seg[CS], c.IP
 	c.charge(cycBase)
 
@@ -42,6 +44,27 @@ func (c *CPU) Step() error {
 			// （語料行為），80186 報「未實作」。
 			if c.Model >= Model80386 {
 				c.operand32 = true
+				c.ext386 = true
+				c.charge(cycPrefix)
+				continue
+			}
+		case 0x64, 0x65:
+			// FS／GS 段覆寫。8086／80186 上 64／65 是條件跳躍的別名，
+			// 所以只在 Model80386 才當前綴（語料路徑不受影響）。
+			if c.Model >= Model80386 {
+				c.segOverride = FS
+				if op == 0x65 {
+					c.segOverride = GS
+				}
+				c.ext386 = true
+				c.charge(cycPrefix)
+				continue
+			}
+		case 0x67:
+			// 位址大小前綴，同樣只在 Model80386。
+			if c.Model >= Model80386 {
+				c.addr32 = true
+				c.ext386 = true
 				c.charge(cycPrefix)
 				continue
 			}
@@ -54,15 +77,33 @@ func (c *CPU) Step() error {
 			c.charge(cycPrefix)
 			continue
 		}
-		return c.execute(op)
+		c.curOp = op
+		err := c.execute(op)
+		if c.fault != nil {
+			// 指令途中記下的「不能照做」優先於一般回傳值。
+			f := c.fault
+			c.fault = nil
+			return f
+		}
+		return err
 	}
 }
 
-//gocyclo:ignore
+// execute 先看 80386 的擴充（前綴或 0F 雙位元組），其餘走 executeCore。
+//
+// ⚠ **Model80386 的 `0F` 一律進 execute386**——不再是 8086 的 POP CS。
+// 8086／80186 的 `0F` 維持 POP CS（語料驗證過）。
 func (c *CPU) execute(op uint8) error {
-	if c.operand32 {
-		return c.execute32(op)
+	if c.ext386 || (op == 0x0F && c.Model >= Model80386) {
+		if handled, err := c.execute386(op); handled {
+			return err
+		}
 	}
+	return c.executeCore(op)
+}
+
+//gocyclo:ignore
+func (c *CPU) executeCore(op uint8) error {
 	switch {
 	// ---- 00–3F：八個 ALU 運算，每個六種定址 ----------------------------
 	case op < 0x40 && op&7 < 6 && op != 0x0F && op != 0x27 && op != 0x2F &&
@@ -160,15 +201,41 @@ func (c *CPU) execute(op uint8) error {
 		c.R[m.reg] = c.get16(m.rm)
 	case op == 0x8C: // MOV r/m16, Sreg
 		m := c.decodeModRM()
+		if c.Model >= Model80386 && m.reg >= 4 {
+			// 386：/4 ＝ FS、/5 ＝ GS；/6、/7 是 #UD，不是 8086 的別名。
+			if m.reg > 5 {
+				return c.errf(op, "8C /%d：不存在的段暫存器", m.reg)
+			}
+			c.set16(m.rm, c.segVal(FS+m.reg-4))
+			break
+		}
 		c.set16(m.rm, c.Seg[m.reg&3])
 	case op == 0x8D: // LEA r16, m
+		// LEA 不碰記憶體，所以 0x67 下的有效位址不受 64 KB 段限檢查。
+		c.eaNoLimit = true
 		m := c.decodeModRM()
+		c.eaNoLimit = false
 		// LEA 取的是位移，不碰記憶體。r/m 是暫存器時 8086 的行為未定義；
 		// 這裡回位移欄位 0，與實機一致（測資會遮）。
-		c.R[m.reg] = m.rm.off
+		if c.addr32 && !m.rm.isReg {
+			c.R[m.reg] = uint16(c.ea32)
+		} else {
+			c.R[m.reg] = m.rm.off
+		}
 	case op == 0x8E: // MOV Sreg, r/m16
 		c.charge(cycFar)
 		m := c.decodeModRM()
+		if c.Model >= Model80386 && m.reg >= 4 {
+			switch m.reg {
+			case 4:
+				c.FSeg = c.get16(m.rm)
+			case 5:
+				c.GSeg = c.get16(m.rm)
+			default:
+				return c.errf(op, "8E /%d：不存在的段暫存器", m.reg)
+			}
+			break
+		}
 		c.Seg[m.reg&3] = c.get16(m.rm)
 	case op == 0x8F: // POP r/m16
 		m := c.decodeModRM()

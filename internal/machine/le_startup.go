@@ -461,7 +461,7 @@ func (s *FD2StartupDOS) HandleRealMode(r *cpu.CPU, n uint8) bool {
 	for i, v := range r.R {
 		c.R[i] = uint32(v)
 	}
-	c.R[cpu386.EAX] |= uint32(r.EAXHi) << 16
+	c.R[cpu386.EAX] |= uint32(r.Hi[cpu.AX]) << 16
 	c.EFlags = uint32(r.Flags)
 	for _, v := range []struct {
 		dst, src int
@@ -478,7 +478,7 @@ func (s *FD2StartupDOS) HandleRealMode(r *cpu.CPU, n uint8) bool {
 	for i, v := range c.R {
 		r.R[i] = uint16(v)
 	}
-	r.EAXHi = uint16(c.R[cpu386.EAX] >> 16)
+	r.Hi[cpu.AX] = uint16(c.R[cpu386.EAX] >> 16)
 	r.SetFlags(uint16(c.EFlags))
 	return true
 }

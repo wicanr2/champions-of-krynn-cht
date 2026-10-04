@@ -422,8 +422,10 @@ type Machine struct {
 	// DAC 是 VGA 調色盤，256×3 個 6 位元色值（`docs/formats/001` 的格式）。
 	DAC [256 * 3]uint8
 
-	dacIndex uint8
-	dacPhase uint8
+	dacIndex     uint8
+	dacPhase     uint8
+	dacReadIndex uint8
+	dacReadPhase uint8
 
 	// WriteModeUse 統計 planar 寫入用過哪些 write mode（診斷用）。
 	WriteModeUse [4]uint64
@@ -824,6 +826,14 @@ func (m *Machine) In8(port uint16) uint8 {
 		return v
 	}
 	switch {
+	case port == 0x3C9:
+		v := m.DAC[int(m.dacReadIndex)*3+int(m.dacReadPhase)]
+		m.dacReadPhase++
+		if m.dacReadPhase == 3 {
+			m.dacReadPhase = 0
+			m.dacReadIndex++
+		}
+		return v
 	case port == 0x60:
 		// 鍵盤資料埠。**沒有硬體鍵盤時這裡回 0xFF**，而 0xFF 的 bit7 是
 		// 「放開」——自己裝 IRQ1 的程式會把每一次都當成放開而忽略，
@@ -944,6 +954,8 @@ func (m *Machine) Out8(p uint16, v uint8) {
 	}
 
 	switch p {
+	case 0x3C7: // 選取 DAC 讀取起點，下一次讀 3C9h 從 R 分量開始。
+		m.dacReadIndex, m.dacReadPhase = v, 0
 	case 0x3C8: // 設寫入索引
 		m.dacIndex, m.dacPhase = v, 0
 	case 0x3C9: // 連寫三次 ＝ R、G、B（各 6 位元）
@@ -1101,6 +1113,11 @@ func (m *Machine) WriteBytes(a uint32, b []byte) {
 // **回的是色號不是 RGB**——對拍在色號空間做（`docs/spec/005` §3）。
 // 回傳的是複本，呼叫端改它不會動到機器。
 func (m *Machine) Indexed() []uint8 {
+	if m.Unchained() {
+		// 非鏈結 256 色（Mode X）：320×200 的 8 位元索引，從四個平面組
+		// （`docs/spec/201-vga-unchained-256`）。
+		return m.VGA.Unchained256(VideoWidth, VideoHigh)
+	}
 	if m.planarOn {
 		return m.planarIndexed()
 	}

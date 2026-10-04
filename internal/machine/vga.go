@@ -536,6 +536,9 @@ func (v *VGA) clone() *VGA {
 	out := &VGA{mem: append([]uint8(nil), v.mem...)}
 	out.latch, out.seq, out.gc, out.ac = v.latch, v.seq, v.gc, v.ac
 	out.seqIdx, out.gcIdx, out.acIdx, out.acFlip = v.seqIdx, v.gcIdx, v.acIdx, v.acFlip
+	// CRTC 與 Misc Output 也是畫面的一部分（顯示起點、列距、分割線）：
+	// 漏抄的話還原之後非鏈結 256 色的畫面整個錯位（`docs/spec/201`）。
+	out.crtc, out.crtcIdx, out.misc = v.crtc, v.crtcIdx, v.misc
 	for p := range out.Planes {
 		out.Planes[p] = out.mem[p*PlaneSize : (p+1)*PlaneSize]
 	}
@@ -547,6 +550,7 @@ func (v *VGA) restore(s *VGA) {
 	copy(v.mem, s.mem)
 	v.latch, v.seq, v.gc, v.ac = s.latch, s.seq, s.gc, s.ac
 	v.seqIdx, v.gcIdx, v.acIdx, v.acFlip = s.seqIdx, s.gcIdx, s.acIdx, s.acFlip
+	v.crtc, v.crtcIdx, v.misc = s.crtc, s.crtcIdx, s.misc
 }
 
 // ---- 機器層的接線 --------------------------------------------------------
@@ -564,7 +568,9 @@ func (m *Machine) VideoSize() (int, int) {
 
 // PlanarSize 回目前平面模式的畫面大小。不是平面模式就回 `0, 0`。
 func (m *Machine) PlanarSize() (w, h int) {
-	if !m.planarOn {
+	// 非鏈結 256 色不是 16 色平面模式：畫面是 320×200 的 8 位元索引，
+	// 走 `Indexed()`（`docs/spec/201`）。
+	if !m.planarOn || m.VideoMode() == 0x13 {
 		return 0, 0
 	}
 	// CRTC 是一手答案；沒被設過才退回用模式編號推（`docs/spec/192` §2.4）。
@@ -681,6 +687,65 @@ func (m *Machine) IndexedEGASize(w, h int) []uint8 { return m.VGA.Pixels(w, h) }
 // IndexedEGA 用目前模式的尺寸解畫面。
 func (m *Machine) IndexedEGA() []uint8 { return m.planarIndexed() }
 
+// ---- 非鏈結 256 色（Mode X，`docs/spec/201-vga-unchained-256`）---------------
+
+// chain4 回報序列器 Memory Mode（index 04h）的 bit3：1 ＝ 鏈結（mode 13h 的
+// 線性定址，位元組 A 在平面 A&3 的第 A>>2 格），0 ＝ 非鏈結（Mode X：每個平面
+// 各自定址，CPU 位址直接是平面內位移，Map Mask 決定寫哪幾個平面）。
+//
+// BIOS 設 mode 13h 時這一位是 1（`SetVideoMode` 寫 0Eh）。程式要 Mode X 就
+// 在設完 13h 之後寫 `3C4:04 ← 04`。
+func (v *VGA) chain4() bool { return v.seq[4]&0x08 != 0 }
+
+// setMode13 是 BIOS 設 mode 13h 時對序列器與 CRTC 做的事（`docs/spec/201`）：
+// 鏈結位元立起來（A0000 走線性的 `Mem`）、顯示起點歸零、列距 28h、
+// doubleword 與 word 模式照 BIOS 值，並清四個平面（程式之後切到非鏈結時
+// 不會讀到上一個模式留下的內容）。**不碰 `Mem`**：既有的線性路徑不清畫面。
+func (v *VGA) setMode13() {
+	v.seq[4] = 0x0E
+	v.crtc[0x0C], v.crtc[0x0D] = 0, 0
+	v.crtc[0x13], v.crtc[0x14], v.crtc[0x17] = 0x28, 0x40, 0xA3
+	for i := range v.mem {
+		v.mem[i] = 0
+	}
+}
+
+// Unchained256 把四個平面組成非鏈結 256 色的畫面：像素 (x,y) ＝
+// `平面[x&3][起點 + y×列距 + x>>2]`，直接是 DAC 索引（屬性控制器的
+// 8 位元模式，不經 `DACIndex` 的 4 位元對照）。
+//
+// 列距、起點、分割線都來自 CRTC，與 16 色平面模式同一套（`Pitch`、
+// `DisplayStart`、`LineCompare`）。**列距 0 是「沒設過」**，退回 `w/4`。
+// 分割線的單位是掃描線；200 列模式每列掃兩次（max scan line ＝ 1），
+// 所以換成像素列要除以每列的掃描數。
+//
+// 不模擬水平像素平移（屬性控制器 13h）與雙字組模式（CRTC 14h bit6）；
+// 兩者在 Mode X 的標準設定裡都是關的。
+func (v *VGA) Unchained256(w, h int) []uint8 {
+	out := make([]uint8, w*h)
+	pitch := int(v.crtc[0x13]) * 2
+	if pitch == 0 {
+		pitch = w / 4
+	}
+	start := int(v.DisplayStart())
+	rows := int(v.crtc[0x09]&0x1F) + 1
+	split := v.LineCompare() / rows
+	for y := 0; y < h; y++ {
+		row := start + y*pitch
+		if y > split {
+			row = (y - split - 1) * pitch
+		}
+		for x := 0; x < w; x++ {
+			out[y*w+x] = v.Planes[x&3][(row+x>>2)&(PlaneSize-1)]
+		}
+	}
+	return out
+}
+
+// Unchained 回報目前是不是非鏈結 256 色：視訊模式是 13h、而且 A0000 走平面路徑
+// （序列器的鏈結位元被清掉）。這時 `Indexed()` 要從平面組畫面，不能讀 `Mem`。
+func (m *Machine) Unchained() bool { return m.planarOn && m.VideoMode() == 0x13 }
+
 // planarActive 決定 `A0000` 走不走平面路徑。
 //
 // 兩條分支各自帶著一個判準，而兩個都對——對它們自己那支程式而言：
@@ -702,7 +767,9 @@ func (m *Machine) planarActive() bool {
 		return true
 	}
 	if mode == 0x13 {
-		return false
+		// 程式明講要 256 色。線性（鏈結）就走 Mem；把序列器的鏈結位元清掉
+		// 的是 Mode X，走平面（`docs/spec/201-vga-unchained-256`）。
+		return !m.VGA.chain4()
 	}
 	return m.VGA.planarSeen
 }
