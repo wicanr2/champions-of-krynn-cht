@@ -26,6 +26,7 @@
 //	wwatch:LIN:N      盯 IDA 線性位址起 N 個 byte 的寫入，印出是誰寫的
 //	unwatch           收掉寫入監看
 //	runto:LIN[,N]     跑到 CS:IP 走到 IDA 線性位址 LIN（預算 N 道指令，預設 4 億）
+//	regs              印出目前全暫存器（AX–DI、BP、SP、DS、ES、SS、CS、IP、FLAGS）
 //	save:NAME         把目前的機器狀態記到記憶體裡的一個格子
 //	restore:NAME      倒回那個格子——**一次執行裡展開多個變體**
 //	hotspots          印出目前畫面的熱區圖（編號 → 像素矩形）
@@ -72,6 +73,7 @@ func main() {
 	fontFull := flag.String("font-full", "", "全形字模檔（預設 END_S13.DAT）")
 	fontHalf := flag.String("font-half", "", "半形字模檔（預設 END_S14.DAT）")
 	watch := flag.String("watch", "", "攔這些 IDA 線性位址的呼叫，逗號分隔（十六進位）")
+	watchmem := flag.String("watchmem", "", "WATCH 行附加記憶體傾印，格式 SEGREG:REG:LEN（如 ES:BP:64）")
 	flag.Parse()
 
 	if *exe == "" {
@@ -85,7 +87,7 @@ func main() {
 	defer o.Close()
 
 	if *watch != "" {
-		if err := installWatches(o, *watch); err != nil {
+		if err := installWatches(o, *watch, *watchmem); err != nil {
 			die(err)
 		}
 	}
@@ -185,6 +187,9 @@ func run(o *oracle.Oracle, step string, dosboxY bool, budget uint64,
 			return o.Press(oracle.Button(1))
 		}
 		return o.Press()
+	case "regs":
+		fmt.Printf("   %s\n", formatRegs(o.Regs()))
+		return nil
 	case "peek":
 		return peek(o, arg)
 	case "ipeek":
@@ -599,7 +604,11 @@ func run(o *oracle.Oracle, step string, dosboxY bool, budget uint64,
 //
 // ⚠ **掛在沒人呼叫的位址上印不出東西，與「沒接上」長得一模一樣。**
 // 正對照要用一個已知會被呼叫的位址。
-func installWatches(o *oracle.Oracle, spec string) error {
+func installWatches(o *oracle.Oracle, spec string, memSpec string) error {
+	mems, err := parseWatchMems(memSpec)
+	if err != nil {
+		return err
+	}
 	for _, s := range strings.Split(spec, ",") {
 		s = strings.TrimSpace(strings.TrimPrefix(strings.TrimSpace(s), "0x"))
 		lin, err := strconv.ParseUint(s, 16, 32)
@@ -610,16 +619,104 @@ func installWatches(o *oracle.Oracle, spec string) error {
 		label := strings.ToUpper(s)
 		o.OnCall(addr, func(o *oracle.Oracle) {
 			r := o.Regs()
+			line := fmt.Sprintf("  #%d 呼叫 %s AX=%04X BX=%04X CX=%04X DX=%04X "+
+				"SI=%04X DI=%04X BP=%04X SP=%04X DS=%04X ES=%04X SS=%04X FLAGS=%04X",
+				o.Steps(), label, r.AX, r.BX, r.CX, r.DX, r.SI, r.DI,
+				r.BP, r.SP, r.DS, r.ES, r.SS, r.Flags)
+			for _, mem := range mems {
+				seg, off := mem.resolve(r)
+				buf := o.Bytes(oracle.Far(seg, off), mem.length)
+				parts := make([]string, len(buf))
+				for i, b := range buf {
+					parts[i] = fmt.Sprintf("%02X", b)
+				}
+				line += fmt.Sprintf(" MEM=%04X:%04X:%s", seg, off, strings.Join(parts, ""))
+			}
 			// ⚠ **near 與 far 的返回位址在堆疊上的版面不同**，
 			// 挑一種安靜地印會讓另一種讀到垃圾——而垃圾看起來
 			// 就是一個合法位址。兩種都印，讓人自己判斷。
-			fmt.Printf("  #%d 呼叫 %s AX=%04X BX=%04X CX=%04X DX=%04X "+
-				"SI=%04X DI=%04X 來自 近=%05X 遠=%05X\n",
-				o.Steps(), label, r.AX, r.BX, r.CX, r.DX, r.SI, r.DI,
+			fmt.Printf("%s 來自 近=%05X 遠=%05X\n", line,
 				o.ToIDA(o.NearCaller()), o.ToIDA(o.Caller()))
 		})
 	}
 	return nil
+}
+
+// formatRegs 把全暫存器印成一行，供 `regs` 動詞與外部解析共用。
+func formatRegs(r oracle.Regs) string {
+	return fmt.Sprintf("REGS AX=%04X BX=%04X CX=%04X DX=%04X SI=%04X DI=%04X "+
+		"BP=%04X SP=%04X DS=%04X ES=%04X SS=%04X CS=%04X IP=%04X FLAGS=%04X",
+		r.AX, r.BX, r.CX, r.DX, r.SI, r.DI, r.BP, r.SP,
+		r.DS, r.ES, r.SS, r.CS, r.IP, r.Flags)
+}
+
+type watchMemSpec struct {
+	segReg  string
+	offReg  string
+	literal uint16
+	length  int
+}
+
+func (s *watchMemSpec) resolve(r oracle.Regs) (uint16, uint16) {
+	seg := map[string]uint16{"DS": r.DS, "ES": r.ES, "SS": r.SS, "CS": r.CS}[s.segReg]
+	if s.offReg == "" {
+		return seg, s.literal
+	}
+	off := map[string]uint16{"AX": r.AX, "BX": r.BX, "CX": r.CX, "DX": r.DX,
+		"SI": r.SI, "DI": r.DI, "BP": r.BP, "SP": r.SP}[s.offReg]
+	return seg, off
+}
+
+// parseWatchMems 解析逗號分隔的多組傾印規格；空字串表示不傾印。
+func parseWatchMems(spec string) ([]*watchMemSpec, error) {
+	if strings.TrimSpace(spec) == "" {
+		return nil, nil
+	}
+	var out []*watchMemSpec
+	for _, part := range strings.Split(spec, ",") {
+		s, err := parseWatchMem(part)
+		if err != nil {
+			return nil, err
+		}
+		out = append(out, s)
+	}
+	return out, nil
+}
+
+// parseWatchMem 解析 `SEGREG:REG:LEN`；空字串表示不傾印。
+func parseWatchMem(spec string) (*watchMemSpec, error) {
+	if strings.TrimSpace(spec) == "" {
+		return nil, nil
+	}
+	f := strings.Split(spec, ":")
+	if len(f) != 3 {
+		return nil, fmt.Errorf("watchmem 格式是 SEGREG:REG:LEN，收到 %q", spec)
+	}
+	seg := strings.ToUpper(strings.TrimSpace(f[0]))
+	off := strings.ToUpper(strings.TrimSpace(f[1]))
+	switch seg {
+	case "DS", "ES", "SS", "CS":
+	default:
+		return nil, fmt.Errorf("watchmem 段暫存器要是 DS/ES/SS/CS，收到 %q", f[0])
+	}
+	literal := uint16(0)
+	switch {
+	case strings.HasPrefix(off, "#"):
+		v, err := strconv.ParseUint(off[1:], 16, 16)
+		if err != nil {
+			return nil, fmt.Errorf("watchmem 位移常數要是 #XXXX，收到 %q", f[1])
+		}
+		literal, off = uint16(v), ""
+	case off == "AX" || off == "BX" || off == "CX" || off == "DX" ||
+		off == "SI" || off == "DI" || off == "BP" || off == "SP":
+	default:
+		return nil, fmt.Errorf("watchmem 位移要是 AX/BX/CX/DX/SI/DI/BP/SP 或 #XXXX，收到 %q", f[1])
+	}
+	n, err := strconv.Atoi(strings.TrimSpace(f[2]))
+	if err != nil || n <= 0 || n > 4096 {
+		return nil, fmt.Errorf("watchmem 長度要是 1–4096，收到 %q", f[2])
+	}
+	return &watchMemSpec{segReg: seg, offReg: off, literal: literal, length: n}, nil
 }
 
 // peek 印出 `ds:OFF` 起 N 個 byte。
