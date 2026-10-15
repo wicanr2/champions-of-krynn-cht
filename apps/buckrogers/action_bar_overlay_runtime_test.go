@@ -1,0 +1,226 @@
+package buckrogers
+
+import (
+	"bytes"
+	"testing"
+
+	"github.com/wicanr2/dosgolem/xlate"
+)
+
+func actionEventFor(c *ActionBarRequestCatalog, screen, key, variant string) (ActionBarEvent, DisplayRequest) {
+	for _, entry := range c.events.byScreen[screen] {
+		if entry.key != key {
+			continue
+		}
+		e := ActionBarEvent{EntryStep: 1, PostCallStep: 2, Screen: screen,
+			EventKey: screen + "." + key + "." + variant, Variant: variant, OriginalLength: entry.length,
+			OriginalSHA256: entry.hash, Row: entry.row, Column: entry.column,
+			X0: entry.x0, Y0: entry.y0, X1: entry.x1, Y1: entry.y1}
+		r, _ := c.Resolve(e)
+		return e, r
+	}
+	return ActionBarEvent{}, DisplayRequest{}
+}
+
+func TestRuntimeActionBarOverlayRequiresHotkeyPreservingStyleAtBothScales(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	if _, err := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, nil); err == nil {
+		t.Fatal("nil style must fail")
+	}
+	if _, err := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, &ActionBarNormalStyle{RuneForegrounds: []uint8{10, 10, 10, 10, 10}}); err == nil {
+		t.Fatal("discarding the white mnemonic must fail")
+	}
+	style := HotkeyPreservingActionBarNormalStyle()
+	for _, scale := range []int{2, 3} {
+		o, err := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), scale, &style)
+		if err != nil {
+			t.Fatal(err)
+		}
+		o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+		e, r := actionEventFor(c, "career", "action.add", "normal")
+		if err := o.Apply(e, r, [256][3]uint8{}); err != nil || len(o.ActiveKeys()) != 1 {
+			t.Fatalf("err=%v keys=%v", err, o.ActiveKeys())
+		}
+	}
+}
+
+func TestRuntimeActionBarOverlayAtomicallyReplacesVariantsAndPreservesOtherActions(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	style := HotkeyPreservingActionBarNormalStyle()
+	o, _ := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, &style)
+	o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+	for _, item := range [][2]string{{"action.add", "normal"}, {"action.subtract", "normal"}, {"action.add", "focus"}, {"action.add", "normal"}} {
+		e, r := actionEventFor(c, "career", item[0], item[1])
+		if err := o.Apply(e, r, [256][3]uint8{}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	keys := o.ActiveKeys()
+	if len(keys) != 2 || keys[0] != "career.action.add.normal" || keys[1] != "career.action.subtract.normal" {
+		t.Fatalf("keys=%v", keys)
+	}
+	if len(o.layer.Stamps) != 10 {
+		t.Fatalf("stamps=%d", len(o.layer.Stamps))
+	}
+}
+
+func TestRuntimeActionBarOverlayClearAndAnchorInvalidationAreGroupAtomic(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	style := HotkeyPreservingActionBarNormalStyle()
+	o, _ := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, &style)
+	o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+	for _, key := range []string{"action.add", "action.subtract"} {
+		e, r := actionEventFor(c, "career", key, "normal")
+		if err := o.Apply(e, r, [256][3]uint8{}); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if err := o.ClearTextCells(24, 1, 24, 1); err != nil {
+		t.Fatal(err)
+	}
+	if keys := o.ActiveKeys(); len(keys) != 1 || keys[0] != "career.action.subtract.normal" {
+		t.Fatalf("keys=%v", keys)
+	}
+	o.ObserveAnchorEvent("technical.screen.general_points.heading")
+	if len(o.ActiveKeys()) != 0 {
+		t.Fatal("screen transition must clear all groups")
+	}
+	e, r := actionEventFor(c, "technical", "action.add", "normal")
+	if err := o.Apply(e, r, [256][3]uint8{}); err != nil {
+		t.Fatal(err)
+	}
+	o.ObserveAnchorEvent("career.screen.maximum_per_skill.heading")
+	if len(o.ActiveKeys()) != 1 {
+		t.Fatal("proven shared key must preserve technical group")
+	}
+	o.ObserveAnchorEvent("class.option.warrior")
+	if len(o.ActiveKeys()) != 0 {
+		t.Fatal("unrelated exact event must clear groups")
+	}
+	if err := o.ClearTextCells(2, 1, 3, 1); err == nil {
+		t.Fatal("invalid clear must fail")
+	}
+}
+
+func TestRuntimeActionBarOverlayFrameDrawReappliesInjectedColors(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	style := HotkeyPreservingActionBarNormalStyle()
+	o, _ := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, &style)
+	o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+	e, r := actionEventFor(c, "career", "action.add", "normal")
+	var pal [256][3]uint8
+	pal[10] = [3]uint8{1, 2, 3}
+	pal[15] = [3]uint8{4, 5, 6}
+	if err := o.Apply(e, r, pal); err != nil {
+		t.Fatal(err)
+	}
+	indexed := bytes.Repeat([]byte{0}, 320*200)
+	indexed[192*320] = 15
+	indexed[192*320+1] = 10
+	o.Frame(indexed, pal)
+	// 依 stamp key 的 rune 序號比對確認的配色（「加點(A)」的 A 是第 3 個 rune）；
+	// 舊版以 layer 順序的第 1 筆為快捷字母，與正式譯文不符（BUCKROGERS_CHT_ROOT 設定時即失敗）。
+	for _, stamp := range o.layer.Stamps {
+		_, index, ok := actionStampGroup(stamp.Key)
+		if !ok {
+			t.Fatalf("key %q", stamp.Key)
+		}
+		want := pal[style.RuneForegrounds[index]]
+		if stamp.FG != want {
+			t.Fatalf("快捷字母配色被覆寫 index=%d got=%v want=%v", index, stamp.FG, want)
+		}
+	}
+	rgba, missing, drew := o.Draw(indexed, pal)
+	if !drew || len(missing) != 0 || len(rgba) != 640*400*4 {
+		t.Fatalf("drew=%v missing=%v rgba=%d", drew, missing, len(rgba))
+	}
+	actions := o.Actions()
+	actions[0].RuneForegrounds[0] = 99
+	if o.Actions()[0].RuneForegrounds[0] == 99 {
+		t.Fatal("actions must return deep copies")
+	}
+}
+
+func TestRuntimeActionBarOverlayClearsFullEnglishTailAtBothScales(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	style := HotkeyPreservingActionBarNormalStyle()
+	var pal [256][3]uint8
+	pal[10] = [3]uint8{0, 255, 0}
+	pal[15] = [3]uint8{255, 255, 255}
+	for _, scale := range []int{2, 3} {
+		for _, variant := range []string{"normal", "focus"} {
+			o, err := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), scale, &style)
+			if err != nil {
+				t.Fatal(err)
+			}
+			o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+			e, r := actionEventFor(c, "career", "action.subtract", variant)
+			indexed := bytes.Repeat([]byte{0}, 320*200)
+			tailColor, wantBG := uint8(15), pal[0]
+			if variant == "focus" {
+				indexed = bytes.Repeat([]byte{15}, 320*200)
+				tailColor, wantBG = 0, pal[15]
+			}
+			// x=80 is inside original SUBTRACT but beyond the 28-pixel translation.
+			indexed[194*320+80] = tailColor
+			indexed[194*320+100] = tailColor // outside the approved rectangle
+			if err := o.Apply(e, r, pal); err != nil {
+				t.Fatal(err)
+			}
+			o.Frame(indexed, pal)
+			rgba, missing, drew := o.Draw(indexed, pal)
+			if !drew || len(missing) != 0 {
+				t.Fatalf("scale=%d variant=%s drew=%v missing=%v", scale, variant, drew, missing)
+			}
+			for _, sample := range []struct {
+				x, y int
+				want [3]uint8
+			}{{80, 194, wantBG}, {100, 194, pal[tailColor]}} {
+				pixel := ((sample.y*scale)*320*scale + sample.x*scale) * 4
+				got := [3]uint8{rgba[pixel], rgba[pixel+1], rgba[pixel+2]}
+				if got != sample.want || rgba[pixel+3] != 0xff {
+					t.Fatalf("scale=%d variant=%s sample=%d,%d got=%v want=%v", scale, variant, sample.x, sample.y, got, sample.want)
+				}
+			}
+		}
+	}
+}
+
+func TestRuntimeActionBarOverlayRejectsPartlyShownGroup(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	style := HotkeyPreservingActionBarNormalStyle()
+	o, err := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, &style)
+	if err != nil {
+		t.Fatal(err)
+	}
+	o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+	e, r := actionEventFor(c, "career", "action.subtract", "normal")
+	var pal [256][3]uint8
+	pal[15] = [3]uint8{255, 255, 255}
+	indexed := bytes.Repeat([]byte{0}, 320*200)
+	indexed[194*320+80] = 15
+	if err := o.Apply(e, r, pal); err != nil {
+		t.Fatal(err)
+	}
+	o.Frame(indexed, pal)
+	o.layer.Stamps[0].State = xlate.Pending
+	rgba, missing, drew := o.Draw(indexed, pal)
+	if drew || len(missing) != 0 || len(o.ActiveKeys()) != 0 || !bytes.Equal(rgba, ScaleIndexedRGBA(indexed, pal, 2)) {
+		t.Fatalf("partial group must fail closed: drew=%v missing=%v keys=%v", drew, missing, o.ActiveKeys())
+	}
+}
+
+func TestRuntimeActionBarOverlayRejectsUnanchoredAndIdentityDrift(t *testing.T) {
+	c, rects := formalActionOverlay(t)
+	style := HotkeyPreservingActionBarNormalStyle()
+	o, _ := NewRuntimeActionBarOverlay(c, rects, actionOverlayFont(), 2, &style)
+	e, r := actionEventFor(c, "career", "action.add", "normal")
+	if err := o.Apply(e, r, [256][3]uint8{}); err == nil {
+		t.Fatal("unanchored apply must fail")
+	}
+	o.ObserveAnchorEvent("career.screen.remaining_points.heading")
+	e.X1++
+	if err := o.Apply(e, r, [256][3]uint8{}); err == nil {
+		t.Fatal("identity drift must fail")
+	}
+}

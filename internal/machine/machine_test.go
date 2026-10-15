@@ -313,7 +313,7 @@ func TestRetraceBitToggles(t *testing.T) {
 func TestPITCountsDown(t *testing.T) {
 	m := New()
 	seen := map[uint8]bool{}
-	for i := 0; i < 8; i++ {
+	for i := 0; i < 7; i++ {
 		seen[m.In8(0x40)] = true
 	}
 	if len(seen) < 4 {
@@ -422,6 +422,61 @@ func TestEGABitMaskKeepsUntouchedBits(t *testing.T) {
 	m.Out8(0x3CF, 0xFF)
 	if got := m.Read8(at); got != 0xFE {
 		t.Fatalf("寫入之後讀回 %02X，應該是 FE——Bit Mask 之外的位元沒有從 latch 補回去", got)
+	}
+}
+
+func TestVideoWriteObserverIsOptionalSeesSameValueAndRunsBeforeWrite(t *testing.T) {
+	m := New()
+	m.SetVideoMode(0x13)
+	const at = uint32(VideoSeg * 16)
+	m.Write8(at, 0x5A)
+	var got []VideoWrite
+	m.ObserveVideoWrites(func(w VideoWrite) {
+		if current := m.Mem[at]; current != 0x5A {
+			t.Fatalf("observer 不是 pre-write：current=%02X", current)
+		}
+		got = append(got, w)
+	})
+	m.Write8(at, 0x5A) // 同值 store 仍須可見。
+	m.Write8(at, 0x5A) // 重複同值 store 也須各自可見。
+	m.Write8(0x90000, 0x11)
+	if len(got) != 2 || got[0].Offset != 0 || got[1].Offset != 0 || got[0].Value != 0x5A || got[1].Value != 0x5A {
+		t.Fatalf("observer=%+v", got)
+	}
+	m.ObserveVideoWrites(nil)
+	m.Write8(at, 0x33)
+	if len(got) != 2 {
+		t.Fatalf("nil 未關閉 observer：%+v", got)
+	}
+}
+
+func TestVideoWriteObserverPreservesDistinctWriterAddresses(t *testing.T) {
+	m := New()
+	m.SetVideoMode(0x13)
+	code := []byte{
+		0xB8, 0x00, 0xA0, // mov ax,A000h
+		0x8E, 0xC0, // mov es,ax
+		0xBF, 0x4A, 0x01, // mov di,014Ah
+		0xB0, 0x5A, // mov al,5Ah
+		0xAA,             // stosb
+		0xBF, 0x4B, 0x01, // mov di,014Bh
+		0xAA, // stosb from a different CS:IP writer
+	}
+	copy(m.Mem[0x10000:], code)
+	m.CPU.Seg[cpu.CS] = 0x1000
+	m.CPU.IP = 0
+	var writes []VideoWrite
+	m.ObserveVideoWrites(func(w VideoWrite) { writes = append(writes, w) })
+	for i := 0; i < 8; i++ {
+		if err := m.Step(); err != nil {
+			t.Fatal(err)
+		}
+	}
+	if len(writes) != 2 {
+		t.Fatalf("writes=%+v", writes)
+	}
+	if writes[0].Value != writes[1].Value || writes[0].Offset != 0x014A || writes[1].Offset != 0x014B || writes[0].CS != 0x1000 || writes[1].CS != 0x1000 || writes[0].IP == writes[1].IP {
+		t.Fatalf("same-value writes lost writer/offset metadata: %+v", writes)
 	}
 }
 

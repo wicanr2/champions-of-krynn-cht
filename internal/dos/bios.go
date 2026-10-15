@@ -17,9 +17,13 @@ func (d *DOS) int10(c *cpu.CPU) {
 	switch fn {
 	case 0x00: // 設視訊模式
 		// 記進 BDA。一直回 3 的話，程式設了 mode 13h 之後再查會以為沒設成功。
-		d.M.SetVideoMode(al(c) & 0x7F)
-		if mode := al(c) & 0x7F; mode == 0x10 || mode == 0x12 {
+		mode := al(c) & 0x7F
+		d.M.SetVideoMode(mode)
+		switch mode {
+		case 0x10, 0x12:
 			loadRGBrgbDAC(d.M.DAC[:])
+		case 0x13:
+			loadVGA16DAC(d.M.DAC[:])
 		}
 
 	case 0x0C: // 寫像素：AL ＝ 色號、CX ＝ X、DX ＝ Y
@@ -162,13 +166,21 @@ func (d *DOS) int10(c *cpu.CPU) {
 		c.R[cpu.DX] = uint16(d.M.Read8(bdaCursor(bh(c))+1))<<8 | uint16(d.M.Read8(bdaCursor(bh(c))))
 		c.R[cpu.CX] = d.M.Read16(bdaBase + 0x60)
 
-	case 0x06, 0x07: // 捲動視窗（§1.3）
-		if d.textMode() {
+	case 0x06, 0x07: // 捲動視窗（上捲、下捲）與清除視窗
+		// CGA 圖形模式（04h、05h）走 docs/spec/250-cga-int10-scroll-and-palette §3.1；
+		// 文字模式走 `docs/spec/201` §1.3；其他模式 AH=06h 收下沒有動作，AH=07h 記一筆 note。
+		switch {
+		case d.M.IsCGAGraphics():
+			d.M.CGAScroll(int(c.R[cpu.CX]>>8), int(c.R[cpu.CX]&0xFF), int(c.R[cpu.DX]>>8), int(c.R[cpu.DX]&0xFF),
+				int(al(c)), fn == 0x07, bh(c))
+		case d.textMode():
 			n := int(int8(al(c)))
 			if fn == 0x06 {
 				n = -n
 			}
 			d.scrollText(uint8(c.R[cpu.CX]>>8), uint8(c.R[cpu.CX]), uint8(c.R[cpu.DX]>>8), uint8(c.R[cpu.DX]), n, bh(c))
+		case fn == 0x07:
+			d.note(0x10, fn, al(c))
 		}
 
 	case 0x08: // 讀游標處的字元與屬性（§1.4）
@@ -196,9 +208,39 @@ func (d *DOS) int10(c *cpu.CPU) {
 			}
 		}
 
+	case 0x0B: // 設定背景色與調色盤（CGA 圖形模式）
+		// 色彩選擇存在 BDA 0040:0066，位元定義同 3D9 埠；BH=0 設背景（低 5 位元），BH=1 選調色盤（bit 5）。
+		switch {
+		case !d.M.IsCGAGraphics():
+			d.note(0x10, fn, al(c))
+		case bh(c) == 0:
+			d.M.SetColorSelect(d.M.ColorSelect()&0xE0 | bl(c)&0x1F)
+		case bh(c) == 1:
+			d.M.SetColorSelect(d.M.ColorSelect()&0xDF | (bl(c)&1)<<5)
+		default:
+			d.note(0x10, fn, al(c))
+		}
+
 	case 0x05: // 設顯示頁：收下就好（`docs/spec/201` §1.6 不在範圍）
 	default:
 		d.note(0x10, fn, al(c))
+	}
+}
+
+// loadVGA16DAC 載入 VGA BIOS 模式 13h 預設 DAC 的前 16 色。
+//
+// 這 16 格不是裝飾性的 fallback：程式可以只重設自己要改的部分，保留其餘
+// BIOS 預設值。《Buck Rogers: Countdown to Doomsday》正是只寫 0–14，讓
+// 文字前景色 15 沿用白色。來源與實際呼叫證據見 docs/spec/205。
+func loadVGA16DAC(dac []uint8) {
+	palette := [...][3]uint8{
+		{0x00, 0x00, 0x00}, {0x00, 0x00, 0x2A}, {0x00, 0x2A, 0x00}, {0x00, 0x2A, 0x2A},
+		{0x2A, 0x00, 0x00}, {0x2A, 0x00, 0x2A}, {0x2A, 0x15, 0x00}, {0x2A, 0x2A, 0x2A},
+		{0x15, 0x15, 0x15}, {0x15, 0x15, 0x3F}, {0x15, 0x3F, 0x15}, {0x15, 0x3F, 0x3F},
+		{0x3F, 0x15, 0x15}, {0x3F, 0x15, 0x3F}, {0x3F, 0x3F, 0x15}, {0x3F, 0x3F, 0x3F},
+	}
+	for i, rgb := range palette {
+		copy(dac[i*3:i*3+3], rgb[:])
 	}
 }
 
@@ -374,12 +416,14 @@ func (d *DOS) int16(c *cpu.CPU) {
 		// 程式也可能繞過 int 16h 直接讀它（見 machine.PushBIOSKey）；
 		// 兩邊各留一份的話，同一個鍵會被讀兩次。
 		if v, ok := d.M.PopKey(); ok {
+			d.noteKeyPoll(c, ah(c), true)
 			c.R[cpu.AX] = v
 			d.noteKeyWord(c, "int16-AH00-bda", v)
 			d.KeysConsumed++
 			return
 		}
 		if len(d.Keys) > 0 {
+			d.noteKeyPoll(c, ah(c), true)
 			c.R[cpu.AX] = d.Keys[0]
 			d.noteKeyWord(c, "int16-AH00-queue", d.Keys[0])
 			d.Keys = d.Keys[1:]
@@ -387,28 +431,34 @@ func (d *DOS) int16(c *cpu.CPU) {
 			return
 		}
 		if len(d.Stdin) == 0 {
+			d.noteKeyPoll(c, ah(c), false)
 			c.R[cpu.AX] = 0
 			return
 		}
+		d.noteKeyPoll(c, ah(c), true)
 		c.R[cpu.AX] = keyWord(d.Stdin[0])
 		d.noteKeyWord(c, "int16-AH00-stdin", keyWord(d.Stdin[0]))
 		d.Stdin = d.Stdin[1:]
 	case 0x01, 0x11: // 查有沒有按鍵：ZF=1 表示沒有，**不消耗佇列**
 		d.KeyPolls++
 		if v, ok := d.M.PeekKey(); ok {
+			d.noteKeyPoll(c, ah(c), true)
 			c.SetFlags(c.Flags &^ cpu.ZF)
 			c.R[cpu.AX] = v
 			return
 		}
 		if len(d.Keys) > 0 {
+			d.noteKeyPoll(c, ah(c), true)
 			c.SetFlags(c.Flags &^ cpu.ZF)
 			c.R[cpu.AX] = d.Keys[0] // 查看不取走
 			return
 		}
 		if len(d.Stdin) == 0 {
+			d.noteKeyPoll(c, ah(c), false)
 			c.SetFlags(c.Flags | cpu.ZF)
 			return
 		}
+		d.noteKeyPoll(c, ah(c), true)
 		c.SetFlags(c.Flags &^ cpu.ZF)
 		c.R[cpu.AX] = keyWord(d.Stdin[0]) // 查看不取走
 	case 0x05: // 把一個鍵塞進緩衝區：CX ＝ 掃描碼<<8 | ASCII
@@ -564,6 +614,13 @@ func (d *DOS) int1A(c *cpu.CPU) {
 // noteKey 記一次按鍵被取走（`int 21h` 那幾條路，只有 ASCII）。
 func (d *DOS) noteKey(via string, key uint8) {
 	d.KeyReads = append(d.KeyReads, KeyRead{Step: d.M.Steps, Via: via, Key: key})
+}
+
+func (d *DOS) noteKeyPoll(c *cpu.CPU, fn uint8, available bool) {
+	if d.KeyPollTraceLimit <= 0 || d.M.Steps < d.KeyPollTraceFrom || len(d.KeyPollsTrace) >= d.KeyPollTraceLimit {
+		return
+	}
+	d.KeyPollsTrace = append(d.KeyPollsTrace, KeyPoll{Step: d.M.Steps, AH: fn, Available: available, CS: c.Seg[cpu.CS], IP: c.IP})
 }
 
 // noteKeyWord 記一次 `int 16h` 取走按鍵，連同字組與呼叫端（`docs/spec/185`）。

@@ -61,6 +61,13 @@ type machineState struct {
 	PITPhase    uint8
 	PITLo       uint8
 
+	// `docs/spec/242`：242 之前的存檔沒有這幾個欄位（ClockPercent 為 0）。
+	VGAFrameEvery uint64
+	NextFrame     uint64
+	KeyEvery      uint64
+	NextKey       uint64
+	ClockPercent  int
+
 	Ports   map[uint16]uint8
 	PortsIn map[uint16]uint64
 
@@ -104,32 +111,34 @@ type machineState struct {
 func (m *Machine) SaveState(w io.Writer) error {
 	s := machineState{
 		Magic: stateMagic, Version: stateVersion,
-		Mem:            append([]uint8(nil), m.Mem...),
-		R:              m.CPU.R,
-		Hi:             m.CPU.Hi,
-		FSeg:           m.CPU.FSeg,
-		GSeg:           m.CPU.GSeg,
-		Seg:            m.CPU.Seg,
-		IP:             m.CPU.IP,
-		Flags:          m.CPU.Flags,
-		Halted:         m.CPU.Halted,
-		Model:          int(m.CPU.Model),
-		Steps:          m.Steps,
-		Ticks:          m.Ticks,
-		PortTicks:      m.portTicks,
-		NextIRQ0:       m.nextIRQ0,
-		IRQ0Pending:    m.irq0Pending,
-		IRQ0Every:      m.IRQ0Every,
-		IRQ0Base:       m.IRQ0Base,
-		CPUHz:          m.CPUHz,
-		CycleClock:     m.CycleClock,
-		DOSBoxCost:     m.CPU.DOSBoxCost,
-		Cycles:         m.CPU.Cycles,
-		NextIRQ0Cyc:    m.nextIRQ0Cyc,
-		PITDiv:         m.PITDiv,
-		PITAccess:      m.pitAccess,
-		PITPhase:       m.pitPhase,
-		PITLo:          m.pitLo,
+		Mem:           append([]uint8(nil), m.Mem...),
+		R:             m.CPU.R,
+		Hi:            m.CPU.Hi,
+		FSeg:          m.CPU.FSeg,
+		GSeg:          m.CPU.GSeg,
+		Seg:           m.CPU.Seg,
+		IP:            m.CPU.IP,
+		Flags:         m.CPU.Flags,
+		Halted:        m.CPU.Halted,
+		Model:         int(m.CPU.Model),
+		Steps:         m.Steps,
+		Ticks:         m.Ticks,
+		PortTicks:     m.portTicks,
+		NextIRQ0:      m.nextIRQ0,
+		IRQ0Pending:   m.irq0Pending,
+		IRQ0Every:     m.IRQ0Every,
+		IRQ0Base:      m.IRQ0Base,
+		CPUHz:         m.CPUHz,
+		CycleClock:    m.CycleClock,
+		DOSBoxCost:    m.CPU.DOSBoxCost,
+		Cycles:        m.CPU.Cycles,
+		NextIRQ0Cyc:   m.nextIRQ0Cyc,
+		PITDiv:        m.PITDiv,
+		PITAccess:     m.pitAccess,
+		PITPhase:      m.pitPhase,
+		PITLo:         m.pitLo,
+		VGAFrameEvery: m.VGAFrameEvery, NextFrame: m.nextFrame, KeyEvery: m.KeyEvery, NextKey: m.nextKey,
+		ClockPercent:   m.ClockPercent(),
 		Ports:          map[uint16]uint8{},
 		PortsIn:        map[uint16]uint64{},
 		DAC:            append([]uint8(nil), m.DAC[:]...),
@@ -213,6 +222,18 @@ func (m *Machine) LoadState(r io.Reader) error {
 		m.CPUHz = DefaultCPUHz
 	}
 	m.recalcIRQ0()
+	// 存檔決定時脈（`docs/spec/242` §2.1）。舊存檔（ClockPercent 缺席）是 100% 的存檔：
+	// 還原前機器若縮放過，間隔回 100% 預設；否則保留當下值（例如 probe 在載入前自訂的
+	// KeyEvery），與既有行為相同。nextFrame／nextKey 維持當下值。
+	if s.ClockPercent == 0 {
+		if m.ClockPercent() != 100 {
+			m.VGAFrameEvery, m.KeyEvery = DefaultVGAFrameEvery, DefaultKeyIRQEvery
+		}
+		m.clockPct = 0
+	} else {
+		m.VGAFrameEvery, m.nextFrame, m.KeyEvery, m.nextKey = s.VGAFrameEvery, s.NextFrame, s.KeyEvery, s.NextKey
+		m.clockPct = s.ClockPercent
+	}
 
 	m.Ports = map[uint16]uint8{}
 	for k, v := range s.Ports {

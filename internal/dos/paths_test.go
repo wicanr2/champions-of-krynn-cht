@@ -215,13 +215,13 @@ func TestFindFirstInSubdirectory(t *testing.T) {
 	m, d, _, _ := newTree(t, `C:\EOB3\AESOP.EXE`)
 	m.CPU.Seg[cpu.DS], m.CPU.R[cpu.DX] = fileScratchSeg, 0
 	m.WriteBytes(cpu.Addr(fileScratchSeg, 0), append([]byte(`SAVEGAME\*.BIN`), 0))
-	st := d.searchFor(`SAVEGAME\*.BIN`)
+	st := d.searchFor(`SAVEGAME\*.BIN`, 0)
 	got := strings.Join(st.names, ",")
 	if got != "ITEMS_00.BIN,LONGFILE.BIN,LOWERCASE.BIN,LVL01_00.BIN" {
 		t.Errorf(`SAVEGAME\*.BIN ＝ %q`, got)
 	}
 	// 根目錄的樣式：不看子目錄（舊行為）。
-	if got := strings.Join(d.searchFor(`*.RES`).names, ","); got != "EYE.RES" {
+	if got := strings.Join(d.searchFor(`*.RES`, 0).names, ","); got != "EYE.RES" {
 		t.Errorf("*.RES ＝ %q", got)
 	}
 }

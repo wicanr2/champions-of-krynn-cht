@@ -236,11 +236,12 @@ func TestModeSetLoadsDefaultDAC(t *testing.T) {
 			}
 		}
 	}
-	// mode 13h 不在範圍：DAC 不被這條規則改寫。
+	// mode 13h 不在範圍：DAC 不被這條規則改寫。前 16 色另有 VGA 預設
+	// （`docs/spec/205`，loadVGA16DAC），所以看 20h：照這條公式會是 15h。
 	m, d := newTest(t)
-	m.DAC[7*3] = 0x11
+	m.DAC[0x20*3] = 0x11
 	call(m, d, 0x10, 0x0013)
-	if m.DAC[7*3] != 0x11 {
-		t.Fatalf("mode 13h 改寫了 DAC 7：%02X", m.DAC[7*3])
+	if m.DAC[0x20*3] != 0x11 {
+		t.Fatalf("mode 13h 改寫了 DAC 20h：%02X", m.DAC[0x20*3])
 	}
 }

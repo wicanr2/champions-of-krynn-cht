@@ -50,10 +50,13 @@ type Snapshot struct {
 	timedKeys []timedKey // `docs/spec/197`：同樣的理由，按住中的放開碼漏掉的話鍵會卡住
 	timedSeq  uint64
 	nextKey   uint64
-	keyIRQs   uint64
-	keyStalls uint64
-	kbdData   uint8
-	kbdPortB  uint8
+	// 回掃與鍵盤間隔、時脈比例（`docs/spec/242`）。
+	vgaEvery, nextFrame, keyEvery uint64
+	clockPct                      int
+	keyIRQs                       uint64
+	keyStalls                     uint64
+	kbdData                       uint8
+	kbdPortB                      uint8
 
 	ports   map[uint16]uint8
 	portsIn map[uint16]uint64
@@ -148,6 +151,7 @@ func (m *Machine) Snapshot() *Snapshot {
 		timedKeys: append([]timedKey(nil), m.timedKeys...),
 		timedSeq:  m.timedKeySeq,
 		nextKey:   m.nextKey,
+		vgaEvery:  m.VGAFrameEvery, nextFrame: m.nextFrame, keyEvery: m.KeyEvery, clockPct: m.clockPct,
 		keyIRQs:   m.KeyIRQs,
 		keyStalls: m.keyStalls,
 		kbdData:   m.kbdData,
@@ -210,9 +214,11 @@ func (m *Machine) Restore(s *Snapshot) {
 	m.keyQueue = append([]KeyEvent(nil), s.keyQueue...)
 	m.timedKeys, m.timedKeySeq = append([]timedKey(nil), s.timedKeys...), s.timedSeq
 	m.nextKey, m.KeyIRQs, m.keyStalls = s.nextKey, s.keyIRQs, s.keyStalls
+	m.VGAFrameEvery, m.nextFrame, m.KeyEvery, m.clockPct = s.vgaEvery, s.nextFrame, s.keyEvery, s.clockPct
 	m.kbdData, m.kbdPortB = s.kbdData, s.kbdPortB
 
 	m.Speaker = append(m.Speaker[:0], s.speaker...)
+	m.syncSpeakerLast()
 	m.pit, m.picMask = s.pit, s.picMask
 	m.IRQ0Clamped = s.irq0Clamped
 }

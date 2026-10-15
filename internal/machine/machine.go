@@ -251,6 +251,17 @@ type Machine struct {
 	rWatchLo, rWatchHi uint32
 	onRead             func(addr uint32, v uint8)
 	onWrite            func(addr uint32, old, new uint8)
+	onVideoWrite       func(VideoWrite)
+	// 視訊模式觀測（Buck 規格 052）。callback 在 SetVideoMode 末尾呼叫；ModeChanges 照舊追加。
+	onModeChange func(ModeChange)
+
+	// 音訊觀測（`docs/spec/240`）。掛上時 OPL／Speaker 序列不再追加。
+	onOPL        func(OPLWrite)
+	onSpeaker    func(SpeakerSample)
+	onPIT2       func(PIT2Change)
+	pit2         pit2
+	speakerLast  [2]uint8 // level, gate
+	speakerValid bool
 
 	// OPL2／OPL3 的狀態。
 	//
@@ -481,6 +492,8 @@ type Machine struct {
 	KeyIRQs   uint64
 	keyStalls uint64
 	nextKey   uint64
+	// clockPct 是時脈比例（`docs/spec/242`）；0 表示未設定（100）。
+	clockPct int
 	// KeyEvery 是兩次鍵盤中斷之間至少隔幾道指令。
 	KeyEvery uint64
 
@@ -501,6 +514,27 @@ type Machine struct {
 	ImageBase uint32
 	ImageLen  int
 }
+
+// VideoWrite 是一次送進平面 A000 視窗的 byte write。Value 只供機器內部
+// 診斷；content-safe receipt 必須自行投影，不得原樣輸出。
+type VideoWrite struct {
+	Step      uint64
+	CS, IP    uint16
+	Offset    uint32
+	Value     uint8
+	WriteMode uint8
+}
+
+// ObserveVideoWrites 掛上 A000 pre-write observer；nil 關閉。callback 在
+// VGA.Write 前呼叫，因此同值 write 也可見，且不得改變執行狀態。
+func (m *Machine) ObserveVideoWrites(fn func(VideoWrite)) { m.onVideoWrite = fn }
+
+// ObserveModeChanges 掛上視訊模式設定 observer；nil 關閉。callback 在 SetVideoMode
+// 的最後（BDA、平面、時序暫存器與 planarOn 都已更新）呼叫一次，早於 BIOS 載入調色盤；
+// 它不得改變執行狀態、不得讀 Palette()。平面模式的清除不經 Write8，所以
+// ObserveVideoWrites 看不到；任何模式設定都是顯示的不連續點。
+// callback 不進 Snapshot 或 state（同 onVideoWrite）。
+func (m *Machine) ObserveModeChanges(fn func(ModeChange)) { m.onModeChange = fn }
 
 // New 造一台機器：記憶體清空、BDA 建好、向量表填好。
 //
@@ -667,6 +701,10 @@ func (m *Machine) Write8(a uint32, v uint8) {
 		return
 	}
 	a &= 0xFFFFF
+	if m.onVideoWrite != nil && a >= vgaLo && a < vgaHi {
+		cs, ip := m.CPU.OpAddr()
+		m.onVideoWrite(VideoWrite{Step: m.Steps, CS: cs, IP: ip, Offset: a - vgaLo, Value: v, WriteMode: m.VGA.WriteMode()})
+	}
 	if m.planarOn && a >= vgaLo && a < vgaHi {
 		// planar 的位元組不在 Mem[] 裡，WatchWrites 看不到它們。
 		// VideoRowWrites 補這個洞：**要分辨「程式沒畫」與「畫了但沒生效」**，
@@ -833,7 +871,12 @@ func (m *Machine) oplWrite(bank int, v uint8) {
 			}
 		}
 	}
-	m.OPL = append(m.OPL, OPLWrite{Reg: reg, Val: v, Step: m.Steps, Cycles: m.CPU.Cycles, Bank: uint8(bank)})
+	w := OPLWrite{Reg: reg, Val: v, Step: m.Steps, Cycles: m.CPU.Cycles, Bank: uint8(bank)}
+	if m.onOPL != nil {
+		m.onOPL(w)
+		return
+	}
+	m.OPL = append(m.OPL, w)
 }
 
 // OPLRegs 回某一組暫存器的**目前狀態**（256 bytes）。
@@ -968,6 +1011,10 @@ func (m *Machine) Out8(p uint16, v uint8) {
 	// PIT（8253/8254）通道 0 的分頻。
 	if p == 0x40 || p == 0x43 {
 		m.pitWrite(p, v)
+	}
+	// 通道 2（喇叭方波，`docs/spec/240`）。
+	if p == 0x42 || p == 0x43 {
+		m.pit2Write(p, v)
 	}
 
 	// OPL2：0x388 選暫存器、0x389 寫值。**兩個埠是一組**，

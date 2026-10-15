@@ -64,6 +64,19 @@ func (e *ExitError) Error() string {
 		e.Code, e.Console)
 }
 
+// InputWaitError 表示執行在指令前等待鍵盤，並未跑足要求的步數。
+// 呼叫端可送一般按鍵後再呼叫 Run（docs/spec/251-oracle-step-guard.md）。
+type InputWaitError struct{ Stopped Addr }
+
+func (e *InputWaitError) Error() string {
+	return fmt.Sprintf("等待鍵盤輸入：%s", e.Stopped)
+}
+
+// SetStepGuard 設定條件與護欄之後、hook 與指令之前的執行閘門。
+// 回錯即原樣停止；nil 關閉。guard 只可維護主機狀態或送一般輸入，
+// 不可直接修改原版狀態以跳過程式。一台 Oracle 只有一個 guard 擁有者。
+func (o *Oracle) SetStepGuard(guard func(*Oracle) error) { o.stepGuard = guard }
+
 // Run 純跑 n 道指令。程式中途結束或 CPU 出錯都回錯誤。
 func (o *Oracle) Run(n uint64) error {
 	return o.RunUntil(Steps(n), Budget(n+1))
@@ -77,6 +90,12 @@ func (o *Oracle) RunUntil(c Cond, opts ...RunOpt) error {
 	cfg := runCfg{budget: DefaultBudget}
 	for _, f := range opts {
 		f(&cfg)
+	}
+	// docs/spec/005-oracle-api.md §3.2: the budget is an instruction limit.
+	// A wrapped deadline would silently report BudgetError before attempting
+	// even one instruction, which is not an exhausted budget.
+	if cfg.budget > ^uint64(0)-o.m.Steps {
+		return fmt.Errorf("oracle: 指令預算溢位：目前步數 %d、預算 %d", o.m.Steps, cfg.budget)
 	}
 	deadline := o.m.Steps + cfg.budget
 
@@ -103,6 +122,11 @@ func (o *Oracle) RunUntil(c Cond, opts ...RunOpt) error {
 		lin := cpu.Linear(o.m.CPU.Seg[cpu.CS], o.m.CPU.IP)
 		if lin >= machine.VideoSeg*16 && lin < machine.MemSize {
 			return fmt.Errorf("跑出可用記憶體：%s（線性 %05X）", o.IP(), lin)
+		}
+		if o.stepGuard != nil {
+			if err := o.stepGuard(o); err != nil {
+				return err
+			}
 		}
 		key := lin & 0xFFFFF
 		if o.hookBits != nil && o.hookBits[key>>6]&(1<<(key&63)) != 0 {
@@ -615,6 +639,7 @@ func (o *Oracle) DX() uint16 { return o.m.CPU.R[cpu.DX] }
 func (o *Oracle) SI() uint16 { return o.m.CPU.R[cpu.SI] }
 func (o *Oracle) DI() uint16 { return o.m.CPU.R[cpu.DI] }
 func (o *Oracle) BP() uint16 { return o.m.CPU.R[cpu.BP] }
+func (o *Oracle) SP() uint16 { return o.m.CPU.R[cpu.SP] }
 
 // ES 讀附加段。表的位址多半是「段來自變數、位移寫死在指令裡」，
 // 段與位移都要才算得出線性位址。

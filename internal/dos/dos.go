@@ -369,6 +369,12 @@ type DOS struct {
 	// KeyReads 記每一次按鍵被取走。永遠記——筆數是按鍵數，很少。
 	KeyReads []KeyRead
 
+	// KeyPollsTrace 是 BIOS int 16h 的 content-safe 查詢紀錄。預設關閉；
+	// 只在明示設定起點與上限後收集，不參與 DOS 狀態或遊戲行為。
+	KeyPollsTrace     []KeyPoll
+	KeyPollTraceFrom  uint64
+	KeyPollTraceLimit int
+
 	handles map[uint16]*handle
 	// MaxHandles 是這個程序同時開得了幾個檔（含 0–4 的標準 handle）。
 	// DOS 的預設是 20，`AH=67h` 可以調高。
@@ -785,6 +791,8 @@ func (d *DOS) handle(c *cpu.CPU, n uint8) bool {
 		d.fontGlyph(c, false)
 	case 0x20:
 		d.exit(c, 0)
+	case 0x27: // 舊式常駐結束（`docs/spec/197-int27-terminate-and-stay-resident`）
+		d.tsr27(c)
 	case 0x67:
 		d.int67(c)
 	default:
@@ -1015,6 +1023,14 @@ type KeyRead struct {
 	// **決定「這個鍵要做什麼」的通常是第三層**——追 Pool 的方位鍵時，
 	// 第一層永遠是 RTL 的 `ReadKey`、第二層永遠是同一個選單元件。
 	Caller2CS, Caller2IP uint16
+}
+
+// KeyPoll 是一次 BIOS 鍵盤讀取或查看的 metadata；不保存鍵值。
+type KeyPoll struct {
+	Step      uint64
+	AH        uint8
+	Available bool
+	CS, IP    uint16
 }
 
 // CallRec 是一次 int 21h 的暫存器快照。

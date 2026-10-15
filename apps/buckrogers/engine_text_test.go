@@ -1,0 +1,487 @@
+package buckrogers
+
+import (
+	"crypto/sha256"
+	"fmt"
+	"strings"
+	"testing"
+)
+
+func engineTSV(prefix string, texts ...string) []byte {
+	var b strings.Builder
+	b.WriteString("event_key\toriginal_length\toriginal_sha256\n")
+	for _, t := range texts {
+		h := sha256.Sum256([]byte(t))
+		fmt.Fprintf(&b, "%s.%x\t%d\t%x\n", prefix, h[:6], len(t), h)
+	}
+	return []byte(b.String())
+}
+
+func engineZh(prefix string, pairs ...string) []byte {
+	var b strings.Builder
+	b.WriteString("key\ttranslation\tsource\n")
+	for i := 0; i+1 < len(pairs); i += 2 {
+		h := sha256.Sum256([]byte(pairs[i]))
+		fmt.Fprintf(&b, "%s.%x\t%s\tecl-batch-editorial\n", prefix, h[:6], pairs[i+1])
+	}
+	return []byte(b.String())
+}
+
+func engineFixture(t *testing.T) *EngineTextCatalog {
+	t.Helper()
+	frags := []string{" makes ", "his", " tactics roll.", "Hitting for ", " points ", "of damage", "AC", "Attacks", " leads ", "From"}
+	items := []string{"Bolt", "Gun", "Laser", "Pistol", "Heavy Body", "Armor", "Good", "Space"}
+	c, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", frags...),
+		FragmentText: engineZh("frag", " makes ", "進行", "his", "他的", " tactics roll.", "戰術判定。", "Hitting for ", "造成",
+			" points ", "點", "of damage", "傷害", "AC", "防禦", "Attacks", "攻擊"),
+		ItemEvents:    engineTSV("item", items...),
+		ItemText:      engineZh("item", "Bolt", "爆能", "Gun", "槍", "Laser", "雷射", "Pistol", "手槍", "Heavy Body", "重型", "Armor", "護甲"),
+		MonsterEvents: engineTSV("monster", "TERRINE WARRIOR", "NEO WARRIOR"),
+		MonsterText:   engineZh("monster", "TERRINE WARRIOR", "特林戰士", "NEO WARRIOR", "NEO 戰士"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	return c
+}
+
+func TestEngineDecomposeAndTranslate(t *testing.T) {
+	c := engineFixture(t)
+	cases := []struct{ in, sig, zh string }{
+		{"FLAVIUS makes his tactics roll.", "_|F|F|F", "FLAVIUS 進行他的戰術判定。"},
+		{"Hitting for 2 points of damage", "F|_|F|F", "造成 2 點傷害"},
+		{"Bolt Gun (100)", "I|_", "爆能槍 (100)"},
+		{"Heavy Body Armor", "I", "重型護甲"},
+		{"AC", "F", "防禦"},
+		{"TERRINE WARRIOR makes his tactics roll.", "_|F|F|F", "特林戰士進行他的戰術判定。"},
+		// The slot already carries the space after the fragment: no second space.
+		{"Hitting for  2 points of damage", "F|_|F|F", "造成 2 點傷害"},
+	}
+	for _, tc := range cases {
+		parts := c.Decompose(tc.in)
+		var kinds []string
+		for _, p := range parts {
+			kinds = append(kinds, string(p.Kind))
+		}
+		if got := strings.Join(kinds, "|"); got != tc.sig {
+			t.Errorf("%q: kinds %s want %s", tc.in, got, tc.sig)
+		}
+		if zh, ok := c.Translate(tc.in); !ok || zh != tc.zh {
+			t.Errorf("%q: %q %v want %q", tc.in, zh, ok, tc.zh)
+		}
+	}
+	// Upper-case variants share the base translation (".uc" keys).
+	up, err := LoadEngineTextFiles(t, "Attacks", "攻擊")
+	if err != nil {
+		t.Fatal(err)
+	}
+	if zh, ok := up.Translate("ATTACKS"); !ok || zh != "攻擊" {
+		t.Errorf("upper-case fragment: %q %v", zh, ok)
+	}
+	if zh, ok := up.Translate("LASER PISTOL (250)"); !ok || zh != "雷射手槍 (250)" {
+		t.Errorf("upper-case item: %q %v", zh, ok)
+	}
+	// Untranslated fragment, all-caps names, and a lone common item word.
+	if zh, ok := c.Translate("TERRINE WARRIOR"); !ok || zh != "特林戰士" {
+		t.Errorf("monster name: %q %v", zh, ok)
+	}
+	for _, in := range []string{"CELESTE leads NEO WARRIOR.", "FLAVIUS", "Good", "ACE PILOT"} {
+		if zh, ok := c.Translate(in); ok {
+			t.Errorf("%q translated to %q", in, zh)
+		}
+	}
+}
+
+func TestEngineDispatchAllowListAndLifecycle(t *testing.T) {
+	c := engineFixture(t)
+	if _, err := LoadEngineDispatchCallers([]byte("caller\tnote\nOVR:2BA60:101E\tx\n"), map[CodeKey]bool{{Unit: 0x2BA60, Offset: 0x101E}: true}); err == nil {
+		t.Fatal("owned caller accepted")
+	}
+	allow, err := LoadEngineDispatchCallers([]byte("caller\tnote\n1FEB:0560\tAC\n"), nil)
+	if err != nil {
+		t.Fatal(err)
+	}
+	w := NewEngineDispatchWatcher(c, allow)
+	ret := Address{0x1FEB, 0x0560}
+	args := [6]uint16{0, 0, 0, 5, 3, 30}
+	w.ObserveEntry(CodeKey{Segment: 0x1FEB, Offset: 0x0999}, 1, 0x100, Address{0x1FEB, 0x0999}, args, []byte("AC"))
+	if w.Page() != nil {
+		t.Fatal("caller outside allow list drew")
+	}
+	w.ObserveEntry(CodeKey{Segment: 0x1FEB, Offset: 0x0560}, 1, 0x100, ret, args, []byte("AC"))
+	p := w.Page()
+	if p == nil || p.Rows[0].Row != 3 || p.Rows[0].Col != 30 || string(p.Rows[0].Cells[0].Rune) != "防" {
+		t.Fatalf("%+v", p)
+	}
+	w.SetNameCallers(map[CodeKey]bool{{Unit: 0x2BA60, Offset: 0x235A}: true})
+	nameKey := CodeKey{Unit: 0x2BA60, Offset: 0x235A}
+	nameCaller := Address{0x37F1, 0x235A}
+	w.ObserveEntry(nameKey, 1, 0x100, nameCaller, [6]uint16{0, 0, 0, 5, 7, 23}, []byte("FLAVIUS"))
+	w.ObserveInstruction(nameCaller, 1, 0x100+engineDispatchReturnDelta)
+	w.ObserveEntry(nameKey, 1, 0x100, nameCaller, [6]uint16{0, 0, 0, 5, 8, 23}, []byte("AC"))
+	w.ObserveInstruction(nameCaller, 1, 0x100+engineDispatchReturnDelta)
+	w.ObserveEntry(nameKey, 1, 0x100, nameCaller, [6]uint16{0, 0, 0, 5, 9, 23}, []byte("TERRINE WARRIOR"))
+	w.ObserveInstruction(nameCaller, 1, 0x100+engineDispatchReturnDelta)
+	if p := w.Page(); p == nil || len(p.Rows) != 2 || p.Rows[1].Row != 9 {
+		t.Fatalf("name-only caller: %+v", p)
+	}
+	w.ObserveEntry(CodeKey{Segment: 0x1FEB, Offset: 0x0560}, 1, 0x100, ret, args, []byte("AC"))
+	w.ObserveVideoWrite(3*8*320 + 30*8)
+	if w.Page() == nil {
+		t.Fatal("in-call write dropped line")
+	}
+	w.ObserveInstruction(ret, 1, 0x100+engineDispatchReturnDelta)
+	w.ObserveVideoWrite(3*8*320 + 31*8)
+	for _, r := range w.Page().Rows {
+		if r.Row == 3 {
+			t.Fatal("post-call write kept line")
+		}
+	}
+}
+
+func TestEngineTemplateWildcard(t *testing.T) {
+	h := func(s string) string { x := sha256.Sum256([]byte(s)); return fmt.Sprintf("frag.%x", x[:6]) }
+	c, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", "Drop ", " forever? ", "Knife", "Use antidote on "),
+		FragmentText:   engineZh("frag", "Drop ", "丟棄", " forever? ", "永久嗎？", "Knife", "小刀", "Use antidote on ", "使用解毒劑於"),
+		ItemEvents:     engineTSV("item", "Bolt", "Gun"),
+		ItemText:       engineZh("item", "Bolt", "爆能", "Gun", "槍"),
+		TemplateEvents: []byte("event_key\tsignature\ntpl.drop\t" + h("Drop ") + "|*|" + h(" forever? ") + "\ntpl.antidote\t" + h("Use antidote on ") + "|_\n"),
+		TemplateText:   []byte("key\ttranslation\tsource\ntpl.drop\t永久丟棄{0}嗎？\tecl-batch-editorial\ntpl.antidote\t對{0}使用解毒劑\tecl-batch-editorial\n"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	for in, want := range map[string]string{
+		"Drop Knife forever? ":    "永久丟棄小刀嗎？",
+		"Drop Bolt Gun forever? ": "永久丟棄爆能槍嗎？",
+		"Use antidote on FLAVIUS": "對FLAVIUS使用解毒劑",
+	} {
+		if got, ok := c.Translate(in); !ok || got != want {
+			t.Errorf("%q -> %q %v, want %q", in, got, ok, want)
+		}
+	}
+}
+
+// LoadEngineTextFiles builds a catalog with one fragment and upper-case
+// variants the way tools/engine_fragments.py writes them.
+func LoadEngineTextFiles(t *testing.T, frag, zh string) (*EngineTextCatalog, error) {
+	t.Helper()
+	fh := sha256.Sum256([]byte(frag))
+	key := fmt.Sprintf("frag.%x", fh[:6])
+	uh := sha256.Sum256([]byte(strings.ToUpper(frag)))
+	ev := fmt.Sprintf("event_key\toriginal_length\toriginal_sha256\n%s\t%d\t%x\n%s.uc\t%d\t%x\n", key, len(frag), fh, key, len(frag), uh)
+	var items strings.Builder
+	items.WriteString("event_key\toriginal_length\toriginal_sha256\n")
+	var itemZh strings.Builder
+	itemZh.WriteString("key\ttranslation\tsource\n")
+	for w, z := range map[string]string{"Laser": "雷射", "Pistol": "手槍"} {
+		h := sha256.Sum256([]byte(w))
+		k := fmt.Sprintf("item.%x", h[:6])
+		u := sha256.Sum256([]byte(strings.ToUpper(w)))
+		fmt.Fprintf(&items, "%s\t%d\t%x\n%s.uc\t%d\t%x\n", k, len(w), h, k, len(w), u)
+		fmt.Fprintf(&itemZh, "%s\t%s\tx\n", k, z)
+	}
+	return LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: []byte(ev),
+		FragmentText:   []byte(fmt.Sprintf("key\ttranslation\tsource\n%s\t%s\tx\n", key, zh)),
+		ItemEvents:     []byte(items.String()),
+		ItemText:       []byte(itemZh.String()),
+	})
+}
+
+func TestEngineTableRowKeepsLastColumn(t *testing.T) {
+	c := engineFixture(t)
+	in := "Laser Pistol (10)                  335"
+	zh, ok := c.Translate(in)
+	// Spec 039 §3.4: the row is len(in)×2 half units, the last column right-aligned.
+	if !ok || stringUnits(zh) != 2*len(in) || !strings.HasPrefix(zh, "雷射手槍 (10) ") || !strings.HasSuffix(zh, " 335") {
+		t.Fatalf("table row: %q %v", zh, ok)
+	}
+	// A front that cannot be translated, and no whole-string fragment: English.
+	if _, ok := c.Translate("Jetpack                           1000"); ok {
+		t.Fatal("untranslated front accepted")
+	}
+	// Front alone unknown but the whole row is one fragment: whole-string translation.
+	whole, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", "Pooled funds:           0"),
+		FragmentText:   engineZh("frag", "Pooled funds:           0", "共同資金：         0"),
+		ItemEvents:     engineTSV("item", "Bolt", "Gun"),
+		ItemText:       engineZh("item", "Bolt", "爆能", "Gun", "槍"),
+		MonsterEvents:  engineTSV("monster", "NEO WARRIOR"),
+		MonsterText:    engineZh("monster", "NEO WARRIOR", "NEO 戰士"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if zh, ok := whole.Translate("Pooled funds:           0"); !ok || zh != "共同資金：         0" {
+		t.Fatalf("whole-string fallback: %q %v", zh, ok)
+	}
+	// A last column with letters is not a table row: normal rules apply.
+	if engineTableRow.MatchString("Bolt Gun  AC") || !engineTableRow.MatchString("Pooled funds:           0") ||
+		!engineTableRow.MatchString("Gun  1,000") || engineTableRow.MatchString("Gun 12") {
+		t.Fatal("table row detection")
+	}
+	// No room for the Chinese front plus one space: English.
+	long, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", "Wait"),
+		FragmentText:   engineZh("frag", "Wait", "請稍候片刻再來"),
+		ItemEvents:     engineTSV("item", "Bolt", "Gun"),
+		ItemText:       engineZh("item", "Bolt", "爆能", "Gun", "槍"),
+		MonsterEvents:  engineTSV("monster", "NEO WARRIOR"),
+		MonsterText:    engineZh("monster", "NEO WARRIOR", "NEO 戰士"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if zh, ok := long.Translate("Wait  9"); ok {
+		t.Fatalf("front does not fit but drew %q", zh)
+	}
+}
+
+func TestEngineDispatchSharedCallers(t *testing.T) {
+	c := engineFixture(t)
+	w := NewEngineDispatchWatcher(c, map[CodeKey]bool{})
+	shared := CodeKey{Unit: 0x2BA60, Offset: 0x15BD}
+	owned := map[CodeKey]bool{shared: true}
+	if err := w.SetSharedCallers(map[CodeKey]bool{{Segment: 0x0763, Offset: 1}: true}, owned); err == nil {
+		t.Fatal("shared caller not owned by an older family accepted")
+	}
+	w.SetNameCallers(map[CodeKey]bool{shared: true})
+	if err := w.SetSharedCallers(map[CodeKey]bool{shared: true}, owned); err == nil {
+		t.Fatal("shared caller overlapping the name list accepted")
+	}
+	w.SetNameCallers(map[CodeKey]bool{})
+	if err := w.SetSharedCallers(map[CodeKey]bool{shared: true}, owned); err != nil {
+		t.Fatal(err)
+	}
+	w.ObserveEntry(shared, 1, 0x100, Address{0x216E, 0x15C2}, [6]uint16{0, 0, 0, 10, 2, 1}, []byte("Laser Pistol (10)"))
+	if p := w.Page(); p == nil || p.Rows[0].Row != 2 {
+		t.Fatalf("shared caller not drawn: %+v", p)
+	}
+}
+
+func TestUntouchedRowsJudgesOwnCells(t *testing.T) {
+	r := &LiveRuntime{indexed: make([]byte, 320*200)}
+	r.palette[0] = [3]uint8{0, 0, 0}
+	out := ScaleIndexedRGBA(r.indexed, r.palette, 2)
+	p := &HMenuPage{Rows: []HMenuRow{
+		{Row: 11, Col: 16, Cells: make([]HMenuCell, 12)},
+		{Row: 12, Col: 16, Cells: make([]HMenuCell, 12)},
+		{Row: 13, Col: 16, Cells: make([]HMenuCell, 12)},
+	}}
+	w := 640
+	paint := func(row, col int, c byte) { // one pixel inside the cell, 2×
+		o := 4 * ((row*8*2+3)*w + col*8*2 + 3)
+		out[o], out[o+1], out[o+2] = c, c, c
+	}
+	paint(11, 2, 200)  // another family's label on row 11, outside our cells
+	paint(12, 20, 200) // another family's text inside our cells on row 12
+	paint(13, 18, 1)   // only a background colour change still counts
+	keep := r.untouchedRows(out, 2, p)
+	if len(keep) != 1 || keep[0].Row != 11 {
+		t.Fatalf("keep %+v", keep)
+	}
+}
+
+func TestEngineCoordinateLine(t *testing.T) {
+	c := engineFixture(t)
+	good := "key\ttranslation\tsource\ncoord.dir.N\t北\tx\ncoord.dir.E\t東\tx\ncoord.dir.S\t南\tx\ncoord.dir.W\t西\tx\n"
+	if err := c.LoadCoordinateText([]byte(good)); err != nil {
+		t.Fatal(err)
+	}
+	for in, want := range map[string]string{"15,10 E 01:02": "15,10 東 01:02", "0,7 S 00:26": "0,7 南 00:26", "24,20 W 01:02": "24,20 西 01:02", "5,5 N 00:01": "5,5 北 00:01"} {
+		if zh, ok := c.Translate(in); !ok || zh != want {
+			t.Errorf("%q: %q %v", in, zh, ok)
+		}
+	}
+	for _, in := range []string{"150,10 E 01:02", "15,10 E", "15,10 e 01:02", "15,10  E 01:02"} {
+		if zh, ok := c.Translate(in); ok && strings.ContainsAny(zh, "北東南西") {
+			t.Errorf("%q wrongly treated as a coordinate line: %q", in, zh)
+		}
+	}
+	if engineTableRow.MatchString("15,10 E 01:02") {
+		t.Error("coordinate line matches the table-row rule")
+	}
+	for _, bad := range []string{
+		"key\ttranslation\tsource\ncoord.dir.N\t北\tx\ncoord.dir.E\t東\tx\ncoord.dir.S\t南\tx\n",
+		strings.Replace(good, "西", "西方", 1),
+	} {
+		if err := engineFixture(t).LoadCoordinateText([]byte(bad)); err == nil {
+			t.Errorf("bad coordinate text accepted: %q", bad)
+		}
+	}
+}
+
+func TestEngineDispatchEclPrompt(t *testing.T) {
+	w := NewEngineDispatchWatcher(engineFixture(t), map[CodeKey]bool{})
+	if _, ok := w.eclPrompt([]byte("WHO SHOOTS? ")); ok {
+		t.Fatal("no ECL catalog: step must be skipped")
+	}
+	w.SetEclCatalog(eclFixture(t, "WHO SHOOTS?", "誰開槍？", "LONG ONE", "這是一段非常長而且放不下的譯文"))
+	if zh, ok := w.eclPrompt([]byte("WHO SHOOTS? ")); !ok || zh != "誰開槍？ " {
+		t.Fatalf("trailing space: %q %v", zh, ok)
+	}
+	for _, in := range []string{"WHO SHOOTS?", " WHO SHOOTS? ", "who shoots? ", "LONG ONE "} {
+		if zh, ok := w.eclPrompt([]byte(in)); ok {
+			t.Errorf("%q matched: %q", in, zh)
+		}
+	}
+	// Through the watcher: an allowed caller whose string §2.4 cannot translate.
+	caller := CodeKey{Unit: 0x2BA60, Offset: 0x101E}
+	w.allow[caller] = true
+	w.ObserveEntry(caller, 1, 0x100, Address{0x216E, 0x1023}, [6]uint16{0, 0, 13, 0, 24, 0}, []byte("WHO SHOOTS? "))
+	if p := w.Page(); p == nil || p.Rows[0].Row != 24 || p.Rows[0].Cells[0].Rune != '誰' {
+		t.Fatalf("dispatcher page: %+v", p)
+	}
+}
+
+func wrapFixture(t *testing.T) *EngineDispatchWatcher {
+	t.Helper()
+	full := "  No injuries were successfully treated."
+	c, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", full),
+		FragmentText:   engineZh("frag", full, "沒有人的傷勢獲得成功治療。"),
+		ItemEvents:     engineTSV("item", "Bolt", "Gun"),
+		ItemText:       engineZh("item", "Bolt", "爆能", "Gun", "槍"),
+		MonsterEvents:  engineTSV("monster", "NEO WARRIOR"),
+		MonsterText:    engineZh("monster", "NEO WARRIOR", "NEO 戰士"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	return NewEngineDispatchWatcher(c, map[CodeKey]bool{{Segment: 0x0763, Offset: 0x1282}: true})
+}
+
+// spec 029 §2.10：換行拆開的片段拼回後畫兩列。
+func TestEngineDispatchWrappedFragment(t *testing.T) {
+	caller := CodeKey{Segment: 0x0763, Offset: 0x1282}
+	ret := Address{0x0763, 0x1282}
+	ret2 := func(w *EngineDispatchWatcher) { w.ObserveInstruction(ret, 1, 0x100+engineDispatchReturnDelta) }
+	s1, s2 := []byte("  No injuries were successfully"), []byte("treated.")
+
+	w := wrapFixture(t)
+	w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 3, 1}, s1)
+	ret2(w)
+	if w.Page() != nil {
+		t.Fatal("first half drawn before the second arrived")
+	}
+	w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 4, 1}, s2)
+	p := w.Page()
+	if p == nil || len(p.Rows) != 2 || p.Rows[0].Row != 3 || p.Rows[1].Row != 4 {
+		t.Fatalf("two rows expected: %+v", p)
+	}
+	first, second := "", ""
+	for _, c := range p.Rows[0].Cells {
+		first += string(c.Rune)
+	}
+	for _, c := range p.Rows[1].Cells {
+		second += string(c.Rune)
+	}
+	if strings.TrimRight(first, " 　") != "沒有人的傷勢獲得成功治療。" || strings.Trim(second, " 　") != "" {
+		t.Fatalf("whole sentence fits the first row: %q | %q", first, second)
+	}
+
+	// Not the next row, another caller, an entry in between, a write to S1's row: nothing.
+	for name, f := range map[string]func(w *EngineDispatchWatcher){
+		"row gap": func(w *EngineDispatchWatcher) {
+			w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 5, 1}, s2)
+		},
+		"other caller": func(w *EngineDispatchWatcher) {
+			w.allow[CodeKey{Segment: 0x0763, Offset: 0x0C42}] = true
+			w.ObserveEntry(CodeKey{Segment: 0x0763, Offset: 0x0C42}, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 4, 1}, s2)
+		},
+		"entry between": func(w *EngineDispatchWatcher) {
+			w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 10, 1}, []byte("zzz"))
+			ret2(w)
+			w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 4, 1}, s2)
+		},
+		"write on S1 row": func(w *EngineDispatchWatcher) {
+			w.ObserveVideoWrite(3*8*320 + 2*8)
+			w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 4, 1}, s2)
+		},
+	} {
+		w := wrapFixture(t)
+		w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 3, 1}, s1)
+		ret2(w)
+		f(w)
+		if w.Page() != nil {
+			t.Errorf("%s: drew %+v", name, w.Page())
+		}
+	}
+}
+
+// spec 029 §2.10：前段放滿後才放後段；後段放不下退回英文。
+func TestEngineDispatchWrappedSplitFillsFirstRow(t *testing.T) {
+	full := "ab cd"
+	c, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", full, "ab cdx"),
+		FragmentText:   engineZh("frag", full, "一二三四", "ab cdx", "一二三四五六七八"),
+		ItemEvents:     engineTSV("item", "Bolt", "Gun"),
+		ItemText:       engineZh("item", "Bolt", "爆能", "Gun", "槍"),
+		MonsterEvents:  engineTSV("monster", "NEO WARRIOR"),
+		MonsterText:    engineZh("monster", "NEO WARRIOR", "NEO 戰士"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	caller := CodeKey{Segment: 0x0763, Offset: 0x1282}
+	ret := Address{0x0763, 0x1282}
+	w := NewEngineDispatchWatcher(c, map[CodeKey]bool{caller: true})
+	w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 3, 1}, []byte("ab"))
+	w.ObserveInstruction(ret, 1, 0x100+engineDispatchReturnDelta)
+	w.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 4, 1}, []byte("cd"))
+	p := w.Page()
+	if p == nil || string(p.Rows[0].Cells[0].Rune)+string(p.Rows[0].Cells[1].Rune) != "一二" ||
+		string(p.Rows[1].Cells[0].Rune)+string(p.Rows[1].Cells[1].Rune) != "三四" {
+		t.Fatalf("fill first row then second: %+v", p)
+	}
+	w2 := NewEngineDispatchWatcher(c, map[CodeKey]bool{caller: true})
+	w2.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 3, 1}, []byte("ab"))
+	w2.ObserveInstruction(ret, 1, 0x100+engineDispatchReturnDelta)
+	w2.ObserveEntry(caller, 1, 0x100, ret, [6]uint16{0, 0, 0, 13, 4, 1}, []byte("cdx"))
+	if w2.Page() != nil {
+		t.Fatal("second row overflow must fall back to English")
+	}
+}
+
+// Spec 029 §2.1 (2026-09-27): the explicitly listed short fragment "'s"
+// is used only when the whole string equals it. The signatures below are
+// the Python reference decomposer's output for the same vectors.
+func TestEngineExplicitShortFragment(t *testing.T) {
+	frags := []string{"'s", "'s weapon is reloaded", "Gear"}
+	c, err := LoadEngineTextCatalog(EngineTextFiles{
+		FragmentEvents: engineTSV("frag", frags...),
+		FragmentText:   engineZh("frag", "'s", "的", "'s weapon is reloaded", "的武器已重新裝填", "Gear", "裝備"),
+		ItemEvents:     engineTSV("item", "Bolt"),
+		ItemText:       engineZh("item", "Bolt", "爆能"),
+	})
+	if err != nil {
+		t.Fatal(err)
+	}
+	key := func(s string) string { h := sha256.Sum256([]byte(s)); return fmt.Sprintf("frag.%x", h[:6]) }
+	for _, v := range []struct{ in, sig string }{
+		{"'s", key("'s")},
+		{"CELESTE's", "_"},
+		{"CELESTE's Gear", "_|" + key("Gear")},
+		{"'s weapon is reloaded", key("'s weapon is reloaded")},
+		{"'S", "_"},
+	} {
+		if got := EngineSignature(c.Decompose(v.in)); got != v.sig {
+			t.Errorf("%q signature %q, want %q", v.in, got, v.sig)
+		}
+	}
+	if z, ok := c.Translate("'s"); !ok || z != "的" {
+		t.Fatalf("'s -> %q %v", z, ok)
+	}
+	if z, ok := c.Translate("'s weapon is reloaded"); !ok || z != "的武器已重新裝填" {
+		t.Fatalf("long fragment -> %q %v", z, ok)
+	}
+	if z, ok := c.Translate("'S"); ok {
+		t.Fatalf("'S translated to %q", z)
+	}
+	if z, _ := c.Translate("CELESTE's Gear"); strings.Contains(z, "的") {
+		t.Fatalf("'s cut out of a name: %q", z)
+	}
+}

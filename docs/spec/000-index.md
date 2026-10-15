@@ -7,6 +7,7 @@
 
 目前有 250 份規格，而編號**不是唯一鍵**：十條分支各自從 007 開始編，
 規格數以目錄現況為準，而編號**不是唯一鍵**：十條分支各自從 007 開始編，
+目前編號**不是唯一鍵**：十條分支各自從 007 開始編，
 合併之後同一個號碼底下有好幾份不同主題的文件。
 
 | 號碼 | 底下有幾份 | 檔名 |
@@ -18,13 +19,13 @@
 | `010` | 6 | `010-dosv.md`、`010-eob1-title-menu.md`、`010-exec-memory-reclaim-and-planar-write-modes.md`、`010-fd2-segment-bootstrap.md`、`010-input-verbs.md`、`010-overlay-loading.md` |
 | `011` | 5 | `011-bios-palette-and-vector-stubs.md`、`011-ega-mode10h.md`、`011-eob1-new-party-entry.md`、`011-fd2-es-environment-cell.md`、`011-xms.md` |
 | `012` | 5 | `012-cpu-386-subset.md`、`012-eob1-first-character-race.md`、`012-fd2-parity-capture.md`、`012-input-keyboard-irq-and-mouse-scale.md`、`012-mcb-chain.md` |
-| `013` | 5 | `013-eob1-first-character-class.md`、`013-fd2-load-es-selector.md`、`013-file-handles.md`、`013-mouse-event-callback.md`、`013-vga-planar.md` |
-| `014` | 5 | `014-dos4gw-flat-descriptors.md`、`014-ems.md`、`014-eob1-first-character-alignment.md`、`014-hardware-keyboard.md`、`014-poke-state-not-luck.md` |
-| `015` | 4 | `015-bytecode-observation.md`、`015-eob1-first-character-stats.md`、`015-fd2-store-environment-word.md`、`015-outermost-cmdline.md` |
-| `016` | 3 | `016-dos4gw-protected-push.md`、`016-eob1-first-character-review.md`、`016-right-mouse-button.md` |
-| `017` | 2 | `017-dos4gw-selector-load-validation.md`、`017-mouse-callback.md` |
-| `018` | 2 | `018-cpu386-command-tail-prelude.md`、`018-eob1-first-character-name.md` |
-| `019` | 2 | `019-dos4gw-psp-command-tail.md`、`019-eob1-first-character-alfa.md` |
+| `013` | 6 | `013-buck-rogers-menu-overlay-scale-prototype.md`、`013-eob1-first-character-class.md`、`013-fd2-load-es-selector.md`、`013-file-handles.md`、`013-mouse-event-callback.md`、`013-vga-planar.md` |
+| `014` | 6 | `014-buck-rogers-selection-blink-receipt.md`、`014-dos4gw-flat-descriptors.md`、`014-ems.md`、`014-eob1-first-character-alignment.md`、`014-hardware-keyboard.md`、`014-poke-state-not-luck.md` |
+| `015` | 5 | `015-buck-rogers-menu-overlay-core.md`、`015-bytecode-observation.md`、`015-eob1-first-character-stats.md`、`015-fd2-store-environment-word.md`、`015-outermost-cmdline.md` |
+| `016` | 4 | `016-buck-rogers-post-race-text-receipt.md`、`016-dos4gw-protected-push.md`、`016-eob1-first-character-review.md`、`016-right-mouse-button.md` |
+| `017` | 3 | `017-buck-rogers-gender-selection-lifecycle.md`、`017-dos4gw-selector-load-validation.md`、`017-mouse-callback.md` |
+| `018` | 3 | `018-buck-rogers-gender-runtime-display-requests.md`、`018-cpu386-command-tail-prelude.md`、`018-eob1-first-character-name.md` |
+| `019` | 3 | `019-buck-rogers-post-gender-text-receipt.md`、`019-dos4gw-psp-command-tail.md`、`019-eob1-first-character-alfa.md` |
 | `020` | 2 | `020-cpu386-repe-scasb.md`、`020-eob1-second-character-race.md` |
 | `021` | 2 | `021-cpu386-lea-disp8.md`、`021-eob1-second-character-review.md` |
 | `022` | 2 | `022-dos4gw-selector-swap-jz.md`、`022-eob1-second-character-beta.md` |
@@ -52,6 +53,7 @@
 
 ### 共同基礎（master）（23 份）
 ### 共同基礎（master）（18 份）
+### 共同基礎（master）（17 份）
 
 - `001-scope-and-mvp.md`
 - `002-cpu-8086.md`
@@ -88,6 +90,15 @@
 - `197-key-hold-and-typematic.md`
 - `198-dosbox-cycles.md`
 - `199-live-session-api.md`
+- `219-host-scale-selection-apply-core.md`
+- `226-host-machine-presentation-bridge.md`
+- `227-host-active-layer-snapshot-core.md`
+- `228-host-mouse-bridge-ready-candidate.md`（限縮 CONFORMED；僅已量的 320×200 實體滑鼠橋收據）
+- `230-linux-ebiten-host-event-loop-draft.md`（DRAFT；候選 router 等待獨立審查，未授權 production）
+- `231-linux-ebiten-panel-pause-gate.md`（限縮 CONFORMED；面板回合的 `Advance` 呼叫閘門，非完整 session）
+- `232-linux-ebiten-panel-batch-keyboard-gate.md`（限縮 CONFORMED；面板起點開啟時同批鍵盤不因 Apply／Cancel 收合而進 DOS）
+- `233-ebiten-bios-transport-preflight-draft.md`（限縮 CONFORMED；正式建構／回合／交付前三層檢查與負例通過，非同批原子性）
+- `197-int27-terminate-and-stay-resident.md`
 
 ### 銀河英雄傳說 3（logh3）（10 份）
 
@@ -167,6 +178,51 @@
 - `007-ega-mode-0dh-planar-vram.md`
 - `008-bios-keyboard-injection.md`
 - `009-scratch-writes.md`
+
+### Buck Rogers: Countdown to Doomsday（49 份）
+
+- `007-buck-rogers-manual-event-adapter.md`
+- `008-buck-rogers-manual-runtime-watcher.md`
+- `009-buck-rogers-menu-display-request.md`
+- `010-buck-rogers-menu-runtime-request-watcher.md`
+- `011-buck-rogers-diagnostic-key-schedule.md`
+- `012-buck-rogers-selection-variant-catalog.md`
+- `013-buck-rogers-menu-overlay-scale-prototype.md`
+- `014-buck-rogers-selection-blink-receipt.md`
+- `015-buck-rogers-menu-overlay-core.md`
+- `016-buck-rogers-post-race-text-receipt.md`
+- `017-buck-rogers-gender-selection-lifecycle.md`
+- `018-buck-rogers-gender-runtime-display-requests.md`
+- `019-buck-rogers-post-gender-text-receipt.md`
+- `020-buck-rogers-class-selection-lifecycle.md`
+- `021-buck-rogers-class-runtime-display-requests.md`
+- `022-buck-rogers-character-overlay-ab.md`
+- `023-buck-rogers-post-class-text-receipt.md`
+- `024-buck-rogers-reroll-input-lifecycle.md`
+- `025-buck-rogers-character-name-input-lifecycle.md`
+- `026-buck-rogers-career-skill-allocation-lifecycle.md`
+- `027-buck-rogers-career-skill-action-and-exit-lifecycle.md`
+- `028-buck-rogers-technical-skill-allocation-lifecycle.md`
+- `029-buck-rogers-body-icon-selection-lifecycle.md`
+- `030-buck-rogers-save-prompt-and-character-completion-lifecycle.md`
+- `031-buck-rogers-scratch-save-and-roster-lifecycle.md`
+- `032-buck-rogers-unimplemented-service-receipt.md`
+- `033-buck-rogers-terminal-state-checkpoint.md`
+- `034-buck-rogers-save-roster-join-runtime-display-requests.md`
+- `035-buck-rogers-scale-explicit-runtime-overlay.md`
+- `036-buck-rogers-character-runtime-overlay.md`
+- `037-buck-rogers-character-sheet-runtime-display-requests.md`
+- `038-buck-rogers-character-sheet-runtime-overlay.md`
+- `216-buck-rogers-manual-presentation-lifecycle.md`
+- `217-buck-rogers-manual-multiline-presenter-core.md`
+- `218-buck-rogers-manual-formal-font-subset.md`
+- `220-buck-rogers-manual-presentation-queue-consumer.md`
+- `221-buck-rogers-manual-watcher-snapshot-bridge.md`
+- `222-buck-rogers-manual-runtime-presentation.md`
+- `223-buck-rogers-story-content-safe-diagnostics.md`
+- `229-buck-rogers-story-fill-six-row-diagnostic-draft.md`（DRAFT；只擴充六行 content-safe trace）
+- `224-buck-rogers-story-opening-watcher-core.md`
+- `225-host-panel-event-routing-core.md`
 
 ### UCSD p-System（psys）（1 份）
 
@@ -791,3 +847,26 @@
 - [426 原保存父層直接caller與主畫面分派](426-moo2-save-parent-caller-dispatch-source.md)：CONFORMED限定135列／108EA來源，唯一104A6 caller與44項原表；動態返回／正常input未驗。
 - [427 原保存父層返回及第一場景分派觀察](427-moo2-save-parent-return-observation.md)：DRAFT，原250M未達parent返回／分派；418獨立PNG、208000bytes交易及owned生命週期已驗。
 - [428 原保存後末態圖像支援候選邊界](428-moo2-save-terminal-support-boundary.md)：CONFORMED限定129列／111EA原bytes與直接caller；圖像支援語意強推論，實際caller／parent退出仍未知。
+
+- [202 — 轉譯疊字層](202-translation-overlay.md)：READY。`xlate` 套件：GOLEMFNT、排版、定色、逐格／錨定格失效、捲動、畫字、快照與換行追蹤。
+
+- [203 — 圖檔內嵌文字 watcher](203-baked-text-watchers.md)：READY。以呼叫端提供的原版色號圖塊觸發疊字，圖塊消失後自動收回。
+- [204 — FindFirst 回傳目錄項目](204-findfirst-directories.md)：READY。依 `CX` 目錄屬性遮罩列出 Root／Scratch 目錄並回傳正確 DTA 屬性。
+- [205 — Mode 13h 預設 VGA 前 16 色](205-mode13-default-vga-palette.md)：CONFORMED。切入 mode 13h 時載入 BIOS 預設前 16 格 DAC；遊戲局部改色後仍可沿用 index 15 白色。
+- [206 — Buck Rogers 姓名提示執行期繁中顯示請求](206-buck-rogers-name-prompt-runtime-display-request.md)：CONFORMED。唯一姓名提示 exact identity 產生繁中 request；玩家姓名回顯維持 miss。
+- [207 — Buck Rogers 姓名提示執行期繁中覆繪](207-buck-rogers-name-prompt-runtime-overlay.md)：CONFORMED。固定提示矩形止於 x=128、玩家輸入始於 x=136；明示 2×／3× 覆繪不改動動態姓名。
+- [208 — 執行期覆繪空終態輸出](208-runtime-overlay-empty-terminal-frame.md)：CONFORMED。容許已由原版清除事件失效的空終態輸出 `drew=false`，但缺字與 active-key 不一致仍失敗。
+- [209 — Buck Rogers 職業技能配置執行期繁中顯示請求](209-buck-rogers-career-skill-runtime-display-requests.md)：CONFORMED。14 個固定標題／技能 identity 產生 exact request；動態點數維持 miss。
+- [210 — Buck Rogers 職業技能配置執行期繁中覆繪](210-buck-rogers-career-skill-runtime-overlay.md)：CONFORMED。14 個 exact-width 矩形已接入明示 2×／3× overlay，選取列取代與動態欄零干擾已驗收。
+- [211 — Buck Rogers 技術技能配置執行期繁中顯示請求](211-buck-rogers-technical-skill-runtime-display-requests.md)：CONFORMED。17 個不重複 identities 與兩個共享標題已通過 base／Down 決定性收據。
+| [212](212-buck-rogers-technical-skill-runtime-overlay.md) | Buck Rogers 技術技能配置執行期繁中覆繪 | CONFORMED |
+| [213](213-buck-rogers-skill-action-bar-glyph-events.md) | Buck Rogers 技能配置底部操作列字元事件 | CONFORMED |
+| [214](214-buck-rogers-skill-action-bar-display-requests.md) | Buck Rogers 技能操作列繁中顯示請求 | CONFORMED |
+| [215](215-buck-rogers-skill-action-bar-runtime-overlay.md) | Buck Rogers 技能操作列執行期繁中覆繪 | DRAFT |
+| [226](226-host-machine-presentation-bridge.md) | Host machine 畫面與鍵盤橋接純核心 | CONFORMED（純核心；非 host frontend） |
+| [227](227-host-active-layer-snapshot-core.md) | Host active xlate layer 不可變快照純核心 | CONFORMED（純核心；非 host frontend） |
+| [234](234-xlate-physical-pixel-glyph-plan.md) | 共用疊字層實體像素字首計畫 | READY（僅共用 API；未實作） |
+| [239](239-xlate-rewrite-detection-draft.md) | 疊字層的改寫偵測（同位置改印時的巧合同字） | CONFORMED（xlate；其他分支合入前自行回歸） |
+| [240](240-opl-audio-output-draft.md) | AdLib（OPL）與 PC 喇叭音訊輸出 | READY |
+- [197 — `int 27h`（舊式常駐結束）](197-int27-terminate-and-stay-resident.md)：CONFORMED。`DX` 是位元組，向上取整成段數後走 `terminate()` 的 TSR 分支；啟動序列依賴三支以它常駐的 `.COM`。
+- [251 — Oracle 指令前等待閘門](251-oracle-step-guard.md)：CONFORMED。選用 guard 的明示停止與等待錯誤，不改預設 BIOS 行為。

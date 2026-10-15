@@ -1,0 +1,187 @@
+package buckrogers
+
+import (
+	"bytes"
+	"fmt"
+	"unicode"
+
+	"github.com/wicanr2/dosgolem/internal/machine"
+	"github.com/wicanr2/dosgolem/xlate"
+)
+
+// RuntimePostJoinExitPromptOverlay owns only RGBA output. Its tail sentinel
+// verifies every Draw leaves the six original cells byte-for-byte intact.
+type RuntimePostJoinExitPromptOverlay struct {
+	layer  *xlate.Layer
+	font   *xlate.Font
+	half   *xlate.Font // spec 039 §3.2; nil when the derivation failed
+	scale  int
+	active *PostJoinExitPromptGeneration
+}
+
+func NewRuntimePostJoinExitPromptOverlay(font *xlate.Font, scale int) (*RuntimePostJoinExitPromptOverlay, error) {
+	if font == nil || font.W != 16 || font.H != 16 || (scale != 2 && scale != 3) {
+		return nil, fmt.Errorf("Exit prompt presenter inputs invalid")
+	}
+	return &RuntimePostJoinExitPromptOverlay{layer: &xlate.Layer{W: 320, H: 200}, font: font,
+		half: halfFontsOf(font).For(scale), scale: scale}, nil
+}
+func (o *RuntimePostJoinExitPromptOverlay) Apply(g PostJoinExitPromptGeneration, p [256][3]uint8) error {
+	if o == nil || g.Generation == 0 || g.Translation == "" || (g.EventKey != postJoinExitQ1 && g.EventKey != postJoinExitQ2) || (g.EventKey == postJoinExitQ1 && g.Width != 96) || (g.EventKey == postJoinExitQ2 && g.Width != 240) {
+		if o != nil {
+			o.Clear()
+		}
+		return fmt.Errorf("Exit prompt generation invalid")
+	}
+	// Spec 039 §3.1: capacity in half units, two per original cell.
+	translation := []rune(g.Translation)
+	if textUnits(translation) > 2*int(g.Width/8) {
+		o.Clear()
+		return fmt.Errorf("Exit prompt text too wide")
+	}
+	for _, r := range translation {
+		if unicode.IsControl(r) {
+			o.Clear()
+			return fmt.Errorf("Exit prompt control character")
+		}
+	}
+	fonts := segmentFonts{Full: o.font, FullX: manualGlyphOffset(o.scale), FullY: manualGlyphOffset(o.scale), Half: o.half}
+	if miss := fonts.missingRunes(translation); len(miss) != 0 {
+		o.Clear()
+		return fmt.Errorf("Exit prompt missing glyph U+%04X", miss[0])
+	}
+	stamps := fonts.segmentStamps(g.EventKey, 0, 192, padUnits(translation, 2*int(g.Width/8)), nil,
+		func(int) ([3]uint8, [3]uint8) { return p[0], p[14] })
+	ink, err := menuInkRectAll(stamps, o.scale)
+	if err != nil || ink.X < 0 || ink.Y < 192*o.scale || ink.X+ink.Width > int(g.Width)*o.scale || ink.Y+ink.Height > 200*o.scale {
+		o.Clear()
+		return fmt.Errorf("Exit prompt ink exceeds body")
+	}
+	o.layer = &xlate.Layer{W: 320, H: 200}
+	for _, stamp := range stamps {
+		o.layer.Add(stamp)
+	}
+	o.active = &g
+	return nil
+}
+func (o *RuntimePostJoinExitPromptOverlay) Clear() {
+	if o != nil {
+		o.layer = &xlate.Layer{W: 320, H: 200}
+		o.active = nil
+	}
+}
+func (o *RuntimePostJoinExitPromptOverlay) Prewrite(v machine.VideoWrite) {
+	if o == nil || o.active == nil {
+		return
+	}
+	linear, err := NormalizeSkillExitVideoOffset(v.Offset)
+	if err != nil {
+		o.Clear()
+		return
+	}
+	if postJoinExitBodyIntersects(linear-skillExitVideoBase, o.active.Width) {
+		o.Clear()
+	}
+}
+func (o *RuntimePostJoinExitPromptOverlay) Draw(indexed []byte, p [256][3]uint8) ([]byte, []rune, bool, error) {
+	if o == nil || len(indexed) != 320*200 {
+		return nil, nil, false, fmt.Errorf("Exit prompt frame invalid")
+	}
+	rgba := ScaleIndexedRGBA(indexed, p, o.scale)
+	var sentinel []byte
+	if o.active != nil {
+		for y := 192 * o.scale; y < 200*o.scale; y++ {
+			a := (y*320*o.scale + int(o.active.Width)*o.scale) * 4
+			b := (y*320*o.scale + int(o.active.Width+48)*o.scale) * 4
+			sentinel = append(sentinel, rgba[a:b]...)
+		}
+	}
+	var missing []rune
+	drew := o.layer.Draw(rgba, o.scale, func(r rune) { missing = append(missing, r) })
+	if o.active != nil {
+		var tail []byte
+		for y := 192 * o.scale; y < 200*o.scale; y++ {
+			a := (y*320*o.scale + int(o.active.Width)*o.scale) * 4
+			b := (y*320*o.scale + int(o.active.Width+48)*o.scale) * 4
+			tail = append(tail, rgba[a:b]...)
+		}
+		if !bytes.Equal(sentinel, tail) {
+			o.Clear()
+			return nil, nil, false, fmt.Errorf("Exit prompt protected suffix changed")
+		}
+	}
+	return rgba, missing, drew, nil
+}
+func (o *RuntimePostJoinExitPromptOverlay) ActiveKeys() []string {
+	if o == nil || o.active == nil {
+		return nil
+	}
+	return []string{o.active.EventKey}
+}
+
+type PostJoinExitPromptOwner struct {
+	Watcher   *PostJoinExitPromptWatcher
+	Presenter *RuntimePostJoinExitPromptOverlay
+	// missing is the original cell range of a body this language does not
+	// translate (spec 040 §3.2, from Row／Column／OriginalLength); nil when
+	// the presenter drew it.
+	missing *PixelRect
+	// Missing counts untranslated bodies (the original English shows).
+	Missing int
+}
+
+// MissingRect is the original cell range of the last untranslated body, or nil.
+func (o *PostJoinExitPromptOwner) MissingRect() *PixelRect { return o.missing }
+
+func NewPostJoinExitPromptOwner(c *PostJoinExitPromptCatalog, font *xlate.Font, scale int) (*PostJoinExitPromptOwner, error) {
+	w, e := NewPostJoinExitPromptWatcher(c)
+	if e != nil {
+		return nil, e
+	}
+	p, e := NewRuntimePostJoinExitPromptOverlay(font, scale)
+	if e != nil {
+		return nil, e
+	}
+	return &PostJoinExitPromptOwner{Watcher: w, Presenter: p}, nil
+}
+func (o *PostJoinExitPromptOwner) ObserveEntry(e TextEvent) error {
+	if err := o.Watcher.ObserveEntry(e); err != nil {
+		o.Presenter.Clear()
+		return err
+	}
+	return nil
+}
+func (o *PostJoinExitPromptOwner) ObserveReturn(e TextEvent, p [256][3]uint8) error {
+	o.missing = nil
+	g, err := o.Watcher.ObserveReturn(e)
+	if err != nil {
+		o.Presenter.Clear()
+		return err
+	}
+	if g.Translation == "" {
+		// Spec 040 §3.2: untranslated — clear, keep the watcher, no error.
+		o.missing = &PixelRect{int(e.Column) * 8, int(e.Row) * 8, int(e.OriginalLength) * 8, 8}
+		o.Missing++
+		o.Presenter.Clear()
+		return nil
+	}
+	if err = o.Presenter.Apply(g, p); err != nil {
+		o.Fault()
+	}
+	return err
+}
+func (o *PostJoinExitPromptOwner) Prewrite(v machine.VideoWrite) error {
+	cleared, err := o.Watcher.Prewrite(v)
+	if err != nil {
+		o.Presenter.Clear()
+		return err
+	}
+	if cleared {
+		o.Presenter.Prewrite(v)
+	}
+	return nil
+}
+func (o *PostJoinExitPromptOwner) Stop()          { o.Watcher.Stop(); o.Presenter.Clear() }
+func (o *PostJoinExitPromptOwner) Restore()       { o.Watcher.Restore(); o.Presenter.Clear() }
+func (o *PostJoinExitPromptOwner) Discontinuity() { o.Watcher.Discontinuity(); o.Presenter.Clear() }
+func (o *PostJoinExitPromptOwner) Fault()         { o.Watcher.Fault(); o.Presenter.Clear() }
