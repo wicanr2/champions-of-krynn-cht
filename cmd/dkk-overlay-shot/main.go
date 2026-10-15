@@ -61,6 +61,8 @@ func main() {
 	fontPath := flag.String("font", "", "16×16 GOLEMFNT")
 	events := flag.String("events", "", "ui-text-events.tsv")
 	translations := flag.String("translations", "", "ui-text.zh-TW.tsv")
+	eclEvents := flag.String("ecl-events", "", "ecl-text-events.tsv（給了才啟用路徑 B）")
+	eclTranslations := flag.String("ecl-translations", "", "ecl-text.zh-TW.tsv")
 	biosKeys := flag.String("bios-keys", "", "逐個送進 BIOS 鍵盤緩衝區的字元")
 	biosKeyNames := flag.String("bios-key-names", "", "接在 -bios-keys 後送的具名鍵，逗號分隔")
 	keyFrom := flag.Uint64("bios-key-from", 0, "第一個鍵的步數")
@@ -102,11 +104,28 @@ func main() {
 	if err != nil {
 		fail(err)
 	}
+	var pb *dkk.PathB
+	if *eclEvents != "" {
+		ecl, err := dkk.LoadCatalog(mustRead(*eclEvents), mustRead(*eclTranslations))
+		if err != nil {
+			fail(err)
+		}
+		if pb, err = dkk.NewPathB(m, font, layer, ecl, cat); err != nil {
+			fail(err)
+		}
+		pb.SetPalette(m.FramePalette())
+		m.ObserveVideoWrites(func(w machine.VideoWrite) { pb.VideoWrite(w.Offset) })
+		m.ObserveModeChanges(func(machine.ModeChange) { pb.Reset() })
+	}
 	m.SetOnFrame(func() {
 		idx := m.Indexed()
 		if len(idx) == 320*200 {
+			pal := m.FramePalette()
 			pa.PrepareFrame(idx, 320, 200)
-			layer.Frame(idx, rgbOf(idx, m.FramePalette()))
+			if pb != nil {
+				pb.SetPalette(pal)
+			}
+			layer.Frame(idx, rgbOf(idx, pal))
 		}
 	}) // planar 以 FramePalette 取色（#12）
 
@@ -124,6 +143,9 @@ func main() {
 			si++
 		}
 		pa.Before(m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m)
+		if pb != nil {
+			pb.Before(m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m.CPU.Seg[cpu.DS], m)
+		}
 		if err := m.Step(); err != nil {
 			fail(err)
 		}
@@ -135,7 +157,11 @@ func main() {
 		Stopped uint64       `json:"stopped_at"`
 		Shots   []shotResult `json:"shots"`
 		Hits    []dkk.Hit    `json:"hits"`
-	}{fmt.Sprintf("%05X", pa.Entry), cat.Len(), ki, m.Steps, results, pa.Hits}
+		HitsB   []dkk.Hit    `json:"hits_b,omitempty"`
+	}{Entry: fmt.Sprintf("%05X", pa.Entry), Catalog: cat.Len(), KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: pa.Hits}
+	if pb != nil {
+		out.HitsB = pb.Hits
+	}
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", " ")
 	if err := enc.Encode(out); err != nil {
