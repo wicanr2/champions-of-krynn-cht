@@ -75,6 +75,12 @@
 - `202-bios-int09-default-handler.md`
 - `203-vga-dac-readback.md`
 
+### 武士傳說（Knights of Legend）（3 份）
+
+- `194-ega-bios-default-palette.md`
+- `195-dos-direct-console-input.md`
+- `196-bios-console-read-bridge.md`
+
 ### 銀河英雄傳說 3（logh3）（10 份）
 
 - `007-exec-ems.md`
@@ -363,3 +369,9 @@
 - [200 EOB3 原版 oracle 轉接層](200-eob3-oracle-adapter.md)：READY（主選單與選單輸入已驗證）。`apps/eob3` 與 `apps/eob3/cmd/oracle`：腳本、收據、啟動鏈、階段標記 `0000:04F0`、決定性來源與限制。
 - [201 非鏈結 256 色（Mode X）](201-vga-unchained-256.md)：READY。模式 13h 清掉 Chain-4 後畫面要從四個平面組；少了它 EOB3 的主選單會壓成 1/4 寬並排四份。
 - [202 BIOS 的 int 09h 預設處理](202-bios-int09-default-handler.md)：READY。ISR 只是包裝、chain 回 stub 時，由 `dos` 層把埠 0x60 的掃描碼翻進 BDA 緩衝；少了它鍵到得了 ISR、到不了程式。
+
+- [194 — EGA 相容模式的 BIOS 預設色盤](194-ega-bios-default-palette.md)：READY。0Dh／0Eh 設模式時 BIOS 會填一份預設色盤；少了它，程式只設模式就畫的畫面整片黑。
+
+- [195 — DOS 非阻塞直接主控台輸入](195-dos-direct-console-input.md)：READY。`AH=06h` 有字元時消耗一個並清 ZF，空佇列才設 ZF——原本永遠回「無字元」。
+
+- [196 — 預設主控台的 BIOS 讀鍵轉接](196-bios-console-read-bridge.md)：READY。程式可能先直接查 BDA 再經 DOS `AH=08h` 取同一個鍵；兩條路要看到同一個佇列。
