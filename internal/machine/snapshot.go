@@ -29,23 +29,26 @@ type Snapshot struct {
 
 	// PIT 通道 0 的分頻與寫入狀態機。**漏抄的話還原之後計時器
 	// 會退回開機頻率**，而症狀是「同一個快照展開的變體跑得比原本慢」。
-	irq0Every uint64
-	irq0Base  uint64
-	cpuHz     uint64
-	cycClock  bool
-	cycles    uint64
-	cycPer    uint64
-	nextCyc   uint64
-	pitDiv    uint32
-	pitAccess uint8
-	pitPhase  uint8
-	pitLo     uint8
+	irq0Every  uint64
+	irq0Base   uint64
+	cpuHz      uint64
+	cycClock   bool
+	dosboxCost bool
+	cycles     uint64
+	cycPer     uint64
+	nextCyc    uint64
+	pitDiv     uint32
+	pitAccess  uint8
+	pitPhase   uint8
+	pitLo      uint8
 
 	// 硬體鍵盤的整份狀態。**佇列與 nextIRQ1 漏掉會讓還原之後的鍵永遠送不出去**：
 	// Restore 把 Steps 倒回過去，而 nextIRQ1 還停在未來，`keyTick` 的
 	// 「時間還沒到」於是永遠成立。症狀是第一個變體收得到鍵、後面每一個都
 	// 「按了沒反應」——看起來像那些送法不對，其實是送鍵這條路已經死了。
 	keyQueue  []KeyEvent
+	timedKeys []timedKey // `docs/spec/197`：同樣的理由，按住中的放開碼漏掉的話鍵會卡住
+	timedSeq  uint64
 	nextKey   uint64
 	keyIRQs   uint64
 	keyStalls uint64
@@ -110,6 +113,7 @@ func (m *Machine) Snapshot() *Snapshot {
 		irq0Base:     m.IRQ0Base,
 		cpuHz:        m.CPUHz,
 		cycClock:     m.CycleClock,
+		dosboxCost:   m.CPU.DOSBoxCost,
 		cycles:       m.CPU.Cycles,
 		cycPer:       m.cycPerIRQ0,
 		nextCyc:      m.nextIRQ0Cyc,
@@ -139,6 +143,8 @@ func (m *Machine) Snapshot() *Snapshot {
 		cbMade:        m.cbMade,
 
 		keyQueue:  append([]KeyEvent(nil), m.keyQueue...),
+		timedKeys: append([]timedKey(nil), m.timedKeys...),
+		timedSeq:  m.timedKeySeq,
 		nextKey:   m.nextKey,
 		keyIRQs:   m.KeyIRQs,
 		keyStalls: m.keyStalls,
@@ -174,6 +180,7 @@ func (m *Machine) Restore(s *Snapshot) {
 	m.IRQ0Every, m.IRQ0Base, m.PITDiv = s.irq0Every, s.irq0Base, s.pitDiv
 	m.pitAccess, m.pitPhase, m.pitLo = s.pitAccess, s.pitPhase, s.pitLo
 	m.CPUHz, m.CPU.Cycles, m.CycleClock = s.cpuHz, s.cycles, s.cycClock
+	m.CPU.DOSBoxCost = s.dosboxCost
 	m.cycPerIRQ0, m.nextIRQ0Cyc = s.cycPer, s.nextCyc
 
 	m.Ports = map[uint16]uint8{}
@@ -198,6 +205,7 @@ func (m *Machine) Restore(s *Snapshot) {
 	m.cbSaved, m.cbActive, m.cbMade = s.cbSaved, s.cbActive, s.cbMade
 
 	m.keyQueue = append([]KeyEvent(nil), s.keyQueue...)
+	m.timedKeys, m.timedKeySeq = append([]timedKey(nil), s.timedKeys...), s.timedSeq
 	m.nextKey, m.KeyIRQs, m.keyStalls = s.nextKey, s.keyIRQs, s.keyStalls
 	m.kbdData, m.kbdPortB = s.kbdData, s.kbdPortB
 

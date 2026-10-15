@@ -77,10 +77,10 @@ func (m *Machine) SetVideoMode(mode uint8) {
 	// 設模式清畫面，真機的 BIOS 也清。
 	if planarMode(mode) {
 		m.VGA.resetMode(mode)
-		// EGA 的 0Dh／0Eh 由 BIOS 填一份預設色盤（`docs/spec/194-ega-bios-default-palette`）。
-		// 少了這一步，程式只設模式就畫的畫面會整片黑。
+		// EGA 的 0Dh／0Eh 由 BIOS 填一份預設色盤（`docs/spec/194-ega-bios-default-palette`、
+		// `docs/spec/194-ega-200-line-mode-palette-defaults`）。少了這一步，程式只設模式就畫的畫面會整片黑。
 		if mode == 0x0D || mode == 0x0E {
-			m.loadCGACompatiblePalette()
+			m.load200LinePalette()
 		}
 	} else {
 		// 非平面模式不清畫面，但**時序暫存器照樣要寫**：`0x3DA` 的回掃

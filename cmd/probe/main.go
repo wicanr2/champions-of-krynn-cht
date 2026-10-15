@@ -32,6 +32,7 @@ import (
 	"github.com/wicanr2/dosgolem/internal/cpu"
 	"github.com/wicanr2/dosgolem/internal/dos"
 	"github.com/wicanr2/dosgolem/internal/machine"
+	"github.com/wicanr2/dosgolem/internal/opl2"
 	"github.com/wicanr2/dosgolem/internal/state"
 )
 
@@ -45,8 +46,6 @@ func main() {
 	exe := flag.String("exe", "", "要跑的執行檔（必填；MZ 或 .COM，看檔頭 magic 自動判斷）")
 	root := flag.String("root", ".", "原版素材目錄（配 -load-state 時不必再給，"+
 		"狀態檔裡存著；真的給了就以命令列為準）")
-	scratch := flag.String("scratch", "", "可寫的暫存層（docs/spec/009）：程式存檔、建檔都落在這個目錄，"+
-		"原版目錄 -root 永遠不被寫入；不給就維持「寫入記帳、不落地」")
 	steps := flag.Uint64("steps", 20_000_000,
 		"跑到第幾道指令為止（**絕對步數**，配 -load-state 時要大於檢查點的步數）")
 	trace := flag.Uint64("trace", 0, "最後幾道指令的軌跡（0 ＝ 不記）")
@@ -229,6 +228,32 @@ func main() {
 	clickBtn := flag.Int("click-button", 0, "按哪一個鍵（0 左／1 右／2 中）")
 	dumpWAV := flag.String("dump-wav", "",
 		"把 PC 喇叭的波形寫成 8 位元單聲道 WAV（語音對拍用）")
+	cyclesSpec := flag.String("cycles", "",
+		"機器速度：DOSBox 相容的每毫秒 cycles（`docs/spec/198`），或 xt（240）、at8（750）、at12（1510）。"+
+			"字串指令每次迭代算一個 cycle，與 DOSBox-X normal core 相同。載入狀態檔之後套用；不能與 -cpuhz 同時給")
+	holdSpec := flag.String("hold", "",
+		"按住按鍵（`docs/spec/197`）：`<鍵>@<起點>+<長度>`，逗號分隔。鍵名同 -press；\n"+
+			"    起點與長度是指令數，或加 ms 後綴以 StepsPerSecond 換算（例 `space@86500000+2000ms`）。\n"+
+			"    定時送出、不受 -press-every 節流")
+	holdTypematic := flag.Bool("hold-typematic", true,
+		"按住期間照 BIOS 預設（延遲 500 ms、10.9 次／秒）重複送按下碼")
+	scratch := flag.String("scratch", "",
+		"可寫的暫存層目錄（`docs/spec/009`）：程式存的檔落在這裡，原版目錄永遠不動。\n"+
+			"    不給的話寫檔只記帳（「被擋下來的寫檔」），遊戲自己的存檔不會真的留下來")
+	dumpOPLWAV := flag.String("dump-opl-wav", "",
+		"把 OPL2 暫存器寫入合成成 22,050 Hz 16 位元單聲道 WAV（`docs/spec/196`，近似音色）。要配 -adlib")
+	oplOnly := flag.Int("opl-only", -1,
+		"合成時只混這一個聲道（0–8），-1 ＝ 全部。診斷用：整曲是 9 個聲道的混音，\n"+
+			"    單一聲道錯了會被其他聲道稀釋（`docs/spec/196`）")
+	oplExcept := flag.Int("opl-except", -1,
+		"合成時排除這一個聲道（0–8），-1 ＝ 全部都混。診斷用：拿掉某個聲道之後保真度反而上升，\n"+
+			"    那個聲道就是拖累（`docs/spec/196`）")
+	oplDisable := flag.String("opl-disable", "",
+		"合成時關掉這幾個功能（逗號分隔：ksl、am、vib、expatk），診斷用。\n"+
+			"    一次只關一個，才看得出某個功能把保真度推往哪個方向（`docs/spec/196`）")
+	dumpToneWAV := flag.String("dump-tone-wav", "",
+		"把 PIT 通道 2 的方波（音樂、嗶聲）寫成 22,050 Hz 8 位元單聲道 WAV（`docs/spec/195`）。\n"+
+			"    -dump-wav 只收喇叭資料線（語音），走通道 2 的音樂在那裡幾乎是空的")
 	cpuProfile := flag.String("cpuprofile", "",
 		"把 CPU 剖析結果寫到這個檔（找瓶頸用；`go tool pprof` 讀）")
 	flag.Parse()
@@ -358,7 +383,6 @@ func main() {
 	}
 	obsSetup(m) // 觀測用旗標的掛鉤（observe.go）
 	d := dos.New(m, *root)
-	d.Scratch = *scratch
 	d.Mouse.XScale = uint16(*xscale)
 	if *queue != "" {
 		for _, q := range strings.Split(*queue, ",") {
@@ -400,6 +424,41 @@ func main() {
 		})
 		fmt.Printf("從 %s 接著跑（第 %d 道指令，素材目錄 %s）\n",
 			*loadState, m.Steps, d.Root)
+		// 狀態檔會還原 CPUHz 與 CycleClock，把 obsSetup 先前套上的 -cpuhz 安靜地蓋掉
+		// ——症狀是「換了 CPU 速度，結果一模一樣」。命令列給了就以命令列為準。
+		if *obsCPUHz > 0 {
+			m.CPUHz = *obsCPUHz
+			m.CycleClock = true
+			m.RecalcIRQ0()
+			fmt.Printf("載入狀態後改用週期時鐘：CPUHz = %d\n", *obsCPUHz)
+		}
+	}
+	// 機器速度放在載入狀態檔之後（狀態檔會還原時鐘設定），而且要在解析 -hold 之前：ms 換算跟著機器速度走。
+	if *cyclesSpec != "" {
+		if *obsCPUHz > 0 {
+			die(fmt.Errorf("-cycles 與 -cpuhz 不能同時給：兩者都是週期時鐘，計費方式不同"))
+		}
+		perMs, err := parseCycles(*cyclesSpec)
+		if err != nil {
+			die(err)
+		}
+		m.SetDOSBoxCycles(perMs)
+		fmt.Printf("機器速度：DOSBox 相容 %d cycles／毫秒（IRQ0 間隔 %d 個 cycle）\n", perMs, m.CycPerIRQ0())
+	}
+	// 按住按鍵也放在載入狀態檔之後：起點是絕對指令數，要以載入後的時間軸為準。
+	if *holdSpec != "" {
+		holds, err := parseHolds(*holdSpec, m.InstructionsPerSecond())
+		if err != nil {
+			die(err)
+		}
+		for _, h := range holds {
+			m.HoldKey(h.scan, h.at, h.dur, *holdTypematic)
+		}
+		fmt.Printf("按住按鍵 %d 組，定時事件 %d 個\n", len(holds), m.TimedKeysPending())
+	}
+	// 放在載入狀態檔之後：狀態檔不帶暫存層設定，先設的話不確定會不會被覆蓋。
+	if *scratch != "" {
+		d.Scratch = *scratch
 	}
 	saves, err := parseSaveState(*saveState)
 	if err != nil {
@@ -577,7 +636,7 @@ func main() {
 	// 執行速度要量得到才調得動。**沒有這個數字的時候，「慢」是感覺**，
 	// 而感覺分不出「這一段本來就有幾十億道指令」與「執行器每道指令太貴」。
 	started := time.Now()
-	startSteps := m.Steps
+	startSteps, startCycles := m.Steps, m.CPU.Cycles
 	for m.Steps < *steps && !m.CPU.Halted && !d.Exited {
 		// -ega-every：每 N 道指令存一張。**單張只看得到終點**，
 		// 看不出按鍵是送早了還是送晚了。
@@ -822,7 +881,11 @@ func main() {
 		// 兩個時鐘之間的匯率（`docs/spec/191`）。**切換時鐘之前看一眼**：
 		// 這支程式的指令混合決定了走週期時鐘時遊戲內時間會慢幾倍，
 		// 而那個倍數不是常數——繪圖密集的段落是暫存器密集的兩倍多。
-		if cps := m.CyclesPerStep(); cps > 0 {
+		if perMs := m.DOSBoxCycles(); perMs > 0 {
+			cyc := m.CPU.Cycles - startCycles
+			fmt.Printf("本次 DOSBox 相容 cycles %d，平均 %.3f cycle／指令；以 %d cycles／毫秒換算機器時間 %.2f 秒\n",
+				cyc, float64(cyc)/float64(ran), perMs, float64(cyc)/float64(m.CPUHz))
+		} else if cps := m.CyclesPerStep(); cps > 0 {
 			fmt.Printf("平均 %.2f 週期／指令；走 -cpuhz 的週期時鐘遊戲內時間慢 %.2f 倍\n",
 				cps, m.ClockSkew())
 		}
@@ -961,6 +1024,18 @@ func main() {
 			fmt.Fprintln(os.Stderr, "dump-wav:", err)
 		} else {
 			fmt.Printf("喇叭波形 → %s\n", *dumpWAV)
+		}
+	}
+	if *dumpOPLWAV != "" {
+		if err := writeOPLWAV(m, *dumpOPLWAV, *oplDisable, *oplOnly, *oplExcept); err != nil {
+			fmt.Fprintln(os.Stderr, "dump-opl-wav:", err)
+		}
+	}
+	if *dumpToneWAV != "" {
+		if err := writeToneWAV(m, *dumpToneWAV); err != nil {
+			fmt.Fprintln(os.Stderr, "dump-tone-wav:", err)
+		} else {
+			fmt.Printf("喇叭方波 → %s（%d 個頻率變化）\n", *dumpToneWAV, len(m.ToneEvents()))
 		}
 	}
 	if *dumpPorts != "" {
@@ -2155,6 +2230,77 @@ func writePNG(path string, idx []uint8, pal [256][3]uint8) error {
 	return png.Encode(f, img)
 }
 
+// hold 是 -hold 的一組：從 at 按住 scan，dur 道指令後放開。
+type hold struct {
+	scan    uint8
+	at, dur uint64
+}
+
+// parseCycles 解析 -cycles：每毫秒 cycles 的正整數，或 xt／at8／at12。
+func parseCycles(spec string) (uint64, error) {
+	switch strings.ToLower(strings.TrimSpace(spec)) {
+	case "xt":
+		return machine.CyclesXT, nil
+	case "at8":
+		return machine.CyclesAT8, nil
+	case "at12":
+		return machine.CyclesAT12, nil
+	}
+	v, err := strconv.ParseUint(strings.TrimSpace(spec), 10, 64)
+	if err != nil || v == 0 {
+		return 0, fmt.Errorf("-cycles 看不懂：%q（要正整數或 xt／at8／at12）", spec)
+	}
+	return v, nil
+}
+
+// parseHolds 解析 `<鍵>@<起點>+<長度>[,…]`；時間可加 ms 後綴，以 ips（每秒指令數）換算。
+func parseHolds(spec string, ips float64) ([]hold, error) {
+	var out []hold
+	steps := func(v string) (uint64, error) {
+		v = strings.TrimSpace(v)
+		if ms, ok := strings.CutSuffix(v, "ms"); ok {
+			f, err := strconv.ParseFloat(ms, 64)
+			if err != nil || f < 0 {
+				return 0, fmt.Errorf("毫秒數看不懂：%q", v)
+			}
+			return uint64(f / 1000 * ips), nil
+		}
+		n, err := strconv.ParseUint(v, 10, 64)
+		if err != nil {
+			return 0, fmt.Errorf("指令數看不懂：%q", v)
+		}
+		return n, nil
+	}
+	for _, item := range strings.Split(spec, ",") {
+		item = strings.TrimSpace(item)
+		if item == "" {
+			continue
+		}
+		key, rest, ok := strings.Cut(item, "@")
+		start, dur, ok2 := strings.Cut(rest, "+")
+		if !ok || !ok2 {
+			return nil, fmt.Errorf("-hold 要寫成 <鍵>@<起點>+<長度>：%q", item)
+		}
+		sc, ok := scanOf(strings.TrimSpace(key))
+		if !ok {
+			return nil, fmt.Errorf("-hold 看不懂的按鍵 %q", key)
+		}
+		at, err := steps(start)
+		if err != nil {
+			return nil, err
+		}
+		d, err := steps(dur)
+		if err != nil {
+			return nil, err
+		}
+		if d == 0 {
+			return nil, fmt.Errorf("-hold 長度是 0：%q", item)
+		}
+		out = append(out, hold{scan: sc, at: at, dur: d})
+	}
+	return out, nil
+}
+
 // scanOf 把按鍵名稱轉成 set-1 掃描碼。
 func scanOf(s string) (uint8, bool) {
 	named := map[string]uint8{
@@ -2802,6 +2948,90 @@ func writeSpeakerWAV(m *machine.Machine, path string) error {
 		if s[j].Level != 0 {
 			pcm[i] = 0xE0
 		}
+	}
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	var h []byte
+	put32 := func(v uint32) { h = binary.LittleEndian.AppendUint32(h, v) }
+	put16 := func(v uint16) { h = binary.LittleEndian.AppendUint16(h, v) }
+	h = append(h, "RIFF"...)
+	put32(uint32(36 + len(pcm)))
+	h = append(h, "WAVEfmt "...)
+	put32(16)
+	put16(1)
+	put16(1)
+	put32(rate)
+	put32(rate)
+	put16(1)
+	put16(8)
+	h = append(h, "data"...)
+	put32(uint32(len(pcm)))
+	if _, err := f.Write(h); err != nil {
+		return err
+	}
+	_, err = f.Write(pcm)
+	return err
+}
+
+// writeOPLWAV 把 OPL2 寫入序列合成成 WAV（`docs/spec/196`）。
+func writeOPLWAV(m *machine.Machine, path, disable string, only, except int) error {
+	const rate = 22050
+	var off opl2.Feature
+	for _, name := range strings.Split(disable, ",") {
+		name = strings.TrimSpace(name)
+		if name == "" {
+			continue
+		}
+		f, ok := opl2.FeatureByName[name]
+		if !ok {
+			return fmt.Errorf("-opl-disable 不認得 %q（可用：ksl、am、vib、expatk）", name)
+		}
+		off |= f
+	}
+	events := make([]opl2.Event, 0, len(m.OPL))
+	for _, x := range m.OPL {
+		if x.Bank == 0 { // 只取 OPL2 相容那一組
+			events = append(events, opl2.Event{Step: x.Step, Reg: x.Reg, Val: x.Val})
+		}
+	}
+	pcm, unsupported, err := opl2.RenderChannels(events, machine.StepsPerSecond(), rate, off, only, except)
+	if err != nil {
+		return err
+	}
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	if err := opl2.WriteWAV16(f, rate, pcm); err != nil {
+		return err
+	}
+	fmt.Printf("OPL2 合成 → %s（%.1f 秒）", path, float64(len(pcm))/rate)
+	if off != 0 {
+		fmt.Printf("；關掉 %s", disable)
+	}
+	if only >= 0 {
+		fmt.Printf("；只混聲道 %d", only)
+	}
+	if except >= 0 {
+		fmt.Printf("；排除聲道 %d", except)
+	}
+	if len(unsupported) > 0 {
+		fmt.Printf("；⚠ 用到沒實作的功能：%v", unsupported)
+	}
+	fmt.Println()
+	return nil
+}
+
+// writeToneWAV 把通道 2 的方波寫成 WAV（`docs/spec/195`）。
+func writeToneWAV(m *machine.Machine, path string) error {
+	const rate = 22050
+	pcm, err := m.TonePCM(rate)
+	if err != nil {
+		return err
 	}
 	f, err := os.Create(path)
 	if err != nil {

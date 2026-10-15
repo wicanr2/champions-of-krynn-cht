@@ -50,6 +50,7 @@
 ## 依案例分組
 
 ### 共同基礎（master）（23 份）
+### 共同基礎（master）（18 份）
 
 - `001-scope-and-mvp.md`
 - `002-cpu-8086.md`
@@ -80,6 +81,12 @@
 - `194-ega-bios-default-palette.md`
 - `195-dos-direct-console-input.md`
 - `196-bios-console-read-bridge.md`
+- `194-ega-200-line-mode-palette-defaults.md`
+- `195-pit-channel2-tone-wav.md`
+- `196-opl2-synth-skeleton.md`
+- `197-key-hold-and-typematic.md`
+- `198-dosbox-cycles.md`
+- `199-live-session-api.md`
 
 ### 銀河英雄傳說 3（logh3）（10 份）
 
@@ -399,3 +406,19 @@
 - [199 — BIOS ROM 的 8×8 字型放在 F000:FA6E](199-rom-font-8x8.md)：READY。BGI 的預設字型有 37 個字元讀這裡；字形用 Public Domain 的 font8x8，與 IBM 原廠點陣不同。
 - [200 — `cmd/webplay`：在瀏覽器裡即時玩一支 DOS 程式](200-webplay.md)：READY。互動外殼，不是對拍工具；跟不上真實時間時調降 `IRQ0Base` 讓 BIOS 時鐘照常走。
 - [201 — `int 10h` 文字模式的游標、捲動與讀寫字元](201-int10-text-cursor-scroll.md)：READY。`AH=02h`／`03h` 讀寫 BDA 游標，`06h`／`07h`／`08h`／`09h`／`0Ah` 在文字模式照 DOSBox-X 動 `B800`；Borland conio 靠它定位游標。
+
+- [194 — 200 線 EGA 模式的色盤預設值](194-ega-200-line-mode-palette-defaults.md)：READY。設 mode 0Dh／0Eh 時載入 RGBI 規則的 DAC 與帶 bit 4 的屬性暫存器；少了它，只設屬性暫存器的 EGA 程式畫面整片是黑的。
+
+- [195 — PC 喇叭方波（PIT 通道 2）的 WAV 合成](195-pit-channel2-tone-wav.md)：READY。音樂與嗶聲走通道 2 方波、61h 只開關；`SpeakerWAV` 只收語音，這條路原本聽不到。`ToneEvents`／`ToneWAV`／`-dump-tone-wav`。
+
+- [196 — OPL2（YM3812）合成雛形](196-opl2-synth-skeleton.md)：READY。音高與節奏對、音色近似；節奏模式、震音／顫音、KSL 沒做但會計數。`internal/opl2`、`OPLWAV`、`-dump-opl-wav`。
+
+- [197 — 按住按鍵：定時掃描碼事件與 typematic 重複](197-key-hold-and-typematic.md)：READY。定時事件不受 KeyEvery 節流、同一步優先於 FIFO；`HoldKey`、probe `-hold`。
+
+- [198 — 機器速度：DOSBox 相容的 cycles](198-dosbox-cycles.md)：READY。每道指令 1、字串指令每次迭代 1（DOSBox-X normal core）；xt 240／at8 750／at12 1510；probe `-cycles`。
+- [199 — 即時執行介面](199-live-session-api.md)：READY。oracle 的 `RunCycles`、`KeyDown`／`KeyUp`（typematic）、`LoadStateFile`、串流音訊 `NewAudio`／`Render`（喇叭＋OPL2，消化後清紀錄）。
+- [200 — 在執行掛鉤裡改暫存器](200-hook-register-write.md)：READY。`SetRegs(CallRegs)` 只寫 `Set*` 為 true 的暫存器；`OnCall` 掛鉤裡改的值對接著執行的指令生效（轉譯層換字用）。
+- [201 — 逐步操作](201-step-actions.md)：READY。`ParseActions`（tap／hold／down／up／wait／type，毫秒是機器時間）、`RunActions`（分段跑、每段回呼）、`cmd/step`（載入狀態 → 動作 → 存狀態與截圖）。
+- [202 — 轉譯疊字層](202-translation-overlay.md)：READY。`xlate` 套件：字型 `GOLEMFNT`、排版、疊字定色與指紋失效、捲動、畫字（可調字格與字模倍率）、疊字層快照、逐字迴圈換行判斷。
+- [203 — 疊字層：以畫面內容當觸發點](203-baked-text-watchers.md)：READY。`Watcher`（登記座標＋期望色號，`Probe` 先比 8 點）；比對到就由 `Make()` 加疊字、整筆失效、畫面回到原樣再蓋。畫在圖檔裡的文字用它。
+- [204 — 疊字層：圖面](204-art-plane.md)：DRAFT。`Layer.Art` 與文字疊字分組（重疊移除只在同組內），`Stamp.Pix` 畫任意點陣圖，倍率由呼叫端烘好；逐格失效讓原版的繪製自動在圖上破洞。HD 主題用它。

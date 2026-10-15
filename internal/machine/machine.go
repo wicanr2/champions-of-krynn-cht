@@ -189,6 +189,8 @@ type OPLWrite struct {
 	Reg  uint8
 	Val  uint8
 	Step uint64
+	// Cycles 是寫入當下的累計週期數（`docs/spec/199` §3.5：串流音訊以它定位）。
+	Cycles uint64
 	// Bank 是 OPL3 的哪一組暫存器：0 ＝ 0x388/0x389（OPL2 相容），
 	// 1 ＝ 0x38A/0x38B（OPL3 才有的第二組）。
 	//
@@ -216,6 +218,8 @@ type PortWrite struct {
 	Val  uint8
 	// Step 是發生在第幾道指令，用來對齊時序。
 	Step uint64
+	// Cycles 是寫入當下的累計週期數（`docs/spec/199` §3.5：串流音訊以它定位）。
+	Cycles uint64
 }
 
 // SegChange 是一次 CS 的改變：far call／jmp／ret、中斷與 iret。
@@ -464,8 +468,11 @@ type Machine struct {
 	// 硬體鍵盤（`keyboard.go`）。kbdData 是埠 0x60 讀得到的值、
 	// kbdPortB 是埠 0x61（程式用它做鍵盤 ack）。
 	keyQueue []KeyEvent
-	kbdData  uint8
-	kbdPortB uint8
+	// timedKeys 是定時掃描碼事件（`docs/spec/197`），依步數排序，不受 KeyEvery 節流。
+	timedKeys   []timedKey
+	timedKeySeq uint64
+	kbdData     uint8
+	kbdPortB    uint8
 
 	// KeyIRQs 是實際送出去的鍵盤中斷數，keyStalls 是「有鍵但沒人裝
 	// int 09h」而留著沒送的次數。**送不出去與遊戲不理會是兩件事**，
@@ -771,6 +778,9 @@ func (m *Machine) WatchReads(lo, hi uint32, fn func(addr uint32, v uint8)) {
 // 但音樂路徑才會真的執行、`OPL` 才會有東西。
 func (m *Machine) SetAdLib(present bool) { m.oplPresent = present }
 
+// AdLib 回 388h 上有沒有 OPL2。
+func (m *Machine) AdLib() bool { return m.oplPresent }
+
 // OPL 暫存器 04h（計時器控制）的位元（YM3812 資料表）。
 const (
 	oplT1Start  = 0x01 // 啟動計時器 1
@@ -821,7 +831,7 @@ func (m *Machine) oplWrite(bank int, v uint8) {
 			}
 		}
 	}
-	m.OPL = append(m.OPL, OPLWrite{Reg: reg, Val: v, Step: m.Steps, Bank: uint8(bank)})
+	m.OPL = append(m.OPL, OPLWrite{Reg: reg, Val: v, Step: m.Steps, Cycles: m.CPU.Cycles, Bank: uint8(bank)})
 }
 
 // OPLRegs 回某一組暫存器的**目前狀態**（256 bytes）。
@@ -868,7 +878,7 @@ func (m *Machine) In8(port uint16) uint8 {
 		return m.kbdPortB
 	case port == 0x64:
 		// 鍵盤控制器狀態：bit0 ＝ 輸出緩衝區有資料。
-		if len(m.keyQueue) > 0 {
+		if len(m.keyQueue) > 0 || m.timedKeyDue() {
 			return 0x15
 		}
 		return 0x14
@@ -932,7 +942,7 @@ func (m *Machine) In8(port uint16) uint8 {
 
 func (m *Machine) Out8(p uint16, v uint8) {
 	m.Ports[p] = v
-	m.PortLog = append(m.PortLog, PortWrite{Port: p, Val: v, Step: m.Steps})
+	m.PortLog = append(m.PortLog, PortWrite{Port: p, Val: v, Step: m.Steps, Cycles: m.CPU.Cycles})
 
 	// PIT 通道 0：程式寫進去的除數決定它自己的時基（`pit.out`）。
 	// **這裡只記設定、不推進時鐘**——時間由 `IRQ0Every` 的指令數驅動。
@@ -1171,8 +1181,11 @@ func (m *Machine) Step() error {
 		(m.CycleClock && m.cycPerIRQ0 > 0 && m.CPU.Cycles >= m.nextIRQ0Cyc) {
 		m.tick()
 	}
-	if len(m.keyQueue) > 0 {
-		m.keyTick()
+	// 定時事件優先（`197` §3.1）：同一道指令只送一個事件。
+	if len(m.timedKeys) == 0 || !m.timedKeyTick() {
+		if len(m.keyQueue) > 0 {
+			m.keyTick()
+		}
 	}
 	m.Steps++
 	if m.Coverage != nil {
@@ -1284,7 +1297,14 @@ func (m *Machine) tick() {
 	switch {
 	case m.CycleClock: // 週期時鐘（`docs/spec/004` §5.1）
 		if m.cycPerIRQ0 > 0 && m.CPU.Cycles >= m.nextIRQ0Cyc {
-			m.nextIRQ0Cyc = m.CPU.Cycles + m.cycPerIRQ0
+			if m.CPU.DOSBoxCost {
+				// **絕對排程**（`docs/spec/198` §3.2）：下一次排在「該到的時刻 ＋ 一個週期」，
+				// 不是「送出的時刻 ＋ 一個週期」。一整道 `rep movsb` 在一步裡扣掉幾萬個
+				// cycles，相對排程每次都晚到、誤差累積，繪圖多的畫面計時器會慢 2% 以上。
+				m.nextIRQ0Cyc += m.cycPerIRQ0
+			} else {
+				m.nextIRQ0Cyc = m.CPU.Cycles + m.cycPerIRQ0
+			}
 			m.irq0Pending = true
 		}
 	case m.IRQ0Every > 0: // 指令數時鐘（預設）
