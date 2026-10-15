@@ -38,10 +38,10 @@ var (
 type LiveMenuRuntime struct {
 	scratch      StepObservation // observeRef 的重複使用結構
 	scratchDirty bool
-	watcher    *MenuRequestWatcher
-	presenters map[int]*RuntimeMenuOverlay
-	fault      error
-	Norm       *LegacyNormaliser // spec 033; nil = identity
+	watcher      *MenuRequestWatcher
+	presenters   map[int]*RuntimeMenuOverlay
+	fault        error
+	Norm         *LegacyNormaliser // spec 033; nil = identity
 
 	// headers is the spec 039 §3.4 欄名列 white list (nil: none).
 	headers *HeaderColumns

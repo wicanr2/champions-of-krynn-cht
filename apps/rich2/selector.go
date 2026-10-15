@@ -1,9 +1,9 @@
 package rich2
 
 import (
-	"sync"
 	"bytes"
 	"fmt"
+	"sync"
 
 	"github.com/wicanr2/dosgolem/oracle"
 	"github.com/wicanr2/dosgolem/runtime/basic"
@@ -261,8 +261,6 @@ func WatchSelectors(o *oracle.Oracle) *SelectorLog {
 		log.cur.Done = true
 		log.cur = nil
 	})
-
-
 
 	o.OnCall(o.IDA(IDAMenuHit), func(o *oracle.Oracle) {
 		// **回答選單的節拍。** 一圈的順序是

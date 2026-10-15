@@ -194,11 +194,11 @@ func namedThen(t *testing.T, name string, rec partyRec, next string, pairs ...st
 func TestEclLeadingMarkAfterPlayerName(t *testing.T) {
 	pairs := []string{" IS HIT", "이(가) 서서히", " GOES", "은(는) 간다", "ENDS", "(으)로 끝난다"}
 	for _, tc := range []struct {
-		name  string
-		rec   partyRec
-		next  string
-		want  string
-		note  string
+		name string
+		rec  partyRec
+		next string
+		want string
+		note string
 	}{
 		{"CELESTE", recCeleste, " IS HIT", "셀레스트(CELESTE)가 서서히", "無尾音取 가，名字與助詞之間沒有空白"},
 		{"MARION", recMarion, " IS HIT", "마리온(MARION)이 서서히", "有尾音取 이：解析成單獨的 이 也不插空白（先判斷空白，後換標記）"},

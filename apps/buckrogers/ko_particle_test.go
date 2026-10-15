@@ -172,7 +172,7 @@ func TestTranslatePartyKo(t *testing.T) {
 	cases := []struct {
 		in, want string
 		inline   int
-		why       string
+		why      string
 	}{
 		{"FLAVIUS makes his tactics roll.", "플라비우스는 자신의 전술 판정을 한다.", 1, "名字換音譯，無尾音取 는"},
 		{"ROARKE makes his tactics roll.", "로앙은 자신의 전술 판정을 한다.", 1, "有尾音取 은"},

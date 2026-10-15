@@ -79,7 +79,7 @@ func runIRQ7Prototype(m *machine.LEMachine, h *machine.DPMIHost, p *machine.LEOP
 	for i := range r.R {
 		r.R[i] = uint16(before.R[i])
 	}
-	r.EAXHi = uint16(before.R[cpu386.EAX] >> 16)
+	r.Hi[cpu.AX] = uint16(before.R[cpu386.EAX] >> 16)
 	r.Seg[cpu.DS], r.Seg[cpu.ES], r.Seg[cpu.SS] = segments[0], segments[1], ss
 	r.R[cpu.SP] = 4096
 	r.Seg[cpu.CS], r.IP = 0xffff, 0xfff0
