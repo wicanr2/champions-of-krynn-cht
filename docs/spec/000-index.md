@@ -5,41 +5,101 @@
 
 ## 引用規格時要連號碼帶檔名
 
-目前有 250 份規格，而編號**不是唯一鍵**：十條分支各自從 007 開始編，
 規格數以目錄現況為準，而編號**不是唯一鍵**：十條分支各自從 007 開始編，
-目前編號**不是唯一鍵**：十條分支各自從 007 開始編，
 合併之後同一個號碼底下有好幾份不同主題的文件。
 
 | 號碼 | 底下有幾份 | 檔名 |
 |---:|---:|---|
 | `004` | 2 | `004-dos-bios-services.md`、`004-machine.md` |
-| `007` | 6 | `007-com-loader-and-keyboard.md`、`007-dos-exec-overlay.md`、`007-ega-mode-0dh-planar-vram.md`、`007-exec-ems.md`、`007-linear-executable-intake.md`、`007-vga-planar.md` |
-| `008` | 7 | `008-bios-keyboard-injection.md`、`008-blocking-console-input.md`、`008-ems-paging.md`、`008-eob1-adapter.md`、`008-flat-386-entry.md`、`008-tsr-resident.md`、`008-wolong-services.md` |
-| `009` | 8 | `009-bios-time-of-day.md`、`009-exec.md`、`009-fd2-dos4g-install-check.md`、`009-keyboard-irq1.md`、`009-memory-allocator.md`、`009-mouse-event-handler.md`、`009-planar-vga.md`、`009-scratch-writes.md` |
-| `010` | 6 | `010-dosv.md`、`010-eob1-title-menu.md`、`010-exec-memory-reclaim-and-planar-write-modes.md`、`010-fd2-segment-bootstrap.md`、`010-input-verbs.md`、`010-overlay-loading.md` |
-| `011` | 5 | `011-bios-palette-and-vector-stubs.md`、`011-ega-mode10h.md`、`011-eob1-new-party-entry.md`、`011-fd2-es-environment-cell.md`、`011-xms.md` |
-| `012` | 5 | `012-cpu-386-subset.md`、`012-eob1-first-character-race.md`、`012-fd2-parity-capture.md`、`012-input-keyboard-irq-and-mouse-scale.md`、`012-mcb-chain.md` |
+| `007` | 7 | `007-buck-rogers-manual-event-adapter.md`、`007-com-loader-and-keyboard.md`、`007-dos-exec-overlay.md`、`007-ega-mode-0dh-planar-vram.md`、`007-exec-ems.md`、`007-linear-executable-intake.md`、`007-vga-planar.md` |
+| `008` | 8 | `008-bios-keyboard-injection.md`、`008-blocking-console-input.md`、`008-buck-rogers-manual-runtime-watcher.md`、`008-ems-paging.md`、`008-eob1-adapter.md`、`008-flat-386-entry.md`、`008-tsr-resident.md`、`008-wolong-services.md` |
+| `009` | 9 | `009-bios-time-of-day.md`、`009-buck-rogers-menu-display-request.md`、`009-exec.md`、`009-fd2-dos4g-install-check.md`、`009-keyboard-irq1.md`、`009-memory-allocator.md`、`009-mouse-event-handler.md`、`009-planar-vga.md`、`009-scratch-writes.md` |
+| `010` | 7 | `010-buck-rogers-menu-runtime-request-watcher.md`、`010-dosv.md`、`010-eob1-title-menu.md`、`010-exec-memory-reclaim-and-planar-write-modes.md`、`010-fd2-segment-bootstrap.md`、`010-input-verbs.md`、`010-overlay-loading.md` |
+| `011` | 6 | `011-bios-palette-and-vector-stubs.md`、`011-buck-rogers-diagnostic-key-schedule.md`、`011-ega-mode10h.md`、`011-eob1-new-party-entry.md`、`011-fd2-es-environment-cell.md`、`011-xms.md` |
+| `012` | 6 | `012-buck-rogers-selection-variant-catalog.md`、`012-cpu-386-subset.md`、`012-eob1-first-character-race.md`、`012-fd2-parity-capture.md`、`012-input-keyboard-irq-and-mouse-scale.md`、`012-mcb-chain.md` |
 | `013` | 6 | `013-buck-rogers-menu-overlay-scale-prototype.md`、`013-eob1-first-character-class.md`、`013-fd2-load-es-selector.md`、`013-file-handles.md`、`013-mouse-event-callback.md`、`013-vga-planar.md` |
 | `014` | 6 | `014-buck-rogers-selection-blink-receipt.md`、`014-dos4gw-flat-descriptors.md`、`014-ems.md`、`014-eob1-first-character-alignment.md`、`014-hardware-keyboard.md`、`014-poke-state-not-luck.md` |
-| `015` | 5 | `015-buck-rogers-menu-overlay-core.md`、`015-bytecode-observation.md`、`015-eob1-first-character-stats.md`、`015-fd2-store-environment-word.md`、`015-outermost-cmdline.md` |
-| `016` | 4 | `016-buck-rogers-post-race-text-receipt.md`、`016-dos4gw-protected-push.md`、`016-eob1-first-character-review.md`、`016-right-mouse-button.md` |
-| `017` | 3 | `017-buck-rogers-gender-selection-lifecycle.md`、`017-dos4gw-selector-load-validation.md`、`017-mouse-callback.md` |
-| `018` | 3 | `018-buck-rogers-gender-runtime-display-requests.md`、`018-cpu386-command-tail-prelude.md`、`018-eob1-first-character-name.md` |
+| `015` | 6 | `015-buck-rogers-menu-overlay-core.md`、`015-bytecode-observation.md`、`015-eob1-first-character-stats.md`、`015-execution-speed.md`、`015-fd2-store-environment-word.md`、`015-outermost-cmdline.md` |
+| `016` | 5 | `016-buck-rogers-post-race-text-receipt.md`、`016-dos4gw-protected-push.md`、`016-eob1-first-character-review.md`、`016-pit-and-speaker.md`、`016-right-mouse-button.md` |
+| `017` | 4 | `017-buck-rogers-gender-selection-lifecycle.md`、`017-dos4gw-selector-load-validation.md`、`017-mouse-callback.md`、`017-planar-read-mode-1.md` |
+| `018` | 4 | `018-all-writes-through-write8.md`、`018-buck-rogers-gender-runtime-display-requests.md`、`018-cpu386-command-tail-prelude.md`、`018-eob1-first-character-name.md` |
 | `019` | 3 | `019-buck-rogers-post-gender-text-receipt.md`、`019-dos4gw-psp-command-tail.md`、`019-eob1-first-character-alfa.md` |
-| `020` | 2 | `020-cpu386-repe-scasb.md`、`020-eob1-second-character-race.md` |
-| `021` | 2 | `021-cpu386-lea-disp8.md`、`021-eob1-second-character-review.md` |
-| `022` | 2 | `022-dos4gw-selector-swap-jz.md`、`022-eob1-second-character-beta.md` |
-| `023` | 2 | `023-cpu386-buffer-stack-finalize.md`、`023-eob1-third-character-review.md` |
-| `024` | 2 | `024-dos4gw-environment-selector-load.md`、`024-eob1-third-character-gamma.md` |
-| `025` | 2 | `025-dos4gw-environment-block.md`、`025-eob1-fourth-character-review.md` |
-| `026` | 2 | `026-cpu386-environment-prefix-test.md`、`026-eob1-fourth-character-delta.md` |
-| `027` | 2 | `027-cpu386-environment-byte-scan.md`、`027-dos-dta-find-first.md` |
-| `028` | 2 | `028-cpu386-pop-ds.md`、`028-eob1-play-level1-entry.md` |
-| `029` | 2 | `029-cpu386-startup-buffer-clear.md`、`029-eob1-level1-first-move.md` |
-| `030` | 2 | `030-cpu386-startup-buffer-tail.md`、`030-eob1-level1-first-pickup.md` |
-| `031` | 2 | `031-cpu386-near-call.md`、`031-eob1-level1-first-drop.md` |
-| `032` | 2 | `032-cpu386-push-es.md`、`032-eob1-level1-camp-lifecycle.md` |
-| `033` | 2 | `033-cpu386-register-cmp-jae.md`、`033-eob1-level1-memorize-spell.md` |
+| `020` | 3 | `020-buck-rogers-class-selection-lifecycle.md`、`020-cpu386-repe-scasb.md`、`020-eob1-second-character-race.md` |
+| `021` | 3 | `021-buck-rogers-class-runtime-display-requests.md`、`021-cpu386-lea-disp8.md`、`021-eob1-second-character-review.md` |
+| `022` | 3 | `022-buck-rogers-character-overlay-ab.md`、`022-dos4gw-selector-swap-jz.md`、`022-eob1-second-character-beta.md` |
+| `023` | 3 | `023-buck-rogers-post-class-text-receipt.md`、`023-cpu386-buffer-stack-finalize.md`、`023-eob1-third-character-review.md` |
+| `024` | 3 | `024-buck-rogers-reroll-input-lifecycle.md`、`024-dos4gw-environment-selector-load.md`、`024-eob1-third-character-gamma.md` |
+| `025` | 3 | `025-buck-rogers-character-name-input-lifecycle.md`、`025-dos4gw-environment-block.md`、`025-eob1-fourth-character-review.md` |
+| `026` | 3 | `026-buck-rogers-career-skill-allocation-lifecycle.md`、`026-cpu386-environment-prefix-test.md`、`026-eob1-fourth-character-delta.md` |
+| `027` | 3 | `027-buck-rogers-career-skill-action-and-exit-lifecycle.md`、`027-cpu386-environment-byte-scan.md`、`027-dos-dta-find-first.md` |
+| `028` | 3 | `028-buck-rogers-technical-skill-allocation-lifecycle.md`、`028-cpu386-pop-ds.md`、`028-eob1-play-level1-entry.md` |
+| `029` | 3 | `029-buck-rogers-body-icon-selection-lifecycle.md`、`029-cpu386-startup-buffer-clear.md`、`029-eob1-level1-first-move.md` |
+| `030` | 3 | `030-buck-rogers-save-prompt-and-character-completion-lifecycle.md`、`030-cpu386-startup-buffer-tail.md`、`030-eob1-level1-first-pickup.md` |
+| `031` | 3 | `031-buck-rogers-scratch-save-and-roster-lifecycle.md`、`031-cpu386-near-call.md`、`031-eob1-level1-first-drop.md` |
+| `032` | 3 | `032-buck-rogers-unimplemented-service-receipt.md`、`032-cpu386-push-es.md`、`032-eob1-level1-camp-lifecycle.md` |
+| `033` | 3 | `033-buck-rogers-terminal-state-checkpoint.md`、`033-cpu386-register-cmp-jae.md`、`033-eob1-level1-memorize-spell.md` |
+| `034` | 2 | `034-buck-rogers-save-roster-join-runtime-display-requests.md`、`034-cpu386-byte-record-scan.md` |
+| `035` | 2 | `035-buck-rogers-scale-explicit-runtime-overlay.md`、`035-cpu386-callback-pointer-gate.md` |
+| `036` | 2 | `036-buck-rogers-character-runtime-overlay.md`、`036-cpu386-segment-transfer-indirect-call.md` |
+| `037` | 2 | `037-buck-rogers-character-sheet-runtime-display-requests.md`、`037-cpu386-near-jump.md` |
+| `038` | 2 | `038-buck-rogers-character-sheet-runtime-overlay.md`、`038-cpu386-x87-init-control.md` |
+| `185` | 2 | `185-cpu386-ss-word-store.md`、`185-keyboard-trace-and-keypad-names.md` |
+| `189` | 2 | `189-a20-gate-and-hma-addressing.md`、`189-hercules-b0000.md` |
+| `190` | 3 | `190-cpu386-d1-shl-rm32.md`、`190-irq0-calibration.md`、`190-opl-vgm-dump.md` |
+| `191` | 3 | `191-bios-rom-tail.md`、`191-cpu386-x87-fmul-m32.md`、`191-two-clocks-relationship.md` |
+| `192` | 2 | `192-cpu386-x87-trig.md`、`192-crtc-effects.md` |
+| `193` | 2 | `193-cpu386-short-parity-branch.md`、`193-crtc-timing.md` |
+| `194` | 7 | `194-cpu386-x87-fild-m16.md`、`194-ega-200-line-mode-palette-defaults.md`、`194-ega-bios-default-palette.md`、`194-exec-child-dta.md`、`194-int33-ax14-exchange.md`、`194-mouse-swap-user-interrupt-vectors.md`、`194-stubseg-font-collision-and-program-path.md` |
+| `195` | 6 | `195-dos-direct-console-input.md`、`195-moo2-explicit-le-offset.md`、`195-nul-device.md`、`195-pit-channel2-tone-wav.md`、`195-subdirectory-path-resolution.md`、`195-xms-entry-must-not-touch-caller-stack.md` |
+| `196` | 6 | `196-bios-console-read-bridge.md`、`196-country-info-caller-buffer.md`、`196-cpu386-moo2-word-cmp-absolute.md`、`196-ioctl-get-device-parameters.md`、`196-mouse-handler-survives-state-file.md`、`196-opl2-synth-skeleton.md` |
+| `197` | 6 | `197-bound-mz-le-file-base.md`、`197-cpu386-real-mode-subset.md`、`197-int27-terminate-and-stay-resident.md`、`197-key-hold-and-typematic.md`、`197-mouse-handler-in-saved-state.md`、`197-push-sp-80186.md` |
+| `198` | 5 | `198-cpu386-or-word-register.md`、`198-dm-sweep-adapter.md`、`198-dos-relative-directories.md`、`198-dosbox-cycles.md`、`198-mode-set-default-dac.md` |
+| `199` | 4 | `199-cpu386-moo2-segment-prefixes.md`、`199-live-session-api.md`、`199-psp-block-resize-boundary.md`、`199-rom-font-8x8.md` |
+| `200` | 4 | `200-eob3-oracle-adapter.md`、`200-hook-register-write.md`、`200-moo2-provisional-protected-dos.md`、`200-webplay.md` |
+| `201` | 4 | `201-int10-text-cursor-scroll.md`、`201-moo2-dos4g-startup-returns.md`、`201-step-actions.md`、`201-vga-unchained-256.md` |
+| `202` | 4 | `202-bios-int09-default-handler.md`、`202-cpu386-moo2-sub-byte-register.md`、`202-translation-overlay.md`、`202-x87-probe-fnstcw.md` |
+| `203` | 4 | `203-baked-text-watchers.md`、`203-cpu386-es-word-segment-load.md`、`203-trace-operands-and-steps.md`、`203-vga-dac-readback.md` |
+| `204` | 4 | `204-art-plane.md`、`204-cpu386-ds-prefix-register-immediate.md`、`204-findfirst-directories.md`、`204-trace-range.md` |
+| `205` | 3 | `205-cpu386-es-byte-compare-register-memory.md`、`205-mode13-default-vga-palette.md`、`205-spawn-arena-placement.md` |
+| `206` | 3 | `206-buck-rogers-name-prompt-runtime-display-request.md`、`206-cpu386-push-gs.md`、`206-exec-exit-sentinel.md` |
+| `207` | 2 | `207-buck-rogers-name-prompt-runtime-overlay.md`、`207-cpu386-and-word-register-immediate.md` |
+| `208` | 2 | `208-cpu386-sbb-rm32-register.md`、`208-runtime-overlay-empty-terminal-frame.md` |
+| `209` | 2 | `209-buck-rogers-career-skill-runtime-display-requests.md`、`209-cpu386-xchg-register-register.md` |
+| `210` | 2 | `210-buck-rogers-career-skill-runtime-overlay.md`、`210-cpu386-cmc.md` |
+| `211` | 2 | `211-buck-rogers-technical-skill-runtime-display-requests.md`、`211-cpu386-and-rm32-register.md` |
+| `212` | 2 | `212-buck-rogers-technical-skill-runtime-overlay.md`、`212-cpu386-or-rm32-imm8-memory.md` |
+| `213` | 2 | `213-buck-rogers-skill-action-bar-glyph-events.md`、`213-cpu386-pop-gs.md` |
+| `214` | 2 | `214-buck-rogers-skill-action-bar-display-requests.md`、`214-cpu386-sbb-rm16-register.md` |
+| `215` | 2 | `215-buck-rogers-skill-action-bar-runtime-overlay.md`、`215-cpu386-enter-level-zero.md` |
+| `216` | 2 | `216-buck-rogers-manual-presentation-lifecycle.md`、`216-cpu386-cmp-word-register-memory.md` |
+| `217` | 2 | `217-buck-rogers-manual-multiline-presenter-core.md`、`217-cpu386-test-ax-imm16.md` |
+| `218` | 2 | `218-buck-rogers-manual-formal-font-subset.md`、`218-protected-dos-set-dta.md` |
+| `219` | 2 | `219-host-scale-selection-apply-core.md`、`219-protected-dos-findfirst-exact.md` |
+| `220` | 2 | `220-buck-rogers-manual-presentation-queue-consumer.md`、`220-cpu386-cmp-rm8-register.md` |
+| `221` | 2 | `221-buck-rogers-manual-watcher-snapshot-bridge.md`、`221-cpu386-mov-r8-es-memory.md` |
+| `222` | 2 | `222-buck-rogers-manual-runtime-presentation.md`、`222-cpu386-ror-r32-imm8.md` |
+| `223` | 2 | `223-buck-rogers-story-content-safe-diagnostics.md`、`223-cpu386-or-rm8-register.md` |
+| `224` | 2 | `224-buck-rogers-story-opening-watcher-core.md`、`224-cpu386-lea-segment-prefix.md` |
+| `225` | 2 | `225-cpu386-mov-es-ds-ebx.md`、`225-host-panel-event-routing-core.md` |
+| `226` | 2 | `226-host-machine-presentation-bridge.md`、`226-moo2-protected-mouse-query.md` |
+| `227` | 2 | `227-cpu386-pop-edi-disp8.md`、`227-host-active-layer-snapshot-core.md` |
+| `228` | 2 | `228-cpu386-mov-es-to-ds-ebx-word.md`、`228-host-mouse-bridge-ready-candidate.md` |
+| `229` | 2 | `229-buck-rogers-story-fill-six-row-diagnostic-draft.md`、`229-moo2-protected-mouse-software-reset.md` |
+| `230` | 2 | `230-linux-ebiten-host-event-loop-draft.md`、`230-moo2-protected-mouse-zero-sensitivity.md` |
+| `231` | 2 | `231-linux-ebiten-panel-pause-gate.md`、`231-moo2-protected-video-mode-03.md` |
+| `232` | 2 | `232-cpu386-cmp-rm16-imm16.md`、`232-linux-ebiten-panel-batch-keyboard-gate.md` |
+| `233` | 2 | `233-cpu386-test-rm16-imm16.md`、`233-ebiten-bios-transport-preflight-draft.md` |
+| `234` | 2 | `234-dpmi-linear-block-reuse.md`、`234-xlate-physical-pixel-glyph-plan.md` |
+| `235` | 2 | `235-le-image-and-dos-arena-separation.md`、`235-sealed-owner-private-boot-draft.md` |
+| `236` | 2 | `236-bootroot-composition-preflight-draft.md`、`236-moo2-real-mode-vbe-controller-info.md` |
+| `237` | 2 | `237-moo2-vbe-zero-display-start.md`、`237-scratch-determinism-draft.md` |
+| `238` | 2 | `238-moo2-vbe-mode-0101-info.md`、`238-session-step-observer-draft.md` |
+| `239` | 2 | `239-moo2-vbe-set-mode-0101.md`、`239-xlate-rewrite-detection-draft.md` |
+| `240` | 2 | `240-cpu386-add-al-immediate.md`、`240-opl-audio-output-draft.md` |
+| `241` | 2 | `241-buckrogers-play-input-draft.md`、`241-moo2-shared-platform-ports.md` |
+| `242` | 2 | `242-machine-clock-scale-draft.md`、`242-secondary-dma-single-mask.md` |
+| `250` | 2 | `250-cga-int10-scroll-and-palette.md`、`250-moo2-bios-clock-attach.md` |
+| `251` | 2 | `251-moo2-protected-mouse-driver-reset.md`、`251-oracle-step-guard.md` |
 
 所以：**引用寫 `docs/spec/009-memory-allocator`，不要只寫 `docs/spec/009`**。
 程式碼註解裡既有的「`docs/spec/NNN`」是各分支寫的，指的是那條分支自己的
@@ -51,10 +111,7 @@
 
 ## 依案例分組
 
-### 共同基礎（master）（23 份）
-### 共同基礎（master）（18 份）
-### 共同基礎（master）（17 份）
-### 共同基礎（master）（10 份）
+### 共同基礎（master）（39 份）
 
 - `001-scope-and-mvp.md`
 - `002-cpu-8086.md`
@@ -79,12 +136,6 @@
 - `201-vga-unchained-256.md`
 - `202-bios-int09-default-handler.md`
 - `203-vga-dac-readback.md`
-
-### 武士傳說（Knights of Legend）（3 份）
-
-- `194-ega-bios-default-palette.md`
-- `195-dos-direct-console-input.md`
-- `196-bios-console-read-bridge.md`
 - `194-ega-200-line-mode-palette-defaults.md`
 - `195-pit-channel2-tone-wav.md`
 - `196-opl2-synth-skeleton.md`
@@ -101,6 +152,34 @@
 - `233-ebiten-bios-transport-preflight-draft.md`（限縮 CONFORMED；正式建構／回合／交付前三層檢查與負例通過，非同批原子性）
 - `197-int27-terminate-and-stay-resident.md`
 - `190-opl-vgm-dump.md`
+
+### 原分支索引未列（合併時補登）（17 份）
+
+這幾份在各自分支的索引裡就沒有登記，合併時補上。來源分支用 `git log --diff-filter=A -- docs/spec/<檔名>` 查。
+
+- [015：執行速度](015-execution-speed.md)：READY。
+- [016：PIT 與 PC 喇叭（語音擷取）](016-pit-and-speaker.md)：READY。
+- [017 — planar read mode 1（color compare）](017-planar-read-mode-1.md)：READY。
+- [018 — 所有記憶體寫入都要走 `Write8`](018-all-writes-through-write8.md)：READY。
+- [194 — INT 33h AX=0014h：交換事件處理常式](194-int33-ax14-exchange.md)：READY。
+- [202 — x87 探測語意（`FNINIT`／`FNSTCW` 控制字）](202-x87-probe-fnstcw.md)：READY。
+- [203 — 追蹤與監看的時序＋運算元（給跨界回呼除錯用）](203-trace-operands-and-steps.md)：READY。
+- [204 — trace-range（任意步號區間的全暫存器追蹤）](204-trace-range.md)：READY。
+- [205 — spawn 走 arena 落子（EXEC 不壓活塊）](205-spawn-arena-placement.md)：READY。
+- [206 — ExecRecord 用 Ended 區分「還沒結束」（Exit 不再當哨兵）](206-exec-exit-sentinel.md)：READY。
+- [235 — Sealed Owner 私有開機（READY，限本契約範圍）](235-sealed-owner-private-boot-draft.md)：READY。
+- [236 — BootRoot composition 前檢（READY，限本契約範圍）](236-bootroot-composition-preflight-draft.md)：READY。
+- [237 — 暫存層決定性：檔案時間與大小寫](237-scratch-determinism-draft.md)：CONFORMED。
+- [238 — Session 逐步觀測器（唯讀視圖）](238-session-step-observer-draft.md)：READY。
+- [241 — buckrogers-play 的輸入：遊戲鍵、滑鼠與前端功能鍵](241-buckrogers-play-input-draft.md)：READY。
+- [242 — 機器時脈比例（較慢的虛擬 CPU）](242-machine-clock-scale-draft.md)：READY。
+- [250 CGA 圖形模式的 INT 10h 視窗捲動與清除、色彩選擇](250-cga-int10-scroll-and-palette.md)：CONFORMED。
+
+### 武士傳說（Knights of Legend）（3 份）
+
+- `194-ega-bios-default-palette.md`
+- `195-dos-direct-console-input.md`
+- `196-bios-console-read-bridge.md`
 
 ### 銀河英雄傳說 3（logh3）（10 份）
 
