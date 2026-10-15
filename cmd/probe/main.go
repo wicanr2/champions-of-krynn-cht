@@ -45,6 +45,8 @@ func main() {
 	exe := flag.String("exe", "", "要跑的執行檔（必填；MZ 或 .COM，看檔頭 magic 自動判斷）")
 	root := flag.String("root", ".", "原版素材目錄（配 -load-state 時不必再給，"+
 		"狀態檔裡存著；真的給了就以命令列為準）")
+	scratch := flag.String("scratch", "", "可寫的暫存層（docs/spec/009）：程式存檔、建檔都落在這個目錄，"+
+		"原版目錄 -root 永遠不被寫入；不給就維持「寫入記帳、不落地」")
 	steps := flag.Uint64("steps", 20_000_000,
 		"跑到第幾道指令為止（**絕對步數**，配 -load-state 時要大於檢查點的步數）")
 	trace := flag.Uint64("trace", 0, "最後幾道指令的軌跡（0 ＝ 不記）")
@@ -356,6 +358,7 @@ func main() {
 	}
 	obsSetup(m) // 觀測用旗標的掛鉤（observe.go）
 	d := dos.New(m, *root)
+	d.Scratch = *scratch
 	d.Mouse.XScale = uint16(*xscale)
 	if *queue != "" {
 		for _, q := range strings.Split(*queue, ",") {
