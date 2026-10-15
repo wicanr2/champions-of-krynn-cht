@@ -678,3 +678,18 @@ ebiten 相關套件要 X11／ALSA 開發檔與 `xvfb-run`，這一輪用本機�
     Xvfb 的就緒訊號，會無限等待（實測卡 30 分鐘）。
 - `go.sh` 依前綴把測試讀的環境變數傳進容器（原本只傳 9 個，測試讀約 60 個），
   新增 `DOSGOLEM_EXTRA_MOUNTS`（多個掛載，來源不存在就停）與 `DOSGOLEM_NETWORK`。
+
+## 2026-10-15：狀態檔決定性、eob1 分支併入、本機 clone 收斂
+
+- DOS 狀態檔的開檔表、EMS handle、XMS EMB 依 handle 排序寫出；EMB 新增 `EMBList`，
+  舊的 map 欄位只用來讀舊檔。
+- 併入本機 clone `dosgolem-eob1-parity` 上從未推送的 `eob1/parity-oracle`（含
+  `eob1/dos-memory-model`）。StubSeg 佈局改由 `internal/machine` 集中分配，系統設定表在
+  `0x448`；`AH=4Ah` 的嚴格上限維持需要手動開，`apps/eob1` 新增 `Load` 開啟它。
+- `apps/dm` 判斷「還在跑」改看 `ExecRecord.Ended`（spec `206-exec-exit-sentinel`）。
+- 原版驗證：大富翁2（`oracle`、`apps/rich2`）、臥龍傳（`apps/wolong`）、炎龍騎士團 2
+  （`internal/machine` 791 個通過）。EOB1、地下城主、phantasie、Buck Rogers、MOO2 的
+  原版素材不在本機可解開的位置，沒有跑。
+- 刪除已併入的本機 clone（kolrand、logh3、psys、san、wolong、merge、eob1-parity 與其
+  兩個 worktree）。`workplace/` 的輸出與標成臨時的差分工具搬到
+  `~/cht/dosgolem-workplace-archive/`。`dosgolem-sc` 有進行中的工作，沒有動。
