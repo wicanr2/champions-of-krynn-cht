@@ -62,6 +62,13 @@ type ExecRecord struct {
 	// 255（`pop` 回傳值慣用法），`0xFF` 同時是碼與「還沒結束」
 	//（spec-206；`retro-runtime-study-private#47`）。
 	Ended bool
+
+	// FreeSeg 是決定 PSP 的那個配置游標，CurPSP 是當時的行程。
+	// 有它們才看得出「子行程為什麼載在這一段」——只看 PSP 的話，
+	// 載在父行程頭上和載在自由區都長一樣。
+	FreeSeg, CurPSP uint16
+	// Parags 是映像需要的段數（`imageParags`）。
+	Parags uint16
 }
 
 // Enqueue 排入一支待跑程式。行程疊空了（第一支程式結束或常駐）之後
@@ -221,6 +228,7 @@ func (d *DOS) spawn(c *cpu.CPU, name string, p execParams) {
 	}
 	d.ExecLog = append(d.ExecLog, ExecRecord{
 		Name: name, Base: filepath.Base(path), PSP: psp, Exit: 0xFF,
+		FreeSeg: f.freeSeg, CurPSP: f.psp, Parags: need,
 	})
 	d.Opened = append(d.Opened, name)
 	clearCarry(c)
@@ -267,6 +275,7 @@ func (d *DOS) loadOverlay(c *cpu.CPU, name string, loadSeg, relocFactor uint16) 
 	d.Opened = append(d.Opened, name)
 	d.ExecLog = append(d.ExecLog, ExecRecord{
 		Name: name, Base: filepath.Base(path), PSP: loadSeg, Exit: 0xFF,
+		FreeSeg: d.freeSeg, CurPSP: d.curPSP, Parags: uint16((len(data) + 15) / 16),
 	})
 	// AL=03h 成功時 DOS 回 AX=0。呼叫端常常是 `jc 錯誤` 之後再 `or ax,ax`，
 	// 留著 4B03h 會被讀成錯誤碼。

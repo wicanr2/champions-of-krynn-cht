@@ -80,14 +80,17 @@ func (d *DOS) int21(c *cpu.CPU) {
 		// 沒有可 flush 的東西——靜默收下（`docs/spec/009` §3），不是「沒實作」。
 		clearCarry(c)
 
-	case 0x0E: // 選目前磁碟機：DL ＝ 磁碟機（0 ＝ A），AL ← 磁碟機數量
-		// 我們只有一個 Root，任何磁碟機都對到它（`docs/spec/195` §3）；
-		// 存下來是為了讓 `AH=19h` 回報得一致——遊戲把它拼進路徑之後
-		// 對不上的話，症狀出現在幾百萬道指令之後的開檔失敗。
+	case 0x0E: // 選預設磁碟機：DL ＝ 磁碟（0＝A），回 AL ＝ 邏輯磁碟數
+		// 不實作的話 AL 留著呼叫端的值，程式拿它當「有幾台磁碟」去掃，
+		// 掃到的都是不存在的代號，然後停在「找不到資料片」的迴圈裡——
+		// 畫面全黑、沒有任何錯誤訊息（EOB1 的 EOB.EXE 就停在這裡）。
 		//
-		// **回 3 不是 1**：回 1 遊戲會判定沒有硬碟。
-		d.Drive = uint8(c.R[cpu.DX] & 0xFF)
-		setAL(c, 3)
+		// DOSBox-X 的 `DOS_SetDefaultDrive` 只認 0..DOS_DRIVES 且該台要存在；
+		// 這裡只有一台工作磁碟，所以只接受它、其餘忽略，AL 一律回 LASTDRIVE。
+		if uint8(c.R[cpu.DX]) == d.Drive {
+			d.Drive = uint8(c.R[cpu.DX])
+		}
+		setAL(c, lastDrive)
 		clearCarry(c)
 
 	case 0x19: // 取目前磁碟機
@@ -198,21 +201,32 @@ func (d *DOS) int21(c *cpu.CPU) {
 		d.fileAttr(c)
 
 	case 0x44: // IOCTL
-		if al(c) == 0x00 { // 取裝置資訊：bit7 = 0 表示是檔案
+		switch al(c) {
+		case 0x00: // 取裝置資訊：bit7 = 0 表示是檔案
 			c.R[cpu.DX] = uint16(d.Drive)
 			if h, ok := d.handles[c.R[cpu.BX]]; ok && h.dev != 0 {
 				c.R[cpu.DX] = h.dev // 字元裝置（`docs/spec/195-nul-device`）
 			}
-		} else if al(c) == 0x0D && cl(c) == 0x60 {
-			d.deviceParameters(c)
-		} else {
+			c.R[cpu.AX] = 0
+		case 0x0D:
+			if cl(c) == 0x60 {
+				d.deviceParameters(c)
+			} else {
+				d.noteCPU(c, 0x21, 0x44, al(c))
+			}
+			c.R[cpu.AX] = 0
+		case 0x0E: // 取邏輯磁碟對應：BL ＝ 磁碟（0＝預設）
+			// 一個實體機只對一個代號時 DOS 回 AL=0。回別的值等於告訴程式
+			// 「這台是某個實體機的第 n 個代號」，它會去切換代號再找一次檔。
+			setAL(c, 0)
+		default:
 			// 其他子功能沒實作——記下來，別讓「成功」假象藏住。
 			// 記脈絡：generic IOCTL（`AL=0Dh`）的實際請求在 CH/CL 裡，
 			// 少了它只知道「有人問了 IOCTL」，答不出問的是磁碟幾何
 			// 還是媒體識別。
 			d.noteCPU(c, 0x21, 0x44, al(c))
+			c.R[cpu.AX] = 0
 		}
-		c.R[cpu.AX] = 0
 		clearCarry(c)
 
 	case 0x47: // 取目前目錄 → DS:SI（64 bytes）
@@ -510,6 +524,13 @@ func availFrom(seg uint16) uint16 {
 // growLimit 是 PSP 區塊從 blk 起最多能長到幾段：到 arena 裡第一個已配出區塊的
 // MCB 之前（真 DOS 的 `AH=4Ah` 只能吃相鄰的自由區塊）。沒有已配出區塊時就是 avail。
 // 只在 `StrictPSPGrowth` 打開時用（`docs/spec/199-psp-block-resize-boundary` §3）。
+//
+// EOB1 的鏈式載入器（START1.EXE／INTRO.EXE）要的也是這個上限：先 `AH=48h` 配一小塊
+// 放子行程的環境（first fit 落在記憶體頂端），再把自己的區塊撐到上限、從「我擁有的頂端」
+// 往回算一段放搬家後的自己。用 `MemTop - blk` 當上限的話它會撐過那塊環境區，搬家的
+// 位置和環境區重疊，最後停在 `A0000h`。它對應 DOSBox-X `DOS_ResizeMemory` 的
+// 「自己的大小 ＋ 緊接在後的自由區塊」；arena 合併過相鄰自由塊，所以兩種算法一致。
+// EOB1 的 adapter 要開 `StrictPSPGrowth`。
 func (d *DOS) growLimit(blk, avail uint16) uint16 {
 	for _, b := range d.arena {
 		if !b.free && b.seg > blk && b.seg-blk < avail {

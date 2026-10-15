@@ -11,7 +11,6 @@ import (
 	"path/filepath"
 
 	"github.com/wicanr2/dosgolem/apps/eob1"
-	"github.com/wicanr2/dosgolem/oracle"
 )
 
 type receipt struct {
@@ -44,7 +43,7 @@ func run(exe, root, out string) error {
 	if err != nil {
 		return err
 	}
-	o, err := oracle.Load(exe, root)
+	o, err := eob1.Load(exe, root)
 	if err != nil {
 		return err
 	}

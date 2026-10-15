@@ -44,6 +44,9 @@ type Time struct{ Hour, Min, Sec, Hundredth uint8 }
 // 同樣的輸入永遠得到同樣的時刻，對拍才是決定性的
 // （與 `machine.tick` 的模型一致）。18.2 Hz ＝ 一個 tick 約 5.4925 個
 // 百分之一秒。
+// Clock 讓上層讀目前的時刻，內容與 `AH=2Ch` 回報的一致。
+func (d *DOS) Clock() Time { return d.clock() }
+
 func (d *DOS) clock() Time {
 	base := (uint64(d.Now.Hour)*3600+uint64(d.Now.Min)*60+uint64(d.Now.Sec))*100 +
 		uint64(d.Now.Hundredth)
@@ -1045,6 +1048,12 @@ type KeyPoll struct {
 }
 
 // CallRec 是一次 int 21h 的暫存器快照。
+// lastDrive 是 `AH=0Eh` 回報的邏輯磁碟數。
+//
+// DOSBox-X 的 `case 0x0e` 回「最後一台存在的磁碟編號」；這裡只掛一台工作磁碟
+// （`d.Drive`，預設 C），所以回它的編號 ＋ 1。回 0 會讓程式判定一台磁碟都沒有。
+const lastDrive = 3 // A、B 佔位 ＋ 工作磁碟 C
+
 type CallRec struct {
 	Step         uint64
 	AH, AL       uint8

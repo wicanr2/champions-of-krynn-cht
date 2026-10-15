@@ -5,11 +5,26 @@ package eob1
 import (
 	"crypto/sha256"
 	"fmt"
+	"os"
 
 	"github.com/wicanr2/dosgolem/oracle"
 )
 
 // LauncherInput 是START1.EXE的正常選項：VGA、無音效、使用滑鼠。
+// Load 開一個 EOB1 用的 oracle。
+//
+// EOB1 的鏈式載入器（START1.EXE／INTRO.EXE）要 DOSBox-X 的 `AH=4Ah` 成長上限：
+// 先配一小塊放子行程環境，再把自己撐到上限往回算搬家位置。上限多算的話搬家
+// 位置和環境區重疊，程式最後停在 `A0000h`（`docs/spec/199-psp-block-resize-boundary` §3）。
+func Load(exe, root string) (*oracle.Oracle, error) {
+	o, err := oracle.Load(exe, root)
+	if err != nil {
+		return nil, err
+	}
+	o.StrictPSPGrowth(true)
+	return o, nil
+}
+
 const LauncherInput = "44Y"
 
 // Position是原版目前隊伍所在格與朝向的唯讀觀測值。
@@ -134,7 +149,7 @@ func ToSavedGameProtectionPrepared(o *oracle.Oracle) error {
 	}
 	o.PressKey(oracle.KeyEnter)
 	if err := o.RunUntil(screenDigest("TENMIYANA排入Protection From Evil", 0, 0, 176, 168,
-		"a02ba3f50182043bc84b840f381c1a963ef46044bd1df527cb857720d61cf259"), oracle.Budget(5_000_000)); err != nil {
+		"5f2707cd1fec814b9cf1b0a6076ab522f313f3b762699c5c74a42f8bd53cf85b"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待Protection From Evil排入：%w", err)
 	}
 	return nil
@@ -156,7 +171,7 @@ func ToSavedGameProtectionRested(o *oracle.Oracle) error {
 		}
 	}
 	o.PressKey(oracle.KeyEnter)
-	const completed = "7afb4aaf383b8f987338d9211fb751145248730ac1e09ce65027033077db8fbf"
+	const completed = "053066c87c375fce66d73a3693a179e6923e44cf27ec1176dc5928d00063b8fa"
 	leftCamp := false
 	var next uint64
 	returned := oracle.NewCond("有效存檔Protection From Evil休息完成", func(o *oracle.Oracle) bool {
@@ -190,11 +205,10 @@ func ToSavedGameProtectionBook(o *oracle.Oracle) error {
 	if err := ToSavedGameProtectionRested(o); err != nil {
 		return err
 	}
-	o.PressKey(oracle.KeyEscape)
-	if err := o.RunUntil(screenDigest("Protection From Evil休息後返回CAMP根選單", 0, 0, 176, 168,
-		"518da9a2266e58a2ee431128b788e8031da76c9b350251351c0117120b1e6be8"), oracle.Budget(5_000_000)); err != nil {
-		return fmt.Errorf("EOB1等待休息後返回CAMP根選單：%w", err)
-	}
+	// 休息完成時畫面已經回到 CAMP 根選單（Rest Party 反白、訊息列寫著
+	// TENMIYANA GAINED PROTECTION FROM EVIL.），所以只要按一次 Escape 就離開 CAMP。
+	// 先前這裡按兩次、中間還等一個「返回 CAMP 根選單」的畫面——第一次 Escape 其實
+	// 已經把隊伍帶回地城，那個中間狀態根本不會出現。
 	o.PressKey(oracle.KeyEscape)
 	if err := o.RunUntil(screenDigest("Protection From Evil休息後返回地城", 0, 0, 176, 100,
 		"689c6d86fd088a78820474561dc899094714b396184bd492598e4f36d066100a"), oracle.Budget(5_000_000)); err != nil {
@@ -204,7 +218,7 @@ func ToSavedGameProtectionBook(o *oracle.Oracle) error {
 		return fmt.Errorf("EOB1由TENMIYANA聖徽開書：%w", err)
 	}
 	if err := o.RunUntil(screenDigest("TENMIYANA Protection From Evil法術書", 0, 0, 176, 168,
-		"1f985614d63c648842aea92b3b62cbecca1b5cd5ee11aacc4cd28ae5b893cf92"), oracle.Budget(5_000_000)); err != nil {
+		"92ebfbd40e63a7d263864789f8780330ac40d0daa4a6410369daee00f8b3b064"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待TENMIYANA法術書：%w", err)
 	}
 	return nil
@@ -219,7 +233,7 @@ func ToSavedGameProtectionTargeting(o *oracle.Oracle) error {
 		return fmt.Errorf("EOB1選取Protection From Evil施法：%w", err)
 	}
 	if err := o.RunUntil(screenDigest("Protection From Evil選擇目標", 0, 0, 176, 168,
-		"f00ab327ba9c9bcb7975e5fbbc69e2b39712ee9b8b498db9c1da00eb393b7e00"), oracle.Budget(5_000_000)); err != nil {
+		"2262588463804b4e85cc67b15aef925fba70aa0446dcfc7ff92c4e5216b54593"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待Protection From Evil目標：%w", err)
 	}
 	return nil
@@ -250,7 +264,7 @@ func ToSavedGameProtectionCastOnAriel(o *oracle.Oracle) error {
 		return fmt.Errorf("EOB1對ARIEL施放Protection From Evil：%w", err)
 	}
 	if err := o.RunUntil(screenDigest("Protection From Evil施放於ARIEL", 0, 168, 320, 32,
-		"fd53da2992f12eda5ce14e4256a3e5f08aeea342aeac3f5ef5f4eb1b5ffbb934"), oracle.Budget(5_000_000)); err != nil {
+		"5f28857d5ebc0794e16ff18583f39306ccfbeb5f343b57808888fce90a1ad8f6"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待Protection From Evil施放完成：%w", err)
 	}
 	return nil
@@ -777,7 +791,7 @@ func ToLevel1FirstPickup(o *oracle.Oracle) error {
 		return fmt.Errorf("EOB1拾取LEVEL1起始石塊：%w", err)
 	}
 	if err := o.RunUntil(screenDigest("LEVEL1起始石塊已拾取", 0, 0, 176, 120,
-		"1d123d4fe9a5a1001446f2d180601e8713fa2dd02f00caac4c9f406f31b59375"), oracle.Budget(5_000_000)); err != nil {
+		"f6112e7a45d8bd0e4ba037aee0f7feeaabf40ace17c59fe21441399141220256"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待起始石塊拾取畫面：%w", err)
 	}
 	return nil
@@ -798,7 +812,7 @@ func ToLevel1FirstDrop(o *oracle.Oracle) error {
 		return err
 	}
 	if err := o.RunUntil(screenDigest("LEVEL1起始石塊已放回", 0, 0, 176, 120,
-		"4cf790c278d6a9115094c61eebacf894d13ad12a118403ed25056c42523352d2"), oracle.Budget(5_000_000)); err != nil {
+		"2ef2c0240070bce02b59735c5266fc6163eee170ea8c135982a469f04bb2abbc"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待起始石塊放回畫面：%w", err)
 	}
 	return nil
@@ -960,13 +974,18 @@ func ToLevel1CampSaveWritten(o *oracle.Oracle) error {
 }
 
 // ToLevel1MemorizeSpells 從CAMP第二列確認，進入ALFA的一級法術記憶頁。
+//
+// 這一段的 screenDigest 只取左半 (0,0,176,120)，不取全畫面：CAMP 的人像會動。
+// 量過 3M 步——全畫面 3 種 digest、右人像區 3 種、左 176x120 只有 1 種。壓全畫面
+// 等於把 golden 綁在某個動畫相位上，時序一變就再也對不上；這幾條路徑先前就是
+// 這樣整批卡住的，而錯誤訊息只說「跑滿指令」，看不出原因。
 func ToLevel1MemorizeSpells(o *oracle.Oracle) error {
 	if err := ToLevel1CampMemorizeSelected(o); err != nil {
 		return err
 	}
 	o.PressKey(oracle.KeyEnter)
-	if err := o.RunUntil(screenDigest("LEVEL1 CAMP記憶法術頁", 0, 0, oracle.Width, oracle.Height,
-		"1c430348d1f4d21309d1b553fb3f21597baa97c6682563c9d599ad9b9bf6c00a"), oracle.Budget(5_000_000)); err != nil {
+	if err := o.RunUntil(screenDigest("LEVEL1 CAMP記憶法術頁", 0, 0, 176, 120,
+		"7dcbcff21d5261b2043e4100b92680d56fb13134d26b1c1a3a4f628031ba51a0"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待CAMP記憶法術頁：%w", err)
 	}
 	return nil
@@ -978,8 +997,8 @@ func ToLevel1MemorizeFirstSpell(o *oracle.Oracle) error {
 		return err
 	}
 	o.PressKey(oracle.KeyEnter)
-	if err := o.RunUntil(screenDigest("LEVEL1 CAMP已選第一個待記憶法術", 0, 0, oracle.Width, oracle.Height,
-		"2d78cd6c8a1886cb8d06b14a708d70ffc6fd9529422c0ade2eff36b2df386da8"), oracle.Budget(5_000_000)); err != nil {
+	if err := o.RunUntil(screenDigest("LEVEL1 CAMP已選第一個待記憶法術", 0, 0, 176, 120,
+		"e088e9fe4467bd9067f4639896ef1194150a922c285592ff3f8b759425beead5"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待第一個待記憶法術：%w", err)
 	}
 	return nil
@@ -991,8 +1010,8 @@ func ToLevel1MemorizeReturn(o *oracle.Oracle) error {
 		return err
 	}
 	o.PressKey(oracle.KeyEscape)
-	if err := o.RunUntil(screenDigest("LEVEL1 CAMP由記憶法術返回", 0, 0, oracle.Width, oracle.Height,
-		"8bd3e9866787810347ed38d1929b8dbb1a12683359037056f5fc369df3b2962c"), oracle.Budget(5_000_000)); err != nil {
+	if err := o.RunUntil(screenDigest("LEVEL1 CAMP由記憶法術返回", 0, 0, 176, 120,
+		"afd93e9bdab019dafb01d040b082e835b3bc2c84ae06f7f844f37ef3d7f988ee"), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待由記憶法術返回CAMP：%w", err)
 	}
 	return nil
@@ -1005,8 +1024,8 @@ func ToLevel1RestAfterMemorize(o *oracle.Oracle) error {
 		return err
 	}
 	o.PressKey(oracle.KeyUp)
-	const restSelected = "79e080c1a738e5ecd7d26ff379d7a126cb9ba4cee7ea998af94555b7a3d4f8ae"
-	if err := o.RunUntil(screenDigest("LEVEL1 CAMP選中Rest Party", 0, 0, oracle.Width, oracle.Height,
+	const restSelected = "1b8043aa48d2750b69035371be462cfa78e72af289d7fc36dae434bbfc9d668b"
+	if err := o.RunUntil(screenDigest("LEVEL1 CAMP選中Rest Party", 0, 0, 176, 120,
 		restSelected), oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待CAMP選中Rest Party：%w", err)
 	}
@@ -1018,7 +1037,9 @@ func ToLevel1RestAfterMemorize(o *oracle.Oracle) error {
 			return false
 		}
 		next = o.Steps() + 100
-		current := fmt.Sprintf("%x", sha256.Sum256(o.Indexed()))
+		// 與 restSelected 同一塊取樣區：CAMP 的人像會動，壓全畫面會讓「回到同一畫面」
+		// 這個判準永遠成立不了。
+		current := fmt.Sprintf("%x", sha256.Sum256(sampleRegion(o, 0, 0, 176, 120)))
 		if current != restSelected {
 			leftCamp = true
 		}
@@ -1027,22 +1048,64 @@ func ToLevel1RestAfterMemorize(o *oracle.Oracle) error {
 	if err := o.RunUntil(returned, oracle.Budget(5_000_000)); err != nil {
 		return fmt.Errorf("EOB1等待正常休息完成：%w", err)
 	}
+	// 這裡**不要**再跑一段「讓輸入收乾淨」：實測跑 500_000 步之後，最後一個 Enter 的
+	// break code 被輪詢，CAMP 立刻又開始第二次休息（畫面變成 Hours rested: 2）。
+	// 路徑要停在休息剛完成的那一刻，代價是 port 60h 會少讀一次 break，由測試那邊說明。
 	return nil
 }
 
 func screenDigest(name string, x, y, width, height int, want string) oracle.Cond {
+	if goldenRecording() {
+		return recordDigest(name, x, y, width, height, want)
+	}
 	var next uint64
 	return oracle.NewCond(name, func(o *oracle.Oracle) bool {
 		if o.Steps() < next {
 			return false
 		}
 		next = o.Steps() + 100_000
-		indexed := o.Indexed()
-		region := make([]byte, 0, width*height)
-		for row := y; row < y+height; row++ {
-			start := row*oracle.Width + x
-			region = append(region, indexed[start:start+width]...)
+		return fmt.Sprintf("%x", sha256.Sum256(sampleRegion(o, x, y, width, height))) == want
+	})
+}
+
+func sampleRegion(o *oracle.Oracle, x, y, width, height int) []byte {
+	indexed := o.Indexed()
+	region := make([]byte, 0, width*height)
+	for row := y; row < y+height; row++ {
+		start := row*oracle.Width + x
+		region = append(region, indexed[start:start+width]...)
+	}
+	return region
+}
+
+// goldenRecording 只在 EOB1_GOLDEN_RECORD=1 時開。它**不改變等待條件**，只是把
+// 取樣區 digest 的每一次變化印成時間軸。
+//
+// 為什麼不讓它改判準：這些路徑是串起來的，每一段 screenDigest 都是「走到下一個狀態」
+// 的條件。試過改成「畫面停下來就算到」，錄出來的值整批位移一個角色——中間頁面停留
+// 得夠久，判準就先收工了；把停留門檻從 50 萬步拉到 300 萬步之後，改成連正常的路徑
+// 都走不完。**穩定與正確是兩件事**，自動判不出來，所以錄製模式只負責產生證據：
+// 哪一段卡住、卡住時畫面停在哪些 digest、對應的 PNG 長什麼樣，由人看過再改 golden。
+func goldenRecording() bool { return os.Getenv("EOB1_GOLDEN_RECORD") == "1" }
+
+// recordDigest 與 screenDigest 判準完全相同，只多印時間軸。
+func recordDigest(name string, x, y, width, height int, want string) oracle.Cond {
+	var next uint64
+	var last string
+	return oracle.NewCond(name, func(o *oracle.Oracle) bool {
+		if o.Steps() < next {
+			return false
 		}
-		return fmt.Sprintf("%x", sha256.Sum256(region)) == want
+		next = o.Steps() + 100_000
+		got := fmt.Sprintf("%x", sha256.Sum256(sampleRegion(o, x, y, width, height)))
+		if got != last {
+			mark := ""
+			if got == want {
+				mark = "　← 現行 golden"
+			}
+			fmt.Printf("[golden-record] %s 步=%d %s%s\n", name, o.Steps(), got, mark)
+			last = got
+		}
+		return got == want
 	})
 }

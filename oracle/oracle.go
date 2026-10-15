@@ -258,6 +258,27 @@ func (o *Oracle) AllowFileWrites(names ...string) error { return o.d.AllowFileWr
 // 完全不指向寫檔（`docs/spec/009` §1）。
 func (o *Oracle) SetScratch(dir string) { o.d.Scratch = dir }
 
+// SetClock 把 `AH=2Ch` 的基準時刻釘死（`AH=2Ah` 的日期固定是 1993-01-01）。
+//
+// ⭐ **播種靠時鐘的程式要用它。** Borland 的 `randomize()` 是
+// `srand((unsigned)time(NULL))`，而 `time()` 走 `getdate`／`gettime`；
+// 不釘的話種子雖然是決定性的，卻**綁在 tick 數上**——時序模型一改，
+// 秒數跨過整數邊界，種子就跳一格，而症狀是「同一份輸入跑出另一條亂數流」，
+// 看起來像遊戲自己變了。EOB1 的種子 CFD0 就落在這種邊界內側
+// （播種時只過了 0.65 秒）。
+//
+// 時刻仍會隨 PIT tick 往前走，這一支只設基準。
+func (o *Oracle) SetClock(hour, min, sec, hundredth uint8) {
+	o.d.Now = dos.Time{Hour: hour, Min: min, Sec: sec, Hundredth: hundredth}
+}
+
+// Clock 回目前的時刻（基準加上 tick 推出來的部分），也就是程式問
+// `AH=2Ch` 會拿到的值。
+func (o *Oracle) Clock() (hour, min, sec, hundredth uint8) {
+	t := o.d.Clock()
+	return t.Hour, t.Min, t.Sec, t.Hundredth
+}
+
 // ---- 位址 ----------------------------------------------------------------
 
 // Addr 是一個執行期位址。用 DS／IDA／At 造，不要自己填。
@@ -653,6 +674,39 @@ func (o *Oracle) OnTick(f func(*Oracle)) {
 	}
 	o.m.SetOnTick(func() { f(o) })
 }
+
+// TraceInt21 打開 int 21h 的逐次紀錄。
+//
+// 預設關著：筆數可達數萬。要它的場合只有兩種——查「殼鏈走到哪一跳就停了」
+// （開檔清單、EXEC 紀錄與離開碼三者兜不起來時），以及查某個服務有沒有動壞
+// 呼叫端的 ES:BX。
+func (o *Oracle) TraceInt21() {
+	if o.d.CallTrace == nil {
+		o.d.CallTrace = []dos.CallRec{}
+	}
+}
+
+// Int21Trace 回傳 TraceInt21 打開之後累積的紀錄。沒打開就是空的。
+func (o *Oracle) Int21Trace() []dos.CallRec { return o.d.CallTrace }
+
+// TimerHealth 回報計時器中斷實際送出去幾次，以及此刻擋著它的是什麼。
+//
+// 「程式在等一個 tick」和「程式在等別的東西」從外面看一模一樣——都是不做 I/O
+// 的空轉。有這三個值才分得開：送了幾次、IF 是不是關著、IRQ0 是不是被遮住。
+func (o *Oracle) TimerHealth() (ticks uint64, ifSet, irq0Masked bool) {
+	return o.m.Ticks, o.m.CPU.Flag(cpu.IF), o.m.PICMasked0()
+}
+
+// Resizes 是每一次 `AH=4Ah` 的紀錄，含呼叫端的 CS:IP。
+//
+// 呼叫端位址是「這個 want 是怎麼算出來的」唯一的入口：光看 want 的值，
+// 「程式決定只要這麼多」和「它把某個讀來的數字算錯了」長得一模一樣。
+func (o *Oracle) Resizes() []dos.ResizeCall { return o.d.Resizes }
+
+// Overlays 是每一次 `AH=4Bh AL=03` 的載入紀錄：載到哪一段、參數區在哪、
+// 呼叫端是誰。overlay 載錯位置時，這是唯一能把「跑飛的位址」接回成因的東西。
+func (o *Oracle) Overlays() []dos.OverlayLoad { return o.d.Overlays }
+
 func (o *Oracle) Opened() []string                  { return o.d.Opened }
 func (o *Oracle) Missing() []string                 { return o.d.Missing }
 func (o *Oracle) Wrote() []dos.Write                { return o.d.Wrote }

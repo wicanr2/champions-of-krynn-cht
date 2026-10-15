@@ -10,6 +10,9 @@ import (
 // 原則是**讓原版驅動（DOSJP）自己提供 DOS/V 服務**，機器層只補
 // 「一台 DOS/V 機器本來就該有、而且 DOSJP 落腳前要問的」東西。
 
+// countryOff 是國別資訊表在 StubSeg 裡的位移（`int 21h AH=38h`）。
+const countryOff = machine.CountryOff
+
 // country 是 `int 21h AH=38h`（取國別資訊）。
 //
 // DOS/V 程式用它判斷「這是不是日文環境」——回不出來的話它會走另一條
@@ -44,7 +47,7 @@ func (d *DOS) country(c *cpu.CPU) {
 
 // dbcsTableOff 是 DBCS 前導位元組表在 StubSeg 裡的位移。
 // 內容：`81 9F E0 FC 00 00`（Shift-JIS 前導範圍，雙 0 結束）。
-const dbcsTableOff = 0x40
+const dbcsTableOff = machine.DBCSTableOff
 
 // dbcs 是 `int 21h AH=63h`。量測證據與邊界見 `docs/spec/010`。
 func (d *DOS) dbcs(c *cpu.CPU) {

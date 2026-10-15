@@ -39,30 +39,36 @@
 
 ### 1.2 修法
 
-字型 stub 移到 `specialStubBase` 之後的空位：
+字型 stub 移到 `specialStubBase` 之後的空位。StubSeg 的佈局後來收歸 `internal/machine`
+的一個 const 區塊統一分配（eob1 分支 `defb9c2`），`internal/dos` 只引用名字：
 
 | 位移 | 內容 |
 |---|---|
-| `0x410` | `CD F7 CB`（全形） |
-| `0x414` | `CD F8 CB`（半形） |
+| `0x400–0x40F` | 四個 trampoline |
+| `0x410` | 回呼返回哨兵 `CD F9` |
+| `0x414`／`0x418` | DOS/V 字型 entry（`CD F7 CB`、`CD F8 CB`） |
+| `0x420–0x442` | BIOS `int 08h`（35 bytes，含 40:40 馬達倒數） |
+| `0x448` | `int 15h AH=C0h` 系統設定表 |
+| `0x450` | InDOS 旗標 |
+| `0x460` | DBCS 前導位元組表 |
+| `0x480` | 國別資訊表 |
 
-`0x400–0x40F` 是四個 trampoline，`0x420–0x442` 是 BIOS 計時器 stub（35 bytes，
-含 40:40 馬達倒數），`0x460`、`0x470` 是系統設定表與 InDOS，`0x410–0x41F` 目前沒人用。
-系統設定表與 InDOS 原本在 `0x440`、`0x450`；計時器 stub 從 24 bytes 長到 35 bytes 之後
-`0x440` 會蓋到 stub 結尾，所以往後移。
+系統設定表一度放在 `0x440`。計時器 stub 從 24 bytes 長到 35 bytes 之後，設定表會蓋到
+stub 結尾，所以挪到 `0x448`。
 
 `int 15h AX=5000h` 回的 `ES:BX` 跟著改；呼叫端拿的是指標，不寫死位移，行為不變。
 
-### 1.3 同類但尚未出事的重疊（假說，不在本次修）
+### 1.3 同類的重疊（已隨 §1.2 的佈局一起搬走）
 
-| 位移 | 用途 | 壓到的向量 stub |
-|---|---|---|
-| `0x30` | `CallbackRetOff` | 向量 `0Ch` |
-| `0x40` | DBCS 前導位元組表 | 向量 `10h`（向量改指 `VideoTrapOff`，stub 本身沒人跳） |
-| `0x80` | 國別資訊表 | 向量 `20h` |
+| 原位移 | 用途 | 壓到的向量 stub | 現在 |
+|---|---|---|---|
+| `0x30` | `CallbackRetOff` | 向量 `0Ch` | `0x410` |
+| `0x40` | DBCS 前導位元組表 | 向量 `10h` | `0x460` |
+| `0x80` | 國別資訊表 | 向量 `20h` | `0x480` |
 
-只有在程式 chain 回這幾個向量的舊處理時才會出事，目前沒有觀測。搬動它們會改變
-既有收據的記憶體內容，等有程式踩到再開規格。
+eob1 分支踩到過同一類事故（字型 stub 壓到向量 09h，`docs/re/eob1-dosgolem-handoff-255.md`）
+之後一起搬走。這會改變 StubSeg 裡的記憶體內容，以記憶體雜湊為準的舊收據要重錄。
+`TestPerVectorStubsAreNeverOverwritten` 釘住 256 格向量 stub 不被任何服務蓋到。
 
 ### 1.4 驗收
 

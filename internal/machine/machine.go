@@ -41,7 +41,16 @@ const (
 
 	// EnvSeg 是環境區塊；`PSP+2Ch` 指向它。內容只有幾十 bytes，
 	// 但要留在 stub 區之後、PSP 之前。
-	EnvSeg = 0x00D0
+	//
+	// ⚠ **它前面那一段是它的 MCB**（`EnvSeg-1` ＝ `EnvMCBSeg`）。真 DOS 的環境
+	// 是用 `AH=48h` 配出來的，所以一定有 MCB；程式問「我的環境有多大」的標準寫法
+	// 是 `mov es,[psp+2Ch] / dec es / mov cx,es:[3]`。沒有 MCB 的話那一讀會落在
+	// 中斷 stub 區上，讀到的段數是殘值——**而殘值會隨 stub 佈局改變**，
+	// 於是同一支程式在不同版本上算出不同的環境大小，行為跟著岔開。
+	// EOB1 的鏈式載入器就是這樣：它照環境大小決定要留多少空間給子行程，
+	// 讀到 0 就不留，接著整條路徑都不一樣。
+	EnvMCBSeg = 0x00CF
+	EnvSeg    = 0x00D0
 
 	// EMSFrameSeg 是 EMS 的 64 KB page frame。D0000–DFFFF 在 1 MB
 	// 空間裡沒有別的用途，程式對它的讀寫就是普通記憶體存取。
@@ -51,17 +60,27 @@ const (
 	PSPSeg  = 0x0100
 	LoadSeg = PSPSeg + 0x10
 
-	// MemTop 是傳統記憶體上緣（640 KB），**不含**：可用的最後一段是 MemTop-1。
+	// MemTop 是傳統記憶體上緣（640 KB），**不含**——可配置區是 [.., MemTop)。
 	//
-	// ⚠ 640 KB ＝ 0xA0000 位元組 ＝ 段 0xA000，與 VideoSeg 接在一起。
-	// 寫成 0x9FFF 會讓 `availFrom` 與 `initArena` 各少算一段——症狀是
-	// 「AH=48h 要 N 段回報只剩 N−1 段」，而那個差一段會在很遠的地方才爆：
-	// 《地下城主》的 dm.exe 在 Borland spawn 裡要 3 段拿到 2 段，
+	// 640 KB ＝ 0xA0000 ＝ 段 A000h，所以不含的上界是 A000h 而不是 9FFFh。
+	// 用處都是不含語意：`availFrom` 回 `MemTop - seg`、`initArena` 用
+	// `size = MemTop - base - 1`（MCB 在 base、資料從 base+1 起）、
+	// PSP+2 的「記憶體上限」欄位填的是「程式記憶體之後的第一段」。
+	//
+	// DOSBox-X 的 `DOS_SetupMemory`（src/dos/dos_memory.cpp）：
+	// `seg_limit = mem_readw(BIOS_MEMORY_SIZE) << 6` ＝ A000h，
+	// 最後一塊 MCB `mcb.SetSize(seg_limit-1 - DOS_MEM_START)`，
+	// 資料從 `DOS_MEM_START+1` 起算，剛好用到 A000h（不含）。
+	// 同一份程式裡 `dpmi.go` 的 `dosMemTop = 0xa0000` 也是這個值。
+	//
+	// 少這一段的症狀離成因很遠：EOB1 的 START1.EXE／INTRO.EXE 是鏈式載入器，
+	// 先把自己搬到記憶體頂端、再用 `AH=4Bh AL=03` 把下一支載到 0110h 蓋掉原位。
+	// 搬家的位置是從「我擁有的頂端」往回算的。少一段，stub 就落在 9FE8h
+	// 而只剩 180h bytes 可用，執行到 offset 180h 正好撞上 A0000h。
+	//
+	// 另一個例子：《地下城主》的 dm.exe 在 Borland spawn 裡要 3 段拿到 2 段，
 	// errno 被設成 DOS 錯誤碼 8，而 Borland 的 errno 8 剛好是 ENOEXEC，
 	// 看起來像「執行格式錯誤」。
-	//
-	// 依據：DOSBox-X 的 `DOS_AllocateMemory` 在 `block_size == *blocks` 時
-	// 整塊給出去、不另外切 MCB，所以「剛好夠」就該成功。
 	MemTop = 0xA000
 
 	// VideoSeg 是 mode 13h 的畫面。
@@ -88,8 +107,30 @@ const stubStride = 4
 // StubOff 回向量 n 的 stub 在 StubSeg 內的位移。
 func StubOff(n uint8) uint16 { return uint16(n) * stubStride }
 
-// 特殊 stub 的位移。**一定要在 per-vector stub 陣列（0x000–0x3FF）之後**
-// ——`cbRetInt` 是 0xFF，它的 stub 就落在 0x3FC。
+// 特殊 stub 與服務資料表在 `StubSeg` 裡的位移。
+//
+// ⚠ **一定要在 per-vector stub 陣列（0x000–0x3FF）之後**——向量 0xFF 的
+// stub 就落在 0x3FC。上界是 0x4F0：`EnvMCBSeg`（0x00CF）換算成 StubSeg
+// 的位移正是那裡，再上去 0x500 就是環境區塊本身。
+//
+// **這個 const 區塊是 StubSeg 佈局的唯一權威。** `internal/dos` 要用哪一段
+// 就引用這裡的名字，不要自己挑數字——挑進 0x000–0x3FF 的話會蓋掉某個
+// 向量的預設 stub，而那段是「程式掛勾之後 chain 回來的舊向量」：
+// 程式自己的處理常式跑得好好的，回來卻踩到別人的 3 個 byte。
+//
+//	0x000–0x3FF  per-vector stub（每支 `CD n` ＋ `IRET`，4 bytes 一格）
+//	0x400  int 21h trampoline      0x404  int 10h trampoline
+//	0x408  int 15h trampoline      0x40C  XMS entry（RETF）
+//	0x410  回呼返回哨兵            0x414／0x418  DOS/V 字型 entry（RETF）
+//	0x420–0x442  BIOS int 08h（35 bytes，含 40:40 馬達倒數）
+//	0x448  int 15h AH=C0h 系統設定表（8 bytes）
+//	0x450  InDOS 旗標              0x460  DBCS 表        0x480  國別資訊表
+//
+// > 事故（2026-09-10，EOB1）：字型 stub 挑了 0x20／0x24，而 0x24 是向量
+// > 09h（IRQ1 鍵盤）的 stub。EOB.EXE 掛了自己的 int 09h 再 chain 回舊向量，
+// > 於是每按一次鍵就跑到字型 stub 的 `RETF` —— 中斷推的 FLAGS 沒被彈掉，
+// > `IF` 從此是 0，程式停在「等 `0040:006C` 變」的迴圈裡永遠等不到。
+// > 症狀離成因八萬道指令遠，看起來像計時器壞了。
 const (
 	specialStubBase = 0x400
 
@@ -105,6 +146,15 @@ const (
 	// XMSTrapOff 是 XMS driver entry（`docs/spec/011`）→ int F5h。
 	XMSTrapOff = specialStubBase + 0x0C
 
+	// CallbackRetOff 是外插遠呼叫的返回哨兵，內容 `CD F9`（2 bytes）。
+	CallbackRetOff = specialStubBase + 0x10
+
+	// FontFullOff／FontHalfOff 是 DOS/V 字型服務（`int 15h AX=5000h`）
+	// 交給程式的兩支 entry stub，各 3 bytes，內容由 `internal/dos/font.go` 種。
+	// **它們是 far call 的目標，所以結尾是 `RETF` 不是 `IRET`。**
+	FontFullOff = specialStubBase + 0x14
+	FontHalfOff = specialStubBase + 0x18
+
 	// biosTimerOff 是 `int 08h` 的 BIOS 預設處理：推進 `0040:006C`
 	// 再轉呼 `int 1Ch`（見 initVectors）。
 	//
@@ -112,6 +162,17 @@ const (
 	// 否則它會把後面的 trampoline 蓋掉——而症狀是「int 10h 的向量指到
 	// `pop dx / pop ax / pop ds`」，看起來像向量算錯，不像佈局重疊。
 	biosTimerOff = specialStubBase + 0x20
+
+	// SysConfigOff 是 `int 15h AH=C0h` 的系統設定表（8 bytes）。
+	// ⚠ 不能是 0x440：計時器 stub 長到 35 bytes 之後佔到 0x442，
+	// 設定表一寫就蓋掉它結尾的 `pop ax／pop ds／iret`。
+	SysConfigOff = specialStubBase + 0x48
+	// InDOSOff 是 InDOS 旗標（1 byte）。
+	InDOSOff = specialStubBase + 0x50
+	// DBCSTableOff 是 DBCS 前導位元組表（`int 21h AH=63h`，最多 32 bytes）。
+	DBCSTableOff = specialStubBase + 0x60
+	// CountryOff 是國別資訊表（`int 21h AH=38h`，34 bytes）。
+	CountryOff = specialStubBase + 0x80
 )
 
 // DefaultIRQ0Every 是**分頻 17,000 時**計時器中斷的間隔，單位是指令數。
@@ -1738,3 +1799,6 @@ func (m *Machine) Find(pattern []byte) []uint32 {
 	}
 	return hits
 }
+
+// PICMasked0 回報 IRQ0 是不是被 8259 的遮罩擋著。
+func (m *Machine) PICMasked0() bool { return m.picMask&0x01 != 0 }
