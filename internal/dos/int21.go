@@ -734,13 +734,27 @@ func (d *DOS) carveBlock(i int, want uint16) uint16 {
 		rest := memBlock{seg: b.seg + want + 1, size: b.size - want - 1, free: true}
 		b.size = want
 		b.free = false
+		b.owner = d.blockOwner()
 		d.arena = append(d.arena, memBlock{})
 		copy(d.arena[i+2:], d.arena[i+1:])
 		d.arena[i+1] = rest
 	} else {
 		b.free = false
+		b.owner = d.blockOwner()
 	}
 	return seg + 1
+}
+
+// blockOwner 是「現在配置的話，這一塊算誰的」。
+//
+// `curPSP` 還是 0 的情況是有的（開機階段、測試直接呼叫配置器）。
+// 0 在 MCB 上代表「自由」，拿它當擁有者會讓 `releaseOwnedBy` 永遠找不到
+// 這一塊——**洩漏一塊不會報錯，只會在別人身上出現**（見 `memBlock.owner`）。
+func (d *DOS) blockOwner() uint16 {
+	if d.curPSP == 0 {
+		return uint16(machine.PSPSeg)
+	}
+	return d.curPSP
 }
 
 // splitBlock 把第 i 塊切出 want 段給呼叫端。
@@ -774,7 +788,7 @@ func (d *DOS) release(c *cpu.CPU) {
 			continue
 		}
 		size := d.arena[i].size
-		d.arena[i].free = true
+		d.arena[i].free, d.arena[i].owner = true, 0
 		d.coalesce()
 		clearCarry(c)
 		d.noteMem(c, 0x49, 0, seg, size, true)
@@ -785,6 +799,27 @@ func (d *DOS) release(c *cpu.CPU) {
 	c.R[cpu.AX] = 9
 	setCarry(c)
 	d.noteMem(c, 0x49, 0, seg, 0, false)
+}
+
+// releaseOwnedBy 釋放某個 PSP 名下的所有區塊，就是真 DOS 的 `AH=4Ch`
+// 做的事（`docs/spec/009` §2）。回傳釋放了幾塊。
+//
+// **不做這件事會把假 MCB 標頭留在別人的記憶體裡**——理由寫在
+// `memBlock.owner`。
+func (d *DOS) releaseOwnedBy(psp uint16) int {
+	n := 0
+	for i := range d.arena {
+		if d.arena[i].free || d.arena[i].owner != psp {
+			continue
+		}
+		d.arena[i].free, d.arena[i].owner = true, 0
+		n++
+	}
+	if n > 0 {
+		d.coalesce()
+		d.syncMCB()
+	}
+	return n
 }
 
 // coalesce 把相鄰的自由區塊併起來。被吃掉的那一塊連它的 MCB 段一起回收。
@@ -875,9 +910,11 @@ func (d *DOS) syncMCB() {
 	d.M.WriteMCB(machine.PSPSeg-1, len(d.arena) == 0, machine.PSPSeg,
 		d.freeSeg-machine.PSPSeg)
 	for i, b := range d.arena {
-		owner := uint16(machine.PSPSeg)
+		owner := b.owner
 		if b.free {
 			owner = 0
+		} else if owner == 0 {
+			owner = uint16(machine.PSPSeg)
 		}
 		d.M.WriteMCB(b.seg, i == len(d.arena)-1, owner, b.size)
 	}

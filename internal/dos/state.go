@@ -15,9 +15,12 @@ import (
 // 診斷用的紀錄（`Opened`／`Reads`／`Allocs`／`EMSOps`／`ExecLog`…）
 // **不存**：它們是這一趟的觀測紀錄，不是機器狀態。
 
+// v3 加了 XMS 的 HMA 擁有權與區域 A20 計數（`docs/spec/191-bios-rom-tail` §4）；
+// v2 仍然讀，缺的兩項讀成零值（HMA 沒人拿、計數 0），與 v2 執行器讀回來相同。
 const (
-	dosStateMagic   = "DOSGOLEM-D"
-	dosStateVersion = 2
+	dosStateMagic      = "DOSGOLEM-D"
+	dosStateVersion    = 3
+	dosStateVersionMin = 2
 )
 
 type handleState struct {
@@ -106,6 +109,9 @@ type dosState struct {
 
 	EMB     map[uint16][]byte
 	NextEMB uint16
+	// HMAOwned／A20Local：v3 起才有。
+	HMAOwned bool
+	A20Local int
 
 	EMSHandles []emsHandleState
 	EMSNext    uint16
@@ -128,11 +134,16 @@ func (d *DOS) SaveState(w io.Writer) error {
 		Queue:    append([]Queued(nil), d.queue...),
 		EMB:      map[uint16][]byte{},
 		NextEMB:  d.nextEMB,
+		HMAOwned: d.hmaOwned,
+		A20Local: d.a20Local,
 		Exited:   d.Exited,
 		ExitCode: d.ExitCode,
 	}
-	// 滑鼠的座標、按鍵、**事件常式與座標範圍**要留，觀測紀錄不留
-	// （`docs/spec/196-mouse-handler-survives-state-file`、`docs/spec/197-mouse-handler-in-saved-state`）。
+	// 滑鼠驅動的狀態要整份留（`docs/spec/196-mouse-handler-survives-state-file`、
+	// `docs/spec/197-mouse-handler-in-saved-state`、logh3 `docs/spec/004` §4.18）：
+	// 座標與鍵之外，`AX=000Ch` 的事件常式、`AX=7`／`AX=8` 的座標範圍、
+	// `AX=5`／`AX=6` 用的最後按放座標與 `AX=0Bh` 的相對位移。
+	// 觀測紀錄（Polls／Sets／Calls／Events／PressQ／PressReads）不留。
 	//
 	// ⚠ **事件常式掉了的症狀是「展開之後點擊全部沒反應」，而畫面
 	// 逐像素相同。** 記憶體、CPU、開著的檔、配出去的區塊全都還原了，
@@ -140,10 +151,17 @@ func (d *DOS) SaveState(w io.Writer) error {
 	// `clickgrid` 掃出來的「這一格沒反應」與「這一區真的沒有熱區」
 	// 長得一模一樣。
 	//
-	// mickey 刻意不存：它是「自從程式上次問以來」的累計，跨行程接續時
-	// 歸零才對；存下來的話展開後第一次 `AX=0Bh` 會拿到存檔之前的位移。
+	// mickey 也存：不中斷地跑下去，下一次 `AX=0Bh` 本來就會拿到這段累計；
+	// 歸零的話展開後與從頭跑不再一致。
+	//
+	// 同一份設定寫兩處：Mouse 本身（logh3、fix/dm-boot 的格式）與 MouseExtra
+	// （stubseg 分支的格式），三種舊狀態檔都讀得回來。
 	s.Mouse = Mouse{X: d.Mouse.X, Y: d.Mouse.Y, Buttons: d.Mouse.Buttons,
-		Press: d.Mouse.Press, Release: d.Mouse.Release, XScale: d.Mouse.XScale}
+		Press: d.Mouse.Press, Release: d.Mouse.Release, XScale: d.Mouse.XScale,
+		PressAt: d.Mouse.PressAt, ReleaseAt: d.Mouse.ReleaseAt,
+		MickeyX: d.Mouse.MickeyX, MickeyY: d.Mouse.MickeyY,
+		MinX: d.Mouse.MinX, MaxX: d.Mouse.MaxX, MinY: d.Mouse.MinY, MaxY: d.Mouse.MaxY,
+		Handler: d.Mouse.Handler}
 	s.MouseExtra = mouseExtra{Handler: d.Mouse.Handler, PressAt: d.Mouse.PressAt, ReleaseAt: d.Mouse.ReleaseAt,
 		MinX: d.Mouse.MinX, MaxX: d.Mouse.MaxX, MinY: d.Mouse.MinY, MaxY: d.Mouse.MaxY}
 
@@ -192,7 +210,7 @@ func (d *DOS) LoadState(r io.Reader) error {
 	if err := gob.NewDecoder(r).Decode(&s); err != nil {
 		return fmt.Errorf("dos: 讀不開狀態檔：%w", err)
 	}
-	if s.Magic != dosStateMagic || s.Version != dosStateVersion {
+	if s.Magic != dosStateMagic || s.Version < dosStateVersionMin || s.Version > dosStateVersion {
 		return fmt.Errorf("dos: 狀態檔不認得（%q v%d）", s.Magic, s.Version)
 	}
 	for _, h := range d.handles {
@@ -209,15 +227,14 @@ func (d *DOS) LoadState(r io.Reader) error {
 	}
 	d.Mouse.X, d.Mouse.Y, d.Mouse.Buttons = s.Mouse.X, s.Mouse.Y, s.Mouse.Buttons
 	d.Mouse.Press, d.Mouse.Release, d.Mouse.XScale = s.Mouse.Press, s.Mouse.Release, s.Mouse.XScale
-	x := s.MouseExtra
-	d.Mouse.Handler, d.Mouse.PressAt, d.Mouse.ReleaseAt = x.Handler, x.PressAt, x.ReleaseAt
-	d.Mouse.MinX, d.Mouse.MaxX, d.Mouse.MinY, d.Mouse.MaxY = x.MinX, x.MaxX, x.MinY, x.MaxY
-	// fix/dm-boot 分支的狀態檔把事件常式與範圍存在 Mouse 本身
-	// （`docs/spec/197-mouse-handler-in-saved-state`）；MouseExtra 是零值時用那一份。
-	if x == (mouseExtra{}) {
-		d.Mouse.Handler = s.Mouse.Handler
-		d.Mouse.MinX, d.Mouse.MaxX = s.Mouse.MinX, s.Mouse.MaxX
-		d.Mouse.MinY, d.Mouse.MaxY = s.Mouse.MinY, s.Mouse.MaxY
+	// 先讀 Mouse 本身（logh3／fix/dm-boot 格式）；MouseExtra 有值就以它為準（stubseg 格式）。
+	d.Mouse.Handler = s.Mouse.Handler
+	d.Mouse.PressAt, d.Mouse.ReleaseAt = s.Mouse.PressAt, s.Mouse.ReleaseAt
+	d.Mouse.MickeyX, d.Mouse.MickeyY = s.Mouse.MickeyX, s.Mouse.MickeyY
+	d.Mouse.MinX, d.Mouse.MaxX, d.Mouse.MinY, d.Mouse.MaxY = s.Mouse.MinX, s.Mouse.MaxX, s.Mouse.MinY, s.Mouse.MaxY
+	if x := s.MouseExtra; x != (mouseExtra{}) {
+		d.Mouse.Handler, d.Mouse.PressAt, d.Mouse.ReleaseAt = x.Handler, x.PressAt, x.ReleaseAt
+		d.Mouse.MinX, d.Mouse.MaxX, d.Mouse.MinY, d.Mouse.MaxY = x.MinX, x.MaxX, x.MinY, x.MaxY
 	}
 	d.freeSeg = s.FreeSeg
 	d.curPSP, d.lastExit = s.CurPSP, s.LastExit
@@ -245,6 +262,7 @@ func (d *DOS) LoadState(r io.Reader) error {
 		d.emb[k] = append([]byte(nil), v...)
 	}
 	d.nextEMB = s.NextEMB
+	d.hmaOwned, d.a20Local = s.HMAOwned, s.A20Local
 	d.procStack = nil
 	for _, f := range s.Stack {
 		d.procStack = append(d.procStack, procFrame{r: f.R, seg: f.Seg, ip: f.IP, fl: f.Fl,

@@ -34,6 +34,7 @@ type Snapshot struct {
 	cpuHz      uint64
 	cycClock   bool
 	dosboxCost bool
+	irq0Pinned bool
 	cycles     uint64
 	cycPer     uint64
 	nextCyc    uint64
@@ -72,7 +73,10 @@ type Snapshot struct {
 	// 記憶體與 CPU 全對，畫面卻是還原之前的那一張——而那看起來像
 	// 「遊戲沒重畫」，不像「快照少存東西」。
 	planarOn bool
-	vga      *VGA
+	// A20 與 HMA（`docs/spec/191-bios-rom-tail` §4）。HMA 是陣列，值複製。
+	a20 bool
+	hma [HMASize]uint8
+	vga *VGA
 
 	// ⚠ **回呼與週期時鐘也是狀態。** 漏了的話從快照展開的機器
 	// 「時鐘不會走」或「卡在一個永遠回不來的回呼裡」，
@@ -135,6 +139,9 @@ func (m *Machine) Snapshot() *Snapshot {
 		dacReadPhase: m.dacReadPhase,
 		vga:          m.VGA.clone(),
 		planarOn:     m.planarOn,
+		irq0Pinned:   m.IRQ0Pinned,
+		a20:          m.a20,
+		hma:          m.hma,
 
 		periodicOn:    m.periodic.on,
 		periodicSeg:   m.periodic.seg,
@@ -184,6 +191,7 @@ func (m *Machine) Restore(s *Snapshot) {
 	m.Steps, m.Ticks = s.steps, s.ticks
 	m.portTicks, m.nextIRQ0, m.irq0Pending = s.portTicks, s.nextIRQ0, s.pending
 	m.IRQ0Every, m.IRQ0Base, m.PITDiv = s.irq0Every, s.irq0Base, s.pitDiv
+	m.IRQ0Pinned = s.irq0Pinned
 	m.pitAccess, m.pitPhase, m.pitLo = s.pitAccess, s.pitPhase, s.pitLo
 	m.CPUHz, m.CPU.Cycles, m.CycleClock = s.cpuHz, s.cycles, s.cycClock
 	m.CPU.DOSBoxCost = s.dosboxCost
@@ -204,6 +212,8 @@ func (m *Machine) Restore(s *Snapshot) {
 	m.dacMask = s.dacMask
 	m.VGA.restore(s.vga)
 	m.planarOn = s.planarOn
+	m.a20, m.hma = s.a20, s.hma
+	m.syncCodeFastPath()
 
 	m.periodic.on, m.periodic.seg, m.periodic.off = s.periodicOn, s.periodicSeg, s.periodicOff
 	m.periodic.every, m.periodic.next = s.periodicEvery, s.periodicNext

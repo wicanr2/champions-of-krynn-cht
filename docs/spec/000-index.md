@@ -54,6 +54,7 @@
 ### 共同基礎（master）（23 份）
 ### 共同基礎（master）（18 份）
 ### 共同基礎（master）（17 份）
+### 共同基礎（master）（10 份）
 
 - `001-scope-and-mvp.md`
 - `002-cpu-8086.md`
@@ -99,6 +100,7 @@
 - `232-linux-ebiten-panel-batch-keyboard-gate.md`（限縮 CONFORMED；面板起點開啟時同批鍵盤不因 Apply／Cancel 收合而進 DOS）
 - `233-ebiten-bios-transport-preflight-draft.md`（限縮 CONFORMED；正式建構／回合／交付前三層檢查與負例通過，非同批原子性）
 - `197-int27-terminate-and-stay-resident.md`
+- `190-opl-vgm-dump.md`
 
 ### 銀河英雄傳說 3（logh3）（10 份）
 
@@ -883,3 +885,6 @@
 - [194-cpu386-x87-fild-m16](194-cpu386-x87-fild-m16.md)：READY；DF /0 m16int與正常乘加消費鏈，fd2_re #149。
 
 - [012-fd2-parity-capture](012-fd2-parity-capture.md)第9節：#173同時點map globals／units／palette，READY。
+- [190 — 把 OPL 暫存器寫入倒成 VGM](190-opl-vgm-dump.md)：READY。`machine.OPL` 那一串編成標準 VGM，外部播放器離線合成；時間基準改用 `IRQ0Every × PITHz`，`-tick` 釘死間隔時不再安靜地把曲速改掉；`-vgm-clear-on-open` 用開檔那一刻把輸出框到單一曲目上。
+
+- [191 — BIOS ROM 尾巴、ROM 唯讀、狀態檔的 A20；`-watch` 多段與 `-regs-at` 不去重](191-bios-rom-tail.md)：READY。`FFFF0`–`FFFFF` 填 PC/AT 的重置跳躍、BIOS 日期與機型位元組，`F0000`–`FFFFF` 寫入忽略但記下來；狀態檔 v3 存 A20／HMA、仍讀 v2；`-watch` 每一段都監看、`-regs-at` 的 blit 去重改成選用。

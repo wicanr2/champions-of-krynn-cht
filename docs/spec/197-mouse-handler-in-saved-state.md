@@ -36,10 +36,12 @@ s.Mouse = Mouse{X: …, Y: …, Buttons: …, Press: …, Release: …, XScale: 
 | `Handler.Seg`／`Off`／`Mask`／`Set` | 事件往哪裡送、送哪幾種 |
 | `MinX`／`MaxX`／`MinY`／`MaxY` | 夾制是遊戲行為的一部分（`Mouse` 的既有註解）；範圍掉了之後注入的座標不再被夾，「點在畫面外」這種邊界測試會得到相反的結論 |
 
-不存的仍然不存：`Polls`、`Sets`、`Calls`、`Events`、`PressQ`、`PressReads`、
-`MickeyX`／`MickeyY`。前六個是觀測紀錄；mickey 是「自從程式上次問以來」的累計，
-跨行程接續時歸零才是對的——存下來的話展開後第一次 `AX=0Bh` 會拿到
-存檔之前累積的位移。
+不存的仍然不存：`Polls`、`Sets`、`Calls`、`Events`、`PressQ`、`PressReads`，
+它們是觀測紀錄。
+
+`MickeyX`／`MickeyY` 要存。它是「自從程式上次問以來」的累計，不中斷地跑下去
+下一次 `AX=0Bh` 本來就會拿到這段位移；歸零的話展開後與從頭跑不再一致，
+違反 §4 第 3 條。logh3 分支的狀態檔同樣存它（`TestStateKeepsMouseDriverState`）。
 
 ## 3. 相容性
 

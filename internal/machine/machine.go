@@ -272,6 +272,10 @@ type Machine struct {
 	oplReg     [2]uint8
 	oplRegs    [2][256]uint8
 	oplPresent bool
+	// soundBlasterPresent 明示標準 SB16／220h；DSP 狀態沿用已由
+	// LEOPLPorts 驗證的受限硬體契約（docs/spec/190-opl-vgm-dump §8）。
+	soundBlasterPresent bool
+	soundBlaster        SoundBlasterDSP
 	// 計時器：兩個各自有「啟動」與「遮罩」，狀態埠的 bit7 是兩者的 OR。
 	oplT1Started, oplT2Started bool
 	oplT1Masked, oplT2Masked   bool
@@ -330,6 +334,21 @@ type Machine struct {
 	// IRQ0Base 是**舊模型**（指令數）在分頻 65536 時的間隔。
 	// 程式改 PIT 的分頻時 IRQ0Every 由它按比例算出來（`pitWrite`）。
 	IRQ0Base uint64
+
+	// IRQ0Pinned ＝ IRQ0Every 由呼叫端釘死，**不隨程式改 PIT 分頻而變**。
+	//
+	// ⚠ **沒有它的話，「每 N 道指令一次中斷」這個要求會被安靜地推翻。**
+	// 程式一寫 PIT，`recalcIRQ0` 就按分頻重算 IRQ0Every；呼叫端設的值
+	// 只在程式還沒寫 PIT 之前算數。症狀不是報錯，是**同一組旗標跑出
+	// 不同的畫面**——而旗標看起來完全對得上，所以最先被懷疑的一定是
+	// 別的東西。（logh3：遊戲把分頻設成 2048，`165000×2048/65536 ≈ 5156`，
+	// 於是 `-tick 20000` 實際變成每 5,156 道一次，四倍的計時器把
+	// 星域圖的著色迴圈截短，遊戲拿著半成品往下走，最後 retf 進垃圾。
+	// 見 logh3 `docs/re/270`。）
+	//
+	// 呼叫端明講的間隔優先：**明講就是知道自己要什麼**。舊收據釘在
+	// 固定間隔上，PIT 模型是後來才有的，兩者要能並存。
+	IRQ0Pinned bool
 
 	// PITDiv 是 PIT 通道 0 現在的分頻值（1–65536）。唯讀，給報告用。
 	PITDiv uint32
@@ -390,6 +409,14 @@ type Machine struct {
 	// 見 A20Enabled 的說明：預設關著（8086 的環繞行為）。
 	a20 bool
 	hma [HMASize]uint8
+
+	// ROMWrites 是被忽略的 ROM 寫入次數，ROMWriteLog 是最前面幾筆
+	// （`bios_rom.go`、`docs/spec/191-bios-rom-tail`）。
+	ROMWrites   uint64
+	ROMWriteLog []ROMWrite
+
+	// LegacyState：最近一次 LoadState 讀的是舊版狀態檔（沒有 A20／HMA）。
+	LegacyState bool
 
 	// 觀測用（probe.go）。沒設監看點時這幾個都是空的，
 	// 熱路徑只多一次長度檢查。
@@ -510,6 +537,15 @@ type Machine struct {
 	// （`docs/spec/004` §1.2）。
 	FreeSeg uint16
 
+	// EmptyEnv ＝ 環境字串區留空（只保留結尾標記與程式路徑）。
+	//
+	// 真 DOS 的環境幾乎不可能是空的，所以預設會放一條 `COMSPEC=`。
+	// 但**有些載入器的兩條路徑不等價**：`GIN3.COM` 在環境非空時會去掃描
+	// 它（`repne scasb`），走進一條會跟執行器的記憶體配置打架的路，
+	// 最後 `retf` 進垃圾（`docs/re/269`）。在那條路修好之前，
+	// 這個開關讓對拍跑得動。
+	EmptyEnv bool
+
 	// ProgramPath 是放進環境區塊的程式全路徑（DOS 形式，如 C:\GAME\X.EXE）。
 	// MSC 的啟動碼會讀它當 argv[0]。空的話用一個中性的預設值——
 	// **不要放某一支程式的路徑**，那是 per-program 的值。
@@ -589,6 +625,7 @@ func New() *Machine {
 	m.CPU.SetFlags(m.CPU.Flags)
 	m.recalcIRQ0()
 	m.initBDA()
+	m.initROM()
 	m.initVectors()
 	m.installCallbackStub()
 	m.initROMFont()
@@ -706,6 +743,10 @@ func (m *Machine) Write8(a uint32, v uint8) {
 		return
 	}
 	a &= 0xFFFFF
+	if a >= ROMBase {
+		m.noteROMWrite(a, v)
+		return
+	}
 	if m.onVideoWrite != nil && a >= vgaLo && a < vgaHi {
 		cs, ip := m.CPU.OpAddr()
 		m.onVideoWrite(VideoWrite{Step: m.Steps, CS: cs, IP: ip, Offset: a - vgaLo, Value: v, WriteMode: m.VGA.WriteMode()})
@@ -826,6 +867,16 @@ func (m *Machine) SetAdLib(present bool) { m.oplPresent = present }
 // AdLib 回 388h 上有沒有 OPL2。
 func (m *Machine) AdLib() bool { return m.oplPresent }
 
+// SetSoundBlaster 明示標準 SB16（基底 220h）存在。Sound Blaster 的 OPL
+// 相容介面也是實體 OPL，所以開啟時一併讓 OPL 偵測成立；關閉 SB 不會
+// 擅自關掉可能由 SetAdLib 獨立開啟的 AdLib。
+func (m *Machine) SetSoundBlaster(present bool) {
+	m.soundBlasterPresent = present
+	if present {
+		m.oplPresent = true
+	}
+}
+
 // OPL 暫存器 04h（計時器控制）的位元（YM3812 資料表）。
 const (
 	oplT1Start  = 0x01 // 啟動計時器 1
@@ -906,6 +957,14 @@ func (m *Machine) ClearOPL() { m.OPL = m.OPL[:0] }
 func (m *Machine) In8(port uint16) uint8 {
 	m.PortsIn[port]++
 	m.portTicks++
+	if m.soundBlasterPresent {
+		if v, ok := m.soundBlaster.In8(port); ok {
+			return v
+		}
+		if alias, ok := oplAlias(port); ok {
+			port = alias
+		}
+	}
 	if v, ok := m.VGA.In(port); ok {
 		return v
 	}
@@ -998,6 +1057,15 @@ func (m *Machine) In8(port uint16) uint8 {
 func (m *Machine) Out8(p uint16, v uint8) {
 	m.Ports[p] = v
 	m.PortLog = append(m.PortLog, PortWrite{Port: p, Val: v, Step: m.Steps, Cycles: m.CPU.Cycles})
+
+	if m.soundBlasterPresent {
+		if m.soundBlaster.Out8(p, v) {
+			return
+		}
+		if alias, ok := oplAlias(p); ok {
+			p = alias
+		}
+	}
 
 	// PIT 通道 0：程式寫進去的除數決定它自己的時基（`pit.out`）。
 	// **這裡只記設定、不推進時鐘**——時間由 `IRQ0Every` 的指令數驅動。
@@ -1144,6 +1212,9 @@ func (m *Machine) recalcIRQ0() {
 
 	if m.IRQ0Every == 0 {
 		return // 計時器關著，下面那份用不到
+	}
+	if m.IRQ0Pinned {
+		return // 呼叫端釘死了間隔（見 IRQ0Pinned）
 	}
 	base := m.IRQ0Base
 	if base == 0 {

@@ -99,17 +99,22 @@ func main() {
 			"色盤存成同名 .pal。一次跑要看好幾個畫面時用這個，"+
 			"不要為了看中途的畫面重跑")
 	clickPremove := flag.Int("click-premove", 0,
-		"每一次腳本點擊先把游標移過去、等遊戲讀了幾次滑鼠才按下去（0 ＝ 移到就按）。"+
+		"每一次腳本點擊先把游標移過去、等遊戲讀了幾次滑鼠才按下去（0 ＝ 用 -click-move-lead）。"+
 			"有些對話框的鈕吃「游標已經在上面」這個狀態（`docs/spec/004` §4.19）")
+	clickMoveLead := flag.Uint64("click-move-lead", 200_000,
+		"每一次腳本點擊提早幾道指令送移動事件，按下仍落在指定的步數"+
+			"（0 ＝ 移動與按下同一道指令）。見 `docs/spec/004` §4.19")
 	clickScript := flag.String("clicks", "",
-		"點擊腳本：`步數:X:Y[:鍵]` 用逗號分隔（鍵 1 ＝ 左、2 ＝ 右，預設 1）。"+
-			"按住時間用 -click-hold")
+		"點擊腳本：`步數:X:Y[:鍵[:按住]]` 用逗號分隔（鍵 1 ＝ 左、2 ＝ 右，預設 1）。\n"+
+			"    按住時間省略就用全域的 -click-hold；同一段序列裡不同的鈕\n"+
+			"    常常要不同的按住時間，這一欄就是給那種情形用的")
 	watchVideo := flag.Bool("watch-video", false,
 		"統計寫進 A0000–BFFFF 的位址範圍（回答「它到底畫在哪裡」）")
 	watch := flag.String("watch", "", "監看記憶體寫入，格式 <線性hex>-<線性hex>；"+
 		"每次寫入印出步數與 CS:IP（除錯「誰把向量改掉了」）")
 	logCalls := flag.Bool("log-calls", false, "統計每一種 (中斷, AH) 呼叫幾次")
-	tick := flag.Uint64("tick", 0, "每幾道指令送一次計時器中斷（0 ＝ 用預設）")
+	tick := flag.Uint64("tick", 0, "每幾道指令送一次計時器中斷（0 ＝ 用預設）。\n"+
+		"    給了就**釘住**，不隨程式改 PIT 分頻而變——舊收據釘在固定間隔上")
 	press := flag.String("press", "", "用 IRQ1 送的按鍵，逗號分隔。"+
 		"可用名稱：up down left right enter esc space，或單一字元／16 進位掃描碼")
 	pressAt := flag.Uint64("press-at", 0, "第幾道指令開始送鍵（0 ＝ steps 的八成）")
@@ -140,8 +145,15 @@ func main() {
 	programPath := flag.String("program-path", "",
 		"環境區塊裡的程式全路徑（argv[0]，如 `C:\\START.EXE`）；空字串用中性預設。"+
 			"用 argv[0] 重開自己讀 overlay 的程式要給對（`docs/spec/194`）")
+	emptyEnv := flag.Bool("empty-env", false,
+		"環境字串區留空（只留結尾標記與程式路徑）。"+
+			"預設會放一條 `COMSPEC=`，那比較接近真 DOS；但 GIN3.COM 在環境非空時"+
+			"會掃描它，走進一條與執行器的記憶體配置打架的路（`docs/re/269`）")
 	adlib := flag.Bool("adlib", false, "讓 AdLib（OPL2，埠 388h）偵測存在"+
 		"（預設不存在，開機快；音樂路徑要它才會跑）")
+	soundBlaster := flag.Bool("sound-blaster", false,
+		"讓 Sound Blaster 16（基底 220h，含 OPL 相容埠）偵測存在"+
+			"（預設不存在；使用 228h/229h 的 FM 音樂路徑要它才會跑）")
 	poke := flag.String("poke", "",
 		"在指定步數直接改記憶體：`<位址>@<步數>=<hex bytes>`，分號分隔。"+
 			"位址寫法同 -peek。**對拍要固定的是狀態，不是運氣**——"+
@@ -154,6 +166,9 @@ func main() {
 		"執行到這個 `<seg>:<off>` 時印出 VGA 圖形控制器／序列器／latch。"+
 			"畫面上的位元不等於 CPU 寫的位元組時（write mode、bit mask、"+
 			"set/reset），只看寫入指令看不出所以然")
+	regsSkipBlit := flag.Bool("regs-skip-blit", false,
+		"-regs-at 跳過「DS:SI 比同一個位置的上一筆只往前 1–16」的命中（blit 迴圈逐列走的那種重複）。"+
+			"⚠ 預設關：一般函式的參數指標也常常只差幾個 byte，開了會把真的呼叫一起吞掉（issue #54）")
 	regsMax := flag.Int("regs-max", 20,
 		"每個 -regs-at 位址最多記幾次。逐格處理的迴圈跑幾百次，"+
 			"預設的 20 次只看得到第一個物件")
@@ -298,6 +313,14 @@ func main() {
 	if *adlib {
 		m.SetAdLib(true)
 	}
+	if *soundBlaster {
+		m.SetSoundBlaster(true)
+	}
+	// 環境區塊裡的程式全路徑要是**這一支**程式，不是 loader 的預設值
+	// `C:\PROG.EXE`。MSC 的啟動碼拿它當 argv[0]；而有些載入器會掃環境
+	// 找自己的路徑（`docs/re/269`）。
+	m.ProgramPath = `C:\` + strings.ToUpper(filepath.Base(*exe))
+	m.EmptyEnv = *emptyEnv
 	var err error
 	if *loadState == "" {
 		img, rerr := os.ReadFile(*exe)
@@ -326,7 +349,9 @@ func main() {
 		m.Write8(psp+0x81+uint32(len(b)), 0x0D)
 	}
 	if *tick > 0 {
-		m.IRQ0Every = *tick
+		// **明講的間隔要壓過 PIT 的重算。** 不釘住的話，程式一寫 PIT
+		// 分頻就把它蓋掉（`machine.IRQ0Pinned` 的註解記著症狀）。
+		m.IRQ0Every, m.IRQ0Pinned = *tick, true
 	}
 	m.TraceSegs = *segLog
 	m.RowWritesFrom = *rowWrites
@@ -358,8 +383,8 @@ func main() {
 	var writes []memWrite
 	var dropped int
 	if *watch != "" {
-		var lo, hi uint32
-		if _, err := fmt.Sscanf(*watch, "%x-%x", &lo, &hi); err != nil {
+		ranges, err := parseWatchRanges(*watch)
+		if err != nil {
 			die(err)
 		}
 		// **保留最後 20000 筆，不是前 20000 筆。** 要找的通常是「誰最後
@@ -367,18 +392,27 @@ func main() {
 		// ⚠ **`WatchWrites` 只留一個回呼**（後註冊的蓋掉前一個），
 		// 所以列印與收集要在同一支裡做。分成兩次註冊的話，先註冊的那個
 		// 靜靜失效——症狀是 `-watch` 照印，但 `-watch-file` 永遠是空的。
-		m.WatchWrites(lo, hi, func(a uint32, old, nw uint8) {
-			fmt.Printf("[watch] #%d %05X: %02X → %02X  ← %04X:%04X\n",
-				m.Steps, a, old, nw, m.CPU.Seg[cpu.CS], m.CPU.IP)
-			w := memWrite{a, old, nw, m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP}
-			if len(writes) < 20000 {
-				writes = append(writes, w)
-				return
-			}
-			copy(writes, writes[1:])
-			writes[len(writes)-1] = w
-			dropped++
-		})
+		//
+		// 每一段各掛一個 WatchWrite（可以同時掛很多個），不走只留一個回呼的
+		// WatchWrites——後者會被 -watch-video 蓋掉。WatchWrite 連「值沒變」的
+		// 寫入也通知，-watch 的語意是「值變了」，所以在這裡濾。
+		for _, r := range ranges {
+			m.WatchWrite(r.lo, r.hi, func(_ *machine.Machine, a uint32, old, nw uint8) {
+				if old == nw {
+					return
+				}
+				fmt.Printf("[watch] #%d %05X: %02X → %02X  ← %04X:%04X\n",
+					m.Steps, a, old, nw, m.CPU.Seg[cpu.CS], m.CPU.IP)
+				w := memWrite{a, old, nw, m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP}
+				if len(writes) < 20000 {
+					writes = append(writes, w)
+					return
+				}
+				copy(writes, writes[1:])
+				writes[len(writes)-1] = w
+				dropped++
+			})
+		}
 	}
 	var vidLo, vidHi uint32 = 0xFFFFFFFF, 0
 	var vidN int
@@ -400,6 +434,7 @@ func main() {
 	if *scratchDir != "" { // civ1 的舊名，同一個暫存層
 		d.Scratch = *scratchDir
 	}
+	obsSetupDOS(m, d) // 觀測用旗標的掛鉤之四（observe.go）
 	d.Mouse.XScale = uint16(*xscale)
 	if *queue != "" {
 		for _, q := range strings.Split(*queue, ",") {
@@ -444,6 +479,10 @@ func main() {
 		})
 		fmt.Printf("從 %s 接著跑（第 %d 道指令，素材目錄 %s）\n",
 			*loadState, m.Steps, d.Root)
+		if m.LegacyState {
+			// 舊版狀態檔沒有 A20／HMA：讀成 A20 關（`docs/spec/191-bios-rom-tail` §4）。
+			fmt.Println("⚠ 舊版狀態檔（沒有 A20／HMA）：讀成 A20 關、HMA 空；存檔時 A20 開著的話要從開機重錄")
+		}
 		// 狀態檔會還原 CPUHz 與 CycleClock，把 obsSetup 先前套上的 -cpuhz 安靜地蓋掉
 		// ——症狀是「換了 CPU 速度，結果一模一樣」。命令列給了就以命令列為準。
 		if *obsCPUHz > 0 {
@@ -739,7 +778,8 @@ func main() {
 				d.PressMouse(*clickBtn)
 				pollsAtPress = len(d.Mouse.Polls)
 				held = true
-			case held && releaseNow(d, *clickPolls, *clickHold, pollsAtPress, m.Steps, *clickAt):
+			// 單次點擊（-click-x/-click-y）沒有腳本那一欄，所以只有兩個全域值。
+			case held && releaseNow(d, holdFor(click{}, *clickPolls, *clickHold), pollsAtPress, m.Steps, *clickAt):
 				d.ReleaseMouse(*clickBtn)
 				held = false
 			}
@@ -759,8 +799,10 @@ func main() {
 				btn = 1
 			}
 			switch {
-			case m.Steps == c.step:
+			case preMoveNow(c, m.Steps, *clickPremove, *clickMoveLead):
 				d.MoveMouse(int(c.x), int(c.y))
+			case m.Steps == c.step:
+				d.MoveMouse(int(c.x), int(c.y)) // 座標沒變時是 no-op
 				if *clickPremove > 0 {
 					// 先移過去，等遊戲看到游標在那裡再按。
 					pollsAtPress = len(d.Mouse.Polls)
@@ -775,7 +817,7 @@ func main() {
 				pollsAtPress = len(d.Mouse.Polls)
 				preIdx, downIdx = -1, i
 				pressStep = m.Steps
-			case downIdx == i && releaseNow(d, *clickPolls, *clickHold, pollsAtPress, m.Steps, pressStep):
+			case downIdx == i && releaseNow(d, holdFor(c, *clickPolls, *clickHold), pollsAtPress, m.Steps, pressStep):
 				d.ReleaseMouse(btn)
 				downIdx = -1
 			}
@@ -798,15 +840,15 @@ func main() {
 		for _, w := range regWatch {
 			if m.CPU.Seg[cpu.CS] == w.seg && m.CPU.IP == w.off && m.Steps >= *regsFrom {
 				c := m.CPU
-				// **只記來源基底換掉的那一次。** 同一塊圖的 16 或 20 列
-				// 是連續的位移，全部印出來只會看到同一個東西 20 遍，
-				// 而「換了一份來源」正是要找的訊號。
+				// -regs-skip-blit：**只記來源基底換掉的那一次。** 同一塊圖的
+				// 16 或 20 列是連續的位移，全部印出來只會看到同一個東西 20 遍。
+				// ⚠ 這個判準只對 blit 成立，所以預設關：以前寫死開著，
+				// 《銀河英雄傳說III SP》逐擊結算的函式 SI 從 0000 換到 0004，
+				// 第一擊整個不見，而報告看起來完整（issue #54）。
 				cur := uint32(c.Seg[cpu.DS])<<16 | uint32(c.R[cpu.SI])
 				prev, seen := regLast[w]
 				regLast[w] = cur
-				// 只跳過「同一份來源往下走一格」的那種重複（blit 迴圈）；
-				// 位置完全相同的重複呼叫要記——那是不同的一次事件。
-				if seen && cur > prev && cur-prev <= 16 {
+				if skipRegsHit(*regsSkipBlit, seen, prev, cur) {
 					continue
 				}
 				if h := regHits[w]; len(h) < *regsMax {
@@ -1229,7 +1271,7 @@ func report(m *machine.Machine, d *dos.DOS, ring *ring, runErr error, limit uint
 	}
 	// **開過的檔不截斷**：「這個畫面用了哪些素材」是逆向時最常問的一句，
 	// 截在 30 個就正好把後面載進來的那些蓋掉（戰鬥畫面在第 30 個之後）。
-	fmt.Printf("\n開過的檔（%d）：%s\n", len(d.Opened), strings.Join(d.Opened, " "))
+	fmt.Printf("\n開過的檔（%d）：%s\n", len(d.Opened), joinAll(d.Opened))
 	if len(d.Allocs) > 0 {
 		fmt.Printf("\n記憶體配置（%d 次，最多列 20）：\n", len(d.Allocs))
 		for i, a := range d.Allocs {
@@ -1865,9 +1907,30 @@ type click struct {
 	step uint64
 	x, y uint16
 	btn  uint16
+	// hold 是這一次的按住時間（指令數）；0 ＝ 用全域的 `-click-hold`
+	// 或 `-click-polls`。
+	//
+	// ⚠ **這一欄看起來與 `docs/spec/004` §4.5 矛盾，其實不是——不要拿掉。**
+	// §4.5 說「按住長度用輪詢次數算，不是指令數」，那是給**新寫的**點擊
+	// 腳本的建議：輪詢頻率在不同畫面差三個數量級，寫死的指令數不可移植。
+	// 這一欄解的是另一個問題：**重跑既有收據**。
+	//
+	// 收據是證據不是程式碼。它記的是「當時按住了幾道指令」，那個數字與
+	// 當時跑出來的畫面綁在一起；換成輪詢次數會得到**另一個畫面**，於是
+	// 那份收據就不再是原本那份。整批換掉的唯一辦法是全部重錄，而重錄
+	// 之前得先有一個跑得動舊收據的執行器——就是這一欄存在的理由。
+	//
+	// 為什麼不能只用全域的 `-click-hold`：同一段序列裡不同的鈕常常要
+	// 不同的按住時間（選單鈕吃短按、拖曳與連續開窗吃長按）。硬挑一個值
+	// 的話，長的套到短的那幾次會多開一層窗、短的套到長的那幾次會整個
+	// 沒反應——兩種都不報錯，只是跑出另一個畫面。銀英傳III SP 有八份
+	// 收據就是這個形狀（前兩次 3,000,000 道、後面三次 300,000 道）。
+	//
+	// **新腳本請用 `-click-polls`**，這一欄留給收據。
+	hold uint64
 }
 
-// parseClicks 讀 `步數:X:Y,步數:X:Y` 這種腳本。
+// parseClicks 讀 `步數:X:Y[:鍵[:按住]]`，逗號分隔。
 func parseClicks(spec string) ([]click, error) {
 	if spec == "" {
 		return nil, nil
@@ -1879,8 +1942,8 @@ func parseClicks(spec string) ([]click, error) {
 			continue
 		}
 		f := strings.Split(part, ":")
-		if len(f) != 3 && len(f) != 4 {
-			return nil, fmt.Errorf("點擊腳本 %q 格式不對，要 步數:X:Y[:鍵]", part)
+		if len(f) < 3 || len(f) > 5 {
+			return nil, fmt.Errorf("點擊腳本 %q 格式不對，要 步數:X:Y[:鍵[:按住]]", part)
 		}
 		c := click{btn: 1}
 		n, err := strconv.ParseUint(f[0], 10, 64)
@@ -1895,16 +1958,32 @@ func parseClicks(spec string) ([]click, error) {
 			}
 			*dst = uint16(v)
 		}
-		if len(f) == 4 {
+		if len(f) >= 4 && f[3] != "" {
 			v, err := strconv.ParseUint(f[3], 10, 16)
 			if err != nil {
 				return nil, fmt.Errorf("點擊腳本 %q 的鍵不是數字：%w", part, err)
 			}
 			c.btn = uint16(v)
 		}
+		if len(f) == 5 && f[4] != "" {
+			v, err := strconv.ParseUint(f[4], 10, 64)
+			if err != nil {
+				return nil, fmt.Errorf("點擊腳本 %q 的按住時間不是數字：%w", part, err)
+			}
+			c.hold = v
+		}
 		out = append(out, c)
 	}
 	return out, nil
+}
+
+// joinAll 與 join 一樣，但**不截斷**。「開過的檔」用它——那份清單是
+// 「這個畫面用了哪些素材」的答案，截在 30 個會正好把後面載進來的蓋掉。
+func joinAll(s []string) string {
+	if len(s) == 0 {
+		return "（無）"
+	}
+	return strings.Join(s, " ")
 }
 
 func join(s []string) string {
@@ -2730,12 +2809,55 @@ func (c *callArgLog) dump() {
 // `-click-hold` 是固定指令數。前者才是可移植的——同一支遊戲不同畫面的
 // 輪詢頻率可以差三個數量級（源平合戰的磁片提示每千萬道問 12 次，
 // 讀檔選單每千萬道問一千次），固定指令數在一邊漏掉、在另一邊按成連點。
-func releaseNow(d *dos.DOS, clickPolls int, clickHold uint64,
-	pollsAtPress int, step, pressStep uint64) bool {
-	if clickPolls > 0 {
-		return len(d.Mouse.Polls)-pollsAtPress >= clickPolls
+// holdMode 是一次點擊的放開判準：等 polls 次輪詢，或等 steps 道指令。
+type holdMode struct {
+	polls int
+	steps uint64
+}
+
+// preMoveNow 回答「這一道指令要不要為這次點擊先送移動事件」。
+//
+// ⚠ **移動要比按下早，這不是可有可無的間隔**（`docs/spec/004` §4.20.1）。
+// 真的滑鼠不可能在同一瞬間移到新位置又按下去：驅動程式一定先送一個移動
+// 事件。遊戲收到按下時手上是哪個座標、以及「游標經過那裡」帶起來的副作用
+// （懸停面板、反白、提示列），都靠這段間隔才會發生。擠在同一道指令上時
+// 遊戲照樣開得了選單、框與內容逐位元組相同，**只是那些副作用整批不見**，
+// 而畫面看起來完全正常——沒有任何一個環節會報錯。
+//
+// `-click-premove`（等遊戲讀 N 次滑鼠才按）會把按下的時間點往後移，
+// 與「按下落在腳本指定的步數」不相容，所以它一開就由它作主。
+func preMoveNow(c click, steps uint64, clickPremove int, lead uint64) bool {
+	if clickPremove > 0 || lead == 0 || lead > c.step {
+		return false
 	}
-	return step == pressStep+clickHold
+	return steps+lead == c.step
+}
+
+// holdFor 決定這一次點擊照誰的規矩放開。**越具體的越優先**：
+//
+//  1. 腳本第五欄寫死的指令數（`步數:X:Y::按住`）——那是某一份收據
+//     記下來的事實，全域旗標不該蓋過它。
+//  2. 全域 `-click-polls`——與畫面無關的判準，新腳本的建議做法。
+//  3. 全域 `-click-hold`——最後的退路。
+//
+// ⚠ **順序不要對調。** 把 `-click-polls` 放到第一位的話，凡是同時給了
+// 它的那一次執行，收據裡逐次寫死的按住時間就全部失效——而畫面照樣
+// 畫得出來，只是不是原本那一張。
+func holdFor(c click, clickPolls int, clickHold uint64) holdMode {
+	if c.hold > 0 {
+		return holdMode{steps: c.hold}
+	}
+	if clickPolls > 0 {
+		return holdMode{polls: clickPolls}
+	}
+	return holdMode{steps: clickHold}
+}
+
+func releaseNow(d *dos.DOS, h holdMode, pollsAtPress int, step, pressStep uint64) bool {
+	if h.polls > 0 {
+		return len(d.Mouse.Polls)-pollsAtPress >= h.polls
+	}
+	return step == pressStep+h.steps
 }
 
 // doDumpMem 把 <seg>:<off>:<長度> 的記憶體寫成檔。

@@ -31,6 +31,21 @@ var (
 	obsOPLLog = flag.String("opl-log", "",
 		"把 OPL2（AdLib）暫存器寫入序列寫到這個檔：每行 `步數 暫存器 值`（十六進位）。"+
 			"音訊 parity 對的是這串「樂譜」，不是波形（`docs/spec/004` §6）")
+	obsDumpVGM = flag.String("dump-vgm", "",
+		"把 OPL（AdLib／OPL3）暫存器寫入序列倒成 VGM，外部播放器可以離線合成"+
+			"（`docs/spec/190-opl-vgm-dump`）。時間基準取機器自己的 `IRQ0Every × PITHz`。"+
+			"⚠ **要配 `-adlib`**：AdLib 預設不存在，偵測失敗的程式整段跳過音樂路徑，"+
+			"而空序列與「這個程式沒有音樂」長得一模一樣")
+	obsVGMClearOn = flag.String("vgm-clear-on-open", "",
+		"開到這個檔的時候把 OPL 寫入序列清掉（不分大小寫，不含路徑）。"+
+			"**這是把一段 OPL 輸出框到某一首曲子上唯一的錨**：開機會連放好幾首而且"+
+			"暫存器串是接起來的，事後從序列裡找分界只能用猜的。"+
+			"⚠ 給了卻沒開到那個檔就**不寫 VGM**——不然錄到的是別首，"+
+			"而它照樣產出一份聽起來完全正常的音檔")
+	obsVGMStepsPerSec = flag.Float64("vgm-steps-per-second", 0,
+		"蓋掉 -dump-vgm 的時間基準（指令／秒）。0 ＝ 用機器現在的設定。"+
+			"程式中途改了 PIT 分頻**而且**間隔被 -tick 釘死時，機器速度變過而"+
+			"這裡只取一個快照——那種情況自己算一個傳進來")
 	obsPokeFile = flag.String("poke-file", "",
 		"從檔案讀 -poke 的腳本（一行一筆或整串分號分隔）。"+
 			"命令列單一參數上限 128 KB，塗整份圖形這種大量 poke 放檔案裡")
@@ -276,6 +291,14 @@ func obsPokeScript(inline string) string {
 func obsReport(m *machine.Machine, d *dos.DOS, watch func(w *bufio.Writer)) {
 	// PIT 的分頻決定計時器多快。**印出來**：分頻被寫成一個小數字時，
 	// 症狀是機器淹在中斷裡出不來，而那看起來像「程式當掉」。
+	// **寫 ROM 被忽略也要印。** 真機上是無聲的，但寫 ROM 的程式通常是指標
+	// 已經飛了——沒印的話那一段只會變成「後面某處行為怪怪的」。
+	if m.ROMWrites > 0 {
+		fmt.Printf("\n寫 ROM（F0000–FFFFF）被忽略 %d 次，最前面 %d 筆：\n", m.ROMWrites, len(m.ROMWriteLog))
+		for _, w := range m.ROMWriteLog {
+			fmt.Printf("  #%d %05X ← %02X  ip=%04X:%04X\n", w.Step, w.Addr, w.Val, w.CS, w.IP)
+		}
+	}
 	fmt.Printf("\nPIT 通道 0 分頻 %d", m.PITDiv)
 	if m.CycleClock {
 		fmt.Printf("（週期時鐘 %d Hz，每 %d 個週期一次 IRQ0）", m.CPUHz, m.CycPerIRQ0())
@@ -316,6 +339,33 @@ func obsReport(m *machine.Machine, d *dos.DOS, watch func(w *bufio.Writer)) {
 			fmt.Printf("\nOPL2 暫存器序列寫到 %s（%d 筆）\n", *obsOPLLog, len(m.OPL))
 		}
 	}
+	if *obsDumpVGM != "" && *obsVGMClearOn != "" && !obsVGMCleared {
+		// **沒命中就不要寫。** 錄到的會是別首，而它照樣產出一份聽起來
+		// 完全正常的音檔，檔名卻寫著這一首——那種錯沒有人會發現。
+		fmt.Printf("\ndump-vgm 跳過：整段執行沒有開過 %q，框不出這一首\n", *obsVGMClearOn)
+	} else if *obsDumpVGM != "" {
+		f, err := os.Create(*obsDumpVGM)
+		if err != nil {
+			fmt.Println("dump-vgm 建檔失敗:", err)
+		} else {
+			// 印的要是**真正用到的**那個基準，不是機器現在的——旗標蓋掉之後
+			// 兩者不同，而印錯的那一行會讓人以為蓋掉沒生效。
+			base := *obsVGMStepsPerSec
+			if base <= 0 {
+				base = m.StepsPerSecondNow()
+			}
+			st, err := m.OPLVGM(f, base)
+			f.Close()
+			if err != nil {
+				fmt.Println("dump-vgm:", err)
+			} else {
+				// **秒數要印出來。** 「錄到 0 筆」與「錄到 3 萬筆」看檔案大小
+				// 就分得出來；「曲速差四倍」只有這個數字看得出來。
+				fmt.Printf("\nVGM → %s（%s，%d 筆寫入，%.1f 秒，時間基準 %.0f 指令／秒）\n",
+					*obsDumpVGM, st.Chip, st.Writes, st.Seconds, base)
+			}
+		}
+	}
 	if *obsWatchFile != "" && watch != nil {
 		if err := obsWrite(*obsWatchFile, watch); err != nil {
 			fmt.Println("watch-file 寫檔失敗:", err)
@@ -352,6 +402,37 @@ func obsReport(m *machine.Machine, d *dos.DOS, watch func(w *bufio.Writer)) {
 			fmt.Println("dump-ems 寫檔失敗:", err)
 		} else {
 			fmt.Printf("\nEMS 攤到 %s\n%s", *obsDumpEMS, d.EMSLayout())
+		}
+	}
+}
+
+// obsVGMCleared 記 -vgm-clear-on-open 有沒有真的命中。
+var obsVGMCleared bool
+
+// obsSetupDOS 是掛鉤點四：要 DOS 那一層才掛得上的觀測。
+//
+// `OnOpen` 是「把一段執行期產物框到某個檔上」唯一的錨（`oracle.OnFileOpen`
+// 的註解講的是同一件事）。這裡用它把 OPL 的寫入序列切在曲檔被開啟的那一刻。
+func obsSetupDOS(m *machine.Machine, d *dos.DOS) {
+	if *obsVGMClearOn == "" {
+		return
+	}
+	want := strings.ToLower(*obsVGMClearOn)
+	prev := d.OnOpen
+	d.OnOpen = func(name string) {
+		if prev != nil {
+			prev(name)
+		}
+		if strings.ToLower(name) == want && !obsVGMCleared {
+			// **只清序列，不清暫存器檔**：驅動開機時把預設音色灌進全部
+			// 18 個 operator，之後的曲子是疊在那個狀態上的。
+			//
+			// **只切第一次。** 同一首可能被開第二次（logh3 的開頭動畫會
+			// 重播一輪），每次都切的話留下的是**最後那一小段**——
+			// 而那一段照樣合法、照樣播得出來，只是短得莫名其妙。
+			// 「這一首從哪裡開始」的答案是第一次載入，不是最後一次。
+			m.ClearOPL()
+			obsVGMCleared = true
 		}
 	}
 }

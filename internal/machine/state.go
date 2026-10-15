@@ -19,9 +19,15 @@ import (
 // 正常，只是某個時鐘或某個 plane 停在別的時間點。
 
 // stateMagic 認檔用；版本不合就拒絕，不要讓舊檔悄悄餵出錯的狀態。
+//
+// v3 加了 A20 與 HMA（`docs/spec/191-bios-rom-tail` §4）。**v2 仍然讀**：
+// 那一版沒存這兩項，讀成 A20 關、HMA 全 0——與 v2 執行器讀回來的結果
+// 相同，所以舊檢查點展開的行為不變；只有「存檔那一刻 A20 開著」的 v2 檔
+// 會錯，那種檔要從開機重錄。讀到 v2 時 LegacyState 會記下來。
 const (
-	stateMagic   = "DOSGOLEM-M"
-	stateVersion = 2
+	stateMagic      = "DOSGOLEM-M"
+	stateVersion    = 3
+	stateVersionMin = 2
 )
 
 // machineState 是機器狀態的線上格式。**欄位要匯出**，gob 才看得到。
@@ -30,6 +36,9 @@ type machineState struct {
 	Version int
 
 	Mem []uint8
+	// A20／HMA：v3 起才有（v2 解出來是零值）。
+	A20 bool
+	HMA []uint8
 
 	R      [8]uint16
 	Seg    [4]uint16
@@ -51,6 +60,7 @@ type machineState struct {
 	IRQ0Pending bool
 	IRQ0Every   uint64
 	IRQ0Base    uint64
+	IRQ0Pinned  bool
 	CPUHz       uint64
 	CycleClock  bool
 	DOSBoxCost  bool // `docs/spec/198`；舊狀態檔讀進來是 false
@@ -167,6 +177,9 @@ func (m *Machine) SaveState(w io.Writer) error {
 		FreeSeg:        m.FreeSeg,
 		ImageBase:      m.ImageBase,
 		ImageLen:       m.ImageLen,
+		A20:            m.a20,
+		HMA:            append([]uint8(nil), m.hma[:]...),
+		IRQ0Pinned:     m.IRQ0Pinned,
 	}
 	for k, v := range m.Ports {
 		s.Ports[k] = v
@@ -183,7 +196,7 @@ func (m *Machine) LoadState(r io.Reader) error {
 	if err := gob.NewDecoder(r).Decode(&s); err != nil {
 		return fmt.Errorf("machine: 讀不開狀態檔：%w", err)
 	}
-	if s.Magic != stateMagic || s.Version != stateVersion {
+	if s.Magic != stateMagic || s.Version < stateVersionMin || s.Version > stateVersion {
 		return fmt.Errorf("machine: 狀態檔不認得（%q v%d）", s.Magic, s.Version)
 	}
 	if len(s.Mem) != len(m.Mem) {
@@ -193,6 +206,13 @@ func (m *Machine) LoadState(r io.Reader) error {
 		return fmt.Errorf("machine: 舊狀態檔已讀 VGA DAC，卻沒有讀取索引與分量相位")
 	}
 	copy(m.Mem, s.Mem)
+	// ROM 不是狀態：舊版執行器存下來的那一段是 0，照這一版的 ROM 蓋回去。
+	m.initROM()
+	m.LegacyState = s.Version < stateVersion
+	m.hma = [HMASize]uint8{}
+	copy(m.hma[:], s.HMA)
+	m.a20 = s.A20
+	m.syncCodeFastPath()
 	m.CPU.R, m.CPU.Seg, m.CPU.IP = s.R, s.Seg, s.IP
 	m.CPU.Hi, m.CPU.FSeg, m.CPU.GSeg = s.Hi, s.FSeg, s.GSeg
 	m.CPU.SetFlags(s.Flags)
@@ -205,6 +225,7 @@ func (m *Machine) LoadState(r io.Reader) error {
 	// 舊的狀態檔沒有這幾個欄位；讀到零值就退回開機預設，
 	// 不要讓分頻變成 0（那會讓 IRQ0 間隔算成 0）。
 	m.IRQ0Base, m.PITDiv = s.IRQ0Base, s.PITDiv
+	m.IRQ0Pinned = s.IRQ0Pinned
 	if m.IRQ0Base == 0 {
 		m.IRQ0Base = DefaultIRQ0Every
 	}
