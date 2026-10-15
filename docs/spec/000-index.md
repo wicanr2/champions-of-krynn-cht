@@ -5,7 +5,7 @@
 
 ## 引用規格時要連號碼帶檔名
 
-目前有 249 份規格，而編號**不是唯一鍵**：十條分支各自從 007 開始編，
+目前有 250 份規格，而編號**不是唯一鍵**：十條分支各自從 007 開始編，
 合併之後同一個號碼底下有好幾份不同主題的文件。
 
 | 號碼 | 底下有幾份 | 檔名 |
@@ -49,7 +49,7 @@
 
 ## 依案例分組
 
-### 共同基礎（master）（13 份）
+### 共同基礎（master）（23 份）
 
 - `001-scope-and-mvp.md`
 - `002-cpu-8086.md`
@@ -64,6 +64,16 @@
 - `191-two-clocks-relationship.md`
 - `192-crtc-effects.md`
 - `193-crtc-timing.md`
+- `194-stubseg-font-collision-and-program-path.md`
+- `195-xms-entry-must-not-touch-caller-stack.md`
+- `196-mouse-handler-survives-state-file.md`
+- `197-cpu386-real-mode-subset.md`
+- `198-dos-relative-directories.md`
+- `199-psp-block-resize-boundary.md`
+- `200-eob3-oracle-adapter.md`
+- `201-vga-unchained-256.md`
+- `202-bios-int09-default-handler.md`
+- `203-vga-dac-readback.md`
 
 ### 銀河英雄傳說 3（logh3）（10 份）
 
@@ -344,3 +354,12 @@
 - [192 — CRTC 的效果](192-crtc-effects.md)：READY。列距（offset）與分割畫面（line compare）；少了它們畫面會斜成平行四邊形或狀態列跟著捲走。
 
 - [193 — 時序暫存器](193-crtc-timing.md)：READY。從 CRTC 算掃描位置，`3DA` 回報真的回掃狀態；**預設不啟用**，既有對拍收據建立在行為模型上。
+- [194 — StubSeg 字型 stub 撞號與程式路徑](194-stubseg-font-collision-and-program-path.md)：READY。字型 stub 從 0x20／0x24 移到 0x410／0x414，不再蓋掉向量 8、9 的預設 stub；`oracle.Options.ProgramPath` 與 `probe -program-path` 可指定 argv[0]。
+- [195 — XMS entry 不能改呼叫端的堆疊](195-xms-entry-must-not-touch-caller-stack.md)：READY。XMS entry 是 far call，`fixStackedCF` 改到呼叫端的資料；EOB2 overlay 管理員因此寫錯 stub，片頭記憶體不足。
+- [196 — 狀態檔要留住滑鼠事件常式與座標範圍](196-mouse-handler-survives-state-file.md)：READY。`SaveState` 漏存 `AX=000Ch` 事件常式與範圍，讀檔後注入的滑鼠不呼叫常式，EOB2 看起來像滑鼠沒接上。
+- [197 80386 實模式子集](197-cpu386-real-mode-subset.md)：READY（CPU 語意為強推論）。32 位元暫存器、66／67 前綴、ModRM32／SIB、`0F` 雙位元組一般形式；清單外一律失敗即關閉，PUSHFD／POPFD 讓 EFLAGS.AC 立不起來，偵測回報 386。
+- [198 DOS 相對子目錄解析](198-dos-relative-directories.md)：READY。`SAVEGAME\ITEMS_00.BIN` 這類真實子目錄，`Dir` 與 `RootDir`，暫存層同名子目錄；`StrictChdir`（opt-in）讓不存在的 chdir 失敗。
+- [199 PSP 區塊調整的邊界](199-psp-block-resize-boundary.md)：READY。`AH=4Ah` 自由區塊的 MCB 在 `blk+want`（全域修正），以及 `StrictPSPGrowth`（opt-in）讓 PSP 區塊不能長過已配出的區塊，避免 Borland exec 的 stub 被環境區塊覆寫。
+- [200 EOB3 原版 oracle 轉接層](200-eob3-oracle-adapter.md)：READY（主選單與選單輸入已驗證）。`apps/eob3` 與 `apps/eob3/cmd/oracle`：腳本、收據、啟動鏈、階段標記 `0000:04F0`、決定性來源與限制。
+- [201 非鏈結 256 色（Mode X）](201-vga-unchained-256.md)：READY。模式 13h 清掉 Chain-4 後畫面要從四個平面組；少了它 EOB3 的主選單會壓成 1/4 寬並排四份。
+- [202 BIOS 的 int 09h 預設處理](202-bios-int09-default-handler.md)：READY。ISR 只是包裝、chain 回 stub 時，由 `dos` 層把埠 0x60 的掃描碼翻進 BDA 緩衝；少了它鍵到得了 ISR、到不了程式。

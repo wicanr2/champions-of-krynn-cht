@@ -33,7 +33,7 @@ func TestCWDE(t *testing.T) {
 		t.Errorf("CWDE 後 EAX=%08X，預期 FFFF8001", got)
 	}
 	c.R[AX] = 0x0007
-	c.EAXHi = 0x1234
+	c.Hi[AX] = 0x1234
 	run386(t, c, []byte{0x66, 0x98})
 	if got := c.getEAX(); got != 0x00000007 {
 		t.Errorf("CWDE 後 EAX=%08X，預期 00000007", got)
@@ -44,7 +44,7 @@ func TestSHLEAX(t *testing.T) {
 	c, _ := new386()
 	// DOSJP 的用法：JIS 碼左移 4 變 XMS 位移。
 	c.R[AX] = 0x253F
-	c.EAXHi = 0
+	c.Hi[AX] = 0
 	run386(t, c, []byte{0x66, 0xC1, 0xE0, 0x04})
 	if got := c.getEAX(); got != 0x000253F0 {
 		t.Errorf("SHL EAX,4 後 EAX=%08X，預期 000253F0", got)
@@ -89,7 +89,7 @@ func TestMovDwordImm32(t *testing.T) {
 // 字型全部搬到位元組 0——不會報錯，只會顯示垃圾。
 func TestWriteAXKeepsEAXHi(t *testing.T) {
 	c, _ := new386()
-	c.EAXHi = 0xBEEF
+	c.Hi[AX] = 0xBEEF
 	run386(t, c, []byte{0xB8, 0x34, 0x12}) // mov ax,1234h
 	if got := c.getEAX(); got != 0xBEEF1234 {
 		t.Errorf("mov ax 之後 EAX=%08X，高半被清了", got)

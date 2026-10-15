@@ -109,6 +109,12 @@ type Options struct {
 	// 檔名與封裝內的資料檔對不上（那邊的 `docs/re/29` §6 至今未裁決），
 	// 換個檔名跑一次就是一個可執行的實驗。
 	FontFull, FontHalf string
+
+	// ProgramPath 是環境區塊尾端的程式全路徑（argv[0]，DOS 形式如 `C:\START.EXE`）。
+	// 空字串沿用機器的中性預設 `C:\PROG.EXE`。Borland overlay 管理員用它重開
+	// 自己讀 overlay，名字不對就開檔失敗
+	// （`docs/spec/194-stubseg-font-collision-and-program-path` §2）。
+	ProgramPath string
 }
 
 // Load 載入原版執行檔。
@@ -126,6 +132,7 @@ func LoadWith(exe, root string, opt Options) (*Oracle, error) {
 		return nil, err
 	}
 	m := machine.New()
+	m.ProgramPath = opt.ProgramPath // 要在 LoadEXE 之前：環境區塊在載入時寫
 	if err := m.LoadEXE(img); err != nil {
 		return nil, fmt.Errorf("載入 %s：%w", exe, err)
 	}
@@ -356,6 +363,12 @@ func (o *Oracle) Float(a Addr) float32 {
 // 那是對的，但**放進每道指令都跑的迴圈裡就是災難**：
 // 64 KB 的配置加比對乘上四千兩百萬道指令。
 func (o *Oracle) video() []uint8 {
+	if o.m.Unchained() {
+		// 非鏈結 256 色（Mode X）：畫面要從四個平面組（`docs/spec/201`），
+		// 讀 `Mem` 的話永遠是全 0，ScreenIdle 恆成立、Click 恆報沒反應。
+		// 每次取樣配置 64 KB；內建條件有節流，呼叫端不要每道指令都叫。
+		return o.m.Indexed()
+	}
 	if w, h := o.m.PlanarSize(); w != 0 {
 		// 平面模式：比四個平面的原始 bytes。
 		// **不必攤成像素**——條件只問「畫面變了沒」，而攤開 30 萬個像素
@@ -762,6 +775,20 @@ func (o *Oracle) LastPressedPoll() (x, y int, step uint64, ok bool) {
 // ⚠ **預設不存在**：偵測失敗，整段音樂路徑被跳過，開機因此快很多。
 // 要做音樂對拍就打開它——打開之後 `OPLWrites` 才會有東西。
 func (o *Oracle) AdLib(present bool) { o.m.SetAdLib(present) }
+
+// StrictPSPGrowth 讓行程的 PSP 區塊只能長到下一個已配出的區塊之前，
+// 與真 DOS 的 `AH=4Ah` 一致（`docs/spec/199-psp-block-resize-boundary` §3）。
+// **預設關閉**，因為舊行為是對既有程式刻意保留的。要在 Run 之前叫。
+//
+// 需要它的情形：Borland 的 exec 把自己撐到「探測出的最大值」，再把載入器 stub
+// 放在區塊尾端往下 0x17 段；探測若無視已配出的環境區塊，stub 會蓋到環境區塊
+// （EOB3 的 `CINE.EXE` 回頭 exec `AESOP.EXE` 就是這樣壞掉的）。
+func (o *Oracle) StrictPSPGrowth(on bool) { o.d.StrictPSPGrowth = on }
+
+// StrictChdir 讓 `AH=3Bh` 在目標目錄不存在時失敗，與真 DOS 一致
+// （`docs/spec/198-dos-relative-directories` §5）。**預設關閉**（舊行為一律成功）。
+// 要在 Run 之前叫。
+func (o *Oracle) StrictChdir(on bool) { o.d.StrictChdir = on }
 
 // OPLWrite 是一次 OPL2 暫存器寫入。
 type OPLWrite = machine.OPLWrite

@@ -16,6 +16,10 @@ type Snapshot struct {
 	segs  [4]uint16
 	ip    uint16
 	flags uint16
+	// 80386 暫存器高半與 FS／GS（`docs/spec/197`）；漏抄的話展開出來的變體
+	// 高半歸零，而記憶體與 16 位元暫存器全對。
+	hi         [8]uint16
+	fseg, gseg uint16
 
 	steps     uint64
 	ticks     uint64
@@ -51,9 +55,11 @@ type Snapshot struct {
 	ports   map[uint16]uint8
 	portsIn map[uint16]uint64
 
-	dac      [256 * 3]uint8
-	dacIndex uint8
-	dacPhase uint8
+	dac          [256 * 3]uint8
+	dacIndex     uint8
+	dacPhase     uint8
+	dacReadIndex uint8
+	dacReadPhase uint8
 
 	// ⚠ **平面模式的畫面不在 mem 裡。** 漏了這一段，從快照展開的機器
 	// 記憶體與 CPU 全對，畫面卻是還原之前的那一張——而那看起來像
@@ -87,34 +93,39 @@ func (s *Snapshot) Mem() []uint8 { return s.mem }
 // Snapshot 拍一份快照。1 MB 記憶體，約 1 毫秒。
 func (m *Machine) Snapshot() *Snapshot {
 	s := &Snapshot{
-		mem:       make([]uint8, len(m.Mem)),
-		regs:      m.CPU.R,
-		segs:      m.CPU.Seg,
-		ip:        m.CPU.IP,
-		flags:     m.CPU.Flags,
-		steps:     m.Steps,
-		ticks:     m.Ticks,
-		portTicks: m.portTicks,
-		nextIRQ0:  m.nextIRQ0,
-		pending:   m.irq0Pending,
-		irq0Every: m.IRQ0Every,
-		irq0Base:  m.IRQ0Base,
-		cpuHz:     m.CPUHz,
-		cycClock:  m.CycleClock,
-		cycles:    m.CPU.Cycles,
-		cycPer:    m.cycPerIRQ0,
-		nextCyc:   m.nextIRQ0Cyc,
-		pitDiv:    m.PITDiv,
-		pitAccess: m.pitAccess,
-		pitPhase:  m.pitPhase,
-		pitLo:     m.pitLo,
-		ports:     map[uint16]uint8{},
-		portsIn:   map[uint16]uint64{},
-		dac:       m.DAC,
-		dacIndex:  m.dacIndex,
-		dacPhase:  m.dacPhase,
-		vga:       m.VGA.clone(),
-		planarOn:  m.planarOn,
+		mem:          make([]uint8, len(m.Mem)),
+		regs:         m.CPU.R,
+		hi:           m.CPU.Hi,
+		fseg:         m.CPU.FSeg,
+		gseg:         m.CPU.GSeg,
+		segs:         m.CPU.Seg,
+		ip:           m.CPU.IP,
+		flags:        m.CPU.Flags,
+		steps:        m.Steps,
+		ticks:        m.Ticks,
+		portTicks:    m.portTicks,
+		nextIRQ0:     m.nextIRQ0,
+		pending:      m.irq0Pending,
+		irq0Every:    m.IRQ0Every,
+		irq0Base:     m.IRQ0Base,
+		cpuHz:        m.CPUHz,
+		cycClock:     m.CycleClock,
+		cycles:       m.CPU.Cycles,
+		cycPer:       m.cycPerIRQ0,
+		nextCyc:      m.nextIRQ0Cyc,
+		pitDiv:       m.PITDiv,
+		pitAccess:    m.pitAccess,
+		pitPhase:     m.pitPhase,
+		pitLo:        m.pitLo,
+		ports:        map[uint16]uint8{},
+		portsIn:      map[uint16]uint64{},
+		dac:          m.DAC,
+		dacIndex:     m.dacIndex,
+		dacPhase:     m.dacPhase,
+		dacReadIndex: m.dacReadIndex,
+		dacReadPhase: m.dacReadPhase,
+		vga:          m.VGA.clone(),
+		planarOn:     m.planarOn,
 
 		periodicOn:    m.periodic.on,
 		periodicSeg:   m.periodic.seg,
@@ -154,6 +165,7 @@ func (m *Machine) Snapshot() *Snapshot {
 func (m *Machine) Restore(s *Snapshot) {
 	copy(m.Mem, s.mem)
 	m.CPU.R, m.CPU.Seg, m.CPU.IP = s.regs, s.segs, s.ip
+	m.CPU.Hi, m.CPU.FSeg, m.CPU.GSeg = s.hi, s.fseg, s.gseg
 	m.CPU.SetFlags(s.flags)
 	m.CPU.Halted = false
 
@@ -175,6 +187,7 @@ func (m *Machine) Restore(s *Snapshot) {
 	m.PortLog = m.PortLog[:0]
 
 	m.DAC, m.dacIndex, m.dacPhase = s.dac, s.dacIndex, s.dacPhase
+	m.dacReadIndex, m.dacReadPhase = s.dacReadIndex, s.dacReadPhase
 	m.VGA.restore(s.vga)
 	m.planarOn = s.planarOn
 

@@ -1,6 +1,7 @@
 package rich2
 
 import (
+	"sync"
 	"bytes"
 	"fmt"
 
@@ -39,12 +40,49 @@ const (
 	// 命中判定收到的已經是換算完的 x0／x1／y0／間距／列數。
 	IDAMenuHit = 0x234F4
 
+	// IDAInkey 是選單迴圈每一圈最前面那一支（`0CED:6759` ＝ 線性 `0x23629`）。
+	//
+	// **它同時做兩件事**：把滑鼠位置寫進兩個 out 參數（`rich2/docs/re/186`
+	// §4.2 稱它「更新滑鼠位置」）、把按鍵放進 `ds:1094h`（`rich2/docs/re/100`
+	// §2 稱它 `INKEY$`）。兩份筆記講的是同一支。
+	IDAInkey = 0x23629
+
 	// IDASelectorRet 是取回傳值那一段。
 	//
 	// ⚠ **要攔 `2057F` 不是 `2057C`**：`2057C` 是 `mov ax,[bp-18h]`，
 	// 攔在它上面時那一道還沒執行，`AX` 裡是別的東西。
 	// 攔錯的症狀是「每一張選單都選了同一個奇怪的數字」。
 	IDASelectorRet = 0x2057F
+
+	// IDAStockPick 是股市的「**選哪一檔**」（副程式 #19，`0CED:28FE`
+	// ＝ 線性 `0x1F7CE`）。它不是選擇器，是自己一支的迴圈，但**輸入用的是
+	// 同一組常式**：`0CED:6759`（讀滑鼠 ＋ 讀鍵）兩處、`0CED:6624`
+	// （命中判定）一處。所以選單那一套時序（等 `AX=4` 之後移游標、
+	// 等 hover 再送 Enter）原封不動沿用。
+	//
+	// 四個參數是**傳址**；人類呼叫端 push 的是
+	// `ds:3EAh`／`ds:660h`／`ds:662h`／`ds:664h`，依 `CallArgs` 的源碼順序
+	// 就是：頁碼、Y 起點、列數上限、頁內位置。
+	//
+	//	1F7EA  si = [bp+0Ah]（Y 起點）
+	//	1F810  ax = *[bp+8] + 1；1F816 imul *[bp+0Ch] → 頁偏移
+	//	1F88C  push [bp+0Ah] ＋ 四個 lea → 命中判定 (y0, 18, 0, 319, 5)
+	//	1F915  ax = 18 × 列 + *[bp+0Ah]  ← 第 k 列的 Y
+	//
+	// **命中判定的 y0 就是 Y 起點本身**，沒有 `+10`——那個 `+10`（`1F7EF`）
+	// 是給繪製用的（`0CED:6A87`）。拿它算點擊座標會差一列。
+	IDAStockPick = 0x1F7CE
+
+	// IDAStockPickRet 是人類呼叫端取回傳值那一刻（`0x14254` 的 far call
+	// 之後，下一道就是 `mov ds:666h, ax`）。
+	//
+	// `ds:666h` 是**全檔唯一一處寫入**（位元組窮舉，拿 `ds:648h` 的三處
+	// 當正對照）。回傳的是**絕對檔號**（0 起算 ＝ 頁內列 − 1 ＋ 頁碼 × 5，
+	// `1FD75` 取 `[bp-36h]`），不是選擇器那種 1 起算的列號。
+	//
+	// **取消一樣是 99**（`SelectorCancel`）：呼叫端 `14277` 就是
+	// `cmp ds:648h, 63h` → 跳離場。
+	IDAStockPickRet = 0x14259
 )
 
 // 原版選擇器只認這四種鍵（`rich2/docs/re/100`，confirmed）。
@@ -71,6 +109,14 @@ func (s Selector) Cancelled() bool { return s.Chosen == SelectorCancel }
 //
 // 六個參數的語意見 `rich2/docs/re/141` §2（confirmed）。
 type Selector struct {
+	// Sub 是這一張畫面由哪一支副程式畫的：**22 是一般選擇器**
+	// （`0CED:35E6`）、**19 是股市的選檔畫面**（`0CED:28FE`）。
+	//
+	// 兩者的輸入路徑相同，所以共用這個型別與自動回答；但**回傳值的語意
+	// 不一樣**：22 回 1 起算的列號（取消是 `SelectorCancel`），
+	// 19 回絕對檔號。按 `Chosen` 判斷之前先看 `Sub`。
+	Sub int
+
 	Step  uint64
 	X, Y  int // 選單左上角
 	Width int // 每列寬度，單位是全形字
@@ -86,9 +132,41 @@ type Selector struct {
 	Chosen int
 	Done   bool // 有沒有攔到回傳
 
+	// Page 只有 `Sub == 19` 用得到：選檔畫面的頁碼（每頁 5 檔）。
+	Page int
+
 	// 命中判定實際收到的幾何（攔 `IDAMenuHit`）。**這是量到的不是算的。**
 	HitX0, HitX1, HitY0, HitPitch, HitRows int
 	HitSeen                                bool
+}
+
+// selectorLogs 記每個 Oracle 目前掛著的自動回答。
+//
+// **`ToBoard` 要在走到棋盤的期間把它停掉**：那一段的選單（主選單、城市選擇）
+// 由 `ToBoard` 自己送 Enter，兩邊都送會把流程推過頭——舊的送鍵時序下兩個
+// Enter 疊在一起剛好能過，時序修對之後就不行了，症狀是 `ToBoard` 卡死在
+// **已經正確的棋盤畫面**上（`rich2/docs/spec/084` §2a）。
+//
+// 用 map 而不是 `SelectorLog` 的欄位，是因為 `ToBoard(o)` 只拿得到 Oracle。
+var selectorLogs sync.Map // *oracle.Oracle → *SelectorLog
+
+// pauseMenuAuto 暫停這個 Oracle 上的選單自動回答，回傳恢復用的函式。
+//
+// 沒掛 `WatchSelectors` 時回一個什麼都不做的函式，呼叫端不必分兩種寫法。
+func pauseMenuAuto(o *oracle.Oracle) func() {
+	v, ok := selectorLogs.Load(o)
+	if !ok {
+		return func() {}
+	}
+	log, ok := v.(*SelectorLog)
+	if !ok || log == nil {
+		return func() {}
+	}
+	prev := log.pick
+	log.pick = nil
+	// armAt／wantRow 也要清掉：暫停之前排著的那一次不該在恢復之後才送出。
+	log.wantRow, log.armAt = 0, 0
+	return func() { log.pick = prev }
 }
 
 // SelectorLog 收集整場的選單，也可以自動回答它們。
@@ -96,6 +174,16 @@ type SelectorLog struct {
 	All  []Selector
 	cur  *Selector
 	pick func(*Selector) int
+	// wantRow／setsAt 是「還沒移游標」：要等原版自己的 `AX=4` 跑過
+	// （`len(MouseSets()) > setsAt`）才移，否則會被它蓋掉。
+	wantRow int
+	setsAt  int
+	// armAt 是「游標已經放到目標列，跑到這個指令數就送 Enter」。
+	//
+	// **用指令數不是圈數**：選單迴圈一圈只有一千七百道左右，而游標要被
+	// 原版讀進去、反白跟上需要的是 `oracle.DefaultHover`（兩百萬道）——
+	// 那是 `Click` 量出來的間隔，等兩圈差了六百倍。
+	armAt uint64
 }
 
 // Answer 讓接下來每一張選單一開就自動回答。
@@ -127,10 +215,12 @@ func (l *SelectorLog) Open() *Selector {
 // WatchSelectors 掛上攔截。**要在 Run／Click 之前叫。**
 func WatchSelectors(o *oracle.Oracle) *SelectorLog {
 	log := &SelectorLog{}
+	selectorLogs.Store(o, log)
 
 	o.OnCall(o.IDA(IDASelector), func(o *oracle.Oracle) {
 		a := basic.CallArgs(o, 6)
 		log.All = append(log.All, Selector{
+			Sub:  22,
 			Step: o.Steps(),
 			X:    int(int16(a[0])), Y: int(int16(a[1])),
 			Width: int(int16(a[2])),
@@ -141,46 +231,65 @@ func WatchSelectors(o *oracle.Oracle) *SelectorLog {
 			Text: int(int16(a[4])), Style: int(int16(a[5])),
 		})
 		log.cur = &log.All[len(log.All)-1]
-
-		if log.pick == nil {
-			return
-		}
-		// ⚠ **這裡只排鍵，不點滑鼠。**
-		// 這是 `OnCall` 的 hook，正跑在指令迴圈裡；`Click` 內部會
-		// `RunUntil`，在 hook 裡重入執行迴圈會炸。要按列選就用
-		// `ChooseRow`，那是給呼叫端在迴圈外用的。
-		// **先清掉上一張沒吃掉的鍵。** 不清的話它會把這一張取消掉，
-		// 而症狀是「送了 Enter 卻收到取消碼」（見 `Oracle.ClearInput`）。
-		o.ClearInput()
-		switch row := log.pick(log.cur); {
-		case row < 0: // 不回答
-		case row == 0:
-			o.Type(KeyEsc) // 0 ＝ 取消
-		default:
-			// **每一列都要先把游標放上去，第 1 列也是。**
-			//
-			// 鍵盤只有 Enter 與 ESC 送得進去（方向鍵走 stdin 送不進去，
-			// `rich2/docs/playtest/054` §3.2），而選擇器的反白**每一圈都
-			// 直接由滑鼠位置決定**（`rich2/docs/spec/017` 的「反白跟著
-			// 滑鼠走」，`1F5A5`）。游標不在選單上時，Enter 得到的是**取消**。
-			//
-			// ⚠ 這裡原本把第 1 列特判成「就是游標的起點，送 Enter 就好」。
-			// 那個假設在主選單成立（游標剛好落在上面），在別的選單不成立：
-			// 銀行選單實測開了三次，前兩次 `pick` 回 1、`Chosen` 卻是
-			// **99（取消碼）**——游標那時停在棋盤的「前進」上。
-			// **症狀是「送了 Enter 卻收到取消」，看起來像選單不吃鍵盤，
-			// 而不是像游標放錯地方。**
-			//
-			// 幾何用進場那六個參數算（`RowPoint` 在 `HitSeen` 之前就是
-			// 走這一條）：x0 ＝ 第 1 參數、y0 ＝ 第 2 參數、間距 18、
-			// x1 ＝ x0 + 16×寬 + 42。命中判定實測與這組吻合。
-			x, y := log.cur.RowPoint(row)
-			o.MoveMouse(x, y)
-			o.Type(KeyEnter)
-		}
+		log.arm(o)
 	})
 
+	// 股市的選檔畫面（副程式 #19）。輸入路徑與選擇器相同，
+	// 所以這裡只把它記成一張 `Selector`，時序與送鍵沿用同一組 hook。
+	o.OnCall(o.IDA(IDAStockPick), func(o *oracle.Oracle) {
+		a := basic.CallArgs(o, 4)
+		log.All = append(log.All, Selector{
+			Sub:  19,
+			Step: o.Steps(),
+			// x 是整個畫面寬（命中判定收到 0..319），y 是第 2 參數本身。
+			// **列數是「列數上限 ＋ 1」**——頁偏移的算式
+			// `(*[bp+8] + 1) × 頁碼`（`1F810`）與命中判定收到的列數 5
+			// 互為對照。
+			X: 0, Y: int(int16(a[1])),
+			Rows: int(int16(a[2])) + 1,
+			Page: int(int16(a[0])),
+		})
+		log.cur = &log.All[len(log.All)-1]
+		log.arm(o)
+	})
+
+	o.OnCall(o.IDA(IDAStockPickRet), func(o *oracle.Oracle) {
+		if log.cur == nil || log.cur.Sub != 19 {
+			return
+		}
+		log.cur.Chosen = int(int16(o.AX()))
+		log.cur.Done = true
+		log.cur = nil
+	})
+
+
+
 	o.OnCall(o.IDA(IDAMenuHit), func(o *oracle.Oracle) {
+		// **回答選單的節拍。** 一圈的順序是
+		//
+		//	1F538  0CED:6759  讀滑鼠位置 ＋ 讀鍵（IDAInkey）
+		//	1F544  是 Enter？→ 用**目前的**游標回傳，跳出迴圈
+		//	1F562  是 ESC？  → 取消
+		//	1F588  0CED:6624  命中判定（這一支）
+		//	1F5A5            把命中的列寫回游標 ← 反白到這裡才動
+		//
+		// 所以 Enter 一定要在「命中判定跑完、游標寫回去」之後那一圈才送。
+		// ⚠ **等的是指令數不是圈數。** `ChooseRow`（滑鼠點擊那條路）能選中
+		// 第 2 列，而它與這裡的差別就是 `Click` 的 hover 間隔——
+		// 兩百萬道指令。選單迴圈一圈只有一千七百道，等兩圈差了六百倍，
+		// 症狀是「送了 Enter 卻選到別列」：銀行那張第 1 列收到取消碼 99、
+		// 股市那張第 2 列收到 1「下一頁」（`rich2/docs/spec/084` §2a）。
+		switch {
+		case log.wantRow > 0 && len(o.MouseSets()) > log.setsAt:
+			// 原版設完游標了，現在移過去才不會被蓋掉。
+			x, y := log.cur.RowPoint(log.wantRow)
+			o.MoveMouse(x, y)
+			log.wantRow = 0
+			log.armAt = o.Steps() + oracle.DefaultHover
+		case log.armAt > 0 && o.Steps() >= log.armAt:
+			log.armAt = 0
+			o.Type(KeyEnter)
+		}
 		if log.cur == nil || log.cur.HitSeen {
 			return
 		}
@@ -210,6 +319,59 @@ func WatchSelectors(o *oracle.Oracle) *SelectorLog {
 	})
 
 	return log
+}
+
+// arm 排「這一張要選第幾列」。**選擇器（#22）與股市選檔（#19）共用**——
+// 兩者的輸入路徑是同一組常式，所以送鍵的時序只有這一份實作。
+func (l *SelectorLog) arm(o *oracle.Oracle) {
+	if l.pick == nil || l.cur == nil {
+		return
+	}
+	// ⚠ **這裡只排鍵，不點滑鼠。**
+	// 這是 `OnCall` 的 hook，正跑在指令迴圈裡；`Click` 內部會
+	// `RunUntil`，在 hook 裡重入執行迴圈會炸。要按列選就用
+	// `ChooseRow`，那是給呼叫端在迴圈外用的。
+	// **先清掉上一張沒吃掉的鍵。** 不清的話它會把這一張取消掉，
+	// 而症狀是「送了 Enter 卻收到取消碼」（見 `Oracle.ClearInput`）。
+	o.ClearInput()
+	switch row := l.pick(l.cur); {
+	case row < 0: // 不回答
+	case row == 0:
+		o.Type(KeyEsc) // 0 ＝ 取消
+	default:
+		// **每一列都要先把游標放上去，第 1 列也是。**
+		//
+		// 鍵盤只有 Enter 與 ESC 送得進去（方向鍵走 stdin 送不進去，
+		// `rich2/docs/playtest/054` §3.2），而選擇器的反白**每一圈都
+		// 直接由滑鼠位置決定**（`rich2/docs/spec/017` 的「反白跟著
+		// 滑鼠走」，`1F5A5`）。游標不在選單上時，Enter 得到的是**取消**。
+		//
+		// ⚠ 這裡原本把第 1 列特判成「就是游標的起點，送 Enter 就好」。
+		// 那個假設在主選單成立（游標剛好落在上面），在別的選單不成立：
+		// 銀行選單實測開了三次，前兩次 `pick` 回 1、`Chosen` 卻是
+		// **99（取消碼）**——游標那時停在棋盤的「前進」上。
+		// **症狀是「送了 Enter 卻收到取消」，看起來像選單不吃鍵盤，
+		// 而不是像游標放錯地方。**
+		//
+		// 幾何用進場那六個參數算（`RowPoint` 在 `HitSeen` 之前就是
+		// 走這一條）：x0 ＝ 第 1 參數、y0 ＝ 第 2 參數、間距 18、
+		// x1 ＝ x0 + 16×寬 + 42。命中判定實測與這組吻合。
+		//
+		// ⚠ **Enter 不在這裡送**，理由見 `IDAMouseUpdate`：這一刻選單
+		// 才剛進場，原版還沒把新的游標位置讀進去、反白仍停在上一次的
+		// 位置。同一個 hook 裡連著送 `MoveMouse` ＋ `Enter`，確定的是
+		// **上一圈的反白**——實測銀行那張選第 1 列收到取消碼 99、
+		// 股市那張選第 2 列收到 1「下一頁」
+		//（`rich2/docs/spec/084` §2a）。
+		// ⚠ **游標不能在這一刻移。** 選單一進場，原版自己會呼叫
+		// `INT 33h AX=4` 把游標設到它要的位置（多半是第 1 列），
+		// **把我們注入的位置蓋掉，而且畫面看起來完全正常**
+		//（`oracle.MoveMouse` 的註解、`Click` 的 `MouseSettled` 等的
+		// 就是這件事）。所以這裡只記下要選第幾列與當下的 `AX=4` 次數，
+		// 等它增加了再移。
+		l.wantRow = row
+		l.setsAt = len(o.MouseSets())
+	}
 }
 
 // 選單的版面常數（`rich2/docs/re/099` §2、`docs/re/141` §1，都是 confirmed）。

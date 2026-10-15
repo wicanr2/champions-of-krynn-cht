@@ -46,6 +46,11 @@ type handle struct {
 // 開檔結果——KOL 就是一路跑進沒有映射的記憶體才停，**看起來像模擬器的 bug，
 // 其實是檔名沒對上**。
 func (d *DOS) resolve(name string) string {
+	// 路徑帶真的存在的子目錄（`SAVEGAME\ITEMS_00.BIN`）時先照目錄找
+	// （`docs/spec/198-dos-relative-directories`）；找不到才退回 basename 規則。
+	if p := d.resolveDir(name); p != "" {
+		return p
+	}
 	base := baseName(name)
 	if base == "" {
 		return ""
@@ -245,16 +250,15 @@ func (d *DOS) noteMissingAccess(c *cpu.CPU, name string) {
 // scratchCopy 保證暫存層裡有這個檔的一份可寫副本，回傳它的路徑。
 // 已經在暫存層裡的就原樣用。
 func (d *DOS) scratchCopy(name, path string) (string, error) {
-	base := baseName(name)
-	target := filepath.Join(d.Scratch, base)
+	target, err := d.scratchPath(name)
+	if err != nil {
+		return "", err
+	}
 	if _, err := os.Stat(target); err == nil {
 		return target, nil
 	}
 	data, err := os.ReadFile(path)
 	if err != nil {
-		return "", err
-	}
-	if err := os.MkdirAll(d.Scratch, 0o755); err != nil {
 		return "", err
 	}
 	if err := os.WriteFile(target, data, 0o644); err != nil {
@@ -282,12 +286,12 @@ func (d *DOS) create(c *cpu.CPU) {
 		clearCarry(c)
 		return
 	}
-	if err := os.MkdirAll(d.Scratch, 0o755); err != nil {
+	path, perr := d.scratchPath(name)
+	if perr != nil {
 		c.R[cpu.AX] = 3 // Path not found
 		setCarry(c)
 		return
 	}
-	path := filepath.Join(d.Scratch, base)
 	f, err := os.OpenFile(path, os.O_RDWR|os.O_CREATE|os.O_TRUNC, 0o644)
 	if err != nil {
 		c.R[cpu.AX] = 5 // Access denied
@@ -315,7 +319,9 @@ func (d *DOS) unlink(c *cpu.CPU) {
 		clearCarry(c)
 		return
 	}
-	os.Remove(filepath.Join(d.Scratch, base))
+	if p, err := d.scratchPath(name); err == nil {
+		os.Remove(p)
+	}
 	clearCarry(c)
 }
 
@@ -391,6 +397,12 @@ func (d *DOS) fileAttr(c *cpu.CPU) {
 	}
 	name := d.readCString(c.Seg[cpu.DS], c.R[cpu.DX], 128)
 	if d.resolve(name) == "" && !isEMMDevice(name) {
+		// 目錄存在回目錄屬性 0x10（`docs/spec/198`）。
+		if d.dirExists(name) && strings.Trim(name, `\/ `) != "" {
+			c.R[cpu.CX] = 0x10
+			clearCarry(c)
+			return
+		}
 		d.Missing = append(d.Missing, name)
 		c.R[cpu.AX] = 2
 		setCarry(c)

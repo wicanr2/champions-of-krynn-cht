@@ -190,16 +190,22 @@ func (d *DOS) renameFile(c *cpu.CPU) {
 		d.fail(c, 2)
 		return
 	}
-	dst := filepath.Join(d.Scratch, strings.ToUpper(baseName(newName)))
+	// 新名字的位置：帶真實子目錄時放進暫存層的同名子目錄（`docs/spec/198`），
+	// 否則照舊攤平成大寫 basename。
+	var dst string
+	if p, err := d.scratchPath(newName); err != nil {
+		d.fail(c, 3)
+		return
+	} else if dirs, _ := d.relComponents(newName); d.dirsExist(dirs) {
+		dst = p
+	} else {
+		dst = filepath.Join(d.Scratch, strings.ToUpper(baseName(newName)))
+	}
 	if !strings.HasPrefix(src, d.Scratch) {
 		// 來源還在原版目錄：先複製進暫存層再改名，原版目錄不動。
 		data, err := os.ReadFile(src)
 		if err != nil {
 			d.fail(c, 5)
-			return
-		}
-		if err := os.MkdirAll(d.Scratch, 0o755); err != nil {
-			d.fail(c, 3)
 			return
 		}
 		if err := os.WriteFile(dst, data, 0o644); err != nil {
@@ -229,7 +235,8 @@ func (d *DOS) mkdir(c *cpu.CPU) {
 		clearCarry(c)
 		return
 	}
-	if err := os.MkdirAll(filepath.Join(d.Scratch, strings.ToUpper(baseName(name))), 0o755); err != nil {
+	// 父目錄真的存在時建在暫存層的同名位置（`docs/spec/198`），否則照舊攤平。
+	if err := os.MkdirAll(d.scratchDir(name), 0o755); err != nil {
 		d.fail(c, 3) // 路徑找不到
 		return
 	}
@@ -243,7 +250,7 @@ func (d *DOS) rmdir(c *cpu.CPU) {
 		clearCarry(c)
 		return
 	}
-	if err := os.Remove(filepath.Join(d.Scratch, strings.ToUpper(baseName(name)))); err != nil {
+	if err := os.Remove(d.scratchDir(name)); err != nil {
 		d.fail(c, 3)
 		return
 	}
@@ -257,9 +264,15 @@ func (d *DOS) rmdir(c *cpu.CPU) {
 // 開的檔仍然照 basename 解析。回失敗會讓程式以為安裝不完整。
 func (d *DOS) chdir(c *cpu.CPU) {
 	path := d.readCString(c.Seg[cpu.DS], c.R[cpu.DX], 128)
-	path = strings.TrimPrefix(strings.ToUpper(path), "C:")
-	path = strings.TrimPrefix(path, `\`)
-	d.Dir = path
+	// `StrictChdir`：目標不存在就像真 DOS 一樣失敗，目前目錄不變
+	// （`docs/spec/198-dos-relative-directories` §5）。
+	if d.StrictChdir && !d.dirExists(path) {
+		d.fail(c, 3) // path not found
+		return
+	}
+	// 相對路徑接在目前目錄後面、`.`／`..` 照 DOS 處理（`docs/spec/198`）。
+	// 絕對路徑與舊行為一致：去掉磁碟機字母與開頭的 `\`。
+	d.Dir = strings.Join(d.joinDir(path), `\`)
 	d.note(0x21, 0x3B, 0) // 記一筆：目錄是假的，踩到的人要看得到
 	clearCarry(c)
 }

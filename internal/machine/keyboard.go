@@ -60,6 +60,13 @@ func (m *Machine) QueueScan(codes ...uint8) {
 // SetNextKey 設定第一個掃描碼要在第幾道指令送出。
 func (m *Machine) SetNextKey(step uint64) { m.nextKey = step }
 
+// SetKeyPort 把埠 0x60 的值直接設成 code，不經佇列、不送中斷。
+//
+// 給「ISR 之後要做的事」的測試用（例如 BIOS 的 `int 09h` 預設處理，
+// `docs/spec/202`）：要觀察的是讀到這個值之後的行為，不是送達的時機。
+// 一般的輸入走 PushKey／QueueScan。
+func (m *Machine) SetKeyPort(code uint8) { m.kbdData = code }
+
 // KeyCodes 是還沒送出去的掃描碼（埠 0x60 上會看到的位元組，斷碼帶 bit7）。
 //
 // 給「排進去的順序對不對」這種檢查用。**不要拿它當佇列本體**：

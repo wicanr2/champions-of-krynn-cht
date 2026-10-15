@@ -35,6 +35,14 @@ const (
 	CS
 	SS
 	DS
+
+	// FS／GS 是 80386 才有的（`docs/spec/197-cpu386-real-mode-subset`）。
+	// **它們不在 `Seg [4]uint16` 裡**——那個陣列的形狀已經被快照、狀態檔、
+	// EXEC 與回呼的存檔格式各抄一份，加長它要連動十幾處；FS／GS 另放在
+	// `FSeg`／`GSeg`，用 `segVal` 取。拿這兩個常數去索引 `Seg` 會在
+	// 編譯期（常數索引）或執行期報錯，不會悄悄讀到別的段。
+	FS
+	GS
 )
 
 // 旗標位元（`docs/spec/002` §3）。
@@ -122,10 +130,28 @@ type CPU struct {
 	repPrefix   uint8 // 0 ＝ 沒有；0xF2 ＝ REPNE；0xF3 ＝ REP／REPE
 	lock        bool
 	operand32   bool // 0x66 前綴（`docs/spec/012`；只在 Model80386 有意義）
+	addr32      bool // 0x67 前綴（`docs/spec/197`；只在 Model80386 有意義）
+	ext386      bool // 本道指令帶了 66／67／64／65 任一個前綴
 
-	// EAXHi 是 EAX 的高 16 位元（低半就是 R[AX]）。只有 Model80386 的
-	// 0x66 指令會動它（`docs/spec/012`）。
-	EAXHi uint16
+	// Hi 是八個通用暫存器的高 16 位元（低半就是 R[i]；索引同 AX…DI）。
+	// 只有 Model80386 的 32 位元指令會動它（`docs/spec/012`、`197`）。
+	// **16 位元寫入不清高半**（386 的行為），所以 `mov ax, …` 之後
+	// `Hi[AX]` 照舊。
+	Hi [8]uint16
+
+	// FSeg／GSeg 是 FS 與 GS 的段值（`FS`／`GS` 常數的存放處）。
+	FSeg, GSeg uint16
+
+	// fault 是本道指令執行到一半發現「不能照做」的原因（例如 32 位元位址
+	// 超出實模式的 64 KB 段限）。`Step` 在指令收尾時回報它——**回報之後
+	// 這顆 CPU 的狀態只供診斷**，指令可能已經用截斷的位址動過記憶體。
+	fault *Error
+	// curOp 是正在執行的主 opcode，給 `failf` 組訊息用。
+	curOp uint8
+	// ea32 是最近一次 ModRM32 解出來的完整 32 位元有效位址（未截斷）。
+	// LEA 要它；eaNoLimit 讓 LEA 解碼時不做 64 KB 檢查（LEA 不碰記憶體）。
+	ea32      uint32
+	eaNoLimit bool
 
 	// 本道指令的起點，除法例外與中斷要用（`docs/spec/002` §4 第 3 點）。
 	opCS, opIP uint16
@@ -145,6 +171,8 @@ func New(bus Bus) *CPU {
 // Reset 把 CPU 拉回 8086 的重置狀態：CS:IP = F000:FFF0，其餘為 0。
 func (c *CPU) Reset() {
 	c.R = [8]uint16{}
+	c.Hi = [8]uint16{}
+	c.FSeg, c.GSeg = 0, 0
 	c.Seg = [4]uint16{}
 	c.Seg[CS] = 0xFFFF
 	c.IP = 0
@@ -251,9 +279,27 @@ func (c *CPU) fetch16() uint16 {
 // dataSeg 回報這道指令該用哪個段：有段前綴就用它，否則用 def。
 func (c *CPU) dataSeg(def int) uint16 {
 	if c.segOverride != noSegOverride {
-		return c.Seg[c.segOverride]
+		return c.segVal(c.segOverride)
 	}
 	return c.Seg[def]
+}
+
+// segVal 取任一個段暫存器的值，含 FS／GS。
+func (c *CPU) segVal(i int) uint16 {
+	switch i {
+	case FS:
+		return c.FSeg
+	case GS:
+		return c.GSeg
+	}
+	return c.Seg[i]
+}
+
+// failf 記下「本道指令不能照做」。只留第一個原因；`Step` 收尾時回報。
+func (c *CPU) failf(format string, a ...any) {
+	if c.fault == nil {
+		c.fault = c.errf(c.curOp, format, a...)
+	}
 }
 
 func (c *CPU) push(v uint16) {
