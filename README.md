@@ -322,7 +322,7 @@ SingleStepTests 是硬體產生的，與手冊衝突時以它為準。這一路�
 ```sh
 tools/build_image.sh                     # 建 dosgolem-go-ebiten 映像（一次）
 DOSGOLEM_NETWORK=bridge tools/go.sh mod download   # 抓模組（一次）
-tools/ci.sh                              # gofmt、vet、測試、CPU 語料
+tools/ci.sh                              # 衝突標記、gofmt、vet、測試（列出略過）、CPU 語料
 
 tools/fetch_cputests.sh                  # 抓 SingleStepTests/8088 v2（761 MB）
 tools/go.sh test ./internal/cpu -run TestSingleStep

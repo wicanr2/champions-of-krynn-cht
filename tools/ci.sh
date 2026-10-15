@@ -6,7 +6,7 @@
 #
 # 全部跑在 docker 裡（走 tools/go.sh），不裝任何東西到系統環境。
 #
-# 四步，每一步各自回報，最後一行才是結論。**跳過不等於通過**——
+# 五步，每一步各自回報，最後一行才是結論。**跳過不等於通過**——
 # 缺語料的那一步會明講自己沒驗到什麼。
 set -uo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
@@ -23,6 +23,17 @@ bad() { echo "  ✗ $1"; fail=1; }
 # 整個 repo 都要乾淨。十條分支合併的時候順手格式化過一輪，所以這裡不必
 # 再只挑「本分支動過的檔」——那個做法會在合併進 master 之後變成「零個檔案」，
 # 於是這一步永遠是綠的而且什麼都沒檢查。
+# ---- 0. 合併殘留 ---------------------------------------------------------
+# gofmt 只看 Go 檔；Markdown、腳本裡留著衝突標記不會讓任何一步失敗。
+step "合併衝突標記（追蹤中的所有檔案）"
+markers=$(git grep -nIE '^(<<<<<<<|>>>>>>>) ' -- . ':!*.patch' 2>/dev/null)
+if [[ -n "$markers" ]]; then
+  bad "還有衝突標記："
+  echo "$markers" | head -20 | sed 's/^/      /'
+else
+  echo "  ✓"
+fi
+
 step "gofmt（整個 repo）"
 out=$(DOSGOLEM_GO_CMD=gofmt tools/go.sh -l "${GOFILES[@]}" 2>&1)
 if [[ -n "$out" ]]; then
@@ -42,8 +53,27 @@ tools/go.sh vet "${PKGS[@]}" && echo "  ✓" || bad "go vet 有問題"
 # 三分多鐘做同一件事。
 # Ebiten 的套件在 init 就開 GLFW，沒有 DISPLAY 會 panic：一律包在 xvfb-run 裡
 # （映像見 tools/docker/go-ebiten.Dockerfile）。
+#
+# 用 -v 跑、完整紀錄寫到 workplace/ci-test.log，這裡只印失敗與略過的統計。
+# **略過也要講出來**：需要原版素材的測試沒設環境變數就 skip，
+# 不印的話「全部通過」看起來像連原版對拍都驗過了。
 step "go test（不含 CPU 語料）"
-DOSGOLEM_GO_CMD=xvfb-run tools/go.sh -a go test -short "${PKGS[@]}" || bad "測試沒過"
+log=workplace/ci-test.log
+mkdir -p workplace
+if DOSGOLEM_GO_CMD=xvfb-run tools/go.sh -a go test -short -v "${PKGS[@]}" >"$log" 2>&1; then
+  echo "  ✓（$(grep -c -- '^--- PASS' "$log") 個頂層測試通過）"
+else
+  bad "測試沒過（完整紀錄：$log）"
+  grep -E -- '^\s*--- FAIL|^FAIL|^panic:|_test\.go:[0-9]+:' "$log" | head -60 | sed 's/^/      /'
+fi
+skips=$(grep -cE -- '^\s*--- SKIP' "$log")
+if [[ $skips -gt 0 ]]; then
+  echo "  略過 $skips 個（⚠ 跳過不等於通過）。原因前幾名："
+  # -v 模式下 t.Skip 的訊息印在 `--- SKIP` 那一行的前一行。
+  grep -B1 -E -- '^\s*--- SKIP' "$log" | grep -E -- '_test\.go:[0-9]+: ' \
+    | sed -E 's/^ +[^:]+:[0-9]+: //' | sort | uniq -c | sort -rn | head -8 | sed 's/^/      /'
+  echo "      原版素材的環境變數見 README「怎麼跑」；tools/go.sh 會依前綴傳進容器。"
+fi
 
 # ---- 4. CPU 語料 ---------------------------------------------------------
 # 判準是**全部通過**（`docs/spec/002` §5）：CPU 的錯不會報錯，只會讓上層

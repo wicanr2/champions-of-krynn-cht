@@ -346,7 +346,7 @@ Builds and tests go through docker; nothing is installed on the host:
 ```sh
 tools/build_image.sh                     # build the dosgolem-go-ebiten image (once)
 DOSGOLEM_NETWORK=bridge tools/go.sh mod download   # fetch modules (once)
-tools/ci.sh                              # gofmt, vet, tests, CPU corpus
+tools/ci.sh                              # conflict markers, gofmt, vet, tests (skips listed), CPU corpus
 
 tools/fetch_cputests.sh                  # fetch SingleStepTests/8088 v2 (761 MB)
 tools/go.sh test ./internal/cpu -run TestSingleStep

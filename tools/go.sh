@@ -36,6 +36,14 @@ if ! docker image inspect "$IMAGE" >/dev/null 2>&1; then
     "或用 DOSGOLEM_GO_IMAGE 指定別的映像。" >&2
   exit 1
 fi
+# 預設映像比 Dockerfile 舊的話提醒一聲（不擋）：少了新加的套件，錯誤會出現在很後面。
+if [[ -z "${DOSGOLEM_GO_IMAGE:-}" ]]; then
+  want="$(sha256sum "$ROOT/tools/docker/go-ebiten.Dockerfile" | cut -d' ' -f1)"
+  have="$(docker image inspect -f '{{index .Config.Labels "dosgolem.dockerfile.sha256"}}' "$IMAGE" 2>/dev/null)"
+  if [[ "$have" != "$want" ]]; then
+    echo "tools/go.sh：映像 $IMAGE 不是用目前的 Dockerfile 建的，跑 tools/build_image.sh 更新。" >&2
+  fi
+fi
 RUN_UID="${DOSGOLEM_RUN_UID:-$(id -u)}"
 RUN_GID="${DOSGOLEM_RUN_GID:-$(id -g)}"
 

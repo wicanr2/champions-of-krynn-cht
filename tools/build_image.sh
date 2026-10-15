@@ -7,4 +7,8 @@
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 IMAGE="${DOSGOLEM_GO_IMAGE:-dosgolem-go-ebiten:1.24-r1}"
-exec timeout 30m docker build -t "$IMAGE" -f "$ROOT/tools/docker/go-ebiten.Dockerfile" "$ROOT/tools/docker"
+DOCKERFILE="$ROOT/tools/docker/go-ebiten.Dockerfile"
+# 標上 Dockerfile 的雜湊，tools/go.sh 據此提醒映像是不是舊的。
+SUM="$(sha256sum "$DOCKERFILE" | cut -d' ' -f1)"
+exec timeout 30m docker build -t "$IMAGE" --label "dosgolem.dockerfile.sha256=$SUM" \
+  -f "$DOCKERFILE" "$ROOT/tools/docker"

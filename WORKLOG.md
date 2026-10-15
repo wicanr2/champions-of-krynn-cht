@@ -693,3 +693,13 @@ ebiten 相關套件要 X11／ALSA 開發檔與 `xvfb-run`，這一輪用本機�
 - 刪除已併入的本機 clone（kolrand、logh3、psys、san、wolong、merge、eob1-parity 與其
   兩個 worktree）。`workplace/` 的輸出與標成臨時的差分工具搬到
   `~/cht/dosgolem-workplace-archive/`。`dosgolem-sc` 有進行中的工作，沒有動。
+
+## 2026-10-15：測試腳本擴充
+
+- 從 GitHub 全新 clone 照 README 步驟跑 `tools/ci.sh`：全綠（該 clone 沒有 CPU 語料，那一步略過；
+  語料在主工作目錄同一份 CPU 程式碼上全過）。
+- 新增 `internal/repolint`：同一個執行檔裡旗標名不得重複（合併時 `-scratch` 定義三次，
+  編譯與 vet 都會過、執行才 panic），以及每份規格都要列在 `000-index.md`。兩者都做過反向驗證。
+- `ci.sh` 加「合併衝突標記」一步（gofmt 只看 Go 檔）；測試步驟改存完整紀錄到
+  `workplace/ci-test.log`，並列出略過的數量與原因，避免把略過讀成通過。
+- `build_image.sh` 把 Dockerfile 的雜湊標在映像上，`go.sh` 發現映像比 Dockerfile 舊時提醒。
