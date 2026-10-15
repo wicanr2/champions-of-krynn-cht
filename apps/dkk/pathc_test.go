@@ -1,6 +1,7 @@
 package dkk
 
 import (
+	"strings"
 	"testing"
 
 	"github.com/wicanr2/dosgolem/xlate"
@@ -139,5 +140,22 @@ func TestPathCOverlongTranslationKeepsOriginal(t *testing.T) {
 	c.SetPalette(c.pal)
 	if len(l.Stamps) != 0 {
 		t.Fatal("譯文超過原詞格數應顯示原版")
+	}
+}
+
+func TestPathCWholeLinePrompt(t *testing.T) {
+	c, m, l := newC(t, catalogOf(t, "Press button or enter to continue", "按任意鍵或 Enter 繼續"))
+	col := 0
+	for i, w := range strings.Fields("Press button or enter to continue") {
+		if i > 0 {
+			glyphCall(c, m, 0, ' ', 1, 15, 0, 24, col)
+			col++
+		}
+		drawWord(c, m, 24, col, w, -1, true)
+		col += len(w)
+	}
+	c.SetPalette(c.pal)
+	if len(l.Stamps) != 1 || !strings.HasPrefix(string(l.Stamps[0].Text), "按任意鍵或 Enter 繼續") || l.Stamps[0].Cells != col {
+		t.Fatalf("整句提示應畫成一筆：%d 筆 %+v", len(l.Stamps), l.Stamps)
 	}
 }

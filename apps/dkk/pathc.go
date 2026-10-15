@@ -253,9 +253,13 @@ func (c *PathC) rebuild(row int) {
 	for i, w := range words {
 		parts[i] = w.text()
 	}
-	if e, ok := c.Catalog.Lookup([]byte(strings.Join(parts, " "))); ok {
+	if e, ok := c.Catalog.Lookup([]byte(strings.Join(parts, " "))); ok && len(words) > 1 {
 		if f := strings.Fields(e.Translation); len(f) == len(words) {
 			lineWords = f
+		} else if c.wholeLine(row, words, e) {
+			// 整句提示（例：換頁的 Press button or enter to continue 是單一選項）：
+			// 詞數對不上時，整句中文畫在第一詞到最後一詞的範圍內（規格 003 §2.2）。
+			return
 		}
 	}
 	for i, w := range words {
@@ -292,4 +296,26 @@ func (c *PathC) rebuild(row int) {
 		mw.Drawn = true
 		c.Words = append(c.Words, mw)
 	}
+}
+
+// wholeLine 把整列譯文畫在 words 的總範圍；放不下回 false。
+func (c *PathC) wholeLine(row int, words []menuWord, e Entry) bool {
+	first, last := words[0], words[len(words)-1]
+	from, to := first.col, last.col+len(last.cells)
+	runes := []rune(e.Translation)
+	if len(runes) > to-from {
+		return false
+	}
+	text := append([]rune(nil), runes...)
+	for len(text) < to-from {
+		text = append(text, ' ')
+	}
+	bg, fg, _ := first.colors()
+	s := &xlate.Stamp{Key: fmt.Sprintf("%s%d.%d.line", pathCKey, row, from), X: from * 8, Y: row * 8,
+		Cells: to - from, CellW: 8, CellH: 8, Font: c.Font, Text: text, State: xlate.Shown,
+		BG: c.pal[bg], FG: c.pal[fg]}
+	c.Layer.Stamps = append(c.Layer.Stamps, s)
+	c.stamps[row] = append(c.stamps[row], s)
+	c.Words = append(c.Words, MenuWord{Row: row, Col: from, Length: to - from, Key: e.Key, Drawn: true})
+	return true
 }
