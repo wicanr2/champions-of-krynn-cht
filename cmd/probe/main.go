@@ -450,21 +450,6 @@ func main() {
 		d.Calls = map[dos.Call]int{}
 	}
 	d.Install()
-	if *press != "" {
-		m.KeyEvery = *pressEvery
-		at := *pressAt
-		if at == 0 {
-			at = *steps * 8 / 10
-		}
-		m.SetNextKey(at)
-		for _, k := range strings.Split(*press, ",") {
-			sc, ok := scanOf(strings.TrimSpace(k))
-			if !ok {
-				die(fmt.Errorf("看不懂的按鍵 %q", k))
-			}
-			m.QueueKey(sc)
-		}
-	}
 	if *loadState != "" {
 		if err := state.Load(*loadState, m, d); err != nil {
 			die(err)
@@ -491,6 +476,24 @@ func main() {
 			m.CycleClock = true
 			m.RecalcIRQ0()
 			fmt.Printf("載入狀態後改用週期時鐘：CPUHz = %d\n", *obsCPUHz)
+		}
+	}
+	// ⚠ **-press 的排程要在 -load-state 之後**：state.Load 會整份覆蓋機器，
+	// 先設的按鍵佇列與下次送鍵時點會被清掉（巫術7 主選單實測：
+	// 鍵盤中斷送出 0 次）。從快照接著跑時按鍵才真的送得到。
+	if *press != "" {
+		m.KeyEvery = *pressEvery
+		at := *pressAt
+		if at == 0 {
+			at = *steps * 8 / 10
+		}
+		m.SetNextKey(at)
+		for _, k := range strings.Split(*press, ",") {
+			sc, ok := scanOf(strings.TrimSpace(k))
+			if !ok {
+				die(fmt.Errorf("看不懂的按鍵 %q", k))
+			}
+			m.QueueKey(sc)
 		}
 	}
 	// 機器速度放在載入狀態檔之後（狀態檔會還原時鐘設定），而且要在解析 -hold 之前：ms 換算跟著機器速度走。

@@ -4,9 +4,21 @@ import (
 	"encoding/gob"
 	"fmt"
 	"io"
+	"sort"
 
 	"github.com/wicanr2/dosgolem/internal/cpu"
 )
+
+// PortState／PortCount 是埠統計的排序線上版本（map 編 gob 順序隨機）。
+type PortState struct {
+	Port uint16
+	Val  uint8
+}
+
+type PortCount struct {
+	Port  uint16
+	Count uint64
+}
 
 // 存檔／讀檔：把整台機器寫成檔案，下一支行程直接從那裡接著跑。
 //
@@ -78,8 +90,16 @@ type machineState struct {
 	NextKey       uint64
 	ClockPercent  int
 
-	Ports   map[uint16]uint8
-	PortsIn map[uint16]uint64
+	// 埠寫入統計用**排序過的 slice**（PortList／PortInList），不用 map——gob 編
+	// map 的順序隨機，兩次一模一樣的執行會存出不同 bytes，狀態檔就沒辦法
+	// 用雜湊驗決定性（`docs/spec/002` §5 的精神）。
+	//
+	// Ports／PortsIn 只留著讀舊檔：同名欄位換型別的話 gob 解不開，
+	// 既有的狀態檔會全部讀不回來。存檔時兩個 map 都是 nil，gob 不寫它們。
+	Ports      map[uint16]uint8
+	PortsIn    map[uint16]uint64
+	PortList   []PortState
+	PortInList []PortCount
 
 	DAC            []uint8
 	DACIndex       uint8
@@ -149,8 +169,6 @@ func (m *Machine) SaveState(w io.Writer) error {
 		PITLo:         m.pitLo,
 		VGAFrameEvery: m.VGAFrameEvery, NextFrame: m.nextFrame, KeyEvery: m.KeyEvery, NextKey: m.nextKey,
 		ClockPercent:   m.ClockPercent(),
-		Ports:          map[uint16]uint8{},
-		PortsIn:        map[uint16]uint64{},
 		DAC:            append([]uint8(nil), m.DAC[:]...),
 		DACMaskPresent: true,
 		DACMask:        m.dacMask,
@@ -182,11 +200,13 @@ func (m *Machine) SaveState(w io.Writer) error {
 		IRQ0Pinned:     m.IRQ0Pinned,
 	}
 	for k, v := range m.Ports {
-		s.Ports[k] = v
+		s.PortList = append(s.PortList, PortState{Port: k, Val: v})
 	}
+	sort.Slice(s.PortList, func(i, j int) bool { return s.PortList[i].Port < s.PortList[j].Port })
 	for k, v := range m.PortsIn {
-		s.PortsIn[k] = v
+		s.PortInList = append(s.PortInList, PortCount{Port: k, Count: v})
 	}
+	sort.Slice(s.PortInList, func(i, j int) bool { return s.PortInList[i].Port < s.PortInList[j].Port })
 	return gob.NewEncoder(w).Encode(&s)
 }
 
@@ -201,6 +221,19 @@ func (m *Machine) LoadState(r io.Reader) error {
 	}
 	if len(s.Mem) != len(m.Mem) {
 		return fmt.Errorf("machine: 狀態檔的記憶體是 %d bytes，這台是 %d", len(s.Mem), len(m.Mem))
+	}
+	// 新檔的埠統計在 slice 裡，舊檔在 map 裡；統一倒進 map 再用。
+	for _, pv := range s.PortList {
+		if s.Ports == nil {
+			s.Ports = map[uint16]uint8{}
+		}
+		s.Ports[pv.Port] = pv.Val
+	}
+	for _, pc := range s.PortInList {
+		if s.PortsIn == nil {
+			s.PortsIn = map[uint16]uint64{}
+		}
+		s.PortsIn[pc.Port] = pc.Count
 	}
 	if !s.DACReadKnown && s.PortsIn[0x3C9] != 0 {
 		return fmt.Errorf("machine: 舊狀態檔已讀 VGA DAC，卻沒有讀取索引與分量相位")
