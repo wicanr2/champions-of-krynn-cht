@@ -470,16 +470,27 @@ func (v *VGA) LineCompare() int {
 // 列距是 `w/8` bytes，**起點跟著 CRTC 的顯示起點走**（`DisplayStart`）
 // ——畫面在翻頁的程式不讀它就永遠倒出第 0 頁。
 func (v *VGA) Pixels(w, h int) []uint8 {
+	return v.pixelsAt(int(v.DisplayStart()), v.Pitch(w), v.LineCompare(), w, h)
+}
+
+// PixelsFrom 同 Pixels，但從每個平面的第 start 個位元組起解，不看 CRTC 的
+// 顯示起點與分割線。
+//
+// 三國演義把主戰場以外的第二張畫面（郡地理誌）畫在平面的第二頁
+// （640×408 一頁 32,640 位元組，第二頁從 0x8000 起）再切顯示起點；
+// 只讀第一頁會看到主畫面沒動，而畫其實畫好了。
+func (v *VGA) PixelsFrom(start, w, h int) []uint8 {
+	return v.pixelsAt(start, w/8, h, w, h) // 列距 w/8；split ≥ h ＝ 不分割
+}
+
+func (v *VGA) pixelsAt(start, pitch, split, w, h int) []uint8 {
 	out := make([]uint8, w*h)
-	pitch := v.Pitch(w)
-	start := v.DisplayStart()
-	split := v.LineCompare()
 	visible := w / 8 // 一列可視多少位元組；邏輯列可能更寬
 	for y := 0; y < h; y++ {
 		// 分割在 line compare 的**下一列**生效（`docs/spec/192` §2.2）：
 		// 垂直計數器數完第 `split` 列才歸零，所以第 `split` 列還是可捲區
 		// 的最後一列。
-		row := int(start) + y*pitch
+		row := start + y*pitch
 		if y > split {
 			row = (y - split - 1) * pitch
 		}
@@ -683,6 +694,10 @@ func (m *Machine) EGAPlane(plane int) []uint8 { return m.VGA.Planes[plane&3] }
 
 // IndexedEGASize 把四個平面解成 w×h 的色號陣列。
 func (m *Machine) IndexedEGASize(w, h int) []uint8 { return m.VGA.Pixels(w, h) }
+
+// IndexedEGAFrom 同 IndexedEGASize，但從每個平面的第 start 個位元組起解
+// （看第二頁）。
+func (m *Machine) IndexedEGAFrom(start, w, h int) []uint8 { return m.VGA.PixelsFrom(start, w, h) }
 
 // IndexedEGA 用目前模式的尺寸解畫面。
 func (m *Machine) IndexedEGA() []uint8 { return m.planarIndexed() }
