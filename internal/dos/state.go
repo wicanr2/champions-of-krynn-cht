@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"sort"
 )
 
 // 存檔／讀檔：DOS 這一層的狀態。與 `machine.SaveState` 合起來才是一台
@@ -31,6 +32,13 @@ type handleState struct {
 	Size int64
 	// PSP 是開這個檔的行程；子行程結束時要靠它決定關哪些。
 	PSP uint16
+}
+
+// embState 是一塊 XMS EMB。存成依 handle 排序的 slice：gob 編 map 的順序隨機，
+// 兩次一模一樣的執行會存出不同 bytes（與 machine 的埠統計同一類問題）。
+type embState struct {
+	H    uint16
+	Data []byte
 }
 
 type emsHandleState struct {
@@ -107,7 +115,9 @@ type dosState struct {
 	LastExit uint16
 	Queue    []Queued
 
+	// EMB 只留著讀舊檔：同名欄位換型別的話 gob 解不開。存檔時是 nil，gob 不寫它。
 	EMB     map[uint16][]byte
+	EMBList []embState
 	NextEMB uint16
 	// HMAOwned／A20Local：v3 起才有。
 	HMAOwned bool
@@ -132,7 +142,6 @@ func (d *DOS) SaveState(w io.Writer) error {
 		CurPSP:   d.curPSP,
 		LastExit: d.lastExit,
 		Queue:    append([]Queued(nil), d.queue...),
-		EMB:      map[uint16][]byte{},
 		NextEMB:  d.nextEMB,
 		HMAOwned: d.hmaOwned,
 		A20Local: d.a20Local,
@@ -175,9 +184,11 @@ func (d *DOS) SaveState(w io.Writer) error {
 		}
 		s.Handles = append(s.Handles, handleState{H: h, Name: fh.name, Path: fh.path, Off: off, Size: fh.size, PSP: fh.psp})
 	}
+	sort.Slice(s.Handles, func(i, j int) bool { return s.Handles[i].H < s.Handles[j].H })
 	for k, v := range d.emb {
-		s.EMB[k] = append([]byte(nil), v...)
+		s.EMBList = append(s.EMBList, embState{H: k, Data: append([]byte(nil), v...)})
 	}
+	sort.Slice(s.EMBList, func(i, j int) bool { return s.EMBList[i].H < s.EMBList[j].H })
 	for _, f := range d.procStack {
 		s.Stack = append(s.Stack, procState{R: f.r, Seg: f.seg, IP: f.ip, Fl: f.fl,
 			PSP: f.psp, FreeSeg: f.freeSeg, IVT: f.ivt})
@@ -191,6 +202,7 @@ func (d *DOS) SaveState(w io.Writer) error {
 			}
 			s.EMSHandles = append(s.EMSHandles, e)
 		}
+		sort.Slice(s.EMSHandles, func(i, j int) bool { return s.EMSHandles[i].H < s.EMSHandles[j].H })
 		for i := 0; i < 4; i++ {
 			if m := d.ems.frame[i]; m != nil {
 				s.EMSFrame[i] = emsMapState{Used: true, H: m.h, Page: m.page}
@@ -258,8 +270,11 @@ func (d *DOS) LoadState(r io.Reader) error {
 		d.handles[hs.H] = &handle{name: hs.Name, path: hs.Path, f: f, size: hs.Size, psp: hs.PSP, refs: 1}
 	}
 	d.emb = map[uint16][]byte{}
-	for k, v := range s.EMB {
+	for k, v := range s.EMB { // 舊檔
 		d.emb[k] = append([]byte(nil), v...)
+	}
+	for _, e := range s.EMBList {
+		d.emb[e.H] = append([]byte(nil), e.Data...)
 	}
 	d.nextEMB = s.NextEMB
 	d.hmaOwned, d.a20Local = s.HMAOwned, s.A20Local
