@@ -59,6 +59,8 @@ type PathB struct {
 	Font    *xlate.Font
 	Layer   *xlate.Layer
 	Hits    []Hit
+	// OnEntry 在每次合法進入時以原字串呼叫（規格 007 手札面板用）；可為 nil。
+	OnEntry func(text []byte, mem CPUView)
 
 	pal   [256][3]uint8
 	pages []*bPage
@@ -136,6 +138,9 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 		text[i] = mem.Read8(base + 1 + uint32(i))
 	}
 	h.Length = n
+	if b.OnEntry != nil {
+		b.OnEntry(text, mem)
+	}
 	oc, or := int(mem.Read8(linear(ds, cursorColAddr))), int(mem.Read8(linear(ds, cursorRowAddr)))
 	e, hit := b.lookup(text)
 	if hit {

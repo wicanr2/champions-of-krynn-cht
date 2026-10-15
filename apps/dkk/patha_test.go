@@ -209,3 +209,30 @@ func TestPrepareFrameSwapsWhenInkDominates(t *testing.T) {
 		t.Fatal("底色多時不該反轉")
 	}
 }
+
+func TestPathAUntranslatedPrintInvalidatesOldStamp(t *testing.T) {
+	m := make(fakeMem, 0x100000)
+	plantSignature(m, 0x62AA, 0)
+	put := func(s string) {
+		b := linear(0x5777, 8)
+		m[b] = byte(len(s))
+		copy(m[b+1:], s)
+	}
+	layer := &xlate.Layer{}
+	p, err := NewPathA(m, catalogFor(t, "Name", "ui.name", "姓名"), &xlate.Font{W: 16, H: 16, Glyphs: map[rune][]byte{}}, layer)
+	if err != nil {
+		t.Fatal(err)
+	}
+	put("Name")
+	callFrame(m, 0x1CBD, 0x3F00, 0x34CF, 0x1605, 0x5777, 8, 0, 15, 2, 17)
+	p.Before(1, 0x05F4, 0x036A, 0x1CBD, 0x3F00, m)
+	if len(layer.Stamps) != 1 {
+		t.Fatalf("要 1 筆，得到 %d", len(layer.Stamps))
+	}
+	put(" 4   ") // 新畫面在舊「Name」範圍印未翻譯的數字（查驗題字序）
+	callFrame(m, 0x1CBD, 0x3F00, 0x34CF, 0x1605, 0x5777, 8, 0, 10, 2, 16)
+	p.Before(2, 0x05F4, 0x036A, 0x1CBD, 0x3F00, m)
+	if len(layer.Stamps) != 0 {
+		t.Fatalf("舊 Stamp 被原版字整個蓋住應移除，剩 %d 筆", len(layer.Stamps))
+	}
+}

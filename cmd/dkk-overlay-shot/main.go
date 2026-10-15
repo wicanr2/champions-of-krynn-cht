@@ -52,6 +52,7 @@ type shotResult struct {
 	Stamps        int    `json:"stamps"`
 	StampsShown   int    `json:"stamps_shown"`
 	Missing       string `json:"missing_glyphs,omitempty"`
+	Journal       bool   `json:"journal_panel,omitempty"`
 }
 
 func main() {
@@ -71,6 +72,8 @@ func main() {
 	shotsSpec := flag.String("shots", "", "步數:名稱，逗號分隔")
 	until := flag.Uint64("until", 0, "絕對步數上限")
 	outDir := flag.String("out", "", "輸出目錄")
+	hideAnswers := flag.Bool("hide-answers", false, "隱藏查驗題答案（規格 006）")
+	journalPreview := flag.Int("journal-preview", 0, "以翻閱模式開啟這一則手札（規格 007 版面檢查；需 -text-dir）")
 	flag.Parse()
 	if *statePath == "" || *root == "" || *fontPath == "" || *until == 0 || *outDir == "" {
 		fail(fmt.Errorf("state、root、font、until、out 均為必填"))
@@ -126,6 +129,21 @@ func main() {
 		}
 	}
 	live := dkk.NewLive(font, ui, ecl)
+	if *textDir != "" {
+		if live.Answers, live.QuizFormat, err = dkk.LoadQuizDir(*textDir); err != nil {
+			fail(err)
+		}
+	}
+	live.SetHideAnswers(*hideAnswers)
+	if *textDir != "" {
+		if live.Journal, err = dkk.LoadJournalDir(*textDir); err != nil {
+			fail(err)
+		}
+		if *journalPreview != 0 {
+			live.Journal.Seen[*journalPreview] = true
+			live.Journal.ToggleBrowse()
+		}
+	}
 	live.Arm() // 狀態檔已在遊戲中
 	cpuView := machineCPU{m}
 	m.ObserveVideoWrites(func(w machine.VideoWrite) { live.VideoWrite(w.Offset) })
@@ -185,6 +203,10 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 	over := append([]uint8(nil), base...)
 	var missing []rune
 	layer.Draw(over, scale, func(r rune) { missing = append(missing, r) })
+	journal := live.Journal.Open()
+	if journal {
+		live.Journal.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
+	}
 	isum := sha256.Sum256(idx)
 	r := shotResult{Name: s.name, Step: m.Steps, IndexedSHA256: hex.EncodeToString(isum[:]), Stamps: len(layer.Stamps)}
 	for _, st := range layer.Stamps {
@@ -198,7 +220,7 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 		}
 		r.DiffPixels++
 		x, y := (i/4)%(320*scale)/scale, (i/4)/(320*scale)/scale
-		inside := false
+		inside := journal && dkk.InJournalPanel(x, y)
 		for _, st := range layer.Stamps {
 			x0, y0, x1, y1 := st.Rect()
 			if x >= x0 && x < x1 && y >= y0 && y < y1 {
@@ -213,6 +235,7 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 	r.BaseSHA256 = writePNG(filepath.Join(dir, s.name+"-base.png"), base)
 	r.OverlaySHA256 = writePNG(filepath.Join(dir, s.name+"-overlay.png"), over)
 	r.Missing = string(missing)
+	r.Journal = journal
 	return r
 }
 

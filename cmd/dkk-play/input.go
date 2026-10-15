@@ -23,13 +23,34 @@ const (
 type hostAction int
 
 const (
-	actToggle     hostAction = iota + 1 // F12：中文／原版
-	actMute                             // F3
-	actShot                             // F10
-	actFullscreen                       // F11
+	actToggle       hostAction = iota + 1 // F12：中文／原版
+	actMute                               // F3
+	actShot                               // F10
+	actFullscreen                         // F11
+	actAnswers                            // F9：查驗題答案顯示（規格 006）
+	actJournal                            // F5：手札翻閱模式（規格 007）
+	actPageUp                             // 面板開啟時的 PgUp
+	actPageDown                           // 面板開啟時的 PgDn
+	actPrevEntry                          // 翻閱模式的 ←
+	actNextEntry                          // 翻閱模式的 →
+	actCloseJournal                       // 翻閱模式的 Esc
 )
 
-var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle}
+// panelMode 是手札面板的狀態：開啟時部分鍵由前端吃掉（規格 007 §2.4、§2.5）。
+type panelMode int
+
+const (
+	panelNone panelMode = iota
+	panelAuto
+	panelBrowse
+)
+
+var panelKeys = map[panelMode]map[string]hostAction{
+	panelAuto:   {"PgUp": actPageUp, "PgDn": actPageDown},
+	panelBrowse: {"PgUp": actPageUp, "PgDn": actPageDown, "Left": actPrevEntry, "Right": actNextEntry, "Escape": actCloseJournal},
+}
+
+var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal}
 
 // frameInput 是一個畫格的主機鍵盤狀態。Held 的值是按住的格數（剛按下為 1）。
 type frameInput struct {
@@ -49,8 +70,8 @@ func fires(d int) bool {
 func isNumpad(name string) bool { return strings.HasPrefix(name, "KP") }
 func isLetter(name string) bool { return len(name) == 1 && name[0] >= 'A' && name[0] <= 'Z' }
 
-// mapKeys 把一個畫格的輸入轉成 BIOS 鍵與前端動作。
-func mapKeys(in frameInput) ([]dos.Key, []hostAction) {
+// mapKeys 把一個畫格的輸入轉成 BIOS 鍵與前端動作。翻閱模式下其餘鍵都不送進遊戲。
+func mapKeys(in frameInput, mode panelMode) ([]dos.Key, []hostAction) {
 	var keys []dos.Key
 	var acts []hostAction
 	names := make([]string, 0, len(in.Held))
@@ -66,6 +87,12 @@ func mapKeys(in frameInput) ([]dos.Key, []hostAction) {
 		if a, ok := hostKeysReserved[n]; ok && in.Held[n] == 1 {
 			acts = append(acts, a)
 		}
+		if a, ok := panelKeys[mode][n]; ok && fires(in.Held[n]) {
+			acts = append(acts, a)
+		}
+	}
+	if mode == panelBrowse {
+		return nil, acts
 	}
 	if !combo {
 		for _, r := range in.Chars {
@@ -79,7 +106,8 @@ func mapKeys(in frameInput) ([]dos.Key, []hostAction) {
 	}
 	for _, n := range names {
 		d := in.Held[n]
-		if _, reserved := hostKeysReserved[n]; reserved || !fires(d) {
+		_, taken := panelKeys[mode][n]
+		if _, reserved := hostKeysReserved[n]; reserved || taken || !fires(d) {
 			continue
 		}
 		if isLetter(n) {

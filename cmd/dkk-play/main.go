@@ -2,7 +2,8 @@
 //
 // 以 session 從原版目錄開機（bootroot 複製到可寫存檔目錄，原版唯讀），每個主機畫格推進
 // 原版節奏的指令數，以 apps/dkk.Live 疊上路徑 A、B、C 的中文，2× 輸出。
-// F12 即時切換中文／原版（原版看不到這個鍵），F11 全螢幕，F3 靜音，F10 截圖。
+// F12 即時切換中文／原版（原版看不到這個鍵），F11 全螢幕，F3 靜音，F10 截圖，F9 查驗題答案顯示，
+// F5 翻閱已讀手札（PgUp／PgDn 翻頁，←／→ 換則，Esc 關閉）。
 //
 // 自動模式（-frames）供收據使用：依 -script 送鍵，結束時印記憶體與畫面雜湊，
 // 並可輸出 -shot（中文合成 RGBA）與 -shot-original（原版合成 RGBA）。
@@ -109,7 +110,7 @@ func (g *game) hostInput(u *session.CapturedUpdate) []hostAction {
 			in.Held[name] = d
 		}
 	}
-	keys, acts := mapKeys(in)
+	keys, acts := mapKeys(in, g.panelMode())
 	u.BIOSKeys = append(u.BIOSKeys, keys...)
 	cx, cy := ebiten.CursorPosition()
 	dx, dy := dosPoint(cx, cy, scale)
@@ -144,8 +145,36 @@ func (g *game) apply(acts []hostAction) {
 			ebiten.SetFullscreen(!ebiten.IsFullscreen())
 		case actShot:
 			g.screenshot()
+		case actAnswers:
+			g.live.SetHideAnswers(!g.live.HideAnswers())
+		case actJournal:
+			if g.chinese && g.live.Journal != nil {
+				g.live.Journal.ToggleBrowse()
+			}
+		case actCloseJournal:
+			if g.live.Journal.Browsing() {
+				g.live.Journal.ToggleBrowse()
+			}
+		case actPageUp:
+			g.live.Journal.TurnPage(-1)
+		case actPageDown:
+			g.live.Journal.TurnPage(1)
+		case actPrevEntry:
+			g.live.Journal.NextEntry(-1)
+		case actNextEntry:
+			g.live.Journal.NextEntry(1)
 		}
 	}
+}
+
+func (g *game) panelMode() panelMode {
+	switch j := g.live.Journal; {
+	case !g.chinese || !j.Open():
+		return panelNone
+	case j.Browsing():
+		return panelBrowse
+	}
+	return panelAuto
 }
 
 func (g *game) compose() []byte {
@@ -293,6 +322,7 @@ func main() {
 	clock := flag.Int("clock", 50, "機器時脈比例 10–100")
 	adlib := flag.Bool("adlib", true, "模擬 AdLib")
 	audioOn := flag.Bool("audio", true, "互動模式播放聲音（容器內沒有音訊裝置時關閉）")
+	hideAnswers := flag.Bool("hide-answers", false, "開機時隱藏查驗題答案（F9 切換）")
 	original0 := flag.Bool("original-view", false, "開機時顯示原版（F12 切換）")
 	flag.Parse()
 	if *original == "" || *save == "" || *textDir == "" || *fontPath == "" {
@@ -335,6 +365,22 @@ func main() {
 		fail(errors.New("START.EXE 雜湊不符"))
 	}
 	live := dkk.NewLive(font, ui, ecl)
+	if live.Answers, live.QuizFormat, err = dkk.LoadQuizDir(*textDir); err != nil {
+		fail(err)
+	}
+	live.SetHideAnswers(*hideAnswers)
+	if live.Journal, err = dkk.LoadJournalDir(*textDir); err != nil {
+		fail(err)
+	}
+	seenPath := filepath.Join(*save, "dkk-journal-seen.txt")
+	if live.Journal.Seen, err = dkk.ReadJournalSeen(seenPath); err != nil {
+		fail(err)
+	}
+	live.Journal.OnSeen = func(n int) {
+		if err := dkk.AppendJournalSeen(seenPath, n); err != nil {
+			fmt.Fprintln(os.Stderr, "dkk-play: 已讀手札寫入失敗：", err)
+		}
+	}
 	s := host.OutputScale2
 	layout := host.MouseLayout{Epoch: 1, Scale: s, ChromeHeight: 18 * int(s), Canvas: host.Canvas{Width: 320, Height: 200},
 		FrameWidth: 320 * int(s), FrameHeight: 18*int(s) + 200*int(s)}

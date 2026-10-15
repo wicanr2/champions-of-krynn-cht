@@ -31,6 +31,13 @@ type Live struct {
 	B     *PathB
 	C     *PathC
 
+	// Answers 是查驗題答案表（規格 006）；綁定前設定。
+	Answers     map[QuizKey]string
+	QuizFormat  QuizFormat
+	hideAnswers bool
+	// Journal 是手札面板（規格 007）；nil 時不啟用。
+	Journal *JournalPanel
+
 	ui      Lookuper
 	ecl     *Catalog
 	ready   bool
@@ -60,6 +67,7 @@ func (l *Live) bind(mem CPUView) error {
 	if l.A, err = NewPathA(mem, l.ui, l.Font, l.Layer); err != nil {
 		return err
 	}
+	l.A.Answers, l.A.QuizFormat, l.A.HideAnswers = l.Answers, l.QuizFormat, l.hideAnswers
 	if l.C, err = NewPathC(mem, l.ui, l.Font, l.Layer); err != nil {
 		return err
 	}
@@ -67,6 +75,7 @@ func (l *Live) bind(mem CPUView) error {
 		if l.B, err = NewPathB(mem, l.Font, l.Layer, l.ecl, l.ui); err != nil {
 			return err
 		}
+		l.B.OnEntry = l.journalEntry
 	}
 	l.ready = true
 	return nil
@@ -83,6 +92,9 @@ func (l *Live) BeforeStep(v StepCPU) error {
 			return nil
 		}
 		l.BindErr, l.BoundAt = nil, v.Steps()
+	}
+	if l.Journal.Open() {
+		l.Journal.KeyTaken(v.Read16(bdaKeyHead)) // 規格 007 §2.4 條件 2：先比對再處理進入點
 	}
 	cs, ip, ss, sp := v.CS(), v.IP(), v.SS(), v.SP()
 	l.A.Before(v.Steps(), cs, ip, ss, sp, v)
@@ -104,8 +116,34 @@ func (l *Live) VideoWrite(offset uint32) {
 	}
 }
 
+// SetHideAnswers 切換查驗題答案顯示（規格 006 §2.2）。
+func (l *Live) SetHideAnswers(hide bool) {
+	l.hideAnswers = hide
+	if l.A != nil {
+		l.A.SetHideAnswers(hide)
+	}
+}
+
+// HideAnswers 回目前是否隱藏查驗題答案。
+func (l *Live) HideAnswers() bool { return l.hideAnswers }
+
+// bdaKeyHead 是 BIOS 鍵盤緩衝區 head 指標（0040:001A）。
+const bdaKeyHead = 0x41A
+
+// journalEntry 是路徑 B 進入時的手札處理（規格 007 §2.2、§2.4 條件 1）。
+func (l *Live) journalEntry(text []byte, mem CPUView) {
+	if l.Journal == nil {
+		return
+	}
+	l.Journal.CloseAuto()
+	if n, ok := JournalEntryOf(text); ok {
+		l.Journal.OpenAuto(n, mem.Read16(bdaKeyHead))
+	}
+}
+
 // ModeChange 在視訊模式改變時呼叫。
 func (l *Live) ModeChange() {
+	l.Journal.closeAutoSafe()
 	if !l.ready {
 		l.armed = true
 		return
@@ -153,6 +191,9 @@ func (l *Live) Compose(scale int, overlay bool, missing func(rune)) []byte {
 	}
 	if overlay {
 		l.Layer.Draw(out, scale, missing)
+		if l.Journal.Open() {
+			l.Journal.Draw(out, scale, l.Font, missing)
+		}
 	}
 	return out
 }

@@ -88,6 +88,13 @@ type PathA struct {
 	pending []pendingStamp
 	// bgOf 記每筆 Stamp 呼叫時給的背景 attribute，PrepareFrame 用它校正定色方向。
 	bgOf map[*xlate.Stamp]uint8
+
+	// 規格 006 查驗題：答案表、是否隱藏答案、最近一次改寫。
+	Answers     map[QuizKey]string
+	QuizFormat  QuizFormat // 空白時不改寫查驗題
+	HideAnswers bool
+	QuizShown   *QuizShown
+	quiz        quizTrack
 }
 
 type pendingStamp struct {
@@ -142,7 +149,16 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 		text[i] = mem.Read8(base + 1 + uint32(i))
 	}
 	h := Hit{Step: step, Caller: fmt.Sprintf("%04X:%04X", retSeg, retOff), Length: n, Row: row, Col: col, BG: bg, FG: fg}
-	defer func() { p.Hits = append(p.Hits, h) }()
+	var added *xlate.Stamp
+	defer func() {
+		p.observeQuiz(text, row, col, bg, added)
+		// 原版照原文印字的範圍，舊覆繪在那裡失效（規格 001 §2.2）：
+		// 換畫面後舊 Stamp 的補白格會蓋住新印的字（查驗題的字序數字落在舊「Name」欄上）。
+		if !h.Stamped && n > 0 && col*8+n*8 <= 320 && row*8+8 <= 200 {
+			p.Layer.Clear(col*8, row*8, (col+n)*8, row*8+8)
+		}
+		p.Hits = append(p.Hits, h)
+	}()
 	if n == 0 {
 		h.Rejected = "空字串"
 		return
@@ -195,6 +211,7 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 	p.bgOf[st] = uint8(bg)
 	p.pending = append(p.pending, pendingStamp{ret: linear(retSeg, retOff), ss: ss, sp: sp + 4 + argBytes, stamp: st})
 	h.Stamped = true
+	added = st
 }
 
 // PrepareFrame 在 Layer.Frame 之前呼叫。xlate 定色取區域內最多的顏色當背景；短字串
