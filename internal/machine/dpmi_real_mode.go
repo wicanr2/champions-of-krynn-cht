@@ -36,7 +36,11 @@ func (b *dpmiRealBus) Read8(a uint32) uint8 {
 		}
 		return 0
 	}
-	return b.m.Mem[a]
+	v, err := b.m.Read8(a)
+	if err != nil && b.err == nil {
+		b.err = err
+	}
+	return v
 }
 func (b *dpmiRealBus) Write8(a uint32, v uint8) {
 	if uint64(a) >= uint64(len(b.m.Mem)) {
@@ -46,7 +50,7 @@ func (b *dpmiRealBus) Write8(a uint32, v uint8) {
 		return
 	}
 	if b.err == nil {
-		b.m.Mem[a] = v
+		b.err = b.m.Write8(a, v)
 	}
 }
 func (b *dpmiRealBus) In8(port uint16) uint8 {
@@ -97,6 +101,22 @@ func (h *DPMIHost) simulateRealModeInterrupt(c *cpu386.CPU) error {
 	word := func(i int) uint16 { return binary.LittleEndian.Uint16(packet[i:]) }
 	if word(38) != 0 || word(40) != 0 {
 		return fmt.Errorf("DPMI0300 FS／GS尚未支援")
+	}
+	if h.RealModeBIOS != nil {
+		biosAX := word(28)
+		handled, err := h.RealModeBIOS(h, tr.Interrupt, &packet)
+		if handled {
+			if err != nil {
+				return err
+			}
+			if !c.WriteSegmentBytes(c.Seg[cpu386.SegES], c.R[cpu386.EDI], packet[:]) {
+				return fmt.Errorf("DPMI0300 BIOS 輸出封包失敗")
+			}
+			tr.Entry = fmt.Sprintf("MOO2 VBE %04X 平台服務", biosAX)
+			tr.OutputPacket = fmt.Sprintf("% X", packet[:])
+			tr.Returned = true
+			return nil
+		}
 	}
 	seg, off := h.RealModeVector(tr.Interrupt)
 	tr.Entry = fmt.Sprintf("%04X:%04X", seg, off)

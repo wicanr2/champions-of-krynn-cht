@@ -33,6 +33,49 @@ func TestDSPResetHandshake(t *testing.T) {
 		t.Fatal("未知命令被接受")
 	}
 }
+
+func TestDSPB0ExactCommandAndIRQSource(t *testing.T) {
+	var s SoundBlasterDSP
+	started := 0
+	s.Start16DMA = func(words uint32) bool {
+		if words != 1 {
+			t.Fatalf("B0 長度=%d", words)
+		}
+		started++
+		return true
+	}
+	for _, v := range []byte{0xb0, 0x30, 0, 0} {
+		if !s.Out8(0x22c, v) {
+			t.Fatalf("B0 序列在 %02X 被拒絕", v)
+		}
+	}
+	if started != 1 || s.pending != 0 {
+		t.Fatal("B0 完成前啟動 DMA 或未清命令狀態")
+	}
+	s.IRQ16Pending = true
+	s.Out8(0x224, 0x82)
+	if v, _ := s.In8(0x225); v != 2 {
+		t.Fatalf("16位元IRQ來源=%02X", v)
+	}
+	s.In8(0x22e)
+	if v, _ := s.In8(0x225); v != 2 {
+		t.Fatal("8位元確認埠誤清16位元IRQ")
+	}
+	s.In8(0x22f)
+	if v, _ := s.In8(0x225); v != 0 {
+		t.Fatal("16位元確認埠未清IRQ")
+	}
+	for _, invalid := range [][]byte{{0xb0, 0x20}, {0xb0, 0x30, 1}, {0xb0, 0x30, 0, 1}} {
+		s.Out8(0x226, 1)
+		s.Out8(0x226, 0)
+		for i, v := range invalid {
+			ok := s.Out8(0x22c, v)
+			if ok != (i != len(invalid)-1) {
+				t.Fatalf("未知 B0 序列 % X 在第%d筆 ok=%t", invalid, i, ok)
+			}
+		}
+	}
+}
 func TestLEVGAStatusPolling(t *testing.T) {
 	p := NewLEOPLPorts()
 	seen := map[byte]bool{}
@@ -88,6 +131,39 @@ func TestSBMixerHardwareConfig(t *testing.T) {
 	}
 	if s.Out8(0x225, 0) {
 		t.Fatal("未支援寫入放行")
+	}
+}
+
+func TestSB16VoiceVolumeMixerRegisters(t *testing.T) {
+	var s SoundBlasterDSP
+	read := func(index, want byte) {
+		t.Helper()
+		if !s.Out8(0x224, index) {
+			t.Fatal("混音器索引寫入遭拒")
+		}
+		if got, ok := s.In8(0x225); !ok || got != want {
+			t.Fatalf("索引 %02X 讀值 %02X ok=%t，預期 %02X", index, got, ok, want)
+		}
+	}
+	read(0x32, 0xc0)
+	read(0x33, 0xc0)
+	s.Out8(0x224, 0x32)
+	if !s.Out8(0x225, 0xa7) {
+		t.Fatal("左聲道音量寫入遭拒")
+	}
+	read(0x32, 0xa0)
+	read(0x33, 0xc0)
+	s.Out8(0x224, 0x33)
+	if !s.Out8(0x225, 0x1f) {
+		t.Fatal("右聲道音量寫入遭拒")
+	}
+	s.Out8(0x226, 1)
+	s.Out8(0x226, 0)
+	read(0x32, 0xa0)
+	read(0x33, 0x18)
+	s.Out8(0x224, 0x31)
+	if _, ok := s.In8(0x225); ok || s.Out8(0x225, 0xff) {
+		t.Fatal("未知混音器索引被放行")
 	}
 }
 

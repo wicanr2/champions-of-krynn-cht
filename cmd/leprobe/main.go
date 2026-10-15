@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strconv"
 
 	"github.com/wicanr2/dosgolem/internal/cpu386"
 	"github.com/wicanr2/dosgolem/internal/machine"
@@ -13,19 +14,45 @@ import (
 
 func main() {
 	exe := flag.String("exe", "", "要檢查的 MZ／LE 執行檔（必填）")
+	offset := flag.String("offset", "", "明示 LE 標頭的檔案偏移（預設使用 MZ e_lfanew）")
+	mzBase := flag.String("mz-base", "", "明示內嵌 MZ 基址；LE 標頭與資料頁偏移均相對此基址")
 	executeEntryPrefix := flag.Bool("execute-entry-prefix", false, "從 LE entry 執行至固定雜湊 FD2 的 main 入口")
 	flag.Parse()
 	if *exe == "" {
 		flag.Usage()
 		os.Exit(2)
 	}
+	if *offset != "" && *mzBase != "" {
+		die(fmt.Errorf("-offset 與 -mz-base 不能同時使用"))
+	}
 	b, err := os.ReadFile(*exe)
 	if err != nil {
 		die(err)
 	}
-	h, err := machine.InspectLE(b)
+	var h *machine.LEHeader
+	if *mzBase != "" {
+		var parsed uint64
+		parsed, err = strconv.ParseUint(*mzBase, 0, 32)
+		if err == nil {
+			h, err = machine.InspectLEInMZ(b, uint32(parsed))
+		}
+	} else if *offset == "" {
+		h, err = machine.InspectLE(b)
+	} else {
+		var parsed uint64
+		parsed, err = strconv.ParseUint(*offset, 0, 32)
+		if err == nil {
+			h, err = machine.InspectLEAt(b, uint32(parsed))
+		}
+	}
 	if err != nil {
 		die(err)
+	}
+	if *offset != "" {
+		fmt.Printf("header_offset_source=explicit offset=0x%X\n", h.Offset)
+	}
+	if *mzBase != "" {
+		fmt.Printf("header_offset_source=embedded_mz mz_base=0x%X offset=0x%X data_pages_file_offset=0x%X\n", h.MZBase, h.Offset, uint64(h.MZBase)+uint64(h.DataPagesOffset))
 	}
 	fmt.Printf("format=LE header_offset=0x%X cpu=%d os=%d pages=%d page_size=0x%X objects=%d\n", h.Offset, h.CPUType, h.OSType, h.ModulePages, h.PageSize, h.ObjectCount)
 	fmt.Printf("entry=object:%d+0x%X stack=object:%d+0x%X execution_support=partial\n", h.EIPObject, h.EIP, h.ESPObject, h.ESP)
@@ -69,6 +96,9 @@ func main() {
 		fmt.Printf("object[%d] virtual_size=0x%X relocation_base=0x%X flags=0x%X page_index=%d page_count=%d reserved=0x%X image_bytes=%d relocation_preview_sha256=%x\n", i+1, o.VirtualSize, o.RelocationBase, o.Flags, o.PageTableIndex, o.PageCount, o.Reserved, len(image), sha256.Sum256(relocated[i]))
 	}
 	if *executeEntryPrefix {
+		if *offset != "" || *mzBase != "" {
+			die(fmt.Errorf("FD2 專用 entry prefix 不接受明示 offset 或內嵌 MZ"))
+		}
 		executePrefix(b)
 	}
 }

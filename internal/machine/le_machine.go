@@ -10,12 +10,16 @@ import (
 // LEMachine 是 DOS/4GW 已完成載入後的平坦 32-bit 執行環境。
 // 它刻意不共用 real-mode Machine 的 20-bit wrap 與 IVT。
 type LEMachine struct {
+	vbeVideo *moo2VBEVideo
 	Video    *LEVideo
 	Keyboard *LEBIOSKeyboard
 	Mem      []byte
-	CPU      *cpu386.CPU
-	Ports    map[uint16]uint8
-	PortLog  []LEPortWrite
+	// DOSArenaBase 非零時，DPMI 的實模式區塊從這個低位址配置。
+	// 只由明示高位重定位的 LE 載入入口設定。
+	DOSArenaBase uint32
+	CPU          *cpu386.CPU
+	Ports        map[uint16]uint8
+	PortLog      []LEPortWrite
 
 	// pit 解讀通道 0 的重載，與 real-mode Machine 共用同一份解碼器
 	// （`pit.go`）：保護模式的遊戲一樣是寫 `0x43`／`0x40`。
@@ -35,6 +39,64 @@ func LoadLE(data []byte) (*LEMachine, error) {
 	if err != nil {
 		return nil, err
 	}
+	return loadLEHeader(data, header)
+}
+
+// LoadLEAt 以明示的檔案偏移載入 LE；原始檔案 bytes 保持不變。
+func LoadLEAt(data []byte, off uint32) (*LEMachine, error) {
+	header, err := InspectLEAt(data, off)
+	if err != nil {
+		return nil, err
+	}
+	return loadLEHeader(data, header)
+}
+
+// LoadLEInMZ 以明示內嵌 MZ 的 LE 標頭及資料頁基址載入映像。
+func LoadLEInMZ(data []byte, mzBase uint32) (*LEMachine, error) {
+	header, err := InspectLEInMZ(data, mzBase)
+	if err != nil {
+		return nil, err
+	}
+	return loadLEHeader(data, header)
+}
+
+// LoadLEInMZWithDOSArena 將 LE 物件整體重定位至 1 MiB 以上，
+// 讓低位 DOS 段記憶體與平坦保護模式映像在同一 Mem 中並存。
+// 原始檔案、一般 LoadLEInMZ 入口與其位址不變。
+func LoadLEInMZWithDOSArena(data []byte, mzBase uint32) (*LEMachine, error) {
+	header, err := InspectLEInMZ(data, mzBase)
+	if err != nil {
+		return nil, err
+	}
+	if len(header.Objects) == 0 {
+		return nil, fmt.Errorf("machine: LE 無物件，不能配置 DOS arena")
+	}
+	lowest := header.Objects[0].RelocationBase
+	for _, object := range header.Objects[1:] {
+		if object.RelocationBase < lowest {
+			lowest = object.RelocationBase
+		}
+	}
+	var shift uint32
+	if lowest < dpmiLinearBase {
+		shift = dpmiLinearBase - lowest
+	}
+	for i := range header.Objects {
+		base := uint64(header.Objects[i].RelocationBase) + uint64(shift)
+		if base > uint64(^uint32(0)) {
+			return nil, fmt.Errorf("machine: LE object %d 高位重定位溢位", i+1)
+		}
+		header.Objects[i].RelocationBase = uint32(base)
+	}
+	m, err := loadLEHeader(data, header)
+	if err != nil {
+		return nil, err
+	}
+	m.DOSArenaBase = 0x10000
+	return m, nil
+}
+
+func loadLEHeader(data []byte, header *LEHeader) (*LEMachine, error) {
 	images, err := header.RelocatedObjectImages(data)
 	if err != nil {
 		return nil, err
@@ -98,6 +160,9 @@ func (m *LEMachine) Read8(addr uint32) (uint8, error) {
 	if uint64(addr) >= uint64(len(m.Mem)) {
 		return 0, fmt.Errorf("machine: LE read 0x%X 超界", addr)
 	}
+	if m.vbeVideo.contains(addr) {
+		return m.vbeVideo.framebuffer[m.vbeVideo.offset(addr)], nil
+	}
 	return m.Mem[addr], nil
 }
 
@@ -105,7 +170,12 @@ func (m *LEMachine) Write8(addr uint32, value uint8) error {
 	if uint64(addr) >= uint64(len(m.Mem)) {
 		return fmt.Errorf("machine: LE write 0x%X 超界", addr)
 	}
-	m.Mem[addr] = value
+	if m.vbeVideo.contains(addr) {
+		m.vbeVideo.framebuffer[m.vbeVideo.offset(addr)] = value
+		m.vbeVideo.writes++
+	} else {
+		m.Mem[addr] = value
+	}
 	return nil
 }
 
@@ -113,12 +183,31 @@ func (m *LEMachine) Read16(addr uint32) (uint16, error) {
 	if uint64(addr)+2 > uint64(len(m.Mem)) {
 		return 0, fmt.Errorf("machine: LE read16 0x%X 超界", addr)
 	}
+	if m.vbeVideo != nil && m.vbeVideo.active && uint64(addr) < uint64(m.vbeVideo.base)+uint64(m.vbeVideo.window) && uint64(addr)+2 > uint64(m.vbeVideo.base) {
+		a, err := m.Read8(addr)
+		if err != nil {
+			return 0, err
+		}
+		b, err := m.Read8(addr + 1)
+		return uint16(a) | uint16(b)<<8, err
+	}
 	return binary.LittleEndian.Uint16(m.Mem[addr:]), nil
 }
 
 func (m *LEMachine) Read32(addr uint32) (uint32, error) {
 	if uint64(addr)+4 > uint64(len(m.Mem)) {
 		return 0, fmt.Errorf("machine: LE read32 0x%X 超界", addr)
+	}
+	if m.vbeVideo != nil && m.vbeVideo.active && uint64(addr) < uint64(m.vbeVideo.base)+uint64(m.vbeVideo.window) && uint64(addr)+4 > uint64(m.vbeVideo.base) {
+		var value uint32
+		for i := uint32(0); i < 4; i++ {
+			b, err := m.Read8(addr + i)
+			if err != nil {
+				return 0, err
+			}
+			value |= uint32(b) << (i * 8)
+		}
+		return value, nil
 	}
 	return binary.LittleEndian.Uint32(m.Mem[addr:]), nil
 }

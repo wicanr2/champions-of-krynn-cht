@@ -98,6 +98,7 @@ LEA依Intel規格計算base+index*scale+disp，不讀memory／descriptor、不�
 補齊32位元ModRM/SIB、無base、無index及有號disp8／disp32，32位溢位自然截斷。
 發現既有mod3錯誤呼叫sub8，依非法LEA编码改為拒絕，保留此勘誤。
 不開放16位元／segment prefix。合成無descriptor、wrap、SIB特例及非法mod3測試。
+後續範圍擴充（2026-10-01）：本批次的 segment prefix 拒絕是當時支援範圍；[224-cpu386-lea-segment-prefix](224-cpu386-lea-segment-prefix.md) 另依固定 MOO2 原檔的 CS 前綴樣本與 Intel 契約開放 `LEA` 單一段前綴，不改本批次 FD2 無前綴樣本的結論。
 
 ## 批次13：CONFORMED — REP MOVSB
 gap-12停3740F / F3 A4，ECX=2，是15118-byte搬移最後2 bytes。
@@ -709,6 +710,8 @@ Intel 8254資料表231164-004的控制字36：通道0、先低後高、mode3、b
 只補這個實際設定子集，不假稱已推進PIT計數或派送IRQ0；未知讀埠／模式拒絕。
 後續玩家時序需另接機器虛擬時鐘，以公開規格近似處理，遵守PIT硬體考古停止線。
 驗收低高位順序、0重載、重設中斷設定、未知形狀拒絕，嚴格原版重跑。
+
+PIT 模式 2 與非法重載邊界由規格 276 補齊，見 [276-pit0-mode2-shared-clock.md](276-pit0-mode2-shared-clock.md)。原模式 3 設定只驗合法重載，未覆蓋 Intel 最小值 2 的非法 1 拒絕；276 訂正該工具邊界，保留原版 36h／0／0 收據。共享時鐘已由批次 95 及規格 250 接入，不把本批次歷史「尚未推進」視為目前能力。
 
 ## 批次 84：記憶體來源的三運算元 IMUL（CONFORMED）
 
@@ -1362,3 +1365,7 @@ READY：保護模式 AH40 檔案及主控台寫入依完整 ECX／EAX 計數，
 上限64MiB且先拒絕位址溢位；檔案寫入在完整來源可讀後才更動覆蓋檔。
 ECX=0保留既有截斷語意；原版目錄仍唯讀，16位元 DOS 前端不變。
 驗收207360-byte往返、65536-byte不得誤截斷、來源尾端越界不寫入、唯讀拒絕。
+
+## 2026-10-02：裸C1單位移旗標回填
+
+裸C1單位移OF契約由規格 299 補齊，見 [299-cpu386-c1-dword-single-shift-overflow.md](299-cpu386-c1-dword-single-shift-overflow.md)。298回歸找到既有dword SHL／SHR計數1缺OF的公開CPU契約反例；批次32的SAR OF=0及多位OF／AF清除模型保持。未新增FD2原版動態oracle，沒有MOO2自然OF=1同狀態收據；只限定公開CPU契約與獨立測試修正，原有證據範圍不擴張。

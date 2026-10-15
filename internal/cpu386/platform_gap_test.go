@@ -19,6 +19,59 @@ func TestRegisterOR32(t *testing.T) {
 	}
 }
 
+func TestANDRM32RegisterDirectionAndFlags(t *testing.T) {
+	for _, tc := range []struct {
+		eax, ecx, wantEAX, wantFlags uint32
+	}{
+		{0x80, 0xffffffff, 0x80, 0x202},
+		{0xa0, 0x0f, 0, 0x246},
+		{0x80000000, 0xffffffff, 0x80000000, 0x286},
+	} {
+		c := New(testBus{0x21, 0xc8})
+		c.R[EAX], c.R[ECX], c.EFlags = tc.eax, tc.ecx, 0x297
+		if err := c.Step(); err != nil {
+			t.Fatal(err)
+		}
+		if c.R[EAX] != tc.wantEAX || c.R[ECX] != tc.ecx || c.EFlags != tc.wantFlags || c.EIP != 2 {
+			t.Fatalf("AND EAX=%08X ECX=%08X flags=%X EIP=%X", c.R[EAX], c.R[ECX], c.EFlags, c.EIP)
+		}
+	}
+}
+
+func TestANDRM32RegisterUnsupportedFormsFailClosed(t *testing.T) {
+	for _, code := range []testBus{{0x66, 0x21, 0xc8}, {0x21, 0x08}} {
+		c := New(code)
+		c.R[EAX], c.R[ECX], c.EFlags = 0x80, 0xff, 0x297
+		if err := c.Step(); err == nil || c.R[EAX] != 0x80 || c.R[ECX] != 0xff || c.EFlags != 0x297 {
+			t.Fatalf("未支援 AND 形狀未拒絕或改變狀態: % X err=%v", code, err)
+		}
+	}
+}
+
+func TestRegisterORWordPreservesHighHalfAndBranchFlags(t *testing.T) {
+	for _, tc := range []struct {
+		dx, cx, wantDX, flags uint32
+	}{
+		{0xabcd0000, 0x12340000, 0xabcd0000, ZF | PF},
+		{0xabcd0001, 0x12340002, 0xabcd0003, PF},
+		{0xabcd0000, 0x12348000, 0xabcd8000, SF | PF},
+	} {
+		c := New(testBus{0x66, 0x09, 0xca, 0x74, 0x02})
+		c.R[EDX], c.R[ECX] = tc.dx, tc.cx
+		c.EFlags = CF | OF | IF | DF
+		if err := c.Step(); err != nil {
+			t.Fatal(err)
+		}
+		if c.R[EDX] != tc.wantDX || c.R[ECX] != tc.cx || c.EFlags != tc.flags|IF|DF || c.EIP != 3 {
+			t.Fatalf("OR DX,CX 結果：EDX=%08X ECX=%08X flags=%X EIP=%X", c.R[EDX], c.R[ECX], c.EFlags, c.EIP)
+		}
+	}
+	c := New(testBus{0x66, 0x09, 0x0a})
+	if err := c.Step(); err == nil {
+		t.Fatal("未驗證的 16 位記憶體 OR 形狀被接受")
+	}
+}
+
 func TestALImmediateLogic(t *testing.T) {
 	for _, op := range []byte{0xa8, 0x24} {
 		c := New(testBus{op, 1})
@@ -849,6 +902,36 @@ func TestSBBRegisterCarryEdges(t *testing.T) {
 		}
 		if c.R[EAX] != tc.want || c.R[EDX] != tc.b || c.EFlags != IF|tc.flags {
 			t.Fatalf("SBB %x - %x - %d = %x flags %x want %x", tc.a, tc.b, tc.carry, c.R[EAX], c.EFlags, tc.flags|IF)
+		}
+	}
+}
+
+func TestSBBRM32RegisterDirectionAndCarry(t *testing.T) {
+	// 固定 1.31 原版 DOSBox-X 輔助快照：19 C0，EAX=0501h、CF=0，結果為 0。
+	c := New(testBus{0x19, 0xc0})
+	c.R[EAX] = 0x501
+	c.EFlags = 0x246
+	if err := c.Step(); err != nil || c.EIP != 2 || c.R[EAX] != 0 || c.EFlags != 0x246 {
+		t.Fatalf("19 C0 原版樣本不符：EIP=%X EAX=%X flags=%X err=%v", c.EIP, c.R[EAX], c.EFlags, err)
+	}
+
+	// CF=1 與不同來源暫存器依 Intel 規格及合成輸入獨立驗證。
+	c = New(testBus{0x19, 0xc0})
+	c.EFlags = IF | CF
+	if err := c.Step(); err != nil || c.R[EAX] != 0xffffffff || c.EFlags != IF|CF|PF|AF|SF {
+		t.Fatalf("19 C0 借位不符：EAX=%X flags=%X err=%v", c.R[EAX], c.EFlags, err)
+	}
+	c = New(testBus{0x19, 0xd0}) // SBB EAX,EDX；目的在 ModRM r/m。
+	c.R[EAX], c.R[EDX], c.EFlags = 5, 2, IF|CF
+	if err := c.Step(); err != nil || c.EIP != 2 || c.R[EAX] != 2 || c.R[EDX] != 2 || c.EFlags != IF {
+		t.Fatalf("19 D0 方向不符：EIP=%X EAX=%X EDX=%X flags=%X err=%v", c.EIP, c.R[EAX], c.R[EDX], c.EFlags, err)
+	}
+
+	for _, code := range []testBus{{0x19, 0x00}, {0x66, 0x1b, 0xc0}} {
+		c = New(code)
+		c.R[EAX], c.EFlags = 7, IF|CF
+		if err := c.Step(); err == nil || c.R[EAX] != 7 || c.EFlags != IF|CF {
+			t.Fatalf("未支援 SBB 形狀未保持失敗即關閉：code=% X EAX=%X flags=%X err=%v", code, c.R[EAX], c.EFlags, err)
 		}
 	}
 }

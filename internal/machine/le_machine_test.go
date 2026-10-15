@@ -5,9 +5,12 @@ import (
 	"crypto/md5"
 	"crypto/sha256"
 	"encoding/binary"
+	"fmt"
 	"math"
 	"os"
+	"path/filepath"
 	"testing"
+	"time"
 
 	"github.com/wicanr2/dosgolem/internal/cpu386"
 )
@@ -24,6 +27,749 @@ func TestLoadLESynthetic(t *testing.T) {
 	if m.CPU.EIP != 0x11234 || m.CPU.R[cpu386.ESP] != 0x11800 || len(m.Mem) != 0x12000 {
 		t.Fatalf("unexpected LE machine: EIP=%X ESP=%X len=%X", m.CPU.EIP, m.CPU.R[cpu386.ESP], len(m.Mem))
 	}
+}
+
+func TestLoadLEAtWithLegacyMZHeader(t *testing.T) {
+	b := leFixture()
+	h := b[0x80:]
+	binary.LittleEndian.PutUint32(h[0x20:], 1)
+	binary.LittleEndian.PutUint32(h[0x24:], 0x1800)
+	binary.LittleEndian.PutUint32(b[0x3c:], 0x9b40000)
+	m, err := LoadLEAt(b, 0x80)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if m.CPU.EIP != 0x11234 || m.CPU.R[cpu386.ESP] != 0x11800 {
+		t.Fatalf("入口狀態錯誤：EIP=%X ESP=%X", m.CPU.EIP, m.CPU.R[cpu386.ESP])
+	}
+	if got := binary.LittleEndian.Uint32(b[0x3c:]); got != 0x9b40000 {
+		t.Fatalf("原始 MZ 標頭被改寫：%X", got)
+	}
+}
+
+func TestLoadLEInEmbeddedMZUsesModuleBaseForPages(t *testing.T) {
+	standalone := leFixture()
+	b := make([]byte, 0x40+len(standalone))
+	copy(b[0x40:], standalone)
+	hdr := b[0x40+0x80:]
+	binary.LittleEndian.PutUint32(hdr[0x20:], 1)
+	binary.LittleEndian.PutUint32(hdr[0x24:], 0x1800)
+	before := append([]byte(nil), b...)
+	h, err := InspectLEInMZ(b, 0x40)
+	if err != nil || h.MZBase != 0x40 || h.Offset != 0xc0 {
+		t.Fatalf("內嵌 MZ 解析錯誤：header=%+v err=%v", h, err)
+	}
+	image, err := h.ObjectImage(b, 1)
+	if err != nil || len(image) < 4 || !bytes.Equal(image[:4], []byte{1, 2, 3, 4}) {
+		t.Fatalf("內嵌 MZ 資料頁錯誤：image length=%d err=%v", len(image), err)
+	}
+	m, err := LoadLEInMZ(b, 0x40)
+	if err != nil || m.CPU.EIP != 0x11234 || m.CPU.R[cpu386.ESP] != 0x11800 {
+		t.Fatalf("內嵌 MZ 載入錯誤：machine=%+v err=%v", m, err)
+	}
+	if !bytes.Equal(b, before) {
+		t.Fatal("解析器改動原始輸入")
+	}
+	for _, base := range []uint32{0, 0x41, ^uint32(0)} {
+		if _, err := InspectLEInMZ(b, base); err == nil {
+			t.Fatalf("無效內嵌 MZ 基址 0x%X 應拒絕", base)
+		}
+	}
+	binary.LittleEndian.PutUint32(b[0x40+0x3c:], ^uint32(0))
+	if _, err := InspectLEInMZ(b, 0x40); err == nil {
+		t.Fatal("超界 e_lfanew 應拒絕")
+	}
+}
+
+func TestLEHighRelocationKeepsDOSArenaSeparate(t *testing.T) {
+	standalone := leFixture()
+	b := make([]byte, 0x40+len(standalone))
+	copy(b[0x40:], standalone)
+	hdr := b[0x40+0x80:]
+	binary.LittleEndian.PutUint32(hdr[0x20:], 1)
+	binary.LittleEndian.PutUint32(hdr[0x24:], 0x1800)
+	before := append([]byte(nil), b...)
+	m, err := LoadLEInMZWithDOSArena(b, 0x40)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if m.CPU.EIP != 0x101234 || m.CPU.R[cpu386.ESP] != 0x101800 || m.DOSArenaBase != 0x10000 {
+		t.Fatalf("高位 LE／DOS arena 錯誤：EIP=%X ESP=%X DOS=%X", m.CPU.EIP, m.CPU.R[cpu386.ESP], m.DOSArenaBase)
+	}
+	if !bytes.Equal(before, b) || !bytes.Equal(m.Mem[0x100000:0x100004], []byte{1, 2, 3, 4}) {
+		t.Fatal("高位載入改動原檔或遺失 LE 頁資料")
+	}
+	original, err := LoadLEInMZ(b, 0x40)
+	if err != nil || original.CPU.EIP != 0x11234 || original.DOSArenaBase != 0 {
+		t.Fatalf("原載入入口受影響：machine=%+v err=%v", original, err)
+	}
+	host := NewDPMIHost(m)
+	entry := append([]byte(nil), m.Mem[0x100000:0x100004]...)
+	for _, paras := range []uint32{513, 176} {
+		m.CPU.R[cpu386.EBX] = paras
+		dpmiCall(host, m.CPU, 0x0100)
+		if m.CPU.EFlags&cpu386.CF != 0 {
+			t.Fatalf("DOS %d 段配置失敗：AX=%X BX=%X", paras, m.CPU.R[cpu386.EAX], m.CPU.R[cpu386.EBX])
+		}
+		base := uint32(uint16(m.CPU.R[cpu386.EAX])) * 16
+		selector := uint16(m.CPU.R[cpu386.EDX])
+		if base < 0x10000 || base+paras*16 > dosMemTop || !m.CPU.WriteSegmentBytes(selector, 0, []byte("HI")) {
+			t.Fatalf("DOS 區塊不可安全寫入：base=%X selector=%X", base, selector)
+		}
+		if m.Mem[base] != 'H' || m.Mem[base+1] != 'I' {
+			t.Fatal("實模式段與 selector 指向不同資料")
+		}
+		bus := &dpmiRealBus{m: m}
+		if bus.Read8(base) != 'H' {
+			t.Fatal("實模式 bus 無法讀取 selector 寫入值")
+		}
+		bus.Write8(base+1, '!')
+		if value, ok := m.CPU.ReadSegment8(selector, 1); !ok || value != '!' {
+			t.Fatal("selector 無法讀回實模式 bus 寫入值")
+		}
+	}
+	if !bytes.Equal(entry, m.Mem[0x100000:0x100004]) {
+		t.Fatal("DOS 配置覆蓋 LE 影像")
+	}
+	binary.LittleEndian.PutUint32(hdr[0x44:], 0)
+	if _, err := LoadLEInMZWithDOSArena(b, 0x40); err == nil {
+		t.Fatal("零物件 LE 應拒絕")
+	}
+}
+
+func TestMOO2EmbeddedMZEntryWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha1996 = "7ae2ac2e5904ca330009af2827279d889906b0b9b7a8854c38eb707a56e955b5"
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha1996 && got != sha131 {
+		t.Fatalf("MOO2 EXE SHA-256 不符：%s", got)
+	}
+	h, err := InspectLEInMZ(b, 0x26654)
+	wantPages := uint32(0x6f000)
+	if fmt.Sprintf("%x", sha256.Sum256(b)) == sha1996 {
+		wantPages = 0x6f040
+	}
+	if err != nil {
+		t.Fatal(err)
+	}
+	if h.Offset != 0x292e4 || h.DataPagesOffset != wantPages {
+		t.Fatalf("MOO2 內嵌 MZ／LE 欄位錯誤：offset=0x%X data_pages=0x%X", h.Offset, h.DataPagesOffset)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := m.Mem[m.CPU.EIP : m.CPU.EIP+8]; !bytes.Equal(got, []byte{'\xeb', '\x76', 'W', 'A', 'T', 'C', 'O', 'M'}) {
+		t.Fatalf("MOO2 真正 LE 入口 bytes=% X", got)
+	}
+}
+
+func TestMOO2HighRelocationFixupsWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f" {
+		t.Skipf("僅核對固定 1.31 EXE，實際 SHA-256=%s", got)
+	}
+	h, err := InspectLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	oldImages, err := h.RelocatedObjectImages(b)
+	if err != nil {
+		t.Fatal(err)
+	}
+	m, err := LoadLEInMZWithDOSArena(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const shift = 0xf0000
+	if m.CPU.EIP != 0x1fff18 || m.DOSArenaBase != 0x10000 {
+		t.Fatalf("MOO2 高位載入入口／DOS arena 錯誤：EIP=%X DOS=%X", m.CPU.EIP, m.DOSArenaBase)
+	}
+	checked := 0
+	for page, fixups := range h.Fixups {
+		logicalPage := uint32(page + 1)
+		for _, f := range fixups {
+			for i, object := range h.Objects {
+				if object.PageTableIndex == 0 || logicalPage < object.PageTableIndex || logicalPage-object.PageTableIndex >= object.PageCount {
+					continue
+				}
+				position := int64(logicalPage-object.PageTableIndex)*int64(h.PageSize) + int64(f.SourceOffsets[0])
+				oldValue := binary.LittleEndian.Uint32(oldImages[i][position:])
+				newValue := binary.LittleEndian.Uint32(m.Mem[uint32(int64(object.RelocationBase)+position+shift):])
+				if uint64(newValue) != uint64(oldValue)+shift {
+					t.Fatalf("fixup page=%d object=%d offset=%X: old=%X new=%X", page+1, i+1, position, oldValue, newValue)
+				}
+				checked++
+				break
+			}
+		}
+	}
+	if checked == 0 {
+		t.Fatal("MOO2 原檔沒有可核對的 LE fixup")
+	}
+	if len(h.Objects) > 1 {
+		altered := append([]byte(nil), b...)
+		objectTable := int(h.Offset + h.ObjectTableOff)
+		binary.LittleEndian.PutUint32(altered[objectTable+24+4:], ^uint32(0))
+		if _, err := LoadLEInMZWithDOSArena(altered, 0x26654); err == nil {
+			t.Fatal("高位重定位溢位應拒絕")
+		}
+	}
+}
+
+// 固定 1.31 原檔的 DPMI AX=0006h 返回由 DOSBox-X 輔助快照核對；這只驗證
+// 合成啟動探針正確綁定通用 DPMI 主機，不代表已到玩家畫面或完成玩法對拍。
+func TestMOO2AttachedDPMIBaseProbeWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	for step := 0; step < 200 && m.CPU.EIP != 0x110072; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("DPMI AX=0006h 返回前第 %d 步：%v", step, err)
+		}
+	}
+	if m.CPU.EIP != 0x110072 || services.Calls() != 2 ||
+		uint16(m.CPU.R[cpu386.EAX]) != 0x0006 ||
+		uint16(m.CPU.R[cpu386.ECX]) != 0 || uint16(m.CPU.R[cpu386.EDX]) != 0 ||
+		m.CPU.EFlags&cpu386.CF != 0 {
+		t.Fatalf("DPMI 返回與固定 DOSBox-X 輔助快照不符：EIP=%X AX=%X CX=%X DX=%X flags=%X DOS calls=%d",
+			m.CPU.EIP, uint16(m.CPU.R[cpu386.EAX]), uint16(m.CPU.R[cpu386.ECX]),
+			uint16(m.CPU.R[cpu386.EDX]), m.CPU.EFlags, services.Calls())
+	}
+	for step := 0; step < 12 && m.CPU.EIP != 0x110079; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("零基底分支前第 %d 步：%v", step, err)
+		}
+	}
+	if m.CPU.EIP != 0x110079 || m.CPU.EFlags&cpu386.ZF == 0 {
+		t.Fatalf("零基底分支前狀態不符：EIP=%X flags=%X", m.CPU.EIP, m.CPU.EFlags)
+	}
+	if err := m.CPU.Step(); err != nil || m.CPU.EIP != 0x11007d {
+		t.Fatalf("零基底分支應跳到 0x11007D：EIP=%X err=%v", m.CPU.EIP, err)
+	}
+}
+
+// 此測試釘住合成 PSP／環境的原檔啟動檢查點；原版 LOG 只作有限指令基準，
+// 不代表環境位址、正常玩家路徑或玩法狀態與原版一致。
+func TestMOO2ESByteLoadCheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const checkpoint = 0x146903 // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6000 && m.CPU.EIP != checkpoint; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("檢查點前第 %d 步：%v", step, err)
+		}
+	}
+	if m.CPU.EIP != checkpoint || step != 4944 {
+		t.Fatalf("未在預期步數抵達 ES byte 載入檢查點：step=%d EIP=%X", step, m.CPU.EIP)
+	}
+	c := m.CPU
+	esi := c.R[cpu386.ESI]
+	if esi >= uint32(len(m.Mem)) {
+		t.Fatalf("來源位址超出載入映像：ESI=%X", esi)
+	}
+	if c.R[cpu386.EAX] != 0 || c.R[cpu386.EBX] != ^uint32(0) ||
+		c.R[cpu386.ECX] != 0x188 || c.R[cpu386.EDX] != esi ||
+		c.R[cpu386.EDI] != ^uint32(0) || c.R[cpu386.EBP] != 4 ||
+		esi-c.R[cpu386.ESP] != 0x34 || c.EFlags != 0x246 ||
+		c.Seg[cpu386.SegDS] != 0x188 || c.Seg[cpu386.SegES] != 0x188 ||
+		c.Seg[cpu386.SegSS] != 0x188 || m.Mem[esi] != 0x30 || services.Calls() != 7 {
+		t.Fatalf("合成啟動檢查點狀態不符：step=%d R=%X Seg=%X flags=%X source=%02X calls=%d", step, c.R, c.Seg, c.EFlags, m.Mem[esi], services.Calls())
+	}
+	beforeR, beforeSeg, beforeFlags := c.R, c.Seg, c.EFlags
+	if err := c.Step(); err != nil {
+		t.Fatalf("ES byte 載入失敗：%v", err)
+	}
+	wantR := beforeR
+	wantR[cpu386.EBX] = 0xffffff30
+	if c.EIP != checkpoint+3 || c.R != wantR || c.Seg != beforeSeg || c.EFlags != beforeFlags || m.Mem[esi] != 0x30 {
+		t.Fatalf("ES byte 載入後狀態不符：EIP=%X R=%X Seg=%X flags=%X source=%02X", c.EIP, c.R, c.Seg, c.EFlags, m.Mem[esi])
+	}
+	t.Logf("固定 1.31 原檔、合成環境：step=%d，重定位 LE 線性 EIP=%X，ESI=%X，ESP=%X，來源=30h；下一 EIP=%X", step, checkpoint, esi, beforeR[cpu386.ESP], c.EIP)
+}
+
+// 此收據限原版零輸入的 ROR 指令樣本；前段使用合成 PSP／環境。
+func TestMOO2RORImmediateEightCheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const checkpoint = 0x14822d // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6000 && m.CPU.EIP != checkpoint; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("ROR 檢查點前第 %d 步：%v", step, err)
+		}
+	}
+	if step != 5392 || m.CPU.EIP != checkpoint || m.CPU.R[cpu386.EDX] != 0 || m.CPU.EFlags != 0x206 {
+		t.Fatalf("原版零輸入檢查點不符：step=%d EIP=%X EDX=%X flags=%X", step, m.CPU.EIP, m.CPU.R[cpu386.EDX], m.CPU.EFlags)
+	}
+	beforeR, beforeSeg := m.CPU.R, m.CPU.Seg
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("ROR 立即數 8 執行失敗：%v", err)
+	}
+	if m.CPU.EIP != checkpoint+3 || m.CPU.R != beforeR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != 0x206 {
+		t.Fatalf("ROR 零輸入後狀態不符：EIP=%X R=%X Seg=%X flags=%X", m.CPU.EIP, m.CPU.R, m.CPU.Seg, m.CPU.EFlags)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 ROR 零輸入通過，下一 EIP=%X", step, m.CPU.EIP)
+}
+
+// 固定原檔的 OR AL,AH 收據只核對本次 AH=0 的啟動樣本。
+func TestMOO2OrALAHCheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const checkpoint = 0x14701b // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6000 && m.CPU.EIP != checkpoint; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("OR 檢查點前第 %d 步：%v", step, err)
+		}
+	}
+	if step != 5529 || m.CPU.EIP != checkpoint || m.CPU.R[cpu386.EAX] != 1 || m.CPU.EFlags != 0x202 {
+		t.Fatalf("原版 AH 零輸入檢查點不符：step=%d EIP=%X EAX=%X flags=%X", step, m.CPU.EIP, m.CPU.R[cpu386.EAX], m.CPU.EFlags)
+	}
+	beforeR, beforeSeg := m.CPU.R, m.CPU.Seg
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("OR AL,AH 執行失敗：%v", err)
+	}
+	if m.CPU.EIP != checkpoint+2 || m.CPU.R != beforeR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != 0x202 {
+		t.Fatalf("OR AH 零輸入後狀態不符：EIP=%X R=%X Seg=%X flags=%X", m.CPU.EIP, m.CPU.R, m.CPU.Seg, m.CPU.EFlags)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 OR AL,AH 通過，下一 EIP=%X", step, m.CPU.EIP)
+}
+
+// 原檔的 LEA 檢查點使用合成 PSP／環境；進入暫存器與 DOSBox-X 不同。
+func TestMOO2CSLEACheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const checkpoint = 0x15c1df // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6500 && m.CPU.EIP != checkpoint; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("LEA 檢查點前第 %d 步：%v", step, err)
+		}
+	}
+	if step != 5806 || m.CPU.EIP != checkpoint || m.CPU.R[cpu386.ESI] != 0x99 ||
+		m.CPU.R[cpu386.EAX] != 0x33 || m.CPU.EFlags != 0x16 || services.Calls() != 7 {
+		t.Fatalf("合成環境 LEA 前態不符：step=%d EIP=%X EAX=%X ESI=%X flags=%X calls=%d", step, m.CPU.EIP, m.CPU.R[cpu386.EAX], m.CPU.R[cpu386.ESI], m.CPU.EFlags, services.Calls())
+	}
+	beforeR, beforeSeg, beforeFlags := m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("CS 前綴 LEA 執行失敗：%v", err)
+	}
+	wantR := beforeR
+	wantR[cpu386.EAX] = 0x15c31b // 合成環境的 ESI 99h + 重定位 disp32 15C282h
+	if m.CPU.EIP != checkpoint+7 || m.CPU.R != wantR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != beforeFlags {
+		t.Fatalf("CS 前綴 LEA 後態不符：EIP=%X R=%X Seg=%X flags=%X", m.CPU.EIP, m.CPU.R, m.CPU.Seg, m.CPU.EFlags)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 LEA EAX=%X，下一 EIP=%X", step, m.CPU.R[cpu386.EAX], m.CPU.EIP)
+}
+
+// TestMOO2MoveESFromDSEBXCheckpointWhenProvided 只驗證合成環境下的原檔啟動指令。
+func TestMOO2MoveESFromDSEBXCheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const checkpoint = 0x15c1e7 // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6500 && m.CPU.EIP != checkpoint; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("MOV ES 檢查點前第 %d 步：%v", step, err)
+		}
+	}
+	if step != 5808 || m.CPU.EIP != checkpoint || services.Calls() != 7 {
+		t.Fatalf("MOV ES 停點不符：step=%d EIP=%X calls=%d", step, m.CPU.EIP, services.Calls())
+	}
+	selector, err := m.Read16(m.CPU.R[cpu386.EBX])
+	if err != nil {
+		t.Fatal(err)
+	}
+	if selector != 0x188 || m.CPU.Seg[cpu386.SegDS] != 0x188 || m.CPU.Seg[cpu386.SegES] != 0x188 {
+		t.Fatalf("合成來源 selector=%X DS=%X ES=%X", selector, m.CPU.Seg[cpu386.SegDS], m.CPU.Seg[cpu386.SegES])
+	}
+	beforeR, beforeFlags := m.CPU.R, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("MOV ES 單步失敗：%v", err)
+	}
+	if m.CPU.EIP != checkpoint+2 || m.CPU.Seg[cpu386.SegES] != selector || m.CPU.R != beforeR || m.CPU.EFlags != beforeFlags {
+		t.Fatalf("MOV ES 後態：EIP=%X ES=%X flags=%X", m.CPU.EIP, m.CPU.Seg[cpu386.SegES], m.CPU.EFlags)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 MOV ES 來源=%X，下一 EIP=%X", step, selector, m.CPU.EIP)
+}
+
+// TestMOO2MouseQueryCheckpointWhenProvided 只核對原檔啟動期的受控滑鼠讀取。
+func TestMOO2MouseQueryCheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(nil)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const checkpoint = 0x15c31b // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6500 && m.CPU.EIP != checkpoint; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("滑鼠查詢前第 %d 步：%v", step, err)
+		}
+	}
+	if step != 5818 || m.CPU.EIP != checkpoint || m.CPU.R[cpu386.EAX] != 3 ||
+		m.CPU.R[cpu386.EBX] != 0 || m.CPU.R[cpu386.ECX] != 0 || m.CPU.R[cpu386.EDX] != 0 || services.Calls() != 7 {
+		t.Fatalf("滑鼠查詢前態：step=%d EIP=%X R=%X calls=%d", step, m.CPU.EIP, m.CPU.R, services.Calls())
+	}
+	beforeR, beforeSeg, beforeFlags := m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("滑鼠查詢單步失敗：%v", err)
+	}
+	step++
+	wantR := beforeR
+	wantR[cpu386.ECX], wantR[cpu386.EDX] = 320, 100
+	if m.CPU.EIP != checkpoint+2 || m.CPU.R != wantR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != beforeFlags {
+		t.Fatalf("滑鼠查詢後態：EIP=%X R=%X Seg=%X flags=%X", m.CPU.EIP, m.CPU.R, m.CPU.Seg, m.CPU.EFlags)
+	}
+	const consumerStop = 0x15c1c6 // dosgolem 重定位 LE 線性位址；下一個 8F 尚未支援
+	for consumed := 0; m.CPU.EIP != consumerStop && consumed < 16; consumed++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("滑鼠回傳消費端第 %d 步：%v", consumed, err)
+		}
+		step++
+	}
+	if m.CPU.EIP != consumerStop {
+		t.Fatalf("滑鼠回傳未走到 record 消費端：EIP=%X", m.CPU.EIP)
+	}
+	for offset, want := range map[uint32]uint32{0: 3, 4: 0, 8: 320, 12: 100} {
+		got, err := m.Read32(m.CPU.R[cpu386.EDI] + offset)
+		if err != nil || got != want {
+			t.Fatalf("滑鼠 record +%X=%X want=%X err=%v", offset, got, want, err)
+		}
+	}
+	stackValue, err := m.Read32(m.CPU.R[cpu386.ESP])
+	if err != nil {
+		t.Fatal(err)
+	}
+	beforeR, beforeSeg, beforeFlags = m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("滑鼠 record 尾端 POP 失敗：%v", err)
+	}
+	step++
+	stored, err := m.Read32(beforeR[cpu386.EDI] + 0x14)
+	wantR = beforeR
+	wantR[cpu386.ESP] += 4
+	if err != nil || stored != stackValue || m.CPU.EIP != consumerStop+3 || m.CPU.R != wantR ||
+		m.CPU.Seg != beforeSeg || m.CPU.EFlags != beforeFlags {
+		t.Fatalf("滑鼠 record POP：stored=%X source=%X EIP=%X ESP=%X flags=%X err=%v",
+			stored, stackValue, m.CPU.EIP, m.CPU.R[cpu386.ESP], m.CPU.EFlags, err)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 INT 33h/AX=3 回傳 BX=0 CX=320 DX=100，record POP 後 EIP=%X", step, m.CPU.EIP)
+	const storeStop = 0x15c1d6 // dosgolem 重定位 LE 線性位址
+	for m.CPU.EIP != storeStop && step < 6500 {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("MOV [EBX],ES 前第 %d 步：%v", step, err)
+		}
+		step++
+	}
+	if step != 5838 || m.CPU.EIP != storeStop || m.CPU.Seg[cpu386.SegDS] != 0x188 || m.CPU.Seg[cpu386.SegES] != 0x188 {
+		t.Fatalf("MOV [EBX],ES 前態：step=%d EIP=%X DS=%X ES=%X", step, m.CPU.EIP, m.CPU.Seg[cpu386.SegDS], m.CPU.Seg[cpu386.SegES])
+	}
+	before, err := m.Read16(m.CPU.R[cpu386.EBX])
+	if err != nil || before != 0x188 {
+		t.Fatalf("MOV [EBX],ES 前目的=%X err=%v", before, err)
+	}
+	beforeR, beforeSeg, beforeFlags = m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("MOV [EBX],ES 單步失敗：%v", err)
+	}
+	after, err := m.Read16(beforeR[cpu386.EBX])
+	if err != nil || after != 0x188 || m.CPU.EIP != storeStop+3 ||
+		m.CPU.R != beforeR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != beforeFlags {
+		t.Fatalf("MOV [EBX],ES 後態：step=%d value=%X EIP=%X flags=%X err=%v", step, after, m.CPU.EIP, m.CPU.EFlags, err)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 MOV [EBX],ES=%X，下一 EIP=%X", step, after, m.CPU.EIP)
+	step++
+	const resetStop = 0x15c31b // dosgolem 重定位 LE 線性位址；同一包裝函式第二次呼叫
+	for m.CPU.EIP != resetStop && step < 6500 {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("滑鼠重設前第 %d 步：%v", step, err)
+		}
+		step++
+	}
+	if step != 6007 || m.CPU.EIP != resetStop || m.CPU.R[cpu386.EAX] != 0x21 ||
+		m.CPU.R[cpu386.EBX] != 0 || m.CPU.R[cpu386.ECX] != 0 || m.CPU.R[cpu386.EDX] != 0 {
+		t.Fatalf("滑鼠重設前態：step=%d EIP=%X R=%X", step, m.CPU.EIP, m.CPU.R)
+	}
+	resetStep := step
+	beforeR, beforeSeg, beforeFlags = m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("滑鼠重設單步失敗：%v", err)
+	}
+	step++
+	wantR = beforeR
+	wantR[cpu386.EAX], wantR[cpu386.EBX] = 0xffff, 3
+	if m.CPU.EIP != resetStop+2 || m.CPU.R != wantR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != beforeFlags {
+		t.Fatalf("滑鼠重設後態：EIP=%X R=%X flags=%X", m.CPU.EIP, m.CPU.R, m.CPU.EFlags)
+	}
+	const resetConsumerStop = 0x15c1c6
+	for consumed := 0; m.CPU.EIP != resetConsumerStop && consumed < 16; consumed++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("滑鼠重設 record 消費端第 %d 步：%v", consumed, err)
+		}
+		step++
+	}
+	if m.CPU.EIP != resetConsumerStop {
+		t.Fatalf("滑鼠重設 record 消費端未抵達：EIP=%X", m.CPU.EIP)
+	}
+	for offset, want := range map[uint32]uint32{0: 0xffff, 4: 3, 8: 0, 12: 0} {
+		got, err := m.Read32(m.CPU.R[cpu386.EDI] + offset)
+		if err != nil || got != want {
+			t.Fatalf("滑鼠重設 record +%X=%X want=%X err=%v", offset, got, want, err)
+		}
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 INT 33h/AX=21h 回 AX=FFFFh、BX=3，record 前四欄已讀回", resetStep)
+	for m.CPU.EIP != resetStop && step < 6600 {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("滑鼠敏感度設定前第 %d 步：%v", step, err)
+		}
+		step++
+	}
+	if step != 6126 || m.CPU.EIP != resetStop || m.CPU.R[cpu386.EAX] != 0x1a ||
+		m.CPU.R[cpu386.EBX] != 0 || m.CPU.R[cpu386.ECX] != 0 || m.CPU.R[cpu386.EDX] != 0 ||
+		services.mouseSensitivityX != 50 || services.mouseSensitivityY != 50 || services.mouseDoubleSpeed != 50 {
+		t.Fatalf("滑鼠敏感度設定前態：step=%d EIP=%X R=%X raw=%d,%d,%d", step, m.CPU.EIP, m.CPU.R,
+			services.mouseSensitivityX, services.mouseSensitivityY, services.mouseDoubleSpeed)
+	}
+	beforeR, beforeSeg, beforeFlags = m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("滑鼠敏感度設定單步失敗：%v", err)
+	}
+	step++
+	if m.CPU.EIP != resetStop+2 || m.CPU.R != beforeR || m.CPU.Seg != beforeSeg || m.CPU.EFlags != beforeFlags ||
+		services.mouseSensitivityX != 0 || services.mouseSensitivityY != 0 || services.mouseDoubleSpeed != 0 {
+		t.Fatalf("滑鼠敏感度設定後態：EIP=%X R=%X flags=%X raw=%d,%d,%d", m.CPU.EIP, m.CPU.R,
+			m.CPU.EFlags, services.mouseSensitivityX, services.mouseSensitivityY, services.mouseDoubleSpeed)
+	}
+	for consumed := 0; m.CPU.EIP != resetConsumerStop && consumed < 16; consumed++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("滑鼠敏感度 record 消費端第 %d 步：%v", consumed, err)
+		}
+		step++
+	}
+	if m.CPU.EIP != resetConsumerStop {
+		t.Fatalf("滑鼠敏感度 record 消費端未抵達：EIP=%X", m.CPU.EIP)
+	}
+	for offset, want := range map[uint32]uint32{0: 0x1a, 4: 0, 8: 0, 12: 0} {
+		got, err := m.Read32(m.CPU.R[cpu386.EDI] + offset)
+		if err != nil || got != want {
+			t.Fatalf("滑鼠敏感度 record +%X=%X want=%X err=%v", offset, got, want, err)
+		}
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 INT 33h/AX=1Ah 保留暫存器，record 前四欄已讀回", step)
+	const videoStop = 0x15c2b2 // dosgolem 重定位 LE 線性位址；模式 03h
+	for m.CPU.EIP != videoStop && step < 6500 {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("視訊模式設定前第 %d 步：%v", step, err)
+		}
+		step++
+	}
+	if step != 6256 || m.CPU.EIP != videoStop || m.CPU.R[cpu386.EAX] != 3 || services.videoModeSet {
+		t.Fatalf("視訊模式設定前態：step=%d EIP=%X EAX=%X set=%v", step, m.CPU.EIP,
+			m.CPU.R[cpu386.EAX], services.videoModeSet)
+	}
+	beforeR, beforeSeg, beforeFlags = m.CPU.R, m.CPU.Seg, m.CPU.EFlags
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("視訊模式設定單步失敗：%v", err)
+	}
+	if m.CPU.EIP != videoStop+2 || m.CPU.R != beforeR || m.CPU.Seg != beforeSeg ||
+		m.CPU.EFlags != beforeFlags || !services.videoModeSet || services.videoMode != 3 {
+		t.Fatalf("視訊模式設定後態：EIP=%X R=%X Seg=%X flags=%X mode=%d set=%v",
+			m.CPU.EIP, m.CPU.R, m.CPU.Seg, m.CPU.EFlags, services.videoMode, services.videoModeSet)
+	}
+	t.Logf("固定 1.31 原檔、合成環境：第 %d 步 INT 10h/AX=0003h 返回 EIP=%X", step, m.CPU.EIP)
+}
+
+func TestMOO2EmptyMOXSETCompareCheckpointWhenProvided(t *testing.T) {
+	path := os.Getenv("DOSGOLEM_MOO2_EXE")
+	if path == "" {
+		t.Skip("DOSGOLEM_MOO2_EXE 未設定")
+	}
+	b, err := os.ReadFile(path)
+	if err != nil {
+		t.Fatal(err)
+	}
+	const sha131 = "4e11be14217b4aafa1839f333bf5eba037f98b0c44e9e4752c96c464c260419f"
+	if got := fmt.Sprintf("%x", sha256.Sum256(b)); got != sha131 {
+		t.Skipf("本測試只適用 1.31 固定原檔，實際 SHA-256=%s", got)
+	}
+	root := t.TempDir()
+	fixture := filepath.Join(root, "MOX.SET")
+	if err := os.WriteFile(fixture, nil, 0o600); err != nil {
+		t.Fatal(err)
+	}
+	stamp := time.Date(1996, 1, 1, 0, 0, 0, 0, time.UTC)
+	if err := os.Chtimes(fixture, stamp, stamp); err != nil {
+		t.Fatal(err)
+	}
+	provider, err := OpenDirectoryReadOnlyFiles(root)
+	if err != nil {
+		t.Fatal(err)
+	}
+	t.Cleanup(func() { provider.Close() })
+	m, err := LoadLEInMZ(b, 0x26654)
+	if err != nil {
+		t.Fatal(err)
+	}
+	services := NewMOO2StartupDOS(provider)
+	services.AttachMachine(m)
+	m.CPU.IntHook = services.Handle
+	const stop = 0x100cf // dosgolem 重定位 LE 線性位址
+	step := 0
+	for ; step < 6800 && m.CPU.EIP != stop && !services.Exited; step++ {
+		if err := m.CPU.Step(); err != nil {
+			t.Fatalf("空 MOX.SET 比較前第 %d 步：%v", step, err)
+		}
+	}
+	value, err := m.Read16(0x191cbe)
+	if err != nil || step != 6504 || m.CPU.EIP != stop || value != 0 ||
+		m.CPU.Seg[cpu386.SegDS] != 0x188 || m.CPU.EFlags != 0x202 || services.Exited {
+		t.Fatalf("空 MOX.SET 比較前態：step=%d EIP=%X source=%X flags=%X exited=%v err=%v",
+			step, m.CPU.EIP, value, m.CPU.EFlags, services.Exited, err)
+	}
+	beforeR, beforeSeg := m.CPU.R, m.CPU.Seg
+	if err := m.CPU.Step(); err != nil {
+		t.Fatalf("空 MOX.SET 比較單步失敗：%v", err)
+	}
+	value, err = m.Read16(0x191cbe)
+	if err != nil || m.CPU.EIP != stop+9 || m.CPU.R != beforeR || m.CPU.Seg != beforeSeg ||
+		m.CPU.EFlags != 0x297 || value != 0 {
+		t.Fatalf("空 MOX.SET 比較後態：EIP=%X R=%X Seg=%X flags=%X source=%X err=%v",
+			m.CPU.EIP, m.CPU.R, m.CPU.Seg, m.CPU.EFlags, value, err)
+	}
+	t.Logf("固定原檔、合成 PSP／環境、明示空 MOX.SET：第 %d 步 CMP word 0,0082h 後 EIP=%X flags=%X",
+		step, m.CPU.EIP, m.CPU.EFlags)
 }
 
 func TestFD2EntryPrefixWhenProvided(t *testing.T) {

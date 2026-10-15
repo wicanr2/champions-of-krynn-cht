@@ -63,6 +63,7 @@ type Snapshot struct {
 	dacPhase     uint8
 	dacReadIndex uint8
 	dacReadPhase uint8
+	dacMask      uint8
 
 	// ⚠ **平面模式的畫面不在 mem 裡。** 漏了這一段，從快照展開的機器
 	// 記憶體與 CPU 全對，畫面卻是還原之前的那一張——而那看起來像
@@ -124,6 +125,7 @@ func (m *Machine) Snapshot() *Snapshot {
 		ports:        map[uint16]uint8{},
 		portsIn:      map[uint16]uint64{},
 		dac:          m.DAC,
+		dacMask:      m.dacMask,
 		dacIndex:     m.dacIndex,
 		dacPhase:     m.dacPhase,
 		dacReadIndex: m.dacReadIndex,
@@ -195,6 +197,7 @@ func (m *Machine) Restore(s *Snapshot) {
 
 	m.DAC, m.dacIndex, m.dacPhase = s.dac, s.dacIndex, s.dacPhase
 	m.dacReadIndex, m.dacReadPhase = s.dacReadIndex, s.dacReadPhase
+	m.dacMask = s.dacMask
 	m.VGA.restore(s.vga)
 	m.planarOn = s.planarOn
 

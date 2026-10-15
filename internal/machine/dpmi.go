@@ -1,6 +1,7 @@
 package machine
 
 import (
+	"encoding/binary"
 	"sort"
 
 	"github.com/wicanr2/dosgolem/internal/cpu"
@@ -53,6 +54,10 @@ type DPMIBlock struct {
 	Size   uint32
 }
 
+type dpmiFreeBlock struct {
+	Base, Size uint32
+}
+
 // DPMILock 是一次 `AX=0600h` 鎖定的線性區間。
 //
 // 鎖定對我們沒有實際作用（沒有分頁），但**要記下來**：程式鎖了才做 DMA
@@ -76,9 +81,11 @@ type DOSBlock struct {
 type DPMIHost struct {
 	m *LEMachine
 
-	nextSel uint16
-	blocks  map[uint32]*DPMIBlock
-	brk     uint32
+	nextSel    uint16
+	blocks     map[uint32]*DPMIBlock
+	brk        uint32
+	free       []dpmiFreeBlock
+	nextHandle uint32
 
 	// DOS 記憶體（`AX=0100h`）的游標與帳本，鍵是 selector。
 	dosBrk    uint32
@@ -90,7 +97,9 @@ type DPMIHost struct {
 	RealModeHistory   []*DPMIRealModeTrace
 	RealModeIO        RealModePortIO
 	RealModeInterrupt func(*cpu.CPU, uint8) bool
-	realStack         uint16
+	// RealModeBIOS 只由明示平台設定使用，在 0300h 封包驗證後處理受限 BIOS 契約。
+	RealModeBIOS func(*DPMIHost, uint8, *[50]byte) (bool, error)
+	realStack    uint16
 
 	realVec [256]uint32 // 實模式向量：段<<16 | 位移
 	protVec [256]uint64 // 保護模式向量：selector<<32 | 位移
@@ -139,10 +148,13 @@ func (h *DPMIHost) Attach(m *LEMachine) {
 	h.setLimits(uint32(len(m.Mem)))
 }
 
-// setLimits 把兩個游標擺到映像之後：DOS 記憶體接著映像長，
+// setLimits 預設把 DOS 游標放在映像後；明示高位 LE 載入則使用低位 DOS arena。
 // 線性記憶體從 1 MB（或映像的尾端，取大的）開始。
 func (h *DPMIHost) setLimits(imageEnd uint32) {
 	h.dosBrk = (imageEnd + 15) &^ 15
+	if h.m != nil && h.m.DOSArenaBase != 0 {
+		h.dosBrk = h.m.DOSArenaBase
+	}
 	base := (imageEnd + dpmiHeapAlign - 1) &^ (dpmiHeapAlign - 1)
 	if base < dpmiLinearBase {
 		base = dpmiLinearBase
@@ -414,17 +426,24 @@ func (h *DPMIHost) Handle(c *cpu386.CPU) bool {
 		c.R[cpu386.EDX] = c.R[cpu386.EDX]&0xffff0000 | 0x0870
 		return h.ok(c)
 
+	case 0x0500: // 規格 259：只回報現有配置器能兌現的容量，分頁欄位保持未知。
+		return h.freeMemoryInformation(c)
+
 	case 0x0501: // 配置線性記憶體：BX:CX ＝ 大小 → BX:CX ＝ 線性位址、SI:DI ＝ handle
 		size := uint32(uint16(c.R[cpu386.EBX]))<<16 | uint32(uint16(c.R[cpu386.ECX]))
 		if size == 0 {
 			return h.fail(c, 0x8021)
 		}
+		if h.nextHandle == ^uint32(0) {
+			return h.fail(c, 0x8016)
+		}
 		base, ok := h.alloc(size)
 		if !ok {
 			return h.fail(c, 0x8013) // 實體記憶體不足
 		}
-		b := &DPMIBlock{Handle: base, Base: base, Size: size}
-		h.blocks[base] = b
+		h.nextHandle++
+		b := &DPMIBlock{Handle: h.nextHandle, Base: base, Size: size}
+		h.blocks[b.Handle] = b
 		c.R[cpu386.EBX] = c.R[cpu386.EBX]&0xffff0000 | base>>16
 		c.R[cpu386.ECX] = c.R[cpu386.ECX]&0xffff0000 | base&0xffff
 		c.R[cpu386.ESI] = c.R[cpu386.ESI]&0xffff0000 | b.Handle>>16
@@ -433,12 +452,12 @@ func (h *DPMIHost) Handle(c *cpu386.CPU) bool {
 
 	case 0x0502: // 釋放線性記憶體：SI:DI ＝ handle
 		handle := uint32(uint16(c.R[cpu386.ESI]))<<16 | uint32(uint16(c.R[cpu386.EDI]))
-		if _, ok := h.blocks[handle]; !ok {
+		block, ok := h.blocks[handle]
+		if !ok {
 			return h.fail(c, 0x8023) // 無效的 handle
 		}
-		// **不回收位址空間**：釋放之後再配到同一段，會讓「誰還留著舊指標」
-		// 這個問題查不出來。位址單調遞增是刻意的取捨（診斷 > 空間）。
 		delete(h.blocks, handle)
+		h.releaseLinear(block)
 		return h.ok(c)
 
 	case 0x0600, 0x0601: // 鎖定／解鎖線性區域：BX:CX ＝ 位址、SI:DI ＝ 長度
@@ -483,20 +502,38 @@ func (h *DPMIHost) Handle(c *cpu386.CPU) bool {
 // needsMachine 標出哪些功能要有 backing 的機器才做得到。
 func needsMachine(fn uint16) bool {
 	switch fn {
-	case 0x0000, 0x0001, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x0501, 0x0502,
+	case 0x0000, 0x0001, 0x0006, 0x0007, 0x0008, 0x0009, 0x000A, 0x0500, 0x0501, 0x0502,
 		0x0100, 0x0101, 0x0102, 0x0300:
 		return true
 	}
 	return false
 }
 
-// alloc 從線性配置游標切一塊出來，必要時把機器的記憶體長大。
+// alloc 優先重用已釋放線性區間；找不到才從游標切新區間。
 func (h *DPMIHost) alloc(size uint32) (uint32, bool) {
+	span := (uint64(size) + 15) &^ uint64(15)
+	if span > dpmiAddressLimit {
+		return 0, false
+	}
+	for i, block := range h.free {
+		if uint64(block.Size) < span {
+			continue
+		}
+		base := block.Base
+		if uint64(block.Size) == span {
+			h.free = append(h.free[:i], h.free[i+1:]...)
+		} else {
+			h.free[i].Base += uint32(span)
+			h.free[i].Size -= uint32(span)
+		}
+		clear(h.m.Mem[base : base+uint32(span)])
+		return base, true
+	}
 	base := h.brk
 	if uint64(len(h.m.Mem)) > uint64(base) {
 		base = uint32((uint64(len(h.m.Mem)) + 15) &^ uint64(15))
 	}
-	end := uint64(base) + uint64(size)
+	end := uint64(base) + span
 	if end > uint64(dpmiAddressLimit) {
 		return 0, false
 	}
@@ -506,8 +543,23 @@ func (h *DPMIHost) alloc(size uint32) (uint32, bool) {
 		h.m.Mem = grown
 	}
 	// 下一塊對齊到 16 bytes：程式常常假設配出來的東西至少對齊到 paragraph。
-	h.brk = uint32((end + 15) &^ 15)
+	h.brk = uint32(end)
 	return base, true
+}
+
+func (h *DPMIHost) releaseLinear(block *DPMIBlock) {
+	span := uint32((uint64(block.Size) + 15) &^ uint64(15))
+	h.free = append(h.free, dpmiFreeBlock{Base: block.Base, Size: span})
+	sort.Slice(h.free, func(i, j int) bool { return h.free[i].Base < h.free[j].Base })
+	merged := h.free[:0]
+	for _, current := range h.free {
+		if len(merged) > 0 && merged[len(merged)-1].Base+merged[len(merged)-1].Size == current.Base {
+			merged[len(merged)-1].Size += current.Size
+		} else {
+			merged = append(merged, current)
+		}
+	}
+	h.free = merged
 }
 
 // dpmiAddressLimit 是我們願意長到多大（64 MB）。
@@ -515,6 +567,37 @@ func (h *DPMIHost) alloc(size uint32) (uint32, bool) {
 // **要有上限**：程式配置失敗時會走「記憶體不足」那條路（少載素材、降音質），
 // 那是我們要能觀測的行為；沒有上限的話一個算錯大小的配置會直接把主機吃光。
 const dpmiAddressLimit = 64 << 20
+
+func (h *DPMIHost) freeMemoryInformation(c *cpu386.CPU) bool {
+	d, ok := c.Descriptors[c.Seg[cpu386.SegES]]
+	offset := uint64(c.R[cpu386.EDI])
+	start := uint64(d.Base) + offset
+	// 先驗整份 buffer 及 backing，拒絕時不能留下前半份輸出。
+	if !ok || !d.Writable || c.Bus != h.m || offset+48 > uint64(d.Limit)+1 ||
+		start+48 > uint64(^uint32(0))+1 || start+48 > uint64(len(h.m.Mem)) {
+		return false
+	}
+	base := (uint64(len(h.m.Mem)) + 15) &^ uint64(15)
+	if uint64(h.brk) > base {
+		base = uint64(h.brk)
+	}
+	var largest uint32
+	if base < dpmiAddressLimit {
+		largest = uint32(dpmiAddressLimit - base)
+	}
+	for _, block := range h.free {
+		if block.Size > largest {
+			largest = block.Size
+		}
+	}
+	var info [48]byte
+	for i := range info {
+		info[i] = 0xff
+	}
+	binary.LittleEndian.PutUint32(info[:4], largest)
+	copy(h.m.Mem[start:start+48], info[:])
+	return h.ok(c)
+}
 
 func (h *DPMIHost) ok(c *cpu386.CPU) bool {
 	c.EFlags &^= cpu386.CF

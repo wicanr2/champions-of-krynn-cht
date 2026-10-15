@@ -31,6 +31,288 @@ func TestStepHookHandledUnhandledAndError(t *testing.T) {
 	}
 }
 
+func TestADDALImmediateOriginalShapeAndFlags(t *testing.T) {
+	for _, tc := range []struct {
+		name      string
+		left, imm uint8
+		high      uint32
+		flags     uint32
+		wantAL    uint8
+		wantFlags uint32
+	}{
+		{"original DOSBox-X sample", 0x50, 0x20, 0x003e4100, 0x297, 0x70, 0x202},
+		{"dosgolem stop", 0x44, 0x20, 0x002b4400, 0x293, 0x64, 0x202},
+		{"carry", 0xf0, 0x20, 0xabcd1200, IF | OF | SF, 0x10, IF | CF},
+		{"signed overflow", 0x7f, 0x01, 0xabcd1200, IF | CF, 0x80, IF | SF | OF | AF},
+		{"zero and parity", 0xff, 0x01, 0xabcd1200, IF, 0, IF | CF | AF | ZF | PF},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			c := New(testBus{0x04, tc.imm})
+			c.R[EAX], c.R[EBX], c.EFlags = tc.high|uint32(tc.left), 0x88776655, tc.flags
+			beforeSeg := c.Seg
+			if err := c.Step(); err != nil || c.EIP != 2 || c.R[EAX] != tc.high|uint32(tc.wantAL) ||
+				c.R[EBX] != 0x88776655 || c.EFlags != tc.wantFlags || c.Seg != beforeSeg {
+				t.Fatalf("ADD AL,imm8 EIP=%X EAX=%X EBX=%X flags=%X err=%v", c.EIP, c.R[EAX], c.R[EBX], c.EFlags, err)
+			}
+		})
+	}
+	for name, bytes := range map[string][]byte{
+		"truncated":      {0x04},
+		"operand prefix": {0x66, 0x04, 0x20},
+		"segment prefix": {0x2e, 0x04, 0x20},
+		"repeat prefix":  {0xf3, 0x04, 0x20},
+	} {
+		t.Run(name, func(t *testing.T) {
+			c := New(testBus(bytes))
+			c.R[EAX], c.EFlags = 0x12345650, IF|CF
+			if err := c.Step(); err == nil || c.R[EAX] != 0x12345650 || c.EFlags != IF|CF {
+				t.Fatalf("未知或截短 ADD AL,imm8 須拒絕且不寫回：EAX=%X flags=%X err=%v", c.R[EAX], c.EFlags, err)
+			}
+		})
+	}
+}
+
+func TestORRegisterImmediate32OriginalAndBoundaryFlags(t *testing.T) {
+	for _, tc := range []struct {
+		name             string
+		left             uint32
+		imm              byte
+		flags, wantFlags uint32
+		want             uint32
+	}{
+		{"原版與 dosgolem 停點", 0, 0x10, 0x246, 0x202, 0x10},
+		{"高位保留", 0xaabbcc00, 0x10, IF | CF | OF | AF | ZF | PF, IF | SF, 0xaabbcc10},
+		{"負立即數符號擴展", 0x12345678, 0x80, IF | CF | OF | ZF | PF, IF | SF, 0xfffffff8},
+		{"全一與偶同位", 0, 0xff, IF | CF | OF | AF | ZF, IF | SF | PF, 0xffffffff},
+		{"零與偶同位", 0, 0, IF | CF | OF | AF | SF, IF | ZF | PF, 0},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			mem := testBus{0x83, 0xc8, tc.imm}
+			beforeMem := append([]byte(nil), mem...)
+			c := New(mem)
+			c.R[EAX], c.R[EBX], c.EFlags = tc.left, 0x87654321, tc.flags
+			beforeSeg := c.Seg
+			if err := c.Step(); err != nil || c.EIP != 3 || c.R[EAX] != tc.want || c.R[EBX] != 0x87654321 || c.EFlags != tc.wantFlags || c.Seg != beforeSeg || !bytes.Equal(mem, beforeMem) {
+				t.Fatalf("OR EAX=%X flags=%X EIP=%X err=%v", c.R[EAX], c.EFlags, c.EIP, err)
+			}
+		})
+	}
+	for reg := 0; reg < 8; reg++ {
+		c := New(testBus{0x83, 0xc8 | byte(reg), 1})
+		for i := range c.R {
+			c.R[i] = 0x11220000 + uint32(i)*0x100
+		}
+		want := c.R
+		want[reg] |= 1
+		c.EFlags = IF | CF | OF | AF | ZF | PF | SF
+		if err := c.Step(); err != nil || c.R != want || c.EFlags != IF || c.EIP != 3 {
+			t.Fatalf("OR 目的暫存器=%d registers=%X flags=%X err=%v", reg, c.R, c.EFlags, err)
+		}
+	}
+	for _, code := range [][]byte{
+		{0x83, 0xc8}, {0x26, 0x83, 0xc8, 0x10}, {0xf3, 0x83, 0xc8, 0x10}, {0xf2, 0x83, 0xc8, 0x10},
+	} {
+		c := New(testBus(code))
+		c.R[EAX], c.EFlags = 0x12345678, IF|CF
+		before := c.R
+		if err := c.Step(); err == nil || c.R != before || c.EFlags != IF|CF {
+			t.Fatalf("未知或截短 OR % X 被接受：EAX=%X flags=%X err=%v", code, c.R[EAX], c.EFlags, err)
+		}
+	}
+}
+
+func TestXORRegisterImmediate32OriginalAndBoundaryFlags(t *testing.T) {
+	for _, tc := range []struct {
+		name                   string
+		left, imm, want, flags uint32
+	}{
+		{"原版 EFLAGS 與續段 LOG", 0, 0x8000, 0x8000, IF | PF},
+		{"完整立即數高位", 0x12345678, 0xaabbccdd, 0xb88f9aa5, IF | SF | PF},
+		{"零結果", 0x87654321, 0x87654321, 0, IF | ZF | PF},
+		{"低 byte 奇同位", 0, 0x80000001, 0x80000001, IF | SF},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			mem := testBus{0x81, 0xf2, 0, 0, 0, 0}
+			binary.LittleEndian.PutUint32(mem[2:], tc.imm)
+			beforeMem := append([]byte(nil), mem...)
+			c := New(mem)
+			c.R[EDX], c.R[EAX], c.EFlags = tc.left, 0x8000, IF|CF|OF|AF|ZF|SF|PF
+			beforeR, beforeSeg := c.R, c.Seg
+			beforeR[EDX] = tc.want
+			if err := c.Step(); err != nil || c.EIP != 6 || c.R != beforeR || c.Seg != beforeSeg || c.EFlags != tc.flags || !bytes.Equal(mem, beforeMem) {
+				t.Fatalf("XOR EDX=%X flags=%X EIP=%X err=%v", c.R[EDX], c.EFlags, c.EIP, err)
+			}
+		})
+	}
+	for reg := 0; reg < 8; reg++ {
+		c := New(testBus{0x81, 0xf0 | byte(reg), 1, 0, 0, 0})
+		for i := range c.R {
+			c.R[i] = 0x11220000 + uint32(i)*0x100
+		}
+		want := c.R
+		want[reg] ^= 1
+		c.EFlags = IF | CF | OF | AF | ZF | SF | PF
+		if err := c.Step(); err != nil || c.R != want || c.EFlags != IF || c.EIP != 6 {
+			t.Fatalf("XOR 目的暫存器=%d R=%X flags=%X err=%v", reg, c.R, c.EFlags, err)
+		}
+	}
+	codes := [][]byte{
+		{0x66, 0x81, 0xf2, 0, 0x80}, {0x26, 0x81, 0xf2, 0, 0x80, 0, 0},
+		{0xf3, 0x81, 0xf2, 0, 0x80, 0, 0}, {0xf2, 0x81, 0xf2, 0, 0x80, 0, 0},
+		{0x81, 0x32, 0, 0x80, 0, 0},
+	}
+	for n := 1; n < 6; n++ {
+		codes = append(codes, []byte{0x81, 0xf2, 0, 0x80, 0, 0}[:n])
+	}
+	for _, code := range codes {
+		c := New(testBus(code))
+		c.R[EDX], c.EFlags = 0x12345678, IF|CF
+		before := c.R
+		if err := c.Step(); err == nil || c.R != before || c.EFlags != IF|CF {
+			t.Fatalf("未知或截短 XOR % X 被接受：EDX=%X flags=%X err=%v", code, c.R[EDX], c.EFlags, err)
+		}
+	}
+}
+
+func TestCMPByteMemoryDestinationNoWriteback(t *testing.T) {
+	mem := testBus(make([]byte, 0x80))
+	copy(mem, []byte{0x38, 0x10}) // CMP [EAX],DL
+	c := New(mem)
+	c.Seg[SegDS] = 0x188
+	c.SetDescriptor(0x188, Descriptor{Limit: 0x7f})
+	c.R[EAX], c.R[EDX], c.EFlags = 0x30, 0, IF|CF|AF|OF
+	if err := c.Step(); err != nil || c.EIP != 2 || c.R[EAX] != 0x30 || c.R[EDX] != 0 ||
+		c.EFlags != IF|ZF|PF || mem[0x30] != 0 {
+		t.Fatalf("原版零差形狀 EIP=%X EAX=%X EDX=%X flags=%X byte=%X err=%v", c.EIP, c.R[EAX], c.R[EDX], c.EFlags, mem[0x30], err)
+	}
+	mem[0x30] = 0x80
+	c.EIP, c.R[EDX], c.EFlags = 0, 1, IF
+	if err := c.Step(); err != nil || c.EFlags != IF|OF|AF || mem[0x30] != 0x80 || c.R[EDX] != 1 {
+		t.Fatalf("記憶體減暫存器方向 flags=%X byte=%X EDX=%X err=%v", c.EFlags, mem[0x30], c.R[EDX], err)
+	}
+}
+
+func TestCMPWordMemoryImmediateUsesSegmentAndPreservesInput(t *testing.T) {
+	mem := testBus(make([]byte, 0x80))
+	copy(mem, []byte{0x66, 0x81, 0x3d, 0x10, 0, 0, 0, 0x82, 0}) // CMP word DS:[10h],0082h
+	c := New(mem)
+	c.Seg[SegDS] = 0x188
+	c.SetDescriptor(0x188, Descriptor{Base: 0x20, Limit: 0x3f})
+	c.R[EAX], c.EFlags = 0x12345678, 0x202
+	beforeR, beforeSeg := c.R, c.Seg
+	if err := c.Step(); err != nil || c.EIP != 9 || c.EFlags != 0x297 ||
+		c.R != beforeR || c.Seg != beforeSeg || mem[0x30] != 0 || mem[0x31] != 0 {
+		t.Fatalf("原版零值比較：EIP=%X flags=%X R=%X source=% X err=%v",
+			c.EIP, c.EFlags, c.R, mem[0x30:0x32], err)
+	}
+	mem[0x30] = 0x82
+	c.EIP, c.EFlags = 0, 0x202
+	if err := c.Step(); err != nil || c.EFlags != 0x246 || mem[0x30] != 0x82 {
+		t.Fatalf("相等比較：flags=%X source=%X err=%v", c.EFlags, mem[0x30], err)
+	}
+	mem[0x31] = 1
+	c.EIP, c.EFlags = 0, 0x202
+	if err := c.Step(); err != nil || c.EFlags&CF != 0 || c.EFlags&ZF != 0 ||
+		mem[0x30] != 0x82 || mem[0x31] != 1 {
+		t.Fatalf("大於立即數的比較：flags=%X source=% X err=%v", c.EFlags, mem[0x30:0x32], err)
+	}
+	copy(mem, []byte{0x66, 0x81, 0x7d, 0x00, 0x82, 0x00}) // CMP word SS:[EBP],0082h
+	mem[0x50], mem[0x51] = 0x82, 0
+	c = New(mem)
+	c.Seg[SegDS], c.Seg[SegSS] = 0x188, 0x190
+	c.SetDescriptor(0x188, Descriptor{Base: 0x20, Limit: 0x3f})
+	c.SetDescriptor(0x190, Descriptor{Base: 0x40, Limit: 0x3f})
+	c.R[EBP], c.EFlags = 0x10, 0x202
+	if err := c.Step(); err != nil || c.EFlags != 0x246 || c.EIP != 6 {
+		t.Fatalf("EBP 應讀 SS：flags=%X EIP=%X err=%v", c.EFlags, c.EIP, err)
+	}
+	c.EIP, c.R[EBP], c.EFlags = 0, 0x3f, 0x203
+	if err := c.Step(); err == nil || c.EFlags != 0x203 {
+		t.Fatalf("word 來源越界須保留旗標：flags=%X err=%v", c.EFlags, err)
+	}
+	truncated := New(testBus{0x66, 0x81, 0x3d, 0x10, 0, 0, 0, 0x82})
+	truncated.EFlags = 0x203
+	if err := truncated.Step(); err == nil || truncated.EFlags != 0x203 {
+		t.Fatalf("截短立即數須拒絕：flags=%X err=%v", truncated.EFlags, err)
+	}
+}
+
+func TestTESTWordMemoryImmediateUsesSegmentAndPreservesInput(t *testing.T) {
+	mem := testBus(make([]byte, 0x80))
+	copy(mem, []byte{0x66, 0xf7, 0x05, 0x10, 0, 0, 0, 0xf0, 0xff}) // TEST word DS:[10h],FFF0h
+	mem[0x30], mem[0x31] = 0xff, 0xff
+	c := New(mem)
+	c.Seg[SegDS] = 0x188
+	c.SetDescriptor(0x188, Descriptor{Base: 0x20, Limit: 0x3f})
+	c.R[EAX], c.EFlags = 0x12345678, IF|CF|OF|AF
+	beforeR, beforeSeg := c.R, c.Seg
+	if err := c.Step(); err != nil || c.EIP != 9 || c.EFlags != IF|SF|PF ||
+		c.R != beforeR || c.Seg != beforeSeg || mem[0x30] != 0xff || mem[0x31] != 0xff {
+		t.Fatalf("非零記憶體：EIP=%X flags=%X R=%X source=% X err=%v", c.EIP, c.EFlags, c.R, mem[0x30:0x32], err)
+	}
+	mem[0x30], mem[0x31] = 0x0f, 0
+	c.EIP, c.EFlags = 0, IF|CF
+	if err := c.Step(); err != nil || c.EFlags != IF|ZF|PF || mem[0x30] != 0x0f {
+		t.Fatalf("遮罩為零：flags=%X source=% X err=%v", c.EFlags, mem[0x30:0x32], err)
+	}
+	copy(mem, []byte{0x66, 0xf7, 0x45, 0x00, 0xf0, 0xff}) // TEST word SS:[EBP],FFF0h
+	mem[0x50], mem[0x51] = 0xff, 0xff
+	c = New(mem)
+	c.Seg[SegDS], c.Seg[SegSS] = 0x188, 0x190
+	c.SetDescriptor(0x188, Descriptor{Base: 0x20, Limit: 0x3f})
+	c.SetDescriptor(0x190, Descriptor{Base: 0x40, Limit: 0x3f})
+	c.R[EBP], c.EFlags = 0x10, IF
+	if err := c.Step(); err != nil || c.EFlags != IF|SF|PF || c.EIP != 6 {
+		t.Fatalf("EBP 應讀 SS：flags=%X EIP=%X err=%v", c.EFlags, c.EIP, err)
+	}
+	c.EIP, c.R[EBP], c.EFlags = 0, 0x3f, IF|CF
+	if err := c.Step(); err == nil || c.EFlags != IF|CF {
+		t.Fatalf("word 來源越界須保留旗標：flags=%X err=%v", c.EFlags, err)
+	}
+	truncated := New(testBus{0x66, 0xf7, 0x05, 0x10, 0, 0, 0, 0xf0})
+	truncated.EFlags = IF | CF
+	if err := truncated.Step(); err == nil || truncated.EFlags != IF|CF {
+		t.Fatalf("截短立即數須拒絕：flags=%X err=%v", truncated.EFlags, err)
+	}
+}
+
+func TestCMPByteMemoryDestinationSegmentAndFailure(t *testing.T) {
+	mem := testBus(make([]byte, 0x80))
+	copy(mem, []byte{0x38, 0x55, 0x00}) // CMP [EBP],DL
+	mem[0x30], mem[0x50] = 9, 1
+	c := New(mem)
+	c.Seg[SegDS], c.Seg[SegSS] = 0x160, 0x188
+	c.SetDescriptor(0x160, Descriptor{Base: 0x20, Limit: 0x1f})
+	c.SetDescriptor(0x188, Descriptor{Base: 0x40, Limit: 0x1f})
+	c.R[EBP], c.R[EDX], c.EFlags = 0x10, 1, IF|CF
+	if err := c.Step(); err != nil || c.EFlags != IF|ZF|PF || mem[0x30] != 9 || mem[0x50] != 1 {
+		t.Fatalf("EBP 應讀 SS flags=%X DS=%X SS=%X err=%v", c.EFlags, mem[0x30], mem[0x50], err)
+	}
+	c.EIP, c.R[EBP], c.EFlags = 0, 0x20, IF|CF
+	if err := c.Step(); err == nil || c.EFlags != IF|CF || mem[0x50] != 1 {
+		t.Fatalf("SS 越界未拒絕 flags=%X err=%v", c.EFlags, err)
+	}
+	copy(mem, []byte{0x38, 0x14, 0x24}) // CMP [ESP],DL；SIB 的 ESP 基底也選 SS。
+	c.EIP, c.R[ESP], c.EFlags = 0, 0x10, IF|CF
+	if err := c.Step(); err != nil || c.EFlags != IF|ZF|PF || mem[0x50] != 1 {
+		t.Fatalf("SIB ESP 應讀 SS flags=%X err=%v", c.EFlags, err)
+	}
+	truncated := New(testBus{0x38, 0x55})
+	truncated.EFlags = IF | CF
+	if err := truncated.Step(); err == nil || truncated.EFlags != IF|CF {
+		t.Fatalf("截短 disp8 未拒絕 flags=%X err=%v", truncated.EFlags, err)
+	}
+	truncatedSIB := New(testBus{0x38, 0x14})
+	truncatedSIB.EFlags = IF | CF
+	if err := truncatedSIB.Step(); err == nil || truncatedSIB.EFlags != IF|CF {
+		t.Fatalf("截短 SIB 未拒絕 flags=%X err=%v", truncatedSIB.EFlags, err)
+	}
+	prefixed := New(testBus{0xf3, 0x38, 0x10})
+	if err := prefixed.Step(); err == nil {
+		t.Fatal("repeat prefix 未拒絕")
+	}
+}
+
 func TestRegisterTEST32(t *testing.T) {
 	c := New(testBus{0x85, 0xc0})
 	c.R[EAX] = 0x80000000
@@ -224,9 +506,10 @@ func TestByteTESTRegister(t *testing.T) {
 		})
 	}
 
-	c := New(testBus{0xf6, 0xda})
+	// 規格 289 已支援 /3 byte NEG；/2 byte NOT 仍須拒絕。
+	c := New(testBus{0xf6, 0xd2})
 	if err := c.Step(); err == nil {
-		t.Fatal("unapproved F6 register group was accepted")
+		t.Fatal("未知 F6 暫存器 group 被接受")
 	}
 }
 
@@ -800,10 +1083,39 @@ func TestRegisterRCLAndROR32ByOne(t *testing.T) {
 		})
 	}
 
-	for _, code := range [][]byte{{0xd1, 0x10}, {0xd1, 0xe0}, {0x66, 0xd1, 0xd0}} {
+	for _, code := range [][]byte{{0xd1, 0x10}, {0xd1, 0xd8}, {0x66, 0xd1, 0xd0}} {
 		c := New(testBus(code))
 		if err := c.Step(); err == nil {
 			t.Fatalf("未授權 D1 形狀 % X 被接受", code)
+		}
+	}
+}
+
+func TestRegisterROR32ByImmediateEight(t *testing.T) {
+	for _, test := range []struct {
+		name                          string
+		value, flags, want, wantFlags uint32
+	}{
+		{name: "原版零輸入", value: 0, flags: IF | PF | OF | CF, want: 0, wantFlags: IF | PF | OF},
+		{name: "非零且移出一", value: 0x12345681, flags: IF | ZF | SF | AF | PF | OF, want: 0x81123456, wantFlags: IF | ZF | SF | AF | PF | OF | CF},
+		{name: "非零且移出零", value: 0x1234567e, flags: IF | CF, want: 0x7e123456, wantFlags: IF},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			c := New(testBus{0xc1, 0xca, 0x08})
+			c.R[EDX], c.EFlags = test.value, test.flags
+			if err := c.Step(); err != nil || c.EIP != 3 || c.R[EDX] != test.want || c.EFlags != test.wantFlags {
+				t.Fatalf("ROR EIP=%X EDX=%X flags=%X err=%v", c.EIP, c.R[EDX], c.EFlags, err)
+			}
+		})
+	}
+	for _, code := range [][]byte{
+		{0xc1, 0x0a, 0x08}, {0xc1, 0xca},
+		{0x66, 0xc1, 0xca, 0x08}, {0x26, 0xc1, 0xca, 0x08},
+		{0xf3, 0xc1, 0xca, 0x08},
+	} {
+		c := New(testBus(code))
+		if err := c.Step(); err == nil {
+			t.Fatalf("未授權 C1 ROR 形狀 % X 被接受", code)
 		}
 	}
 }
@@ -950,7 +1262,8 @@ func TestNegStackDisp8Dword(t *testing.T) {
 	}{
 		{name: "read-only", code: []byte{0xf7, 0x5c, 0x24, 4}},
 		{name: "bounds", code: []byte{0xf7, 0x5c, 0x24, 0x1f}, writable: true},
-		{name: "wrong SIB", code: []byte{0xf7, 0x5c, 0x25, 4}, writable: true},
+		// 規格325已支援合法EBP SIB，改驗仍未審查的LOCK前綴。
+		{name: "LOCK prefix", code: []byte{0xf0, 0xf7, 0x5c, 0x24, 4}, writable: true},
 	} {
 		t.Run(test.name, func(t *testing.T) {
 			mem := testBus(make([]byte, 0x40))
@@ -1979,7 +2292,7 @@ func TestMoveRegisterToSegmentNarrowForm(t *testing.T) {
 		t.Fatalf("ES=%04X EIP=%d EFLAGS=%08X", c.Seg[SegES], c.EIP, c.EFlags)
 	}
 
-	for _, code := range [][]byte{{0x8e, 0xcb}, {0x8e, 0x03}} { // CS destination; memory source
+	for _, code := range [][]byte{{0x8e, 0xcb}, {0x8e, 0x04}} { // CS destination; unsupported SIB source
 		c = New(testBus(code))
 		if err := c.Step(); err == nil {
 			t.Fatalf("unsupported 8E form % X was accepted", code)
@@ -2386,6 +2699,39 @@ func TestOrRegister8Immediate8(t *testing.T) {
 	}
 	if err := c.Step(); err != nil || c.R[EAX] != 0x1122b344 || c.EFlags&SF == 0 {
 		t.Fatalf("OR AH EAX=%X flags=%X err=%v", c.R[EAX], c.EFlags, err)
+	}
+}
+
+func TestOrRegister8DestinationFromRegister8(t *testing.T) {
+	for _, test := range []struct {
+		name                                 string
+		code                                 []byte
+		eax, ecx, edx                        uint32
+		flags                                uint32
+		wantEAX, wantECX, wantEDX, wantFlags uint32
+	}{
+		{name: "原版 AL 與零 AH", code: []byte{0x08, 0xe0}, eax: 1, flags: 0x202, wantEAX: 1, wantFlags: 0x202},
+		{name: "同一 EAX 的高低位元組", code: []byte{0x08, 0xe0}, eax: 0xaabb8205, flags: IF | CF | OF | AF | ZF, wantEAX: 0xaabb8287, wantFlags: IF | SF | PF},
+		{name: "不同暫存器且 ZF 轉 SF", code: []byte{0x08, 0xd1}, ecx: 0x12340010, edx: 0x87650080, flags: IF | ZF | CF, wantECX: 0x12340090, wantEDX: 0x87650080, wantFlags: IF | SF | PF},
+		{name: "零結果", code: []byte{0x08, 0xe0}, flags: IF | CF | OF | AF | SF, wantFlags: IF | ZF | PF},
+	} {
+		t.Run(test.name, func(t *testing.T) {
+			c := New(testBus(test.code))
+			c.R[EAX], c.R[ECX], c.R[EDX], c.EFlags = test.eax, test.ecx, test.edx, test.flags
+			if err := c.Step(); err != nil || c.EIP != 2 || c.R[EAX] != test.wantEAX ||
+				c.R[ECX] != test.wantECX || c.R[EDX] != test.wantEDX || c.EFlags != test.wantFlags {
+				t.Fatalf("OR EIP=%X EAX=%X ECX=%X EDX=%X flags=%X err=%v", c.EIP, c.R[EAX], c.R[ECX], c.R[EDX], c.EFlags, err)
+			}
+		})
+	}
+	for _, code := range [][]byte{
+		{0x08}, {0x08, 0x20}, {0x66, 0x08, 0xe0},
+		{0x26, 0x08, 0xe0}, {0xf3, 0x08, 0xe0},
+	} {
+		c := New(testBus(code))
+		if err := c.Step(); err == nil {
+			t.Fatalf("未授權 08 形狀 % X 被接受", code)
+		}
 	}
 }
 
@@ -2826,6 +3172,30 @@ func TestXchgRegisterStackDisp8(t *testing.T) {
 	}
 }
 
+func TestXchgRegisterRegister32(t *testing.T) {
+	mem := testBus{0x87, 0xfa, 0x90}
+	c := New(mem)
+	c.R[EDX], c.R[EDI] = 0x12345678, 0xaabbccdd
+	c.EFlags = 0x216
+	if err := c.Step(); err != nil {
+		t.Fatal(err)
+	}
+	if c.R[EDX] != 0xaabbccdd || c.R[EDI] != 0x12345678 || c.EFlags != 0x216 || c.EIP != 2 {
+		t.Fatalf("XCHG EDX=%08X EDI=%08X flags=%X EIP=%X", c.R[EDX], c.R[EDI], c.EFlags, c.EIP)
+	}
+	if !bytes.Equal(mem, testBus{0x87, 0xfa, 0x90}) {
+		t.Fatal("XCHG register改變記憶體")
+	}
+}
+
+func TestXchgWordRegisterFailsClosed(t *testing.T) {
+	c := New(testBus{0x66, 0x87, 0xfa})
+	c.R[EDX], c.R[EDI], c.EFlags = 1, 2, 0x216
+	if err := c.Step(); err == nil || c.R[EDX] != 1 || c.R[EDI] != 2 || c.EFlags != 0x216 {
+		t.Fatalf("未支援的 word XCHG 未拒絕或改變狀態: %v", err)
+	}
+}
+
 func TestReturnImmediate32(t *testing.T) {
 	mem := testBus(make([]byte, 0x40))
 	copy(mem, []byte{0xc2, 0x04, 0x00})
@@ -3132,6 +3502,76 @@ func TestESRelativeByteReadWithSignedDisp8(t *testing.T) {
 	}
 }
 
+func TestESByteReadUsesOverrideForAddress32Memory(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		code     []byte
+		setBase  func(*CPU)
+		wantAddr uint32
+		wantReg  uint32
+		reg      int
+	}{
+		{"原版形狀 ES:ESI 到 BL", []byte{0x26, 0x8a, 0x1e}, func(c *CPU) { c.R[ESI] = 0x10 }, 0x50, 0xffffff30, EBX},
+		{"EBP 預設 SS 被 ES 覆寫", []byte{0x26, 0x8a, 0x5d, 0x00}, func(c *CPU) { c.R[EBP] = 0x10 }, 0x50, 0xffffff30, EBX},
+		{"SIB ESP 預設 SS 被 ES 覆寫", []byte{0x26, 0x8a, 0x1c, 0x24}, func(c *CPU) { c.R[ESP] = 0x10 }, 0x50, 0xffffff30, EBX},
+		{"高位 byte 暫存器 AH", []byte{0x26, 0x8a, 0x26}, func(c *CPU) { c.R[ESI] = 0x10 }, 0x50, 0x12343078, EAX},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			mem := testBus(make([]byte, 0x80))
+			copy(mem, tc.code)
+			mem[0x10], mem[0x30], mem[0x50] = 0x99, 0x77, 0x30
+			c := New(mem)
+			c.Seg[SegDS], c.Seg[SegSS], c.Seg[SegES] = 0x160, 0x168, 0x170
+			c.SetDescriptor(0x160, Descriptor{Base: 0x20, Limit: 0x1f})
+			c.SetDescriptor(0x168, Descriptor{Base: 0x00, Limit: 0x1f})
+			c.SetDescriptor(0x170, Descriptor{Base: 0x40, Limit: 0x1f})
+			c.R[EBX], c.R[EAX], c.EFlags = 0xffffff0f, 0x12345678, 0x246
+			tc.setBase(c)
+			if err := c.Step(); err != nil {
+				t.Fatal(err)
+			}
+			if c.R[tc.reg] != tc.wantReg || c.EIP != uint32(len(tc.code)) || c.EFlags != 0x246 || mem[tc.wantAddr] != 0x30 {
+				t.Fatalf("reg=%08X EIP=%X flags=%X source=%02X", c.R[tc.reg], c.EIP, c.EFlags, mem[tc.wantAddr])
+			}
+			if mem[0x10] != 0x99 || mem[0x30] != 0x77 {
+				t.Fatalf("非 ES 來源遭改動：SS=%02X DS=%02X", mem[0x10], mem[0x30])
+			}
+		})
+	}
+}
+
+func TestESByteReadRejectsInvalidInputsWithoutChangingData(t *testing.T) {
+	for _, tc := range []struct {
+		name     string
+		code     []byte
+		esLimit  uint32
+		register bool
+	}{
+		{"無效 ES selector", []byte{0x26, 0x8a, 0x1e}, 0x1f, false},
+		{"ES 段越界", []byte{0x26, 0x8a, 0x1e}, 0x0f, true},
+		{"ModRM 截短", []byte{0x26, 0x8a}, 0x1f, true},
+		{"SIB 截短", []byte{0x26, 0x8a, 0x1c}, 0x1f, true},
+		{"位移截短", []byte{0x26, 0x8a, 0x5d}, 0x1f, true},
+		{"重複前綴", []byte{0xf3, 0x26, 0x8a, 0x1e}, 0x1f, true},
+		{"重複段覆寫", []byte{0x26, 0x26, 0x8a, 0x1e}, 0x1f, true},
+		{"不支援的 operand-size 前綴", []byte{0x66, 0x26, 0x8a, 0x1e}, 0x1f, true},
+		{"暫存器來源帶段覆寫", []byte{0x26, 0x8a, 0xdb}, 0x1f, true},
+	} {
+		t.Run(tc.name, func(t *testing.T) {
+			mem := testBus(append([]byte(nil), tc.code...))
+			c := New(mem)
+			c.R[ESI], c.R[EBP], c.R[EBX], c.EFlags = 0x10, 0x10, 0xffffff0f, 0x246
+			c.Seg[SegES] = 0x170
+			if tc.register {
+				c.SetDescriptor(0x170, Descriptor{Limit: tc.esLimit})
+			}
+			if err := c.Step(); err == nil || c.R[EBX] != 0xffffff0f || c.EFlags != 0x246 {
+				t.Fatalf("失敗應保留資料與旗標：EBX=%08X flags=%X err=%v", c.R[EBX], c.EFlags, err)
+			}
+		})
+	}
+}
+
 func TestDSBaseByteRead(t *testing.T) {
 	mem := testBus(make([]byte, 0x30))
 	copy(mem, []byte{0x8a, 0x23})
@@ -3250,6 +3690,36 @@ func TestLEARegisterSignedDisp8DoesNotReadMemory(t *testing.T) {
 	}
 	if c.R[ESI] != 0x80 || c.EIP != 3 || c.EFlags != 0x246 {
 		t.Fatalf("ESI=%X EIP=%d flags=%X", c.R[ESI], c.EIP, c.EFlags)
+	}
+}
+
+func TestLEASegmentPrefixOnlyChangesInstructionLength(t *testing.T) {
+	for _, prefix := range []byte{0x2e, 0x3e, 0x26, 0x36} {
+		// 目的位址遠超過 testBus；LEA 若讀取記憶體或段描述子便會失敗。
+		code := testBus{prefix, 0x8d, 0x86, 0x82, 0xc2, 0x15, 0x00}
+		c := New(code)
+		c.R[EAX], c.R[ESI], c.R[EBX] = 0x33, 0x99, 0x12345678
+		c.Seg[SegCS], c.Seg[SegDS], c.Seg[SegES], c.Seg[SegSS] = 0x180, 0x188, 0xfff8, 0xfff0
+		c.EFlags = 0x16
+		if err := c.Step(); err != nil || c.EIP != uint32(len(code)) || c.R[EAX] != 0x15c31b ||
+			c.R[ESI] != 0x99 || c.R[EBX] != 0x12345678 || c.EFlags != 0x16 {
+			t.Fatalf("LEA 前綴 %02X EIP=%X EAX=%X ESI=%X EBX=%X flags=%X err=%v", prefix, c.EIP, c.R[EAX], c.R[ESI], c.R[EBX], c.EFlags, err)
+		}
+	}
+	c := New(testBus{0x2e, 0x8d, 0x46, 0xff}) // LEA EAX,[ESI-1]
+	c.R[ESI], c.EFlags = 0, 0x246
+	if err := c.Step(); err != nil || c.R[EAX] != 0xffffffff || c.EFlags != 0x246 {
+		t.Fatalf("負位移／溢位 LEA EAX=%X flags=%X err=%v", c.R[EAX], c.EFlags, err)
+	}
+	for _, code := range [][]byte{
+		{0x2e, 0x8d, 0xc0}, {0x66, 0x2e, 0x8d, 0x46, 0xff},
+		{0x2e, 0x3e, 0x8d, 0x46, 0xff}, {0xf3, 0x2e, 0x8d, 0x46, 0xff},
+		{0x2e, 0x8d, 0x86, 0x82},
+	} {
+		c := New(testBus(code))
+		if err := c.Step(); err == nil {
+			t.Fatalf("未授權 LEA 形狀 % X 被接受", code)
+		}
 	}
 }
 

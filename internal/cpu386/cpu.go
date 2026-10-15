@@ -354,6 +354,23 @@ func (c *CPU) setLogicFlags8(value uint8) {
 	}
 }
 
+func (c *CPU) adc32(left, right uint32) uint32 {
+	// 規格300：原CF與兩個舊操作數一起計算，六算術旗標皆定義。
+	sum := uint64(left) + uint64(right) + uint64(c.EFlags&CF)
+	result := uint32(sum)
+	c.setLogicFlags(result)
+	if sum>>32 != 0 {
+		c.EFlags |= CF
+	}
+	if (left^right^result)&0x10 != 0 {
+		c.EFlags |= AF
+	}
+	if ^(left^right)&(left^result)&0x80000000 != 0 {
+		c.EFlags |= OF
+	}
+	return result
+}
+
 func (c *CPU) add32(left, right uint32) uint32 {
 	result := left + right
 	c.EFlags &^= CF | PF | AF | ZF | SF | OF
@@ -508,14 +525,14 @@ func (c *CPU) Step() error {
 	segmentOverride := -1
 	repe := false
 	repne := false
-	for op == 0x66 || op == 0x26 || op == 0x2e || op == 0x36 || op == 0xf2 || op == 0xf3 {
+	for op == 0x66 || op == 0x26 || op == 0x2e || op == 0x36 || op == 0x3e || op == 0xf2 || op == 0xf3 {
 		switch op {
 		case 0x66:
 			if operand16 {
 				return &Error{start, op, "重複 operand-size prefix"}
 			}
 			operand16 = true
-		case 0x26, 0x2e, 0x36:
+		case 0x26, 0x2e, 0x36, 0x3e:
 			if segmentOverride >= 0 {
 				return &Error{start, op, "重複 segment prefix"}
 			}
@@ -525,6 +542,9 @@ func (c *CPU) Step() error {
 			}
 			if op == 0x36 {
 				segmentOverride = SegSS
+			}
+			if op == 0x3e {
+				segmentOverride = SegDS
 			}
 		case 0xf3:
 			if repe || repne {
@@ -543,20 +563,20 @@ func (c *CPU) Step() error {
 		}
 	}
 	fail := func(reason string) error { return &Error{start, op, reason} }
-	if repe && op != 0xaa && op != 0xab && op != 0xae && op != 0xa5 && op != 0xa4 {
-		return fail("REP／REPE prefix 只支援 STOSB／STOSD／SCASB／MOVSD／MOVSB")
+	if repe && op != 0xaa && op != 0xab && op != 0xae && op != 0xaf && op != 0xa5 && op != 0xa4 {
+		return fail("REP／REPE prefix 只支援 STOSB／STOSD／SCASB／SCASD／MOVSD／MOVSB")
 	}
-	if repne && op != 0xae && op != 0xa4 && op != 0xa5 {
-		return fail("F2 prefix 只支援 SCASB／MOVSB／MOVSD")
+	if repne && op != 0xae && op != 0xa4 && op != 0xa5 && !(op == 0xaf && operand16 && segmentOverride < 0) {
+		return fail("F2 prefix 只支援 SCASB／16位SCASW／MOVSB／MOVSD")
 	}
-	if segmentOverride == SegSS && (op != 0x89 || !operand16 || repe || repne) {
-		return fail("SS override 只支援 16-bit MOV memory store")
+	if segmentOverride == SegSS && op != 0x8d && (op != 0x89 || !operand16 || repe || repne) {
+		return fail("SS override 只支援 16-bit MOV memory store／LEA")
 	}
-	if segmentOverride == SegCS && op != 0xff && op != 0x8a {
-		return fail("CS override 只支援間接 JMP／MOV byte load")
+	if segmentOverride == SegCS && op != 0x83 && op != 0xff && op != 0x8a && op != 0x8d && op != 0x8e {
+		return fail("CS override 只支援記憶體 CMP imm8／間接 JMP／MOV byte load／LEA／絕對 DS／ES word 載入")
 	}
-	if segmentOverride >= 0 && !(segmentOverride == SegSS && op == 0x89) && !(segmentOverride == SegCS && op == 0xff) && !(segmentOverride == SegES && op == 0x0f) && op != 0x80 && op != 0x8a && op != 0x8b && op != 0x8c && op != 0x8e {
-		return fail("segment override 只支援 8A／8B／8C／8E")
+	if segmentOverride >= 0 && !(segmentOverride == SegSS && op == 0x89) && !(segmentOverride == SegCS && (op == 0xff || op == 0x83)) && !(segmentOverride == SegES && op == 0x0f) && !(segmentOverride == SegDS && op >= 0xb8 && op <= 0xbf) && !(segmentOverride == SegES && op == 0x3a) && op != 0x80 && op != 0x8a && op != 0x8b && op != 0x8c && op != 0x8d && op != 0x8e {
+		return fail("segment override 的此指令形狀尚未支援")
 	}
 	switch {
 	case op == 0xf8 || op == 0xf9:
@@ -568,6 +588,11 @@ func (c *CPU) Step() error {
 		} else {
 			c.EFlags |= CF
 		}
+	case op == 0xf5:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("CMC前綴未支援")
+		}
+		c.EFlags ^= CF
 
 	case op == 0x86:
 		if operand16 || segmentOverride >= 0 || repe || repne {
@@ -578,7 +603,22 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		if modrm>>6 != 3 {
-			return fail("XCHG byte僅支援暫存器")
+			// 規格354：有效位址與reg8來源先保存，寫成功才發布交換結果。
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			reg := int((modrm >> 3) & 7)
+			source := c.reg8(reg)
+			value, ok := c.readSegment8(c.Seg[seg], addr)
+			if !ok {
+				return fail("XCHG byte來源越界")
+			}
+			if !c.writeSegment8(c.Seg[seg], addr, source) {
+				return fail("XCHG byte寫入越界")
+			}
+			c.setReg8(reg, value)
+			break
 		}
 		a, b := int((modrm>>3)&7), int(modrm&7)
 		av, bv := c.reg8(a), c.reg8(b)
@@ -637,6 +677,18 @@ func (c *CPU) Step() error {
 		c.R[dst] ^= value
 		c.setLogicFlags(c.R[dst])
 
+	case op == 0x34:
+		// 規格306：裸AL與立即byte XOR，AF清除沿既有工具近似。
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("XOR AL prefix尚未支援")
+		}
+		imm, err := c.fetch8()
+		if err != nil {
+			return fail(err.Error())
+		}
+		value := uint8(c.R[EAX]) ^ imm
+		c.setReg8(0, value)
+		c.setLogicFlags8(value)
 	case op == 0x35:
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("XOR EAX prefix尚未支援")
@@ -657,8 +709,13 @@ func (c *CPU) Step() error {
 			c.R[EAX] = uint32(int32(int16(c.R[EAX])))
 		}
 	case op == 0x99:
-		if operand16 || segmentOverride >= 0 || repe || repne {
+		if segmentOverride >= 0 || repe || repne {
 			return fail("CDQ prefix尚未支援")
+		}
+		if operand16 {
+			// 規格360：只寫DX低word，CWD不改任何旗標。
+			c.R[EDX] = c.R[EDX]&0xffff0000 | uint32(uint16(int16(c.R[EAX])>>15))
+			break
 		}
 		c.R[EDX] = uint32(int32(c.R[EAX]) >> 31)
 	case op == 0xe2:
@@ -684,6 +741,23 @@ func (c *CPU) Step() error {
 		if c.R[ECX] == 0 {
 			c.EIP = uint32(int64(c.EIP) + int64(int8(delta)))
 		}
+	case op == 0xe4:
+		// 規格 283：立即埠編號補零，平台成功才提交 AL；其他 I/O 形狀不變。
+		if operand16 || segmentOverride >= 0 || repe || repne || c.EFlags&(1<<17) != 0 {
+			return fail("IN immediate 前綴或 VM 尚未支援")
+		}
+		port, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if c.PortIn == nil {
+			return fail("IN 未安裝平台輸入")
+		}
+		value, ok := c.PortIn(uint16(port))
+		if !ok {
+			return fail(fmt.Sprintf("IN port %04X 未處理", port))
+		}
+		c.setReg8(EAX, value)
 	case op == 0xec:
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("IN prefix 尚未支援")
@@ -698,16 +772,24 @@ func (c *CPU) Step() error {
 		}
 		c.setReg8(EAX, value)
 	case op == 0xa9:
-		if operand16 || segmentOverride >= 0 || repe || repne {
+		if segmentOverride >= 0 || repe || repne {
 			return fail("TEST EAX prefix 尚未支援")
+		}
+		if operand16 {
+			value, e := c.fetch16()
+			if e != nil {
+				return fail(e.Error())
+			}
+			c.setLogicFlags16(uint16(c.R[EAX]) & value)
+			break
 		}
 		value, e := c.fetch32()
 		if e != nil {
 			return fail(e.Error())
 		}
 		c.setLogicFlags(c.R[EAX] & value)
-	case op == 0x1b:
-		if operand16 || segmentOverride >= 0 || repe || repne {
+	case op == 0x19 || op == 0x1b:
+		if (operand16 && op != 0x19) || segmentOverride >= 0 || repe || repne {
 			return fail("SBB prefix尚未支援")
 		}
 		modrm, e := c.fetch8()
@@ -717,8 +799,30 @@ func (c *CPU) Step() error {
 		if modrm>>6 != 3 {
 			return fail("SBB記憶體形狀尚未支援")
 		}
-		dst := modrm >> 3 & 7
-		left, right := c.R[dst], c.R[modrm&7]
+		// 19 /r 的目的在 r/m、1B /r 的目的在 reg（規格 208）。
+		dst, src := modrm>>3&7, modrm&7
+		if op == 0x19 {
+			dst, src = src, dst
+		}
+		if operand16 {
+			// 66 19 /r 只寫回目的暫存器低 16 位（規格 214）。
+			left, right := uint16(c.R[dst]), uint16(c.R[src])
+			carry := uint16(c.EFlags & CF)
+			result := c.sub16(left, right+carry)
+			c.EFlags &^= CF | AF | OF
+			if uint32(left) < uint32(right)+uint32(carry) {
+				c.EFlags |= CF
+			}
+			if (left^right^result)&0x10 != 0 {
+				c.EFlags |= AF
+			}
+			if ((left^right)&(left^result))&0x8000 != 0 {
+				c.EFlags |= OF
+			}
+			c.R[dst] = c.R[dst]&0xffff0000 | uint32(result)
+			break
+		}
+		left, right := c.R[dst], c.R[src]
 		carry := c.EFlags & CF
 		result := c.sub32(left, right+carry)
 		c.EFlags &^= CF | AF | OF
@@ -837,6 +941,28 @@ func (c *CPU) Step() error {
 		if e != nil {
 			return fail(e.Error())
 		}
+		if operand16 && modrm>>6 == 3 && (modrm>>3)&7 == 5 {
+			// 先取得兩來源，再發布 DX:AX，避免 AX／DX 別名污染。
+			product := int32(int16(uint16(c.R[EAX]))) * int32(int16(uint16(c.R[modrm&7])))
+			c.R[EAX] = c.R[EAX]&0xffff0000 | uint32(uint16(product))
+			c.R[EDX] = c.R[EDX]&0xffff0000 | uint32(uint16(uint32(product)>>16))
+			// 未定義 SF／ZF／AF／PF 沿用 word MUL 的保存近似。
+			c.EFlags &^= CF | OF
+			if product < -32768 || product > 32767 {
+				c.EFlags |= CF | OF
+			}
+			break
+		}
+		if !operand16 && modrm>>6 == 3 && (modrm>>3)&7 == 5 {
+			// 先讀兩來源，將完整有號乘積發布至 EDX:EAX。
+			product := int64(int32(c.R[EAX])) * int64(int32(c.R[modrm&7]))
+			c.R[EAX], c.R[EDX] = uint32(product), uint32(uint64(product)>>32)
+			c.EFlags &^= CF | OF
+			if product < -2147483648 || product > 2147483647 {
+				c.EFlags |= CF | OF
+			}
+			break
+		}
 		if operand16 && modrm>>6 == 3 && (modrm>>3)&7 == 4 {
 			product := uint32(uint16(c.R[EAX])) * uint32(uint16(c.R[modrm&7]))
 			c.R[EAX] = c.R[EAX]&0xffff0000 | product&0xffff
@@ -913,15 +1039,64 @@ func (c *CPU) Step() error {
 			break
 		}
 
+		if operand16 && (modrm>>3)&7 == 3 {
+			// 規格358：word NEG完整memory寫回後才發布六個定義旗標。
+			if modrm>>6 == 3 {
+				reg := modrm & 7
+				value := uint16(c.R[reg])
+				result := c.sub16(0, value)
+				c.R[reg] = c.R[reg]&0xffff0000 | uint32(result)
+				break
+			}
+			seg, addr, err := c.decodeAddress32(modrm)
+			if err != nil {
+				return fail(err.Error())
+			}
+			value, ok := c.readSegment16(c.Seg[seg], addr)
+			if !ok {
+				return fail("NEG word來源無法讀取")
+			}
+			if !c.writeSegment16(c.Seg[seg], addr, uint16(0)-value) {
+				return fail("NEG word目的無法寫入")
+			}
+			c.sub16(0, value)
+			break
+		}
+
 		if operand16 {
-			if modrm>>6 != 3 || (modrm>>3)&7 != 0 {
+			if (modrm>>3)&7 != 0 {
 				return fail("F7 word形狀尚未支援")
+			}
+			seg, addr := SegDS, uint32(0)
+			if modrm>>6 != 3 {
+				var err error
+				seg, addr, err = c.decodeAddress32(modrm)
+				if err != nil {
+					return fail(err.Error())
+				}
 			}
 			imm, e := c.fetch16()
 			if e != nil {
 				return fail(e.Error())
 			}
-			c.setLogicFlags16(uint16(c.R[modrm&7]) & imm)
+			value := uint16(c.R[modrm&7])
+			if modrm>>6 != 3 {
+				var ok bool
+				value, ok = c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("TEST word來源越界")
+				}
+			}
+			c.setLogicFlags16(value & imm)
+			break
+		}
+		if modrm>>6 == 3 && (modrm>>3)&7 == 0 {
+			// 規格 287：只發布 TEST 旗標，完整來源暫存器保持。
+			mask, e := c.fetch32()
+			if e != nil {
+				return fail(e.Error())
+			}
+			c.setLogicFlags(c.R[modrm&7] & mask)
 			break
 		}
 		if modrm>>6 != 3 && (modrm>>3)&7 == 0 {
@@ -941,26 +1116,18 @@ func (c *CPU) Step() error {
 			break
 		}
 
-		if modrm == 0x5c {
-			sib, e := c.fetch8()
+		if modrm>>6 != 3 && (modrm>>3)&7 == 3 {
+			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
 				return fail(e.Error())
 			}
-			if sib != 0x24 {
-				return fail(fmt.Sprintf("stack NEG SIB %02X 尚未支援", sib))
-			}
-			delta, e := c.fetch8()
-			if e != nil {
-				return fail(e.Error())
-			}
-			addr := uint32(int64(c.R[ESP]) + int64(int8(delta)))
-			value, ok := c.readSegment32(c.Seg[SegSS], addr)
+			value, ok := c.readSegment32(c.Seg[seg], addr)
 			if !ok {
-				return fail(fmt.Sprintf("stack NEG read %04X:%08X 未處理", c.Seg[SegSS], addr))
+				return fail("NEG dword來源無法讀取")
 			}
-			result := uint32(0) - value
-			if !c.writeSegment32(c.Seg[SegSS], addr, result) {
-				return fail(fmt.Sprintf("stack NEG write %04X:%08X 未處理", c.Seg[SegSS], addr))
+			// 規格325：沿既有逐byte Bus寫回，全部成功後才發布flags。
+			if !c.writeSegment32(c.Seg[seg], addr, uint32(0)-value) {
+				return fail("NEG dword目的無法寫入")
 			}
 			c.sub32(0, value)
 			break
@@ -979,13 +1146,63 @@ func (c *CPU) Step() error {
 			return fail(fmt.Sprintf("F7 ModRM %02X 尚未支援", modrm))
 		}
 
+	case op == 0x00:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("byte ADD目的前綴尚未支援")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		src := c.reg8(int((modrm >> 3) & 7))
+		if modrm>>6 == 3 {
+			dst := int(modrm & 7)
+			c.setReg8(dst, c.add8(c.reg8(dst), src))
+			break
+		}
+		seg, addr, e := c.decodeAddress32(modrm)
+		if e != nil {
+			return fail(e.Error())
+		}
+		value, ok := c.readSegment8(c.Seg[seg], addr)
+		if !ok {
+			return fail("byte ADD目的無法讀取")
+		}
+		// 規格324：單byte寫回成功後才發布六個算術旗標。
+		if !c.writeSegment8(c.Seg[seg], addr, value+src) {
+			return fail("byte ADD目的無法寫入")
+		}
+		c.add8(value, src)
 	case op == 0x01 || op == 0x29:
-		if (operand16 && op != 0x01) || segmentOverride >= 0 || repe || repne {
+		if segmentOverride >= 0 || repe || repne {
 			return fail("ADD/SUB prefix尚未支援")
 		}
 		modrm, err := c.fetch8()
 		if err != nil {
 			return fail(err.Error())
+		}
+		if operand16 && op == 0x29 {
+			// 規格359：完整word寫回成功後才發布SUB旗標。
+			src := uint16(c.R[modrm>>3&7])
+			if modrm>>6 == 3 {
+				dst := modrm & 7
+				result := c.sub16(uint16(c.R[dst]), src)
+				c.R[dst] = c.R[dst]&0xffff0000 | uint32(result)
+				break
+			}
+			seg, addr, err := c.decodeAddress32(modrm)
+			if err != nil {
+				return fail(err.Error())
+			}
+			value, ok := c.readSegment16(c.Seg[seg], addr)
+			if !ok {
+				return fail("word SUB目的無法讀取")
+			}
+			if !c.writeSegment16(c.Seg[seg], addr, value-src) {
+				return fail("word SUB目的無法寫入")
+			}
+			c.sub16(value, src)
+			break
 		}
 		if operand16 {
 			src := uint16(c.R[modrm>>3&7])
@@ -1039,17 +1256,40 @@ func (c *CPU) Step() error {
 		} else {
 			c.sub32(value, src)
 		}
+	case op == 0x13:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("ADC dword暫存器不接受前綴")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if modrm>>6 != 3 {
+			return fail("ADC dword只接受暫存器")
+		}
+		dst, src := (modrm>>3)&7, modrm&7
+		c.R[dst] = c.adc32(c.R[dst], c.R[src])
 	case op == 0x03:
 		if operand16 && segmentOverride < 0 && !repe && !repne {
 			modrm, e := c.fetch8()
 			if e != nil {
 				return fail(e.Error())
 			}
+			dst := (modrm >> 3) & 7
+			value := uint16(c.R[modrm&7])
 			if modrm>>6 != 3 {
-				return fail("word ADD僅支援暫存器")
+				// 規格312：word記憶體來源只讀，完整取得後才發布算術結果。
+				seg, addr, e := c.decodeAddress32(modrm)
+				if e != nil {
+					return fail(e.Error())
+				}
+				var ok bool
+				value, ok = c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("word ADD來源越界")
+				}
 			}
-			dst, src := (modrm>>3)&7, modrm&7
-			result := c.add16(uint16(c.R[dst]), uint16(c.R[src]))
+			result := c.add16(uint16(c.R[dst]), value)
 			c.R[dst] = c.R[dst]&0xffff0000 | uint32(result)
 			break
 		}
@@ -1075,8 +1315,17 @@ func (c *CPU) Step() error {
 		}
 		dst := (modrm >> 3) & 7
 		c.R[dst] = c.add32(c.R[dst], value)
+	case op == 0x04:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("ADD AL,imm8 尚未支援前綴形狀")
+		}
+		imm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		c.R[EAX] = c.R[EAX]&0xffffff00 | uint32(c.add8(uint8(c.R[EAX]), imm))
 	case op == 0x39:
-		if operand16 || segmentOverride >= 0 || repe {
+		if segmentOverride >= 0 || repe {
 			return fail("39 不接受目前的 prefix")
 		}
 		modrm, e := c.fetch8()
@@ -1084,17 +1333,49 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		if modrm>>6 != 3 {
-			return fail(fmt.Sprintf("CMP dword ModRM %02X 尚未支援", modrm))
+			seg, addr, err := c.decodeAddress32(modrm)
+			if err != nil {
+				return fail(err.Error())
+			}
+			if operand16 {
+				value, ok := c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("CMP word 目的讀取失敗")
+				}
+				c.sub16(value, uint16(c.R[(modrm>>3)&7]))
+				break
+			}
+			value, ok := c.readSegment32(c.Seg[seg], addr)
+			if !ok {
+				return fail("CMP dword 目的讀取失敗")
+			}
+			// 39 的目的在記憶體；先完整讀取，再只發布比較旗標。
+			c.sub32(value, c.R[(modrm>>3)&7])
+			break
 		}
 		dst, src := modrm&7, (modrm>>3)&7
-		c.sub32(c.R[dst], c.R[src])
+		if operand16 {
+			c.sub16(uint16(c.R[dst]), uint16(c.R[src]))
+		} else {
+			c.sub32(c.R[dst], c.R[src])
+		}
 	case op == 0x09:
-		if operand16 || segmentOverride >= 0 || repe || repne {
+		if segmentOverride >= 0 || repe || repne {
 			return fail("09 不接受目前的 prefix")
 		}
 		modrm, e := c.fetch8()
 		if e != nil {
 			return fail(e.Error())
+		}
+		if operand16 {
+			if modrm>>6 != 3 {
+				return fail(fmt.Sprintf("OR word ModRM %02X 尚未支援", modrm))
+			}
+			dst, src := modrm&7, (modrm>>3)&7
+			result := uint16(c.R[dst]) | uint16(c.R[src])
+			c.R[dst] = c.R[dst]&0xffff0000 | uint32(result)
+			c.setLogicFlags16(result)
+			break
 		}
 		if modrm>>6 == 3 {
 			dst, src := modrm&7, (modrm>>3)&7
@@ -1102,18 +1383,9 @@ func (c *CPU) Step() error {
 			c.setLogicFlags(c.R[dst])
 			break
 		}
-		if modrm>>6 != 1 || modrm&7 == ESP {
-			return fail(fmt.Sprintf("09 ModRM %02X 尚未支援", modrm))
-		}
-		delta, e := c.fetch8()
+		segment, addr, e := c.decodeAddress32(modrm)
 		if e != nil {
 			return fail(e.Error())
-		}
-		base := modrm & 7
-		addr := uint32(int64(c.R[base]) + int64(int8(delta)))
-		segment := SegDS
-		if base == EBP {
-			segment = SegSS
 		}
 		value, ok := c.readSegment32(c.Seg[segment], addr)
 		if !ok {
@@ -1124,6 +1396,36 @@ func (c *CPU) Step() error {
 			return fail(fmt.Sprintf("OR dword write %04X:%08X 未處理", c.Seg[segment], addr))
 		}
 		c.setLogicFlags(result)
+	case op == 0x20:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("byte AND目的前綴尚未支援")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		src := c.reg8(int((modrm >> 3) & 7))
+		if modrm>>6 == 3 {
+			dst := int(modrm & 7)
+			result := c.reg8(dst) & src
+			c.setReg8(dst, result)
+			c.setLogicFlags8(result)
+			break
+		}
+		seg, addr, e := c.decodeAddress32(modrm)
+		if e != nil {
+			return fail(e.Error())
+		}
+		value, ok := c.readSegment8(c.Seg[seg], addr)
+		if !ok {
+			return fail("byte AND目的無法讀取")
+		}
+		result := value & src
+		// 規格369：單byte成功寫回後發布旗標，AF清0僅沿工具模型。
+		if !c.writeSegment8(c.Seg[seg], addr, result) {
+			return fail("byte AND目的無法寫入")
+		}
+		c.setLogicFlags8(result)
 	case op == 0x22 || op == 0x02:
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("byte暫存器運算prefix尚未支援")
@@ -1133,7 +1435,22 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		if modrm>>6 != 3 {
-			return fail("byte運算記憶體形式尚未支援")
+			if op != 0x02 {
+				return fail("byte運算記憶體形式尚未支援")
+			}
+			dst := int((modrm >> 3) & 7)
+			left := c.reg8(dst)
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			right, ok := c.readSegment8(c.Seg[seg], addr)
+			if !ok {
+				return fail("byte ADD來源無法讀取")
+			}
+			// 規格355：來源只讀，讀取成功後才發布byte結果與六旗標。
+			c.setReg8(dst, c.add8(left, right))
+			break
 		}
 		dst, src := int((modrm>>3)&7), int(modrm&7)
 		a, b := c.reg8(dst), c.reg8(src)
@@ -1144,6 +1461,35 @@ func (c *CPU) Step() error {
 			c.setReg8(dst, v)
 			c.setLogicFlags8(v)
 		}
+	case op == 0x08:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("08 不接受目前的 prefix")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if modrm>>6 != 3 {
+			// 規格 291：byte 目的寫回成功後才發布邏輯旗標。
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			value, ok := c.readSegment8(c.Seg[seg], addr)
+			if !ok {
+				return fail("OR byte 目的無法讀取")
+			}
+			result := value | c.reg8(int((modrm>>3)&7))
+			if !c.writeSegment8(c.Seg[seg], addr, result) {
+				return fail("OR byte 目的無法寫入")
+			}
+			c.setLogicFlags8(result)
+			break
+		}
+		dst, src := int(modrm&7), int((modrm>>3)&7)
+		result := c.reg8(dst) | c.reg8(src)
+		c.setReg8(dst, result)
+		c.setLogicFlags8(result)
 	case op == 0x0a:
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("0A 不接受目前的 prefix")
@@ -1180,8 +1526,22 @@ func (c *CPU) Step() error {
 		result := c.reg8(destination) | value
 		c.setReg8(destination, result)
 		c.setLogicFlags8(result)
+	case op == 0x21:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("AND r/m32,r32 前綴尚未支援")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if modrm>>6 != 3 {
+			return fail("AND r/m32,r32 記憶體形式尚未支援")
+		}
+		dst, src := modrm&7, (modrm>>3)&7
+		c.R[dst] &= c.R[src]
+		c.setLogicFlags(c.R[dst])
 	case op == 0x85:
-		if operand16 || segmentOverride >= 0 || repe {
+		if segmentOverride >= 0 || repe || (operand16 && repne) {
 			return fail("85 不接受目前的 prefix")
 		}
 		modrm, e := c.fetch8()
@@ -1189,10 +1549,27 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		if modrm>>6 != 3 {
-			return fail(fmt.Sprintf("TEST dword ModRM %02X 尚未支援", modrm))
+			if operand16 || repne {
+				return fail("TEST memory 只支援無前綴dword")
+			}
+			// 342：唯讀比較，完整來源成功才發布旗標；AF沿工具模型。
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			value, ok := c.readSegment32(c.Seg[seg], addr)
+			if !ok {
+				return fail(fmt.Sprintf("TEST dword read %04X:%08X 未處理", c.Seg[seg], addr))
+			}
+			c.setLogicFlags(value & c.R[(modrm>>3)&7])
+			break
 		}
 		left, right := modrm&7, (modrm>>3)&7
-		c.setLogicFlags(c.R[left] & c.R[right])
+		if operand16 {
+			c.setLogicFlags16(uint16(c.R[left]) & uint16(c.R[right]))
+		} else {
+			c.setLogicFlags(c.R[left] & c.R[right])
+		}
 	case op == 0x84:
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("84 不接受目前的 prefix")
@@ -1207,7 +1584,7 @@ func (c *CPU) Step() error {
 		left, right := int(modrm&7), int((modrm>>3)&7)
 		c.setLogicFlags8(c.reg8(left) & c.reg8(right))
 	case op == 0x31:
-		if operand16 || segmentOverride >= 0 || repe {
+		if segmentOverride >= 0 || repe {
 			return fail("31 不接受目前的 prefix")
 		}
 		modrm, e := c.fetch8()
@@ -1215,11 +1592,17 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		if modrm>>6 != 3 {
-			return fail(fmt.Sprintf("XOR dword ModRM %02X 尚未支援", modrm))
+			return fail(fmt.Sprintf("XOR 暫存器 ModRM %02X 尚未支援", modrm))
 		}
 		dst, src := modrm&7, (modrm>>3)&7
-		c.R[dst] ^= c.R[src]
-		c.setLogicFlags(c.R[dst])
+		if operand16 {
+			result := uint16(c.R[dst]) ^ uint16(c.R[src])
+			c.R[dst] = c.R[dst]&0xffff0000 | uint32(result)
+			c.setLogicFlags16(result)
+		} else {
+			c.R[dst] ^= c.R[src]
+			c.setLogicFlags(c.R[dst])
+		}
 	case op == 0x30:
 		if operand16 || segmentOverride >= 0 || repe {
 			return fail("30 不接受目前的 prefix")
@@ -1512,6 +1895,31 @@ func (c *CPU) Step() error {
 			c.setReg8(reg, c.add8(c.reg8(reg), 1))
 		}
 		c.EFlags = c.EFlags&^CF | carry
+	case op == 0x8f:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("8F POP 只支援無前綴 32 位來源")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if modrm != 0x47 {
+			return fail(fmt.Sprintf("8F ModRM %02X 尚未支援", modrm))
+		}
+		disp, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		stack := c.R[ESP]
+		value, ok := c.readSegment32(c.Seg[SegSS], stack)
+		if !ok || stack > ^uint32(0)-4 {
+			return fail(fmt.Sprintf("POP stack read %04X:%08X 未處理", c.Seg[SegSS], stack))
+		}
+		dest := c.R[EDI] + uint32(int32(int8(disp)))
+		if !c.writeSegment32(c.Seg[SegDS], dest, value) {
+			return fail(fmt.Sprintf("POP memory write %04X:%08X 未處理", c.Seg[SegDS], dest))
+		}
+		c.R[ESP] = stack + 4
 	case op >= 0x58 && op <= 0x5f:
 		if operand16 {
 			value, ok := c.readSegment16(c.Seg[SegSS], c.R[ESP])
@@ -1673,6 +2081,53 @@ func (c *CPU) Step() error {
 			return fail("CLD 不接受目前的 prefix")
 		}
 		c.EFlags &^= DF
+	case op == 0xaf:
+
+		// 規格335：16位AX／ES word比較，32位計數與目的位址。
+		if repne && operand16 && segmentOverride < 0 {
+			initialFlags := c.EFlags
+			for c.R[ECX] != 0 {
+				value, ok := c.readSegment16(c.Seg[SegES], c.R[EDI])
+				if !ok {
+					c.EFlags = initialFlags
+					return fail(fmt.Sprintf("SCASW read %04X:%08X 未處理", c.Seg[SegES], c.R[EDI]))
+				}
+				c.sub16(uint16(c.R[EAX]), value)
+				if c.EFlags&DF != 0 {
+					c.R[EDI] -= 2
+				} else {
+					c.R[EDI] += 2
+				}
+				c.R[ECX]--
+				if c.EFlags&ZF != 0 {
+					break
+				}
+			}
+			break
+		}
+		// 規格 292：只接 F3 AF，初始 ZF 不限制第一次比較。
+		if !repe || repne || operand16 || segmentOverride >= 0 {
+			return fail("SCASD 僅支援32位 F3 AF")
+		}
+		initialFlags := c.EFlags
+		for c.R[ECX] != 0 {
+			value, ok := c.readSegment32(c.Seg[SegES], c.R[EDI])
+			if !ok {
+				// 掃描失敗恢復初始旗標，保留已成功元素的 ECX／EDI。
+				c.EFlags = initialFlags
+				return fail(fmt.Sprintf("SCASD read %04X:%08X 未處理", c.Seg[SegES], c.R[EDI]))
+			}
+			c.sub32(c.R[EAX], value)
+			if c.EFlags&DF != 0 {
+				c.R[EDI] -= 4
+			} else {
+				c.R[EDI] += 4
+			}
+			c.R[ECX]--
+			if c.EFlags&ZF == 0 {
+				break
+			}
+		}
 	case op == 0xae:
 		if operand16 || segmentOverride >= 0 {
 			return fail("SCASB 不接受目前的 prefix")
@@ -1781,8 +2236,9 @@ func (c *CPU) Step() error {
 			if e != nil {
 				return fail(e.Error())
 			}
-			if (modrm>>3)&7 != 1 || modrm>>6 == 3 {
-				return fail("word FF僅支援記憶體DEC")
+			group := (modrm >> 3) & 7
+			if (group != 0 && group != 1) || modrm>>6 == 3 {
+				return fail("word FF僅支援記憶體INC/DEC")
 			}
 			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
@@ -1790,13 +2246,21 @@ func (c *CPU) Step() error {
 			}
 			value, ok := c.readSegment16(c.Seg[seg], addr)
 			if !ok {
-				return fail("word DEC來源越界")
+				return fail("word INC/DEC來源越界")
 			}
-			if !c.writeSegment16(c.Seg[seg], addr, value-1) {
-				return fail("word DEC寫入失敗")
+			result := value + 1
+			if group == 1 {
+				result = value - 1
+			}
+			if !c.writeSegment16(c.Seg[seg], addr, result) {
+				return fail("word INC/DEC寫入失敗")
 			}
 			carry := c.EFlags & CF
-			c.sub16(value, 1)
+			if group == 0 {
+				c.add16(value, 1)
+			} else {
+				c.sub16(value, 1)
+			}
 			c.EFlags = c.EFlags&^CF | carry
 			break
 		}
@@ -1805,6 +2269,65 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		group := (modrm >> 3) & 7
+
+		if group == 3 {
+			// 規格308：只接裸FF 1D的同權限平坦遠呼叫；未知gate仍拒絕。
+			if modrm != 0x1d || segmentOverride >= 0 || repe || repne || c.EFlags&(1<<17) != 0 {
+				return fail("間接遠CALL形狀／前綴／模式未支援")
+			}
+			address, err := c.fetch32()
+			if err != nil {
+				return fail(err.Error())
+			}
+			source, ok := c.segmentLinear(c.Seg[SegDS], address, 6, false)
+			if !ok {
+				return fail("間接遠CALL來源越界")
+			}
+			low, err := c.read16(source)
+			if err != nil {
+				return fail(err.Error())
+			}
+			high, err := c.read16(source + 2)
+			if err != nil {
+				return fail(err.Error())
+			}
+			selector, err := c.read16(source + 4)
+			if err != nil {
+				return fail(err.Error())
+			}
+			target := uint32(low) | uint32(high)<<16
+			current, currentOK := c.Descriptors[c.Seg[SegCS]]
+			destination, destinationOK := c.Descriptors[selector]
+			if c.Seg[SegCS]&^uint16(3) == 0 || !currentOK || current.Base != 0 || c.EIP > current.Limit ||
+				selector&^uint16(3) == 0 || !destinationOK || destination.Base != 0 || selector&3 != c.Seg[SegCS]&3 || target > destination.Limit {
+				return fail("間接遠CALL的CS／權限／目的超出受限模型")
+			}
+			if _, err := c.Bus.Read8(target); err != nil {
+				return fail(err.Error())
+			}
+			if c.R[ESP] < 8 {
+				return fail("間接遠CALL堆疊下溢")
+			}
+			next := c.R[ESP] - 8
+			stack, ok := c.segmentLinear(c.Seg[SegSS], next, 8, true)
+			if !ok {
+				return fail("間接遠CALL堆疊越界或不可寫")
+			}
+			for i := uint32(0); i < 8; i++ {
+				if _, err := c.Bus.Read8(stack + i); err != nil {
+					return fail(err.Error())
+				}
+			}
+			if err := c.write32(stack, c.EIP); err != nil {
+				return fail(err.Error())
+			}
+			if err := c.write32(stack+4, uint32(c.Seg[SegCS])); err != nil {
+				return fail(err.Error())
+			}
+			c.R[ESP], c.Seg[SegCS], c.EIP = next, selector, target
+			break
+		}
+
 		if segmentOverride == SegCS && (group != 4 || modrm>>6 == 3) {
 			return fail("CS override 只支援間接記憶體 JMP")
 		}
@@ -2015,6 +2538,17 @@ func (c *CPU) Step() error {
 		if c.PortOut == nil || !c.PortOut(uint16(port), uint8(c.R[EAX])) {
 			return fail(fmt.Sprintf("OUT port %02X 未處理", port))
 		}
+	case op == 0x78 || op == 0x79:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("短符號分支不接受目前的前綴")
+		}
+		delta, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if (c.EFlags&SF != 0) == (op == 0x78) {
+			c.EIP = uint32(int64(c.EIP) + int64(int8(delta)))
+		}
 	case op == 0x75:
 		if operand16 {
 			return fail("75 不接受 operand-size override")
@@ -2131,7 +2665,44 @@ func (c *CPU) Step() error {
 		}
 		group := (modrm >> 3) & 7
 		if operand16 {
-			if modrm>>6 != 3 || (group != 0 && group != 1 && group != 4) {
+			// 規格353：完整iw的memory AND只寫word，成功後才發布旗標。
+			if modrm>>6 != 3 && group == 4 {
+				seg, addr, e := c.decodeAddress32(modrm)
+				if e != nil {
+					return fail(e.Error())
+				}
+				imm, e := c.fetch16()
+				if e != nil {
+					return fail(e.Error())
+				}
+				value, ok := c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("AND word來源越界")
+				}
+				result := value & imm
+				if !c.writeSegment16(c.Seg[seg], addr, result) {
+					return fail("AND word寫入越界")
+				}
+				c.setLogicFlags16(result)
+				break
+			}
+			if modrm>>6 != 3 && group == 7 {
+				seg, addr, e := c.decodeAddress32(modrm)
+				if e != nil {
+					return fail(e.Error())
+				}
+				imm, e := c.fetch16()
+				if e != nil {
+					return fail(e.Error())
+				}
+				value, ok := c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("CMP word來源越界")
+				}
+				c.sub16(value, imm)
+				break
+			}
+			if modrm>>6 != 3 || (group != 0 && group != 1 && group != 4 && group != 5 && group != 7) {
 				return fail("81 word形狀尚未支援")
 			}
 			imm, e := c.fetch16()
@@ -2139,8 +2710,19 @@ func (c *CPU) Step() error {
 				return fail(e.Error())
 			}
 			reg := modrm & 7
+			if group == 7 {
+				// 規格313：完整iw的word CMP只改六旗標，不寫回來源。
+				c.sub16(uint16(c.R[reg]), imm)
+				break
+			}
 			if group == 0 {
 				v := c.add16(uint16(c.R[reg]), imm)
+				c.R[reg] = c.R[reg]&0xffff0000 | uint32(v)
+				break
+			}
+			if group == 5 {
+				// 規格311：word完整立即值，不按83的imm8符號延伸。
+				v := c.sub16(uint16(c.R[reg]), imm)
 				c.R[reg] = c.R[reg]&0xffff0000 | uint32(v)
 				break
 			}
@@ -2153,6 +2735,16 @@ func (c *CPU) Step() error {
 			break
 		}
 
+		if modrm>>6 == 3 && group == 6 {
+			imm, e := c.fetch32()
+			if e != nil {
+				return fail(e.Error())
+			}
+			reg := modrm & 7
+			c.R[reg] ^= imm
+			c.setLogicFlags(c.R[reg])
+			break
+		}
 		if modrm>>6 != 3 && (group == 5 || group == 0) {
 			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
@@ -2231,12 +2823,52 @@ func (c *CPU) Step() error {
 		c.R[reg] &= value
 		c.setLogicFlags(c.R[reg])
 	case op == 0x69 || op == 0x6b:
-		if operand16 || segmentOverride >= 0 || repe || repne {
+		if segmentOverride >= 0 || repe || repne {
 			return fail("IMUL立即值prefix尚未支援")
 		}
 		modrm, e := c.fetch8()
 		if e != nil {
 			return fail(e.Error())
+		}
+		if operand16 {
+			// 規格357：完整讀取來源與立即數後才發布word與定義CF／OF。
+			source := uint16(c.R[modrm&7])
+			if modrm>>6 != 3 {
+				seg, addr, err := c.decodeAddress32(modrm)
+				if err != nil {
+					return fail(err.Error())
+				}
+				var ok bool
+				source, ok = c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("IMUL word立即值來源越界")
+				}
+			}
+			var imm int16
+			if op == 0x6b {
+				v, err := c.fetch8()
+				if err != nil {
+					return fail(err.Error())
+				}
+				imm = int16(int8(v))
+			} else {
+				v, err := c.fetch16()
+				if err != nil {
+					return fail(err.Error())
+				}
+				imm = int16(v)
+			}
+			product := int32(int16(source)) * int32(imm)
+			result := uint16(product)
+			flags := c.EFlags &^ (CF | OF)
+			if product != int32(int16(result)) {
+				flags |= CF | OF
+			}
+			reg := (modrm >> 3) & 7
+			c.R[reg] = c.R[reg]&0xffff0000 | uint32(result)
+			// SF／ZF／AF／PF未定義；保留只屬工具相容近似。
+			c.EFlags = flags
+			break
 		}
 		source := c.R[modrm&7]
 		if modrm>>6 != 3 {
@@ -2276,6 +2908,57 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		group := (modrm >> 3) & 7
+		// 規格 278：CS 僅准許記憶體 CMP，避免落入舊群組回退。
+		if segmentOverride == SegCS && (group != 7 || modrm>>6 == 3) {
+			return fail("CS 83 僅支援記憶體 CMP")
+		}
+		if group == 6 && modrm>>6 == 3 && !operand16 {
+			// 規格293：裸dword暫存器XOR，imm8符號延伸，AF清除只屬工具近似。
+			if segmentOverride >= 0 || repe || repne {
+				return fail("XOR dword暫存器前綴尚未支援")
+			}
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			rm := modrm & 7
+			c.R[rm] ^= uint32(int32(int8(imm)))
+			c.setLogicFlags(c.R[rm])
+			break
+		}
+		if group == 1 && modrm>>6 == 3 && !operand16 {
+			if segmentOverride >= 0 || repe || repne {
+				return fail("OR dword暫存器前綴尚未支援")
+			}
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			reg := modrm & 7
+			c.R[reg] |= uint32(int32(int8(imm)))
+			c.setLogicFlags(c.R[reg])
+			break
+		}
+		if group == 1 && modrm>>6 != 3 && !operand16 && segmentOverride < 0 && !repe && !repne {
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			value, ok := c.readSegment32(c.Seg[seg], addr)
+			if !ok {
+				return fail("OR dword來源讀取失敗")
+			}
+			result := value | uint32(int32(int8(imm)))
+			if !c.writeSegment32(c.Seg[seg], addr, result) {
+				return fail("OR dword目的寫入失敗")
+			}
+			c.setLogicFlags(result)
+			break
+		}
 
 		if modrm>>6 != 3 && group == 5 && !operand16 && segmentOverride < 0 && !repe && !repne {
 			seg, addr, e := c.decodeAddress32(modrm)
@@ -2320,6 +3003,18 @@ func (c *CPU) Step() error {
 			break
 		}
 
+		// 規格 267：word ADD 暫存器與帶符號 imm8；保留目的高半部。
+		if operand16 && modrm>>6 == 3 && group == 0 && segmentOverride < 0 && !repe && !repne {
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			reg := modrm & 7
+			v := c.add16(uint16(c.R[reg]), uint16(int16(int8(imm))))
+			c.R[reg] = c.R[reg]&0xffff0000 | uint32(v)
+			break
+		}
+
 		if operand16 && modrm>>6 == 3 && group == 5 && segmentOverride < 0 && !repe && !repne {
 			imm, e := c.fetch8()
 			if e != nil {
@@ -2340,10 +3035,13 @@ func (c *CPU) Step() error {
 			break
 		}
 
-		if group == 7 && modrm>>6 != 3 && segmentOverride < 0 && !repe && !repne {
+		if group == 7 && modrm>>6 != 3 && (segmentOverride < 0 || segmentOverride == SegCS) && !repe && !repne {
 			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
 				return fail(e.Error())
+			}
+			if segmentOverride == SegCS {
+				seg = SegCS
 			}
 			imm, e := c.fetch8()
 			if e != nil {
@@ -2371,6 +3069,29 @@ func (c *CPU) Step() error {
 			}
 			reg := modrm & 7
 			v := uint16(c.R[reg]) | uint16(int16(int8(imm)))
+			c.R[reg] = c.R[reg]&0xffff0000 | uint32(v)
+			c.setLogicFlags16(v)
+			break
+		}
+		if operand16 && modrm>>6 == 3 && group == 4 && segmentOverride < 0 && !repe && !repne {
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			reg := modrm & 7
+			v := uint16(c.R[reg]) & uint16(int16(int8(imm)))
+			c.R[reg] = c.R[reg]&0xffff0000 | uint32(v)
+			c.setLogicFlags16(v)
+			break
+		}
+
+		if operand16 && modrm>>6 == 3 && group == 6 && segmentOverride < 0 && !repe && !repne {
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			reg := modrm & 7
+			v := uint16(c.R[reg]) ^ uint16(int16(int8(imm)))
 			c.R[reg] = c.R[reg]&0xffff0000 | uint32(v)
 			c.setLogicFlags16(v)
 			break
@@ -2509,6 +3230,61 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		group := (modrm >> 3) & 7
+		if group == 6 && modrm>>6 == 3 {
+			// 規格 286：裸 byte 暫存器 XOR；AF 沿既有清除近似。
+			if segmentOverride >= 0 || repe || repne {
+				return fail("XOR byte 暫存器不接受前綴")
+			}
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			rm := int(modrm & 7)
+			result := c.reg8(rm) ^ imm
+			c.setReg8(rm, result)
+			c.setLogicFlags8(result)
+			break
+		}
+		if group == 0 && modrm>>6 != 3 && segmentOverride < 0 && !repe && !repne {
+			// 規格 285：目的 byte 寫入成功後才提交加法旗標。
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			value, ok := c.readSegment8(c.Seg[seg], addr)
+			if !ok {
+				return fail("ADD byte 來源越界")
+			}
+			if !c.writeSegment8(c.Seg[seg], addr, value+imm) {
+				return fail("ADD byte 寫入失敗")
+			}
+			c.add8(value, imm)
+			break
+		}
+		if group == 5 && modrm>>6 != 3 && segmentOverride < 0 && !repe && !repne {
+			// 規格 284：目的 byte 寫入成功後才提交算術旗標。
+			seg, addr, e := c.decodeAddress32(modrm)
+			if e != nil {
+				return fail(e.Error())
+			}
+			imm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			value, ok := c.readSegment8(c.Seg[seg], addr)
+			if !ok {
+				return fail("SUB byte 來源越界")
+			}
+			if !c.writeSegment8(c.Seg[seg], addr, value-imm) {
+				return fail("SUB byte 寫入失敗")
+			}
+			c.sub8(value, imm)
+			break
+		}
 		if (group == 1 || group == 4 || group == 6) && modrm>>6 != 3 && segmentOverride < 0 && !repe && !repne {
 			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
@@ -2708,7 +3484,7 @@ func (c *CPU) Step() error {
 		} else {
 			return fail(fmt.Sprintf("ModRM %02X 尚未支援", modrm))
 		}
-	case op == 0xd0 || op == 0xc0:
+	case op == 0xd0 || op == 0xc0 || op == 0xd2:
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("byte shift prefix未支援")
 		}
@@ -2717,7 +3493,7 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		group := (modrm >> 3) & 7
-		if modrm>>6 != 3 || (group != 4 && group != 5) {
+		if modrm>>6 != 3 || (group != 4 && group != 5) || op == 0xd2 && group != 4 {
 			return fail("byte shift形狀未支援")
 		}
 		count := byte(1)
@@ -2727,6 +3503,9 @@ func (c *CPU) Step() error {
 				return fail(e.Error())
 			}
 			count &= 31
+		} else if op == 0xd2 {
+			// 規格 290：先保存舊 CL，目的 CL／CH 不改變本次計數。
+			count = byte(c.R[ECX]) & 31
 		}
 		if count == 0 {
 			break
@@ -2806,6 +3585,19 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		group := (modrm >> 3) & 7
+		if modrm>>6 == 3 && group == 4 {
+			// 規格298：裸D1 /4的dword單位左移，AF清除只屬工具模型。
+			rm := modrm & 7
+			value := c.R[rm]
+			result, carry := value<<1, value>>31
+			c.setLogicFlags(result)
+			c.EFlags |= carry
+			if result>>31^carry != 0 {
+				c.EFlags |= OF
+			}
+			c.R[rm] = result
+			break
+		}
 		if modrm>>6 == 3 && group == 5 {
 			rm := modrm & 7
 			value := c.R[rm]
@@ -2941,6 +3733,135 @@ func (c *CPU) Step() error {
 			return fail(e.Error())
 		}
 		group := (modrm >> 3) & 7
+		if op == 0xc1 && modrm == 0x7d {
+			// 規格 260：SAR dword SS:[EBP+disp8],imm8；不擴張其他記憶體形狀。
+			if segmentOverride >= 0 || repe || repne {
+				return fail("C1 堆疊 SAR 不接受目前的 prefix")
+			}
+			delta, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			countByte, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			addr := uint32(int64(c.R[EBP]) + int64(int8(delta)))
+			selector := c.Seg[SegSS]
+			if _, ok := c.segmentLinear(selector, addr, 4, true); !ok {
+				return fail("C1 堆疊 SAR 目的範圍不可寫")
+			}
+			value, ok := c.readSegment32(selector, addr)
+			if !ok {
+				return fail("C1 堆疊 SAR 操作數無法讀取")
+			}
+			count := uint(countByte & 31)
+			if count == 0 {
+				break
+			}
+			result := uint32(int32(value) >> count)
+			if !c.writeSegment32(selector, addr, result) {
+				return fail("C1 堆疊 SAR 操作數無法寫入")
+			}
+			oldOF := c.EFlags & OF
+			c.setLogicFlags(result)
+			c.EFlags |= value >> (count - 1) & 1
+			if count > 1 {
+				c.EFlags |= oldOF
+			}
+			break
+		}
+		if op == 0xc1 && group == 0 {
+			if segmentOverride >= 0 || repe || repne || modrm>>6 != 3 {
+				return fail("C1 ROL 只接受無前綴 32 位暫存器")
+			}
+			immediate, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			count := uint(immediate & 31)
+			if count == 0 {
+				break
+			}
+			rm := modrm & 7
+			value := c.R[rm]
+			result := value<<count | value>>(32-count)
+			carry := result & 1
+			c.EFlags = c.EFlags&^CF | carry
+			if count == 1 {
+				c.EFlags &^= OF
+				if result>>31^carry != 0 {
+					c.EFlags |= OF
+				}
+			}
+			// 規格 288：多位 OF 未定義，保留只屬工具近似。
+			c.R[rm] = result
+			break
+		}
+		if op == 0xc1 && group == 1 && modrm>>6 != 3 {
+			// 規格361：memory ROR四byte寫回成功後才發布定義旗標。
+			if segmentOverride >= 0 || repe || repne {
+				return fail("C1 memory ROR不接受前綴")
+			}
+			seg, addr, err := c.decodeAddress32(modrm)
+			if err != nil {
+				return fail(err.Error())
+			}
+			count, err := c.fetch8()
+			if err != nil {
+				return fail(err.Error())
+			}
+			if _, ok := c.segmentLinear(c.Seg[seg], addr, 4, true); !ok {
+				return fail("C1 memory ROR目的不可寫")
+			}
+			value, ok := c.readSegment32(c.Seg[seg], addr)
+			if !ok {
+				return fail("C1 memory ROR目的無法讀取")
+			}
+			count &= 31
+			if count == 0 {
+				break
+			}
+			result := value>>count | value<<(32-count)
+			if !c.writeSegment32(c.Seg[seg], addr, result) {
+				return fail("C1 memory ROR目的無法寫入")
+			}
+			c.EFlags = c.EFlags&^CF | result>>31&1
+			if count == 1 {
+				c.EFlags &^= OF
+				if result>>31^(result>>30&1) != 0 {
+					c.EFlags |= OF
+				}
+			}
+			// 多位OF保留只屬297既有工具模型，count0不寫回。
+			break
+		}
+		if op == 0xc1 && group == 1 {
+			if segmentOverride >= 0 || repe || repne || modrm>>6 != 3 {
+				return fail("C1 ROR 只接受無前綴 32 位暫存器")
+			}
+			count, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			count &= 31
+			if count == 0 {
+				break
+			}
+			rm := int(modrm & 7)
+			value := c.R[rm]
+			result := value>>count | value<<(32-count)
+			c.R[rm] = result
+			c.EFlags = c.EFlags&^CF | result>>31&1
+			if count == 1 {
+				c.EFlags &^= OF
+				if result>>31^(result>>30&1) != 0 {
+					c.EFlags |= OF
+				}
+			}
+			// 規格297：多位OF未定義，保留只屬工具近似。
+			break
+		}
 		if modrm>>6 != 3 || (group != 4 && group != 5 && group != 7) {
 			return fail(fmt.Sprintf("ModRM %02X 尚未支援", modrm))
 		}
@@ -2965,6 +3886,10 @@ func (c *CPU) Step() error {
 			if carry != 0 {
 				c.EFlags |= CF
 			}
+			// 規格299：只有單位移的OF已定義，多位清除沿既有工具模型。
+			if count == 1 && (group == 4 && result>>31^carry != 0 || group == 5 && value>>31 != 0) {
+				c.EFlags |= OF
+			}
 			c.R[rm] = result
 		}
 	case op == 0xf6:
@@ -2975,6 +3900,40 @@ func (c *CPU) Step() error {
 		if e != nil {
 			return fail(e.Error())
 		}
+		if (modrm>>3)&7 == 5 {
+			// 規格372：先讀舊AL及來源，AH重疊時不得先發布AX。
+			left := int16(int8(c.reg8(0)))
+			var source byte
+			if modrm>>6 == 3 {
+				source = c.reg8(int(modrm & 7))
+			} else {
+				seg, addr, e := c.decodeAddress32(modrm)
+				if e != nil {
+					return fail(e.Error())
+				}
+				value, ok := c.readSegment8(c.Seg[seg], addr)
+				if !ok {
+					return fail("IMUL byte來源越界")
+				}
+				source = value
+			}
+			result := left * int16(int8(source))
+			c.R[EAX] = c.R[EAX]&0xffff0000 | uint32(uint16(result))
+			c.EFlags &^= CF | OF
+			if result != int16(int8(byte(result))) {
+				c.EFlags |= CF | OF
+			}
+			// SF／ZF／AF／PF未定義，沿既有乘法保留模型。
+			break
+		}
+		if modrm>>6 == 3 && (modrm>>3)&7 == 3 {
+			// 規格 289：byte 取負只寫回目的低／高 byte，六旗標皆定義。
+			rm := int(modrm & 7)
+			value := c.reg8(rm)
+			result := c.sub8(0, value)
+			c.setReg8(rm, result)
+			break
+		}
 		if modrm>>6 == 3 && (modrm>>3)&7 == 4 {
 			result := uint16(c.reg8(0)) * uint16(c.reg8(int(modrm&7)))
 			c.R[EAX] = c.R[EAX]&0xffff0000 | uint32(result)
@@ -2982,6 +3941,21 @@ func (c *CPU) Step() error {
 			if result > 255 {
 				c.EFlags |= CF | OF
 			}
+			break
+		}
+		if modrm>>6 == 3 && (modrm>>3)&7 == 6 {
+			// 先捕捉除數，AL／AH 也可能是來源；規格 264。
+			divisor := uint16(c.reg8(int(modrm & 7)))
+			dividend := uint16(c.R[EAX])
+			if divisor == 0 {
+				return fail("DIV byte 除以零")
+			}
+			quotient := dividend / divisor
+			if quotient > 0xff {
+				return fail("DIV byte 商溢位")
+			}
+			c.R[EAX] = c.R[EAX]&0xffff0000 | uint32(quotient) | uint32(dividend%divisor)<<8
+			// 算術旗標未定義，沿既有 DIV 保留策略，不宣稱硬體相等。
 			break
 		}
 		if modrm>>6 == 3 && (modrm>>3)&7 == 0 {
@@ -2993,7 +3967,7 @@ func (c *CPU) Step() error {
 			break
 		}
 		if modrm>>6 == 3 || (modrm>>3)&7 != 0 {
-			return fail("F6記憶體形狀未支援")
+			return fail(fmt.Sprintf("F6 ModRM %02X 形狀未支援", modrm))
 		}
 		seg, addr, e := c.decodeAddress32(modrm)
 		if e != nil {
@@ -3062,6 +4036,38 @@ func (c *CPU) Step() error {
 				return fail("C7 dword寫入失敗")
 			}
 		}
+	case op == 0xc8:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("ENTER prefix 尚未支援")
+		}
+		allocSize, e := c.fetch16()
+		if e != nil {
+			return fail(e.Error())
+		}
+		nestingLevel, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if nestingLevel != 0 {
+			return fail("ENTER 巢狀層級尚未支援")
+		}
+		if c.R[ESP] < uint32(allocSize)+4 {
+			return fail("ENTER ESP 下溢")
+		}
+		frame := c.R[ESP] - 4
+		finalESP := frame - uint32(allocSize)
+		_, ok := c.segmentLinear(c.Seg[SegSS], frame, 4, true)
+		if !ok {
+			return fail("ENTER 舊 EBP 堆疊位置不可寫")
+		}
+		_, ok = c.segmentLinear(c.Seg[SegSS], finalESP, 1, true)
+		if !ok {
+			return fail("ENTER 最終 ESP 不在可寫堆疊")
+		}
+		if !c.writeSegment32(c.Seg[SegSS], frame, c.R[EBP]) {
+			return fail("ENTER 舊 EBP 寫入失敗")
+		}
+		c.R[EBP], c.R[ESP] = frame, finalESP
 	case op == 0xc9:
 		if operand16 || segmentOverride >= 0 || repe {
 			return fail("C9 不接受目前的 prefix")
@@ -3414,13 +4420,21 @@ func (c *CPU) Step() error {
 			}
 			break
 		}
-		if operand16 && segmentOverride < 0 && modrm>>6 == 0 && modrm&7 == EBP {
+		if operand16 && segmentOverride < 0 && modrm == 0x03 {
+			if !c.writeSegment16(c.Seg[SegDS], c.R[EBX], value) {
+				return fail(fmt.Sprintf("segment word write %04X:%08X 未處理", c.Seg[SegDS], c.R[EBX]))
+			}
+		} else if operand16 && modrm>>6 == 0 && modrm&7 == EBP {
 			addr, e := c.fetch32()
 			if e != nil {
 				return fail(e.Error())
 			}
-			if !c.writeSegment16(c.Seg[SegDS], addr, value) {
-				return fail(fmt.Sprintf("segment word write %04X:%08X 未處理", c.Seg[SegDS], addr))
+			segment := SegDS
+			if segmentOverride >= 0 {
+				segment = segmentOverride
+			}
+			if !c.writeSegment16(c.Seg[segment], addr, value) {
+				return fail(fmt.Sprintf("segment word write %04X:%08X 未處理", c.Seg[segment], addr))
 			}
 		} else if operand16 && segmentOverride < 0 && modrm>>6 == 3 {
 			reg := modrm & 7
@@ -3452,13 +4466,13 @@ func (c *CPU) Step() error {
 		if e != nil {
 			return fail(e.Error())
 		}
-		if (segmentOverride < 0 || segmentOverride == SegCS) && modrm>>6 != 3 {
+		if (segmentOverride < 0 || segmentOverride == SegCS || segmentOverride == SegES) && modrm>>6 != 3 {
 			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
 				return fail(e.Error())
 			}
-			if segmentOverride == SegCS {
-				seg = SegCS
+			if segmentOverride >= 0 {
+				seg = segmentOverride
 			}
 			v, ok := c.readSegment8(c.Seg[seg], addr)
 			if !ok {
@@ -3539,7 +4553,7 @@ func (c *CPU) Step() error {
 		}
 		c.setReg8(int((modrm>>3)&7), value)
 	case op == 0x8d:
-		if operand16 || segmentOverride >= 0 || repe {
+		if operand16 || repe || repne {
 			return fail("LEA 不接受目前的 prefix")
 		}
 		modrm, e := c.fetch8()
@@ -3588,6 +4602,10 @@ func (c *CPU) Step() error {
 		if e != nil {
 			return fail(e.Error())
 		}
+		// 規格 256／279：CS 絕對 word 僅開放 DS／ES 目的。
+		if segmentOverride == SegCS && (!operand16 || (modrm != 0x1d && modrm != 0x05) || repe || repne) {
+			return fail("CS 段載入只支援 16 位元絕對來源至 DS／ES")
+		}
 		encoding := int((modrm >> 3) & 7)
 		segmentByEncoding := [...]int{SegES, -1, SegSS, SegDS, SegFS, SegGS}
 		if encoding >= len(segmentByEncoding) || segmentByEncoding[encoding] < 0 {
@@ -3611,10 +4629,16 @@ func (c *CPU) Step() error {
 			break
 		}
 
-		if operand16 && (segmentOverride >= 0 || modrm>>6 != 3 && (modrm>>6 != 0 || modrm&7 != EBP)) {
+		if operand16 && modrm>>6 != 3 && (modrm>>6 != 0 || modrm&7 != EBP) {
 			return fail(fmt.Sprintf("16-bit segment ModRM %02X 尚未支援", modrm))
 		} else if modrm>>6 == 3 {
 			value = uint16(c.R[modrm&7])
+		} else if !operand16 && segmentOverride < 0 && modrm == 0x03 {
+			var ok bool
+			value, ok = c.readSegment16(c.Seg[SegDS], c.R[EBX])
+			if !ok {
+				return fail(fmt.Sprintf("segment word read %04X:%08X 未處理", c.Seg[SegDS], c.R[EBX]))
+			}
 		} else if modrm>>6 == 0 && modrm&7 == 5 {
 			addr, e := c.fetch32()
 			if e != nil {
@@ -3719,6 +4743,14 @@ func (c *CPU) Step() error {
 		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("NOP prefix尚未支援")
 		}
+	case op >= 0x91 && op <= 0x97:
+		if !operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("XCHG AX短編碼僅支援word暫存器")
+		}
+		reg := op - 0x90
+		a, b := uint16(c.R[EAX]), uint16(c.R[reg])
+		c.R[EAX] = c.R[EAX]&0xffff0000 | uint32(b)
+		c.R[reg] = c.R[reg]&0xffff0000 | uint32(a)
 	case op == 0x87:
 		if segmentOverride >= 0 || repe || repne {
 			return fail("XCHG prefix尚未支援")
@@ -3726,6 +4758,14 @@ func (c *CPU) Step() error {
 		modrm, e := c.fetch8()
 		if e != nil {
 			return fail(e.Error())
+		}
+		if modrm>>6 == 3 {
+			if operand16 {
+				return fail("XCHG word register尚未支援")
+			}
+			reg, rm := (modrm>>3)&7, modrm&7
+			c.R[reg], c.R[rm] = c.R[rm], c.R[reg]
+			break
 		}
 		seg, addr, e := c.decodeAddress32(modrm)
 		if e != nil {
@@ -3879,6 +4919,19 @@ func (c *CPU) Step() error {
 			}
 			c.R[reg] = c.sub32(c.R[reg], value)
 		}
+	case op == 0x28:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("28 不接受目前的 prefix")
+		}
+		modrm, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		if modrm>>6 != 3 {
+			return fail(fmt.Sprintf("SUB byte ModRM %02X 尚未支援", modrm))
+		}
+		dst, src := int(modrm&7), int((modrm>>3)&7)
+		c.setReg8(dst, c.sub8(c.reg8(dst), c.reg8(src)))
 	case op == 0x2a:
 		if operand16 || segmentOverride >= 0 {
 			return fail("2A 不接受目前的 prefix")
@@ -3928,7 +4981,16 @@ func (c *CPU) Step() error {
 				return fail(e.Error())
 			}
 			if modrm>>6 != 3 {
-				return fail("word CMP僅支援暫存器")
+				seg, addr, e := c.decodeAddress32(modrm)
+				if e != nil {
+					return fail(e.Error())
+				}
+				value, ok := c.readSegment16(c.Seg[seg], addr)
+				if !ok {
+					return fail("word CMP來源讀取失敗")
+				}
+				c.sub16(uint16(c.R[(modrm>>3)&7]), value)
+				break
 			}
 			c.sub16(uint16(c.R[(modrm>>3)&7]), uint16(c.R[modrm&7]))
 			break
@@ -3955,7 +5017,7 @@ func (c *CPU) Step() error {
 		c.sub32(c.R[modrm>>3&7], src)
 
 	case op == 0x38:
-		if operand16 || segmentOverride >= 0 {
+		if operand16 || segmentOverride >= 0 || repe || repne {
 			return fail("38 不接受目前的 prefix")
 		}
 		modrm, e := c.fetch8()
@@ -3966,17 +5028,13 @@ func (c *CPU) Step() error {
 			c.sub8(c.reg8(int(modrm&7)), c.reg8(int((modrm>>3)&7)))
 			break
 		}
-		if modrm>>6 != 1 || modrm&7 == 4 {
-			return fail(fmt.Sprintf("ModRM %02X 尚未支援", modrm))
-		}
-		delta, e := c.fetch8()
+		seg, addr, e := c.decodeAddress32(modrm)
 		if e != nil {
 			return fail(e.Error())
 		}
-		addr := uint32(int64(c.R[modrm&7]) + int64(int8(delta)))
-		value, ok := c.readSegment8(c.Seg[SegDS], addr)
+		value, ok := c.readSegment8(c.Seg[seg], addr)
 		if !ok {
-			return fail(fmt.Sprintf("CMP byte read %04X:%08X 未處理", c.Seg[SegDS], addr))
+			return fail(fmt.Sprintf("CMP byte read %04X:%08X 未處理", c.Seg[seg], addr))
 		}
 		c.sub8(value, c.reg8(int((modrm>>3)&7)))
 	case op == 0x0d:
@@ -4038,6 +5096,16 @@ func (c *CPU) Step() error {
 		reg, rm := (modrm>>3)&7, modrm&7
 		c.R[reg] |= c.R[rm]
 		c.setLogicFlags(c.R[reg])
+	// 規格378：naked SUB AL,imm8；立即數fetch完成後才發布AL與六算術旗標。
+	case op == 0x2c:
+		if operand16 || segmentOverride >= 0 || repe || repne {
+			return fail("2C 不接受目前的 prefix")
+		}
+		value, e := c.fetch8()
+		if e != nil {
+			return fail(e.Error())
+		}
+		c.setReg8(0, c.sub8(c.reg8(0), value))
 	case op == 0x2d:
 		if segmentOverride >= 0 || repe || repne {
 			return fail("SUB accumulator prefix未支援")
@@ -4086,7 +5154,7 @@ func (c *CPU) Step() error {
 		c.setReg8(0, result)
 		c.setLogicFlags8(result)
 	case op == 0x3a:
-		if operand16 || segmentOverride >= 0 || repe || repne {
+		if operand16 || segmentOverride >= 0 && segmentOverride != SegES || repe || repne {
 			return fail("CMP byte prefix未支援")
 		}
 		modrm, e := c.fetch8()
@@ -4095,11 +5163,17 @@ func (c *CPU) Step() error {
 		}
 		var value uint8
 		if modrm>>6 == 3 {
+			if segmentOverride == SegES {
+				return fail("ES CMP byte 只支援記憶體來源")
+			}
 			value = c.reg8(int(modrm & 7))
 		} else {
 			seg, addr, e := c.decodeAddress32(modrm)
 			if e != nil {
 				return fail(e.Error())
+			}
+			if segmentOverride == SegES {
+				seg = SegES
 			}
 			var ok bool
 			value, ok = c.readSegment8(c.Seg[seg], addr)
@@ -4132,6 +5206,33 @@ func (c *CPU) Step() error {
 		extended, e := c.fetch8()
 		if e != nil {
 			return fail(e.Error())
+		}
+		if extended == 0xbc {
+			if operand16 || segmentOverride >= 0 || repe || repne {
+				return fail("BSF dword暫存器不接受前綴")
+			}
+			modrm, e := c.fetch8()
+			if e != nil {
+				return fail(e.Error())
+			}
+			if modrm>>6 != 3 {
+				return fail("BSF dword只支援暫存器來源")
+			}
+			// 規格294：先保存來源，避免來源目的別名改變掃描資料。
+			value := c.R[modrm&7]
+			if value == 0 {
+				c.EFlags |= ZF
+				// 零來源的目的、五未定義旗標保留，只屬工具模型。
+				break
+			}
+			index := uint32(0)
+			for value&1 == 0 {
+				value >>= 1
+				index++
+			}
+			c.R[modrm>>3&7] = index
+			c.EFlags &^= ZF
+			break
 		}
 		if segmentOverride == SegES {
 			if extended != 0xb6 || operand16 || repe || repne {
@@ -4264,6 +5365,33 @@ func (c *CPU) Step() error {
 			}
 			break
 		}
+		if extended == 0xa8 && !operand16 && segmentOverride < 0 && !repe && !repne {
+			if c.R[ESP] < 4 {
+				return fail("ESP underflow")
+			}
+			nextESP := c.R[ESP] - 4
+			if !c.writeSegment32(c.Seg[SegSS], nextESP, uint32(c.Seg[SegGS])) {
+				return fail(fmt.Sprintf("PUSH GS stack write %04X:%08X 未處理", c.Seg[SegSS], nextESP))
+			}
+			c.R[ESP] = nextESP
+			break
+		}
+		if extended == 0xa9 && !operand16 && segmentOverride < 0 && !repe && !repne {
+			if c.R[ESP] > ^uint32(0)-4 {
+				return fail("POP GS ESP overflow")
+			}
+			value, ok := c.readSegment32(c.Seg[SegSS], c.R[ESP])
+			if !ok {
+				return fail(fmt.Sprintf("POP GS stack read %04X:%08X 未處理", c.Seg[SegSS], c.R[ESP]))
+			}
+			selector := uint16(value)
+			if !c.canLoadSegment(selector, SegGS) {
+				return fail(fmt.Sprintf("GS selector %04X 未登錄", selector))
+			}
+			c.Seg[SegGS] = selector
+			c.R[ESP] += 4
+			break
+		}
 		if extended == 0xb4 && !operand16 && segmentOverride < 0 && !repe {
 			modrm, e := c.fetch8()
 			if e != nil {
@@ -4342,17 +5470,28 @@ func (c *CPU) Step() error {
 			}
 			break
 		}
-		if (extended == 0x94 || extended == 0x95) && !operand16 && segmentOverride < 0 && !repe {
+		if extended >= 0x90 && extended <= 0x9f && !operand16 && segmentOverride < 0 && !repe {
 			modrm, e := c.fetch8()
 			if e != nil {
 				return fail(e.Error())
 			}
-			if modrm>>6 != 3 {
-				return fail(fmt.Sprintf("0F %02X ModRM %02X 尚未支援", extended, modrm))
-			}
 			value := uint8(0)
-			if extended == 0x94 && c.EFlags&ZF != 0 || extended == 0x95 && c.EFlags&ZF == 0 {
+			// 344：標準16條件只消費旗標；目的byte之外的狀態保持。
+			cf, zf, sf, of, pf := c.EFlags&CF != 0, c.EFlags&ZF != 0, c.EFlags&SF != 0, c.EFlags&OF != 0, c.EFlags&PF != 0
+			conditions := [16]bool{of, !of, cf, !cf, zf, !zf, cf || zf, !cf && !zf, sf, !sf, pf, !pf, sf != of, sf == of, zf || sf != of, !zf && sf == of}
+			if conditions[extended&15] {
 				value = 1
+			}
+			if modrm>>6 != 3 {
+				seg, addr, e := c.decodeAddress32(modrm)
+				if e != nil {
+					return fail(e.Error())
+				}
+				// 規格356：SETcc目的是純byte寫入，全部旗標與register保持。
+				if !c.writeSegment8(c.Seg[seg], addr, value) {
+					return fail("SETcc byte目的無法寫入")
+				}
+				break
 			}
 			c.setReg8(int(modrm&7), value)
 			break
@@ -4378,6 +5517,46 @@ func (c *CPU) Step() error {
 		if c.IntHook == nil || !c.IntHook(c, number) {
 			return fail(fmt.Sprintf("INT %02X 未處理", number))
 		}
+	case op == 0xcb:
+		// 規格 280：只處理平坦、已知 selector 的同權限 32 位遠返回。
+		if operand16 || segmentOverride >= 0 || repe || repne || c.EFlags&(1<<17) != 0 {
+			return fail("CB 不接受目前的前綴或虛擬 8086 模式")
+		}
+		currentCS, known := c.Descriptors[c.Seg[SegCS]]
+		if c.Seg[SegCS]&^uint16(3) == 0 || !known || currentCS.Base != 0 {
+			return fail("CB 目前 CS 不是已知平坦 selector")
+		}
+		sp := c.R[ESP]
+		if sp > ^uint32(0)-8 {
+			return fail("CB 堆疊指標增量溢位")
+		}
+		// 80386 只讀必要的前三個 word；selector slot 的高 word 跳過。
+		linear, ok := c.segmentLinear(c.Seg[SegSS], sp, 6, false)
+		if !ok {
+			return fail("CB 堆疊來源越界或未知")
+		}
+		low, err := c.read16(linear)
+		if err != nil {
+			return fail(err.Error())
+		}
+		high, err := c.read16(linear + 2)
+		if err != nil {
+			return fail(err.Error())
+		}
+		selector, err := c.read16(linear + 4)
+		if err != nil {
+			return fail(err.Error())
+		}
+		target := uint32(low) | uint32(high)<<16
+		descriptor, known := c.Descriptors[selector]
+		if selector&^uint16(3) == 0 || !known || descriptor.Base != 0 || selector&3 != c.Seg[SegCS]&3 || target > descriptor.Limit {
+			return fail("CB 返回 selector／權限／目標超出受限模型")
+		}
+		if _, err := c.Bus.Read8(target); err != nil {
+			return fail(err.Error())
+		}
+		// 全部檢查完成才提交；不呼叫段 resolver，也不修改返回框架。
+		c.R[ESP], c.Seg[SegCS], c.EIP = sp+8, selector, target
 	case op == 0xc3:
 		if operand16 {
 			return fail("16-bit near RET 尚未支援")
