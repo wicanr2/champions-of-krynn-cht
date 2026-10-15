@@ -99,51 +99,18 @@ func main() {
 	if err := state.Load(*statePath, m, d); err != nil {
 		fail(err)
 	}
-	layer := &xlate.Layer{W: 320, H: 200}
-	pa, err := dkk.NewPathA(m, cat, font, layer)
-	if err != nil {
-		fail(err)
-	}
-	pc, err := dkk.NewPathC(m, cat, font, layer)
-	if err != nil {
-		fail(err)
-	}
-	pc.SetPalette(m.FramePalette())
-	var pb *dkk.PathB
+	var ecl *dkk.Catalog
 	if *eclEvents != "" {
-		ecl, err := dkk.LoadCatalog(mustRead(*eclEvents), mustRead(*eclTranslations))
-		if err != nil {
+		if ecl, err = dkk.LoadCatalog(mustRead(*eclEvents), mustRead(*eclTranslations)); err != nil {
 			fail(err)
 		}
-		if pb, err = dkk.NewPathB(m, font, layer, ecl, cat); err != nil {
-			fail(err)
-		}
-		pb.SetPalette(m.FramePalette())
 	}
-	m.ObserveVideoWrites(func(w machine.VideoWrite) {
-		pc.VideoWrite(w.Offset)
-		if pb != nil {
-			pb.VideoWrite(w.Offset)
-		}
-	})
-	m.ObserveModeChanges(func(machine.ModeChange) {
-		pc.Reset()
-		if pb != nil {
-			pb.Reset()
-		}
-	})
-	m.SetOnFrame(func() {
-		idx := m.Indexed()
-		if len(idx) == 320*200 {
-			pal := m.FramePalette()
-			pa.PrepareFrame(idx, 320, 200)
-			pc.SetPalette(pal)
-			if pb != nil {
-				pb.SetPalette(pal)
-			}
-			layer.Frame(idx, rgbOf(idx, pal))
-		}
-	}) // planar 以 FramePalette 取色（#12）
+	live := dkk.NewLive(font, cat, ecl)
+	live.Arm() // 狀態檔已在遊戲中
+	cpuView := machineCPU{m}
+	m.ObserveVideoWrites(func(w machine.VideoWrite) { live.VideoWrite(w.Offset) })
+	m.ObserveModeChanges(func(machine.ModeChange) { live.ModeChange() })
+	m.SetOnFrame(func() { live.Frame(m.Indexed(), m.FramePalette()) }) // planar 以 FramePalette 取色（#12）
 
 	var results []shotResult
 	ki, si := 0, 0
@@ -155,13 +122,11 @@ func main() {
 			}
 		}
 		if si < len(shots) && m.Steps >= shots[si].step {
-			results = append(results, capture(m, layer, shots[si], *outDir))
+			results = append(results, capture(m, live, shots[si], *outDir))
 			si++
 		}
-		pa.Before(m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m)
-		pc.Before(m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m)
-		if pb != nil {
-			pb.Before(m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m.CPU.Seg[cpu.DS], m)
+		if err := live.BeforeStep(cpuView); err != nil {
+			fail(err)
 		}
 		if err := m.Step(); err != nil {
 			fail(err)
@@ -176,11 +141,11 @@ func main() {
 		Hits    []dkk.Hit      `json:"hits"`
 		HitsB   []dkk.Hit      `json:"hits_b,omitempty"`
 		MenuC   []dkk.MenuWord `json:"menu_words"`
-	}{Entry: fmt.Sprintf("%05X", pa.Entry), Catalog: cat.Len(), KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: pa.Hits}
-	if pb != nil {
-		out.HitsB = pb.Hits
+	}{Entry: fmt.Sprintf("%05X", live.A.Entry), Catalog: cat.Len(), KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: live.A.Hits}
+	if live.B != nil {
+		out.HitsB = live.B.Hits
 	}
-	out.MenuC = pc.Words
+	out.MenuC = live.C.Words
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", " ")
 	if err := enc.Encode(out); err != nil {
@@ -188,11 +153,13 @@ func main() {
 	}
 }
 
-func capture(m *machine.Machine, layer *xlate.Layer, s shot, dir string) shotResult {
+func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult {
+	// 截圖用此刻的畫面（不是最後一個 retrace），與 probe -dump-at 同一份資料。
 	idx := m.Indexed()
 	if len(idx) != 320*200 {
 		fail(fmt.Errorf("#%d 畫面不是 320×200（%d 點）", m.Steps, len(idx)))
 	}
+	layer := live.Layer
 	pal := m.FramePalette()
 	base := upscale(idx, pal)
 	over := append([]uint8(nil), base...)
@@ -228,6 +195,18 @@ func capture(m *machine.Machine, layer *xlate.Layer, s shot, dir string) shotRes
 	r.Missing = string(missing)
 	return r
 }
+
+// machineCPU 把 machine.Machine 包成 dkk.StepCPU。
+type machineCPU struct{ m *machine.Machine }
+
+func (c machineCPU) Read8(a uint32) uint8   { return c.m.Peek8(a) }
+func (c machineCPU) Read16(a uint32) uint16 { return c.m.Peek16(a) }
+func (c machineCPU) Steps() uint64          { return c.m.Steps }
+func (c machineCPU) CS() uint16             { return c.m.CPU.Seg[cpu.CS] }
+func (c machineCPU) IP() uint16             { return c.m.CPU.IP }
+func (c machineCPU) SS() uint16             { return c.m.CPU.Seg[cpu.SS] }
+func (c machineCPU) SP() uint16             { return c.m.CPU.R[cpu.SP] }
+func (c machineCPU) DS() uint16             { return c.m.CPU.Seg[cpu.DS] }
 
 func rgbOf(idx []uint8, pal [256][3]uint8) []uint8 {
 	out := make([]uint8, len(idx)*3)
