@@ -29,6 +29,9 @@ type procFrame struct {
 	ip, fl  uint16
 	psp     uint16 // 父行程的 PSP（回來時還原 curPSP）
 	freeSeg uint16 // 進子行程之前的配置游標
+	// arenaSeg 是子行程的 arena MCB 段（0＝舊 freeSeg+1 路徑，不用回收）。
+	// 子退出（非 TSR）時釋放它；常駐則留著。
+	arenaSeg uint16
 	// ivt 是 DOS 替呼叫端保管的三個向量（22h Terminate、23h Ctrl-Break、
 	// 24h Critical Error）。子行程一定會改，不還原的話父行程的
 	// Ctrl-Break 處理常式指到已經被回收的記憶體。
@@ -54,7 +57,11 @@ type ExecRecord struct {
 	PSP  uint16
 	TSR  bool   // 用 AH=31h 常駐
 	Keep uint16 // TSR 保留的段數（DX）
-	Exit uint8  // 離開碼；0xFF ＝ 還沒結束
+	Exit uint8  // 離開碼
+	// Ended 為真才是真的結束了。Exit 不能當哨兵——WCG 乾淨退出碼就是
+	// 255（`pop` 回傳值慣用法），`0xFF` 同時是碼與「還沒結束」
+	//（spec-206；`retro-runtime-study-private#47`）。
+	Ended bool
 }
 
 // Enqueue 排入一支待跑程式。行程疊空了（第一支程式結束或常駐）之後
@@ -109,6 +116,30 @@ func imageParags(data []byte) uint16 {
 	return uint16((len(data)+15)/16) + 0x11
 }
 
+// placeChild 給子行程找 PSP＋映像的落點，回傳 MCB 段（PSP＝MCB+1）
+// 與配給它的塊頂（PSP:0002 的值，不含）。
+//
+// 真 DOS 配給子行程的是整塊自由區（不是剛好映像大小），
+// 子行程再用 4Ah 把尾巴還回去；PSP:0002 就是這塊的尾端。
+// arena 還沒建（nil：本輪第一次碰記憶體）回 freeSeg，塊頂是 MemTop，
+// 容量檢查由呼叫端照舊做（spawn 與 queue 的邊界條件本來就差一段，
+// 各留各的）；arena 存在時找自由段，塊頂是該段原尾端
+// （carve 之前先記下來），找不到回 ok=false
+// （R55 E142 根因：盲用 freeSeg+1 會蓋掉活的堆）。
+// need 是 imageParags 原值（含 MCB＋PSP）；want 扣掉 MCB 那一段。
+func (d *DOS) placeChild(need uint16) (mcb, top uint16, ok bool) {
+	if d.arena == nil {
+		return d.freeSeg, uint16(machine.MemTop), true
+	}
+	if i := d.pickBlock(need - 1); i >= 0 {
+		mcb := d.arena[i].seg
+		top := d.arena[i].seg + d.arena[i].size + 1
+		d.carveBlock(i, need-1)
+		return mcb, top, true
+	}
+	return 0, 0, false
+}
+
 // spawn 載入並跳到一支子程式。失敗時設 CF 與 AX，行程疊不變。
 func (d *DOS) spawn(c *cpu.CPU, name string, p execParams) {
 	data, path, ok := d.readProgram(c, name)
@@ -116,21 +147,35 @@ func (d *DOS) spawn(c *cpu.CPU, name string, p execParams) {
 		return
 	}
 
-	// 子行程 PSP ＝ freeSeg+1（freeSeg 那格是假 MCB，與 AH=48h 一致）。
-	psp := d.freeSeg + 1
 	need := imageParags(data)
-	if avail := uint16(machine.MemTop) - d.freeSeg; need > avail {
-		c.R[cpu.AX] = 8 // 記憶體不足
-		c.R[cpu.BX] = avail
+	mcb, top, placed := d.placeChild(need)
+	if d.arena == nil {
+		// 舊路徑：容量照舊檢查。
+		if avail := uint16(machine.MemTop) - d.freeSeg; need > avail {
+			c.R[cpu.AX] = 8 // 記憶體不足
+			c.R[cpu.BX] = avail
+			setCarry(c)
+			return
+		}
+	} else if !placed {
+		// arena 滿：與 AH=48h 配不出來一致。
+		c.R[cpu.AX] = 8
+		c.R[cpu.BX] = d.largestFree()
 		setCarry(c)
 		return
 	}
+	// 子行程 PSP ＝ MCB 段＋1（那一格是假 MCB，與 AH=48h 一致）。
+	psp := mcb + 1
 
 	// 壓父行程框。此時 IP 已指到 int 21h 的下一道，存起來的就是
 	// 正確的接續點。
 	f := procFrame{
 		r: c.R, seg: c.Seg, ip: c.IP, fl: c.Flags,
 		psp: d.curPSP, freeSeg: d.freeSeg,
+	}
+	if d.arena != nil {
+		// arena 路徑才有 MCB 段可回收；舊路徑 arenaSeg 留 0。
+		f.arenaSeg = mcb
 	}
 	for i, n := range savedVectors {
 		f.ivt[i][0] = d.M.Read16(uint32(n) * 4)
@@ -145,11 +190,17 @@ func (d *DOS) spawn(c *cpu.CPU, name string, p execParams) {
 		return
 	}
 	d.procStack = append(d.procStack, f)
-	d.M.WriteMCB(d.freeSeg, false, psp, prog.EndSeg-d.freeSeg)
+	d.M.WriteMCB(mcb, false, psp, prog.EndSeg-mcb)
 
 	// PSP 欄位（`docs/spec/009` §2.4）。
 	base := uint32(psp) * 16
 	d.M.Write16(base+0x16, f.psp) // 父行程 PSP
+	// 子行程 PSP:0002 是配給它的塊頂（整塊自由區的尾端，不是映像尾端；
+	// 真 DOS 把整塊自由區配給子行程，子再用 4Ah 縮。以前這裡填映像尾端，
+	// 拿它定堆疊／覆疊上限的程式（TLINK）會拿到小到不真實的數字而失敗；
+	// 更早以前填全域 MemTop，洞裡的子行程又會拿到大到不真實的數字
+	//（Watcom 6.5 啟動碼，`retro-runtime-study-private#32` R48）。
+	d.M.Write16(base+0x02, top)
 	envSeg := p.envSeg
 	if envSeg == 0 { // 繼承父行程的環境段
 		envSeg = d.M.Read16(uint32(f.psp)*16 + 0x2C)
@@ -163,6 +214,11 @@ func (d *DOS) spawn(c *cpu.CPU, name string, p execParams) {
 	}
 
 	d.enterProgram(c, prog)
+	if d.freeSeg < f.freeSeg {
+		// 只升不降（spec-205）：落進自由洞時 EndSeg 可能比舊游標低，
+		// 降回去會讓下一次落子與 TSR 保留計算用到已佔的低段。
+		d.freeSeg = f.freeSeg
+	}
 	d.ExecLog = append(d.ExecLog, ExecRecord{
 		Name: name, Base: filepath.Base(path), PSP: psp, Exit: 0xFF,
 	})
@@ -250,6 +306,11 @@ func (d *DOS) enterProgram(c *cpu.CPU, prog *machine.Program) {
 	c.Seg[cpu.DS], c.Seg[cpu.ES] = prog.PSPSeg, prog.PSPSeg
 	d.curPSP = prog.PSPSeg
 	d.freeSeg = prog.EndSeg
+	// 新行程的 DTA 是它自己的 PSP:0080h（`docs/spec/194-exec-child-dta`）。
+	// 沿用父行程的 DTA 的話，子程式的 FindFirst 會寫進父程式的記憶體——
+	// 父程式常把 DTA 放在堆疊上，壞掉的是它回來之後的返回位址。
+	// 結束時不還原，與 DOSBox-X 的 DOS_Terminate 一致。
+	d.dtaSeg, d.dtaOff = prog.PSPSeg, 0x80
 }
 
 // copyCmdTail 把 EXEC 參數區塊指的命令列尾拷進子 PSP+80h。
@@ -279,8 +340,9 @@ func (d *DOS) terminate(c *cpu.CPU, code uint8, tsr bool, keep uint16) {
 	// 記到**目前行程**那一筆——不是最後一筆。殼結束時最後一筆是它的
 	// 子行程（早就 TSR 了），寫過去會把殼的離開碼記到 FMDRV 頭上。
 	for i := len(d.ExecLog) - 1; i >= 0; i-- {
-		if d.ExecLog[i].PSP == d.curPSP && d.ExecLog[i].Exit == 0xFF {
+		if d.ExecLog[i].PSP == d.curPSP && !d.ExecLog[i].Ended {
 			d.ExecLog[i].Exit = code
+			d.ExecLog[i].Ended = true
 			d.ExecLog[i].TSR = tsr
 			d.ExecLog[i].Keep = keep
 			break
@@ -315,6 +377,12 @@ func (d *DOS) terminate(c *cpu.CPU, code uint8, tsr bool, keep uint16) {
 			// 只升不降的話，下一支 EXEC 進來的程式會被載到不該有的高段
 			// ——而且它自己完全察覺不到，只有在向 DOS 要不到記憶體時
 			// 才顯現（`docs/spec/010` §1）。
+			if f.arenaSeg != 0 {
+				// arena 落子的那一塊還回去（spec-205）；子行程自己
+				// AH=48h 拿走的沿舊制（freeSeg 退回，不動 arena 記號——
+				// 那是既有的缺口，不在本輪）。
+				d.freeArenaSeg(f.arenaSeg)
+			}
 			d.freeSeg = f.freeSeg
 		}
 		d.curPSP = f.psp
@@ -328,8 +396,16 @@ func (d *DOS) terminate(c *cpu.CPU, code uint8, tsr bool, keep uint16) {
 		if k := d.curPSP + keep; k > d.freeSeg {
 			d.freeSeg = k
 		}
-	} else if d.curPSP > 0 {
-		d.freeSeg = d.curPSP - 1
+		d.queuedSeg = 0 // 常駐塊照留，只把記帳清掉
+	} else {
+		if d.queuedSeg != 0 {
+			// 監督佇列推出來的那一塊還回去（spec-205，與 spawn 路一致）。
+			d.freeArenaSeg(d.queuedSeg)
+			d.queuedSeg = 0
+		}
+		if d.curPSP > 0 {
+			d.freeSeg = d.curPSP - 1
+		}
 	}
 
 	// 監督佇列（`docs/spec/009` §4）：有排就跑下一支，沒有才算程式結束。
@@ -375,19 +451,34 @@ func (d *DOS) spawnQueued(c *cpu.CPU, q Queued) {
 		d.Missing = append(d.Missing, q.Name)
 		return
 	}
-	psp := d.freeSeg + 1
-	if need := imageParags(data); psp+need > machine.MemTop {
+	need := imageParags(data)
+	mcb, top, placed := d.placeChild(need)
+	if d.arena == nil {
+		// 舊路徑：容量照舊檢查（邊界條件逐字保留）。
+		if mcb+1+need > machine.MemTop {
+			d.Missing = append(d.Missing, q.Name+"（記憶體不足）")
+			return
+		}
+	} else if !placed {
 		d.Missing = append(d.Missing, q.Name+"（記憶體不足）")
 		return
 	}
+	// 子行程 PSP ＝ MCB 段＋1（與 spawn 一致）。
+	psp := mcb + 1
 	prog, err := d.M.LoadProgramAt(psp, data)
 	if err != nil {
 		d.Missing = append(d.Missing, fmt.Sprintf("%s（%v）", q.Name, err))
 		return
 	}
-	d.M.WriteMCB(d.freeSeg, false, psp, prog.EndSeg-d.freeSeg)
+	d.M.WriteMCB(mcb, false, psp, prog.EndSeg-mcb)
+	if d.arena != nil {
+		// 疊底退出時回收（terminate 底路）；舊路徑不用。
+		d.queuedSeg = mcb
+	}
 	base := uint32(psp) * 16
 	d.M.Write16(base+0x16, psp) // 疊底的父行程是自己
+	// 子行程 PSP:0002 是配給它的塊頂（同上，與 spawn 一致）。
+	d.M.Write16(base+0x02, top)
 
 	// 命令列尾：長度 ＋ 內容 ＋ CR（`docs/spec/009` §4）。
 	args := []byte(q.Args)
@@ -398,7 +489,12 @@ func (d *DOS) spawnQueued(c *cpu.CPU, q Queued) {
 	d.M.WriteBytes(base+0x81, args)
 	d.M.Write8(base+0x81+uint32(len(args)), 0x0D)
 
+	oldFree := d.freeSeg
 	d.enterProgram(c, prog)
+	if d.freeSeg < oldFree {
+		// 只升不降（spec-205，與 spawn 一致）。
+		d.freeSeg = oldFree
+	}
 	c.Halted = false
 
 	d.ExecLog = append(d.ExecLog, ExecRecord{

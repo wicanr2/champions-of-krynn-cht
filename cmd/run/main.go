@@ -9,6 +9,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"image"
+	"image/color"
+	"image/png"
 	"os"
 	"sort"
 	"strings"
@@ -18,26 +21,71 @@ import (
 	"github.com/wicanr2/dosgolem/internal/machine"
 )
 
+// readStat 是 watch-read 結算用的計數：同一 reader 讀了幾次、頭尾步號。
+type readStat struct {
+	n           int
+	first, last uint64
+}
+
 func main() {
 	prog := flag.String("prog", "", "要跑的 .COM 或 .EXE")
 	root := flag.String("root", "", "DOS 看得到的目錄")
 	dir := flag.String("dir", "", "DOS 的目前目錄（root 底下的子目錄）")
+	cpuModel := flag.String("cpu", "386", "CPU 機型：8086、186 或 386。386 會讓偵測 CPU 的程式改走 32 位元路徑，而 0x66 只有子集（`docs/spec/012-cpu-386-subset`）")
+	scratch := flag.String("scratch", "", "可寫的暫存層目錄（`docs/spec/009-scratch-writes`）；空字串＝寫入只記帳不落地")
 	steps := flag.Uint64("steps", 20_000_000, "最多跑幾條指令")
 	cmdline := flag.String("args", "", "命令列參數，寫進 PSP 的 80h")
 	keys := flag.String("keys", "", "排進鍵盤佇列的字元（int 16h 與 IRQ1 都排）")
 	find := flag.String("find", "", "把這個檔案的一段內容當指紋，在記憶體裡找它載到哪")
 	findOff := flag.Int("find-off", 0, "指紋在該檔案裡的偏移")
 	findLen := flag.Int("find-len", 32, "指紋長度")
+	memops := flag.Bool("memops", false, "印出 AH=48h／49h／4Ah 的呼叫紀錄與 EXEC 紀錄（查子行程是不是蓋到父行程）")
+	traceExit := flag.Int("trace-after-exit", 0, "第一個 EXEC 起來的子行程結束後，逐條印出接下來幾條指令的 CS:IP 與位元組")
+	watch := flag.String("watch", "", "監看一段線性位址的寫入，格式 lo-hi（十六進位），每次寫入印出 CS:IP")
+	traceTail := flag.Int("trace-tail", 0, "記住最後幾條指令的 CS:IP、位元組與暫存器，收工時印出來（查程式為什麼結束）")
+	traceRange := flag.String("trace-range", "", "印出指定步號區間的每條指令（格式同 trace-tail 行，含步號），格式 lo-hi（十進位，含首尾；`docs/spec/204-trace-range`）")
+	pngOut := flag.String("png", "", "收工時把目前畫面存成 PNG（平面模式與 mode 13h）")
+	watchRead := flag.String("watch-read", "", "監看一段線性位址的讀取，格式 lo-hi（十六進位）；收工時印出被讀過的位址範圍與讀取者")
+	poison := flag.String("poison", "", "開機記憶體填充值（十六進位 byte，如 CC；除錯抓未初始化讀取用，預設不填即全零）")
+	noirq := flag.Bool("noirq", false, "不送計時器／鍵盤中斷（除錯抓中斷對堆疊的影響用；關掉後動畫時序不準，只看邏輯）")
 	loop := flag.Int("loop", 0, "收工前再跑幾條指令，統計落點看它是不是在空轉")
 	flag.Parse()
 	if *prog == "" || *root == "" {
 		flag.Usage()
 		os.Exit(2)
 	}
+	if *poison != "" {
+		var v uint8
+		if _, err := fmt.Sscanf(*poison, "%x", &v); err != nil {
+			die(fmt.Errorf("-poison 是十六進位 byte：%v", err))
+		}
+		// 在 load()（內含 machine.New()）之前設好——填充發生在 New() 內、
+		// initBDA／initVectors 之前，之後的初始化照常覆蓋自己的區域。
+		machine.MemPoison = v
+	}
 
 	m, d, err := load(*prog, *root, *dir)
 	if err != nil {
 		die(err)
+	}
+	d.Scratch = *scratch
+	if *noirq {
+		// IRQ0Every＝0 即不送計時器中斷（machine.go 的約定）；鍵盤同理。
+		m.IRQ0Every, m.KeyEvery = 0, 0
+	}
+	if *memops {
+		d.Calls = map[dos.Call]int{}
+	}
+	switch *cpuModel {
+	case "386":
+	case "186":
+		m.CPU.Model = cpu.Model80186
+		m.CPU.SetFlags(m.CPU.Flags) // 旗標改套 8086／80186 的固定位元
+	case "8086":
+		m.CPU.Model = cpu.Model8086
+		m.CPU.SetFlags(m.CPU.Flags)
+	default:
+		die(fmt.Errorf("-cpu 只接受 8086、186 或 386：%q", *cpuModel))
 	}
 	if *cmdline != "" {
 		setCmdline(m, *cmdline)
@@ -49,13 +97,125 @@ func main() {
 		}
 	}
 
+	if *watch != "" {
+		var lo, hi uint32
+		if _, err := fmt.Sscanf(*watch, "%x-%x", &lo, &hi); err != nil {
+			die(fmt.Errorf("-watch 格式是 lo-hi：%v", err))
+		}
+		m.WatchWrites(lo, hi, func(a uint32, old, v uint8) {
+			c := m.CPU
+			fmt.Printf("watch 步 %d  %05X: %02X→%02X  由 %04X:%04X  SS:SP=%04X:%04X  EXEC 數=%d  SI=%04X AX=%04X\n",
+				m.Steps, a, old, v, c.Seg[cpu.CS], c.IP, c.Seg[cpu.SS], c.R[cpu.SP], len(d.ExecLog),
+				c.R[cpu.SI], c.R[cpu.AX])
+		})
+	}
+	readers := map[uint32]map[string]*readStat{}
+	if *watchRead != "" {
+		var lo, hi uint32
+		if _, err := fmt.Sscanf(*watchRead, "%x-%x", &lo, &hi); err != nil {
+			die(fmt.Errorf("-watch-read 格式是 lo-hi：%v", err))
+		}
+		m.WatchReads(lo, hi, func(a uint32, _ uint8) {
+			c := m.CPU
+			k := fmt.Sprintf("%04X:%04X", c.Seg[cpu.CS], c.IP)
+			if readers[a] == nil {
+				readers[a] = map[string]*readStat{}
+			}
+			st := readers[a][k]
+			if st == nil {
+				st = &readStat{first: m.Steps}
+				readers[a][k] = st
+			}
+			st.n++
+			st.last = m.Steps
+		})
+	}
 	var runErr error
+	traced := 0
+	tail := make([]string, 0, *traceTail)
+	var rangeLo, rangeHi uint64
+	rangeOn := false
+	if *traceRange != "" {
+		if _, err := fmt.Sscanf(*traceRange, "%d-%d", &rangeLo, &rangeHi); err != nil {
+			die(fmt.Errorf("-trace-range 格式是 lo-hi：%v", err))
+		}
+		if rangeLo > rangeHi {
+			die(fmt.Errorf("-trace-range lo 不可大於 hi"))
+		}
+		rangeOn = true
+	}
 	for m.Steps < *steps && !d.Exited {
+		if *traceTail > 0 {
+			c := m.CPU
+			a := cpu.Addr(c.Seg[cpu.CS], c.IP)
+			line := fmt.Sprintf("步 %d  %04X:%04X  % X  AX=%04X BX=%04X CX=%04X DX=%04X SI=%04X DI=%04X SP=%04X DS=%04X ES=%04X",
+				m.Steps+1, c.Seg[cpu.CS], c.IP, bytesAt(m, a, 6), c.R[cpu.AX], c.R[cpu.BX], c.R[cpu.CX], c.R[cpu.DX],
+				c.R[cpu.SI], c.R[cpu.DI], c.R[cpu.SP], c.Seg[cpu.DS], c.Seg[cpu.ES])
+			if len(tail) == *traceTail {
+				tail = tail[1:]
+			}
+			tail = append(tail, line)
+		}
+		if rangeOn && m.Steps+1 >= rangeLo && m.Steps+1 <= rangeHi {
+			c := m.CPU
+			a := cpu.Addr(c.Seg[cpu.CS], c.IP)
+			fmt.Printf("range 步 %d  %04X:%04X  % X  AX=%04X BX=%04X CX=%04X DX=%04X SI=%04X DI=%04X SP=%04X DS=%04X ES=%04X SS=%04X\n",
+				m.Steps+1, c.Seg[cpu.CS], c.IP, bytesAt(m, a, 6), c.R[cpu.AX], c.R[cpu.BX], c.R[cpu.CX], c.R[cpu.DX],
+				c.R[cpu.SI], c.R[cpu.DI], c.R[cpu.SP], c.Seg[cpu.DS], c.Seg[cpu.ES], c.Seg[cpu.SS])
+		}
 		if runErr = m.Step(); runErr != nil {
 			break
 		}
+		if *traceExit > traced && len(d.ExecLog) > 0 && d.ExecLog[0].Ended {
+			c := m.CPU
+			a := cpu.Addr(c.Seg[cpu.CS], c.IP)
+			fmt.Printf("trace 步%d %4d  %04X:%04X  % X  AX=%04X BX=%04X CX=%04X DX=%04X SP=%04X BP=%04X DS=%04X ES=%04X SS=%04X F=%04X\n",
+				m.Steps, traced, c.Seg[cpu.CS], c.IP, bytesAt(m, a, 6), c.R[cpu.AX], c.R[cpu.BX], c.R[cpu.CX], c.R[cpu.DX],
+				c.R[cpu.SP], c.R[cpu.BP], c.Seg[cpu.DS], c.Seg[cpu.ES], c.Seg[cpu.SS], c.Flags)
+			traced++
+		}
 	}
 	report(m, d, runErr, *loop)
+	if *pngOut != "" {
+		if err := savePNG(m, *pngOut); err != nil {
+			fmt.Println("PNG：", err)
+		}
+	}
+	if len(readers) > 0 {
+		addrs := make([]uint32, 0, len(readers))
+		for a := range readers {
+			addrs = append(addrs, a)
+		}
+		sort.Slice(addrs, func(i, j int) bool { return addrs[i] < addrs[j] })
+		fmt.Printf("讀過 %d 個位址，%05X–%05X；讀取者：", len(addrs), addrs[0], addrs[len(addrs)-1])
+		who := map[string]*readStat{}
+		for _, a := range addrs {
+			for k, st := range readers[a] {
+				agg := who[k]
+				if agg == nil {
+					agg = &readStat{first: st.first, last: st.last}
+					who[k] = agg
+				}
+				agg.n += st.n
+				if st.first < agg.first {
+					agg.first = st.first
+				}
+				if st.last > agg.last {
+					agg.last = st.last
+				}
+			}
+		}
+		for k, st := range who {
+			fmt.Printf(" %s×%d（步%d–%d)", k, st.n, st.first, st.last)
+		}
+		fmt.Println()
+	}
+	for i, line := range tail {
+		fmt.Printf("tail %4d  %s\n", i-len(tail), line)
+	}
+	if *memops {
+		reportMem(d)
+	}
 
 	if *find != "" {
 		locate(m, *find, *findOff, *findLen)
@@ -194,4 +354,89 @@ func setCmdline(m *machine.Machine, s string) {
 func die(err error) {
 	fmt.Fprintln(os.Stderr, "run:", err)
 	os.Exit(1)
+}
+
+// reportMem 印出記憶體服務與 EXEC 的呼叫紀錄，依發生順序。
+func reportMem(d *dos.DOS) {
+	fmt.Println("記憶體服務：")
+	for _, op := range d.MemOps {
+		fmt.Printf("   步 %10d  AH=%02Xh BX=%04X ES=%04X → AX=%04X ok=%v\n",
+			op.Step, op.Fn, op.BX, op.ES, op.AX, op.OK)
+	}
+	fmt.Println("中斷服務呼叫次數：")
+	keys := make([]dos.Call, 0, len(d.Calls))
+	for k := range d.Calls {
+		keys = append(keys, k)
+	}
+	sort.Slice(keys, func(i, j int) bool {
+		if keys[i].Int != keys[j].Int {
+			return keys[i].Int < keys[j].Int
+		}
+		if keys[i].AH != keys[j].AH {
+			return keys[i].AH < keys[j].AH
+		}
+		return keys[i].AL < keys[j].AL
+	})
+	for _, k := range keys {
+		fmt.Printf("   int %02Xh AH=%02Xh AL=%02Xh ×%d\n", k.Int, k.AH, k.AL, d.Calls[k])
+	}
+	fmt.Println("EXEC：")
+	for _, e := range d.ExecLog {
+		mark := ""
+		if !e.Ended {
+			mark = " 未結束"
+		}
+		fmt.Printf("   %s（%s）PSP=%04X exit=%02X%s\n", e.Name, e.Base, e.PSP, e.Exit, mark)
+	}
+}
+
+func bytesAt(m *machine.Machine, a uint32, n int) []byte {
+	b := make([]byte, n)
+	for i := range b {
+		b[i] = m.Read8(a + uint32(i))
+	}
+	return b
+}
+
+// savePNG 把目前畫面存成 PNG：平面模式走 PlanarRGB，mode 13h 走色號＋DAC。
+func savePNG(m *machine.Machine, path string) error {
+	w, h, rgb := m.PlanarRGB()
+	if rgb == nil {
+		if m.VideoMode() != 0x13 {
+			return fmt.Errorf("目前是 %02Xh 模式，只支援平面模式與 13h", m.VideoMode())
+		}
+		w, h = 320, 200
+		raw, pal := m.VideoRaw(), m.Palette()
+		rgb = make([]uint8, w*h*3)
+		for i := 0; i < w*h && i < len(raw); i++ {
+			c := pal[raw[i]]
+			rgb[i*3], rgb[i*3+1], rgb[i*3+2] = c[0], c[1], c[2]
+		}
+	}
+	img := image.NewRGBA(image.Rect(0, 0, w, h))
+	for i := 0; i < w*h; i++ {
+		img.Set(i%w, i/w, color.RGBA{rgb[i*3], rgb[i*3+1], rgb[i*3+2], 255})
+	}
+	f, err := os.Create(path)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	fmt.Printf("畫面 %d×%d → %s\n", w, h, path)
+	if _, _, px := m.Planar(); px != nil {
+		hist := [16]int{}
+		for _, p := range px {
+			hist[p&15]++
+		}
+		pal := m.Palette()
+		fmt.Print("平面色號分布與對應顏色：")
+		for i, n := range hist {
+			if n > 0 {
+				c := pal[m.VGA.DACIndex(uint8(i))]
+				fmt.Printf(" %d:%d→#%02X%02X%02X", i, n, c[0], c[1], c[2])
+			}
+		}
+		fmt.Println()
+	}
+	return png.Encode(f, img)
 }
