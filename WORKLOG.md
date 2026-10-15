@@ -665,3 +665,16 @@ ebiten 相關套件要 X11／ALSA 開發檔與 `xvfb-run`，這一輪用本機�
 | civ1 的 mode 13h `3DA` 相位改變所有 mode 13h 收據 | 改成 opt-in：`Machine.Mode13Phase`、`probe -mode13-phase` |
 | master 把埠統計改成 slice，同名欄位換型別會讓舊狀態檔解不開 | 新增 `PortList`／`PortInList` 寫入，`Ports`／`PortsIn` 只留著讀舊檔 |
 | 規格索引聯集後標題重複、條目錯組 | 重建號碼表、合併重複標題、補登 17 份原分支未列的規格 |
+
+## 2026-10-15：CI 映像與 go.sh 環境變數，分支收斂
+
+- 遠端與本機只留 `main`。刪除前逐條確認是 `main` 的祖先；本機 `phantasie-cht-output-overlay`
+  多出的兩個 commit 是 int 27h（規格 `197-int27-terminate-and-stay-resident`）的較早版本，
+  `main` 已有實作等價且狀態為 CONFORMED 的版本。三個指向已合併分支的 worktree 一併移除。
+- 新增 `tools/docker/go-ebiten.Dockerfile` 與 `tools/build_image.sh`，`tools/go.sh` 預設映像改為
+  `dosgolem-go-ebiten:1.24-r1`。上一段提到 `ci.sh` 跑不過，原因已處理：
+  - `ci.sh` 只驗追蹤中的 `.go` 檔與套件，`workplace/` 的未追蹤實驗程式不再弄壞 `./...`；
+  - 測試包在 `xvfb-run` 裡；`go.sh` 加 `docker run --init`，xvfb-run 當 PID 1 時收不到
+    Xvfb 的就緒訊號，會無限等待（實測卡 30 分鐘）。
+- `go.sh` 依前綴把測試讀的環境變數傳進容器（原本只傳 9 個，測試讀約 60 個），
+  新增 `DOSGOLEM_EXTRA_MOUNTS`（多個掛載，來源不存在就停）與 `DOSGOLEM_NETWORK`。

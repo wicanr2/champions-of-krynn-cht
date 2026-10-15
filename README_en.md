@@ -344,12 +344,21 @@ judge instead of transcribing the manual.
 Builds and tests go through docker; nothing is installed on the host:
 
 ```sh
-tools/go.sh build ./...
-tools/go.sh test ./...
+tools/build_image.sh                     # build the dosgolem-go-ebiten image (once)
+DOSGOLEM_NETWORK=bridge tools/go.sh mod download   # fetch modules (once)
+tools/ci.sh                              # gofmt, vet, tests, CPU corpus
 
 tools/fetch_cputests.sh                  # fetch SingleStepTests/8088 v2 (761 MB)
 tools/go.sh test ./internal/cpu -run TestSingleStep
 ```
+
+The Ebiten frontends need X11/ALSA headers on Linux and their tests need
+`xvfb-run`, so the image is not the stock `golang` one; it is defined in
+`tools/docker/go-ebiten.Dockerfile`. Tests that need original assets read
+environment variables (`DOSGOLEM_TEST_EXE`, `BUCKROGERS_CHT_ROOT`, ...).
+`tools/go.sh` forwards them into the container by prefix; values must be
+container paths, with directories mounted via `DOSGOLEM_ORIG` or
+`DOSGOLEM_EXTRA_MOUNTS`.
 
 The test corpus is **not** in version control and is not redistributed here; it
 has its own licence. Without it the CPU tests skip rather than pretending to

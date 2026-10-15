@@ -12,6 +12,10 @@ set -uo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")/.."
 
 fail=0
+# 只驗**追蹤中**的套件與檔案：workplace/ 底下常有未追蹤的實驗程式
+# （同一個目錄好幾個 main），`./...` 會把它們一起編而失敗。
+mapfile -t GOFILES < <(git ls-files '*.go')
+mapfile -t PKGS < <(printf '%s\n' "${GOFILES[@]}" | xargs -n1 dirname | sort -u | sed 's|^|./|')
 step() { printf '\n\033[1m=== %s\033[0m\n' "$1"; }
 bad() { echo "  ✗ $1"; fail=1; }
 
@@ -20,7 +24,7 @@ bad() { echo "  ✗ $1"; fail=1; }
 # 再只挑「本分支動過的檔」——那個做法會在合併進 master 之後變成「零個檔案」，
 # 於是這一步永遠是綠的而且什麼都沒檢查。
 step "gofmt（整個 repo）"
-out=$(DOSGOLEM_GO_CMD=gofmt tools/go.sh -l . 2>&1)
+out=$(DOSGOLEM_GO_CMD=gofmt tools/go.sh -l "${GOFILES[@]}" 2>&1)
 if [[ -n "$out" ]]; then
   bad "沒有格式化："
   echo "$out" | sed 's/^/      /'
@@ -30,14 +34,16 @@ fi
 
 # ---- 2. 靜態檢查 ---------------------------------------------------------
 step "go vet"
-tools/go.sh vet ./... && echo "  ✓" || bad "go vet 有問題"
+tools/go.sh vet "${PKGS[@]}" && echo "  ✓" || bad "go vet 有問題"
 
 # ---- 3. 單元測試（不含語料）----------------------------------------------
 # **語料留給下一步**：`./...` 已經含 internal/cpu，不加 `-short` 的話同一份
 # 727 MB 語料會在這一輪跑兩次（實測序列 182–287 秒一次），一輪 CI 平白多花
 # 三分多鐘做同一件事。
+# Ebiten 的套件在 init 就開 GLFW，沒有 DISPLAY 會 panic：一律包在 xvfb-run 裡
+# （映像見 tools/docker/go-ebiten.Dockerfile）。
 step "go test（不含 CPU 語料）"
-tools/go.sh test -short ./... || bad "測試沒過"
+DOSGOLEM_GO_CMD=xvfb-run tools/go.sh -a go test -short "${PKGS[@]}" || bad "測試沒過"
 
 # ---- 4. CPU 語料 ---------------------------------------------------------
 # 判準是**全部通過**（`docs/spec/002` §5）：CPU 的錯不會報錯，只會讓上層

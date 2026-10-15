@@ -320,12 +320,18 @@ SingleStepTests 是硬體產生的，與手冊衝突時以它為準。這一路�
 建置與測試一律走 docker，不裝到系統環境：
 
 ```sh
-tools/go.sh build ./...
-tools/go.sh test ./...
+tools/build_image.sh                     # 建 dosgolem-go-ebiten 映像（一次）
+DOSGOLEM_NETWORK=bridge tools/go.sh mod download   # 抓模組（一次）
+tools/ci.sh                              # gofmt、vet、測試、CPU 語料
 
 tools/fetch_cputests.sh                  # 抓 SingleStepTests/8088 v2（761 MB）
 tools/go.sh test ./internal/cpu -run TestSingleStep
 ```
+
+Ebiten 前端在 Linux 上要 X11／ALSA 標頭，測試要 `xvfb-run`，所以映像不是官方的
+`golang`，定義在 `tools/docker/go-ebiten.Dockerfile`。需要原版素材的測試讀
+環境變數（`DOSGOLEM_TEST_EXE`、`BUCKROGERS_CHT_ROOT` 等），`tools/go.sh` 會依前綴
+傳進容器，值要寫容器內的路徑，目錄用 `DOSGOLEM_ORIG` 或 `DOSGOLEM_EXTRA_MOUNTS` 掛進去。
 
 測試語料**不進版控**，也不隨本儲存庫散布——它有自己的授權。
 沒抓語料時 CPU 測試會 skip，不會假裝通過。
