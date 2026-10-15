@@ -168,8 +168,9 @@ func TestInt15BlockMoveCountsWords(t *testing.T) {
 // 程式讀自己的環境會拿到一段亂碼，而且完全不會報錯。
 func TestInt15SystemConfigTableIsSafe(t *testing.T) {
 	m, d := newTest(t)
-	// 兩個鄰居先做記號：stub 區整段，以及環境區塊的開頭。
-	stubBefore := make([]byte, 0x440)
+	// 兩個鄰居先做記號：stub 區整段（含 0x420 起 35 byte 的計時器 stub），
+	// 以及環境區塊的開頭。
+	stubBefore := make([]byte, 0x460)
 	for i := range stubBefore {
 		stubBefore[i] = m.Read8(uint32(machine.StubSeg)*16 + uint32(i))
 	}

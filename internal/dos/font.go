@@ -218,14 +218,17 @@ func (d *DOS) fontBytes(name string, off, size int) []byte {
 //
 // ⚠ **上下兩邊都有鄰居，只避開一邊不夠。**
 // 下面是 stub：每個向量的 stub 佔 0x000–0x3FF，特殊 stub 從 0x400 起，
-// 其中 BIOS 計時器有 24 個 byte，到 0x438 為止（見 `machine.initVectors`）。
+// 其中 BIOS 計時器有 35 個 byte（含 40:40 馬達倒數），佔 0x420–0x442
+// （見 `machine.initVectors`）。⚠ 舊值 0x440 在計時器 stub 長到 35 byte 之後
+// 會蓋掉它結尾的 `pop ax／pop ds／iret`：呼叫過 `int 15h AH=C0h` 的程式，
+// 下一次計時器中斷就走進設定表。
 // 上面是環境區塊：`StubSeg`（0x0080）與 `EnvSeg`（0x00D0）只差 0x50 段，
 // 也就是**位移 0x500 就是 `EnvSeg:0000`**——擺在那裡等於把 `COMSPEC=`
 // 的前 8 個 byte 蓋掉，而程式讀自己的環境時只會看到一段亂碼，
-// 不會有任何錯誤。0x440 起這一段前後都留得開。
+// 不會有任何錯誤。0x460 起這一段前後都留得開。
 const (
-	sysConfigOff = 0x440
-	inDOSOff     = 0x450
+	sysConfigOff = 0x460
+	inDOSOff     = 0x470
 )
 
 // int15Move 是 `AH=87h`：用 GDT 描述子搬移延伸記憶體。

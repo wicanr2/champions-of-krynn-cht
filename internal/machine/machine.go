@@ -108,7 +108,7 @@ const (
 	// biosTimerOff 是 `int 08h` 的 BIOS 預設處理：推進 `0040:006C`
 	// 再轉呼 `int 1Ch`（見 initVectors）。
 	//
-	// ⚠ **它有 24 個 byte，不是 4 個。** 排在 trampoline 之後並留一整段，
+	// ⚠ **它有 35 個 byte，不是 4 個。** 排在 trampoline 之後並留一整段，
 	// 否則它會把後面的 trampoline 蓋掉——而症狀是「int 10h 的向量指到
 	// `pop dx / pop ax / pop ds`」，看起來像向量算錯，不像佈局重疊。
 	biosTimerOff = specialStubBase + 0x20
@@ -415,6 +415,11 @@ type Machine struct {
 	// 但回掃的頻率由程式輪詢的快慢決定。開了之後頻率跟著 CRTC 走，
 	// 而每一份既有收據的 `in` 序列都會不同。
 	CRTCTiming bool
+
+	// Mode13Phase 讓 mode 13h 的 `0x3DA` 由指令數推算回掃相位（`mode13InputStatus`，
+	// 來源是 Civ1 `docs/spec/i561-vga-time.md`）。**預設關著**，理由同 CRTCTiming：
+	// 開了之後每一份 mode 13h 收據的 `in` 序列都會不同。
+	Mode13Phase bool
 
 	// picMask 是 8259 的 OCW1（埠 0x21）：bit0 遮蔽 IRQ0、bit1 遮蔽 IRQ1。
 	//
@@ -936,6 +941,9 @@ func (m *Machine) In8(port uint16) uint8 {
 		m.VGA.ResetACFlip()
 		// bit3 ＝ 垂直回掃、bit0 ＝ 顯示中。**兩個都要會變**，
 		// 這樣不管程式等的是哪一種邊緣都轉得出來。
+		if m.Mode13Phase && m.VideoMode() == 0x13 {
+			return mode13InputStatus(m.Steps, m.VGAFrameEvery)
+		}
 		if m.CRTCTiming {
 			if v, ok := m.statusFromTiming(); ok {
 				return v
@@ -1509,6 +1517,10 @@ func (m *Machine) initVectors() {
 		0xFF, 0x06, 0x6C, 0x00,
 		0x75, 0x04,
 		0xFF, 0x06, 0x6E, 0x00,
+		// BIOS 40:40 的非零倒數；不在遊戲層強制跳過等待。
+		0x80, 0x3E, 0x40, 0x00, 0x00, // cmp byte [40h],0
+		0x74, 0x04, // je skip
+		0xFE, 0x0E, 0x40, 0x00, // dec byte [40h]
 		0xCD, 0x1C,
 		0x5A, 0x58, 0x1F,
 		0xCF,
