@@ -270,7 +270,7 @@ func (c *PathC) rebuild(row int) {
 		} else if lineWords != nil {
 			zh, mw.Key = lineWords[i], "line"
 		}
-		runes := []rune(zh)
+		runes := PackHalfWidth([]rune(zh))
 		if zh == "" || len(runes) > len(w.cells) {
 			c.Words = append(c.Words, mw)
 			continue
@@ -302,7 +302,7 @@ func (c *PathC) rebuild(row int) {
 func (c *PathC) wholeLine(row int, words []menuWord, e Entry) bool {
 	first, last := words[0], words[len(words)-1]
 	from, to := first.col, last.col+len(last.cells)
-	runes := []rune(e.Translation)
+	runes := PackHalfWidth([]rune(e.Translation))
 	if len(runes) > to-from {
 		return false
 	}

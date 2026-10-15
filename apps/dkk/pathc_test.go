@@ -155,7 +155,7 @@ func TestPathCWholeLinePrompt(t *testing.T) {
 		col += len(w)
 	}
 	c.SetPalette(c.pal)
-	if len(l.Stamps) != 1 || !strings.HasPrefix(string(l.Stamps[0].Text), "按任意鍵或 Enter 繼續") || l.Stamps[0].Cells != col {
+	if len(l.Stamps) != 1 || !strings.HasPrefix(string(l.Stamps[0].Text), string(PackHalfWidth([]rune("按任意鍵或 Enter 繼續")))) || l.Stamps[0].Cells != col {
 		t.Fatalf("整句提示應畫成一筆：%d 筆 %+v", len(l.Stamps), l.Stamps)
 	}
 }

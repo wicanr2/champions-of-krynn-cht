@@ -97,7 +97,7 @@ func TestPathAStampGeometryAndReturn(t *testing.T) {
 	if s.X != 72 || s.Y != 128 || s.Cells != len(text) || s.CellW != 8 || s.CellH != 8 {
 		t.Fatalf("幾何不對：%+v", s)
 	}
-	if len(s.Text) != len(text) || string(s.Text) != "離開到 DOS"+"    " {
+	if want := string(PackHalfWidth([]rune("離開到 DOS"))) + "      "; len(s.Text) != len(text) || string(s.Text) != want {
 		t.Fatalf("Text 應為譯文補空白到 %d 格：%q", len(text), string(s.Text))
 	}
 	if s.State != xlate.Printing {

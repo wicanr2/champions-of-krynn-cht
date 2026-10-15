@@ -152,20 +152,20 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 			return
 		}
 		page = b.newPage(r, uint8(bg), uint8(fg), r.Top, r.Left)
-		runes = []rune(e.Translation)
+		runes = PackHalfWidth([]rune(e.Translation))
 	case page == nil:
 		if !hit {
 			h.Rejected = "未命中（無有效頁）"
 			return
 		}
 		page = b.newPage(r, uint8(bg), uint8(fg), or, oc)
-		runes = []rune(e.Translation)
+		runes = PackHalfWidth([]rune(e.Translation))
 	default:
 		if oc == r.Left && page.curCol != r.Left {
 			page.curRow, page.curCol = page.curRow+1, r.Left
 		}
 		if hit {
-			runes = []rune(e.Translation)
+			runes = PackHalfWidth([]rune(e.Translation))
 		} else {
 			runes = []rune(string(text)) // 照原文接入（名字、數字）
 			h.Rejected = "未命中（照原文接入）"
@@ -201,7 +201,7 @@ func (b *PathB) newPage(r Rect, bg, fg uint8, row, col int) *bPage {
 // isClosePunct 是不放行首的全形句讀。
 func isClosePunct(r rune) bool { return strings.ContainsRune("，。、；：！？」』）…", r) }
 
-func isWordRune(r rune) bool { return r < 0x80 && r != ' ' }
+func isWordRune(r rune) bool { return r < 0x80 && r != ' ' || isPair(r) } // 組合字不從中間斷行（規格 005）
 
 // layout 把 runes 從頁的中文游標排進格子；溢出回 false（不改格子）。
 func layout(p *bPage, runes []rune) bool {

@@ -3,7 +3,6 @@ package dkk
 import (
 	"bytes"
 	"fmt"
-	"unicode/utf8"
 
 	"github.com/wicanr2/dosgolem/xlate"
 )
@@ -165,9 +164,9 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 		return
 	}
 	h.Key = e.Key
-	runes := []rune(e.Translation)
+	runes := PackHalfWidth([]rune(e.Translation))
 	cells := n - lead
-	if utf8.RuneCountInString(e.Translation) > cells {
+	if len(runes) > cells {
 		h.Rejected = "譯文超過原文格數"
 		return
 	}

@@ -44,6 +44,7 @@ type Live struct {
 // NewLive 建立尚未綁定位址的覆繪；ui 是介面字串查表（可為規格 004 的 Translator），
 // ecl 可為 nil（不啟用路徑 B）。
 func NewLive(font *xlate.Font, ui Lookuper, ecl *Catalog) *Live {
+	AddHalfWidthPairs(font)
 	return &Live{Layer: &xlate.Layer{W: 320, H: 200}, Font: font, ui: ui, ecl: ecl}
 }
 
