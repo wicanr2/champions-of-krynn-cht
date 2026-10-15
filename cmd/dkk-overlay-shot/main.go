@@ -104,6 +104,11 @@ func main() {
 	if err != nil {
 		fail(err)
 	}
+	pc, err := dkk.NewPathC(m, cat, font, layer)
+	if err != nil {
+		fail(err)
+	}
+	pc.SetPalette(m.FramePalette())
 	var pb *dkk.PathB
 	if *eclEvents != "" {
 		ecl, err := dkk.LoadCatalog(mustRead(*eclEvents), mustRead(*eclTranslations))
@@ -114,14 +119,25 @@ func main() {
 			fail(err)
 		}
 		pb.SetPalette(m.FramePalette())
-		m.ObserveVideoWrites(func(w machine.VideoWrite) { pb.VideoWrite(w.Offset) })
-		m.ObserveModeChanges(func(machine.ModeChange) { pb.Reset() })
 	}
+	m.ObserveVideoWrites(func(w machine.VideoWrite) {
+		pc.VideoWrite(w.Offset)
+		if pb != nil {
+			pb.VideoWrite(w.Offset)
+		}
+	})
+	m.ObserveModeChanges(func(machine.ModeChange) {
+		pc.Reset()
+		if pb != nil {
+			pb.Reset()
+		}
+	})
 	m.SetOnFrame(func() {
 		idx := m.Indexed()
 		if len(idx) == 320*200 {
 			pal := m.FramePalette()
 			pa.PrepareFrame(idx, 320, 200)
+			pc.SetPalette(pal)
 			if pb != nil {
 				pb.SetPalette(pal)
 			}
@@ -143,6 +159,7 @@ func main() {
 			si++
 		}
 		pa.Before(m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m)
+		pc.Before(m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m)
 		if pb != nil {
 			pb.Before(m.Steps, m.CPU.Seg[cpu.CS], m.CPU.IP, m.CPU.Seg[cpu.SS], m.CPU.R[cpu.SP], m.CPU.Seg[cpu.DS], m)
 		}
@@ -151,17 +168,19 @@ func main() {
 		}
 	}
 	out := struct {
-		Entry   string       `json:"path_a_entry"`
-		Catalog int          `json:"catalog_entries"`
-		KeysOut int          `json:"keys_sent"`
-		Stopped uint64       `json:"stopped_at"`
-		Shots   []shotResult `json:"shots"`
-		Hits    []dkk.Hit    `json:"hits"`
-		HitsB   []dkk.Hit    `json:"hits_b,omitempty"`
+		Entry   string         `json:"path_a_entry"`
+		Catalog int            `json:"catalog_entries"`
+		KeysOut int            `json:"keys_sent"`
+		Stopped uint64         `json:"stopped_at"`
+		Shots   []shotResult   `json:"shots"`
+		Hits    []dkk.Hit      `json:"hits"`
+		HitsB   []dkk.Hit      `json:"hits_b,omitempty"`
+		MenuC   []dkk.MenuWord `json:"menu_words"`
 	}{Entry: fmt.Sprintf("%05X", pa.Entry), Catalog: cat.Len(), KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: pa.Hits}
 	if pb != nil {
 		out.HitsB = pb.Hits
 	}
+	out.MenuC = pc.Words
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", " ")
 	if err := enc.Encode(out); err != nil {
