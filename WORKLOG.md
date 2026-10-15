@@ -631,3 +631,37 @@ native交回三個原始入口、保留既有平台，唯讀記錄caller／指�
 CLI與來源hash拒收、三套件完整回歸、adapter原前綴及正常標題down／up通過。
 驗證程式Descriptor名稱錯誤已分類修正並同命令重跑；未修改產品語意。
 原型來源dirty如實記錄，提交後重生乾淨正式wrapper收據再結案。
+
+## 2026-10-15：14 條分支整合進 main
+
+以 `origin/main`（`d0ad8b9`）為基底，依序合入 fix/stubseg、kol、dm-boot、bcc20、
+psychic-war/r5-text、moo2、phantasie（含 buck-rogers）、wolong、civ1、fd2-oracle-input-chain、
+logh3、pool-parity、san1-hercules、master。被包含的分支（psychic-war/m1-*、
+dos-arena、san1-oracle-parity、buck-rogers）隨上層一起進來。每條合完都過 build／vet，
+最後整庫 gofmt、vet、`-short` 全套與 CPU 語料（323 檔）全部通過。
+
+ebiten 相關套件要 X11／ALSA 開發檔與 `xvfb-run`，這一輪用本機映像
+`psychicwar-go-ebiten:latest`；預設的 `golang:1.24-bookworm` 建不起來，`tools/ci.sh` 尚未跟著改。
+
+### 已被推翻斷言
+
+| 原斷言 | 出處 | 現況 | 依據 |
+|---|---|---|---|
+| mickey 相對位移不存進狀態檔 | `197-mouse-handler-in-saved-state` §2 | 要存 | 同規格 §4 第 3 條要求展開後與從頭跑一致；logh3 `TestStateKeepsMouseDriverState` |
+| 釘死 tick 時兩個時間基準差約四倍 | `190-opl-vgm-dump` §3.1、`CLAUDE.md` | 17,000 分頻標定下 logh3 那組只差約 0.6% | `190-irq0-calibration`；`TestStepsPerSecondNowFollowsThePinnedTick` 改為與未釘死值比較 |
+| FD2 profile 不接受 GS 0x20 | moo2 `TestFD2StartupDOS` | 接受，只限 GS | fd2 批次 153，`TestFD2StartupDOSRestoresItsGSWithoutInventingMemory` |
+| `22` 記憶體形式、`66 19`、`D1 /4` 記憶體形式未支援 | moo2 三個拒收測試 | 已支援 | fd2 `e4cd781`、moo2 規格 214、`190-cpu386-d1-shl-rm32` |
+| 系統設定表與 InDOS 在 StubSeg `0x440`／`0x450` | `194-stubseg-font-collision-and-program-path` §1.2 | 改到 `0x460`／`0x470` | civ1 把 int 08h stub 加長到 35 bytes，佔 `0x420`–`0x442` |
+| mode 13h 不改 DAC | `TestModeSetLoadsDefaultDAC` | 前 16 色載入 VGA 預設 | phantasie `docs/spec/205`；測試改看 DAC 20h |
+
+### 只在合併後才出現的碰撞
+
+| 碰撞 | 處理 |
+|---|---|
+| int 08h stub（35 bytes）與 `int 15h AH=C0h` 系統設定表重疊 | 位移後移，`TestInt15SystemConfigTableIsSafe` 範圍擴到 `0x460`，正反對照驗過 |
+| `probe -scratch` 定義三次 | 留 phantasie 的定義；civ1 的 `-scratch-dir` 保留為別名 |
+| `CPU.EAXHi` 改名成 `Hi[8]` 後 moo2 程式仍用舊名 | `le_real_irq7.go`、`workplace/moo2-probe` 改用 `Hi[cpu.AX]` |
+| xlate `refreshColors` 每幀蓋掉 phantasie 依字模遮罩定的顏色 | 只在色號的實際 RGB 改變時更新 BG／FG |
+| civ1 的 mode 13h `3DA` 相位改變所有 mode 13h 收據 | 改成 opt-in：`Machine.Mode13Phase`、`probe -mode13-phase` |
+| master 把埠統計改成 slice，同名欄位換型別會讓舊狀態檔解不開 | 新增 `PortList`／`PortInList` 寫入，`Ports`／`PortsIn` 只留著讀舊檔 |
+| 規格索引聯集後標題重複、條目錯組 | 重建號碼表、合併重複標題、補登 17 份原分支未列的規格 |
