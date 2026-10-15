@@ -75,7 +75,7 @@ func Bind(o *oracle.Oracle) (*Bridge, error) {
 	var psp uint16
 	found := false
 	for _, r := range o.ExecLog() {
-		if !equalFold(r.Base, EngineName) || r.Exit != 0xFF {
+		if !equalFold(r.Base, EngineName) || r.Ended { // 還在跑的那一支（`docs/spec/206-exec-exit-sentinel`）
 			continue
 		}
 		psp, found = r.PSP, true
