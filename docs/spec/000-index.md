@@ -375,3 +375,13 @@
 - [195 — DOS 非阻塞直接主控台輸入](195-dos-direct-console-input.md)：READY。`AH=06h` 有字元時消耗一個並清 ZF，空佇列才設 ZF——原本永遠回「無字元」。
 
 - [196 — 預設主控台的 BIOS 讀鍵轉接](196-bios-console-read-bridge.md)：READY。程式可能先直接查 BDA 再經 DOS `AH=08h` 取同一個鍵；兩條路要看到同一個佇列。
+
+- [194 — 交換使用者中斷向量（int 33h AX=0014h）](194-mouse-swap-user-interrupt-vectors.md)：READY。`000Ch` 的「設新的、回舊的」版本；**用這一支的程式一次都不叫 `000Ch`**。
+
+- [195 — 子目錄的路徑解析](195-subdirectory-path-resolution.md)：READY。先試完整路徑再退回 basename；資料真的放在 `data\` 底下的遊戲只有這條路走得通。
+
+- [196 — 取磁碟裝置參數（int 21h AH=44h AL=0Dh CL=60h）](196-ioctl-get-device-parameters.md)：READY。回報成固定硬碟，程式才不會提示換片；BPB 與 `AH=1Bh` 同一組數字。
+
+- [197 — 滑鼠事件常式要進狀態檔](197-mouse-handler-in-saved-state.md)：READY。漏掉它的症狀是「展開之後點擊全部沒反應」，而畫面逐像素相同。
+
+- [198 — DM 巡檢 adapter（`apps/dm`）](198-dm-sweep-adapter.md)：READY。原版側的全層巡檢介入——刻的邊界寫回生命力／食物／水、負重上限用 `StubValue` 換成 10000；檢查點的鍵是路線步序不是遊戲刻，路線是兩側共用的 JSON。四個攔截點與隊伍座標的位址由 remake 專案反組譯取得。

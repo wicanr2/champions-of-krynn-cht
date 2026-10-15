@@ -131,7 +131,17 @@ func (d *DOS) SaveState(w io.Writer) error {
 		Exited:   d.Exited,
 		ExitCode: d.ExitCode,
 	}
-	// 滑鼠的座標與按鍵要留，觀測紀錄不留。
+	// 滑鼠的座標、按鍵、**事件常式與座標範圍**要留，觀測紀錄不留
+	// （`docs/spec/196-mouse-handler-survives-state-file`、`docs/spec/197-mouse-handler-in-saved-state`）。
+	//
+	// ⚠ **事件常式掉了的症狀是「展開之後點擊全部沒反應」，而畫面
+	// 逐像素相同。** 記憶體、CPU、開著的檔、配出去的區塊全都還原了，
+	// 唯一沒還原的東西剛好不影響畫面，只影響之後的輸入——
+	// `clickgrid` 掃出來的「這一格沒反應」與「這一區真的沒有熱區」
+	// 長得一模一樣。
+	//
+	// mickey 刻意不存：它是「自從程式上次問以來」的累計，跨行程接續時
+	// 歸零才對；存下來的話展開後第一次 `AX=0Bh` 會拿到存檔之前的位移。
 	s.Mouse = Mouse{X: d.Mouse.X, Y: d.Mouse.Y, Buttons: d.Mouse.Buttons,
 		Press: d.Mouse.Press, Release: d.Mouse.Release, XScale: d.Mouse.XScale}
 	s.MouseExtra = mouseExtra{Handler: d.Mouse.Handler, PressAt: d.Mouse.PressAt, ReleaseAt: d.Mouse.ReleaseAt,
@@ -202,6 +212,13 @@ func (d *DOS) LoadState(r io.Reader) error {
 	x := s.MouseExtra
 	d.Mouse.Handler, d.Mouse.PressAt, d.Mouse.ReleaseAt = x.Handler, x.PressAt, x.ReleaseAt
 	d.Mouse.MinX, d.Mouse.MaxX, d.Mouse.MinY, d.Mouse.MaxY = x.MinX, x.MaxX, x.MinY, x.MaxY
+	// fix/dm-boot 分支的狀態檔把事件常式與範圍存在 Mouse 本身
+	// （`docs/spec/197-mouse-handler-in-saved-state`）；MouseExtra 是零值時用那一份。
+	if x == (mouseExtra{}) {
+		d.Mouse.Handler = s.Mouse.Handler
+		d.Mouse.MinX, d.Mouse.MaxX = s.Mouse.MinX, s.Mouse.MaxX
+		d.Mouse.MinY, d.Mouse.MaxY = s.Mouse.MinY, s.Mouse.MaxY
+	}
 	d.freeSeg = s.FreeSeg
 	d.curPSP, d.lastExit = s.CurPSP, s.LastExit
 	d.queue = append([]Queued(nil), s.Queue...)
