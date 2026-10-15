@@ -80,7 +80,7 @@ func linear(seg, off uint16) uint32 { return uint32(seg)<<4 + uint32(off) }
 // PathA 在印字程序進入點讀參數、查譯文、加 xlate Stamp（規格 001）。
 type PathA struct {
 	Entry   uint32 // 進入點線性位址，由 PathASignature 找到
-	Catalog *Catalog
+	Catalog Lookuper
 	Font    *xlate.Font
 	Layer   *xlate.Layer
 	Hits    []Hit
@@ -102,7 +102,7 @@ type pendingStamp struct {
 const argBytes = 12
 
 // NewPathA 搜尋進入點；命中數不是 1 就回錯（規格 001 §2.1：不猜位址）。
-func NewPathA(mem CPUView, cat *Catalog, font *xlate.Font, layer *xlate.Layer) (*PathA, error) {
+func NewPathA(mem CPUView, cat Lookuper, font *xlate.Font, layer *xlate.Layer) (*PathA, error) {
 	hits := PathASignature.Find(mem.Read8, 0, 0xA0000)
 	if len(hits) != 1 {
 		return nil, fmt.Errorf("dkk: 路徑 A 簽章命中 %d 處，要恰好 1 處", len(hits))

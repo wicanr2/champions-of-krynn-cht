@@ -307,18 +307,7 @@ func main() {
 		fail(err)
 	}
 	font.Name = filepath.Base(*fontPath)
-	read := func(name string) []byte {
-		b, err := os.ReadFile(filepath.Join(*textDir, name))
-		if err != nil {
-			fail(err)
-		}
-		return b
-	}
-	ui, err := dkk.LoadCatalog(read("ui-text-events.tsv"), read("ui-text.zh-TW.tsv"))
-	if err != nil {
-		fail(err)
-	}
-	ecl, err := dkk.LoadCatalog(read("ecl-text-events.tsv"), read("ecl-text.zh-TW.tsv"))
+	ui, ecl, err := dkk.LoadTextDir(*textDir)
 	if err != nil {
 		fail(err)
 	}

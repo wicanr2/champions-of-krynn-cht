@@ -31,7 +31,8 @@ type Live struct {
 	B     *PathB
 	C     *PathC
 
-	ui, ecl *Catalog
+	ui      Lookuper
+	ecl     *Catalog
 	ready   bool
 	armed   bool
 	BindErr error  // 最近一次綁定失敗的原因；綁定成功後為 nil
@@ -40,8 +41,9 @@ type Live struct {
 	pal     [256][3]uint8
 }
 
-// NewLive 建立尚未綁定位址的覆繪；ecl 可為 nil（不啟用路徑 B）。
-func NewLive(font *xlate.Font, ui, ecl *Catalog) *Live {
+// NewLive 建立尚未綁定位址的覆繪；ui 是介面字串查表（可為規格 004 的 Translator），
+// ecl 可為 nil（不啟用路徑 B）。
+func NewLive(font *xlate.Font, ui Lookuper, ecl *Catalog) *Live {
 	return &Live{Layer: &xlate.Layer{W: 320, H: 200}, Font: font, ui: ui, ecl: ecl}
 }
 

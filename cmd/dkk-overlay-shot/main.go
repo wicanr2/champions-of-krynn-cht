@@ -63,6 +63,7 @@ func main() {
 	translations := flag.String("translations", "", "ui-text.zh-TW.tsv")
 	eclEvents := flag.String("ecl-events", "", "ecl-text-events.tsv（給了才啟用路徑 B）")
 	eclTranslations := flag.String("ecl-translations", "", "ecl-text.zh-TW.tsv")
+	textDir := flag.String("text-dir", "", "譯文目錄：給了就以 dkk.LoadTextDir 載入全部（含規格 004 組句），忽略 events／translations／ecl-* 旗標")
 	biosKeys := flag.String("bios-keys", "", "逐個送進 BIOS 鍵盤緩衝區的字元")
 	biosKeyNames := flag.String("bios-key-names", "", "接在 -bios-keys 後送的具名鍵，逗號分隔")
 	keyFrom := flag.Uint64("bios-key-from", 0, "第一個鍵的步數")
@@ -71,8 +72,11 @@ func main() {
 	until := flag.Uint64("until", 0, "絕對步數上限")
 	outDir := flag.String("out", "", "輸出目錄")
 	flag.Parse()
-	if *statePath == "" || *root == "" || *fontPath == "" || *events == "" || *translations == "" || *until == 0 || *outDir == "" {
-		fail(fmt.Errorf("state、root、font、events、translations、until、out 均為必填"))
+	if *statePath == "" || *root == "" || *fontPath == "" || *until == 0 || *outDir == "" {
+		fail(fmt.Errorf("state、root、font、until、out 均為必填"))
+	}
+	if *textDir == "" && (*events == "" || *translations == "") {
+		fail(fmt.Errorf("沒給 text-dir 時 events、translations 必填"))
 	}
 	shots, err := parseShots(*shotsSpec)
 	if err != nil {
@@ -87,10 +91,6 @@ func main() {
 		fail(err)
 	}
 	font.Name = filepath.Base(*fontPath)
-	cat, err := dkk.LoadCatalog(mustRead(*events), mustRead(*translations))
-	if err != nil {
-		fail(err)
-	}
 
 	m := machine.New()
 	d := dos.New(m, *root)
@@ -99,13 +99,33 @@ func main() {
 	if err := state.Load(*statePath, m, d); err != nil {
 		fail(err)
 	}
+	var ui dkk.Lookuper
 	var ecl *dkk.Catalog
-	if *eclEvents != "" {
-		if ecl, err = dkk.LoadCatalog(mustRead(*eclEvents), mustRead(*eclTranslations)); err != nil {
+	entries := 0
+	if *textDir != "" {
+		t, e, err := dkk.LoadTextDir(*textDir)
+		if err != nil {
 			fail(err)
 		}
+		ui, ecl = t, e
+		for _, c := range t.Exact {
+			if c, ok := c.(*dkk.Catalog); ok {
+				entries += c.Len()
+			}
+		}
+	} else {
+		cat, err := dkk.LoadCatalog(mustRead(*events), mustRead(*translations))
+		if err != nil {
+			fail(err)
+		}
+		ui, entries = cat, cat.Len()
+		if *eclEvents != "" {
+			if ecl, err = dkk.LoadCatalog(mustRead(*eclEvents), mustRead(*eclTranslations)); err != nil {
+				fail(err)
+			}
+		}
 	}
-	live := dkk.NewLive(font, cat, ecl)
+	live := dkk.NewLive(font, ui, ecl)
 	live.Arm() // 狀態檔已在遊戲中
 	cpuView := machineCPU{m}
 	m.ObserveVideoWrites(func(w machine.VideoWrite) { live.VideoWrite(w.Offset) })
@@ -141,7 +161,7 @@ func main() {
 		Hits    []dkk.Hit      `json:"hits"`
 		HitsB   []dkk.Hit      `json:"hits_b,omitempty"`
 		MenuC   []dkk.MenuWord `json:"menu_words"`
-	}{Entry: fmt.Sprintf("%05X", live.A.Entry), Catalog: cat.Len(), KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: live.A.Hits}
+	}{Entry: fmt.Sprintf("%05X", live.A.Entry), Catalog: entries, KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: live.A.Hits}
 	if live.B != nil {
 		out.HitsB = live.B.Hits
 	}

@@ -73,7 +73,7 @@ func LoadCatalog(events, translations []byte) (*Catalog, error) {
 
 // Lookup 以原字串 bytes 查譯文。
 func (c *Catalog) Lookup(original []byte) (Entry, bool) {
-	if c == nil {
+	if c == nil || c.byHash == nil {
 		return Entry{}, false
 	}
 	sum := sha256.Sum256(original)

@@ -44,7 +44,7 @@ type gCall struct {
 // PathC 依規格 003 呈現底列水平選單的中文。
 type PathC struct {
 	Entry   uint32
-	Catalog *Catalog
+	Catalog Lookuper
 	Font    *xlate.Font
 	Layer   *xlate.Layer
 	Words   []MenuWord // 最近一次重組的結果（收據用）
@@ -64,7 +64,7 @@ type MenuWord struct {
 }
 
 // NewPathC 搜尋逐字程序；命中數不是 1 就回錯。
-func NewPathC(mem CPUView, cat *Catalog, font *xlate.Font, layer *xlate.Layer) (*PathC, error) {
+func NewPathC(mem CPUView, cat Lookuper, font *xlate.Font, layer *xlate.Layer) (*PathC, error) {
 	hits := GlyphSignature.Find(mem.Read8, 0, 0xA0000)
 	if len(hits) != 1 {
 		return nil, fmt.Errorf("dkk: 路徑 C 逐字程序簽章命中 %d 處，要恰好 1 處", len(hits))

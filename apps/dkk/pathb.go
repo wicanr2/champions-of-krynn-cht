@@ -55,7 +55,7 @@ type bCall struct {
 // PathB 依規格 002 呈現文字視窗的中文。
 type PathB struct {
 	Entry   uint32
-	Lookups []*Catalog // 依序查：ECL、介面
+	Lookups []Lookuper // 依序查：ECL、介面（含規格 004 組句）
 	Font    *xlate.Font
 	Layer   *xlate.Layer
 	Hits    []Hit
@@ -66,7 +66,7 @@ type PathB struct {
 }
 
 // NewPathB 搜尋進入點；命中數不是 1 就回錯。也設定 Layer.Frozen 讓 xlate 不碰路徑 B 的 Stamp。
-func NewPathB(mem CPUView, font *xlate.Font, layer *xlate.Layer, lookups ...*Catalog) (*PathB, error) {
+func NewPathB(mem CPUView, font *xlate.Font, layer *xlate.Layer, lookups ...Lookuper) (*PathB, error) {
 	hits := PathBSignature.Find(mem.Read8, 0, 0xA0000)
 	if len(hits) != 1 {
 		return nil, fmt.Errorf("dkk: 路徑 B 簽章命中 %d 處，要恰好 1 處", len(hits))
