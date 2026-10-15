@@ -870,3 +870,16 @@
 | [240](240-opl-audio-output-draft.md) | AdLib（OPL）與 PC 喇叭音訊輸出 | READY |
 - [197 — `int 27h`（舊式常駐結束）](197-int27-terminate-and-stay-resident.md)：CONFORMED。`DX` 是位元組，向上取整成段數後走 `terminate()` 的 TSR 分支；啟動序列依賴三支以它常駐的 `.COM`。
 - [251 — Oracle 指令前等待閘門](251-oracle-step-guard.md)：CONFORMED。選用 guard 的明示停止與等待錯誤，不改預設 BIOS 行為。
+## 新增 CPU386 位移切片
+
+- [190-cpu386-d1-shl-rm32](190-cpu386-d1-shl-rm32.md)：FD2第十七章正常END後的D1 /4記憶體指令。CONFORMED；原版證據與同槽重跑由fd2_re #90追蹤。
+
+- [191-cpu386-x87-fmul-m32](191-cpu386-x87-fmul-m32.md)：CONFORMED；FD2第24章D8 /1記憶體乘法，由fd2_re #146追蹤。
+
+- [192-cpu386-x87-trig](192-cpu386-x87-trig.md)：有限CONFORMED；第24章FCOS缺口與同段FSIN，fd2_re #147。
+
+- [193-cpu386-short-parity-branch](193-cpu386-short-parity-branch.md)：有限CONFORMED；x87狀態消費端的短JP／JNP，fd2_re #148。
+
+- [194-cpu386-x87-fild-m16](194-cpu386-x87-fild-m16.md)：READY；DF /0 m16int與正常乘加消費鏈，fd2_re #149。
+
+- [012-fd2-parity-capture](012-fd2-parity-capture.md)第9節：#173同時點map globals／units／palette，READY。

@@ -184,12 +184,7 @@ func TestADDByteSourceRegister02And22Remain(t *testing.T) {
 			}
 		}
 	}
-	c, mem := xchgByteFixture354([]byte{0x22, 0x05, 32, 0, 0, 0})
-	want := snapshotInImmediate(c)
-	before := append([]byte(nil), mem...)
-	if err := c.Step(); err == nil || snapshotInImmediate(c) != want || !bytes.Equal(mem, before) {
-		t.Fatalf("未審查22 memory仍拒絕：%v", err)
-	}
+	// 22 的記憶體形式由 fd2 分支補上（e4cd781，見 add_byte_memory_test.go），不再屬於拒收。
 }
 func TestADDByteSourceMemoryRejectedPrefixesAndTruncation(t *testing.T) {
 	code := []byte{0x02, 0x25, 64, 0, 0, 0}

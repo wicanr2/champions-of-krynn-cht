@@ -11,6 +11,7 @@ package main
 import (
 	"bytes"
 	"crypto/sha256"
+	"encoding/binary"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -27,17 +28,40 @@ import (
 	"time"
 )
 
+func fd2KeyNames() map[string]uint16 {
+	keys := map[string]uint16{
+		"up": 0x48e0, "down": 0x50e0, "left": 0x4be0, "right": 0x4de0,
+		"enter": 0x1c0d, "esc": 0x011b,
+	}
+	// IBM BIOS int 16h 回傳 AH=scan、AL=ASCII。Shift／Ctrl／Alt 的 F1..F10
+	// 不是「基礎 F 鍵加另一個事件」，而是三段連續的擴充 scan code；FD2 的祕密
+	// 商店 gate 正是比較這個 AH。把 chord 寫成語意名稱，控制歷程才能直接稽核。
+	for _, base := range []struct {
+		name string
+		scan uint16
+	}{{"shift", 0x54}, {"ctrl", 0x5e}, {"alt", 0x68}} {
+		for f := uint16(1); f <= 10; f++ {
+			keys[fmt.Sprintf("%s-f%d", base.name, f)] = (base.scan + f - 1) << 8
+		}
+	}
+	return keys
+}
+
 func main() {
 	exe := flag.String("exe", "/orig/FD2.EXE", "固定版本原版執行檔")
 	root := flag.String("root", "/orig", "唯讀原版資料根目錄")
 	frame := flag.String("frame", "", "原生320×200停點PNG輸出（不覆寫）")
 	budget := flag.Int("steps", 500000, "有界指令數（1至2000000000）")
+	lockAllyHP := flag.Bool("lock-ally-hp", false,
+		"作弊：把我方單位的 HP 壓回歷史最高值，讓長關卡跑得完。這是修改路徑，"+
+			"收據會在 state_injections 標記，不得當成一般玩家路徑證據")
 	timedKeys := flag.String("timed-keys", "", "指令時點輸入：80000000:enter，逗號分隔且嚴格遞增")
 	keys := flag.String("keys", "", "等待邊界的BIOS按鍵序列，以逗號分隔：up,down,left,right,enter,esc")
 	state := flag.String("state", "", "獨立可寫檔案覆蓋目錄；空值維持唯讀")
 	traceTail := flag.Bool("trace-tail", false, "唯讀記錄最後2000個指令位置")
 	dialogueEnters := flag.Int("dialogue-enters", 0, "等待邊界送 Enter 的有界次數")
 	dialogueFrames := flag.String("dialogue-frames", "", "逐頁原生收據目錄，必須存在且不得覆寫")
+	heapProfile := flag.String("heap-profile", "adapter", "近堆模式：adapter或native；native執行固定版本原始近堆入口")
 	heapMiB := flag.Int("heap-mib", 32, "明示近堆預算MiB（1至64），非原版配置器位址契約")
 	runDir := flag.String("run-dir", "", "互動對拍目錄；空值維持與 bootprobe 相同的一次性行為")
 	firstChunk := flag.Int("first-chunk", 700000000, "互動模式第一個控制邊界前的指令數（1至2000000000）")
@@ -50,8 +74,35 @@ func main() {
 	frameFrom := flag.Int("frame-from", 0, "逐幀擷取的起始指令數；之前不取樣")
 	frameTo := flag.Int("frame-to", 0, "逐幀擷取的結束指令數；0 表示不設上界")
 	frameEIP := flag.String("frame-eip", "", "在此 EIP 取一幀（十六進位，如 0x11CAC）；可與 -frame-stride 並用")
+	frameUnits := flag.Bool("frame-units", false, "逐格附加同時點單位原始記錄；需要 -frame-dir，唯讀觀測")
+	mapState := flag.Bool("map-state", false, "同步附加地圖全域、單位與色盤；需要frame-dir或eip-trace，唯讀觀測")
+	memoryChange := flag.String("memory-change", "", "有界唯讀byte變更觀察，最多16個LE線性位址；需要run-dir")
 	eipWatch := flag.String("eip-watch", "", "逗號分隔的十六進位位址（最多16個）；每一幀記錄各自的累計進入次數")
+	eipTrace := flag.String("eip-trace", "", "逗號分隔的十六進位位址（最多16個）；每次進入時把 step、control seq、EAX/EDX/EBX/ECX/ESI/EDI/ESP 與堆疊前 8 個 dword 追加到 -run-dir 的 eip-trace.jsonl（Watcom 暫存器呼叫慣例：前四個整數引數在 EAX/EDX/EBX/ECX）")
+	eipTraceMax := flag.Int("eip-trace-max", 200000, "eip-trace 最多記錄幾筆（1至200000）；超過就停止記錄")
+	eipTraceFrom := flag.Int("eip-trace-from", 0, "唯讀 EIP 追蹤起始指令數；含首尾")
+	eipTraceTo := flag.Int("eip-trace-to", 0, "唯讀 EIP 追蹤終止指令數；0 表示不設上界")
 	flag.Parse()
+	heapExplicit := false
+	flag.Visit(func(f *flag.Flag) {
+		if f.Name == "heap-mib" {
+			heapExplicit = true
+		}
+	})
+	if err := validateFD2HeapProfile(*heapProfile, heapExplicit); err != nil {
+		panic(err)
+	}
+	traceWindow := eipTraceWindow{*eipTraceFrom, *eipTraceTo, *eipTraceMax}
+	if !traceWindow.valid() {
+		panic("eip-trace 範圍或筆數越界")
+	}
+	memoryAddresses, err := parseFD2MemoryChangeAddresses(*memoryChange)
+	if err != nil {
+		panic(err)
+	}
+	if len(memoryAddresses) != 0 && *runDir == "" {
+		panic("memory-change 需要 -run-dir")
+	}
 	if *cpuProfile != "" {
 		f, e := os.Create(*cpuProfile)
 		if e != nil {
@@ -129,11 +180,17 @@ func main() {
 	services := machine.NewFD2StartupDOS(files)
 	defer services.Close()
 	fileCalls := []map[string]any{}
+	fileHandles := map[uint16]string{}
 	m.CPU.IntHook = func(c *cpu386.CPU, n byte) bool {
 		ax := uint16(c.R[cpu386.EAX])
+		ah := uint8(ax >> 8)
 		path := ""
-		observe := n == 0x21 && (ax>>8 == 0x3d || ax>>8 == 0x3c)
-		if observe {
+		observePath := n == 0x21 && (ah == 0x3d || ah == 0x3c)
+		observeWrite := n == 0x21 && ah == 0x40 && uint16(c.R[cpu386.EBX]) > 2
+		observeClose := n == 0x21 && ah == 0x3e
+		handleIn := uint16(c.R[cpu386.EBX])
+		requestedBytes := c.R[cpu386.ECX]
+		if observePath {
 			for i := uint32(0); i < 260; i++ {
 				v, ok := c.ReadSegment8(c.Seg[cpu386.SegDS], c.R[cpu386.EDX]+i)
 				if !ok || v == 0 {
@@ -143,8 +200,25 @@ func main() {
 			}
 		}
 		handled := services.Handle(c, n)
-		if observe {
-			fileCalls = append(fileCalls, map[string]any{"AX_in": fmt.Sprintf("%04X", ax), "path": path, "handled": handled, "AX_out": fmt.Sprintf("%04X", uint16(c.R[cpu386.EAX])), "carry": c.EFlags&cpu386.CF != 0})
+		carry := c.EFlags&cpu386.CF != 0
+		if observePath {
+			if handled && !carry {
+				fileHandles[uint16(c.R[cpu386.EAX])] = path
+			}
+			fileCalls = append(fileCalls, map[string]any{"op": "open", "fn": fmt.Sprintf("%02X", ah), "AX_in": fmt.Sprintf("%04X", ax), "path": path, "handled": handled, "AX_out": fmt.Sprintf("%04X", uint16(c.R[cpu386.EAX])), "carry": carry})
+		} else if observeWrite {
+			written := uint32(0)
+			if handled && !carry {
+				written = c.R[cpu386.EAX]
+			}
+			fileCalls = append(fileCalls, map[string]any{"op": "write", "fn": "40", "handle": handleIn, "path": fileHandles[handleIn], "requested_bytes": requestedBytes, "written_bytes": written, "handled": handled, "carry": carry})
+		} else if observeClose {
+			fileCalls = append(fileCalls, map[string]any{"op": "close", "fn": "3E", "handle": handleIn, "path": fileHandles[handleIn], "handled": handled, "carry": carry})
+			if handled && !carry {
+				delete(fileHandles, handleIn)
+			}
+		}
+		if observePath || observeWrite || observeClose {
 			if len(fileCalls) > 128 {
 				fileCalls = fileCalls[len(fileCalls)-128:]
 			}
@@ -167,8 +241,15 @@ func main() {
 	if !machine.InstallLEBIOSKeyboard(m) {
 		panic("BIOS鍵盤安裝失敗")
 	}
+	if err := applyFD2HeapProfile(m.CPU, hash, *heapProfile); err != nil {
+		panic(err)
+	}
+	var nativeHeap *fd2NativeHeapObserver
+	if *heapProfile == "native" {
+		nativeHeap = newFD2NativeHeapObserver()
+	}
 	var input []uint16
-	keyNames := map[string]uint16{"up": 0x48e0, "down": 0x50e0, "left": 0x4be0, "right": 0x4de0, "enter": 0x1c0d, "esc": 0x011b}
+	keyNames := fd2KeyNames()
 	if *keys != "" {
 		for _, name := range strings.Split(*keys, ",") {
 			key, ok := keyNames[strings.TrimSpace(name)]
@@ -229,6 +310,62 @@ func main() {
 	// 0x53BEF，外加 0x51A83 的 overlay selector（0x122DC 用它決定畫哪一組範圍
 	// ／游標圖示，0 表示不畫）。逐幀擷取與控制邊界收據共用同一份讀法，避免
 	// 兩邊漂移。
+	// 我方 HP 鎖定。用 record `+8`（identity）當 key 而不是陣列索引：增援與死亡
+	// 會讓陣列重排，索引對不回同一個單位。`+0x40` 是 HP（uint16）。
+	//
+	// 這是作弊。它讓「原版側跑得完長關卡」變成可能，代價是這一輪的收據不能用來
+	// 談傷害、存活或任何與我方 HP 有關的結論——每一份快照的 state_injections 都
+	// 會寫明注入了什麼、寫了幾次。
+	allyPeakHP := map[byte]uint16{}
+	allyHPWrites := 0
+	forceEnemyClearCommands := 0
+	forceEnemyClearWrites := 0
+	checkpointDeferred := 0 // 畫面延後到寫螢幕例程返回後才拍的 checkpoint 數（收據記錄用）
+	pendingFrame := ""      // 延後中的 checkpoint PNG 名稱
+	lockAllyHPNow := func() {
+		base, e1 := m.Read32(0x53a45)
+		count, e2 := m.Read32(0x53beb)
+		if e1 != nil || e2 != nil || count > 128 ||
+			uint64(base)+uint64(count)*80 > uint64(len(m.Mem)) {
+			return
+		}
+		for i := uint32(0); i < count; i++ {
+			r := m.Mem[base+80*i : base+80*(i+1)]
+			if r[6] != 2 { // camp 2 是我方
+				continue
+			}
+			identity := r[8]
+			hp := uint16(r[0x40]) | uint16(r[0x41])<<8
+			peak := allyPeakHP[identity]
+			if hp > peak {
+				allyPeakHP[identity] = hp
+				continue
+			}
+			if hp < peak {
+				binary.LittleEndian.PutUint16(r[0x40:], peak)
+				allyHPWrites++
+			}
+		}
+	}
+
+	injections := func() []string {
+		out := []string{}
+		if *lockAllyHP {
+			out = append(out, fmt.Sprintf(
+				"lock-ally-hp：我方（camp 2）record +0x40 的 HP 每 2000 指令壓回該 identity "+
+					"看過的最高值，至此已寫入 %d 次。這是修改路徑，本輪收據不得當成一般"+
+					"玩家路徑證據，也不能用來談傷害或存活。", allyHPWrites))
+		}
+		if forceEnemyClearCommands > 0 {
+			out = append(out, fmt.Sprintf(
+				"force-enemy-clear：控制邊界依 0x53A45 單位陣列基底與 0x53BEB 筆數，"+
+					"將 camp 0 record +0x40 HP 寫為 0；至此執行 %d 次、寫入 %d 筆。這是修改"+
+					"路徑，只能驗證戰後節點、介面與存檔閉環，不得用來談傷害、存活、戰鬥"+
+					"結果或一般玩家路徑。", forceEnemyClearCommands, forceEnemyClearWrites))
+		}
+		return out
+	}
+
 	readViewGlobals := func() map[string]uint32 {
 		view := map[string]uint32{}
 		for key, addr := range map[string]uint32{
@@ -236,46 +373,61 @@ func main() {
 			"cursor_x": 0x53ab1, "cursor_y": 0x53ab5,
 			"visible_x": 0x53ab9, "visible_y": 0x53abd,
 			"round": 0x53bef, "overlay_selector": 0x51a83,
+			"gold": 0x53bf3,
 		} {
 			v, _ := m.Read32(addr)
 			view[key] = v
 		}
+		// 0x627B8 是 0x4E893 亂數的唯一狀態字組（全 EXE 只有它自己讀寫；行程起始
+		// 為 0，不進存檔）。重製端要在同一個控制邊界同步這個值，命中／傷害才比得起來。
+		rng, _ := m.Read16(0x627b8)
+		view["rng_word"] = uint32(rng)
+		// 0x539FC 是 0x11EEE 的輔助底面相位計數（raw chapter 9/24/25/28/29）：每次 BIOS
+		// tick 變化先以目前值呼叫 0x4EB90 鋪底，再加一以 16 回繞。畫面上的底面是
+		// (aux_phase-1)&15 那一次鋪的。
+		aux, _ := m.Read32(0x539fc)
+		view["aux_phase"] = aux
 		return view
 	}
-	capture := func(label string, withFrame bool) {
+	insideScreenWriter := func() bool {
+		eip := m.CPU.EIP
+		return eip >= 0x373c4 && eip < 0x37416 ||
+			eip >= 0x11eb0 && eip < 0x11eee ||
+			eip >= 0x4e809 && eip < 0x4e85b
+	}
+	writeFrame := func(label string) {
 		pixels := m.Video.Indexed()
 		palette := m.Video.Palette()
 		pal := make(color.Palette, 256)
 		for i, v := range palette {
 			pal[i] = color.RGBA{v[0], v[1], v[2], 255}
 		}
-		if withFrame && len(pixels) == 64000 {
-			pic := image.NewPaletted(image.Rect(0, 0, 320, 200), pal)
-			copy(pic.Pix, pixels)
-			f, e := os.Create(filepath.Join(*runDir, label+".png"))
-			if e != nil {
-				panic(e)
-			}
-			if e = png.Encode(f, pic); e != nil {
-				panic(e)
-			}
-			f.Close()
+		if len(pixels) != 64000 {
+			return
 		}
-		base, _ := m.Read32(0x53a45)
-		count, _ := m.Read32(0x53beb)
-		units := []map[string]any{}
-		if count <= 128 && uint64(base)+uint64(count)*80 <= uint64(len(m.Mem)) {
-			for i := uint32(0); i < count; i++ {
-				r := m.Mem[base+80*i : base+80*(i+1)]
-				units = append(units, map[string]any{
-					"index": i, "x": r[0], "y": r[1], "pose": r[3], "motion": r[4],
-					"byte5": r[5], "camp": r[6], "fig": r[7], "identity": r[8],
-					"level": r[0x21], "exp": r[0x3c],
-					"hp":      uint16(r[0x40]) | uint16(r[0x41])<<8,
-					"raw_hex": fmt.Sprintf("%x", r),
-				})
+		pic := image.NewPaletted(image.Rect(0, 0, 320, 200), pal)
+		copy(pic.Pix, pixels)
+		f, e := os.Create(filepath.Join(*runDir, label+".png"))
+		if e != nil {
+			panic(e)
+		}
+		if e = png.Encode(f, pic); e != nil {
+			panic(e)
+		}
+		f.Close()
+	}
+	capture := func(label string, withFrame bool) {
+		frameDeferred := false
+		if withFrame {
+			if insideScreenWriter() {
+				pendingFrame = label
+				checkpointDeferred++
+				frameDeferred = true
+			} else {
+				writeFrame(label)
 			}
 		}
+		base, _, units, _ := readFD2UnitRows(m)
 		view := readViewGlobals()
 		// BIOS 環形緩衝的頭尾在 0x41a／0x41c，兩者相差即尚未被遊戲取走的按鍵
 		// 數。驅動端要靠它決定「這一格該不該再送鍵」——固定速率送鍵會在遊戲
@@ -288,14 +440,54 @@ func main() {
 		if m.Keyboard != nil {
 			reads = m.Keyboard.Reads
 		}
-		d, _ := json.Marshal(map[string]any{
+		// 誰在等鍵盤。快照都取在 BIOS 等待點，那時堆疊上留著這一條輸入路徑的
+		// 返回位址；把落在程式碼範圍的值收起來，就是「現在是哪一個介面在收鍵」
+		// 的可觀測特徵。驅動端需要它才分得出地圖游標、指令環、系統選單與對白——
+		// 這四種在 eip、view 與 units 上都看不出差別（overlay selector 恆為 1），
+		// 沒有這條鏈就只能猜，猜錯了會把方向鍵送進選單裡。
+		// 掃堆疊取「真正的返回位址」：只收前面五個 byte 是 `E8`（call rel32）的
+		// 值。直接收所有落在程式碼範圍的 dword 會把殘值一起帶進來，同一個介面
+		// 每次取樣的前幾項都不一樣；走 EBP 連結串則只拿得到一層——Watcom 這份
+		// 執行檔省略了 frame pointer。
+		//
+		// 這條鏈是驅動端唯一分得出 UI 模式的東西：地圖游標、指令環、目標選擇、
+		// 系統選單與對白在 eip、view 與 units 上都一樣（overlay selector 恆為 1）。
+		isCallSite := func(addr uint32) bool {
+			if addr < 5 || uint64(addr) >= uint64(len(m.Mem)) {
+				return false
+			}
+			return m.Mem[addr-5] == 0xE8
+		}
+		chain := []string{}
+		for offset := uint32(0); offset < 512 && len(chain) < 10; offset += 4 {
+			v, e := m.Read32(m.CPU.R[cpu386.ESP] + offset)
+			if e != nil {
+				break
+			}
+			if v >= 0x10000 && v < 0x60000 && isCallSite(v) {
+				chain = append(chain, fmt.Sprintf("0x%X", v))
+			}
+		}
+		checkpoint := map[string]any{
 			"schema": 1, "runner": "dosgolem", "input_kind": "normal BIOS keys",
-			"state_injections": []string{}, "steps": steps,
+			"exe_sha256": hash, "address_space": "dosgolem relocated LE linear",
+			"state_injections": injections(), "steps": steps,
+			"frame_deferred":              frameDeferred,
+			"frames_deferred_so_far":      checkpointDeferred,
+			"normal_player_path_verified": false,
+			"evidence_restrictions": []string{
+				"修改路徑只可驗證節點、畫面、介面與存檔閉環",
+				"不得用於傷害、存活、戰鬥結果或 PLAYER-E2 宣稱",
+			},
 			"eip":         fmt.Sprintf("0x%X", m.CPU.EIP),
 			"control_seq": controlSeq, "unit_base": base,
 			"kbd_pending": pending, "kbd_reads": reads,
-			"view": view, "registers": m.CPU.R, "units": units,
-		})
+			"dos_file_calls": append([]map[string]any(nil), fileCalls...),
+			"input_chain":    chain,
+			"view":           view, "registers": m.CPU.R, "units": units,
+		}
+		appendFD2NativeHeapReport(checkpoint, nativeHeap)
+		d, _ := json.Marshal(checkpoint)
 		if e := os.WriteFile(filepath.Join(*runDir, label+".json"), d, 0o600); e != nil {
 			panic(e)
 		}
@@ -319,6 +511,12 @@ func main() {
 			panic("frame-eip 不是十六進位位址")
 		}
 		frameEIPValue = v
+	}
+	if *mapState && *frameDir == "" && strings.TrimSpace(*eipTrace) == "" {
+		panic("map-state需要frame-dir或eip-trace")
+	}
+	if *frameUnits && *frameDir == "" {
+		panic("frame-units需要frame-dir")
 	}
 	if *frameDir != "" && *frameStride == 0 && frameEIPValue == 0 {
 		panic("frame-dir 需要 -frame-stride 或 -frame-eip 至少一項")
@@ -347,6 +545,46 @@ func main() {
 	}
 	if len(eipWatchAddrs) > 16 {
 		panic("eip-watch 位址超過 16 個")
+	}
+	// eip-trace 是找「某個函式被誰、用什麼引數呼叫」用的最小工具：在進入
+	// 位址那一步把暫存器與堆疊頂端抄下來。它只讀 CPU 狀態，不改執行語意。
+	var eipTraceAddrs []uint32
+	for _, part := range strings.Split(*eipTrace, ",") {
+		part = strings.TrimSpace(part)
+		if part == "" {
+			continue
+		}
+		v, e := strconv.ParseUint(strings.TrimPrefix(strings.TrimPrefix(part, "0x"), "0X"), 16, 32)
+		if e != nil {
+			panic("eip-trace 不是十六進位位址")
+		}
+		eipTraceAddrs = append(eipTraceAddrs, uint32(v))
+	}
+	if len(eipTraceAddrs) > 16 {
+		panic("eip-trace 位址超過 16 個")
+	}
+	var eipTraceLog *os.File
+	eipTraceCount := 0
+	if len(eipTraceAddrs) > 0 {
+		if *runDir == "" {
+			panic("eip-trace 需要 -run-dir")
+		}
+		f, e := os.OpenFile(filepath.Join(*runDir, "eip-trace.jsonl"),
+			os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
+		if e != nil {
+			panic(e)
+		}
+		eipTraceLog = f
+		defer f.Close()
+	}
+	var memoryObserver *fd2MemoryChangeObserver
+	if len(memoryAddresses) != 0 {
+		f, e := openFD2MemoryChangeLog(*runDir, memoryAddresses)
+		if e != nil {
+			panic(e)
+		}
+		defer f.Close()
+		memoryObserver = &fd2MemoryChangeObserver{addresses: memoryAddresses, window: traceWindow, encoder: json.NewEncoder(f)}
 	}
 	frameIndex, frameNext, framePendingCount := 0, 0, 0
 	var frameLast, framePending [32]byte
@@ -420,6 +658,8 @@ func main() {
 			"port_3da_reads": opl.Reads[0x3da],
 			"palette_writes": opl.Writes[0x3c9],
 		}
+		appendFD2FrameUnits(record, m, *frameUnits)
+		appendFD2MapState(record, m, *mapState)
 		if len(eipWatchAddrs) > 0 {
 			watch := map[string]uint64{}
 			for i, addr := range eipWatchAddrs {
@@ -437,6 +677,20 @@ func main() {
 	}
 
 	for ; steps < *budget; steps++ {
+		// 間隔要夠密：一次攻擊演出就可能把單位從滿血打到 0，檢查得太稀疏會來不及。
+		if *lockAllyHP && steps%2000 == 0 {
+			lockAllyHPNow()
+		}
+		// checkpoint 的畫面不能在正在寫螢幕的例程裡拍：0x11EB0（0x11EB0..0x11EED）用
+		// C runtime memcpy（0x373C4..0x37415）把 312×192 的離屏視窗逐列搬到 VGA，搬到
+		// 一半拍下來的畫面上半是新一幀、下半是舊一幀（第四章 seq 892：只有最下面一隻
+		// 單位停在舊的 idle 相位）；回合橫幅的馬賽克 0x4E809..0x4E85A 逐塊直接寫 VGA，
+		// 寫到一半就有幾塊還是上一步的（seq 934）。狀態照排程拍（步數、按鍵時序都不
+		// 動），只有 PNG 延到 EIP 離開這幾段之後才寫；這幾段不改遊戲狀態。
+		if pendingFrame != "" && !insideScreenWriter() {
+			writeFrame(pendingFrame)
+			pendingFrame = ""
+		}
 		if *runDir != "" && steps >= chunkEnd {
 			capture(fmt.Sprintf("checkpoint-%04d", controlSeq), true)
 			capture("current", false)
@@ -450,18 +704,42 @@ func main() {
 				}
 				d, e := os.ReadFile(filepath.Join(*runDir, "control.json"))
 				var cmd struct {
-					Seq   int
-					Key   string
-					Steps int
-					Stop  bool
+					Seq             int
+					Key             string
+					Steps           int
+					Stop            bool
+					ForceEnemyClear bool `json:"force_enemy_clear"`
 				}
 				if e == nil && json.Unmarshal(d, &cmd) == nil && cmd.Seq > controlSeq {
 					if cmd.Stop {
+						if pendingFrame != "" {
+							writeFrame(pendingFrame)
+							pendingFrame = ""
+						}
 						capture("final", true)
 						os.Exit(0)
 					}
 					if cmd.Steps < 1 || cmd.Steps > 100000000 {
 						panic("互動步數越界")
+					}
+					if cmd.ForceEnemyClear {
+						base, e1 := m.Read32(0x53a45)
+						count, e2 := m.Read32(0x53beb)
+						if e1 != nil || e2 != nil || count > 128 ||
+							uint64(base)+uint64(count)*80 > uint64(len(m.Mem)) {
+							panic("force-enemy-clear：戰場單位陣列無效")
+						}
+						writes := 0
+						for i := uint32(0); i < count; i++ {
+							r := m.Mem[base+80*i : base+80*(i+1)]
+							hp := binary.LittleEndian.Uint16(r[0x40:])
+							if r[6] == 0 && hp > 0 {
+								binary.LittleEndian.PutUint16(r[0x40:], 0)
+								writes++
+							}
+						}
+						forceEnemyClearCommands++
+						forceEnemyClearWrites += writes
 					}
 					if cmd.Key != "" {
 						k, ok := keyNames[cmd.Key]
@@ -502,6 +780,42 @@ func main() {
 		for i, addr := range eipWatchAddrs {
 			if instructionEIP == addr {
 				eipWatchHits[i]++
+				break
+			}
+		}
+		if eipTraceLog != nil && traceWindow.allows(steps, eipTraceCount) {
+			for _, addr := range eipTraceAddrs {
+				if instructionEIP != addr {
+					continue
+				}
+				stack := make([]string, 0, 8)
+				for i := 0; i < 8; i++ {
+					v, e := m.Read32(m.CPU.R[cpu386.ESP] + uint32(i*4))
+					if e != nil {
+						break
+					}
+					stack = append(stack, fmt.Sprintf("0x%X", v))
+				}
+				// rng_word 是 0x627B8 當下的值：對拍時重製端在同一個入口對齊它。
+				rngWord, _ := m.Read16(0x627b8)
+				traceLine := fmt.Sprintf(
+					`{"step":%d,"control_seq":%d,"eip":"0x%X","eax":"0x%X","edx":"0x%X","ebx":"0x%X","ecx":"0x%X","esi":"0x%X","edi":"0x%X","esp":"0x%X","rng_word":%d,"stack":[%s]}`+"\n",
+					steps, controlSeq, instructionEIP,
+					m.CPU.R[cpu386.EAX], m.CPU.R[cpu386.EDX], m.CPU.R[cpu386.EBX], m.CPU.R[cpu386.ECX],
+					m.CPU.R[cpu386.ESI], m.CPU.R[cpu386.EDI], m.CPU.R[cpu386.ESP], rngWord, strings.Join(quoteAll(stack), ","))
+				if *mapState {
+					extra := map[string]any{"view": readViewGlobals()}
+					appendFD2MapState(extra, m, true)
+					encoded, e := json.Marshal(extra)
+					if e != nil {
+						panic(e)
+					}
+					traceLine = strings.TrimSuffix(traceLine, "}\n") + "," + string(encoded[1:]) + "\n"
+				}
+				if _, e := fmt.Fprint(eipTraceLog, traceLine); e != nil {
+					panic(e)
+				}
+				eipTraceCount++
 				break
 			}
 		}
@@ -570,7 +884,15 @@ func main() {
 		if *traceTail && steps >= *budget-2000 {
 			tail = append(tail, instructionEIP)
 		}
-		if stop = m.CPU.Step(); stop != nil {
+		if nativeHeap != nil {
+			nativeHeap.observe(m, steps)
+		}
+		if memoryObserver == nil {
+			stop = m.CPU.Step()
+		} else {
+			stop = stepFD2WithMemoryObservation(m, memoryObserver, steps, controlSeq)
+		}
+		if stop != nil {
 			break
 		}
 		if m.Keyboard.Waiting {
@@ -608,7 +930,7 @@ func main() {
 	if stop != nil {
 		msg = stop.Error()
 	}
-	r := map[string]any{"schema": 1, "runner": "dosgolem", "exe_sha256": hash, "steps_completed": steps, "step_budget": *budget, "main_entry_step": mainStep, "stop_eip": fmt.Sprintf("0x%X", instructionEIP), "cpu_eip_after_error": fmt.Sprintf("0x%X", m.CPU.EIP), "address_space": "dosgolem relocated LE linear", "next_bytes": raw, "error": msg, "registers": m.CPU.R, "esp": fmt.Sprintf("0x%X", m.CPU.R[cpu386.ESP]), "state_injections": []string{}, "runtime_adapter": "existing InstallFD2WatcomRuntime and FD2StartupDOS", "original_root_read_only": true, "game_screen_produced": false, "normal_player_path_verified": false}
+	r := map[string]any{"schema": 1, "runner": "dosgolem", "exe_sha256": hash, "steps_completed": steps, "step_budget": *budget, "main_entry_step": mainStep, "stop_eip": fmt.Sprintf("0x%X", instructionEIP), "cpu_eip_after_error": fmt.Sprintf("0x%X", m.CPU.EIP), "address_space": "dosgolem relocated LE linear", "next_bytes": raw, "error": msg, "registers": m.CPU.R, "esp": fmt.Sprintf("0x%X", m.CPU.R[cpu386.ESP]), "state_injections": injections(), "runtime_adapter": "existing InstallFD2WatcomRuntime and FD2StartupDOS", "original_root_read_only": true, "game_screen_produced": false, "normal_player_path_verified": false}
 
 	if instructionEIP == 0x36d98 {
 		stack := make([]uint32, 4)
@@ -634,7 +956,24 @@ func main() {
 			r["watcom_int386_input"] = map[string]any{"stack": stack, "regs": regs, "valid": valid, "abi": "existing cdecl REGS; read-only observation"}
 		}
 	}
-	r["heap_capacity_bytes"] = uint32(*heapMiB) * 1024 * 1024
+	if nativeHeap == nil {
+		r["heap_capacity_bytes"] = uint32(*heapMiB) * 1024 * 1024
+	}
+	appendFD2NativeHeapReport(r, nativeHeap)
+	if nativeHeap != nil {
+		r["runtime_adapter"] = "original _nmalloc/_nfree/__Init_Argv instructions; existing other Watcom/DOS/DPMI/BIOS adapters"
+	}
+	r["eip_trace_window"] = map[string]any{
+		"from_step": traceWindow.from, "to_step": traceWindow.to,
+		"max_entries": traceWindow.max, "entries": eipTraceCount,
+		"addresses": eipTraceAddrs,
+	}
+	if memoryObserver != nil {
+		r["memory_change_observation"] = map[string]any{
+			"addresses": memoryAddresses, "from_step": traceWindow.from, "to_step": traceWindow.to,
+			"max_entries": traceWindow.max, "entries": memoryObserver.entries, "invalid_source": memoryObserver.invalid,
+		}
+	}
 	r["instruction_tail"] = tail
 	r["state_directory"] = *state
 	r["dos_file_calls"] = fileCalls
@@ -749,4 +1088,402 @@ func main() {
 	if stop != nil {
 		os.Exit(2)
 	}
+}
+
+// quoteAll 把字串逐一加上 JSON 雙引號（eip-trace 的堆疊欄位）。
+func quoteAll(values []string) []string {
+	out := make([]string, len(values))
+	for i, v := range values {
+		out[i] = `"` + v + `"`
+	}
+	return out
+}
+
+// eipTraceWindow 只限制唯讀記錄；見 docs/spec/012-fd2-parity-capture.md §7。
+type eipTraceWindow struct{ from, to, max int }
+
+func (w eipTraceWindow) valid() bool {
+	return w.from >= 0 && w.to >= 0 && (w.to == 0 || w.to >= w.from) && w.max >= 1 && w.max <= 200000
+}
+
+func (w eipTraceWindow) allows(step, entries int) bool {
+	return step >= w.from && (w.to == 0 || step <= w.to) && entries < w.max
+}
+
+// readFD2UnitRows 沿用checkpoint原始欄位，見012-fd2-parity-capture第8節。
+// 整段範圍驗證先於切片，不把無效來源偽裝為合法空隊伍。
+func readFD2UnitRows(m *machine.LEMachine) (uint32, uint32, []map[string]any, bool) {
+	base, baseErr := m.Read32(0x53a45)
+	count, countErr := m.Read32(0x53beb)
+	units := []map[string]any{}
+	if baseErr != nil || countErr != nil || count > 128 || uint64(base)+uint64(count)*80 > uint64(len(m.Mem)) {
+		return base, count, units, false
+	}
+	for i := uint32(0); i < count; i++ {
+		r := m.Mem[base+80*i : base+80*(i+1)]
+		units = append(units, map[string]any{
+			"index": i, "x": r[0], "y": r[1], "pose": r[3], "motion": r[4],
+			"byte5": r[5], "camp": r[6], "fig": r[7], "identity": r[8],
+			"level": r[0x21], "exp": r[0x3c],
+			"hp":      uint16(r[0x40]) | uint16(r[0x41])<<8,
+			"raw_hex": fmt.Sprintf("%x", r),
+		})
+	}
+	return base, count, units, true
+}
+
+// appendFD2FrameUnits 只在PNG接受時同步讀取；停用時不讀取或改metadata。
+func appendFD2FrameUnits(record map[string]any, m *machine.LEMachine, enabled bool) {
+	if !enabled {
+		return
+	}
+	base, count, units, valid := readFD2UnitRows(m)
+	record["unit_base"], record["unit_count"] = base, count
+	record["units"], record["frame_units_valid"] = units, valid
+}
+
+// fd2MapGlobals保留原始位址／寬度；語意與writer見012第9節及fd2_re #173。
+var fd2MapGlobals = []struct {
+	address uint32
+	width   uint32
+}{
+	{0x53c07, 4}, {0x53c0b, 4}, {0x53c0f, 4}, {0x53c1f, 4},
+	{0x539f4, 4}, {0x53a40, 4}, {0x53a00, 4}, {0x53a04, 4},
+	{0x53a08, 4}, {0x51a93, 4}, {0x046c, 2},
+	{0x51aab, 1}, {0x51aac, 1}, {0x51a0c, 4}, {0x60000, 2}, {0x60002, 1},
+}
+
+// appendFD2MapState只在既有同時點讀取；無效來源不發布部分map／palette。
+func appendFD2MapState(record map[string]any, m *machine.LEMachine, enabled bool) {
+	if !enabled {
+		return
+	}
+	record["map_runtime_valid"] = false
+	record["map_runtime"] = map[string]any{"address_space": "FD2.EXE LE linear", "globals": []map[string]any{},
+		"palette_rgb_hex": "", "palette_dac6_hex": ""}
+	if m == nil {
+		return
+	}
+	appendFD2FrameUnits(record, m, true)
+	if !record["frame_units_valid"].(bool) || m.Video == nil || m.Video.Mode != 0x13 {
+		return
+	}
+	for _, f := range fd2MapGlobals {
+		if uint64(f.address)+uint64(f.width) > uint64(len(m.Mem)) {
+			return
+		}
+	}
+	globals := make([]map[string]any, 0, len(fd2MapGlobals))
+	for _, f := range fd2MapGlobals {
+		raw := m.Mem[f.address : f.address+f.width]
+		var value uint32
+		for i, b := range raw {
+			value |= uint32(b) << uint(i*8)
+		}
+		globals = append(globals, map[string]any{"address": fmt.Sprintf("0x%X", f.address),
+			"width_bytes": f.width, "raw_hex": fmt.Sprintf("%x", raw), "value": value})
+	}
+	palette := m.Video.Palette()
+	rgb, dac := make([]byte, 0, 768), make([]byte, 0, 768)
+	for _, color := range palette {
+		for _, component := range color {
+			six := component >> 2
+			if component != (six<<2 | six>>4) {
+				return
+			}
+			rgb = append(rgb, component)
+			dac = append(dac, six)
+		}
+	}
+	record["map_runtime"] = map[string]any{"address_space": "FD2.EXE LE linear",
+		"globals": globals, "palette_rgb_hex": fmt.Sprintf("%x", rgb), "palette_dac6_hex": fmt.Sprintf("%x", dac)}
+	record["map_runtime_valid"] = true
+}
+
+const fd2NativeHeapEXESHA256 = "222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f"
+
+// 規格186批次155。固定版本三入口交回CPU；其他平台hook保持。
+func validateFD2HeapProfile(profile string, heapExplicit bool) error {
+	if profile != "adapter" && profile != "native" {
+		return fmt.Errorf("未知近堆模式：%q", profile)
+	}
+	if profile == "native" && heapExplicit {
+		return fmt.Errorf("native不接受heap-mib；原始近堆沿既有DPMI服務成長")
+	}
+	return nil
+}
+
+func applyFD2HeapProfile(c *cpu386.CPU, hash, profile string) error {
+	if err := validateFD2HeapProfile(profile, false); err != nil {
+		return err
+	}
+	if hash != fd2NativeHeapEXESHA256 {
+		return fmt.Errorf("FD2 heap profile hash mismatch")
+	}
+	if profile == "adapter" {
+		return nil
+	}
+	if c == nil || c.StepHook == nil {
+		return fmt.Errorf("native需要完整既有平台hook")
+	}
+	installed := c.StepHook
+	c.StepHook = func(c *cpu386.CPU) (bool, error) {
+		switch c.EIP {
+		case 0x36d26, 0x37426, 0x46114:
+			return false, nil
+		}
+		return installed(c)
+	}
+	return nil
+}
+
+type fd2NativeHeapFrame struct {
+	entry, caller, esp, parameter uint32
+	started                       int
+}
+type fd2NativeHeapObserver struct {
+	pending                                                  []fd2NativeHeapFrame
+	events                                                   []map[string]any
+	reuseEvents                                              []map[string]any
+	allocated                                                map[uint32]bool
+	freed                                                    map[uint32]int
+	allocations, frees, reuses, invalidPointers, argvEntries int
+	allocationEntries, freeEntries                           int
+}
+
+func newFD2NativeHeapObserver() *fd2NativeHeapObserver {
+	return &fd2NativeHeapObserver{allocated: map[uint32]bool{}, freed: map[uint32]int{}}
+}
+
+// 原始cdecl入口／返回配對，唯讀且有界；樣本上限不影響執行或累計。
+func (o *fd2NativeHeapObserver) observe(m *machine.LEMachine, step int) {
+	c := m.CPU
+	if len(o.pending) > 0 {
+		f := o.pending[len(o.pending)-1]
+		if c.EIP == f.caller && c.R[cpu386.ESP] == f.esp+4 {
+			kind, ptr := "allocation", c.R[cpu386.EAX]
+			if f.entry == 0x37426 {
+				kind, ptr = "free", f.parameter
+			}
+			e := map[string]any{"kind": kind, "entry": f.entry, "caller": f.caller, "parameter": f.parameter,
+				"entry_esp": f.esp, "return_esp": c.R[cpu386.ESP], "eax": c.R[cpu386.EAX],
+				"steps_entry": f.started, "steps_return": step, "pointer": ptr}
+			if ptr >= 4 && uint64(ptr)+8 <= uint64(len(m.Mem)) {
+				e["block_tag"] = binary.LittleEndian.Uint32(m.Mem[ptr-4 : ptr])
+				e["payload_first8_hex"] = fmt.Sprintf("%x", m.Mem[ptr:ptr+8])
+			}
+			if kind == "allocation" {
+				o.allocations++
+				valid := ptr == 0
+				if desc, ok := c.Descriptors[c.Seg[cpu386.SegDS]]; ok && ptr >= 4 {
+					span := uint64(f.parameter)
+					if span == 0 {
+						span = 1
+					}
+					valid = desc.Base == 0 && desc.Writable && ptr <= desc.Limit &&
+						span <= uint64(desc.Limit)-uint64(ptr)+1 && uint64(ptr)+span <= uint64(len(m.Mem))
+					if valid {
+						valid = binary.LittleEndian.Uint32(m.Mem[ptr-4:ptr])&1 == 1
+					}
+				}
+				e["allocation_pointer_valid"] = valid
+				if !valid {
+					o.invalidPointers++
+				}
+				if ptr != 0 {
+					if freeStep, ok := o.freed[ptr]; ok {
+						o.reuses++
+						if len(o.reuseEvents) < 64 {
+							o.reuseEvents = append(o.reuseEvents, map[string]any{"pointer": ptr, "free_return_step": freeStep, "allocation_return_step": step, "request": f.parameter, "block_tag": e["block_tag"]})
+						}
+						delete(o.freed, ptr)
+					}
+					o.allocated[ptr] = true
+				}
+			} else {
+				o.frees++
+				if o.allocated[ptr] {
+					o.freed[ptr] = step
+				}
+			}
+			if len(o.events) < 256 {
+				o.events = append(o.events, e)
+			}
+			o.pending = o.pending[:len(o.pending)-1]
+		}
+	}
+	if c.EIP == 0x46114 {
+		o.argvEntries++
+	}
+	if c.EIP != 0x36d26 && c.EIP != 0x37426 {
+		return
+	}
+	if c.EIP == 0x36d26 {
+		o.allocationEntries++
+	} else {
+		o.freeEntries++
+	}
+	desc, ok := c.Descriptors[c.Seg[cpu386.SegSS]]
+	if !ok || c.R[cpu386.ESP] > desc.Limit || 7 > desc.Limit-c.R[cpu386.ESP] {
+		return
+	}
+	at := uint64(desc.Base) + uint64(c.R[cpu386.ESP])
+	if at+8 > uint64(len(m.Mem)) {
+		return
+	}
+	o.pending = append(o.pending, fd2NativeHeapFrame{c.EIP, binary.LittleEndian.Uint32(m.Mem[at : at+4]), c.R[cpu386.ESP], binary.LittleEndian.Uint32(m.Mem[at+4 : at+8]), step})
+}
+func appendFD2NativeHeapReport(r map[string]any, o *fd2NativeHeapObserver) {
+	if o == nil {
+		return
+	}
+	r["heap_profile"] = "native"
+	r["near_heap_execution"] = map[string]any{
+		"kind":               "original_instructions_with_existing_platform_adapters",
+		"entries":            map[string]any{"_nmalloc": "0x36D26", "_nfree": "0x37426", "__Init_Argv": "0x46114"},
+		"entry_hits":         map[string]int{"_nmalloc": o.allocationEntries, "_nfree": o.freeEntries, "__Init_Argv": o.argvEntries},
+		"preserved_hooks":    []string{"memset 0x375C0", "int386 0x36D98", "LEVideo", "BIOS clock", "BIOS keyboard", "FD2StartupDOS/DPMI"},
+		"allocation_returns": o.allocations, "free_returns": o.frees, "exact_pointer_reuse_count": o.reuses,
+		"invalid_allocation_pointers": o.invalidPointers, "pending_frames": len(o.pending),
+		"events": o.events, "exact_pointer_reuse_samples": o.reuseEvents, "event_sample_limit": 256,
+		"limits": "bounded read-only observation; existing DPMI/device hardware-spec approximation; not all heap branches, real hardware, or chapter PLAYER-E2"}
+}
+
+// fd2MemoryChangeObserver 只觀察成功 Step 前後的原始 byte；見 012 §10。
+type fd2MemoryChangeObserver struct {
+	addresses        []uint32
+	window           eipTraceWindow
+	encoder          *json.Encoder
+	before           [16]byte
+	entries          int
+	started, invalid bool
+}
+
+func parseFD2MemoryChangeAddresses(text string) ([]uint32, error) {
+	if text == "" {
+		return nil, nil
+	}
+	parts := strings.Split(text, ",")
+	if len(parts) > 16 {
+		return nil, fmt.Errorf("memory-change 位址超過16個")
+	}
+	addresses := make([]uint32, 0, len(parts))
+	seen := map[uint32]bool{}
+	for _, part := range parts {
+		part = strings.TrimSpace(part)
+		if strings.HasPrefix(part, "0x") || strings.HasPrefix(part, "0X") {
+			part = part[2:]
+		}
+		if part == "" {
+			return nil, fmt.Errorf("memory-change 空位址")
+		}
+		for _, c := range part {
+			if !strings.ContainsRune("0123456789abcdefABCDEF", c) {
+				return nil, fmt.Errorf("memory-change 不是十六進位位址")
+			}
+		}
+		value, err := strconv.ParseUint(part, 16, 32)
+		if err != nil {
+			return nil, fmt.Errorf("memory-change 32-bit位址越界: %w", err)
+		}
+		address := uint32(value)
+		if seen[address] {
+			return nil, fmt.Errorf("memory-change 重複位址")
+		}
+		seen[address] = true
+		addresses = append(addresses, address)
+	}
+	return addresses, nil
+}
+
+func openFD2MemoryChangeLog(runDir string, addresses []uint32) (*os.File, error) {
+	if len(addresses) == 0 {
+		return nil, nil
+	}
+	if runDir == "" {
+		return nil, fmt.Errorf("memory-change 需要 -run-dir")
+	}
+	return os.OpenFile(filepath.Join(runDir, "memory-change.jsonl"), os.O_WRONLY|os.O_CREATE|os.O_EXCL, 0o600)
+}
+
+func (o *fd2MemoryChangeObserver) sourceValid(m *machine.LEMachine) bool {
+	if m == nil {
+		return false
+	}
+	for _, address := range o.addresses {
+		if uint64(address)+1 > uint64(len(m.Mem)) {
+			return false
+		}
+	}
+	return true
+}
+
+func (o *fd2MemoryChangeObserver) emit(kind string, step, control int, beforeEIP, afterEIP uint32, valid bool, samples []map[string]any) {
+	completed := step
+	if kind == "change" {
+		completed++
+	}
+	record := map[string]any{"kind": kind, "instruction_step": step, "step": completed, "control_seq": control,
+		"eip_before": fmt.Sprintf("0x%X", beforeEIP), "eip_after": fmt.Sprintf("0x%X", afterEIP),
+		"address_space": "dosgolem relocated LE linear", "memory_valid": valid, "samples": samples}
+	if err := o.encoder.Encode(record); err != nil {
+		panic(err)
+	}
+	o.entries++
+}
+
+func (o *fd2MemoryChangeObserver) begin(m *machine.LEMachine, step, control int) bool {
+	if o == nil || len(o.addresses) == 0 || o.invalid || !o.window.allows(step, o.entries) {
+		return false
+	}
+	eip := uint32(0)
+	if m != nil && m.CPU != nil {
+		eip = m.CPU.EIP
+	}
+	if !o.sourceValid(m) {
+		o.emit("invalid", step, control, eip, eip, false, []map[string]any{})
+		o.invalid = true
+		return false
+	}
+	for i, address := range o.addresses {
+		o.before[i] = m.Mem[address]
+	}
+	if !o.started {
+		samples := make([]map[string]any, 0, len(o.addresses))
+		for i, address := range o.addresses {
+			samples = append(samples, map[string]any{"address": fmt.Sprintf("0x%X", address), "before": o.before[i], "after": o.before[i]})
+		}
+		o.emit("baseline", step, control, eip, eip, true, samples)
+		o.started = true
+	}
+	return o.window.allows(step, o.entries)
+}
+
+func (o *fd2MemoryChangeObserver) end(m *machine.LEMachine, step, control int, beforeEIP uint32) {
+	if !o.sourceValid(m) {
+		o.emit("invalid", step, control, beforeEIP, m.CPU.EIP, false, []map[string]any{})
+		o.invalid = true
+		return
+	}
+	var samples []map[string]any
+	for i, address := range o.addresses {
+		value := m.Mem[address]
+		if value != o.before[i] {
+			samples = append(samples, map[string]any{"address": fmt.Sprintf("0x%X", address), "before": o.before[i], "after": value})
+		}
+	}
+	if len(samples) != 0 {
+		o.emit("change", step, control, beforeEIP, m.CPU.EIP, true, samples)
+	}
+}
+
+// 控制邊界與既有平台注入都在此呼叫之外，不能冒充 Step 的 writer。
+func stepFD2WithMemoryObservation(m *machine.LEMachine, o *fd2MemoryChangeObserver, step, control int) error {
+	observing := o.begin(m, step, control)
+	eip := m.CPU.EIP
+	err := m.CPU.Step()
+	if err == nil && observing {
+		o.end(m, step, control, eip)
+	}
+	return err
 }

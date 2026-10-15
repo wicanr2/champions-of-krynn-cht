@@ -606,3 +606,28 @@ index1..6右界拒絕、index7左界拒絕、index8全畫面0／0／639／479命
 - 規格 251 經兩種唯讀審查後實作可選的指令前 guard，提交 `dcc1b9d`。沒有送鍵時以明示等待錯誤停止，保留所有原版狀態；正常 BIOS 送鍵的 BDA 副作用列為契約例外。合成 Oracle 測試通過，其他遊戲缺輸入的 SKIP 不算原版驗收。
 - 遊戲 adapter 在已證實的第二條等鍵路徑核對完整簽章、入口 SP 與清鍵後的呼叫位置；只有明示正常鍵盤輸入可繼續。合成測試涵蓋停留、環繞 SP、錯誤拒絕與 IRQ0 不重送。前端可繼續顯示並切換語言；收據工具只有條件成立的 `@check` 接受等待，固定步數快照不自動確認。
 - 實際 Session 冒煙、字型定色與原有讀鍵跳過測試通過。兩種正常提示四語 192 點、120 次重複停留及 guard 停用負對照通過；Xvfb 真實按鍵驗證重名停留、F12、確認、重試與返回。完整遊戲路線與私有輸入收據由中文化專案保存，不加入本公開儲存庫。
+## 2026-10-05 FD2 #173：同時點map state觀測
+
+依[012-fd2-parity-capture](docs/spec/012-fd2-parity-capture.md)第9節與fd2_re主契約先複核16項欄位，RE-CLOSED／READY先於實作。唯一oracle新增預設停用-map-state，在既有有界trace與接受frame同步讀取raw globals、view、units與獨立palette。unsigned bits及寬度保持，無效來源false；guest memory及port counters不改。
+
+8項oracle頂層測試通過，parity套件無測試。FD2包裝語法、96項控制器與9項來源鏈回歸通過。初次wrapper檢查缺/orig與/drive.py掛載，補齊後同命令r2通過。收尾計數初版把縮排子案例一併算入，改依行首分類後確定8項，沒有改測試或原日誌。工具提交81df503已推送，本筆追加驗證紀錄；完整命令與hash保存在fd2_re主契約及work/oracle-map-state-*。
+
+下一步clean來源同槽／seed／1539controls重生，核對44PNG及原欄位，取得11CAC(1)前後資料。不宣稱map parity或PLAYER-E2。資料僅本地，原始素材與其他專案未改。
+
+
+2026-10-06追加勘誤：相同完整平台設定的012defb2與6f6b1d7a乾淨重跑，
+生命週期全欄位相同，皆達一百萬步與59／39／26配置、釋放、同指標再配置。
+前述5650步TEST停止來自最初缺檔案及周邊設定的局部路徑；
+完整平台生命週期成功不能歸因於TEST修正。TEST支援仍由先FAIL後PASS的
+CPU回歸證明。兩份最終收據及來源雜湊在fd2_re
+docs/data/ida/fd2_ch18_oracle_stosb_20261003.json的allocator_natural_lifecycle。
+
+2026-10-06 #191：批次155已依固定EXE、既有IDA與兩個乾淨提交自然生命週期證據
+完成READY審查。整合只限唯一正式oracle的明示native模式及來源政策；
+先驗非法選項／hook邊界，再以真實BOOT及正常標題按鍵驗收。#102同r3到T8保持。
+
+2026-10-06 #191實作與有限CONFORMED：唯一oracle新增明示heap-profile；
+native交回三個原始入口、保留既有平台，唯讀記錄caller／指標與配置生命週期。
+CLI與來源hash拒收、三套件完整回歸、adapter原前綴及正常標題down／up通過。
+驗證程式Descriptor名稱錯誤已分類修正並同命令重跑；未修改產品語意。
+原型來源dirty如實記錄，提交後重生乾淨正式wrapper收據再結案。

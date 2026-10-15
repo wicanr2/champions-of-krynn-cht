@@ -78,7 +78,7 @@ func TestSHLDwordOneRejectsWithoutPublishing(t *testing.T) {
 		}
 	}
 	for _, code := range [][]byte{
-		{0xd1, 0x25, 32, 0, 0, 0}, {0xd1, 0x60, 32}, {0xd1, 0xa0, 32, 0, 0, 0},
+		// D1 /4 的記憶體形式由規格 190-cpu386-d1-shl-rm32 支援（shift_one_memory_test.go）。
 		{0xd1, 0xd8}, {0xd1, 0xf0},
 	} {
 		c, mem := subByteMemoryFixture(code)

@@ -1369,3 +1369,370 @@ ECX=0保留既有截斷語意；原版目錄仍唯讀，16位元 DOS 前端不�
 ## 2026-10-02：裸C1單位移旗標回填
 
 裸C1單位移OF契約由規格 299 補齊，見 [299-cpu386-c1-dword-single-shift-overflow.md](299-cpu386-c1-dword-single-shift-overflow.md)。298回歸找到既有dword SHL／SHR計數1缺OF的公開CPU契約反例；批次32的SAR OF=0及多位OF／AF清除模型保持。未新增FD2原版動態oracle，沒有MOO2自然OF=1同狀態收據；只限定公開CPU契約與獨立測試修正，原有證據範圍不擴張。
+
+## 批次 147：原生近堆 helper 的 CMC（CONFORMED）
+
+2026-10-05，fd2_re #183，父題 #102。固定 FD2.EXE 357074 bytes，
+SHA-256 `222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f`。
+IDA Pro 9.4、IDA LE 線性位址 `__MemAllocator` 0x3D270 的 0x3D28A 原始 byte F5。
+固定原版 CPU 局部探針在此停止；人工 free list 僅診斷入口，不是章 oracle。
+主證據入口：fd2_re `docs/data/ida/fd2_ch18_oracle_stosb_20261003.json`；
+探針：fd2_re `tools/fd2_watcom_heap_probe.go`。
+
+平台契約取自 [Intel SDM Volume 2A，CMC，3-174](https://cdrdv2-public.intel.com/812383/253666-sdm-vol-2a.pdf)：
+F5 只反轉 EFLAGS.CF，其他旗標、暫存器與記憶體不改；指令指標前進 1。
+本切片只加入無前綴 F5，未具取證的前綴形式沿用 cpu386 嚴格拒收；
+不更動 `_nmalloc`／`_nfree` 攔截、近堆配置政策、遊戲狀態或記憶體邊界。
+
+證據審查：byte、位址、CPU 停止與公開平台契約互相吻合，無需猜補遊戲語意。
+驗收：CF 兩種初值、其他旗標保持、連續兩次恢復原值、所有 GPR／記憶體保持、
+前綴拒收零交易；全部 cpu386、machine、FD2 oracle 回歸通過，原版局部探針越過 0x3D28A。
+通過本切片仍不代表第十八章同 r3 到 T8，#102 保持獨立驗收。
+
+2026-10-05 驗證：新 CMC 回歸先在 a01ff084 上實際失敗；加入無前綴 F5 後，
+`go test ./internal/cpu386 ./internal/machine ./apps/fd2/cmd/oracle -count=1` 全部通過。
+同一固定原版局部探針越過 0x3D28A，下一個停止是 0x3D28D 的 23 C1；
+自然 LE 入口則在 0x36D2B 的 0F A8 停止。這兩項屬後續 CPU 缺口，
+不提升原生配置器或第十八章驗收等級，沒有修改正式近堆政策。
+
+正式 `apps/fd2/cmd/oracle` 同參數自然啟動前 1,000,000 步：
+修正前後 JSON 全檔 SHA-256 均為
+`4a1152605f09128d7e70a8259587329c0039bd8c990e6d6f3b1802607d565b39`。
+這只是有限啟動前綴，不取代 #102 的完整 r3／T8 驗收。
+後續兩項 CPU 缺口登記於 fd2_re #184。
+
+
+## 批次 148：原生近堆的 AND 暫存器與 PUSH GS（CONFORMED）
+
+2026-10-05，fd2_re #184，父題 #102。固定 FD2.EXE 357074 bytes，
+SHA-256 `222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f`。
+IDA Pro 9.4、IDA LE `__MemAllocator` 0x3D28D 的23 C1與0x3D2B4的23 F9；
+自然LE入口的 `_nmalloc` 在0x36D2B遇0F A8。既有#102局部探針完整保留停止收據。
+
+契約取自 [Intel SDM Volume 2A，AND 3-78／3-79](https://cdrdv2-public.intel.com/812383/253666-sdm-vol-2a.pdf)
+與 [Volume 2B，PUSH 4-511／4-512](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2b-manual.pdf)。
+只補無前綴23 /r、mod3、32位元暫存器：先讀兩來源、結果寫reg欄，
+CF／OF清除，SF／ZF／PF依結果；未定義AF沿用既有setLogicFlags的清除政策。
+16位元、記憶體與前綴形狀維持拒收。
+
+無前綴0F A8的GS selector按既有PUSH ES／DS的32位元零擴充profile寫SS:ESP-4，
+成功才發布ESP；GS、其他GPR與flags保持。Intel契約容許32位元segment push
+採零擴充或只寫16位元，現代Core／Atom可保留高半部；本切片明示沿用既有零擴充profile，
+不宣稱所有x86硬體的高半部內容相同。失敗時不發布ESP，descriptor／bus尾端拒收不寫入。
+不增開原生近堆政策，不改_nmalloc／_nfree攔截、不改記憶體邊界。
+
+審查：IDA byte與已停止的CPU形狀符合平台契約，READY範圍限定已觀察入口。
+驗收：AND高位／零／奇偶／來源別名、GS段基址與stack邊界、拒收零交易、
+全部cpu386／machine／FD2 oracle回歸與固定原版局部探針越過兩個停止點。
+原生首次配置與#102同r3到T8仍獨立驗收，不以單指令通過外推。
+
+
+## 批次 149：原生近堆 block tag與word對齊（CONFORMED）
+
+2026-10-05，fd2_re #185，父題#102。固定EXE、IDA9.4與SHA沿用批次148。
+已觀察IDA LE 0x3D30C raw83 0E 01 OR dword [ESI],1，
+以及__ExpandDGROUP的0x3D516 raw66 83 E6 FC AND SI,0xFFFC。
+兩項停止來自受版控局部探針，沒有遊戲狀態修改或原生配置完整宣稱。
+
+平台依據沿用批次148的Intel AND，另見同Volume2B的OR 4-166／4-167。
+只補無前綴83 /1 memory dword OR，以及66 83 /4 mod3 word AND：
+imm8先符號延伸至operand寬度，使用既有位址解碼和SS／DS規則；
+word目的端保留GPR高16位。邏輯旗標沿用setLogicFlags／setLogicFlags16，
+未定義AF仍按現行profile清除，其他不屬邏輯旗標的bits保持。
+記憶體OR讀完整span後嘗試完整descriptor寫入，成功才發布旗標；
+非法descriptor、短bus、唯讀及指令尾端截斷零資料交易。其他前綴／opcode不放寬。
+
+證據審查：固定raw bytes、先前CPU停點與已知平台契約吻合，限定範圍READY。
+驗收：正／負立即數、word高半部、零／sign／parity、SS／DS與失敗零交易，
+完整相關Go回歸；六項原始helper人工fixture到合法回傳。自然LE entry
+後續如實保留，未到非零合法近指標就不宣稱原生配置器可用。
+
+2026-10-05批次148／149驗證：各自先在補指令前重現FAIL；
+加入限定指令後，全部cpu386、machine及FD2 oracle回歸PASS。
+固定原始helper的六項人工fixture均回傳：24-byte rover／prefix-reset分別選
+0x180504／0x180104，tag皆29；1-byte使用tag13；124-byte使用tag129；
+129-byte無適合洞與zero請求皆回0。前8-byte payload保留原free-list指標，
+與目前最低位址first-fit／重用清零適配不同。這是局部原始指令證據，
+不外推第十八章自然heap重用。自然LE entry在595步的0x3D467遇19 C0，
+原生首次配置尚未回傳，保持近堆正式政策及章T8門檻。主證據仍由fd2_re #102登錄。
+
+批次148／149的正式oracle自然啟動1,000,000步JSON與def0b231基底全檔bytes相同，SHA-256 4a1152605f09128d7e70a8259587329c0039bd8c990e6d6f3b1802607d565b39。後續自然入口SBB停止登記於fd2_re #186；不提升章驗收或原生近堆policy等級。
+
+
+## 批次150：自然近堆配置返回鏈的SBB 19（CONFORMED）
+
+2026-10-05，fd2_re #186，父題#102。固定FD2.EXE 357074 bytes，
+SHA-256 `222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f`。
+既有IDA9.4 LE線性0x3D57E，raw E8 CB FE FF FF，
+為__ExpandDGROUP呼叫原始sub_3D44E；不另附推測語意名稱。
+自然LE入口595步停於dosgolem relocated LE 0x3D467，raw19 C0，
+後續F7 D0／75 09仍保留原始bytes。caller取自既有固定hash的IDA匯出，
+停點取自受版控fd2_re工具與主證據，不重解已閉合配置器。
+
+平台契約：[Intel SDM Volume2B，SBB](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2b-manual.pdf)。
+補無前綴19 /r mod3的32位元暫存器形狀。先讀目的與來源及incoming CF，
+結果為left-right-CF，目的在r/m欄，與既有1B的reg欄相反。
+沿用既有SBB全寬借位、AF／OF及SF／ZF／PF演算法，不更改1B原有解碼。
+相同暫存器相減：CF0回0；CF1回0xFFFFFFFF，全寬與來源別名亦保持正確。
+記憶體、16位元與其他前綴仍拒收，失敗不發布GPR／flags／memory交易。
+
+READY審查：raw19 C0、已有CALL與自然CPU停點符合公開平台契約，無需猜遊戲語意。
+驗收CF兩初值、0／max／signed邊界、來源別名、非算術flags與其他狀態保存，
+CPU／machine／FD2 oracle完整回歸；自然LE entry越過0x3D467並如實記錄後續。
+未到非零合法近指標，不宣稱原生配置器可用；近堆正式policy與章T8門檻不改。
+
+
+## 批次151：原始free helper的XCHG87暫存器（CONFORMED）
+
+2026-10-05，fd2_re #187，父題#102。固定EXE／hash與工具沿用批次150。
+既有IDA9.4、IDA LE __MemFree 0x3D3E3的raw87 D7，
+與自然LE entry第694步的同址bytes一致，原始名稱／位址保持。
+
+平台依據：[Intel SDM Volume2C，XCHG](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2c-manual.pdf)。
+只補無前綴87 mod3、32位元暫存器交換：先讀reg與r/m兩個值再發布，
+相同register自交換保持原值，所有flags／其他GPR／memory不改。
+16位元register與前綴仍拒收；既有memory XCHG路徑不改。
+
+READY審查：IDA原始bytes、實際CPU停止與平台契約吻合，不補遊戲未知語意。
+驗收EDX／EDI實際形狀、非對稱及同源register、全寬值、flags與其他狀態保持，
+非法前綴／截斷零交易，完整相關Go回歸；自然入口越過0x3D3E3並保留後續結果。
+原生首次配置、正式近堆政策及#102同r3到T8仍獨立驗收。
+
+## 批次152：原始 _nmalloc 返回鏈 POP GS（CONFORMED）
+
+2026-10-05，fd2_re #188，父題#102。固定EXE／hash沿用批次150。
+受版控自然LE entry第805步，dosgolem relocated LE 0x36D90 raw0F A9，
+後續0F A1／07／5E／5B／C3保持原始bytes。既有IDA9.4函式身分與caller
+見 docs/re/049-fd2-watcom-nmalloc.md：_nmalloc 0x36D26..0x36D98，
+第一個啟動caller 0x4CC4C、返回0x4CC51，參數1。EAX已有0x100018，
+尚未回caller，不能只據此宣稱配置成功。
+
+平台依據：[Intel SDM Volume2B，POP](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2b-manual.pdf)。
+只補無前綴0F A9、32位元stack profile。沿用既有POP FS方式，
+先讀SS完整四byte，selector取低16 bits；null GS保持不可用，
+非null必須通過既有canLoadSegment。成功才發布GS與ESP+4，flags不改。
+ESP overflow、短bus／descriptor limit、未知selector與非法prefix拒收，
+不發布GPR／segment／flags／memory交易。
+完整四byte讀取屬現有dosgolem profile，不宣稱所有處理器的匯流排精確行為。
+
+READY審查：固定raw bytes、既有IDA身分／caller及平台契約吻合。
+驗收非零與null selector、stack base、高16bits丟棄、flags／其他state保存，
+非法形狀零交易，完整CPU／machine／FD2 oracle回歸；自然入口越過0x36D90，
+保留首次caller回傳或下一實際停止。正式近堆政策與#102同r3 T8獨立驗收。
+
+
+2026-10-05批次150／151驗證：各自先重現新增回歸FAIL，修正後完整
+cpu386、machine及FD2 oracle測試PASS。自然入口依序從595步0x3D467
+推進至694步0x3D3E3，再至805步0x36D90，六項人工fixture持續回傳。
+批次152的POP GS平台回歸也先FAIL後PASS，但同址現在因GS=0x0020
+未登錄拒收，首次caller尚未返回；fd2_re #188保持開啟，後續段映射另登記fd2_re #189。
+不得任意登錄descriptor。有限CPU契約通過不代表原生heap整合或章T8完成。
+
+正式oracle自然啟動1,000,000步JSON與7c6ad7a1基底全檔bytes相同，
+SHA-256 4a1152605f09128d7e70a8259587329c0039bd8c990e6d6f3b1802607d565b39。
+正式近堆適配及#102同r3到T8驗收保持。
+
+## 批次153：FD2啟動已設定GS的合法還原（CONFORMED）
+
+2026-10-05，fd2_re #189，依賴#188，父題#102。
+固定EXE／hash與既有IDA_nmalloc身分／caller沿用批次152。
+受版控fd2_re工具的自然入口追蹤確認：
+第11步dosgolem relocated LE 0x3CA03 rawCD21，由FD2StartupDOS設定GS=0x0020；
+第489步0x36D2B raw0F A8保存至SS:0x55660，實際dword=0x20；
+期間保存槽未被改寫，第805步0x36D90 raw0F A9讀回同值。
+初始GS為0；沒有人工heap或章內狀態注入。
+
+writer為既有internal/machine/le_startup.go的第一項固定FD2服務。
+既有CONFORMED規格009／010已明示GS=0x0020的固定啟動狀態，
+其descriptor base與一般segment-memory仍DRAFT。
+consumer為CPU的canLoadSegment與原始_nmalloc保存／還原。
+目前SegmentLoadOK只登記PSP／environment，漏掉服務自己已設定的GS。
+
+READY限定修正：只有selector0x0020且destination為SegGS時，
+啟動服務的SegmentLoadOK允許還原。其他目的端仍拒收；
+不新增Descriptor，不指定未知base／limit，不開放segment記憶體讀寫。
+這是維持現有固定oracle段狀態的載入契約，不宣稱原版完整GDT／硬體映射。
+原始GS的記憶體base／limit未證實，將來若有實際解參照consumer才另開窄題目。
+
+驗收：先重現已設定GS仍無法POP還原，修正後原始非零與null保存值皆
+符合既有CPU契約；其他destination／selector拒收、無Descriptor與
+未知記憶體拒收保持。CPU／machine／FD2 oracle完整回歸。
+自然入口越過0x36D90、回到0x4CC51，核對EAX非零、實際block tag與payload
+有可讀寫backing及ESP／GS／FS／ES恢復；若未回傳如實保留缺口。
+首次配置不證明自然釋放／重用、全原版heap或#102同r3到T8。
+
+2026-10-05批次152／153驗證：新的啟動GS還原測試先在既有服務FAIL，
+補上限定目的端後cpu386、machine與FD2 oracle完整回歸PASS。
+自然LE entry第811步首次回到原始caller0x4CC51，EAX=0x100018、
+request1的原始block tag13；payload有backing、原值寫回成功。
+cdecl ESP與保存的EBX／ESI／EBP、GS／FS／ES皆恢復。
+這取代同址「缺少指令／未知selector導致首次返回未完成」的現況；
+舊收據保留。GS一般base／limit仍未知且拒收，未建立假Descriptor。
+正式oracle自然啟動1,000,000步JSON與feb0e355基底全檔bytes相同，
+SHA-256 4a1152605f09128d7e70a8259587329c0039bd8c990e6d6f3b1802607d565b39。
+自然原生配置整合、後續釋放／重用與#102同r3到T8另行驗收。
+
+## 批次154：自然原生近堆啟動的TEST memory dword（CONFORMED）
+
+2026-10-05，fd2_re #190，父題#102。
+固定FD2.EXE 357074 bytes、SHA-256
+222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f。
+受版控自然LE entry生命週期診斷第5650步在dosgolem relocated LE
+0x3DC7D raw85 73 0C停止，EBX=0x5285A、ESI=0x600。
+raw bytes由目前固定映像機械式擷取；不命名檔案服務未知語意，
+不重做已閉合IDA allocator／caller證據。
+
+平台依據：[Intel SDM Volume2B，TEST 4-679／4-680](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2b-manual.pdf)。
+無前綴85 /r memory dword：先完整讀r/m32再與reg32做AND，
+更新SF／ZF／PF、清CF／OF，結果不寫回。未定義AF沿既有profile清除，
+其他flags／GPR／memory保持。沿decodeAddress32的DS／SS／SIB與disp規則，
+readSegment32核對已登錄selector／descriptor／完整span。
+未知前綴、16位元、短bus／limit、未知selector或截斷拒收，不發布資料與flags交易。
+既有mod3的運算保持，不改近堆選洞、清零或遊戲資料。
+
+READY審查：實際raw85 73 0C與公開TEST契約吻合，只補平台先決形狀。
+驗收實際EBX+0x0C、SS／負disp／SIB、全寬sign／zero／parity與唯讀memory，
+非法前綴／shortspan／selector／截斷保持，三相關套件完整PASS；
+原始自然生命週期越過0x3DC7D並如實記錄後續。
+自然_nfree含__ExpandDGROUP建立free block的呼叫，不把它自動當成玩家配置重用。
+正式近堆適配、原生整合及#102同r3到T8仍另行驗收。
+
+
+2026-10-05批次154驗證：新TEST回歸先FAIL，補形狀後完整cpu386、
+machine與FD2 oracle回歸PASS。固定EXE bytes與Intel TEST 4-679／4-680
+吻合；正式oracle自然一百萬步JSON與012defb2基底全檔bytes相同，
+SHA-256 4a1152605f09128d7e70a8259587329c0039bd8c990e6d6f3b1802607d565b39。
+
+局部探針最初未接檔案服務，會進退出路徑；只接檔案後未設周邊IO，
+又在INT66h模擬處拒收。兩項是診斷環境缺件，不列為新產品缺陷。
+沿正式oracle已有的BIOS data、LEVideo、LEOPLPorts、clock及keyboard
+設定後，逐檔核對唯讀資產清單20檔，自然原生近堆跑完1,000,000步無CPU錯誤，
+記錄59次配置、39次釋放及26次先配置／釋放後同指標再配置。
+__ExpandDGROUP初始化free block不列入再配置判定。
+這是既有硬體近似profile上的原始指令生命週期，非章oracle／全硬體exact。
+正式近堆仍未取代，第十八章同r3前綴到T8另行驗收。
+
+
+2026-10-06追加勘誤：相同完整平台設定的012defb2與6f6b1d7a乾淨重跑，
+生命週期全欄位相同，皆達一百萬步與59／39／26配置、釋放、同指標再配置。
+前述5650步TEST停止來自最初缺檔案及周邊設定的局部路徑；
+完整平台生命週期成功不能歸因於TEST修正。TEST支援仍由先FAIL後PASS的
+CPU回歸證明。兩份最終收據及來源雜湊在fd2_re
+docs/data/ida/fd2_ch18_oracle_stosb_20261003.json的allocator_natural_lifecycle。
+
+
+## 批次155：正式FD2 oracle明示原生近堆模式（CONFORMED）
+
+2026-10-06，fd2_re #191，父題#102。固定FD2.EXE為357074 bytes、
+SHA-256 222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f。
+入口與caller沿既有RE，IDA9.4 IDA LE線性位址；動態為dosgolem relocated LE linear。
+主證據在fd2_re docs/data/ida/fd2_ch18_oracle_stosb_20261003.json的
+allocator_natural_lifecycle。相同完整平台、20檔固定唯讀資產與344筆指令bytes
+下，乾淨012defb2／6f6b1d7a自然生命週期相同，59次配置、39次釋放、26次同指標再配置。
+這是有界已證實實驗，正式章與所有heap分支仍未知，不以TEST修正解釋完整平台成功。
+
+唯一apps/fd2/cmd/oracle接受-heap-profile adapter或native，預設adapter。
+native只在固定EXE上繞過原始_nmalloc 0x36D26、_nfree 0x37426、
+__Init_Argv 0x46114三個替代入口，交回原始CPU指令。其餘現行
+memset 0x375C0、int386 0x36D98、BIOS data、LEVideo、LEOPLPorts、
+BIOS clock、keyboard與DOS／DPMI服務保持。原始近堆的DPMI成長沿現行平台近似，
+不把替代heap容量當作原始allocator的capacity，不猜原始GDT或重用初值。
+heap-mib僅供adapter；native與明示heap-mib並用拒收。未知模式、錯版本拒收，
+不得以fallback悄悄執行adapter。
+
+native模式在checkpoint及一次性報告加入heap_profile與唯讀near_heap_execution。
+記錄三入口的hit數、原始cdecl返回、DS平坦writable完整指標span／tag、
+配置／釋放計數、先配置後釋放再回同指標的次數，以及少量有界事件。
+首次Expand建立free block不算配置重用。觀測不得改客體regs、flags、記憶體或流程，
+不依事件樣本容量提前停止執行。adapter現有報告與前綴保持。
+
+fd2_re tools/dosgolem_oracle.sh及tools/dosgolem_oracle_container.sh
+以FD2_ORACLE_HEAP_PROFILE=adapter或native明示傳參。
+runner.json以實際來源SHA綁定已審查入口與hook政策；native未命中清冊時拒收，
+adapter未命中仍標unknown。source記錄runtime、main、CPU、LE startup，
+不得因選項字串或commit本身宣稱原生配置器已證實。
+原始內容由原始指令決定，仍保留DPMI／周邊硬體近似及未驗證分支限制。
+
+驗收：非法選項與wrong hash拒收、原始三入口不攔截而其他hook照常；
+cpu386／machine／oracle全部回歸、adapter一百萬步JSON與既有SHA相同；
+正式native BOOT收據在一百萬步記錄可比的59／39／26與合法指標；
+由正常BIOS鍵盤到標題並抽測選單按鍵，沒有人工heap／章注入。
+若後續指令或平台拒收，登記有界缺口，保留#191開放，不以局部helper取代驗收。
+#102同ch18-guard-r3前綴至T8另驗；不增加章PLAYER-E2或全硬體exact聲明。
+
+READY審查：最小bypass集合與受版控探針一致，完整平台前後實測不矛盾；
+未知是後續尚未執行分支，保持拒收。只改原版執行器模式與證據，
+不改remake規則、素材、玩家存檔或章驗收標準。
+
+
+2026-10-06批次155有限驗證：三相關套件完整PASS，含三入口routing、
+保留其他hook、錯hash／未知模式／native容量並用拒收，以及唯讀觀測、
+非法指標與樣本滿仍累計。真實CLI及runner來源清冊拒收測試通過。
+adapter一百萬步JSON保持4a1152605f09128d7e70a8259587329c0039bd8c990e6d6f3b1802607d565b39。
+正式native一百萬步記錄59／39／26配置、釋放、同指標再配置，
+非法指標0、pending0。原始入口走到0x1FE60標題caller並以正常BIOS down／up
+消費兩鍵，畫面依序START／LOAD／START，沒有heap／章狀態注入。
+原型收據如實標dirty；提交後以同一受版控容器入口及計畫另生乾淨收據。
+唯一數字、來源hash與FD2／dosgolem提交回填父題canonical及#191。
+第十八章同r3到T8尚未重跑，不能將本批BOOT提升為章PLAYER-E2。
+
+驗證程式曾把既有cpu386.Descriptor誤寫為SegmentDescriptor造成編譯失敗。
+只訂正測試名稱後，同一容器與命令乾淨重跑PASS；保留失敗log。
+此為驗證程式錯誤，不是原始CPU或產品缺陷。
+
+
+## 批次156：第十八章原生近堆 T8 END 的 word ADD 83（CONFORMED）
+
+2026-10-06，fd2_re #192，父題 #102。固定 FD2.EXE 357074 bytes，
+SHA-256 222b7d067ad4450eb9c5f6e6bce1797d54bb050417ba39ced6067f8039f28c4f。
+唯一受版控 oracle 在乾淨 3d2ca72a 的 native 模式重跑同
+docs/data/parity-plans/ch18-guard-r3.jsonl，正常按鍵到 T8 END，
+10,084,671,521 步在 dosgolem relocated LE 0x22A47 停止。
+actual next_bytes 為 66 83 46 4C 0F，下一條 66 83 46 4E 0F。
+只作已知位址機械式解碼，不另命名遊戲函式或欄位。
+主證據是 fd2_re docs/data/ida/fd2_ch18_oracle_stosb_20261003.json
+的 allocator_native_chapter；保留輸入／runner／計畫／槽／控制及停止報告雜湊。
+
+平台依據：[Intel SDM Volume2A ADD，3-31..3-32](https://www.intel.com/content/dam/www/public/us/en/documents/manuals/64-ia-32-architectures-software-developer-vol-2a-manual.pdf)。
+補 operand16 的 83 /0 memory、32-bit address 解碼形狀：
+readSegment16 先讀完整兩 byte，imm8 有號延伸到16位元，沿既有 add16
+發布結果及 CF／PF／AF／ZF／SF／OF，其餘 flags 保持。
+decodeAddress32 沿既有 DS／SS／SIB／disp；writeSegment16 核對完整可寫 span。
+來源／寫入失敗、未知 selector、截斷與未支援 prefix 拒收；
+寫入失敗恢復 flags，不發布 GPR、segment 或記憶體交易。
+不補 LOCK／segment override／address16，不改其他 group 或既有 register 形狀。
+
+READY 審查：實際原始 bytes 與公開 ISA 契約吻合，
+現有 add16、word ADD 01 與 dword ADD 83 已有一致 helper；
+只補 CPU 必要形狀，不改遊戲規則、配置器清零政策或槽資料。
+驗收實際 ESI+0x4C／0x4E、正負 imm8、進位／零／溢位／輔助進位／奇偶，
+DS／SS／SIB、鄰接 byte 與全部 GPR 保存；唯讀、短 span／bus、
+未知 selector、截斷／prefix 拒收且 flags 不變。
+先在基底重現回歸 FAIL，再驗 CPU／machine／oracle 完整 PASS；
+提交後由來源清冊審查的唯一正式 runner 重跑同 r3，
+此前 native 前綴逐位元相同並越過 0x22A47，後续結果如實保留。
+
+舊 adapter 與 native 的進戰場 RNG 及 +0x28..+0x30 殘值不同，
+本批不宣稱與舊 adapter 前綴相同；不重擲或改狀態強造相同路徑。
+#102 原有驗收與既有章 PLAYER-E2 保持。到 T8 或越過步数本身，
+不證明相同 FIG 配對／懸空 BG consumer 已重現。
+
+
+2026-10-06 CPU 驗證：基底新增回歸 before-r2 真實拒收 word ADD 83；
+修正後 after-r2 的 cpu386／machine／FD2 oracle 完整回歸 PASS。
+驗證程式初版引用未定義的 TF 常數，另有負溢位案例漏算 PF；
+只訂正驗證程式，沿用既有 add16，不把這兩项錯誤列為產品缺陷。
+同一 Docker／命令乾淨重跑通過，失敗 log 保留於 fd2_re 主證據。
+有限 CPU 契約已 CONFORMED，正式同 r3 重跑與此前 native 前綴仍待驗；
+父 #102 原有同舊前綴條件未通過。
+
+
+2026-10-06 正式驗證：乾淨 5f97a253、固定槽與同 r3 計畫重跑完成。
+停止前2024個完整JSON bytes／PNG及1445筆EIP trace皆與3d2ca72a相同，
+正常輸入保持；checkpoint2024越過10,084,671,521步的0x22A47停止，
+此前沒有注入。其後正常到T9，再依計畫一次清敵，進戰後城鎮、
+完成買賣、酒店槽0寫入及Alt-F8秘密商店。唯一數字／SHA／命令在
+fd2_re主證據allocator_native_chapter.original_r2與cpu_followup。
+本批有限CPU／native前綴接續CONFORMED，fd2_re #192可結案。
+舊adapter前綴與native仍不相同，#102不關閉；新來源remake的第一個AI
+分岔另在#194，後續BG拒收#193為分岔後狀態。沒有新增章PLAYER-E2。
