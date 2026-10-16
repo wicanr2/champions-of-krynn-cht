@@ -39,6 +39,9 @@ type Live struct {
 	Journal *JournalPanel
 	// Guide 是攻略面板（規格 008）；nil 時不啟用。
 	Guide *GuidePanel
+	// Map 是地圖疊層（規格 009）；nil 時不啟用。
+	Map *AutoMap
+	ds  uint16 // 遊戲資料段（路徑 A 進入時取）
 	// Inventory 為 true 時，綁定後建立 Inv 記錄印字路徑盤點（issue #11）。
 	Inventory bool
 	Inv       *Inventory
@@ -62,6 +65,12 @@ func NewLive(font *xlate.Font, ui Lookuper, ecl *Catalog) *Live {
 
 const bindRetry = 1_000_000
 
+// defaultDS 是 START.EXE 1.10 的資料段（docs/re/009、011 實測），路徑 A 進入時以當下 DS 更新。
+const defaultDS = 0x0CDE
+
+// mapSampleEvery 是地圖疊層讀記憶體的間隔（規格 009 §2.2）。
+const mapSampleEvery = 1_000_000
+
 // Arm 允許下一步起綁定攔截點（從已進入遊戲的狀態檔開始時使用）。
 func (l *Live) Arm() { l.armed = true }
 
@@ -83,6 +92,7 @@ func (l *Live) bind(mem CPUView) error {
 		l.B.OnEntry = l.journalEntry
 	}
 	l.ready = true
+	l.ds = defaultDS
 	if l.Inventory {
 		l.Inv = newInventory(l)
 	}
@@ -105,6 +115,14 @@ func (l *Live) BeforeStep(v StepCPU) error {
 		l.Journal.KeyTaken(v.Read16(bdaKeyHead)) // 規格 007 §2.4 條件 2：先比對再處理進入點
 	}
 	cs, ip, ss, sp := v.CS(), v.IP(), v.SS(), v.SP()
+	if l.Map != nil {
+		if linear(cs, ip) == l.A.Entry {
+			l.ds = v.DS()
+		}
+		if l.ds != 0 && v.Steps()%mapSampleEvery == 0 {
+			l.Map.Sample(v, l.ds)
+		}
+	}
 	na, nb := len(l.A.Hits), 0
 	if l.Inv != nil {
 		l.Inv.before(v.Steps(), cs, ip, ss, sp, v)
@@ -217,6 +235,9 @@ func (l *Live) Compose(scale int, overlay bool, missing func(rune)) []byte {
 		}
 		if l.Guide.Open() {
 			l.Guide.Draw(out, scale, l.Font, missing)
+		}
+		if l.Map.Open() {
+			l.Map.Draw(out, scale, l.Font, missing)
 		}
 	}
 	return out

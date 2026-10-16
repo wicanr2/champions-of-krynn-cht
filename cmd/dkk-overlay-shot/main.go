@@ -81,6 +81,7 @@ func main() {
 	hideAnswers := flag.Bool("hide-answers", false, "隱藏查驗題答案（規格 006）")
 	journalPreview := flag.Int("journal-preview", 0, "以翻閱模式開啟這一則手札（規格 007 版面檢查；需 -text-dir）")
 	guidePreview := flag.String("guide-preview", "", "以 `章:頁` 開啟攻略面板（規格 008 版面檢查；0 章是目錄；需 -text-dir）")
+	mapPreview := flag.String("map-preview", "", "開地圖疊層（規格 009）：`走過` 只畫走過的格子、`全圖` 全畫（需 -text-dir）")
 	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
 	flag.Parse()
@@ -179,6 +180,15 @@ func main() {
 		live.Guide.SetPos(ch, page)
 		live.Guide.Toggle()
 	}
+	if *textDir != "" && *mapPreview != "" {
+		if live.Map, err = dkk.LoadAutoMapDir(*textDir); err != nil || live.Map == nil {
+			fail(fmt.Errorf("地圖疊層：%v（缺 map-geo.tsv？）", err))
+		}
+		live.Map.Toggle()
+		if *mapPreview == "全圖" {
+			live.Map.ToggleReveal()
+		}
+	}
 	live.Inventory = *invPath != ""
 	live.Arm() // 狀態檔已在遊戲中
 	cpuView := machineCPU{m}
@@ -263,6 +273,10 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 	guide := live.Guide.Open()
 	if guide {
 		live.Guide.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
+	}
+	if live.Map.Open() {
+		guide = true // 面板範圍同攻略面板（[0,320)×[0,192)）
+		live.Map.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
 	}
 	isum := sha256.Sum256(idx)
 	r := shotResult{Name: s.name, Step: m.Steps, IndexedSHA256: hex.EncodeToString(isum[:]), Stamps: len(layer.Stamps)}

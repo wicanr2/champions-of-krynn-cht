@@ -111,6 +111,9 @@ func main() {
 	lastKey := m.Steps
 	actions := 0
 	var lastB, lastC string
+	stall, lastBCount, nB := 0, 0, 0
+	var stallPos pos
+	unstick := []string{"Return", "Esc", " "}
 	lastCIdx := -1
 	stopAt := uint64(0)
 
@@ -166,7 +169,8 @@ func main() {
 			case "B":
 				if t := strings.TrimSpace(e.Text); t != "" {
 					lastB = t
-					say("B %s", t)
+					nB++
+					say("B %d,%d %c %s", cur.x, cur.y, dirNames[dir], t)
 					if resetRe.MatchString(t) {
 						say("換層，清空探索紀錄")
 						visited, tried, open, plan, pending = map[pos]bool{}, map[pos]int{}, map[pos]int{}, nil, nil
@@ -214,6 +218,38 @@ func main() {
 			push("M")
 			lastC = ""
 			continue
+		case strings.HasPrefix(lastC, "Move Aim"):
+			say("進入戰鬥，停下")
+			stopAt = m.Steps + 1
+			continue
+		case lastC != "" && lastC != "Exit":
+			// 其他選單（神殿、商店、事件抉擇）：選不會開打、能離開的選項，按它的熱鍵（首字母）
+			if k := preferredOption(lastC); k != "" {
+				push(k)
+				lastC = ""
+				continue
+			}
+		}
+		// 卡住偵測：連續動作後位置不變、也沒有新訊息，依序試 Enter、Esc、空白
+		if known && cur == stallPos && nB == lastBCount {
+			stall++
+		} else {
+			stall = 0
+		}
+		stallPos, lastBCount = cur, nB
+		if stall >= 12 { // 一格試四個方向（轉向＋前進）最多 8 個動作不會移動
+			k := unstick[(stall-12)%len(unstick)]
+			say("卡住（選單 %q），試 %q", lastC, k)
+			plan, pending = nil, nil
+			if k == " " {
+				kk, _ := dos.KeyForRune(' ')
+				d.PushKey(kk)
+				lastKey = m.Steps
+				actions++
+			} else {
+				push(k)
+			}
+			continue
 		}
 		if !known { // 狀態檔起點的座標列早已印好：先進移動模式、轉一次向讓它重印
 			if actions == 0 {
@@ -259,6 +295,19 @@ func main() {
 		fail(err)
 	}
 	fmt.Printf("steps=%d pos=%v dir=%c visited=%d actions=%d stopped=%v\n", m.Steps, cur, dirNames[dir], len(visited), actions, stopAt != 0)
+}
+
+// preferredOption 回選單中「不開打、能離開」選項的熱鍵；沒有回空字串。
+func preferredOption(menu string) string {
+	words := strings.Fields(menu)
+	for _, want := range []string{"Wait", "Leave", "Continue", "Done", "Exit", "No"} {
+		for _, w := range words {
+			if w == want {
+				return w[:1]
+			}
+		}
+	}
+	return ""
 }
 
 type move struct {

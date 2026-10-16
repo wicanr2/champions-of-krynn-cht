@@ -149,7 +149,8 @@ func (g *game) apply(acts []hostAction) {
 			g.live.SetHideAnswers(!g.live.HideAnswers())
 		case actJournal:
 			if g.chinese && g.live.Journal != nil {
-				g.live.Guide.Close() // 與攻略面板互斥（規格 008 §2.1）
+				g.live.Guide.Close() // 與攻略面板、地圖互斥（規格 008 §2.1、009 §2.3）
+				g.live.Map.Close()
 				g.live.Journal.ToggleBrowse()
 			}
 		case actGuide:
@@ -157,10 +158,23 @@ func (g *game) apply(acts []hostAction) {
 				if g.live.Journal.Browsing() {
 					g.live.Journal.ToggleBrowse()
 				}
+				g.live.Map.Close()
 				g.live.Guide.Toggle()
 			}
+		case actMap:
+			if g.chinese && g.live.Map != nil {
+				if g.live.Journal.Browsing() {
+					g.live.Journal.ToggleBrowse()
+				}
+				g.live.Guide.Close()
+				g.live.Map.Toggle()
+			}
+		case actReveal:
+			g.live.Map.ToggleReveal()
 		case actCloseJournal:
-			if g.live.Guide.Open() {
+			if g.live.Map.Open() {
+				g.live.Map.Close()
+			} else if g.live.Guide.Open() {
 				g.live.Guide.Close()
 			} else if g.live.Journal.Browsing() {
 				g.live.Journal.ToggleBrowse()
@@ -182,7 +196,7 @@ func (g *game) apply(acts []hostAction) {
 }
 
 func (g *game) panelMode() panelMode {
-	if g.chinese && g.live.Guide.Open() {
+	if g.chinese && (g.live.Guide.Open() || g.live.Map.Open()) {
 		return panelBrowse // 攻略面板與手札翻閱同一組鍵（規格 008 §2.1）
 	}
 	switch j := g.live.Journal; {
@@ -406,6 +420,22 @@ func main() {
 		live.Guide.OnMove = func(ch, page int) {
 			if err := dkk.WriteGuidePos(posPath, ch, page); err != nil {
 				fmt.Fprintln(os.Stderr, "dkk-play: 攻略位置寫入失敗：", err)
+			}
+		}
+	}
+	if live.Map, err = dkk.LoadAutoMapDir(*textDir); err != nil {
+		fail(err)
+	}
+	if live.Map != nil {
+		visitedPath := filepath.Join(*save, "dkk-map-visited.txt")
+		v, err := dkk.ReadVisited(visitedPath)
+		if err != nil {
+			fail(err)
+		}
+		live.Map.SetVisited(v)
+		live.Map.OnVisit = func(key string, x, y int) {
+			if err := dkk.AppendVisited(visitedPath, key, x, y); err != nil {
+				fmt.Fprintln(os.Stderr, "dkk-play: 地圖走過格子寫入失敗：", err)
 			}
 		}
 	}
