@@ -58,6 +58,7 @@ type shotResult struct {
 	StampsShown   int    `json:"stamps_shown"`
 	Missing       string `json:"missing_glyphs,omitempty"`
 	Journal       bool   `json:"journal_panel,omitempty"`
+	StampList     []string `json:"stamp_list,omitempty"` // 每筆疊字：key、位置、狀態、透明格數、文字（查殘字用）
 }
 
 func main() {
@@ -284,6 +285,13 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 		if st.State == xlate.Shown {
 			r.StampsShown++
 		}
+		nt := 0
+		for _, t := range st.Transparent {
+			if t {
+				nt++
+			}
+		}
+		r.StampList = append(r.StampList, fmt.Sprintf("%s @%d,%d cells=%d state=%d transparent=%d %q", st.Key, st.X, st.Y, st.Cells, st.State, nt, string(st.Text)))
 	}
 	for i := 0; i < len(base); i += 4 {
 		if base[i] == over[i] && base[i+1] == over[i+1] && base[i+2] == over[i+2] {

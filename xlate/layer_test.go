@@ -728,3 +728,33 @@ func TestShortStampEdgeCoincidenceIsKnownLimit(t *testing.T) {
 		t.Fatalf("已知限制：應保留並只遮第 1 格：剩 %d 筆 transparent=%v", len(l.Stamps), s.Transparent)
 	}
 }
+
+// spec 202 §2.3：部分覆蓋只重新定色，不拿當下畫面重算指紋。
+// 實例（dkk）：查驗題答對後原版一次畫好冒險畫面，同一幀隊伍欄「姓名」蓋到題目右端；
+// 若重算指紋，壓在 3D 視窗上的題目格子會被當成仍然有效，留在畫面上。
+func TestPartialCoverDuringScreenChangeStillInvalidates(t *testing.T) {
+	idx, rgb := rowScreen("ABCDEFGHIJ")
+	l := &Layer{}
+	s := &Stamp{Key: "k", X: 16, Y: 40, Cells: 10, CellW: 8, CellH: 8, State: Pending}
+	l.Stamps = []*Stamp{s}
+	l.Frame(idx, rgb)
+	next, _ := rowScreen("QRSTUVWXYZ") // 換畫面
+	l.Add(&Stamp{Key: "name", X: 16 + 8*8, Y: 40, Cells: 2, CellW: 8, CellH: 8})
+	frames(l, next, rgb, 5)
+	for _, st := range l.Stamps {
+		if st == s {
+			t.Fatalf("換畫面後舊疊字應移除：transparent=%v", s.Transparent)
+		}
+	}
+	// 對照：畫面沒換時，部分覆蓋後其餘格子照常顯示
+	idx, rgb = rowScreen("ABCDEFGHIJ")
+	s2 := &Stamp{Key: "k2", X: 16, Y: 40, Cells: 10, CellW: 8, CellH: 8, State: Pending}
+	l2 := &Layer{}
+	l2.Stamps = []*Stamp{s2}
+	l2.Frame(idx, rgb)
+	l2.Add(&Stamp{Key: "name", X: 16 + 8*8, Y: 40, Cells: 2, CellW: 8, CellH: 8})
+	frames(l2, idx, rgb, 5)
+	if s2.State != Shown || s2.transparent(0) || !s2.transparent(8) {
+		t.Fatalf("畫面不變時應保留未覆蓋格：state=%v transparent=%v", s2.State, s2.Transparent)
+	}
+}
