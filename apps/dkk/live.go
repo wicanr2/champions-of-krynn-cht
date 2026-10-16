@@ -37,6 +37,8 @@ type Live struct {
 	hideAnswers bool
 	// Journal 是手札面板（規格 007）；nil 時不啟用。
 	Journal *JournalPanel
+	// Guide 是攻略面板（規格 008）；nil 時不啟用。
+	Guide *GuidePanel
 	// Inventory 為 true 時，綁定後建立 Inv 記錄印字路徑盤點（issue #11）。
 	Inventory bool
 	Inv       *Inventory
@@ -212,6 +214,9 @@ func (l *Live) Compose(scale int, overlay bool, missing func(rune)) []byte {
 		l.Layer.Draw(out, scale, missing)
 		if l.Journal.Open() {
 			l.Journal.Draw(out, scale, l.Font, missing)
+		}
+		if l.Guide.Open() {
+			l.Guide.Draw(out, scale, l.Font, missing)
 		}
 	}
 	return out

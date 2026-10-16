@@ -80,6 +80,7 @@ func main() {
 	outDir := flag.String("out", "", "輸出目錄")
 	hideAnswers := flag.Bool("hide-answers", false, "隱藏查驗題答案（規格 006）")
 	journalPreview := flag.Int("journal-preview", 0, "以翻閱模式開啟這一則手札（規格 007 版面檢查；需 -text-dir）")
+	guidePreview := flag.String("guide-preview", "", "以 `章:頁` 開啟攻略面板（規格 008 版面檢查；0 章是目錄；需 -text-dir）")
 	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
 	flag.Parse()
@@ -167,6 +168,17 @@ func main() {
 			live.Journal.ToggleBrowse()
 		}
 	}
+	if *textDir != "" && *guidePreview != "" {
+		if live.Guide, err = dkk.LoadGuideDir(*textDir); err != nil || live.Guide == nil {
+			fail(fmt.Errorf("攻略面板：%v（缺 walkthrough.zh-TW.tsv？）", err))
+		}
+		var ch, page int
+		if _, err := fmt.Sscanf(*guidePreview, "%d:%d", &ch, &page); err != nil {
+			fail(fmt.Errorf("-guide-preview %q 要寫 章:頁", *guidePreview))
+		}
+		live.Guide.SetPos(ch, page)
+		live.Guide.Toggle()
+	}
 	live.Inventory = *invPath != ""
 	live.Arm() // 狀態檔已在遊戲中
 	cpuView := machineCPU{m}
@@ -248,6 +260,10 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 	if journal {
 		live.Journal.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
 	}
+	guide := live.Guide.Open()
+	if guide {
+		live.Guide.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
+	}
 	isum := sha256.Sum256(idx)
 	r := shotResult{Name: s.name, Step: m.Steps, IndexedSHA256: hex.EncodeToString(isum[:]), Stamps: len(layer.Stamps)}
 	for _, st := range layer.Stamps {
@@ -261,7 +277,7 @@ func capture(m *machine.Machine, live *dkk.Live, s shot, dir string) shotResult 
 		}
 		r.DiffPixels++
 		x, y := (i/4)%(320*scale)/scale, (i/4)/(320*scale)/scale
-		inside := journal && dkk.InJournalPanel(x, y)
+		inside := journal && dkk.InJournalPanel(x, y) || guide && dkk.InGuidePanel(x, y)
 		for _, st := range layer.Stamps {
 			x0, y0, x1, y1 := st.Rect()
 			if x >= x0 && x < x1 && y >= y0 && y < y1 {

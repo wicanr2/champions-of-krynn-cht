@@ -34,6 +34,7 @@ const (
 	actPrevEntry                          // 翻閱模式的 ←
 	actNextEntry                          // 翻閱模式的 →
 	actCloseJournal                       // 翻閱模式的 Esc
+	actGuide                              // F6：攻略面板（規格 008）
 )
 
 // panelMode 是手札面板的狀態：開啟時部分鍵由前端吃掉（規格 007 §2.4、§2.5）。
@@ -50,7 +51,7 @@ var panelKeys = map[panelMode]map[string]hostAction{
 	panelBrowse: {"PgUp": actPageUp, "PgDn": actPageDown, "Left": actPrevEntry, "Right": actNextEntry, "Escape": actCloseJournal},
 }
 
-var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal}
+var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal, "F6": actGuide}
 
 // frameInput 是一個畫格的主機鍵盤狀態。Held 的值是按住的格數（剛按下為 1）。
 type frameInput struct {

@@ -57,8 +57,11 @@ func JournalEntryOf(text []byte) (int, bool) {
 	return n, err == nil
 }
 
-// wrapJournal 把段落排成每列 journalCols 格：半形合併（規格 005）、拉丁詞與數字不拆、全形句讀不放行首。
-func wrapJournal(body string) [][]rune {
+// wrapJournal 把段落排成每列 journalCols 格（規格 007 §2.3）。
+func wrapJournal(body string) [][]rune { return wrapCols(body, journalCols) }
+
+// wrapCols 把段落（以字面 \n 分隔）排成每列 cols 格：半形合併（規格 005）、拉丁詞與數字不拆、全形句讀不放行首。
+func wrapCols(body string, cols int) [][]rune {
 	var lines [][]rune
 	for _, para := range strings.Split(body, `\n`) {
 		rs := PackHalfWidth([]rune(para))
@@ -71,7 +74,7 @@ func wrapJournal(body string) [][]rune {
 				}
 			}
 			word := rs[i:j]
-			if len(line)+len(word) > journalCols && len(line) > 0 && len(word) <= journalCols {
+			if len(line)+len(word) > cols && len(line) > 0 && len(word) <= cols {
 				var carry []rune
 				if isClosePunct(word[0]) && len(line) > 1 {
 					carry, line = []rune{line[len(line)-1]}, line[:len(line)-1]
@@ -80,7 +83,7 @@ func wrapJournal(body string) [][]rune {
 				line = carry
 			}
 			for _, r := range word {
-				if len(line) == journalCols {
+				if len(line) == cols {
 					lines = append(lines, line)
 					line = nil
 				}
@@ -272,8 +275,6 @@ func (j *JournalPanel) Draw(dst []uint8, scale int, font *xlate.Font, missing fu
 			putRGB(dst, w, x, y, journalBG)
 		}
 	}
-	k := max(1, scale/3)
-	rb := (font.W + 7) / 8
 	for row, line := range j.Lines() {
 		c := journalText
 		switch row {
@@ -282,28 +283,36 @@ func (j *JournalPanel) Draw(dst []uint8, scale int, font *xlate.Font, missing fu
 		case journalRows - 1:
 			c = journalPage
 		}
-		for col, r := range line {
-			if col >= journalCols || r == ' ' {
-				continue
+		drawLine(dst, scale, font, journalX, journalY+row*8, journalCols, line, c, missing)
+	}
+}
+
+// drawLine 以 8×8 邏輯格在 (x0, y0) 起畫一列字（scale 倍輸出），空白不畫；超過 cols 格的部分略去。
+func drawLine(dst []uint8, scale int, font *xlate.Font, x0, y0, cols int, line []rune, c [3]uint8, missing func(rune)) {
+	w := 320 * scale
+	k := max(1, scale/3)
+	rb := (font.W + 7) / 8
+	for col, r := range line {
+		if col >= cols || r == ' ' {
+			continue
+		}
+		g, ok := font.Glyphs[r]
+		if !ok {
+			if missing != nil {
+				missing(r)
 			}
-			g, ok := font.Glyphs[r]
-			if !ok {
-				if missing != nil {
-					missing(r)
+			continue
+		}
+		cx, cy := (x0+col*8)*scale, y0*scale
+		for gy := 0; gy < font.H; gy++ {
+			for gx := 0; gx < font.W; gx++ {
+				if g[gy*rb+gx/8]&(0x80>>uint(gx%8)) == 0 {
+					continue
 				}
-				continue
-			}
-			cx, cy := (journalX+col*8)*scale, (journalY+row*8)*scale
-			for gy := 0; gy < font.H; gy++ {
-				for gx := 0; gx < font.W; gx++ {
-					if g[gy*rb+gx/8]&(0x80>>uint(gx%8)) == 0 {
-						continue
-					}
-					for dy := 0; dy < k; dy++ {
-						for dx := 0; dx < k; dx++ {
-							if gx*k+dx < 8*scale && gy*k+dy < 8*scale {
-								putRGB(dst, w, cx+gx*k+dx, cy+gy*k+dy, c)
-							}
+				for dy := 0; dy < k; dy++ {
+					for dx := 0; dx < k; dx++ {
+						if gx*k+dx < 8*scale && gy*k+dy < 8*scale {
+							putRGB(dst, w, cx+gx*k+dx, cy+gy*k+dy, c)
 						}
 					}
 				}

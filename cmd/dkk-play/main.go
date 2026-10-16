@@ -149,25 +149,42 @@ func (g *game) apply(acts []hostAction) {
 			g.live.SetHideAnswers(!g.live.HideAnswers())
 		case actJournal:
 			if g.chinese && g.live.Journal != nil {
+				g.live.Guide.Close() // 與攻略面板互斥（規格 008 §2.1）
 				g.live.Journal.ToggleBrowse()
+			}
+		case actGuide:
+			if g.chinese && g.live.Guide != nil {
+				if g.live.Journal.Browsing() {
+					g.live.Journal.ToggleBrowse()
+				}
+				g.live.Guide.Toggle()
 			}
 		case actCloseJournal:
-			if g.live.Journal.Browsing() {
+			if g.live.Guide.Open() {
+				g.live.Guide.Close()
+			} else if g.live.Journal.Browsing() {
 				g.live.Journal.ToggleBrowse()
 			}
-		case actPageUp:
-			g.live.Journal.TurnPage(-1)
-		case actPageDown:
-			g.live.Journal.TurnPage(1)
-		case actPrevEntry:
-			g.live.Journal.NextEntry(-1)
-		case actNextEntry:
-			g.live.Journal.NextEntry(1)
+		case actPageUp, actPageDown, actPrevEntry, actNextEntry:
+			d := map[hostAction]int{actPageUp: -1, actPageDown: 1, actPrevEntry: -1, actNextEntry: 1}[a]
+			switch {
+			case g.live.Guide.Open() && (a == actPageUp || a == actPageDown):
+				g.live.Guide.TurnPage(d)
+			case g.live.Guide.Open():
+				g.live.Guide.NextChapter(d)
+			case a == actPageUp || a == actPageDown:
+				g.live.Journal.TurnPage(d)
+			default:
+				g.live.Journal.NextEntry(d)
+			}
 		}
 	}
 }
 
 func (g *game) panelMode() panelMode {
+	if g.chinese && g.live.Guide.Open() {
+		return panelBrowse // 攻略面板與手札翻閱同一組鍵（規格 008 §2.1）
+	}
 	switch j := g.live.Journal; {
 	case !g.chinese || !j.Open():
 		return panelNone
@@ -373,6 +390,24 @@ func main() {
 	live.SetHideAnswers(*hideAnswers)
 	if live.Journal, err = dkk.LoadJournalDir(*textDir); err != nil {
 		fail(err)
+	}
+	if live.Guide, err = dkk.LoadGuideDir(*textDir); err != nil {
+		fail(err)
+	}
+	if live.Guide != nil {
+		posPath := filepath.Join(*save, "dkk-walkthrough-pos.txt")
+		ch, page, err := dkk.ReadGuidePos(posPath)
+		if err != nil {
+			fail(err)
+		}
+		if ch != 0 || page != 0 {
+			live.Guide.SetPos(ch, page)
+		}
+		live.Guide.OnMove = func(ch, page int) {
+			if err := dkk.WriteGuidePos(posPath, ch, page); err != nil {
+				fmt.Fprintln(os.Stderr, "dkk-play: 攻略位置寫入失敗：", err)
+			}
+		}
 	}
 	seenPath := filepath.Join(*save, "dkk-journal-seen.txt")
 	if live.Journal.Seen, err = dkk.ReadJournalSeen(seenPath); err != nil {
