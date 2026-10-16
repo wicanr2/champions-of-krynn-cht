@@ -3155,6 +3155,9 @@ func parseBIOSKeys(text, names string) ([]dos.Key, error) {
 			return nil, fmt.Errorf("-bios-key-names 含空名稱")
 		}
 		key, ok := dos.KeyNamed(name)
+		if r := []rune(name); !ok && len(r) == 1 {
+			key, ok = dos.KeyForRune(r[0]) // 單一字元可與具名鍵交錯（例 Esc,Q）
+		}
 		if !ok {
 			return nil, fmt.Errorf("-bios-key-names 不認得 %q", name)
 		}
