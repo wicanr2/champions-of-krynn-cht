@@ -30,7 +30,7 @@ func TestInventoryClassifies(t *testing.T) {
 		m.put16(s+4+uint32(2*i), v)
 	}
 	inv.before(1, aEntry>>4, aEntry&0xF, cSS, cSP, m)
-	glyph(-1, 'H', 3, 4)                                // A 呼叫期間：不記
+	glyph(-1, 'H', 3, 4)                                  // A 呼叫期間：不記
 	inv.before(1, 0x3000, 0x0500, cSS, cSP+4+argBytes, m) // A 返回
 	glyph(-1, 'O', 5, 0)
 	glyph(-1, 'K', 5, 1)
