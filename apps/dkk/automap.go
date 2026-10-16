@@ -121,14 +121,22 @@ type AutoMap struct {
 	loaded       bool
 	X, Y, Dir    int
 	visited      map[string]map[cellPos]bool
+	listPage     int // 右側清單頁（PgUp／PgDn）
+}
+
+// TurnList 翻右側清單頁（delta ±1）。
+func (m *AutoMap) TurnList(delta int) {
+	if m.Open() {
+		m.listPage = max(0, m.listPage+delta)
+	}
 }
 
 // MapFormat 是面板固定文字（host-text 的 map.*）。
-type MapFormat struct{ Unknown, NoData, Pos, Dirs, Hint, All string }
+type MapFormat struct{ Unknown, NoData, Pos, Dirs, Hint, All, More string }
 
 // MapFormatOf 從前端文字表取面板格式。
 func MapFormatOf(host map[string]string) (MapFormat, bool) {
-	f := MapFormat{host["map.unknown"], host["map.nodata"], host["map.pos"], host["map.dirs"], host["map.hint"], host["map.all"]}
+	f := MapFormat{host["map.unknown"], host["map.nodata"], host["map.pos"], host["map.dirs"], host["map.hint"], host["map.all"], host["map.more"]}
 	return f, f.Unknown != "" && f.NoData != "" && f.Pos != "" && len([]rune(f.Dirs)) == 4 && f.Hint != "" && f.All != ""
 }
 
@@ -274,15 +282,26 @@ func (m *AutoMap) Lines() [listRows][]rune {
 		}
 	}
 	listed := map[int]bool{} // 同一編號標在多格（塔樓樓梯、前門）只列一次
+	var items []string
+	here := false
 	for _, p := range pts {
-		if row >= listRows-5 {
-			break
+		if p.X == m.X && p.Y == m.Y {
+			here = true
 		}
-		if listed[p.N] {
-			continue
+		if !listed[p.N] {
+			listed[p.N] = true
+			items = append(items, fmt.Sprintf("%d %s", p.N, p.Label))
 		}
-		listed[p.N] = true
-		put(row, fmt.Sprintf("%d %s", p.N, p.Label))
+	}
+	end := listRows - 1 // 清單可用到這列之前；所在格有攻略點時留 4 列給說明
+	if here {
+		end = listRows - 5
+	}
+	per := max(1, end-row)
+	pages := (len(items) + per - 1) / per
+	m.listPage = max(0, min(m.listPage, pages-1))
+	for i := m.listPage * per; i < len(items) && row < end; i++ {
+		put(row, items[i])
 		row++
 	}
 	for _, p := range pts {
@@ -297,6 +316,9 @@ func (m *AutoMap) Lines() [listRows][]rune {
 	hint := m.Format.Hint
 	if m.reveal {
 		hint = m.Format.All
+	}
+	if pages > 1 && m.Format.More != "" {
+		hint = strings.NewReplacer("{page}", strconv.Itoa(m.listPage+1), "{pages}", strconv.Itoa(pages)).Replace(m.Format.More)
 	}
 	put(listRows-1, hint)
 	return out

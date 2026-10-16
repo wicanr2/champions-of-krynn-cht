@@ -182,6 +182,9 @@ func (g *game) apply(acts []hostAction) {
 		case actPageUp, actPageDown, actPrevEntry, actNextEntry:
 			d := map[hostAction]int{actPageUp: -1, actPageDown: 1, actPrevEntry: -1, actNextEntry: 1}[a]
 			switch {
+			case g.live.Map.Open() && (a == actPageUp || a == actPageDown):
+				g.live.Map.TurnList(d)
+			case g.live.Map.Open():
 			case g.live.Guide.Open() && (a == actPageUp || a == actPageDown):
 				g.live.Guide.TurnPage(d)
 			case g.live.Guide.Open():

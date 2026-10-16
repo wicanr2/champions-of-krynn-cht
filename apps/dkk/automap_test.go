@@ -28,7 +28,7 @@ func TestAutoMapSample(t *testing.T) {
 	var visits []string
 	a := &AutoMap{Guide: &MapGuide{ByHash: map[string]string{sum: "1/24"}, Titles: map[string]string{"1/24": "蓋加斯屯墾區"},
 		Points: map[string][]MapPoint{"1/24": {{N: 9, X: 2, Y: 3, Label: "銀行", Summary: "唯一的銀行"}, {N: 11, X: 6, Y: 9, Label: "神殿"}}}},
-		Format:  MapFormat{"未知", "無資料", "{x},{y} 面向{dir}", "北東南西", "V 全圖", "V 只看走過"},
+		Format:  MapFormat{"未知", "無資料", "{x},{y} 面向{dir}", "北東南西", "V 全圖", "V 只看走過", "{page}/{pages}"},
 		OnVisit: func(k string, x, y int) { visits = append(visits, k) }}
 	a.Sample(m, 0x0CDE)
 	if a.Key != "1/24" || a.X != 2 || a.Y != 3 || a.Dir != 2 {
@@ -93,5 +93,30 @@ func TestLoadMapGuideRejectsUnknownMap(t *testing.T) {
 	os.WriteFile(filepath.Join(dir, "map-guide.zh-TW.tsv"), []byte("map\tn\tx\ty\tlabel\tsummary\tsource\n9/99\t1\t0\t0\tx\ty\tz\n"), 0o644)
 	if _, err := LoadMapGuideDir(dir); err == nil {
 		t.Error("地圖不在 map-geo.tsv 要回錯")
+	}
+}
+
+// TestMapGuideTable 檢查正式地圖資料（規格 009 §3 靜態）：可載入、每點在 0..15、每塊有點的地圖都有名稱。
+func TestMapGuideTable(t *testing.T) {
+	dir := os.Getenv("DOSGOLEM_DKK_TEXT_DIR")
+	if dir == "" {
+		t.Skip("DOSGOLEM_DKK_TEXT_DIR 未設定")
+	}
+	g, err := LoadMapGuideDir(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if g == nil || len(g.Points) == 0 {
+		t.Fatal("沒有攻略點")
+	}
+	for k, ps := range g.Points {
+		if g.Titles[k] == "" {
+			t.Errorf("地圖 %s 有 %d 點但沒有名稱", k, len(ps))
+		}
+		for _, p := range ps {
+			if p.Label == "" || len([]rune(p.Label)) > 10 {
+				t.Errorf("%s %d 名稱長度不合：%q", k, p.N, p.Label)
+			}
+		}
 	}
 }
