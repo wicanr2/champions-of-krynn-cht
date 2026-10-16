@@ -74,6 +74,7 @@ func main() {
 	outDir := flag.String("out", "", "輸出目錄")
 	hideAnswers := flag.Bool("hide-answers", false, "隱藏查驗題答案（規格 006）")
 	journalPreview := flag.Int("journal-preview", 0, "以翻閱模式開啟這一則手札（規格 007 版面檢查；需 -text-dir）")
+	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
 	flag.Parse()
 	if *statePath == "" || *root == "" || *fontPath == "" || *until == 0 || *outDir == "" {
 		fail(fmt.Errorf("state、root、font、until、out 均為必填"))
@@ -144,6 +145,7 @@ func main() {
 			live.Journal.ToggleBrowse()
 		}
 	}
+	live.Inventory = *invPath != ""
 	live.Arm() // 狀態檔已在遊戲中
 	cpuView := machineCPU{m}
 	m.ObserveVideoWrites(func(w machine.VideoWrite) { live.VideoWrite(w.Offset) })
@@ -167,6 +169,12 @@ func main() {
 			fail(err)
 		}
 		if err := m.Step(); err != nil {
+			fail(err)
+		}
+	}
+	if live.Inv != nil {
+		ovr, _ := os.ReadFile(filepath.Join(*root, "GAME.OVR"))
+		if err := live.Inv.WriteTSV(*invPath, ovr); err != nil {
 			fail(err)
 		}
 	}
@@ -326,7 +334,11 @@ func parseKeys(text, names string) ([]dos.Key, error) {
 	}
 	if strings.TrimSpace(names) != "" {
 		for _, n := range strings.Split(names, ",") {
-			k, ok := dos.KeyNamed(strings.TrimSpace(n))
+			n = strings.TrimSpace(n)
+			k, ok := dos.KeyNamed(n)
+			if r := []rune(n); !ok && len(r) == 1 {
+				k, ok = dos.KeyForRune(r[0]) // 單一字元可與具名鍵交錯（例 Esc,V,E）
+			}
 			if !ok {
 				return nil, fmt.Errorf("不認得的鍵名 %q", n)
 			}

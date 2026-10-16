@@ -324,6 +324,7 @@ func main() {
 	audioOn := flag.Bool("audio", true, "互動模式播放聲音（容器內沒有音訊裝置時關閉）")
 	hideAnswers := flag.Bool("hide-answers", false, "開機時隱藏查驗題答案（F9 切換）")
 	original0 := flag.Bool("original-view", false, "開機時顯示原版（F12 切換）")
+	invPath := flag.String("inventory", "", "結束時把印字路徑盤點（issue #11）寫成這個 TSV；含原文，只放工作區")
 	flag.Parse()
 	if *original == "" || *save == "" || *textDir == "" || *fontPath == "" {
 		flag.Usage()
@@ -365,6 +366,7 @@ func main() {
 		fail(errors.New("START.EXE 雜湊不符"))
 	}
 	live := dkk.NewLive(font, ui, ecl)
+	live.Inventory = *invPath != ""
 	if live.Answers, live.QuizFormat, err = dkk.LoadQuizDir(*textDir); err != nil {
 		fail(err)
 	}
@@ -414,7 +416,16 @@ func main() {
 	ebiten.SetWindowTitle(windowTitle)
 	ebiten.SetWindowSize(320*scale, 200*scale)
 	ebiten.SetTPS(60)
-	if err := ebiten.RunGame(g); err != nil {
+	err = ebiten.RunGame(g)
+	if live.Inv != nil {
+		ovr, _ := os.ReadFile(filepath.Join(*original, "GAME.OVR"))
+		if werr := live.Inv.WriteTSV(*invPath, ovr); werr != nil {
+			fmt.Fprintln(os.Stderr, "dkk-play: 盤點寫入失敗：", werr)
+		} else {
+			fmt.Fprintf(os.Stderr, "dkk-play: 盤點 %d 筆寫到 %s\n", len(live.Inv.Events), *invPath)
+		}
+	}
+	if err != nil {
 		fail(err)
 	}
 }

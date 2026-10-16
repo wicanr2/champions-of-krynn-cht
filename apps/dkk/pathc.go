@@ -240,6 +240,11 @@ func (c *PathC) SetPalette(pal [256][3]uint8) {
 	c.dirty = map[int]bool{}
 }
 
+// menuWordser 由查表提供選單母串的逐詞譯文（規格 003 §2.2.1；Translator 滿足）。
+type menuWordser interface {
+	MenuWords(words []string) []string
+}
+
 func (c *PathC) rebuild(row int) {
 	c.clearStamps(row)
 	cells := c.rows[row]
@@ -262,6 +267,10 @@ func (c *PathC) rebuild(row int) {
 			return
 		}
 	}
+	var masterWords []string
+	if mm, ok := c.Catalog.(menuWordser); ok && lineWords == nil {
+		masterWords = mm.MenuWords(parts)
+	}
 	for i, w := range words {
 		mw := MenuWord{Row: row, Col: w.col, Length: len(w.cells)}
 		zh := ""
@@ -269,6 +278,8 @@ func (c *PathC) rebuild(row int) {
 			zh, mw.Key = e.Translation, e.Key
 		} else if lineWords != nil {
 			zh, mw.Key = lineWords[i], "line"
+		} else if masterWords != nil && masterWords[i] != "" {
+			zh, mw.Key = masterWords[i], "master"
 		}
 		runes := PackHalfWidth([]rune(zh))
 		if zh == "" || len(runes) > len(w.cells) {

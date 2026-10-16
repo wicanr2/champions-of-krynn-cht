@@ -10,7 +10,7 @@ import (
 
 // LoadTextDir 從譯文目錄載入介面查表（含規格 004 的名稱、模板、物品名）與 ECL catalog。
 // 檔名：ui-text-events.tsv、ui-text.zh-TW.tsv、ecl-text-events.tsv、ecl-text.zh-TW.tsv、
-// name-events.tsv、name.zh-TW.tsv、composed-templates.tsv。
+// name-events.tsv、name.zh-TW.tsv、composed-templates.tsv、menu-masters.tsv。
 func LoadTextDir(dir string) (ui *Translator, ecl *Catalog, err error) {
 	read := func(name string) ([]byte, error) { return os.ReadFile(filepath.Join(dir, name)) }
 	load := func(events, trans string) (*Catalog, error) {
@@ -36,6 +36,13 @@ func LoadTextDir(dir string) (ui *Translator, ecl *Catalog, err error) {
 		return nil, nil, err
 	}
 	ui = &Translator{Exact: []Lookuper{uiCat}, Names: names, Words: uiCat}
+	mm, err := read("menu-masters.tsv")
+	if err != nil {
+		return nil, nil, err
+	}
+	if ui.Menus, err = LoadMenuMasters(mm); err != nil {
+		return nil, nil, err
+	}
 	tpl, err := read("composed-templates.tsv")
 	if err != nil {
 		return nil, nil, err

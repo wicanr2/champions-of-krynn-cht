@@ -37,6 +37,9 @@ type Live struct {
 	hideAnswers bool
 	// Journal 是手札面板（規格 007）；nil 時不啟用。
 	Journal *JournalPanel
+	// Inventory 為 true 時，綁定後建立 Inv 記錄印字路徑盤點（issue #11）。
+	Inventory bool
+	Inv       *Inventory
 
 	ui      Lookuper
 	ecl     *Catalog
@@ -78,6 +81,9 @@ func (l *Live) bind(mem CPUView) error {
 		l.B.OnEntry = l.journalEntry
 	}
 	l.ready = true
+	if l.Inventory {
+		l.Inv = newInventory(l)
+	}
 	return nil
 }
 
@@ -97,10 +103,23 @@ func (l *Live) BeforeStep(v StepCPU) error {
 		l.Journal.KeyTaken(v.Read16(bdaKeyHead)) // 規格 007 §2.4 條件 2：先比對再處理進入點
 	}
 	cs, ip, ss, sp := v.CS(), v.IP(), v.SS(), v.SP()
+	na, nb := len(l.A.Hits), 0
+	if l.Inv != nil {
+		l.Inv.before(v.Steps(), cs, ip, ss, sp, v)
+	}
 	l.A.Before(v.Steps(), cs, ip, ss, sp, v)
 	l.C.Before(cs, ip, ss, sp, v)
 	if l.B != nil {
+		nb = len(l.B.Hits)
 		l.B.Before(v.Steps(), cs, ip, ss, sp, v.DS(), v)
+	}
+	if l.Inv != nil {
+		if len(l.A.Hits) > na {
+			l.Inv.attach("A", l.A.Hits[len(l.A.Hits)-1])
+		}
+		if l.B != nil && len(l.B.Hits) > nb {
+			l.Inv.attach("B", l.B.Hits[len(l.B.Hits)-1])
+		}
 	}
 	return nil
 }

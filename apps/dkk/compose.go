@@ -14,9 +14,10 @@ type Lookuper interface {
 
 // Translator 在 catalog 未命中之後依規格 004 組出譯文：名稱、數字模板、標籤、物品名。
 type Translator struct {
-	Exact     []Lookuper // 依序查的 catalog
-	Names     Lookuper   // 怪物、人物、地名（可為 nil）
-	Words     Lookuper   // 物品名詞組來源（介面 catalog；可為 nil）
+	Exact     []Lookuper   // 依序查的 catalog
+	Names     Lookuper     // 怪物、人物、地名（可為 nil）
+	Words     Lookuper     // 物品名詞組來源（介面 catalog；可為 nil）
+	Menus     *MenuMasters // 底列選單母串（規格 003 §2.2.1；可為 nil）
 	templates map[string]string
 }
 
@@ -40,6 +41,9 @@ func (t *Translator) LoadTemplates(b []byte) error {
 	return nil
 }
 
+// MenuWords 回選單詞列在母串表中的逐詞譯文（規格 003 §2.2.1）。
+func (t *Translator) MenuWords(words []string) []string { return t.Menus.Words(words) }
+
 // Lookup 實作 Lookuper（規格 004 §2）。
 func (t *Translator) Lookup(original []byte) (Entry, bool) {
 	if e, ok := t.exact(original); ok {
@@ -51,7 +55,39 @@ func (t *Translator) Lookup(original []byte) (Entry, bool) {
 	if e, ok := t.label(string(original)); ok {
 		return e, true
 	}
-	return t.item(string(original))
+	if e, ok := t.readyRow(string(original)); ok {
+		return e, true
+	}
+	if e, ok := t.item(string(original)); ok {
+		return e, true
+	}
+	// 詞組：不以空白結尾、兩詞以上、每段都是介面詞組（例 `Paladine Cleric` 神祇＋職業；規格 004 §2.2）。
+	if s := string(original); !strings.HasSuffix(s, " ") && len(strings.Fields(s)) >= 2 {
+		if e, ok := t.item(s + " "); ok {
+			return e, true
+		}
+	}
+	// 反白列不帶清單列的前導空白，catalog 收的是帶空白的寫法（例 ` <No Spell Effects>`）。
+	if len(original) > 0 && original[0] != ' ' {
+		return t.exact(append([]byte{' '}, original...))
+	}
+	return Entry{}, false
+}
+
+var readyFlag = regexp.MustCompile(`^( *)(Yes|No) +(\S.*?) *$`)
+
+// readyRow：物品清單列「Yes／No（備妥旗標）＋物品名」（規格 004 §2.6）。旗標譯為「是」「否」，物品名走 item。
+func (t *Translator) readyRow(s string) (Entry, bool) {
+	m := readyFlag.FindStringSubmatch(s)
+	if m == nil {
+		return Entry{}, false
+	}
+	it, ok := t.item(m[3] + " ")
+	if !ok {
+		return Entry{}, false
+	}
+	flag := map[string]string{"Yes": "是", "No": "否"}[m[2]]
+	return Entry{Key: "ready", Translation: m[1] + flag + " " + it.Translation}, true // 前導空白保留，與反白列對齊
 }
 
 func (t *Translator) exact(b []byte) (Entry, bool) {
@@ -80,7 +116,9 @@ func (t *Translator) template(s string) (Entry, bool) {
 	}
 	nums := digits.FindAllString(s, -1)
 	if len(nums) == 0 {
-		return Entry{}, false
+		// 沒有數字的模板是串接片段的整句譯法（規格 004 §2.1，例 `Spells in Grimoire`）。
+		zh, ok := t.templates[s]
+		return Entry{Key: "template", Translation: zh}, ok
 	}
 	zh, ok := t.templates[digits.ReplaceAllString(s, "{n}")]
 	if !ok {
