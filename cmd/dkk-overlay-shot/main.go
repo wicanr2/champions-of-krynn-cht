@@ -36,6 +36,11 @@ import (
 
 const scale = 2
 
+type timedKey struct {
+	at  uint64
+	key dos.Key
+}
+
 type shot struct {
 	step uint64
 	name string
@@ -70,10 +75,12 @@ func main() {
 	keyFrom := flag.Uint64("bios-key-from", 0, "第一個鍵的步數")
 	keyEvery := flag.Uint64("bios-key-every", 50_000_000, "兩鍵間隔步數")
 	shotsSpec := flag.String("shots", "", "步數:名稱，逗號分隔")
+	keysAt := flag.String("keys-at", "", "依步數送鍵 `步數:鍵名`，逗號分隔（重播 dkk-explore 的送鍵紀錄；與 -bios-keys 併用時各自排程）")
 	until := flag.Uint64("until", 0, "絕對步數上限")
 	outDir := flag.String("out", "", "輸出目錄")
 	hideAnswers := flag.Bool("hide-answers", false, "隱藏查驗題答案（規格 006）")
 	journalPreview := flag.Int("journal-preview", 0, "以翻閱模式開啟這一則手札（規格 007 版面檢查；需 -text-dir）")
+	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
 	flag.Parse()
 	if *statePath == "" || *root == "" || *fontPath == "" || *until == 0 || *outDir == "" {
@@ -89,6 +96,21 @@ func main() {
 	keys, err := parseKeys(*biosKeys, *biosKeyNames)
 	if err != nil {
 		fail(err)
+	}
+	var timed []timedKey
+	if strings.TrimSpace(*keysAt) != "" {
+		for _, it := range strings.Split(*keysAt, ",") {
+			at, name, ok := strings.Cut(strings.TrimSpace(it), ":")
+			n, err := strconv.ParseUint(at, 10, 64)
+			if !ok || err != nil {
+				fail(fmt.Errorf("-keys-at %q 不是 步數:鍵名", it))
+			}
+			k, err := parseKeys("", name)
+			if err != nil {
+				fail(err)
+			}
+			timed = append(timed, timedKey{n, k[0]})
+		}
 	}
 	font, err := xlate.LoadFont(*fontPath)
 	if err != nil {
@@ -161,12 +183,21 @@ func main() {
 				ki++
 			}
 		}
+		if len(timed) > 0 && m.Steps >= timed[0].at {
+			if _, pending := m.PeekKey(); !pending {
+				d.PushKey(timed[0].key)
+				timed = timed[1:]
+				ki++
+			}
+		}
 		if si < len(shots) && m.Steps >= shots[si].step {
 			results = append(results, capture(m, live, shots[si], *outDir))
 			si++
 		}
-		if err := live.BeforeStep(cpuView); err != nil {
-			fail(err)
+		if !*noOverlay {
+			if err := live.BeforeStep(cpuView); err != nil {
+				fail(err)
+			}
 		}
 		if err := m.Step(); err != nil {
 			fail(err)
@@ -187,11 +218,13 @@ func main() {
 		Hits    []dkk.Hit      `json:"hits"`
 		HitsB   []dkk.Hit      `json:"hits_b,omitempty"`
 		MenuC   []dkk.MenuWord `json:"menu_words"`
-	}{Entry: fmt.Sprintf("%05X", live.A.Entry), Catalog: entries, KeysOut: ki, Stopped: m.Steps, Shots: results, Hits: live.A.Hits}
+	}{Catalog: entries, KeysOut: ki, Stopped: m.Steps, Shots: results}
+	if live.A != nil { // -no-overlay 時沒有綁定
+		out.Entry, out.Hits, out.MenuC = fmt.Sprintf("%05X", live.A.Entry), live.A.Hits, live.C.Words
+	}
 	if live.B != nil {
 		out.HitsB = live.B.Hits
 	}
-	out.MenuC = live.C.Words
 	enc := json.NewEncoder(os.Stdout)
 	enc.SetIndent("", " ")
 	if err := enc.Encode(out); err != nil {
