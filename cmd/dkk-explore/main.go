@@ -10,6 +10,7 @@
 package main
 
 import (
+	"crypto/sha256"
 	"flag"
 	"fmt"
 	"os"
@@ -59,6 +60,7 @@ func main() {
 	every := flag.Uint64("every", 30_000_000, "送鍵後至少等幾步才判讀")
 	maxActions := flag.Int("max-actions", 600, "最多送幾個鍵")
 	outDir := flag.String("out", "", "輸出目錄（end.state、inv.tsv、log）")
+	picsDir := flag.String("pics-dir", "", "視窗圖 (24,24) 88×88 或大圖 (8,8) 304×120 出現沒見過、且連續兩次取樣不變的內容時，把整張色號畫面存成 <步數>.bin（HD 抽樣，主專案規格 010）")
 	flag.Parse()
 	if *statePath == "" || *root == "" || *fontPath == "" || *textDir == "" || *outDir == "" || *until == "" {
 		fail(fmt.Errorf("state、root、font、text-dir、until、out 均為必填"))
@@ -116,6 +118,7 @@ func main() {
 	unstick := []string{"Return", "Esc", " "}
 	lastCIdx := -1
 	stopAt := uint64(0)
+	pics := picSampler{seen: map[[32]byte]bool{}}
 
 	push := func(name string) {
 		if len(name) == 1 {
@@ -185,6 +188,9 @@ func main() {
 					lastCIdx = seen
 				}
 			}
+		}
+		if *picsDir != "" && m.Steps%1_000_000 == 0 {
+			pics.sample(m.Indexed(), m.Steps, *picsDir, say)
 		}
 		if stopAt != 0 || m.Steps-lastKey < *every || m.Steps%1_000_000 != 0 {
 			continue
@@ -357,4 +363,43 @@ func firstStep(cur pos, dir int, open, tried map[pos]int) int {
 func fail(err error) {
 	fmt.Fprintln(os.Stderr, "dkk-explore：", err)
 	os.Exit(1)
+}
+
+// picSampler 收集探索途中出現過的視窗圖與大圖（HD 抽樣）：兩個矩形的色號雜湊連續兩次取樣相同才算畫完，
+// 沒見過就存整張畫面。全黑不存。
+type picSampler struct {
+	seen map[[32]byte]bool
+	last [32]byte
+}
+
+var picRects = [][4]int{{24, 24, 88, 88}, {8, 8, 304, 120}}
+
+func (p *picSampler) sample(idx []byte, step uint64, dir string, say func(string, ...any)) {
+	if len(idx) != 320*200 {
+		return
+	}
+	h := sha256.New()
+	nonBlack := false
+	for _, r := range picRects {
+		for y := r[1]; y < r[1]+r[3]; y++ {
+			row := idx[y*320+r[0] : y*320+r[0]+r[2]]
+			h.Write(row)
+			for _, c := range row {
+				nonBlack = nonBlack || c&15 != 0
+			}
+		}
+	}
+	var sum [32]byte
+	copy(sum[:], h.Sum(nil))
+	stable := sum == p.last
+	p.last = sum
+	if !stable || !nonBlack || p.seen[sum] {
+		return
+	}
+	p.seen[sum] = true
+	name := filepath.Join(dir, fmt.Sprintf("%d.bin", step))
+	if err := os.WriteFile(name, idx, 0o644); err != nil {
+		fail(err)
+	}
+	say("存畫面 %s", name)
 }
