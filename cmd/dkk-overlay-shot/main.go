@@ -85,6 +85,7 @@ func main() {
 	mapPreview := flag.String("map-preview", "", "開地圖疊層（規格 009）：`走過` 只畫走過的格子、`全圖` 全畫（需 -text-dir）")
 	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
+	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
 	flag.IntVar(&scale, "scale", 2, "輸出倍率 2 或 3（3× 用 22×22 變體字型，xlate spec 202 §2.4.1）")
 	flag.Parse()
 	if scale != 2 && scale != 3 {
@@ -160,6 +161,11 @@ func main() {
 		}
 	}
 	live := dkk.NewLive(font, ui, ecl)
+	if *hdDir != "" {
+		if err := live.AddHD(*hdDir); err != nil {
+			fail(err)
+		}
+	}
 	if *textDir != "" {
 		if live.Answers, live.QuizFormat, err = dkk.LoadQuizDir(*textDir); err != nil {
 			fail(err)

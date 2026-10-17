@@ -198,13 +198,18 @@ func (l *Live) ModeChange() {
 func (l *Live) Frame(indexed []byte, palette [256][3]uint8) {
 	l.indexed = append(l.indexed[:0], indexed...)
 	l.pal = palette
-	if !l.ready || len(indexed) != 320*200 {
+	if len(indexed) != 320*200 {
 		return
 	}
-	l.A.PrepareFrame(indexed, 320, 200)
-	l.C.SetPalette(palette)
-	if l.B != nil {
-		l.B.SetPalette(palette)
+	// 綁定前也跑 Layer.Frame：HD 圖面（hd.go）的標題畫面出現在綁定之前，那時還沒有疊字。
+	if l.ready {
+		l.A.PrepareFrame(indexed, 320, 200)
+		l.C.SetPalette(palette)
+		if l.B != nil {
+			l.B.SetPalette(palette)
+		}
+	} else if l.Layer.Watchers() == 0 {
+		return
 	}
 	rgb := make([]uint8, len(indexed)*3)
 	for i, c := range indexed {

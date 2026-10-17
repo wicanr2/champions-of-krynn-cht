@@ -365,6 +365,7 @@ func main() {
 	original0 := flag.Bool("original-view", false, "開機時顯示原版（F12 切換）")
 	invPath := flag.String("inventory", "", "結束時把印字路徑盤點（issue #11）寫成這個 TSV；含原文，只放工作區")
 	scaleFlag := flag.Int("scale", 2, "起始倍率（2 或 3；F2 切換）")
+	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
 	flag.Parse()
 	if *original == "" || *save == "" || *textDir == "" || *fontPath == "" {
 		flag.Usage()
@@ -409,6 +410,11 @@ func main() {
 		fail(errors.New("START.EXE 雜湊不符"))
 	}
 	live := dkk.NewLive(font, ui, ecl)
+	if *hdDir != "" {
+		if err := live.AddHD(*hdDir); err != nil {
+			fail(err)
+		}
+	}
 	live.Inventory = *invPath != ""
 	if live.Answers, live.QuizFormat, err = dkk.LoadQuizDir(*textDir); err != nil {
 		fail(err)
