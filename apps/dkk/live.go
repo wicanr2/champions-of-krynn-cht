@@ -60,6 +60,7 @@ type Live struct {
 // ecl 可為 nil（不啟用路徑 B）。
 func NewLive(font *xlate.Font, ui Lookuper, ecl *Catalog) *Live {
 	AddHalfWidthPairs(font)
+	AddScaledVariants(font)
 	return &Live{Layer: &xlate.Layer{W: 320, H: 200}, Font: font, ui: ui, ecl: ecl}
 }
 
@@ -245,3 +246,13 @@ func (l *Live) Compose(scale int, overlay bool, missing func(rune)) []byte {
 
 // Indexed 回最後一個畫格的原版色號（收據用）。
 func (l *Live) Indexed() []byte { return l.indexed }
+
+// AddScaledVariants 為 16×16 字型登記 3× 變體：最近鄰放成 22×22，置於 24 像素格內偏移 (1,1)，
+// 比照拯救地球（apps/buckrogers manualThreeXFont、manualGlyphOffset）。
+// 規格見 death-knights-of-krynn-cht docs/spec/010 §2.3；xlate spec 202 §2.4.1。須在半形字對登記之後呼叫。
+func AddScaledVariants(font *xlate.Font) {
+	if font == nil || font.W != 16 || font.H != 16 {
+		return
+	}
+	font.Scaled = map[int]xlate.ScaledFont{3: {Font: xlate.DeriveNearest(font, 22, 22), X: 1, Y: 1}}
+}

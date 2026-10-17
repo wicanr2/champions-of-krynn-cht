@@ -1,8 +1,8 @@
 // Command dkk-play 是《Death Knights of Krynn》繁中覆繪的可遊玩視窗（death-knights-of-krynn-cht #6）。
 //
 // 以 session 從原版目錄開機（bootroot 複製到可寫存檔目錄，原版唯讀），每個主機畫格推進
-// 原版節奏的指令數，以 apps/dkk.Live 疊上路徑 A、B、C 的中文，2× 輸出。
-// F12 即時切換中文／原版（原版看不到這個鍵），F11 全螢幕，F3 靜音，F10 截圖，F9 查驗題答案顯示，
+// 原版節奏的指令數，以 apps/dkk.Live 疊上路徑 A、B、C 的中文，2× 或 3× 輸出（F2 切換）。
+// F12 即時切換中文／原版（原版看不到這個鍵），F2 切換 2×／3×，F11 全螢幕，F3 靜音，F10 截圖，F9 查驗題答案顯示，
 // F5 翻閱已讀手札（PgUp／PgDn 翻頁，←／→ 換則，Esc 關閉）。
 //
 // 自動模式（-frames）供收據使用：依 -script 送鍵，結束時印記憶體與畫面雜湊，
@@ -35,7 +35,6 @@ import (
 )
 
 const (
-	scale       = 2
 	windowTitle = "幽靈騎士"
 	// startEXESHA256 是 G1 盤點的 START.EXE（death-knights-of-krynn-cht docs/re/001）。
 	startEXESHA256 = "5426c2098b92eb0712e8a238a07fa3923fbb494a2667f3a16eb3be25c1f3a458"
@@ -83,6 +82,7 @@ func init() {
 
 type game struct {
 	owner    *session.Owner
+	scale    int // 輸出倍率 2 或 3（F2 切換，比照拯救地球）
 	live     *dkk.Live
 	chinese  bool
 	frame    int
@@ -113,7 +113,7 @@ func (g *game) hostInput(u *session.CapturedUpdate) []hostAction {
 	keys, acts := mapKeys(in, g.panelMode())
 	u.BIOSKeys = append(u.BIOSKeys, keys...)
 	cx, cy := ebiten.CursorPosition()
-	dx, dy := dosPoint(cx, cy, scale)
+	dx, dy := dosPoint(cx, cy, g.scale)
 	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) && !g.pressing {
 		if ev := mouseEvent(host.MouseEventDown, dx, dy); ev.Target == host.MouseTargetCanvas {
 			u.PointerDown, g.pressing = &ev, true
@@ -140,6 +140,11 @@ func (g *game) apply(acts []hostAction) {
 			g.muted = !g.muted
 			if g.player != nil {
 				g.player.SetVolume(map[bool]float64{true: 0, false: 1}[g.muted])
+			}
+		case actScale:
+			g.scale = 5 - g.scale // 2 ↔ 3
+			if !ebiten.IsFullscreen() {
+				ebiten.SetWindowSize(320*g.scale, 200*g.scale)
 			}
 		case actFullscreen:
 			ebiten.SetFullscreen(!ebiten.IsFullscreen())
@@ -212,7 +217,7 @@ func (g *game) panelMode() panelMode {
 }
 
 func (g *game) compose() []byte {
-	return g.live.Compose(scale, g.chinese, func(r rune) {
+	return g.live.Compose(g.scale, g.chinese, func(r rune) {
 		if !g.missing[r] {
 			g.missing[r] = true
 			fmt.Fprintf(os.Stderr, "dkk-play: 字型缺字 %q（U+%04X）\n", r, r)
@@ -225,7 +230,7 @@ func (g *game) screenshot() {
 	if rgba == nil {
 		return
 	}
-	img := &image.NRGBA{Pix: rgba, Stride: 4 * 320 * scale, Rect: image.Rect(0, 0, 320*scale, 200*scale)}
+	img := &image.NRGBA{Pix: rgba, Stride: 4 * 320 * g.scale, Rect: image.Rect(0, 0, 320*g.scale, 200*g.scale)}
 	name := fmt.Sprintf("dkk-%s.png", time.Now().Format("20060102-150405.000"))
 	err := os.MkdirAll(g.shotDir, 0o755)
 	if err == nil {
@@ -287,7 +292,7 @@ func (g *game) finish() error {
 		if path == "" {
 			return nil
 		}
-		rgba := g.live.Compose(scale, overlay, nil)
+		rgba := g.live.Compose(g.scale, overlay, nil)
 		if rgba == nil {
 			return errors.New("尚無畫格可截圖")
 		}
@@ -336,7 +341,7 @@ func (g *game) Draw(screen *ebiten.Image) {
 	}
 }
 
-func (g *game) Layout(_, _ int) (int, int) { return 320 * scale, 200 * scale }
+func (g *game) Layout(_, _ int) (int, int) { return 320 * g.scale, 200 * g.scale }
 
 func fail(err error) {
 	fmt.Fprintln(os.Stderr, "dkk-play：", err)
@@ -359,6 +364,7 @@ func main() {
 	hideAnswers := flag.Bool("hide-answers", false, "開機時隱藏查驗題答案（F9 切換）")
 	original0 := flag.Bool("original-view", false, "開機時顯示原版（F12 切換）")
 	invPath := flag.String("inventory", "", "結束時把印字路徑盤點（issue #11）寫成這個 TSV；含原文，只放工作區")
+	scaleFlag := flag.Int("scale", 2, "起始倍率（2 或 3；F2 切換）")
 	flag.Parse()
 	if *original == "" || *save == "" || *textDir == "" || *fontPath == "" {
 		flag.Usage()
@@ -366,6 +372,9 @@ func main() {
 	}
 	if *clock < 10 || *clock > 100 {
 		fail(fmt.Errorf("-clock 須在 10–100"))
+	}
+	if *scaleFlag != 2 && *scaleFlag != 3 {
+		fail(fmt.Errorf("-scale 須為 2 或 3"))
 	}
 	font, err := xlate.LoadFont(*fontPath)
 	if err != nil {
@@ -469,7 +478,7 @@ func main() {
 	if dir == "" {
 		dir = filepath.Join(filepath.Dir(filepath.Clean(saveRoot)), "screenshots")
 	}
-	g := &game{owner: owner, live: live, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
+	g := &game{owner: owner, live: live, scale: *scaleFlag, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
 		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}}
 	if *frames == 0 && *audioOn {
 		g.ring = mixer.NewRing(200)
@@ -482,7 +491,7 @@ func main() {
 		g.player = player
 	}
 	ebiten.SetWindowTitle(windowTitle)
-	ebiten.SetWindowSize(320*scale, 200*scale)
+	ebiten.SetWindowSize(320*g.scale, 200*g.scale)
 	ebiten.SetTPS(60)
 	err = ebiten.RunGame(g)
 	if live.Inv != nil {

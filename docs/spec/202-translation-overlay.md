@@ -99,6 +99,14 @@
 `Stamp.GlyphScale int`：字模一個點在放大後畫布上佔幾個像素。0 表示 `scale / 3`（原本的 24 點字型配 8 像素字格、放大 3 倍）。
 呼叫端保證「格寬 × scale ≥ GlyphX ＋ 字寬 × GlyphScale」；超出的點不畫。
 
+#### 2.4.1 各倍率的變體字型
+
+`Font.Scaled map[int]ScaledFont`（`ScaledFont{Font, X, Y}`）：某個輸出倍率改用另一份字模。`GlyphScale` 為 0 時，`Font.ForScale(scale)` 決定實際字型：有登記該倍率就用變體字型、字點 1:1、格內再偏移 (X, Y) 個實體像素；沒有登記則照上段規則（本字型、`max(1, scale/3)`、偏移 0）。`GlyphScale` 非 0 時呼叫端自行決定，不查變體。
+
+- 變體不屬於 GOLEMFNT 檔案格式，也不進快照與字型雜湊；快照照舊以 `Font.Name` 引用底字型。
+- `DeriveNearest(src, w, h)` 以最近鄰產生 w×h 變體，字模集合與 Name 不變。dkk 以它把 16×16 放成 22×22，3× 時置於 24 像素格偏移 (1,1)，同拯救地球 `manualThreeXFont`。
+- 驗收：`TestFontForScaleVariant`（有、無變體與 GlyphScale 非 0 三種情況的實體像素位置）。
+
 ### 2.5 逐字迴圈的換行判斷
 
 `type LineTracker struct`：`Hit(lin uint32, remain int, useRemain bool) (newLine bool)`。

@@ -290,7 +290,7 @@ func (j *JournalPanel) Draw(dst []uint8, scale int, font *xlate.Font, missing fu
 // drawLine 以 8×8 邏輯格在 (x0, y0) 起畫一列字（scale 倍輸出），空白不畫；超過 cols 格的部分略去。
 func drawLine(dst []uint8, scale int, font *xlate.Font, x0, y0, cols int, line []rune, c [3]uint8, missing func(rune)) {
 	w := 320 * scale
-	k := max(1, scale/3)
+	font, k, ox, oy := font.ForScale(scale) // 3× 用 22×22 變體（AddScaledVariants）
 	rb := (font.W + 7) / 8
 	for col, r := range line {
 		if col >= cols || r == ' ' {
@@ -311,8 +311,8 @@ func drawLine(dst []uint8, scale int, font *xlate.Font, x0, y0, cols int, line [
 				}
 				for dy := 0; dy < k; dy++ {
 					for dx := 0; dx < k; dx++ {
-						if gx*k+dx < 8*scale && gy*k+dy < 8*scale {
-							putRGB(dst, w, cx+gx*k+dx, cy+gy*k+dy, c)
+						if lx, ly := ox+gx*k+dx, oy+gy*k+dy; lx < 8*scale && ly < 8*scale {
+							putRGB(dst, w, cx+lx, cy+ly, c)
 						}
 					}
 				}

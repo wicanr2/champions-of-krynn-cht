@@ -31,7 +31,7 @@ type Stamp struct {
 	Font       *Font
 	GlyphX     int
 	GlyphY     int
-	GlyphScale int // 0 表示 max(1, scale/3)（見 §2.4，Draw 裡展開）
+	GlyphScale int // 0 表示依 Font.ForScale（§2.4、§2.4.1，Draw 裡展開）
 
 	Text []rune
 	// PixelScale and PixelGlyphs opt into the physical-pixel path (spec 234).
@@ -798,28 +798,26 @@ func drawPhysicalGlyphs(dst []byte, w int, s *Stamp, scale int) {
 }
 
 // drawGlyphs 畫 s 的字模。每格的字模以前景色畫在「格左上 ＋ (GlyphX, GlyphY)」；
-// 字模每個點畫成 k×k（k = GlyphScale，0 表示 max(1, scale/3)，spec 202 §2.4）。
+// 字模每個點畫成 k×k（k = GlyphScale；0 表示依 Font.ForScale：有該倍率的變體字型就用它、k=1，
+// 否則 max(1, scale/3)，spec 202 §2.4、§2.4.1）。
 // 超出格緣（寬或高）的點不畫——呼叫端保證「格寬 × scale ≥ GlyphX ＋ 字寬 × GlyphScale」，
 // 這裡的邊界檢查是最後一道防線，也同樣套用在高度方向。
 func drawGlyphs(dst []uint8, W int, s *Stamp, scale int, missing func(r rune)) {
-	k := s.GlyphScale
+	k, font, ox, oy := s.GlyphScale, s.Font, 0, 0
 	if k == 0 {
-		k = scale / 3
-		if k < 1 {
-			k = 1
-		}
+		font, k, ox, oy = s.Font.ForScale(scale)
 	}
 	if k < 0 {
 		return
 	}
-	rowBytes := s.Font.rowBytes()
+	rowBytes := font.rowBytes()
 	cellW := s.CellW * scale
 	cellH := s.CellH * scale
 	for i, r := range s.Text {
 		if i >= s.Cells || r == ' ' || r == '　' || s.transparent(i) {
 			continue
 		}
-		g, ok := s.Font.Glyphs[r]
+		g, ok := font.Glyphs[r]
 		if !ok {
 			if missing != nil {
 				missing(r)
@@ -827,18 +825,18 @@ func drawGlyphs(dst []uint8, W int, s *Stamp, scale int, missing func(r rune)) {
 			continue
 		}
 		cx, cy := (s.X+i*s.CellW)*scale, s.Y*scale
-		for gy := 0; gy < s.Font.H; gy++ {
-			for gx := 0; gx < s.Font.W; gx++ {
+		for gy := 0; gy < font.H; gy++ {
+			for gx := 0; gx < font.W; gx++ {
 				if g[gy*rowBytes+gx/8]&(0x80>>uint(gx%8)) == 0 {
 					continue
 				}
 				for dy := 0; dy < k; dy++ {
-					ly := s.GlyphY + gy*k + dy
+					ly := s.GlyphY + oy + gy*k + dy
 					if ly < 0 || ly >= cellH {
 						continue
 					}
 					for dx := 0; dx < k; dx++ {
-						lx := s.GlyphX + gx*k + dx
+						lx := s.GlyphX + ox + gx*k + dx
 						if lx < 0 || lx >= cellW {
 							continue
 						}

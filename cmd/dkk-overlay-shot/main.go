@@ -34,7 +34,7 @@ import (
 	"github.com/wicanr2/dosgolem/xlate"
 )
 
-const scale = 2
+var scale = 2 // 輸出倍率，-scale 設定（2 或 3）
 
 type timedKey struct {
 	at  uint64
@@ -85,7 +85,12 @@ func main() {
 	mapPreview := flag.String("map-preview", "", "開地圖疊層（規格 009）：`走過` 只畫走過的格子、`全圖` 全畫（需 -text-dir）")
 	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
+	flag.IntVar(&scale, "scale", 2, "輸出倍率 2 或 3（3× 用 22×22 變體字型，xlate spec 202 §2.4.1）")
 	flag.Parse()
+	if scale != 2 && scale != 3 {
+		fmt.Fprintln(os.Stderr, "dkk-overlay-shot: -scale 須為 2 或 3")
+		os.Exit(2)
+	}
 	if *statePath == "" || *root == "" || *fontPath == "" || *until == 0 || *outDir == "" {
 		fail(fmt.Errorf("state、root、font、until、out 均為必填"))
 	}

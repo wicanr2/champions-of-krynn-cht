@@ -758,3 +758,46 @@ func TestPartialCoverDuringScreenChangeStillInvalidates(t *testing.T) {
 		t.Fatalf("畫面不變時應保留未覆蓋格：state=%v transparent=%v", s2.State, s2.Transparent)
 	}
 }
+
+// spec 202 §2.4.1：Font.Scaled 有登記該倍率時 3× 用變體字型、字點 1:1、格內偏移；
+// 沒登記時照 max(1, scale/3)；GlyphScale 非 0 時不查變體。
+func TestFontForScaleVariant(t *testing.T) {
+	g := make([]byte, 2*16)
+	g[0] = 0x80        // 左上角
+	g[len(g)-1] = 0x01 // 右下角
+	base := &Font{W: 16, H: 16, Name: "base", Glyphs: map[rune][]byte{'字': g}}
+	big := DeriveNearest(base, 22, 22)
+	if big.W != 22 || big.H != 22 || big.Name != "base" || len(big.Glyphs) != 1 {
+		t.Fatalf("DeriveNearest = %dx%d %q %d 字", big.W, big.H, big.Name, len(big.Glyphs))
+	}
+	draw := func(f *Font, scale, gs int) func(x, y int) bool {
+		s := &Stamp{X: 1, Y: 1, Cells: 1, CellW: 8, CellH: 8, Font: f, Text: []rune("字"), State: Shown,
+			FG: [3]uint8{1, 2, 3}, BG: [3]uint8{9, 8, 7}, GlyphScale: gs}
+		l := &Layer{W: 10, H: 10, Stamps: []*Stamp{s}}
+		W := l.W * scale
+		dst := make([]uint8, 4*W*l.H*scale)
+		l.Draw(dst, scale, nil)
+		return func(x, y int) bool { i := 4 * (y*W + x); return dst[i] == 1 && dst[i+1] == 2 && dst[i+2] == 3 }
+	}
+	// 無變體：3× 時 16 點字畫在 24 像素格左上，右下角點在 (3+15, 3+15)。
+	fg := draw(base, 3, 0)
+	if !fg(3, 3) || !fg(18, 18) || fg(19, 19) {
+		t.Error("無變體 3× 應以 16×16 1:1 畫在格左上")
+	}
+	// 有變體：22×22 偏移 (1,1)，左上角放大為 2×2（0..1 → 原點 0），右下角在 (3+1+21, 3+1+21)。
+	withV := &Font{W: 16, H: 16, Name: "base", Glyphs: base.Glyphs, Scaled: map[int]ScaledFont{3: {Font: big, X: 1, Y: 1}}}
+	fg = draw(withV, 3, 0)
+	if fg(3, 3) || !fg(4, 4) || !fg(5, 5) || !fg(25, 25) || fg(26, 26) {
+		t.Error("有變體 3× 應以 22×22 畫在偏移 (1,1)")
+	}
+	// 2× 沒登記變體，照舊 16×16。
+	fg = draw(withV, 2, 0)
+	if !fg(2, 2) || !fg(17, 17) {
+		t.Error("2× 應不受 3× 變體影響")
+	}
+	// GlyphScale 非 0：不查變體。
+	fg = draw(withV, 3, 1)
+	if !fg(3, 3) || !fg(18, 18) || fg(25, 25) {
+		t.Error("GlyphScale=1 應忽略變體")
+	}
+}
