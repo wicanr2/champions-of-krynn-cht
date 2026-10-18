@@ -4,6 +4,7 @@
 // 原版節奏的指令數，以 apps/dkk.Live 疊上路徑 A、B、C 的中文，2× 或 3× 輸出（F2 切換）。
 // F12 即時切換中文／原版（原版看不到這個鍵），F2 切換 2×／3×，F11 全螢幕，F3 靜音，F10 截圖，F9 查驗題答案顯示，
 // F5 翻閱已讀手札（PgUp／PgDn 翻頁，←／→ 換則，Esc 關閉）。
+// 滑鼠移到視窗頂端時出現切換列（主專案規格 011），點項目等同按對應的功能鍵。
 //
 // 自動模式（-frames）供收據使用：依 -script 送鍵，結束時印記憶體與畫面雜湊，
 // 並可輸出 -shot（中文合成 RGBA）與 -shot-original（原版合成 RGBA）。
@@ -100,6 +101,10 @@ type game struct {
 	focused  bool
 	samples  []float32
 	missing  map[rune]bool
+	bar      toolbar           // 視窗頂端切換列（主專案規格 011）
+	barText  map[string]string // host-text 的 toolbar.* 文字
+	cursorX  int               // 游標邏輯位置（切換列懸停用）
+	cursorY  int
 }
 
 func (g *game) hostInput(u *session.CapturedUpdate) []hostAction {
@@ -114,7 +119,14 @@ func (g *game) hostInput(u *session.CapturedUpdate) []hostAction {
 	u.BIOSKeys = append(u.BIOSKeys, keys...)
 	cx, cy := ebiten.CursorPosition()
 	dx, dy := dosPoint(cx, cy, g.scale)
-	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) && !g.pressing {
+	g.cursorX, g.cursorY = dx, dy
+	g.bar.track(dx, dy)
+	if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) && !g.pressing && g.bar.takesPointer(dx, dy) {
+		// 切換列範圍內的點擊由前端處理，不送進遊戲（規格 011 §2.3）
+		if a := toolbarClick(g.toolbarItems(), dx, dy); a != 0 {
+			acts = append(acts, a)
+		}
+	} else if inpututil.IsMouseButtonJustPressed(ebiten.MouseButtonLeft) && !g.pressing {
 		if ev := mouseEvent(host.MouseEventDown, dx, dy); ev.Target == host.MouseTargetCanvas {
 			u.PointerDown, g.pressing = &ev, true
 		}
@@ -252,7 +264,9 @@ func (g *game) Update() error {
 	var u session.CapturedUpdate
 	var acts []hostAction
 	for _, a := range g.script[g.frame] {
-		if a.toggle {
+		if a.bar {
+			g.bar.forced, g.bar.shown = true, true
+		} else if a.toggle {
 			acts = append(acts, actToggle)
 		} else if a.key != nil {
 			u.BIOSKeys = append(u.BIOSKeys, *a.key)
@@ -296,6 +310,7 @@ func (g *game) finish() error {
 		if rgba == nil {
 			return errors.New("尚無畫格可截圖")
 		}
+		g.drawBar(rgba) // 腳本動作 bar 時含切換列（規格 011 §3 第 3 項）
 		return os.WriteFile(path, rgba, 0o600)
 	}
 	if err := write(g.shot, true); err != nil {
@@ -334,8 +349,29 @@ func (g *game) finish() error {
 	return ebiten.Termination
 }
 
+func (g *game) toolbarItems() []toolbarItem {
+	return toolbarItems(g.barText, toolbarState{scale: g.scale, hasHD: g.live.HDItems > 0, chinese: g.chinese, muted: g.muted,
+		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
+		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open()})
+}
+
+// drawBar 在切換列顯示時把它疊到 rgba 上（截圖 F10 不含切換列）。
+func (g *game) drawBar(rgba []byte) {
+	if rgba == nil || !g.bar.shown {
+		return
+	}
+	items := g.toolbarItems()
+	drawToolbar(rgba, g.scale, g.live.Font, items, toolbarHit(items, g.cursorX, g.cursorY), func(r rune) {
+		if !g.missing[r] {
+			g.missing[r] = true
+			fmt.Fprintf(os.Stderr, "dkk-play: 字型缺字 %q（U+%04X）\n", r, r)
+		}
+	})
+}
+
 func (g *game) Draw(screen *ebiten.Image) {
 	rgba := g.compose()
+	g.drawBar(rgba)
 	if b := screen.Bounds(); rgba != nil && len(rgba) == 4*b.Dx()*b.Dy() {
 		screen.WritePixels(rgba)
 	}
@@ -420,6 +456,17 @@ func main() {
 		fail(err)
 	}
 	live.SetHideAnswers(*hideAnswers)
+	hostText, err := os.ReadFile(filepath.Join(*textDir, "host-text.zh-TW.tsv"))
+	if err != nil {
+		fail(err)
+	}
+	barText, err := dkk.LoadHostText(hostText)
+	if err != nil {
+		fail(err)
+	}
+	if err := checkToolbarText(barText); err != nil {
+		fail(err)
+	}
 	if live.Journal, err = dkk.LoadJournalDir(*textDir); err != nil {
 		fail(err)
 	}
@@ -485,7 +532,7 @@ func main() {
 		dir = filepath.Join(filepath.Dir(filepath.Clean(saveRoot)), "screenshots")
 	}
 	g := &game{owner: owner, live: live, scale: *scaleFlag, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
-		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}}
+		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText}
 	if *frames == 0 && *audioOn {
 		g.ring = mixer.NewRing(200)
 		player, err := audio.NewContext(mixer.SampleRate).NewPlayerF32(g.ring)

@@ -166,10 +166,11 @@ func dosPoint(cx, cy, scale int) (int, int) { return floorDiv(cx, scale), floorD
 type scriptAction struct {
 	key    *dos.Key
 	toggle bool
+	bar    bool // 切換列保持顯示（主專案規格 011，收據截圖用）
 }
 
 // parseScript 解析 `畫格:動作[,…]`。動作是鍵名（dos.KeyNamed，例 Enter、Down）、
-// 單一可列印字元，或 toggle（等同 F12）。
+// 單一可列印字元、toggle（等同 F12），或 bar（切換列保持顯示）。
 func parseScript(s string) (map[int][]scriptAction, error) {
 	out := map[int][]scriptAction{}
 	if s == "" {
@@ -184,6 +185,8 @@ func parseScript(s string) (map[int][]scriptAction, error) {
 		switch {
 		case name == "toggle":
 			out[frame] = append(out[frame], scriptAction{toggle: true})
+		case name == "bar":
+			out[frame] = append(out[frame], scriptAction{bar: true})
 		case len([]rune(name)) == 1:
 			k, ok := dos.KeyForRune([]rune(name)[0])
 			if !ok {

@@ -137,5 +137,6 @@ func (l *Live) AddHD(dir string) error {
 	for _, it := range items {
 		l.Layer.Watch(it.Watcher())
 	}
+	l.HDItems += len(items)
 	return nil
 }

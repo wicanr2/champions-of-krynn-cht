@@ -26,10 +26,12 @@ type StepCPU interface {
 // 搜尋結果不唯一就不綁定、不猜位址；最後一次失敗原因留在 BindErr。
 type Live struct {
 	Layer *xlate.Layer
-	Font  *xlate.Font
-	A     *PathA
-	B     *PathB
-	C     *PathC
+	// HDItems 是 AddHD 載入的 HD 主題項數（主專案規格 010）；0 表示沒有 HD 素材（規格 011 切換列停用 HD）。
+	HDItems int
+	Font    *xlate.Font
+	A       *PathA
+	B       *PathB
+	C       *PathC
 
 	// Answers 是查驗題答案表（規格 006）；綁定前設定。
 	Answers     map[QuizKey]string
