@@ -32,7 +32,8 @@ type InvEvent struct {
 	Text      string
 	Key       string
 	Rejected  string
-	snap      int // 呼叫端段開頭的快照（overlay 會換載入同一段，事後讀會對錯檔案位置）
+	Str       uint32 // 路徑 A 字串的線性位址（0 為未知）
+	snap      int    // 呼叫端段開頭的快照（overlay 會換載入同一段，事後讀會對錯檔案位置）
 }
 
 type invFrame struct {
@@ -129,6 +130,7 @@ func (inv *Inventory) attach(path string, h Hit) {
 	for i := len(inv.Events) - 1; i >= 0; i-- {
 		if inv.Events[i].Path == path {
 			inv.Events[i].Key, inv.Events[i].Rejected = h.Key, h.Rejected
+			inv.Events[i].Str = h.Str
 			if !h.Stamped && h.Rejected == "" {
 				inv.Events[i].Rejected = "未覆繪"
 			}
@@ -179,11 +181,15 @@ func (inv *Inventory) WriteTSV(path string, ovr []byte) error {
 		}
 	}
 	var b strings.Builder
-	b.WriteString("step\tpath\tcaller\tovr\trow\tcol\tkey\trejected\ttext\n")
+	b.WriteString("step\tpath\tcaller\tovr\trow\tcol\tkey\trejected\ttext\tstr\n")
 	clean := strings.NewReplacer("\t", `\t`, "\n", `\n`, "\r", `\r`)
 	for _, e := range inv.Events {
-		fmt.Fprintf(&b, "%d\t%s\t%s\t%s\t%d\t%d\t%s\t%s\t%s\n", e.Step, e.Path, e.Caller, names[e.snap],
-			e.Row, e.Col, e.Key, e.Rejected, clean.Replace(e.Text))
+		str := ""
+		if e.Str != 0 {
+			str = fmt.Sprintf("%05X", e.Str)
+		}
+		fmt.Fprintf(&b, "%d\t%s\t%s\t%s\t%d\t%d\t%s\t%s\t%s\t%s\n", e.Step, e.Path, e.Caller, names[e.snap],
+			e.Row, e.Col, e.Key, e.Rejected, clean.Replace(e.Text), str)
 	}
 	return os.WriteFile(path, []byte(b.String()), 0o644)
 }

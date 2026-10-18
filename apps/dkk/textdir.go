@@ -58,8 +58,9 @@ func LoadTextDir(dir string) (ui *Translator, ecl *Catalog, err error) {
 		if err != nil {
 			return nil, nil, fmt.Errorf("dkk: 音譯資料：%w", err)
 		}
-		ui.Players = &PlayerNames{Translit: func(s string) (string, bool) {
-			zh, _, ok := tr.Transliterate(s, translit.GenderUnknown)
+		ui.Players = &PlayerNames{Translit: func(s string, sex Sex) (string, bool) {
+			g := map[Sex]translit.Gender{SexMale: translit.Male, SexFemale: translit.Female}[sex] // 未知為 GenderUnknown
+			zh, _, ok := tr.Transliterate(s, g)
 			return zh, ok
 		}}
 	}

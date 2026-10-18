@@ -9,11 +9,15 @@ import (
 )
 
 // fakeTranslit 把每個字母換成固定的字，讓測試不依賴音譯資料；含 Q 的名字當作無法音譯。
-func fakeTranslit(s string) (string, bool) {
+func fakeTranslit(s string, sex Sex) (string, bool) {
 	if strings.Contains(s, "Q") {
 		return "", false
 	}
-	return map[string]string{"ANNA": "安娜", "BRAM": "布拉姆", "SKELETON": "斯凱", "MARY JANE": "瑪麗•珍"}[s], true
+	zh := map[string]string{"ANNA": "安娜", "BRAM": "布拉姆", "SKELETON": "斯凱", "MARY JANE": "瑪麗•珍"}[s]
+	if sex == SexFemale {
+		zh += "女" // 標出性別有傳進來
+	}
+	return zh, true
 }
 
 func playerTranslator(t *testing.T) *Translator {
@@ -40,6 +44,7 @@ func TestPlayerNameLearnedFromPartyList(t *testing.T) {
 		base := linear(0x5777, 8)
 		m[base] = byte(len(text))
 		copy(m[base+1:], text)
+		m[base+recordSexOff] = 1 // 角色記錄的性別：女
 		callFrame(m, 0x1CBD, 0x3F00, 0x34CF, 0x1605, 0x5777, 8, 0, 10, row, col)
 		p.Before(uint64(len(p.Hits)+1), 0x05F4, 0x036A, 0x1CBD, 0x3F00, m)
 		return p.Hits[len(p.Hits)-1]
@@ -48,8 +53,8 @@ func TestPlayerNameLearnedFromPartyList(t *testing.T) {
 	if h := print("ANNA", 1, 23); h.Stamped {
 		t.Fatalf("未學到前不應覆繪：%+v", h)
 	}
-	if h := print("ANNA", 4, 17); !h.Stamped || h.Key != "name:ANNA" {
-		t.Fatalf("隊伍欄應學到並覆繪：%+v", h)
+	if h := print("ANNA", 4, 17); !h.Stamped || h.Key != "name:ANNA" || tr.Players.names["ANNA"] != "安娜女" {
+		t.Fatalf("隊伍欄應學到（含性別）並覆繪：%+v", h)
 	}
 	if h := print("ANNA", 1, 23); !h.Stamped || h.Key != "name:ANNA" {
 		t.Fatalf("學到後戰鬥右窗應覆繪：%+v", h)
@@ -60,7 +65,7 @@ func TestPlayerNameLearnedFromPartyList(t *testing.T) {
 		t.Fatal("非隊伍欄不應學名字")
 	}
 	// 組句的 {name}
-	if e, ok := tr.Lookup([]byte("ANNA is hit FOR 4 points of Damage.")); !ok || e.Translation != "安娜受到 4 點傷害。" {
+	if e, ok := tr.Lookup([]byte("ANNA is hit FOR 4 points of Damage.")); !ok || e.Translation != "安娜女受到 4 點傷害。" {
 		t.Fatalf("組句：%+v %v", e, ok)
 	}
 }
@@ -68,7 +73,7 @@ func TestPlayerNameLearnedFromPartyList(t *testing.T) {
 func TestPlayerNameRules(t *testing.T) {
 	tr := playerTranslator(t)
 	for _, s := range []string{"  BRAM ", "SKELETON", "Exit", "R2D2", "QUINN", "A", "MARY JANE"} {
-		tr.LearnPlayer([]byte(s))
+		tr.LearnPlayer([]byte(s), SexUnknown)
 	}
 	cases := map[string]string{
 		"BRAM":      "布拉姆",  // 去頭尾空白後學
@@ -106,11 +111,35 @@ func TestLoadTextDirTranslit(t *testing.T) {
 	}
 	// 建角收據的六人：音譯成功，且格數不超過原名（路徑 A 放得下）
 	for _, s := range []string{"ANNA", "BRAM", "CORA", "DORN", "ELIA", "FINN"} {
-		ui.LearnPlayer([]byte(s))
+		ui.LearnPlayer([]byte(s), SexMale)
 		e, ok := ui.Lookup([]byte(s))
 		if !ok || e.Key != "name:"+s || len(PackHalfWidth([]rune(e.Translation))) > len(s) {
 			t.Errorf("%s 音譯：%+v %v", s, e, ok)
 		}
 		t.Logf("%s → %s", s, e.Translation)
+	}
+}
+
+// 性別有傳進音譯器：同一個名字男女用字不同（拯救地球規格 037 的女名用字）。
+func TestPlayerNameSexReal(t *testing.T) {
+	dir := os.Getenv("DOSGOLEM_DKK_TEXT_DIR")
+	if dir == "" {
+		t.Skip("DOSGOLEM_DKK_TEXT_DIR 未設定")
+	}
+	ui, _, err := LoadTextDir(dir)
+	if err != nil {
+		t.Fatal(err)
+	}
+	diff := 0
+	for _, s := range []string{"CORA", "ELIA", "BRAM", "LINA", "MARA"} {
+		m, _ := ui.Players.Translit(s, SexMale)
+		f, _ := ui.Players.Translit(s, SexFemale)
+		t.Logf("%s 男 %s 女 %s", s, m, f)
+		if m != f {
+			diff++
+		}
+	}
+	if diff == 0 {
+		t.Fatal("男女用字全部相同，性別可能沒傳進音譯器")
 	}
 }

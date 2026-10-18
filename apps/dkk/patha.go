@@ -66,6 +66,7 @@ type Hit struct {
 	FG       int    `json:"fg"`
 	Stamped  bool   `json:"stamped"`
 	Rejected string `json:"rejected,omitempty"`
+	Str      uint32 `json:"str,omitempty"` // 路徑 A 字串（Pascal 長度位元組）的線性位址
 }
 
 // CPUView 是攔截點需要的最小機器介面。
@@ -148,7 +149,7 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 	for i := range text {
 		text[i] = mem.Read8(base + 1 + uint32(i))
 	}
-	h := Hit{Step: step, Caller: fmt.Sprintf("%04X:%04X", retSeg, retOff), Length: n, Row: row, Col: col, BG: bg, FG: fg}
+	h := Hit{Step: step, Caller: fmt.Sprintf("%04X:%04X", retSeg, retOff), Length: n, Row: row, Col: col, BG: bg, FG: fg, Str: base}
 	var added *xlate.Stamp
 	defer func() {
 		p.observeQuiz(text, row, col, bg, added)
@@ -166,7 +167,7 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 	// lead 是前導空白數：清單列以「兩格縮排＋名字＋空白補到固定寬度」呼叫，反白列不帶縮排與補白。
 	// 完整字串查不到時去頭尾空白再查；Stamp 從 col+lead 起，涵蓋到原字串結尾（規格 001 §2.2）。
 	if l, ok := p.Catalog.(playerLearner); ok && inPartyList(row, col) {
-		l.LearnPlayer(text) // 規格 013：隊伍欄只印隊員名字
+		l.LearnPlayer(text, sexOf(mem.Read8(base+recordSexOff))) // 規格 013：隊伍欄只印隊員名字，指標是角色記錄
 	}
 	lead := 0
 	e, ok := p.Catalog.Lookup(text)
