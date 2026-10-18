@@ -145,3 +145,33 @@ func TestAutoMapQuadrants(t *testing.T) {
 		t.Errorf("非複合圖應列全部：%+v", p)
 	}
 }
+
+// 同一塊 GEO 依目前 ECL 區塊分鍵（3/50 塞普路斯與達西默；規格 009 §2.1）。
+func TestAutoMapEclQualifiedKey(t *testing.T) {
+	m := make(fakeMem, 0x100000)
+	sum := plantGeo(m, 0x0CDE, 0x4C28, 2, 3, 4)
+	base := linear(0x0CDE, 0)
+	m.put16(base+statePtrOff, 0)
+	m.put16(base+statePtrOff+2, 0x48BD)
+	state := linear(0x48BD, 0)
+	g := &MapGuide{ByHash: map[string]string{sum: "3/50"}, Titles: map[string]string{"3/50": "塞普路斯", "3/50@51": "達西默"},
+		Points: map[string][]MapPoint{}}
+	a := &AutoMap{Guide: g}
+	for _, c := range []struct {
+		ecl  byte
+		want string
+	}{{0x50, "3/50"}, {0x51, "3/50@51"}, {0x50, "3/50"}} {
+		m[state+stateEclOff] = c.ecl
+		a.Sample(m, 0x0CDE)
+		if a.Key != c.want {
+			t.Errorf("ECL %02X：鍵 %q，要 %q", c.ecl, a.Key, c.want)
+		}
+	}
+	// 雜湊表不收 `@` 列
+	dir := t.TempDir()
+	os.WriteFile(filepath.Join(dir, "map-geo.tsv"), []byte("map\tpayload_sha256\ttitle\n3/50\t"+sum+"\t塞普路斯\n3/50@51\t"+sum+"\t達西默\n"), 0o644)
+	lg, err := LoadMapGuideDir(dir)
+	if err != nil || lg.ByHash[sum] != "3/50" || lg.Titles["3/50@51"] != "達西默" {
+		t.Fatalf("載入：%+v %v", lg, err)
+	}
+}

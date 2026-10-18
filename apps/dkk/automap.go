@@ -21,6 +21,10 @@ const (
 	geoPtrOff   = 0xC06A // DS 內的遠指標（off, seg）指向目前 GEO 區塊本體
 	partyXOff   = 0xC073 // x、y、面向（0 北、2 東、4 南、6 西）
 	geoBodySize = 0x400
+	// DS:8484 是遊戲狀態區塊的遠指標（存檔 0x001–0x400 讀進的那塊），+0xF2 是 ECL 區塊、+0xC5 是 GEO 區塊。
+	// 前哨站（新局）與跨區讀檔三區的狀態都一致（主專案 docs/re/011）。
+	statePtrOff = 0x8484
+	stateEclOff = 0xF2
 )
 
 // MapPoint 是一個攻略點。
@@ -73,7 +77,9 @@ func LoadMapGuideDir(dir string) (*MapGuide, error) {
 	}
 	g := &MapGuide{ByHash: map[string]string{}, Titles: map[string]string{}, Points: map[string][]MapPoint{}}
 	for _, r := range rows {
-		g.ByHash[r[1]] = r[0]
+		if !strings.Contains(r[0], "@") { // `鍵@ECL` 列與基本鍵同雜湊，只提供名稱與攻略點
+			g.ByHash[r[1]] = r[0]
+		}
 		g.Titles[r[0]] = r[2]
 	}
 	b, err = os.ReadFile(filepath.Join(dir, "map-guide.zh-TW.tsv"))
@@ -116,6 +122,7 @@ type AutoMap struct {
 	open, reveal bool
 	ptr          uint32
 	sum          string
+	ecl          int // 目前的 ECL 區塊（-1 未知）
 	Key          string // 目前地圖鍵（查不到雜湊時沿用同指標的上一個鍵，或空）
 	walls        [16][16][4]uint8
 	loaded       bool
@@ -154,9 +161,18 @@ func (m *AutoMap) Sample(mem CPUView, ds uint16) {
 	}
 	s := sha256.Sum256(body)
 	sum := hex.EncodeToString(s[:])
-	if sum != m.sum || ptr != m.ptr {
+	ecl := -1
+	if so, ss := mem.Read16(base+statePtrOff), mem.Read16(base+statePtrOff+2); ss != 0 {
+		ecl = int(mem.Read8(linear(ss, so) + stateEclOff))
+	}
+	if sum != m.sum || ptr != m.ptr || ecl != m.ecl {
+		m.ecl = ecl
 		if k, ok := m.Guide.ByHash[sum]; ok {
 			m.Key = k
+			// 同一塊 GEO 給兩個區用時（3/50 塞普路斯與達西默），以 `鍵@ECL 區塊` 區分（規格 009 §2.1）
+			if q := fmt.Sprintf("%s@%02X", k, ecl); ecl >= 0 && m.Guide.Titles[q] != "" {
+				m.Key = q
+			}
 		} else if ptr != m.ptr {
 			m.Key = "" // 換了緩衝區又對不到：未知地圖；同一緩衝區的小改動（開門等）沿用上一個鍵
 		}
