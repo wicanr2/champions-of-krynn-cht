@@ -6,6 +6,7 @@
 // F5 翻閱已讀手札（PgUp／PgDn 翻頁，←／→ 換則，Esc 關閉）。
 // 滑鼠移到視窗頂端時出現切換列（主專案規格 011），點項目等同按對應的功能鍵。
 //
+// 沒給 -save 時是發行模式（主專案規格 012）：資料從發行包找，原版第一次匯入到使用者資料目錄。
 // 自動模式（-frames）供收據使用：依 -script 送鍵，結束時印記憶體與畫面雜湊，
 // 並可輸出 -shot（中文合成 RGBA）與 -shot-original（原版合成 RGBA）。
 package main
@@ -379,10 +380,8 @@ func (g *game) Draw(screen *ebiten.Image) {
 
 func (g *game) Layout(_, _ int) (int, int) { return 320 * g.scale, 200 * g.scale }
 
-func fail(err error) {
-	fmt.Fprintln(os.Stderr, "dkk-play：", err)
-	os.Exit(1)
-}
+// fail 是致命錯誤：stderr、錯誤紀錄（發行模式）與 Windows 對話框（launcher.go）。
+func fail(err error) { fatal(err) }
 
 func main() {
 	original := flag.String("original", "", "唯讀原版目錄（含 START.EXE）")
@@ -402,8 +401,39 @@ func main() {
 	invPath := flag.String("inventory", "", "結束時把印字路徑盤點（issue #11）寫成這個 TSV；含原文，只放工作區")
 	scaleFlag := flag.Int("scale", 2, "起始倍率（2 或 3；F2 切換）")
 	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
+	showVersion := flag.Bool("version", false, "印版號與 dosgolem commit 後結束")
 	flag.Parse()
-	if *original == "" || *save == "" || *textDir == "" || *fontPath == "" {
+	if *showVersion {
+		fmt.Print(versionString())
+		return
+	}
+	// 沒給 -save 是發行模式（主專案規格 012 §3.1）：資料從發行包找，原版第一次匯入到使用者資料目錄的 game/。
+	release := *save == ""
+	stateDir := *save // 手札已讀、地圖走過、攻略位置等前端檔的目錄
+	var gameDir, startName string
+	if release {
+		data, err := userDataDir()
+		if err != nil {
+			fail(err)
+		}
+		logDir, stateDir = data, data
+		if *textDir == "" {
+			if *textDir, err = resourcePath("text"); err != nil {
+				fail(err)
+			}
+		}
+		if *fontPath == "" {
+			if *fontPath, err = releaseFont(); err != nil {
+				fail(err)
+			}
+		}
+		if *hdDir == "" {
+			*hdDir = releaseHD()
+		}
+		if gameDir, startName, err = prepareGame(*original, data); err != nil {
+			fail(err)
+		}
+	} else if *original == "" || *textDir == "" || *fontPath == "" {
 		flag.Usage()
 		os.Exit(2)
 	}
@@ -430,7 +460,10 @@ func main() {
 	var want [32]byte
 	copy(want[:], sum)
 	saveRoot := *save
-	if _, err := os.Stat(filepath.Join(saveRoot, "START.EXE")); err != nil {
+	if release {
+		saveRoot = gameDir
+	} else if _, err := os.Stat(filepath.Join(saveRoot, "START.EXE")); err != nil {
+		startName = "START.EXE"
 		out, err := bootroot.Prepare(bootroot.BootRootInput{OriginalRoot: *original, SaveRoot: *save,
 			Required: []bootroot.RequiredFile{{Name: "START.EXE", SHA256: want}}})
 		if err != nil {
@@ -438,7 +471,10 @@ func main() {
 		}
 		saveRoot = out.SaveRoot
 	}
-	exe, err := os.ReadFile(filepath.Join(saveRoot, "START.EXE"))
+	if startName == "" {
+		startName = "START.EXE"
+	}
+	exe, err := os.ReadFile(filepath.Join(saveRoot, startName))
 	if err != nil {
 		fail(err)
 	}
@@ -474,7 +510,7 @@ func main() {
 		fail(err)
 	}
 	if live.Guide != nil {
-		posPath := filepath.Join(*save, "dkk-walkthrough-pos.txt")
+		posPath := filepath.Join(stateDir, "dkk-walkthrough-pos.txt")
 		ch, page, err := dkk.ReadGuidePos(posPath)
 		if err != nil {
 			fail(err)
@@ -492,7 +528,7 @@ func main() {
 		fail(err)
 	}
 	if live.Map != nil {
-		visitedPath := filepath.Join(*save, "dkk-map-visited.txt")
+		visitedPath := filepath.Join(stateDir, "dkk-map-visited.txt")
 		v, err := dkk.ReadVisited(visitedPath)
 		if err != nil {
 			fail(err)
@@ -504,7 +540,7 @@ func main() {
 			}
 		}
 	}
-	seenPath := filepath.Join(*save, "dkk-journal-seen.txt")
+	seenPath := filepath.Join(stateDir, "dkk-journal-seen.txt")
 	if live.Journal.Seen, err = dkk.ReadJournalSeen(seenPath); err != nil {
 		fail(err)
 	}
@@ -546,9 +582,11 @@ func main() {
 	ebiten.SetWindowTitle(windowTitle)
 	ebiten.SetWindowSize(320*g.scale, 200*g.scale)
 	ebiten.SetTPS(60)
+	clearErrorLog()
 	err = ebiten.RunGame(g)
 	if live.Inv != nil {
-		ovr, _ := os.ReadFile(filepath.Join(*original, "GAME.OVR"))
+		ovrName, _ := findFold(saveRoot, "GAME.OVR")
+		ovr, _ := os.ReadFile(filepath.Join(saveRoot, ovrName))
 		if werr := live.Inv.WriteTSV(*invPath, ovr); werr != nil {
 			fmt.Fprintln(os.Stderr, "dkk-play: 盤點寫入失敗：", werr)
 		} else {
