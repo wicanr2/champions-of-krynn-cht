@@ -3,6 +3,7 @@ package main
 import (
 	"testing"
 
+	"github.com/wicanr2/dosgolem/apps/dkk"
 	"github.com/wicanr2/dosgolem/xlate"
 )
 
@@ -31,7 +32,7 @@ func TestToolbarLayoutFits(t *testing.T) {
 			if it.col < end {
 				t.Fatalf("hd=%v：%s 與前一項重疊", hd, it.key)
 			}
-			if it.cols != len([]rune(testBarText[it.key])) || it.cols == 0 {
+			if it.cols != len(dkk.PackHalfWidth([]rune(testBarText[it.key]))) || it.cols == 0 {
 				t.Fatalf("hd=%v：%s 寬 %d 格", hd, it.key, it.cols)
 			}
 			end = it.col + it.cols + 1
@@ -161,8 +162,10 @@ func TestDrawToolbarOnlyTopRows(t *testing.T) {
 	for i := range full {
 		full[i] = 0xFF
 	}
-	for _, r := range "2倍3HD無素材中文原版手札攻略地圖答案靜音截圖全螢幕" {
-		font.Glyphs[r] = full
+	for _, s := range testBarText {
+		for _, r := range dkk.PackHalfWidth([]rune(s)) {
+			font.Glyphs[r] = full
+		}
 	}
 	for _, scale := range []int{2, 3} {
 		dst := make([]byte, 4*320*scale*200*scale)
@@ -187,5 +190,13 @@ func TestDrawToolbarOnlyTopRows(t *testing.T) {
 				}
 			}
 		}
+	}
+}
+
+func TestToolbarHalfWidthPacked(t *testing.T) {
+	items := toolbarItems(testBarText, toolbarState{scale: 2})
+	it, _ := find(items, "toolbar.nohd")
+	if it.cols != 4 { // 無、HD（併一格）、素、材
+		t.Fatalf("無HD素材佔 %d 格，要 4", it.cols)
 	}
 }

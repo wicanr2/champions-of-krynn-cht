@@ -6,6 +6,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/wicanr2/dosgolem/apps/dkk"
 	"github.com/wicanr2/dosgolem/xlate"
 )
 
@@ -83,7 +84,7 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 	)
 	col := barFirstCol
 	for i := range items {
-		items[i].label = []rune(text[items[i].key])
+		items[i].label = dkk.PackHalfWidth([]rune(text[items[i].key])) // 半形兩字併一格（規格 005 §2；#18）
 		items[i].col, items[i].cols = col, len(items[i].label)
 		col += items[i].cols + 1
 	}
