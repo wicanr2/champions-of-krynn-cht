@@ -3,7 +3,7 @@
 // 路徑 B 印出符合 -until 的訊息時停下、再跑 -settle 步後存狀態。
 //
 // 對話處理：底列出現 `Yes No` 時依 -yes 決定（訊息符合就答 Y，其餘答 N）；`Press button…` 按 Enter；
-// 冒險主選單（`Move Area …`）按 M 進移動模式。只觀測與送鍵，不改記憶體。
+// 冒險主選單（`Move Area …`）按 M 進移動模式。-fight 時戰鬥中按 Q 交給電腦。只觀測與送鍵；-poke 才改記憶體（例如起點座標）。
 //
 //	tools/go.sh run ./cmd/dkk-explore -state /st/x.state -root /orig -scratch /out/scratch \
 //	  -font /font/dkk-eten.golemfnt -text-dir /text -until 'BERTIL|journal entry' -out /out
@@ -59,6 +59,8 @@ func main() {
 	settle := flag.Uint64("settle", 300_000_000, "停下後再跑幾步才存狀態")
 	every := flag.Uint64("every", 30_000_000, "送鍵後至少等幾步才判讀")
 	maxActions := flag.Int("max-actions", 600, "最多送幾個鍵")
+	pokeSpec := flag.String("poke", "", "依步數改記憶體 `線性位址hex@步數=hex bytes`（例：起點座標 18E53@步數=05；主專案小地圖觸發格盤點）")
+	fight := flag.Bool("fight", false, "遇到戰鬥時按 Q 交給電腦控制繼續探索（預設停下）")
 	outDir := flag.String("out", "", "輸出目錄（end.state、inv.tsv、log）")
 	picsDir := flag.String("pics-dir", "", "視窗圖 (24,24) 88×88 或大圖 (8,8) 304×120 出現沒見過、且連續兩次取樣不變的內容時，把整張色號畫面存成 <步數>.bin（HD 抽樣，主專案規格 010）")
 	flag.Parse()
@@ -143,9 +145,19 @@ func main() {
 		return nil
 	}
 
+	pokes, err := dkk.ParseLinPokes(*pokeSpec)
+	if err != nil {
+		fail(err)
+	}
 	for !d.Exited {
 		if err := live.BeforeStep(cpuView); err != nil {
 			fail(err)
+		}
+		for len(pokes) > 0 && m.Steps >= pokes[0].At {
+			for i, b := range pokes[0].Data {
+				m.Write8(pokes[0].Addr+uint32(i), b)
+			}
+			pokes = pokes[1:]
 		}
 		if err := m.Step(); err != nil {
 			fail(err)
@@ -222,6 +234,10 @@ func main() {
 			continue
 		case strings.HasPrefix(lastC, "Move Area"):
 			push("M")
+			lastC = ""
+			continue
+		case strings.HasPrefix(lastC, "Move Aim") && *fight:
+			push("Q") // 這名角色交給電腦控制；每名角色輪到時各按一次
 			lastC = ""
 			continue
 		case strings.HasPrefix(lastC, "Move Aim"):

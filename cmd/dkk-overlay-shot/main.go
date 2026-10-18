@@ -209,7 +209,7 @@ func main() {
 	m.ObserveModeChanges(func(machine.ModeChange) { live.ModeChange() })
 	m.SetOnFrame(func() { live.Frame(m.Indexed(), m.FramePalette()) }) // planar 以 FramePalette 取色（#12）
 
-	pokes, err := parseLinPokes(*pokeSpec)
+	pokes, err := dkk.ParseLinPokes(*pokeSpec)
 	if err != nil {
 		fail(err)
 	}
@@ -229,9 +229,9 @@ func main() {
 				ki++
 			}
 		}
-		for len(pokes) > 0 && m.Steps >= pokes[0].at {
-			for i, b := range pokes[0].data {
-				m.Write8(pokes[0].addr+uint32(i), b)
+		for len(pokes) > 0 && m.Steps >= pokes[0].At {
+			for i, b := range pokes[0].Data {
+				m.Write8(pokes[0].Addr+uint32(i), b)
 			}
 			pokes = pokes[1:]
 		}
