@@ -226,13 +226,33 @@ func (m *AutoMap) ToggleReveal() {
 
 func (m *AutoMap) seen(x, y int) bool { return m.reveal || m.visited[m.mapID()][cellPos{x, y}] }
 
+// quadrant 回複合圖中隊伍所在的象限（0 西北、1 東北、2 西南、3 東南）與各象限名稱。
+// 複合圖是一塊 GEO 分成四個 8×8 小地圖（例如 3/53：沉船、樹之父、遊樂迷宮、被詛咒的村莊），
+// map-geo.tsv 的名稱以 `|` 依序寫四個名稱；不是複合圖回 -1。
+func (m *AutoMap) quadrant() (int, []string) {
+	if m.Key == "" || m.Guide == nil {
+		return -1, nil
+	}
+	ts := strings.Split(m.Guide.Titles[m.Key], "|")
+	if len(ts) != 4 {
+		return -1, nil
+	}
+	return quadOf(m.X, m.Y), ts
+}
+
+func quadOf(x, y int) int { return y/8*2 + x/8 }
+
 // VisiblePoints 回目前地圖可見的攻略點（依編號）。
 func (m *AutoMap) VisiblePoints() []MapPoint {
 	var out []MapPoint
 	if m.Key == "" || m.Guide == nil {
 		return nil
 	}
+	q, _ := m.quadrant()
 	for _, p := range m.Guide.Points[m.Key] {
+		if q >= 0 && quadOf(p.X, p.Y) != q {
+			continue // 複合圖只列隊伍所在的小地圖
+		}
 		if m.seen(p.X, p.Y) {
 			out = append(out, p)
 		}
@@ -267,6 +287,9 @@ func (m *AutoMap) Lines() [listRows][]rune {
 	title := m.Format.Unknown
 	if m.Key != "" && m.Guide != nil && m.Guide.Titles[m.Key] != "" {
 		title = m.Guide.Titles[m.Key]
+	}
+	if q, ts := m.quadrant(); q >= 0 {
+		title = ts[q]
 	}
 	put(0, title)
 	dir := string([]rune(m.Format.Dirs)[m.Dir&3])

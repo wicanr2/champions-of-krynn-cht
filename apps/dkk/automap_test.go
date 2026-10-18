@@ -120,3 +120,28 @@ func TestMapGuideTable(t *testing.T) {
 		}
 	}
 }
+
+// 複合圖（規格 009 §2.1）：名稱以 `|` 分四個 8×8 小地圖，名稱與攻略點只取隊伍所在象限。
+func TestAutoMapQuadrants(t *testing.T) {
+	a := &AutoMap{Guide: &MapGuide{Titles: map[string]string{"3/53": "沉船|樹之父|遊樂迷宮|被詛咒的村莊"},
+		Points: map[string][]MapPoint{"3/53": {{N: 1, X: 7, Y: 5, Label: "登船跳板"}, {N: 1, X: 12, Y: 7, Label: "大樹入口"},
+			{N: 1, X: 6, Y: 15, Label: "迷宮主人"}, {N: 1, X: 15, Y: 15, Label: "出入口"}}}},
+		Format: MapFormat{"未知", "無資料", "{x},{y} 面向{dir}", "北東南西", "V 全圖", "V 只看走過", "{page}/{pages}"},
+		Key:    "3/53", reveal: true}
+	for _, c := range []struct {
+		x, y         int
+		title, label string
+	}{{1, 3, "沉船", "登船跳板"}, {13, 6, "樹之父", "大樹入口"}, {5, 9, "遊樂迷宮", "迷宮主人"}, {9, 9, "被詛咒的村莊", "出入口"}} {
+		a.X, a.Y = c.x, c.y
+		if p := a.VisiblePoints(); len(p) != 1 || p[0].Label != c.label {
+			t.Errorf("(%d,%d) 可見點：%+v", c.x, c.y, p)
+		}
+		if l := a.Lines(); string(l[0]) != c.title || string(l[3]) != string(PackHalfWidth([]rune("1 "+c.label))) {
+			t.Errorf("(%d,%d) 清單：%q %q", c.x, c.y, string(l[0]), string(l[3]))
+		}
+	}
+	a.Guide.Titles["3/53"] = "單一名稱"
+	if p := a.VisiblePoints(); len(p) != 4 {
+		t.Errorf("非複合圖應列全部：%+v", p)
+	}
+}

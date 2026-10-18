@@ -236,11 +236,11 @@ func main() {
 			push("M")
 			lastC = ""
 			continue
-		case strings.HasPrefix(lastC, "Move Aim") && *fight:
+		case inCombat(lastC) && *fight:
 			push("Q") // 這名角色交給電腦控制；每名角色輪到時各按一次
 			lastC = ""
 			continue
-		case strings.HasPrefix(lastC, "Move Aim"):
+		case inCombat(lastC):
 			say("進入戰鬥，停下")
 			stopAt = m.Steps + 1
 			continue
@@ -418,4 +418,10 @@ func (p *picSampler) sample(idx []byte, step uint64, dir string, say func(string
 		fail(err)
 	}
 	say("存畫面 %s", name)
+}
+
+// inCombat 判斷戰鬥選單。選單分兩列印（`Move Aim … Quick` 與 `Delay … View Speed End`），
+// 最後一段逐字可能只是第二列。
+func inCombat(c string) bool {
+	return strings.HasPrefix(c, "Move Aim") || strings.HasPrefix(c, "Delay ") && strings.HasSuffix(c, "Speed End")
 }
