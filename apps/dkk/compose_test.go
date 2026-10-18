@@ -89,3 +89,27 @@ func TestTranslatorNamesAndLabels(t *testing.T) {
 		t.Error("玩家名不該命中")
 	}
 }
+
+func TestTranslatorNamedTemplates(t *testing.T) {
+	tr := newTranslator(t)
+	tpl := "template\ttranslation\tnote\n" +
+		"{name} is hit FOR {n} points of Damage.\t{name} 受到 {n} 點傷害。\t\n" +
+		"{name} is slain.\t{name} 被殺死了。\t\n"
+	if err := tr.LoadTemplates([]byte(tpl)); err != nil {
+		t.Fatal(err)
+	}
+	for in, want := range map[string]string{
+		"  FINN is hit FOR 14 points of Damage.":    "  FINN 受到 14 點傷害。", // 玩家名照原樣、前導空白保留
+		"DREAD WOLF is hit FOR 3 points of Damage.": "恐狼 受到 3 點傷害。",      // 名稱表命中，名字含空白
+		"SIR DRYDEN is slain.":                      "SIR DRYDEN 被殺死了。",  // 沒有數字
+	} {
+		if e, ok := tr.Lookup([]byte(in)); !ok || e.Translation != want {
+			t.Errorf("%q → %q（%v），要 %q", in, e.Translation, ok, want)
+		}
+	}
+	for _, in := range []string{"FINN is hit for 14 points of Damage.", " is slain.", "FINN is hit FOR x points of Damage."} {
+		if e, ok := tr.Lookup([]byte(in)); ok {
+			t.Errorf("%q 不應命中（得 %q）", in, e.Translation)
+		}
+	}
+}

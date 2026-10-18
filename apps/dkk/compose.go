@@ -19,6 +19,37 @@ type Translator struct {
 	Words     Lookuper     // 物品名詞組來源（介面 catalog；可為 nil）
 	Menus     *MenuMasters // 底列選單母串（規格 003 §2.2.1；可為 nil）
 	templates map[string]string
+	named     []namedTemplate // 含 {name} 的模板（規格 004 §2.1.1），依表中順序
+}
+
+// namedTemplate 是含 {name} 的模板：re 的子群組依 kinds 為名字（"name"）或數字（"n"）。
+type namedTemplate struct {
+	re    *regexp.Regexp
+	kinds []string
+	zh    string
+}
+
+var templateToken = regexp.MustCompile(`\{name\}|\{n\}`)
+
+// compileNamed 把模板轉成整串比對的正規式：{name} 取最短非空子字串，{n} 取連續數字，其餘逐字。
+func compileNamed(tpl string) (*regexp.Regexp, []string) {
+	var b strings.Builder
+	var kinds []string
+	b.WriteString("^")
+	last := 0
+	for _, m := range templateToken.FindAllStringIndex(tpl, -1) {
+		b.WriteString(regexp.QuoteMeta(tpl[last:m[0]]))
+		if tpl[m[0]:m[1]] == "{name}" {
+			b.WriteString("(.+?)")
+			kinds = append(kinds, "name")
+		} else {
+			b.WriteString("([0-9]+)")
+			kinds = append(kinds, "n")
+		}
+		last = m[1]
+	}
+	b.WriteString(regexp.QuoteMeta(tpl[last:]) + "$")
+	return regexp.MustCompile(b.String()), kinds
 }
 
 var digits = regexp.MustCompile(`[0-9]+`)
@@ -37,6 +68,10 @@ func (t *Translator) LoadTemplates(b []byte) error {
 			return fmt.Errorf("dkk: 模板重複：%q", r[0])
 		}
 		t.templates[r[0]] = r[1]
+		if strings.Contains(r[0], "{name}") {
+			re, kinds := compileNamed(r[0])
+			t.named = append(t.named, namedTemplate{re: re, kinds: kinds, zh: r[1]})
+		}
 	}
 	return nil
 }
@@ -117,13 +152,49 @@ func (t *Translator) template(s string) (Entry, bool) {
 	nums := digits.FindAllString(s, -1)
 	if len(nums) == 0 {
 		// 沒有數字的模板是串接片段的整句譯法（規格 004 §2.1，例 `Spells in Grimoire`）。
-		zh, ok := t.templates[s]
-		return Entry{Key: "template", Translation: zh}, ok
+		if zh, ok := t.templates[s]; ok {
+			return Entry{Key: "template", Translation: zh}, true
+		}
+		return t.namedMatch(s)
 	}
 	zh, ok := t.templates[digits.ReplaceAllString(s, "{n}")]
 	if !ok {
-		return Entry{}, false
+		return t.namedMatch(s)
 	}
+	return Entry{Key: "template", Translation: fillNumbers(zh, nums)}, true
+}
+
+// namedMatch 試含 {name} 的模板（規格 004 §2.1.1）：去掉前導空白後整串比對，前導空白保留在譯文前。
+func (t *Translator) namedMatch(s string) (Entry, bool) {
+	body := strings.TrimLeft(s, " ")
+	lead := s[:len(s)-len(body)]
+	for _, nt := range t.named {
+		m := nt.re.FindStringSubmatch(body)
+		if m == nil {
+			continue
+		}
+		var nums []string
+		name := ""
+		for i, k := range nt.kinds {
+			if k == "n" {
+				nums = append(nums, m[i+1])
+			} else if name == "" {
+				name = m[i+1]
+				if t.Names != nil {
+					if ne, ok := t.Names.Lookup([]byte(name)); ok {
+						name = ne.Translation // 名稱表命中（怪物、人物）才譯，玩家角色名照原樣
+					}
+				}
+			}
+		}
+		zh := strings.ReplaceAll(nt.zh, "{name}", name)
+		return Entry{Key: "template", Translation: lead + fillNumbers(zh, nums)}, true
+	}
+	return Entry{}, false
+}
+
+// fillNumbers 把譯文的 {n} 依序代回數字，{k} 取第 k 個數字（規格 004 §2.1）。
+func fillNumbers(zh string, nums []string) string {
 	next := 0
 	out := placeholder.ReplaceAllStringFunc(zh, func(m string) string {
 		k := strings.TrimSuffix(strings.TrimPrefix(m, "{"), "}")
@@ -139,7 +210,7 @@ func (t *Translator) template(s string) (Entry, bool) {
 		}
 		return m
 	})
-	return Entry{Key: "template", Translation: out}, true
+	return out
 }
 
 // label：「前段:後段」兩段各自查表（後段可走名稱或物品名），都命中才組成。

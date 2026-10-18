@@ -86,6 +86,7 @@ func main() {
 	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
 	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
+	pokeSpec := flag.String("poke", "", "依步數改記憶體 `線性位址hex@步數=hex bytes`，分號分隔（例 18E53@1400001000=05；跳格抽樣用，同 probe -poke 的 lin: 寫法）")
 	flag.IntVar(&scale, "scale", 2, "輸出倍率 2 或 3（3× 用 22×22 變體字型，xlate spec 202 §2.4.1）")
 	flag.Parse()
 	if scale != 2 && scale != 3 {
@@ -208,6 +209,10 @@ func main() {
 	m.ObserveModeChanges(func(machine.ModeChange) { live.ModeChange() })
 	m.SetOnFrame(func() { live.Frame(m.Indexed(), m.FramePalette()) }) // planar 以 FramePalette 取色（#12）
 
+	pokes, err := parseLinPokes(*pokeSpec)
+	if err != nil {
+		fail(err)
+	}
 	var results []shotResult
 	ki, si := 0, 0
 	for m.Steps < *until && !d.Exited {
@@ -223,6 +228,12 @@ func main() {
 				timed = timed[1:]
 				ki++
 			}
+		}
+		for len(pokes) > 0 && m.Steps >= pokes[0].at {
+			for i, b := range pokes[0].data {
+				m.Write8(pokes[0].addr+uint32(i), b)
+			}
+			pokes = pokes[1:]
 		}
 		if si < len(shots) && m.Steps >= shots[si].step {
 			results = append(results, capture(m, live, shots[si], *outDir))
