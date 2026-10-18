@@ -18,6 +18,7 @@ type Translator struct {
 	Names     Lookuper     // 怪物、人物、地名（可為 nil）
 	Words     Lookuper     // 物品名詞組來源（介面 catalog；可為 nil）
 	Menus     *MenuMasters // 底列選單母串（規格 003 §2.2.1；可為 nil）
+	Players   *PlayerNames // 玩家名音譯（規格 013；可為 nil）
 	templates map[string]string
 	named     []namedTemplate // 含 {name} 的模板（規格 004 §2.1.1），依表中順序
 }
@@ -139,6 +140,11 @@ func (t *Translator) exact(b []byte) (Entry, bool) {
 			if e, ok := t.Names.Lookup([]byte(s)); ok {
 				return e, true
 			}
+		}
+	}
+	if t.Players != nil {
+		if e, ok := t.Players.Lookup(b); ok {
+			return e, true
 		}
 	}
 	return Entry{}, false

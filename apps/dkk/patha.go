@@ -165,6 +165,9 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 	}
 	// lead 是前導空白數：清單列以「兩格縮排＋名字＋空白補到固定寬度」呼叫，反白列不帶縮排與補白。
 	// 完整字串查不到時去頭尾空白再查；Stamp 從 col+lead 起，涵蓋到原字串結尾（規格 001 §2.2）。
+	if l, ok := p.Catalog.(playerLearner); ok && inPartyList(row, col) {
+		l.LearnPlayer(text) // 規格 013：隊伍欄只印隊員名字
+	}
 	lead := 0
 	e, ok := p.Catalog.Lookup(text)
 	if !ok {

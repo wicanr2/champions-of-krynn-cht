@@ -6,6 +6,8 @@ import (
 	"path/filepath"
 	"strconv"
 	"strings"
+
+	"github.com/wicanr2/dosgolem/xlate/translit"
 )
 
 // LoadTextDir 從譯文目錄載入介面查表（含規格 004 的名稱、模板、物品名）與 ECL catalog。
@@ -49,6 +51,17 @@ func LoadTextDir(dir string) (ui *Translator, ecl *Catalog, err error) {
 	}
 	if err := ui.LoadTemplates(tpl); err != nil {
 		return nil, nil, err
+	}
+	// 規格 013：有音譯資料檔才啟用玩家名音譯
+	if _, err := os.Stat(filepath.Join(dir, "translit-table.tsv")); err == nil {
+		tr, err := translit.Load(dir)
+		if err != nil {
+			return nil, nil, fmt.Errorf("dkk: 音譯資料：%w", err)
+		}
+		ui.Players = &PlayerNames{Translit: func(s string) (string, bool) {
+			zh, _, ok := tr.Transliterate(s, translit.GenderUnknown)
+			return zh, ok
+		}}
 	}
 	return ui, ecl, nil
 }
