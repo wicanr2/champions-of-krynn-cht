@@ -180,10 +180,8 @@ func (t *Translator) namedMatch(s string) (Entry, bool) {
 				nums = append(nums, m[i+1])
 			} else if name == "" {
 				name = m[i+1]
-				if t.Names != nil {
-					if ne, ok := t.Names.Lookup([]byte(name)); ok {
-						name = ne.Translation // 名稱表命中（怪物、人物）才譯，玩家角色名照原樣
-					}
+				if ne, ok := t.exact([]byte(name)); ok {
+					name = ne.Translation // 介面詞表（職業名等）或名稱表命中才譯，玩家角色名照原樣
 				}
 			}
 		}

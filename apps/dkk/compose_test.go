@@ -113,3 +113,15 @@ func TestTranslatorNamedTemplates(t *testing.T) {
 		}
 	}
 }
+
+func TestTranslatorNamedTemplateUsesUICatalog(t *testing.T) {
+	tr := newTranslator(t)
+	tpl := "template\ttranslation\tnote\n" + "a level {n} {name}\t{n} 級{name}\t\n"
+	if err := tr.LoadTemplates([]byte(tpl)); err != nil {
+		t.Fatal(err)
+	}
+	// 職業名在介面詞表（測試以 Cleric 代表），前導空白保留
+	if e, ok := tr.Lookup([]byte("    a level 8 Cleric")); !ok || e.Translation != "    8 級牧師" {
+		t.Fatalf("得 %q（%v）", e.Translation, ok)
+	}
+}
