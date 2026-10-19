@@ -18,3 +18,4 @@
 | [011-toolbar.md](011-toolbar.md) | CONFORMED | #9 | 視窗頂端切換列 |
 | [012-release-packaging.md](012-release-packaging.md) | CONFORMED | #10 | 發行包 |
 | [013-player-name.md](013-player-name.md) | CONFORMED | #6 | 玩家角色名自動音譯 |
+| [014-in-game-music.md](014-in-game-music.md) | READY（素材）、DRAFT（播放） | #16 | 遊戲中配樂 |

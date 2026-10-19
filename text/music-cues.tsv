@@ -1,0 +1,29 @@
+kind	pattern	track
+map	1/20	occupied
+map	1/22	depths
+map	2/30	occupied
+map	2/31	occupied
+map	2/32	occupied
+map	2/40	dark-city
+map	2/42	depths
+map	2/43	depths
+map	2/44	outpost
+map	3/50	dark-city
+map	3/51	depths
+map	3/52	depths
+map	3/60	finale
+map	3/61	finale
+map	3/63	occupied
+menu	Inn Hall Commandant	outpost
+menu	Vault Temple Bar	outpost
+menu	Move Encamp	overland
+menu	Save View Magic Rest	camp
+menu	Cast Memorize Scribe	camp
+menu	Heal View Pool Appraise	sanctuary
+leave	Move Area	-
+battle	Move View Aim	battle
+battle	View Aim Use	battle
+boss	DRAGON	battle-boss
+boss	SIVAK	battle-boss
+end	The party has won	victory
+end	The monsters rejoice	defeat
