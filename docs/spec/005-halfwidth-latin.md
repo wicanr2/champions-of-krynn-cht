@@ -1,6 +1,6 @@
 # 005 中文句中的半形英數
 
-狀態：**CONFORMED**（2026-10-19）。Issue：#6。證據：單元測試 `apps/cok/halfwidth_test.go`（合併規則、組合字模）；G5 收據（docs/re/007）的手札「第 51 則」、底列「按 <Enter> 鍵繼續」、demo 戰鬥「造成 18 點傷害」字距正常，範圍外差異 0。
+狀態：**CONFORMED**（2026-10-19）。Issue：#6。證據：單元測試 `apps/cok/halfwidth_test.go`（合併規則、組合字模）；G5 收據（docs/re/007）的手札「第 51 則」、底列「按 <Enter> 鍵繼續」與 demo 戰鬥重跑（docs/re/008 demolong2）的「造成 18 點傷害」字距正常，範圍外差異 0。
 
 ## 1. 契約
 
