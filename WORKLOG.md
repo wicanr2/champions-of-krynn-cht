@@ -18,3 +18,11 @@
   壓縮檔內沒有手冊或旅行手札，`GAME.OVR` 的查驗題字串以 journal entry 與 word # 出題。
 - `.gitignore` 補原版副檔名；LICENSE 灰色地帶改列已收錄的雜湊、版本與查驗題字串、檔名清單。
 - 清理：容器皆 `--rm`，`docker ps -a` 無殘留；`workplace/` 無 root 擁有檔；來源壓縮檔雜湊未變。
+
+## 2026-10-19 參考文件盤點（#7、#8）
+
+- 使用者提供英文 Adventurer's Journal PDF（根層）與軟體世界第 16–18 期攻略掃描（`walkthrough/`）。
+- 另從 mocagh.org 下載 SSI 的 journal、manual、hintbook PDF 到 `workplace/reference-src/web/`（容器開網路一次）。
+- 新增 `tools/docker/pdf.Dockerfile`（取自幽靈騎士，poppler-utils），建 `cok-pdf:bookworm-r1`；`pdftotext` 抽文字到 `workplace/reference-src/txt/`。
+- 結果見 `docs/re/002-reference-sources.md`：使用者 PDF 32 頁、Journal Entry 1–88 全部可辨識；mocagh 版 OCR 漏第 76 則，作校對。
+- `.gitignore` 補 `*.pdf`。容器皆 `--rm`。

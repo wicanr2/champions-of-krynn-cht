@@ -32,3 +32,6 @@ Thumbs.db
 *.SFX
 SAVGAMA.DAT
 dosbox.conf
+
+# 手冊、手札、提示書等原版文件（不進版控）。
+*.pdf

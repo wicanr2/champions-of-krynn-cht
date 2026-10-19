@@ -22,13 +22,12 @@
 | 2026-10-19 | repo `champions-of-krynn-cht`；遊戲短名 `cok`，adapter 在 dosgolem `apps/cok/`，分支推到本 repo 的 `dosgolem/cok` | 使用者回答 |
 | 2026-10-19 | 幽靈騎士的 adapter、譯名與工具當參考逐項重驗；dosgolem clone 從 `dosgolem/dkk` 分支起；共用譯名直接繼承 | 使用者回答 |
 | 2026-10-19 | 中文題名「克萊恩英豪」 | 使用者指定 |
+| 2026-10-19 | 旅行手札採英文 Adventurer's Journal：使用者下載的 PDF 為主要來源，mocagh 版校對（docs/re/002）；手札入遊戲與查驗題顯示答案兩條決策生效 | 使用者指示 |
+| 2026-10-19 | 軟體世界第 16–18 期攻略掃描已提供，放 `walkthrough/`（docs/re/002） | 使用者提供 |
 
 ## 待定
 
-| 項目 | 決定時機 |
-|---|---|
-| 旅行手札原文來源 | 壓縮檔內沒有（docs/re/001）；查驗題以手札條目出題，需使用者提供手冊或手札來源，G6（#7）依此生效 |
-| 軟體世界攻略掃描 | 使用者提供後開 G7（#8） |
+目前沒有。
 
 ## dosgolem 基線
 
@@ -38,11 +37,14 @@ G2（#3）建立後填入 commit、Go 版本與 image ID。
 
 | 檔案 | 狀態 |
 |---|---|
+| `Champions_of_Krynn_Adventurers_Journal.pdf` | 英文手札 32 頁，Journal Entry 1–88；見 [docs/re/002](docs/re/002-reference-sources.md) |
+| `walkthrough/` | 軟體世界第 16、17、18 期攻略掃描 14 張；見 [docs/re/002](docs/re/002-reference-sources.md) |
 | `Champions of Krynn (1990).zip` | 原版 DOS v1.2，入口 `START.EXE`＋`GAME.OVR`（`FBOV`），附 pregenerated party 存檔；見 [docs/re/001](docs/re/001-input-baseline.md) |
 
 ## Glossary
 
 - 克萊恩英豪：本作中文題名，使用者指定。
+- 手札：英文 Adventurer's Journal 的 Journal Entries（1–88），遊戲內以「參見手札 N」引用。_Avoid_：日誌、日記
 - 幽靈騎士：參考專案《Death Knights of Krynn》繁中化，本機 `/home/anr2/cht/golden_box/death_knight_of_krynn/`。
 - cok：本作遊戲短名，用於 dosgolem `apps/cok/` 與程式識別。
 - dkk：幽靈騎士的遊戲短名；`dosgolem/dkk` 是本作 dosgolem clone 的起點分支。

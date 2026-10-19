@@ -31,8 +31,6 @@
 | 發行包 | 三平台（Linux AppImage、Windows zip、macOS universal zip）；可散布 patch 分原版、原版＋HD 兩包；本機另出完整版，不散布 |
 | 截圖入 repo | README 展示用的中文化截圖放 `docs/screenshots/`（private repo）；其他截圖只留 `workplace/`。轉公開前與其他原版素材一併審查 |
 
-手札與查驗題兩條要等 G1 確認原文來源後才生效（第 3 節）。
-
 儲存庫轉公開、公開 Release、上傳原版素材、加入協作者、改動其他專案、推送 dosgolem 上游
 及破壞性操作，另行取得授權。
 
@@ -78,10 +76,11 @@
 | 檔案 | 用途 | 狀態 |
 |---|---|---|
 | `Champions of Krynn (1990).zip` | 原版 DOS 遊戲 | 內容、EXE 名、版本待 G1 盤點 |
-| 軟體世界攻略掃描圖 | 攻略面板與地圖疊層 | 待使用者提供，放 `walkthrough/` |
+| `Champions_of_Krynn_Adventurers_Journal.pdf` | 英文旅行手札（手札入遊戲、查驗題） | 使用者 2026-10-19 提供，見 `docs/re/002` |
+| `walkthrough/` | 軟體世界第 16–18 期攻略掃描，攻略面板與地圖疊層 | 使用者 2026-10-19 提供，見 `docs/re/002` |
 
-- 本作沒有中文手冊。手冊、旅行手札與查驗題的英文原文來源由 G1 確認；壓縮檔內沒有時向
-  使用者索取，不從網路自行補抓後當成正式來源。
+- 本作沒有中文手冊。旅行手札以英文 Adventurer's Journal 自譯，使用者提供的 PDF 為主要來源，
+  mocagh.org 的 SSI 掃描只作校對。
 - `git init` 前先寫 `.gitignore` 排除壓縮檔名、`walkthrough/`、`workplace/` 與 `dist-all/`，
   G1 盤點後再補原版檔案的副檔名。每次 commit 前檢查 staged 清單。
 - 原始壓縮檔保留原位、不覆寫，只在 Docker 內唯讀掛載。解壓、盤點、雜湊與 OCR 產物寫入
