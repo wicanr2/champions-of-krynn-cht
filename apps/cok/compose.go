@@ -97,6 +97,12 @@ func (t *Translator) Lookup(original []byte) (Entry, bool) {
 	if e, ok := t.item(string(original)); ok {
 		return e, true
 	}
+	if e, ok := t.pricedRow(string(original)); ok {
+		return e, true
+	}
+	if e, ok := t.buys(string(original)); ok {
+		return e, true
+	}
 	// 詞組：不以空白結尾、兩詞以上、每段都是介面詞組（例 `Paladine Cleric` 神祇＋職業；規格 004 §2.2）。
 	if s := string(original); !strings.HasSuffix(s, " ") && len(strings.Fields(s)) >= 2 {
 		if e, ok := t.item(s + " "); ok {
@@ -271,4 +277,84 @@ func (t *Translator) item(s string) (Entry, bool) {
 		return Entry{}, false
 	}
 	return Entry{Key: "item", Translation: strings.TrimSpace(b.String())}, true
+}
+
+// 本作商店清單（本專案 docs/re/004 商店盤點）：一列是「品名＋空白補位＋價格」整串印出，例 `Long Sword                   7`；
+// 品名可帶數量前綴（`20 Arrows`）。譯成「長劍＋補位＋7」，價格仍靠右對齊在原欄位。
+var (
+	pricedRowRe = regexp.MustCompile(`^(\S.*?\S) {2,}([0-9]+)$`)
+	quantityRe  = regexp.MustCompile(`^([0-9]+) (.+)$`)
+	buysRe      = regexp.MustCompile(`^(.+?) buys (?:a |an )?(.+?) ?$`)
+)
+
+// goodsName 譯品名：數量前綴置後（「箭矢 20」，依物品名加值置後的原則）。
+func (t *Translator) goodsName(name string) (string, bool) {
+	q := ""
+	if m := quantityRe.FindStringSubmatch(name); m != nil {
+		q, name = m[1], m[2]
+	}
+	var zh string
+	found := false
+	// 數量大於 1 時引擎在詞尾加 s（`20 Arrows`），查不到就試單數
+	for _, n := range []string{name, strings.TrimSuffix(name, "s")} {
+		if e, ok := t.item(n + " "); ok {
+			zh, found = e.Translation, true
+		} else if e, ok := t.exact([]byte(n)); ok {
+			zh, found = strings.TrimSpace(e.Translation), true
+		}
+		if found {
+			break
+		}
+	}
+	if !found {
+		return "", false
+	}
+	if q != "" {
+		zh += " " + q
+	}
+	return zh, true
+}
+
+func (t *Translator) pricedRow(s string) (Entry, bool) {
+	m := pricedRowRe.FindStringSubmatch(s)
+	if m == nil {
+		return Entry{}, false
+	}
+	zh, ok := t.goodsName(m[1])
+	if !ok {
+		return Entry{}, false
+	}
+	cells := len([]rune(s))
+	best := ""
+	for pad := 1; pad <= 2*cells; pad++ {
+		cand := zh + strings.Repeat(" ", pad) + m[2]
+		if n := len(PackHalfWidth([]rune(cand))); n == cells {
+			best = cand
+		} else if n > cells {
+			break
+		}
+	}
+	if best == "" {
+		return Entry{}, false
+	}
+	return Entry{Key: "priced", Translation: best}, true
+}
+
+// buys：`<名字> buys a <物品> `（商店購買訊息）→「<名字>買下<物品>」。名字走名稱表或玩家名音譯，查不到照原文。
+func (t *Translator) buys(s string) (Entry, bool) {
+	m := buysRe.FindStringSubmatch(s)
+	if m == nil {
+		return Entry{}, false
+	}
+	zh, ok := t.goodsName(m[2])
+	if !ok {
+		return Entry{}, false
+	}
+	name := m[1]
+	if t.Players != nil {
+		if e, ok := t.Players.Lookup([]byte(name)); ok {
+			name = e.Translation
+		}
+	}
+	return Entry{Key: "buys", Translation: name + "買下" + zh}, true
 }
