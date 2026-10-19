@@ -1,0 +1,726 @@
+en	zh	category	source	note
+Silvanesti Elf	西維亞內斯提精靈	race	dkk:b05.md	手冊另標 High Elves；a23 表縮寫 SILV. ELVES
+Qualinesti Elf	夸林內斯提精靈	race	dkk:a23.md	另見：夸林內提斯精靈（b05 標題，疑為倒字）；b09、b14 同 a23 寫法
+Half-elf	半精靈	race	dkk:b05.md	
+Mountain Dwarf	高山矮人	race	dkk:b05.md	a23 表縮寫 MTN. DWARVES
+Hill Dwarf	丘陵矮人	race	dkk:b05.md	另見：山陵矮人（a23 表）
+Kender	坎德人	race	dkk:b05.md	另見：坎德族（a23 武器表註）
+Human	人類	race	dkk:b05.md	
+Dwarf	矮人	race	dkk:b05.md	手冊未單獨標英文，取自 Hill Dwarves 等複合詞；b30 又以「矮人」標 Gnome
+Elf	精靈	race	dkk:b05.md	手冊未單獨標英文，取自 Silvanesti Elves 等複合詞
+Gnome	地侏	race	dkk:b37.md	手冊作「小矮人」；現代通行（使用者 2026-10-15 定案）；另見：矮人（b30 標 Gnome，與 Dwarf 同詞）；b37 出現 4 次
+Sage Gnome	地侏賢者	race	dkk:b31.md	手冊作「矮哲人」；比照 Gnome 改現代通行（2026-10-15）；b32、b33 同
+Fighter	戰士	class	dkk:b07.md	
+Cleric	牧師	class	dkk:b07.md	
+Mage	魔法師	class	dkk:b07.md	
+Paladin	聖騎士	class	dkk:b07.md	現代通行譯名（使用者 2026-10-15 定案）；手冊作「遊俠」
+Ranger	遊俠	class	dkk:b05.md	現代通行譯名（使用者 2026-10-15 定案）；手冊作「流浪漢」，另見流浪者
+Thief	賊	class	dkk:b07.md	
+Knight	騎士	class	dkk:b08.md	另見：武士（a11、a21 職業列舉）
+Druid	得魯依	class	dkk:b08.md	手冊作「得魯依法術（Druidic spells）」，不作獨立職業
+Solamnic Knights	索蘭尼克騎士	class	dkk:b08.md	
+Knight of the Crown	皇冠騎士	class	dkk:b08.md	
+Knight of the Sword	聖劍騎士	class	dkk:b08.md	
+Knight of the Rose	玫瑰騎士	class	dkk:b08.md	
+White Robe Mage	白魔法師	class	dkk:b13.md	遊戲 UI 僅 White；陣營善良
+Red Robe Mage	紅魔法師	class	dkk:b13.md	遊戲 UI 僅 Red；陣營中立
+Black Robe Mage	黑魔法師	class	dkk:b13.md	遊戲 UI 僅 Black；陣營邪惡
+Rogue	淘氣法師	class	dkk:b13.md	不屬於任何陣營的魔法師
+Lawful Good	嚴守善良	alignment	dkk:b08.md	手冊只列六種陣營，邪惡三種未收
+Lawful Neutral	嚴守中立	alignment	dkk:b09.md	
+Neutral Good	普通善良	alignment	dkk:b09.md	
+True Neutral	真正中立	alignment	dkk:b09.md	
+Chaotic Good	混亂的善良	alignment	dkk:b09.md	
+Chaotic Neutral	混亂的中立	alignment	dkk:b09.md	
+STR	力量	attribute	dkk:b06.md	
+INT	智慧	attribute	dkk:b06.md	
+WIS	睿智	attribute	dkk:b06.md	
+DEX	敏捷	attribute	dkk:b06.md	a22 表作「敏捷度」，b06 內文多作「敏捷度」
+CON	體質	attribute	dkk:b06.md	
+CHA	魅力	attribute	dkk:b06.md	
+Hit Points	生命力	attribute	dkk:b06.md	手冊縮寫 HP
+HP	生命力	attribute	dkk:b06.md	
+Armor Class	防護力	attribute	dkk:b11.md	手冊縮寫 AC
+AC	防護力	attribute	dkk:b11.md	原文只有 2 格的欄位縮寫為「防護」
+THAC0	攻擊命中率	attribute	dkk:b11.md	手冊拼作 THACO（字母 O）；遊戲拼作 THAC0（數字 0）
+Damage	傷害力	attribute	dkk:b11.md	
+Experience	經驗	attribute	dkk:b06.md	手冊縮寫 XP；常作「經驗點數」（a11）
+Level	等級	attribute	dkk:b06.md	情境：人物等級。Alter 選單的 Level 為「遊戲困難度」（a14）
+Encumbrance	負重	attribute	dkk:a15.md	a15 為圖示標註；英文對照與「人物所背負的重量」說明在 a16
+Movement	移動力	attribute	dkk:a15.md	
+Status	人物狀況	attribute	dkk:a15.md	
+Saving Throw	閃避率	attribute	dkk:b13.md	
+XP	經驗	attribute	dkk:b06.md	縮寫；遊戲欄位作 Experience
+Paladine	帕拉丁	deity	dkk:b14.md	b36 作「帕拉丁神」
+Majere	馬傑里	deity	dkk:b14.md	
+Kiri-Jolith	基瑞尤里斯	deity	dkk:b14.md	
+Mishakal	米夏凱爾	deity	dkk:b14.md	
+Sirrion	西里恩	deity	dkk:b14.md	
+Reorx	李歐克斯	deity	dkk:b14.md	所有矮人牧師必須選他為神祇
+Shinare	希奈爾	deity	dkk:b09.md	另見：希涅爾（b14）；希奈爾出現 2 次、希涅爾 1 次
+Takhisis	塔克西絲	deity	dkk:b31.md	另見：塔克西斯（b24）；塔克西絲出現 2 次、塔克西斯 1 次
+Dark Queen	黑暗之后	deity	dkk:b31.md	手冊作「黑暗之后塔克西絲（Takhisis, the Dark Queen）」；ECL 劇情與 UI 字串未見，英文取自手冊
+Soth	索斯	person	dkk:b03.md	
+Lord Soth	索斯王	person	dkk:b28.md	另見：索斯領主（b04）；索斯王出現 9 次
+Karl	卡爾	person	dkk:b03.md	
+Sir Karl	卡爾爵士	person	dkk:b03.md	
+Sir Thom	湯爵士	person	dkk:b29.md	
+Thom Govamont	湯高凡蒙	person	dkk:b29.md	玫瑰騎士；ECL 劇情與 UI 字串未見，英文取自手冊
+Maya	瑪雅	person	dkk:b03.md	銀龍
+Garren	卡倫	person	dkk:b33.md	
+Sebas	喜巴	person	dkk:b28.md	b34 標題誤作 Seba
+Sebas Astmoor	喜巴阿斯蒙	person	dkk:b28.md	
+Skomp	史高	person	dkk:b28.md	
+Kai	凱	person	dkk:b29.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Daine	戴安	person	dkk:b29.md	
+Major Tems	提姆少校	person	dkk:b29.md	
+Ariela	亞莉拉	person	dkk:b29.md	原書錯字：b39 手札62 作「亞莉拉（riela）」，缺首字母 A
+Durfey	達飛	person	dkk:b32.md	
+Lenore	莉諾	person	dkk:b32.md	真名 Erline
+Erline	愛琳	person	dkk:b39.md	莉諾的真名
+Kitiara	姬蒂拉	person	dkk:b32.md	
+Igorf	艾高	person	dkk:b33.md	
+Zakarie	查卡利	person	dkk:b37.md	
+Loring	羅林	person	dkk:b35.md	手冊作「老羅林」，掘墳工人；ECL 劇情與 UI 字串未見，英文取自手冊
+Denissa	迪妮莎	person	dkk:b33.md	
+Sir Vansward	范士佛爵士	person	dkk:b36.md	
+Ruffian	魯飛	person	dkk:b36.md	手札44「魯飛（Ruffian）的地圖」，是否為人名手冊未明說；ECL 劇情與 UI 字串未見，英文取自手冊
+Quartzberkl	夸茲貝克	person	dkk:b30.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Quax	夸克	person	dkk:b31.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Quizmarxomatix	奎茲馬索梅提斯	person	dkk:b37.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Myrtani	麥坦尼	person	dkk:b03.md	
+Dream Merchant	夢幻商人	person	dkk:b28.md	手冊未附英文，英文依 ECL 劇情
+Fortune Teller	算命者	person	dkk:b34.md	
+Commander	指揮官	person	dkk:b32.md	
+Ansalon	安塞隆	place	dkk:b04.md	
+Krynn	克萊恩	place	dkk:b35.md	
+Kalaman	卡拉瑪	place	dkk:b04.md	b29 等作「卡拉瑪城」
+Vingaard	敏加堡	place	dkk:b04.md	
+Dulcimer	達西默	place	dkk:b04.md	另見：西默（b34「到達西默」，疑漏字）
+Quazle	夸羅村	place	dkk:b04.md	手冊連同「村」字
+Cerberus	塞普路斯	place	dkk:b32.md	另見：塞普魯斯（b04）；塞普路斯出現 6 次
+Cekos	茄克村	place	dkk:b33.md	原文為 village，改「村」（使用者 2026-10-15 定案）；手冊作「茄克市」
+Throtl	斯拉托	place	dkk:b04.md	僅見 b04 地圖標示
+Turef	托雷鎮	place	dkk:b04.md	手冊連同「鎮」字
+Dargaard	達加德	place	dkk:b04.md	b04 作「達加德城」
+Dargaard Keep	達加德城堡	place	dkk:b40.md	
+Dargaard Mountain	達加德山	place	dkk:b28.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Gargath	蓋加斯	place	dkk:b03.md	a12 另作「加卡」
+Gargath Outpost	蓋加斯屯墾區	place	dkk:b03.md	另見：加卡屯墾區（a12）；Outpost 手冊皆作「屯墾區」
+High Clerist's Tower	大牧師塔	place	dkk:b33.md	另見：大教堂（b04 地圖標示，英文作 High Clerist Tower）
+Voice Wood	回音森林	place	dkk:b28.md	
+Sudulto	蘇達托	place	dkk:b29.md	另見：蘇杜托（b29 標題、b32）；蘇達托出現 5 次、蘇杜托 2 次；ECL 劇情與 UI 字串未見，英文取自手冊
+Oubliette	土牢	place	dkk:b39.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Kernen	科南	place	dkk:b03.md	科南之役
+Hall	檢閱廳	place	dkk:a13.md	b36 地圖標示同
+Commandant	指揮官辦公室	place	dkk:a18.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Bazaar	市場	place	dkk:b36.md	另見：市集（a18 標題）；市場出現 8 次、市集 3 次
+Shop	商店	place	dkk:a18.md	
+Temple	神廟	place	dkk:a18.md	另見：教堂（b36 地圖標示）
+Bank	銀行	place	dkk:a18.md	
+Inn	旅店	place	dkk:a13.md	另見：旅館（b36 地圖標示）
+Tavern	酒店	place	dkk:b36.md	b36 地圖標示
+Guards	守衛室	place	dkk:b36.md	b36 地圖標示
+Outpost	屯墾區	place	dkk:a12.md	
+Dragon	龍族	monster	dkk:b23.md	
+Undead	不死怪物	monster	dkk:b26.md	手冊無單獨英文標註，取自 Beast, Undead 等；另見：不死族（b23、b31）
+Undead Beast	不死野獸	monster	dkk:b23.md	手冊索引寫法 Beast, Undead
+Death Knight	死亡騎士	monster	dkk:b23.md	
+Black Dragon	黑龍	monster	dkk:b24.md	手冊索引寫法 Dragon, Black；ECL 劇情與 UI 字串未見，英文取自手冊
+Blue Dragon	藍龍	monster	dkk:b24.md	手冊索引寫法 Dragon, Blue
+Death Dragon	死亡之龍	monster	dkk:b24.md	手冊索引寫法 Dragon, Death
+Red Dragon	紅龍	monster	dkk:b24.md	手冊索引寫法 Dragon, Red
+Silver Dragon	銀龍	monster	dkk:b03.md	
+Spectral Dragon	幽靈龍	monster	dkk:b24.md	手冊索引寫法 Dragon, Spectral；ECL 劇情與 UI 字串未見，英文取自手冊
+Undead Dragon	不死龍	monster	dkk:b24.md	手冊索引寫法 Dragon, Undead
+Dread Wolf	恐狼	monster	dkk:b24.md	手冊作「惡狼」；現代通行（使用者 2026-10-15 定案）
+Fire Lizard	火蜥蜴	monster	dkk:b24.md	手冊作「食火獸」；現代通行（使用者 2026-10-15 定案）；ECL 劇情與 UI 字串未見，英文取自手冊
+Fire Minion	火怪	monster	dkk:b24.md	
+Ghast	妖鬼	monster	dkk:b25.md	手冊作「腐屍怪」；現代通行（使用者 2026-10-15 定案）；ECL 劇情與 UI 字串未見，英文取自手冊
+Ghoul	食屍鬼	monster	dkk:b25.md	手冊作「食屍怪」；現代通行（使用者 2026-10-15 定案）；ECL 劇情與 UI 字串未見，英文取自手冊
+Golem	魔像	monster	dkk:b25.md	手冊作「魔法異形」；現代通行（使用者 2026-10-15 定案）
+Flesh Golem	血肉魔像	monster	dkk:b25.md	手冊作「肉體異形」；現代通行（使用者 2026-10-15 定案）；手冊索引寫法 Golem, Flesh
+Iron Golem	鐵魔像	monster	dkk:b25.md	手冊作「鐵異形」；現代通行（使用者 2026-10-15 定案）；手冊索引寫法 Golem, Iron；ECL 劇情與 UI 字串未見，英文取自手冊
+Hatori	沙鱷	monster	dkk:b25.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Hellhound	地獄獵犬	monster	dkk:b25.md	
+Kuo-Toa	庫奧托亞人	monster	dkk:b28.md	手冊作「庫塔人」；現代通行（使用者 2026-10-15 定案）；原書拼法不一：b25 作 Kua-Toa，b28 作 Kuo-Toa，b30 作 Kuo-Tao；遊戲劇情作 KUO-TOA
+Lich	巫妖	monster	dkk:b25.md	手冊作「鬼王」；現代通行（使用者 2026-10-15 定案）
+Lycanthrope	獸化人	monster	dkk:b25.md	手冊作「變形人」；現代通行（使用者 2026-10-15 定案）；ECL 劇情與 UI 字串未見，英文取自手冊
+Wereboar	野豬人	monster	dkk:b25.md	手冊作「類山豬」；現代通行（使用者 2026-10-15 定案）
+Weretiger	虎人	monster	dkk:b26.md	手冊作「類虎」；現代通行（使用者 2026-10-15 定案）
+Nightmare	夢魘	monster	dkk:b26.md	手冊作「夜魔」；現代通行（使用者 2026-10-15 定案）
+Rhino Beetle	犀牛甲蟲	monster	dkk:b26.md	手冊作「大甲蟲」；現代通行（使用者 2026-10-15 定案）；ECL 劇情與 UI 字串未見，英文取自手冊
+Undead Roc	不死巨鵬	monster	dkk:b26.md	手冊作「不死鳥」；現代通行（使用者 2026-10-15 定案）；手冊索引寫法 Roc, Undead
+Sivak	西維克龍人	monster	dkk:b32.md	另見：西維克人（b34）；b26 條目名 Sivak Draconians
+Draconian	龍人	monster	dkk:b26.md	
+Skeleton	骷髏	monster	dkk:b26.md	
+Skeleton Giant	骷髏巨人	monster	dkk:b26.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Skeleton Warrior	骷髏戰士	monster	dkk:b26.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Spectral Minion	鬼奴	monster	dkk:b26.md	
+Spectre	幽靈	monster	dkk:b26.md	注意與本作題名「幽靈騎士」同字
+Vampire	吸血鬼	monster	dkk:b27.md	
+Vodyanoi	水怪	monster	dkk:b27.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Whisper Spider	低語蜘蛛	monster	dkk:b27.md	手冊作「蜘蛛」；現代通行（使用者 2026-10-15 定案）
+Wight	屍妖	monster	dkk:b27.md	現代通行譯名（使用者 2026-10-15 定案）；手冊作「古靈精怪」
+Wraith	縛靈	monster	dkk:b27.md	手冊作「死靈」；現代通行（使用者 2026-10-15 定案）
+Wyndlass	棘刺怪	monster	dkk:b27.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Zombie	僵屍	monster	dkk:b27.md	
+Zombie Giant	僵屍巨人	monster	dkk:b27.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Zombie Mastodon	僵屍象	monster	dkk:b27.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Zombie Minotaur	僵屍牛頭人	monster	dkk:b27.md	手冊作「人身牛頭僵屍」；現代通行（使用者 2026-10-15 定案）
+Goblin	哥布林	monster	dkk:b04.md	手冊作「妖精」；現代通行（使用者 2026-10-15 定案）
+Hobgoblin	大哥布林	monster	dkk:b04.md	手冊作「鬼怪」；現代通行（使用者 2026-10-15 定案）
+Ogre	食人魔	monster	dkk:b04.md	手冊作「食人族」；現代通行（使用者 2026-10-15 定案）
+Giant	巨人族	monster	dkk:b04.md	手冊作「巨人族（giants）」
+Wand	魔法杖	item	dkk:b15.md	
+Potion	藥劑	item	dkk:b15.md	
+Scroll	卷軸	item	dkk:b15.md	
+Mage Scroll	魔法卷軸	item	dkk:a17.md	
+Solamnic Plate	索蘭尼克鎧甲	item	dkk:b15.md	
+Plate Mail	鎧甲	item	dkk:b08.md	
+Leather Armor	皮甲	item	dkk:b11.md	手冊作「皮甲（leather armor）」
+Bracers	腕甲	item	dkk:b15.md	
+Dragonlance	屠龍槍	item	dkk:b03.md	
+Hoopak	投石杖	item	dkk:b05.md	坎德人專用
+Rod of Omniscience	全知棒	item	dkk:b28.md	
+Sleepstone	夢之石	item	dkk:b29.md	
+Steel	鋼幣	item	dkk:b08.md	手冊未附英文；a21 表把 STEEL PIECES 譯為「金幣」
+Ambush Made Easy	簡易突擊術	item	dkk:b35.md	書名；手冊作「簡易突擊術（Ambush Made Easy）」
+Create New Character	創造新人物	ui	dkk:a11.md	另見：創造人物（a09 初始選單）
+Drop Character	放棄人物	ui	dkk:a11.md	
+Modify Character	調整人物的屬性	ui	dkk:a11.md	
+Train Character	人物訓練	ui	dkk:a11.md	
+Knight Change Order	改變騎士等級	ui	dkk:a11.md	
+View Character	檢視人物資料	ui	dkk:a11.md	
+Add Character to Party	將人物加入隊伍	ui	dkk:a10.md	
+Remove Character from Party	將人物從隊伍中刪除	ui	dkk:a11.md	
+Load Saved Game	載入儲存遊戲	ui	dkk:a10.md	另見：載入儲存的遊戲（a07）
+Save Current Game	儲存目前遊戲進度	ui	dkk:a11.md	
+Begin Adventuring	開始冒險	ui	dkk:a11.md	
+Initialize Mouse/Joystick	啟動滑鼠和搖桿	ui	dkk:a10.md	
+Exit to DOS	離開遊戲	ui	dkk:a11.md	
+Pick Race	選擇種族	ui	dkk:a09.md	
+Pick Gender	選擇性別	ui	dkk:a09.md	
+Pick Class	選擇職業	ui	dkk:a09.md	
+Pick Diety	選擇信仰	ui	dkk:a09.md	遊戲字串拼作 Diety；手冊作 PICK DEITY
+Pick Alignment	選擇陣營	ui	dkk:a09.md	
+Male	男	ui	dkk:a09.md	
+Female	女	ui	dkk:a09.md	
+Move	移動	ui	dkk:a13.md	情境：城內探險選單；戰鬥選單同詞（a19）
+Area	地圖切換	ui	dkk:a13.md	
+Cast	施法	ui	dkk:a13.md	另見：魔法使用（a17 章標題）
+View	檢視人物	ui	dkk:a13.md	
+Encamp	紮營	ui	dkk:a13.md	
+Search	搜尋	ui	dkk:a13.md	
+Look	檢視環境	ui	dkk:a13.md	
+Save	儲存遊戲	ui	dkk:a13.md	
+Magic	魔法	ui	dkk:a14.md	
+Rest	休息	ui	dkk:a14.md	
+Alter	設定	ui	dkk:a14.md	
+Fix	治療	ui	dkk:a14.md	b10 作「恢復 Fix 命令」
+Order	排列次序	ui	dkk:a14.md	
+Icon	人物造形	ui	dkk:a14.md	
+Novice	初學者	ui	dkk:a14.md	
+Squire	隨從	ui	dkk:a14.md	
+Veteran	老手	ui	dkk:a14.md	
+Adept	熟練	ui	dkk:a14.md	
+Champion	優勝者	ui	dkk:a14.md	
+Okay	平安無事	ui	dkk:a15.md	手冊作 OK
+Unconscious	不省人事	ui	dkk:a15.md	
+Dying	垂死	ui	dkk:a15.md	
+Dead	死亡	ui	dkk:a15.md	
+Gone	毀滅	ui	dkk:a15.md	
+Running	逃跑	ui	dkk:a15.md	手冊狀態為 FLED；對應 Running 依遊戲狀態字串順序推定，未實測
+Items	物品	ui	dkk:a16.md	手冊作「物品（[I]tem）」
+Ready	備妥	ui	dkk:b15.md	另見：改變狀態（a16 指令標題）
+Use	使用	ui	dkk:a16.md	
+Trade	交易	ui	dkk:a16.md	
+Drop	丟棄	ui	dkk:a16.md	情境：物品與金錢；Alter 選單的 Drop 為「丟棄隊員」（a14）
+Halve	物品數量分半	ui	dkk:a16.md	
+Join	集合物品	ui	dkk:a16.md	
+Sell	變賣物品	ui	dkk:a16.md	另見：賣出（a18 商店）
+ID	驗証	ui	dkk:a18.md	另見：辨認物品（a16）；手冊用「驗証」，不是「驗證」
+Spells	法術	ui	dkk:a16.md	手冊作「法術（[S]pell）」
+Cure	治病	ui	dkk:a17.md	遊俠專用命令
+Heal	治療	ui	dkk:a18.md	情境：神廟選單與第六級牧師法術（b18）；遊俠命令作「療傷」（a17）
+Memorize	記憶法術	ui	dkk:a17.md	
+Scribe	抄寫法術	ui	dkk:a17.md	
+Display	顯示法術	ui	dkk:a17.md	
+Exit	離開	ui	dkk:a10.md	手冊作「[E]XIT：離開這個項目」
+Buy	購買裝備	ui	dkk:a18.md	
+Take	拾取	ui	dkk:a21.md	
+Pool	集中財物	ui	dkk:a21.md	
+Share	均分	ui	dkk:a21.md	
+Appraise	鑑定	ui	dkk:a18.md	
+Detect	偵測	ui	dkk:a21.md	
+Deposit	存款	ui	dkk:a18.md	
+Withdraw	提款	ui	dkk:a18.md	
+View Balance	查看帳戶	ui	dkk:a18.md	
+Flee	逃跑	ui	dkk:a19.md	
+Attack	攻擊	ui	dkk:a19.md	
+Talk	談話	ui	dkk:a19.md	
+Wait	等待	ui	dkk:a19.md	
+Aim	瞄準	ui	dkk:a19.md	
+Turn	超渡	ui	dkk:a20.md	
+Guard	守衛	ui	dkk:a20.md	
+Quick	電腦控制	ui	dkk:a20.md	
+Delay	延後	ui	dkk:a20.md	
+Bandage	包紮	ui	dkk:a15.md	
+Yell	叫罵	ui	dkk:a20.md	坎德人專用
+Speed	改變遊戲速度	ui	dkk:a20.md	情境：戰鬥選單；Alter 選單的 Speed 為「訊息顯示速度」（a14）
+End	棄權	ui	dkk:a20.md	
+Next	下一個	ui	dkk:a19.md	
+Prev	前一個	ui	dkk:a19.md	
+Manual	手動瞄準	ui	dkk:a20.md	
+Target	選定目標	ui	dkk:a20.md	
+Center	移到畫面中央	ui	dkk:a20.md	
+Play	進入遊戲	ui	dkk:a07.md	手冊作 [P]LAY
+Demo	示範	ui	dkk:a07.md	手冊作 [D]EMO
+Champions	克萊恩英豪	ui	dkk:a10.md	選單項，指《Champions of Krynn》存檔
+Journal Entry	旅行手札	ui	dkk:a12.md	
+Name Character	命名	ui	dkk:a09.md	英文取自手冊 NAME CHARACTER，遊戲字串未核對
+Select Combat Icon	決定戰鬥造形	ui	dkk:a09.md	英文取自手冊 SELECT COMBAT ICON，遊戲字串未核對
+Head	頭部	ui	dkk:a10.md	情境：造形編輯；手冊以說明句「選擇頭部的外形」呈現
+Weapon	武器	ui	dkk:a10.md	情境：造形編輯（外形或顏色）；手冊以說明句呈現
+Body	身體	ui	dkk:a10.md	情境：造形編輯；手冊以說明句「選擇身體的顏色」呈現
+Hair	頭髮	ui	dkk:a10.md	情境：造形編輯；手冊以說明句呈現
+Shield	盾牌	ui	dkk:a10.md	情境：造形編輯；與法術 Shield（魔法盾牌）同字
+Arm	手臂	ui	dkk:a10.md	情境：造形編輯；手冊以說明句呈現
+Leg	腳部	ui	dkk:a10.md	情境：造形編輯；手冊以說明句呈現
+Size	大小	ui	dkk:a10.md	情境：造形編輯；手冊作「設定人物造形的大小」
+Keep	保留	ui	dkk:a10.md	造形編輯、賣出等選單；手冊作「加以保留」
+Word	字數	ui	dkk:a12.md	密碼輸入提示
+Page	頁數	ui	dkk:a12.md	密碼輸入提示
+Answer	答案	ui	dkk:a12.md	密碼輸入提示
+Magic-User	魔法師法術	spell	dkk:a17.md	
+Special	特殊法術	spell	dkk:a17.md	
+Cleric Spells	牧師法術	spell	dkk:b16.md	
+Mage Spells	魔法師法術	spell	dkk:a17.md	b16 標題作「魔法（Mage Spells）」
+Druid Spells	得魯依法術	spell	dkk:b16.md	
+1st Level	第一級	spell	dkk:b16.md	
+2nd Level	第二級	spell	dkk:b16.md	
+3rd Level	第三級	spell	dkk:b17.md	
+4th Level	第四級	spell	dkk:b17.md	
+5th Level	第五級	spell	dkk:b17.md	
+6th Level	第六級	spell	dkk:b18.md	
+7th Level	第七級	spell	dkk:b18.md	
+8th Level	第八級	spell	dkk:b22.md	
+Bless	祝福術	spell	dkk:b16.md	
+Cure Light Wounds	治療輕傷	spell	dkk:b16.md	另見：醫治輕傷（b18 得魯依法術）
+Detect Magic	搜尋魔法物品	spell	dkk:b16.md	另見：偵測魔法（a21）
+Protection From Evil	免受邪惡傷害	spell	dkk:b16.md	另見：不受邪惡傷害（b19 魔法師法術、b17、b14）；兩種寫法並見，b16 牧師條目作免受
+Resist Cold	抗凍術	spell	dkk:b16.md	
+Find Traps	搜尋陷阱	spell	dkk:b16.md	
+Hold Person	束縛術	spell	dkk:b16.md	牧師可縛 3 名，白魔法師可縛 4 名（b20）
+Resist Fire	抗火術	spell	dkk:b16.md	
+Silence, 15' Radius	半徑15呎的沉靜術	spell	dkk:b16.md	另見：半徑15呎內的沉靜術（b14）；手冊拼作 Silence 15' Radius
+Silence 15' radius	半徑15呎的沉靜術	spell	dkk:b16.md	同上，遊戲另一處無逗號字串
+Slow Poison	緩毒術	spell	dkk:b17.md	
+Snake Charm	蛇魅術	spell	dkk:b17.md	
+Spiritual Hammer	心靈之槌	spell	dkk:b17.md	
+Cure Blindness	醫治失明	spell	dkk:b17.md	
+Cure Disease	醫治疾病	spell	dkk:b17.md	另見：治療疾病（a14）
+Dispel Magic	解除法術	spell	dkk:b17.md	
+Prayer	祈禱	spell	dkk:b17.md	
+Remove Curse	解除詛咒	spell	dkk:b17.md	「詛咒」為現代通行字（使用者 2026-10-15 定案）；手冊作「解除咀咒」，另見去除咀咒
+Cure Serious Wounds	治療重傷	spell	dkk:b17.md	
+Neutralize Poison	中和毒性	spell	dkk:b17.md	
+Protection Evil, 10' Radius	半徑10呎內不受邪惡傷害	spell	dkk:b17.md	牧師第4級；遊戲字串漏 From；b14 作「半徑十呎內不受邪惡侵害」
+Protection From Evil, 10' Radius	半徑10呎內免受邪惡傷害	spell	dkk:b20.md	魔法師第3級（白魔法師）；牧師版見上列
+Protection From Evil 10' Radius	半徑10呎內不受邪惡傷害	spell	dkk:b17.md	遊戲另一處無逗號字串，歸屬牧師或魔法師版未核對
+Sticks to Snakes	弄蛇術	spell	dkk:b17.md	
+Cure Critical Wounds	治療致命傷	spell	dkk:b17.md	
+Dispel Evil	解除邪惡	spell	dkk:b17.md	
+Raise Dead	復活術	spell	dkk:b17.md	
+Restoration	恢復術	spell	dkk:b18.md	
+Ressurection	完全復活術	spell	dkk:b18.md	遊戲字串拼作 Ressurection；手冊拼作 Resurrection
+Entangle	糾纏	spell	dkk:b18.md	
+Faerie Fire	魔光	spell	dkk:b18.md	
+Invisibility to Animals	對動物隱形	spell	dkk:b18.md	
+Barkskin	硬皮術	spell	dkk:b18.md	
+Charm Person/Mammal	迷惑人類或哺乳動物	spell	dkk:b18.md	手冊內文作 Charm Person or Mammal
+Burning Hands	燃燒的手	spell	dkk:b18.md	另見：火掌術（b14 西里恩額外法術）；兩處各 1 次，依法術說明章為準
+Charm Person	迷惑術	spell	dkk:b18.md	
+Enlarge	巨大術	spell	dkk:b19.md	
+Friends	友好術	spell	dkk:b19.md	
+Magic Missile	魔法飛彈	spell	dkk:b19.md	
+Read Magic	閱讀魔法	spell	dkk:b19.md	另見：展讀法術（a17）
+Shield	魔法盾牌	spell	dkk:b19.md	
+Shocking Grasp	電擊術	spell	dkk:b19.md	
+Sleep	催眠術	spell	dkk:b19.md	
+Detect Invisibility	搜尋隱形物品	spell	dkk:b19.md	
+Invisibility	隱形術	spell	dkk:b19.md	
+Knock	踢開術	spell	dkk:b19.md	
+Mirror Image	幻影術	spell	dkk:b19.md	
+Ray of Enfeeblement	衰弱術	spell	dkk:b20.md	
+Stinking Cloud	臭雲術	spell	dkk:b20.md	
+Strength	大力術	spell	dkk:b20.md	
+Blink	閃爍術	spell	dkk:b20.md	
+Fireball	火球	spell	dkk:b20.md	另見：火球術（b23 死亡騎士條目）
+Haste	加倍術	spell	dkk:b20.md	
+Invisibility, 10' Radius	半徑10呎內隱形	spell	dkk:b20.md	手冊作 Invisibility 10' Radius
+Lightning Bolt	閃電術	spell	dkk:b20.md	
+Protection From Normal Missiles	免受一般飛彈傷害	spell	dkk:b21.md	
+Slow	緩慢術	spell	dkk:b21.md	
+Bestow Curse	施以詛咒	spell	dkk:b21.md	「詛咒」為現代通行字（使用者 2026-10-15 定案）；手冊作「施以咀咒」
+Charm Monsters	迷惑怪物	spell	dkk:b21.md	手冊拼作 Charm Monster
+Confusion	混淆術	spell	dkk:b21.md	
+Dimension Door	時空之門	spell	dkk:b21.md	
+Fear	恐懼術	spell	dkk:b21.md	
+Fire Shield	防火盾牌	spell	dkk:b21.md	
+Fumble	笨拙術	spell	dkk:b21.md	
+Ice Storm	冰雪風暴	spell	dkk:b21.md	
+Minor Globe Of Invulnerability	小型魔法防護罩	spell	dkk:b21.md	
+Cloud Kill	殺人雲	spell	dkk:b21.md	手冊拼作 Cloudkill
+Cone of Cold	冰錐術	spell	dkk:b22.md	
+Feeblemind	弱智術	spell	dkk:b22.md	
+Fire Touch	火之吻	spell	dkk:b22.md	
+Hold Monsters	怪物束縛術	spell	dkk:b22.md	手冊拼作 Hold Monster
+Iron Skin	鐵皮術	spell	dkk:b22.md	
+Death Spell	死亡法術	spell	dkk:b22.md	
+Disentegrate	分解術	spell	dkk:b22.md	遊戲字串拼作 Disentegrate；手冊拼作 Disintegrate
+Flesh to Stone	化石術	spell	dkk:b22.md	
+Globe Of Invulnerability	魔法防護罩	spell	dkk:b22.md	
+Stone to Flesh	化石還原術	spell	dkk:b22.md	
+Delay Blast Fireball	延時爆發火球	spell	dkk:b22.md	手冊作 Delayed Blast Fireball；a29 表作 Delayed Blast Fire Ball
+Mass Invisibility	多人隱形術	spell	dkk:b22.md	
+Power Word Stun	暈迷術	spell	dkk:b22.md	手冊作 Power Word, Stun
+Mass Charm	多人迷惑術	spell	dkk:b22.md	
+Mind Blank	心靈防護術	spell	dkk:b22.md	
+Otto's Irresitable Dance	無法抗拒的舞蹈	spell	dkk:b22.md	遊戲字串拼作 Irresitable；手冊作 Otto's Irresistible Dance
+Power Word Blind	失明術	spell	dkk:b23.md	手冊作 Power Word, Blind
+Solinari	所歷納利	other	dkk:b13.md	白色月亮，影響白魔法師；ECL 劇情與 UI 字串未見，英文取自手冊
+Lunitari	魯勒泰利	other	dkk:b13.md	紅色月亮，影響紅魔法師；ECL 劇情與 UI 字串未見，英文取自手冊
+Nuitari	魯依泰利	other	dkk:b13.md	黑色月亮，影響黑魔法師；ECL 劇情與 UI 字串未見，英文取自手冊
+Sir	爵士	other	dkk:b03.md	
+Cataclysm	大洪水	other	dkk:b33.md	ECL 劇情與 UI 字串未見，英文取自手冊
+Non-Player Character	非玩者人物	other	dkk:a12.md	
+NPC	特殊隊員	other	dkk:b08.md	另見：非玩者人物（a10、a12）；特殊隊員出現 4 次、非玩者人物 3 次；a 系列操作手冊多直接寫 NPC
+Champions of Krynn	克萊恩英豪	other	dkk:a07.md	
+Death Knights of Krynn	幽靈騎士	other	dkk:a01.md	本作中文題名
+Turn Undead	超渡術	other	dkk:b14.md	手冊拼作 Turn Undeath（Undead 之誤）；馬傑里牧師的力量，與戰鬥選單 Turn 同為「超渡」
+Gaardsen	蓋德森	person	dkk:	新詞（試作批音譯）；全名 Sir Karl Gaardsen 譯「卡爾蓋德森爵士」
+Faeries	仙子	monster	dkk:b37.md	新詞；手冊 b37 作「小仙子」；Fairies 同
+Father of Trees	樹之父	other	dkk:	新詞（試作批意譯）
+Throtl Keep	斯拉托城堡	place	dkk:	新詞（試作批音譯）
+Sturm Brightblade	史東·布萊特布萊德	person	dkk:translation	新詞，2026-10-15 收斂；使用者 2026-10-15 定案；間隔號 U+00B7；取代異譯：史東光刃、史東姆光刃
+Sturm	史東	person	dkk:translation	新詞，2026-10-15 收斂；使用者 2026-10-15 定案；取代異譯：史圖姆、史東姆
+Dave	戴夫	person	dkk:translation	新詞，2026-10-15 收斂
+Dave's Challenge	戴夫的挑戰	place	dkk:translation	新詞，2026-10-15 收斂；疑為開發者彩蛋關卡
+Headley	海德利	person	dkk:translation	新詞，2026-10-15 收斂
+Kal	卡勒	deity	dkk:translation	新詞，2026-10-15 收斂；神名或地名不明；出現於 Temple of Kal 卡勒神廟
+Hylo	海洛	place	dkk:translation	新詞，2026-10-15 收斂
+Ergoth	厄戈斯	place	dkk:translation	新詞，2026-10-15 收斂
+Thom	湯	person	dkk:translation	新詞，2026-10-15 收斂；單獨出現時；Sir Thom 湯爵士
+Armind Cekos	阿明德茄克	person	dkk:translation	新詞，2026-10-15 收斂
+Ayn Rampike	艾茵蘭派克	person	dkk:translation	新詞，2026-10-15 收斂
+Sir Bertil	柏提爾爵士	person	dkk:translation	新詞，2026-10-15 收斂
+Flare	弗萊爾	person	dkk:translation	新詞，2026-10-15 收斂；紅龍名
+Spark	史帕克	person	dkk:translation	新詞，2026-10-15 收斂；紅龍名
+Sir Bregen	布雷根爵士	person	dkk:translation	新詞，2026-10-15 收斂
+Lessiter	萊西特	person	dkk:translation	新詞，2026-10-15 收斂
+Sarah	莎拉	person	dkk:translation	新詞，2026-10-15 收斂
+Sir Michael	麥可爵士	person	dkk:translation	新詞，2026-10-15 收斂
+Marcwestrons	馬克威斯壯	person	dkk:translation	新詞，2026-10-15 收斂
+Fromm	弗洛姆	person	dkk:translation	新詞，2026-10-15 收斂；店面招牌 LOCKSMITH FROMM
+Luff	勒夫	person	dkk:translation	新詞，2026-10-15 收斂；店面招牌 LUFF'S TAVERN
+Gluten	葛魯騰	person	dkk:translation	新詞，2026-10-15 收斂
+Throtl Vault	斯拉托地窖	place	dkk:translation	新詞，2026-10-15 收斂；Vault 用途不明暫譯；銀行 vault 譯金庫，墓穴 vault 依語境
+Dragon Pit	龍坑	place	dkk:translation	新詞，2026-10-15 收斂
+Whistling Whale Inn	嘯鯨旅店	place	dkk:translation	新詞，2026-10-15 收斂；招牌
+Golden Hay Inn	金乾草旅店	place	dkk:translation	新詞，2026-10-15 收斂
+Muddy Straw Inn	泥濘稻草旅店	place	dkk:translation	新詞，2026-10-15 收斂
+Clear Glass Tavern	清澈玻璃酒店	place	dkk:translation	新詞，2026-10-15 收斂
+Muddy Plate Tavern	泥濘盤子酒店	place	dkk:translation	新詞，2026-10-15 收斂
+Oddities and Collectibles	珍奇古玩	place	dkk:translation	新詞，2026-10-15 收斂；店名；取代異譯：奇珍異物與收藏品
+Bout Hall	競技廳	place	dkk:translation	新詞，2026-10-15 收斂；BOUT 取比賽之意
+Hall of Innovation	創新廳	place	dkk:translation	新詞，2026-10-15 收斂
+Sage Gnome Guild	地侏賢者公會	place	dkk:translation	手冊作「矮哲人」；比照 Gnome 改現代通行（2026-10-15）；新詞，2026-10-15 收斂
+Medical Guild	醫療公會	place	dkk:translation	新詞，2026-10-15 收斂
+Education Guild	教育公會	place	dkk:translation	新詞，2026-10-15 收斂
+Military Weapons and Planning Guild	軍事武器暨規劃公會	place	dkk:translation	新詞，2026-10-15 收斂
+Grand Council of Bureaucracy	官僚大議會	other	dkk:translation	新詞，2026-10-15 收斂
+Council of Knights	騎士議會	other	dkk:translation	新詞，2026-10-15 收斂；Knight's Council 同
+Farmer's Market	農夫市場	place	dkk:translation	新詞，2026-10-15 收斂；Farmer's Bazaar 同
+Common Garden	公共菜園	place	dkk:translation	新詞，2026-10-15 收斂；取代異譯：公共花園
+Town Hall	市政廳	place	dkk:translation	新詞，2026-10-15 收斂
+Armory	武器庫	place	dkk:translation	新詞，2026-10-15 收斂；取代異譯：軍械庫
+Pub	酒館	place	dkk:translation	新詞，2026-10-15 收斂；Bar 同；Tavern 仍為酒店
+Bar	酒館	place	dkk:translation	新詞，2026-10-15 收斂；取代異譯：酒吧
+Pavilion	營帳	place	dkk:translation	新詞，2026-10-15 收斂
+Alcove	壁龕	place	dkk:translation	新詞，2026-10-15 收斂
+Stocks	木枷	item	dkk:translation	新詞，2026-10-15 收斂；取代異譯：示眾枷
+Portcullis	吊閘	item	dkk:translation	新詞，2026-10-15 收斂
+Priest	祭司	class	dkk:translation	新詞，2026-10-15 收斂；Cleric 仍為牧師；取代異譯：牧師（TOWN PRIEST）
+Priestess	女祭司	class	dkk:translation	新詞，2026-10-15 收斂
+Sorcerer	術士	class	dkk:translation	新詞，2026-10-15 收斂
+Herbalist	草藥師	person	dkk:translation	新詞，2026-10-15 收斂
+Innkeeper	旅店老闆	person	dkk:translation	新詞，2026-10-15 收斂
+Tavernkeeper	酒店老闆	person	dkk:translation	新詞，2026-10-15 收斂；Tavern Keeper 同
+Mayor	鎮長	person	dkk:translation	新詞，2026-10-15 收斂
+Aides	隨從	person	dkk:translation	新詞，2026-10-15 收斂；取代異譯：侍從
+Lady	女士	other	dkk:translation	新詞，2026-10-15 收斂
+Imposter	冒牌貨	other	dkk:translation	新詞，2026-10-15 收斂
+Beast Master	馴獸師	person	dkk:translation	新詞，2026-10-15 收斂
+Dragonarmy	龍軍	other	dkk:translation	新詞，2026-10-15 收斂
+Oath and Measure	誓言與準則	other	dkk:translation	新詞，2026-10-15 收斂；索蘭尼克騎士的守則
+Geas	咒縛	other	dkk:translation	新詞，2026-10-15 收斂；取代異譯：魔咒
+Password	口令	other	dkk:translation	新詞，2026-10-15 收斂
+Copper Dragon	銅龍	monster	dkk:translation	新詞，2026-10-15 收斂
+Carrion Snake	食腐蛇	monster	dkk:translation	新詞，2026-10-15 收斂
+Sprite	小精靈	monster	dkk:translation	新詞，2026-10-15 收斂
+Phylactery	命匣	item	dkk:translation	新詞，2026-10-15 收斂
+Amulet	護身符	item	dkk:translation	新詞，2026-10-15 收斂
+Staff	法杖	item	dkk:translation	新詞，2026-10-15 收斂；Wand 魔法杖另列
+Orb	寶珠	item	dkk:translation	新詞，2026-10-15 收斂
+Meteor	隕石	item	dkk:translation	新詞，2026-10-15 收斂；Meteorite 同
+Wand of Tree Healing	樹木治療魔法杖	item	dkk:translation	新詞，2026-10-15 收斂
+Necklace of Revante	瑞凡特項鍊	item	dkk:translation	新詞，2026-10-15 收斂；Revante 音譯
+Tracker-Clicker	追蹤喀嗒器	item	dkk:translation	新詞，2026-10-15 收斂；地侏發明
+Rutabaga	蕪菁甘藍	item	dkk:translation	新詞，2026-10-15 收斂
+Asparagus	蘆筍	item	dkk:translation	新詞，2026-10-15 收斂
+Broccoli	青花菜	item	dkk:translation	新詞，2026-10-15 收斂
+Rod	全知棒	item	dkk:translation	新詞，2026-10-15 收斂；劇情中單稱 THE ROD 指 Rod of Omniscience；取代異譯：杖、棒子
+Tavern Tale	酒店傳聞	ui	dkk:translation	新詞，2026-10-15 收斂；取代異譯：酒館傳聞
+Protection From Good	免受善良傷害	spell	dkk:translation	新詞，2026-10-15 收斂；比照 Protection From Evil
+Cause Disease	引發疾病	spell	dkk:translation	新詞，2026-10-15 收斂；Cure Disease 的反轉
+Cause Blindness	引發失明	spell	dkk:translation	新詞，2026-10-15 收斂；取代異譯：造成失明
+Hot Fire Shield	熱火盾牌	spell	dkk:translation	新詞，2026-10-15 收斂；Fire Shield 變體
+Cold Fire Shield	冷火盾牌	spell	dkk:translation	新詞，2026-10-15 收斂；Fire Shield 變體
+Reduce	縮小術	spell	dkk:translation	新詞，2026-10-15 收斂
+Harm	傷害術	spell	dkk:translation	新詞，2026-10-15 收斂
+Poison	毒術	spell	dkk:translation	新詞，2026-10-15 收斂
+Flame Strike	火焰打擊	spell	dkk:translation	新詞，2026-10-15 收斂
+Slay Living	殺生術	spell	dkk:translation	新詞，2026-10-15 收斂
+Camouflaged	偽裝	ui	dkk:translation	新詞，2026-10-15 收斂；狀態
+Displaced	位移	ui	dkk:translation	新詞，2026-10-15 收斂；狀態；取代異譯：移位
+Displacement	位移	item	dkk:translation	新詞，2026-10-15 收斂
+Animated	活化	ui	dkk:translation	新詞，2026-10-15 收斂；狀態，指被魔法驅動的不死者
+Grimoire	法術書	ui	dkk:translation	新詞，2026-10-15 收斂
+Lawful Evil	嚴守邪惡	alignment	dkk:translation	新詞，2026-10-15 收斂；依 Lawful Good 類推
+Neutral Evil	普通邪惡	alignment	dkk:translation	新詞，2026-10-15 收斂；依 Neutral Good 類推
+Chaotic Evil	混亂的邪惡	alignment	dkk:translation	新詞，2026-10-15 收斂；依 Chaotic Good 類推
+Bronze	青銅幣	item	dkk:translation	新詞，2026-10-15 收斂
+Platinum	白金幣	item	dkk:translation	新詞，2026-10-15 收斂
+Learn	學習	ui	dkk:translation	新詞，2026-10-15 收斂
+Gems	寶石	ui	dkk:translation	新詞，2026-10-15 收斂
+Jewelry	珠寶	ui	dkk:translation	新詞，2026-10-15 收斂
+Parts	部位	ui	dkk:translation	新詞，2026-10-15 收斂
+Face	臉部	ui	dkk:translation	新詞，2026-10-15 收斂
+9th Level	第九級	spell	dkk:translation	新詞，2026-10-15 收斂
+Battle Axe	戰斧	item	dkk:translation	新詞，2026-10-15 收斂
+Hand Axe	手斧	item	dkk:translation	新詞，2026-10-15 收斂
+Club	棍棒	item	dkk:translation	新詞，2026-10-15 收斂
+Dagger	匕首	item	dkk:translation	新詞，2026-10-15 收斂
+Dart	飛鏢	item	dkk:translation	新詞，2026-10-15 收斂
+Hammer	鐵錘	item	dkk:translation	新詞，2026-10-15 收斂
+Javelin	標槍	item	dkk:translation	新詞，2026-10-15 收斂
+Mace	釘頭錘	item	dkk:translation	新詞，2026-10-15 收斂
+Morning Star	晨星錘	item	dkk:translation	新詞，2026-10-15 收斂
+Military Pick	軍用鎬	item	dkk:translation	新詞，2026-10-15 收斂
+Awl Pike	錐矛	item	dkk:translation	新詞，2026-10-15 收斂
+Quarrel	弩箭	item	dkk:translation	新詞，2026-10-15 收斂
+Scimitar	彎刀	item	dkk:translation	新詞，2026-10-15 收斂
+Spear	長矛	item	dkk:translation	新詞，2026-10-15 收斂
+Quarter Staff	長棍	item	dkk:translation	新詞，2026-10-15 收斂
+Bastard Sword	手半劍	item	dkk:translation	新詞，2026-10-15 收斂
+Broad Sword	寬刃劍	item	dkk:translation	新詞，2026-10-15 收斂
+Long Sword	長劍	item	dkk:translation	新詞，2026-10-15 收斂
+Short Sword	短劍	item	dkk:translation	新詞，2026-10-15 收斂
+Two-Handed Sword	雙手劍	item	dkk:translation	新詞，2026-10-15 收斂
+Trident	三叉戟	item	dkk:translation	新詞，2026-10-15 收斂
+Composite Long Bow	複合長弓	item	dkk:translation	新詞，2026-10-15 收斂
+Composite Short Bow	複合短弓	item	dkk:translation	新詞，2026-10-15 收斂
+Long Bow	長弓	item	dkk:translation	新詞，2026-10-15 收斂
+Short Bow	短弓	item	dkk:translation	新詞，2026-10-15 收斂
+Light Crossbow	輕弩	item	dkk:translation	新詞，2026-10-15 收斂
+Sling	投石索	item	dkk:translation	新詞，2026-10-15 收斂
+Arrow	箭	item	dkk:translation	新詞，2026-10-15 收斂
+Flail	連枷	item	dkk:translation	新詞，2026-10-15 收斂
+Halberd	戟	item	dkk:translation	新詞，2026-10-15 收斂
+Ring	戒指	item	dkk:translation	2026-10-16 改：單獨的 Ring 是戒指；Ring Mail 另收詞組「環甲」（物品名逐詞拼接，貪婪先取詞組）
+Scale	鱗甲	item	dkk:translation	新詞，2026-10-15 收斂
+Chain	鎖甲	item	dkk:translation	新詞，2026-10-15 收斂
+Banded	帶甲	item	dkk:translation	新詞，2026-10-15 收斂
+Elven Chain	精靈鎖甲	item	dkk:translation	新詞，2026-10-15 收斂
+Mail	甲	item	dkk:translation	新詞，2026-10-15 收斂；後綴
+Armor	護甲	item	dkk:translation	新詞，2026-10-15 收斂
+Helm	頭盔	item	dkk:translation	新詞，2026-10-15 收斂
+Belt	腰帶	item	dkk:translation	新詞，2026-10-15 收斂
+Robe	長袍	item	dkk:translation	新詞，2026-10-15 收斂
+Cloak	斗篷	item	dkk:translation	新詞，2026-10-15 收斂
+Boots	靴	item	dkk:translation	新詞，2026-10-15 收斂
+Gauntlets	護手	item	dkk:translation	新詞，2026-10-15 收斂
+Girdle	束帶	item	dkk:translation	新詞，2026-10-15 收斂
+Periapt	護符	item	dkk:translation	新詞，2026-10-15 收斂
+Necklace	項鍊	item	dkk:translation	新詞，2026-10-15 收斂
+Mirror	鏡	item	dkk:translation	新詞，2026-10-15 收斂
+Bag	袋	item	dkk:translation	新詞，2026-10-15 收斂
+Holy Water	聖水	item	dkk:translation	新詞，2026-10-15 收斂
+Ruby	紅寶石	item	dkk:translation	新詞，2026-10-15 收斂
+Saphire	藍寶石	item	dkk:translation	新詞，2026-10-15 收斂；原文拼法
+Emerald	綠寶石	item	dkk:translation	新詞，2026-10-15 收斂
+Diamond	鑽石	item	dkk:translation	新詞，2026-10-15 收斂
+Boulder	巨石	item	dkk:translation	新詞，2026-10-15 收斂
+Dragon Breath	龍息	item	dkk:translation	新詞，2026-10-15 收斂
+Hornet's Nest	黃蜂巢	item	dkk:translation	新詞，2026-10-15 收斂
+Elixir Of Youth	青春靈藥	item	dkk:translation	新詞，2026-10-15 收斂
+Eyes Of Charming	魅惑之眼	item	dkk:translation	新詞，2026-10-15 收斂
+Proof vs Poison	抗毒	item	dkk:translation	新詞，2026-10-15 收斂
+Disruption	粉碎	item	dkk:translation	新詞，2026-10-15 收斂
+Ogre Power	食人魔之力	item	dkk:translation	新詞，2026-10-15 收斂；Ogre 改譯食人魔後同步（使用者 2026-10-15 定案）；手冊作「食人族之力」
+Giant Strength	巨人之力	item	dkk:translation	新詞，2026-10-15 收斂
+Frost Giant Strength	霜巨人之力	item	dkk:translation	新詞，2026-10-15 收斂
+Frost Brand	寒霜之刃	item	dkk:translation	新詞，2026-10-15 收斂
+vs Reptiles	對爬蟲類	item	dkk:translation	新詞，2026-10-15 收斂
+Wizardry	巫術	item	dkk:translation	新詞，2026-10-15 收斂
+Berserker	狂戰士	item	dkk:translation	新詞，2026-10-15 收斂
+Vulnerability	易傷	item	dkk:translation	新詞，2026-10-15 收斂
+Paralyzation	麻痺	item	dkk:translation	新詞，2026-10-15 收斂
+Olin's	歐林的	item	dkk:translation	新詞，2026-10-15 收斂；片段
+Footman's	步兵用	item	dkk:translation	新詞，2026-10-15 收斂
+Fine	精良	item	dkk:translation	新詞，2026-10-15 收斂；用途不確定
+Drow	黑暗精靈	race	dkk:translation	新詞，2026-10-15 收斂
+Skel Warrior	骷髏戰士	monster	dkk:translation	遊戲畫面縮寫（Skeleton Warrior），2026-10-15 demo 戰鬥
+Evil Warlord	邪惡軍閥	monster	dkk:translation	新詞，2026-10-15 demo 戰鬥
+Solamnic Knight	索蘭尼克騎士	monster	dkk:translation	戰鬥中的友軍單位名；同 Solamnic Knights
+Chain Mail	鎖甲	item	dkk:translation	2026-10-16 G3b：物品名詞組，避免前綴詞與 Mail 逐詞拼成重複
+Ring Mail	環甲	item	dkk:translation	2026-10-16 G3b：物品名詞組，避免前綴詞與 Mail 逐詞拼成重複
+Scale Mail	鱗甲	item	dkk:translation	2026-10-16 G3b：物品名詞組，避免前綴詞與 Mail 逐詞拼成重複
+Banded Mail	帶甲	item	dkk:translation	2026-10-16 G3b：物品名詞組，避免前綴詞與 Mail 逐詞拼成重複
+Solamnic Plate Mail	索蘭尼克鎧甲	item	dkk:translation	2026-10-16 G3b：物品名詞組，避免與 Mail／Armor 逐詞拼成重複
+Elven Chain Mail	精靈鎖甲	item	dkk:translation	2026-10-16 G3b：物品名詞組，避免與 Mail／Armor 逐詞拼成重複
+Crook Street	惡巷	place	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 b28.md 手札1；journal.zh-TW.tsv 1
+Battle of Kernen	科南之役	other	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Fun House	遊樂迷宮	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Cursed Village	被詛咒的村莊	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Shipwreck	沉船	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Graveyard	墓園	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Foreign Relations guild	外交事務局	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Mechanical Engineering guild	工程師公會	place	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 b33.md 手札27 結尾；journal.zh-TW.tsv 27
+Military Planning guild	軍事規劃公會	place	dkk:hintbook	新詞，2026-10-16 提示書；遊戲譯文兩名並用；另見 Military Weapons and Planning Guild
+Candle Shop	蠟燭店	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Dream Pavilion	夢幻營帳	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Hall of Voice Wood	回音森林大廳	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Throne Room	王座廳	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Guardhouse	守衛所	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Overland	野外地圖	place	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 a12（野外地圖模式）
+Lower Planes	下層位面	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Milo	米洛	person	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Magistrate	行政官	person	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Gravedigger	掘墓人	person	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Vagabond	流浪者	person	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 b33.md 手札28 標題
+City Commander	城市指揮官	person	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Kuo-Toa Monitor	庫奧托亞人監督	monster	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Undead Rat	不死老鼠	monster	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Wrestle	扭打	ui	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Chant	咒語	other	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Chanting	吟誦聲	other	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Ward	結界	other	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Silver	銀幣	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Earring	耳環	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Mace of Disruption	粉碎釘頭錘	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Ring of Protection	防護戒指	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Potion of Speed	速度藥劑	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Potion of Extra Healing	額外治療藥劑	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Potion of Healing	治療藥劑	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Potion of Invisibility	隱形藥劑	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Wand of Fireball	火球魔法杖	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Wand of Lightning	閃電魔法杖	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Wand of Ice Storm	冰雪風暴魔法杖	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Wand of Paralyzation	麻痺魔法杖	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Necklace of Missiles	飛彈項鍊	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Periapt Proof vs Poison	抗毒護符	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Girdle of Frost Giant Strength	霜巨人之力束帶	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Gauntlets of Ogre Power	食人魔之力護手	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Boots of Speed	速度之靴	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Cloak of Displacement	位移斗篷	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Staff Sling	杖投石索	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Dart of the Hornet's Nest	黃蜂巢飛鏢	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Scroll of Protection from Dragon Breath	防龍息卷軸	item	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+White Mage Scroll	白魔法師卷軸	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Red Mage Scroll	紅魔法師卷軸	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Clerical Scroll	牧師卷軸	item	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 b14.md
+Olin's Quarterstaff	歐林的長棍	item	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲詞素組合
+Advanced Dungeons & Dragons	進階龍與地下城	other	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 a01.md,b01.md
+Pool of Radiance	光芒之池	other	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Buck Rogers	巴克羅吉斯	other	dkk:hintbook	新詞，2026-10-16 提示書；同系列拯救地球專案譯名
+Challenge	戴夫的挑戰	place	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Kuo-Toa Slave Ship	庫奧托亞人奴隸船	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Tunnels Beneath Tower	塔下地道	place	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Faerie	仙子	monster	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Skeletal Giant	骷髏巨人	monster	dkk:hintbook	新詞，2026-10-16 提示書；提示書譯名
+Charm Snakes	蛇魅術	spell	dkk:hintbook	新詞，2026-10-16 提示書；同 Snake Charm，提示書拼法
+Training Hall	檢閱廳	place	dkk:hintbook	新詞，2026-10-16 提示書；依手冊 a11.md,a13.md,a18.md
+Council Knight	議會騎士	person	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Knights of Solamnia	索蘭尼克騎士	other	dkk:hintbook	新詞，2026-10-16 提示書；同 Solamnic Knights
+Experience Points	經驗值	other	dkk:hintbook	新詞，2026-10-16 提示書；依遊戲譯文
+Kuo Toa	庫奧托亞人	monster	dkk:translation	遊戲印 KUO TOA（無連字號），同 Kuo-Toa；跨區盤點 2026-10-18
+Kuo Toa Cleric	庫奧托亞人牧師	monster	dkk:translation	遊戲印 KUO TOA CLERIC；手冊沒有，自譯；跨區盤點 2026-10-18
+High Wizard	大魔法師	monster	dkk:translation	遊戲印 HIGH WIZARD；手冊沒有，自譯（Mage 譯魔法師）；跨區盤點 2026-10-18
+Black Wizard	黑魔法師	monster	dkk:hintbook	遊戲印 BLACK WIZARD；同提示書譯文 black wizards；戰鬥盤點 2026-10-18
+Evil Warrior	邪惡戰士	monster	dkk:hintbook	遊戲印 EVIL WARRIOR；同提示書譯文 evil warriors；戰鬥盤點 2026-10-18
+Patriarch	大祭司	monster	dkk:translation	遊戲印 PATRIARCH；手冊沒有，自譯；戰鬥盤點 2026-10-18
+Vampire Mage	吸血鬼魔法師	monster	dkk:translation	遊戲印 VAMPIRE MAGE；手冊沒有，自譯（Vampire 吸血鬼、Mage 魔法師）；小地圖盤點 2026-10-18
+Vampire Cleric	吸血鬼牧師	monster	dkk:translation	遊戲印 VAMPIRE CLERIC；手冊沒有，自譯（Vampire 吸血鬼、Cleric 牧師）；戴夫的挑戰強制觸發 2026-10-18
+Neraka	奈拉卡	place	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Palanthas	帕蘭薩斯	place	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Solamnia	索蘭尼亞	place	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Caramon	卡拉蒙	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Tanis	坦尼斯	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Raistlin	雷斯林	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Flint	佛林特	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Tasslehoff	泰索何夫	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Goldmoon	金月	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Riverwind	河風	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Laurana	羅拉娜	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Gilthanas	吉爾賽那斯	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Tika	提卡	person	zh.wikipedia 龍槍系列小說	2026-10-19 收錄；人名以幽靈騎士術語表優先
+Jelek	傑勒克	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Sanction	桑克申	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Gargath Keep	蓋加斯城堡	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Solace	索拉斯	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Inn of the Last Home	最後家園旅店	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Red Dagger Inn	紅匕首旅店	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Trencher Tavern	木盤酒店	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Tavern of the Crossed Swords	交叉雙劍酒店	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Burial Glen	埋骨谷	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Thieves Guild	盜賊公會	place	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Skyla	斯凱拉	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Mysellia	米瑟莉亞	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Jerboam	傑羅波安	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Jarlkrand	賈爾克蘭德	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Wilgarten	威加滕	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Sir Lebaum	勒鮑姆爵士	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Sir Mathias	馬提亞斯爵士	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Sir Dargaard	達加德爵士	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Larcent Strangbourn	拉森特·史川朋	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Strangbourn	史川朋	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Kildirf	基爾迪夫	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Huerzyd	胡爾齊德	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Duerghast	杜爾加斯特	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Horgathindorn	霍加辛多恩	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Gusmarken	古斯馬肯	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Habbakuk	哈巴庫克	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Brachala	布拉卡拉	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Gravnak	葛拉夫納克	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Morog	莫洛格	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Jadefang	玉牙	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Tas	泰斯	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Prison Lord	獄主	person	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Baaz	巴茲龍人	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Kapak	卡帕克龍人	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Aurak	奧拉克龍人	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Mobat	魔蝠	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Minotaur	牛頭人	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Green Dragon	綠龍	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+White Dragon	白龍	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Gold Dragon	金龍	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Brass Dragon	黃銅龍	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Shadowpeople	影人	monster	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Windcaptain	御風官	other	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Good Armies	善方軍隊	other	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Cause Light Wounds	引發輕傷	spell	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Cause Serious Wounds	引發重傷	spell	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Cause Critical Wounds	引發致命傷	spell	translation-cok	新詞，2026-10-19 全量翻譯收斂
+Animate Dead	活化死者	spell	translation-cok	新詞，2026-10-19 全量翻譯收斂
