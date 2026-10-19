@@ -95,3 +95,10 @@
 - 抽斯拉托、蓋加斯（只到城門）、桑克申。補 8 個怪物名、本作背後攻擊模板、`compose.go` 數量＋物品整串；斯拉托重跑 10,415 筆、桑克申 2,366 筆，缺口 0。
 - cok-explore：大地圖模式（`-overland`、`-pick`）、提問比對最近四段路徑 B、每 100 動作存盤點（外層 timeout 殺掉時保留結果）。
 - 清理：中途停掉的探索容器都隨 `--rm` 移除，`docker ps` 無本專案容器。
+
+## 2026-10-19 v.0.9.2（#10）
+
+- 原 macOS 交叉編譯映像 `psychicwar-osxcross:go1.24.13-15.5-r2` 已不在本機；改用共用映像 `psgolem-osxcross:1.24-15.5-r1`（只使用；go1.24.13、MacOSX15.5 SDK，與原設定相同），`tools/package.sh` 鎖新 ID，可用 `COK_MAC_IMAGE` 覆寫。
+- `tools/package.sh v.0.9.2-20261019 all`：原版包與原版＋HD 包各三平台，外洩掃描通過；`COK_WITH_DATA=1` 本機完整版三平台。
+- 冒煙：Linux 與 Wine 的原版、HD 包都開到標題且截圖相同（冒煙以 2 倍執行，HD 只在 3 倍顯示）；macOS 結構檢查通過（HD 版含 `hd/theme.json`、不含原版檔）。規格 012 CONFORMED。
+- 散布範圍：使用者決定 patch 包全放，只私下分享（CONTEXT 決策表）。

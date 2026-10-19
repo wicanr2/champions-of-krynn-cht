@@ -32,11 +32,11 @@ ETEN_SRC="/home/anr2/cht/etan_font/ET353S/FILES"
 # 規格 012 §3.3：沿用本機既有映像，以映像 ID 釘住（只使用，不刪除、不改標籤）。
 GO_IMAGE="dosgolem-go-ebiten:1.24-r1"
 PY_IMAGE="python:3.13-slim"
-MAC_IMAGE="psychicwar-osxcross:go1.24.13-15.5-r2"
+MAC_IMAGE="${COK_MAC_IMAGE:-psgolem-osxcross:1.24-15.5-r1}"  # go1.24.13、MacOSX15.5 SDK（共用映像，只使用；原 psychicwar-osxcross r2 已不在本機）
 APPIMAGE_IMAGE="hr-appimage:runtime-recovery-r1"
 declare -A IMAGE_ID=(
   [$GO_IMAGE]="sha256:8ed6bdee2bce1f32f804e888f942b25bbf62f2165a43344bb4587f3371de0581"
-  [$MAC_IMAGE]="sha256:d4c50a5cf3cf35164b83fb1531fe66f52b9224e826944363bf1bc4d7ba3c8d0c"
+  [$MAC_IMAGE]="sha256:0a4be2d7ac9651c4f3ae22a2e504fbab5d72d90851686c7e8512c8b1dd622a7b"
   [$APPIMAGE_IMAGE]="sha256:e961c807e7810d5fca6b2e880e9ebed49207074e9871683de926f646c28d41fa"
 )
 MAC_MIN="11.0"
