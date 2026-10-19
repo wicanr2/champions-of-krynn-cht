@@ -10,7 +10,9 @@ import (
 
 // 隊伍欄的位置：全部盤點裡只印過隊員名字（規格 013 §2）。
 const (
-	partyListCol                 = 17
+	partyListCol = 17
+	// 本作建立隊伍選單（讀檔後、開始冒險前）的名單在第 1 欄、同樣列 4–9（本專案 docs/re/006，存讀檔盤點）
+	partyMenuCol                 = 1
 	partyListRow0, partyListRow1 = 4, 9
 )
 
@@ -98,5 +100,5 @@ func (t *Translator) LearnPlayer(text []byte, sex Sex) {
 type playerLearner interface{ LearnPlayer(text []byte, sex Sex) }
 
 func inPartyList(row, col int) bool {
-	return col == partyListCol && row >= partyListRow0 && row <= partyListRow1
+	return (col == partyListCol || col == partyMenuCol) && row >= partyListRow0 && row <= partyListRow1
 }
