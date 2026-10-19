@@ -14,8 +14,9 @@ const (
 	partyListRow0, partyListRow1 = 4, 9
 )
 
-// Sex 是角色記錄的性別。隊伍欄印名字時字串指標就是角色記錄開頭（名字在 +0x00），
-// 性別在 +0x55：0 男、1 女（規格 013 §2：建角對照與改位元組看角色頁兩項實驗）。
+// Sex 是角色記錄的性別。隊伍欄印名字時字串指標就是角色記錄開頭（名字在 +0x00）。
+// 本作性別在 +0x109：0 男、1 女（本專案 docs/re/006：同名同屬性的男女角色檔只差 +0x109 與 +0x135；
+// 原版預建隊伍唯一的女性 MOLLY 為 1，其餘 0）。幽靈騎士在 +0x55。
 type Sex int
 
 const (
@@ -24,7 +25,7 @@ const (
 	SexFemale
 )
 
-const recordSexOff = 0x55
+const recordSexOff = 0x109
 
 func sexOf(b uint8) Sex {
 	switch b {

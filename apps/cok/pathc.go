@@ -274,11 +274,17 @@ func (c *PathC) rebuild(row int) {
 	if mm, ok := c.Catalog.(menuWordser); ok && lineWords == nil {
 		masterWords = mm.MenuWords(parts)
 	}
+	var segWords []string
+	if lineWords == nil {
+		segWords = c.segments(parts)
+	}
 	for i, w := range words {
 		mw := MenuWord{Row: row, Col: w.col, Length: len(w.cells)}
 		zh := ""
 		if e, ok := c.Catalog.Lookup([]byte(parts[i])); ok {
 			zh, mw.Key = e.Translation, e.Key
+		} else if segWords != nil && segWords[i] != "" {
+			zh, mw.Key = segWords[i], "segment"
 		} else if lineWords != nil {
 			zh, mw.Key = lineWords[i], "line"
 		} else if masterWords != nil && masterWords[i] != "" {
@@ -332,4 +338,33 @@ func (c *PathC) wholeLine(row int, words []menuWord, e Entry) bool {
 	c.stamps[row] = append(c.stamps[row], s)
 	c.Words = append(c.Words, MenuWord{Row: row, Col: from, Length: to - from, Key: e.Key, Drawn: true})
 	return true
+}
+
+// segments 把一列的詞切成連續片段查表：本作的選單由多個 Pascal 字串接成，字串常帶尾端空白
+// （例戰鬥選單 `Move `、`View Aim `、`Use `；本專案 docs/re/004）。由左而右取最長的命中片段，
+// 譯文詞數與片段詞數相同才逐詞對應；回傳與 parts 等長，查不到的位置為空字串。
+func (c *PathC) segments(parts []string) []string {
+	out := make([]string, len(parts))
+	for i := 0; i < len(parts); {
+		n := 0
+		for j := len(parts); j > i && n == 0; j-- {
+			key := strings.Join(parts[i:j], " ")
+			for _, k := range []string{key, key + " "} {
+				e, ok := c.Catalog.Lookup([]byte(k))
+				if !ok {
+					continue
+				}
+				if f := strings.Fields(e.Translation); len(f) == j-i {
+					copy(out[i:j], f)
+					n = j - i
+					break
+				}
+			}
+		}
+		if n == 0 {
+			n = 1
+		}
+		i += n
+	}
+	return out
 }
