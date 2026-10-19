@@ -1,0 +1,24 @@
+# 使用者提供的原版遊戲與任何可還原原作的輸入均不進版控。
+/Champions of Krynn (1990).zip
+*.zip
+*.rar
+
+# 唯一可寫研究工作區（解壓輸入、探針、IDA、dosgolem clone、HD 批次）。
+workplace/
+
+# 正式交付只留本機。
+dist-all/
+
+# 軟體世界雜誌攻略掃描（版權素材，只作本機參考）。
+walkthrough/
+
+# 本機 Go workspace 與暫存。
+go.work
+go.work.sum
+__pycache__/
+*.pyc
+
+# 原版檔案型態（G1 盤點後補齊，防止誤加）。
+*.EXE
+*.exe
+Thumbs.db
