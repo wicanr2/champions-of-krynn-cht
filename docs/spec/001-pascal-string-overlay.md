@@ -1,6 +1,6 @@
 # 001 路徑 A：Pascal 字串印字覆繪
 
-狀態：**READY**（2026-10-19）。Issue：#4、#6。證據：docs/re/004。
+狀態：**CONFORMED**（2026-10-19，收據 docs/re/007）。Issue：#4、#6。證據：docs/re/004。
 
 ## 1. 契約
 

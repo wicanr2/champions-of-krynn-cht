@@ -1,6 +1,6 @@
 # 008 遊戲內攻略面板
 
-狀態：**READY**（2026-10-19）。Issue：#8。證據：實機截圖 workplace/probe/cok-guide。
+狀態：**CONFORMED**（2026-10-19，收據 docs/re/007）。Issue：#8。證據：實機截圖 workplace/probe/cok-guide。
 
 ## 1. 契約
 

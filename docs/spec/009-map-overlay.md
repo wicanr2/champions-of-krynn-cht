@@ -1,6 +1,6 @@
 # 009 遊戲內地圖疊層
 
-狀態：**READY**（2026-10-19）。Issue：#8。證據：docs/re/006；demo 奈拉卡地圖疊層實機截圖 workplace/probe/cok-map。
+狀態：**CONFORMED**（2026-10-19，收據 docs/re/007）。Issue：#8。證據：docs/re/006；demo 奈拉卡地圖疊層實機截圖 workplace/probe/cok-map。
 
 ## 1. 契約
 
