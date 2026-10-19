@@ -17,7 +17,8 @@ def main():
     ap.add_argument('--root',type=Path,required=True)
     ap.add_argument('--generated',type=Path,default=Path('/kb/generated_images'))
     a=ap.parse_args();root=a.root
-    for req in sorted((root/'requests').glob('b*/manifest.json')):
+    # Issue #12 重播只處理本輪批次，避免改寫戰鬥／遭遇圖的獨立交付索引。
+    for req in sorted((root/'requests').glob('b0[2-6]/manifest.json')):
         man=json.loads(req.read_text());batch=man['batch']
         if batch=='b01':continue
         out=root/'out'/batch;out.mkdir(exist_ok=True)
