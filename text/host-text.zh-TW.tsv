@@ -2,7 +2,7 @@ key	translation	note
 quiz.entry	旅行手札第 {entry} 則	規格 006 第 2 列
 quiz.word	（英文手札第 {page} 頁）的第 {word} 個字？	規格 006 第 4 列
 quiz.answer	答案：{answer}	規格 006 第 6 列，答案顯示開啟時
-journal.title	旅行手札第 {entry} 則：{title}	規格 007 面板第 1 列
+journal.title	{title}	規格 007 面板第 1 列
 journal.page	第 {page}／{pages} 頁	規格 007 面板頁碼
 journal.none	尚未記錄任何手札（F5 關閉）	規格 007 翻閱模式沒有已讀手札時
 guide.title	攻略：{title}	規格 008 面板第 1 列
