@@ -83,6 +83,7 @@ cp text/*.tsv "$STAGE/common/text/"
 # 規格 013：玩家名音譯資料（CMU 發音詞典 BSD 式、譯音表 CC BY-SA 4.0，授權隨檔）
 cp -r text/cmudict "$STAGE/common/text/"
 cp text/LICENSE-translit-table.md "$STAGE/common/text/"
+for d in text/translit-*/; do [[ -d "$d" ]] && cp -r "$d" "$STAGE/common/text/"; done  # 規格 015：各語言的玩家名音譯
 CATALOGS=(ecl-text.zh-TW.tsv ui-text.zh-TW.tsv name.zh-TW.tsv composed-templates.tsv host-text.zh-TW.tsv journal.zh-TW.tsv
   walkthrough.zh-TW.tsv map-guide.zh-TW.tsv map-geo.tsv translit-chars.zh-TW.tsv)
 dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$UNI:/uni:ro" -v "$ETEN_SRC:/eten:ro" -v "$STAGE:/stage" \
@@ -90,6 +91,16 @@ dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$UNI:/uni:ro" -v "$ET
   python -I /tools/eten_font.py ${CATALOGS[*]} --unifont /uni/font/precompiled/unifont_t-17.0.05.hex --out /stage/common/font/cok-unifont.golemfnt &&
   python -I /tools/eten_font.py ${CATALOGS[*]} --asc /eten/ASCFONT.15 --spc /eten/SPCFONT.15 --std /eten/STDFONT.15 --out /stage/leak/eten/cok-eten.golemfnt &&
   for s in 256 512; do python -I /tools/appicon.py /stage/common/font/cok-unifont.golemfnt /stage/icon-\$s.png \$s; done"
+# 規格 015：繁中以外的語言各以自己的譯文字集從 Unifont 建字型 font/cok-<代碼>.golemfnt（cok-play 依代碼找）
+for ui in text/ui-text.*.tsv; do
+  code="${ui#text/ui-text.}"; code="${code%.tsv}"
+  [[ "$code" == zh-TW ]] && continue
+  LANG_CATALOGS=($(cd text && ls ./*."$code".tsv))
+  dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$UNI:/uni:ro" -v "$STAGE:/stage" -w /text "$PY_IMAGE" \
+    python -I /tools/eten_font.py "${LANG_CATALOGS[@]}" --unifont /uni/font/precompiled/unifont_t-17.0.05.hex \
+    --out "/stage/common/font/cok-$code.golemfnt"
+  echo "[package] 語言 $code 字型：${#LANG_CATALOGS[@]} 份表"
+done
 cp "$UNI/OFL-1.1.txt" "$STAGE/common/font/OFL-1.1.txt"
 cp "$UNI/COPYING" "$STAGE/common/font/COPYING-unifont"
 cp LICENSE "$STAGE/common/LICENSE"

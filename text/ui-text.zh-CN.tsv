@@ -1,0 +1,890 @@
+key	translation	source
+ui.002c9650368c	双方按兵不动。	batch-editorial
+ui.00813b28c9bc	查看人物 瞄准	batch-editorial
+ui.00d0fa5542f1	选择法术：	batch-editorial
+ui.0101e4ce36f7	无法在这里施放……	batch-editorial
+ui.015d99b7535a	使用预设路径：	dkk
+ui.0224e7c79995	选择阵营	dkk
+ui.02492c9d09d4	移到画面中央 离开	batch-editorial
+ui.0323473424f1	守卫中	batch-editorial
+ui.038686f70c2d	-背刺-	batch-editorial
+ui.03f8c1273e3d	男	dkk
+ui.041ecee8a387	希奈尔	dkk
+ui.0485df8c54f4	逃走了	dkk
+ui.05800e70aa10	箭	dkk
+ui.05b44ae47de4	3 个法术	dkk
+ui.0653216d8920	施放	dkk
+ui.066ee45ed434	魔法派别不符	dkk
+ui.067ef9857799	。请检查安装。	dkk
+ui.07259b8cfb9f	<无法术效果>	dkk
+ui.072f005fc3f2	西南	dkk
+ui.073939be1ea4	原创故事：	batch-editorial
+ui.07467b84a7ed	短剑	dkk
+ui.07d4f0d9ade4	将永远消失	dkk
+ui.07ed6ccf6bf6	甲	dkk
+ui.080cb09b9a95	Mark Johnson	batch-editorial
+ui.088721ec6d4a	你们的休息被突然打断了！	batch-editorial
+ui.08ac4a5f6ce6	只需	batch-editorial
+ui.08fc07e88648	全队覆没！	dkk
+ui.099d027ca3b5	内存不足，程序结束。	dkk
+ui.09b9f8622ac7	Scot Bayless	batch-editorial
+ui.0aac4f3d8041	连枷	dkk
+ui.0ae630e4f1dd	恭喜	batch-editorial
+ui.0b05e966e945	否	batch-editorial
+ui.0befe68474e9	你想接受训练吗？	batch-editorial
+ui.0c55eaf2db39	中和毒性	dkk
+ui.0c874f581a45	伤害力	dkk
+ui.0d0ae56ee488	投降了	batch-editorial
+ui.0d20c6ca62b0	治疗	batch-editorial
+ui.0d3f5e18425a	成交吗？	batch-editorial
+ui.0dc5be426a8c	摇杆打开	batch-editorial
+ui.0dd635c636cd	Fred Butts	batch-editorial
+ui.0e04961c51ea	队伍次序：	batch-editorial
+ui.0e3dfc592d73	无法复活。	batch-editorial
+ui.0ec329bcd4dc	我看不出更多有关你的	batch-editorial
+ui.0f2958102b8f	撬锁	batch-editorial
+ui.0f7b79cee0ba	备妥物品	dkk
+ui.0ff3d2b8d663	字节。	dkk
+ui.104b7e4ac60a	叫骂	batch-editorial
+ui.108040ac289a	红宝石	dkk
+ui.1084266e89ee	变得友善	dkk
+ui.10e51a565fd3	中毒了	batch-editorial
+ui.1116c3efebb0	已包扎	batch-editorial
+ui.111a74afc067	魔法飞弹	dkk
+ui.11261a05f7cd	众神介入！	dkk
+ui.11507a0e2f5e	新	dkk
+ui.11a6767d5674	完成	dkk
+ui.12577141602b	第七级	dkk
+ui.12ca55d7e7e9	待记忆	dkk
+ui.12d61f44905b	选择信仰	batch-editorial
+ui.12e9a0c0cda7	完成	batch-editorial
+ui.1303d3de9773	待选择	dkk
+ui.1325fc582bac	全队已治愈	batch-editorial
+ui.137405043c32	圣剑骑士	batch-editorial
+ui.140262b32b0c	恐惧	dkk
+ui.143f40fdffa4	狂战士	dkk
+ui.14d67424e599	横扫	dkk
+ui.150040557337	施法	dkk
+ui.1520b330a354	变卖物品	batch-editorial
+ui.1537c7fd9f65	没有染病。	batch-editorial
+ui.15834b2c3777	火焰所致	batch-editorial
+ui.1624e5bc418d	幻影术	dkk
+ui.16584052fd33	平安无事	dkk
+ui.16d4625e4e14	购买 查看人物 集中财物 鉴定 离开	batch-editorial
+ui.16d58af88764	帕拉丁	dkk
+ui.16ff676853e2	（手札，页	dkk
+ui.1709305c9fa9	等级	dkk
+ui.173162217929	SSI Special Projects	batch-editorial
+ui.17799e76b378	衰弱	dkk
+ui.183cb292f370	第一级	dkk
+ui.188cac7e138b	吗？	batch-editorial
+ui.1922ea761b22	防护力 2	dkk
+ui.199dbea375a6	显卡种类：  [1] CGA  [2] EGA  [3] Tandy	batch-editorial
+ui.19dd0c4eb6b7	军用镐	dkk
+ui.19f27030a2e1	金钱不足。	batch-editorial
+ui.19fee74864a2	笨拙术	dkk
+ui.1a4b1e57ec5a	队伍逃走了。	batch-editorial
+ui.1a587084469f	于标题之后	batch-editorial
+ui.1a794bb3020f	查看人物 拾取 集中财物	batch-editorial
+ui.1a82b7ad5db1	那一份。	batch-editorial
+ui.1a9e62ad568b	解除了诅咒	batch-editorial
+ui.1ae9ab54cdc0	改变骑士职业	batch-editorial
+ui.1b060046c58b	你可以：	batch-editorial
+ui.1b161713df5c	染上疾病	batch-editorial
+ui.1b7842e88a0a	治疗致命伤	dkk
+ui.1b9adc638021	银币	batch-editorial
+ui.1c893adcd5ec	件珠宝	batch-editorial
+ui.1d174814bac2	输入	dkk
+ui.1d1c7913869b	拿走并藏起了	batch-editorial
+ui.1d60a3338962	游戏速度 =	batch-editorial
+ui.1d7961e4ed0d	选择	batch-editorial
+ui.1d992b785bf9	长棍	dkk
+ui.1d9f00d3365b	臭云术	dkk
+ui.1ddcb2c6551d	经验	dkk
+ui.1dddfa7fc08c	牧师/战士/魔法师	dkk
+ui.1e3a955bd202	攻击	batch-editorial
+ui.1ed8f78de4b4	买了一个	dkk
+ui.1f7133c21072	选择	batch-editorial
+ui.204a2f952b3e	免费训练关闭	batch-editorial
+ui.205c9cf60516	严守善良	dkk
+ui.20691bd0739f	糟糕！	dkk
+ui.20a26081e1d6	已抄写	dkk
+ui.2138b8ca3a69	李欧克斯	dkk
+ui.216a83ec3e38	自焚了	batch-editorial
+ui.218e607c02c8	战斧	dkk
+ui.21db684dca81	伪装	dkk
+ui.2246705b46f3	来自已保存的游戏	batch-editorial
+ui.228265bc1e9e	第三级	dkk
+ui.22cd189987e0	杀生术	dkk
+ui.22d6186bb653	#部位	batch-editorial
+ui.22ed2f2c4af7	正在闪烁	dkk
+ui.23542cb0bb46	要拿多少？	dkk
+ui.23e3e052927b	免受邪恶伤害	dkk
+ui.23ffe2ed4c9b	只能在战斗中使用……	batch-editorial
+ui.24478a7c0f45	被摧毁了	batch-editorial
+ui.246a64eabf86	人物姓名：	batch-editorial
+ui.254153c4b85f	按 <Enter> 键继续	dkk
+ui.254d82b0f10c	束带	dkk
+ui.25d16d4516b5	黄蜂巢	dkk
+ui.263bc44ae6ee	抗冻术	dkk
+ui.26400797a39c	没有石化。	dkk
+ui.26e53d2410e1	化石还原术	dkk
+ui.271c24e9ae7b	心灵	dkk
+ui.274814f1a96f	得鲁依	dkk
+ui.278253d44e93	要失去人物吗？	batch-editorial
+ui.27f004b67f24	原本打算从那张卷轴抄写法术，	batch-editorial
+ui.282cac63534b	请插入覆盖档磁片。	batch-editorial
+ui.28391d3bc64e	之	dkk
+ui.291873e31ccb	卷轴	dkk
+ui.29ea779dcb6a	那件物品	batch-editorial
+ui.2a78025de6aa	选择	dkk
+ui.2aaf9bfd20c4	物品	batch-editorial
+ui.2b770e03b085	钢币。	batch-editorial
+ui.2c063fc99025	以残酷的一击	dkk
+ui.2c234a550746	空气稍微清新了一些……	batch-editorial
+ui.2c9e0d734b01	将摇杆 #1 推到最右下角位置，然后按下按钮 #1。	batch-editorial
+ui.2cef23028b6d	把他们压扁了	dkk
+ui.2e433cd6427d	覆盖档错误，程序中止！	batch-editorial
+ui.2e4aaf05df1c	额外	dkk
+ui.2ec1e2815946	变卖物品	batch-editorial
+ui.2f4c6d25053a	没有被诅咒。	dkk
+ui.2f5809efd162	要抄写这些法术吗？	batch-editorial
+ui.2fa787bb6baf	下一个	dkk
+ui.2fd478c88ca0	贼	dkk
+ui.30282be22ebd	狂暴	dkk
+ui.304afc32b7ff	脸部	batch-editorial
+ui.30c0783e66a7	全队覆没！按 <Enter> 键继续	batch-editorial
+ui.311f423fde0b	放置 离开	batch-editorial
+ui.3221280f22c4	已酌收少许手续费。	batch-editorial
+ui.323d3bd94dc3	记忆中	dkk
+ui.325563121a6d	具有抗火能力	batch-editorial
+ui.32679609640d	向你告别	dkk
+ui.328b53003a80	Electronic Arts	batch-editorial
+ui.32c9fd9a0415	本来要从那卷轴抄写	dkk
+ui.32e5d942458f	保存游戏 查看人物 魔法 休息 设置 治疗 离开	dkk
+ui.32f6c2ed53d7	锥矛	dkk
+ui.3325d0b241c1	只要 100 枚钢币，我就替你验证你的	batch-editorial
+ui.3331d5456d2d	标枪	dkk
+ui.335328d0950d	得到一件物品	batch-editorial
+ui.3411c79aeedd	得鲁依法术：	batch-editorial
+ui.34695f140781	找不到物品文件	batch-editorial
+ui.3495e757855a	白	dkk
+ui.34de4e86df99	喷出酸液	batch-editorial
+ui.35023ac32083	游戏尚未保存。仍要离开吗？	batch-editorial
+ui.351beff47541	治疗 查看人物 拾取 集中财物 均分 鉴定 离开	dkk
+ui.354888db7e7a	受到	dkk
+ui.354cbfc81426	她的	batch-editorial
+ui.356e7e8add97	牧师	dkk
+ui.3581aabee3ca	Tom Wahl	batch-editorial
+ui.35dc00703dc4	燃烧的手	dkk
+ui.3600952e2943	请求成为	dkk
+ui.362825bf06b1	项目总监：	batch-editorial
+ui.364728379c5a	发出邪恶的恶臭	dkk
+ui.366dc8f46f54	每位人物获得	batch-editorial
+ui.36851157efde	圣骑士不与邪恶的渣滓为伍。	batch-editorial
+ui.36ba3f71ad6e	珠宝	batch-editorial
+ui.37193853a694	敲门	batch-editorial
+ui.373447f83c3b	宝石	batch-editorial
+ui.379385551034	无法抄写这个法术。	batch-editorial
+ui.37aa87a44f5f	引发疾病	dkk
+ui.38301f8e6c25	覆写	batch-editorial
+ui.3836f8c4efdd	休息时间：	dkk
+ui.38d99bc52505	第八级	dkk
+ui.38d9edf514a9	热焰 冷焰	dkk
+ui.38ff7074c72d	超渡	batch-editorial
+ui.3995fd69e31b	请将磁片 3 插入磁盘机	dkk
+ui.39ce92102d66	于标题之后	dkk
+ui.3a2157e63ae3	……请稍候	batch-editorial
+ui.3a241d59687b	怪物	dkk
+ui.3a3bf7a09be2	下一个 前一个 保留 离开	dkk
+ui.3aaab8a73c8f	须先解除备妥	dkk
+ui.3abbd69ed48b	祝福术	dkk
+ui.3b3a7629d93f	毒发身亡	batch-editorial
+ui.3b439567997b	龙息	dkk
+ui.3b7cf1876cf3	人物训练	dkk
+ui.3cf31df67fb7	你们赢得了这场决斗。	batch-editorial
+ui.3cf3aa82aeb1	请问字序 #	dkk
+ui.3cfa88873404	松了一口气。	batch-editorial
+ui.3d07afbdb11d	但没有命中	batch-editorial
+ui.3dd4009a9b56	治疗 查看人物 集中财物 鉴定 离开	batch-editorial
+ui.3dd5d43f43a7	警告：内存不足	dkk
+ui.3e772edeeb89	毒已解除	dkk
+ui.3e7962d21cc5	魔法杖	dkk
+ui.3eb4db249b6e	休息 天 时 分 增加 减少 离开	dkk
+ui.3f0c88ea43ad	半径10呎内免受邪恶伤害	dkk
+ui.3faa383606fc	较慢	batch-editorial
+ui.406eec9126ed	Ken Humphries	batch-editorial
+ui.418b784a860f	集合物品	batch-editorial
+ui.41e4ae984c22	药剂	dkk
+ui.41e68f2cdb38	闪电	dkk
+ui.4219be8c1840	受到	dkk
+ui.421acf13c1cb	治疗	dkk
+ui.42412678202e	缩小术	dkk
+ui.42b745650343	治病	batch-editorial
+ui.42cbbfc27a4d	失明了	batch-editorial
+ui.430ea16f1ff6	包扎	batch-editorial
+ui.431f23d55810	恶心得干呕窒息	dkk
+ui.433429f7d12c	Dave Shelley	batch-editorial
+ui.4382d5e51bac	牧师/魔法师	dkk
+ui.4391105bd3a7	惊慌逃走	batch-editorial
+ui.43ae65428a8f	增加 减少 保留 离开	dkk
+ui.443204696da2	丢弃队员？	dkk
+ui.44592af7565b	此处不可	batch-editorial
+ui.44bc3799892c	治疗	dkk
+ui.44c3b4f71a5c	受到祝福	batch-editorial
+ui.45f3b27f0f45	时空之门	dkk
+ui.45fe07b35406	纠缠	dkk
+ui.466738c48568	战斗 等待 逃跑 前进	batch-editorial
+ui.46d70e7d2926	锁住了。	batch-editorial
+ui.46e50b3cdce8	这样行不通。	batch-editorial
+ui.472e73d796e2	防护	dkk
+ui.474287e99ea4	图像关闭	batch-editorial
+ui.47e1a40ec961	生命力	dkk
+ui.480d4be7d61f	盾牌	dkk
+ui.481cb0fe2b2c	隐形了	dkk
+ui.488eda7de4cb	你们输掉了这场战斗。	batch-editorial
+ui.490dd4c44847	Rick White,Don Mc Clure,	batch-editorial
+ui.4994cb288152	正在咳嗽	dkk
+ui.49ba63e89af6	移动力	dkk
+ui.4a24b8af9cec	要丢掉吗？	dkk
+ui.4a2d595a8d23	玫瑰骑士	batch-editorial
+ui.4abb1289fa79	前一个	dkk
+ui.4b2bebbf33ae	缓慢术	dkk
+ui.4b7899783330	不受影响	batch-editorial
+ui.4bebe28dca57	你拥有一批精美的收藏：	dkk
+ui.4c07a5e27143	并且垂死	batch-editorial
+ui.4c2c1aae96f7	没有死亡。	dkk
+ui.4c644b040133	攻击命中率	dkk
+ui.4cf2381cda99	记忆法术 抄写法术 显示法术 休息 离开	batch-editorial
+ui.4cf469d6ea54	长弓	dkk
+ui.4d09b992377b	丢到后面去了。	batch-editorial
+ui.4dc5cfc054ce	2 个法术	dkk
+ui.4dc6ae7b6f7d	钢币	batch-editorial
+ui.4dd7612e9230	被迫逃跑	dkk
+ui.4ebb4dbf49e1	将人物从队伍中删除	dkk
+ui.4ee447c54034	隐形	dkk
+ui.4f4ab16743c0	数量？	batch-editorial
+ui.4f8a51fd0b1c	特殊法术：	batch-editorial
+ui.4fbac6d75981	移动 地图切换 施法 查看人物 扎营 搜索 查看环境	dkk
+ui.5021111cfddc	免受善良伤害	batch-editorial
+ui.50522ed6b01a	抱歉，CGA 模式无此功能。	batch-editorial
+ui.50b0613a9efc	好了老兄，你是谁？	batch-editorial
+ui.50e28de96686	你的队员垂死了。	batch-editorial
+ui.5108a0f0dc36	宝石	dkk
+ui.5250b5de07b3	新文件名：	batch-editorial
+ui.5253705f15ab	带甲	dkk
+ui.5263293fc202	小	batch-editorial
+ui.528e6cd82712	离开时，店主说：「不好意思，你们把一些钱留在这里了。」	batch-editorial
+ui.52b785e40b86	战士/贼	dkk
+ui.532c7e0084da	音乐驱动程序：	batch-editorial
+ui.53916d1113a3	混乱的善良	dkk
+ui.5392c12fa251	恭喜……	batch-editorial
+ui.53a33189ab7f	Cyrus Lum	batch-editorial
+ui.542599d6762b	无法读取摇杆	dkk
+ui.543df38bbe50	傲慢 狡诈 友善 谦卑 辱骂	batch-editorial
+ui.546fc10be49b	寒冰所致	batch-editorial
+ui.54a2eee8a8af	第四级	dkk
+ui.54b6b6331136	丢弃	batch-editorial
+ui.55f6a88dc025	毁灭	dkk
+ui.560c5f3c8b5b	命中，伤害	dkk
+ui.5672c76c7da3	若这些是原版磁片，请用 DISKCOPY 拷贝备份。	batch-editorial
+ui.5679daa7c55d	匕首	dkk
+ui.56d88a11d595	弄蛇术	dkk
+ui.57cf485824df	内存不足$内存不足，程序结束。	batch-editorial
+ui.58814d4cbc04	变得狂暴	dkk
+ui.58851b8fac82	牧师	dkk
+ui.58b2b3e0f21f	掷出火球	batch-editorial
+ui.58f6ffe741db	扎营中	dkk
+ui.595ba83def48	发送了	dkk
+ui.5971145b42aa	超出负重，金钱将放入集中财物。	batch-editorial
+ui.59b74e17ac37	解除邪恶	dkk
+ui.59d6cf4f638f	我们只训练神智清醒的人	dkk
+ui.59e74f11c96a	普通邪恶	dkk
+ui.5a0009478568	火焰打击	dkk
+ui.5a36e355b239	活化死者	batch-editorial
+ui.5a5c3f75ebce	飞镖	dkk
+ui.5a7dff7cd74c	还有宝藏没有拿完。	batch-editorial
+ui.5a98505ed913	白金币	dkk
+ui.5af65b05298f	移动／攻击，剩余移动力 =	dkk
+ui.5b7ea832e1b1	卷轴上	dkk
+ui.5c2e73b9229d	自动 改变游戏速度 离开	batch-editorial
+ui.5c4efffc1a54	已记忆	dkk
+ui.5db98e7af406	保存中……请稍候	dkk
+ui.5e88d3982ab7	游戏速度：	batch-editorial
+ui.5e9fc445ff43	（用方向键）	batch-editorial
+ui.5fa7aac5375c	备妥	batch-editorial
+ui.6023d3cce98d	爆炸了。	batch-editorial
+ui.6024329694ab	宝石	dkk
+ui.60c397046c19	戟	dkk
+ui.60f83bf1e1cf	石化	dkk
+ui.61622162cdb3	踢开术	dkk
+ui.618ae3799df9	（从背后）	batch-editorial
+ui.618d663af0f1	玫瑰	dkk
+ui.61bc0b5f3924	移动 扎营	batch-editorial
+ui.61e52adc2174	魔法所致	batch-editorial
+ui.61e932cd1783	引发重伤	batch-editorial
+ui.61f23b5499d0	钢币。	dkk
+ui.6201111b83a0	及	batch-editorial
+ui.622af18ec40b	离开游戏	dkk
+ui.624a5b72859b	法术已中止	dkk
+ui.629ffe46b6a0	魔法关闭	batch-editorial
+ui.62a61d211285	被拷贝了	dkk
+ui.63783b1ec102	是 否	dkk
+ui.637c8ce00e81	逃跑：	batch-editorial
+ui.63b579c5009b	被缩小了	dkk
+ui.63ee3a1b965a	大力术	dkk
+ui.64b9370e4ffa	超载	batch-editorial
+ui.64bc55f61b77	放弃人物	dkk
+ui.64e3cb0e4960	购买	dkk
+ui.64f4e5d464ae	半精灵	dkk
+ui.6501d6e4ac16	闪电术	dkk
+ui.6503fd1bd5d2	被诅咒了！	batch-editorial
+ui.65a45b3db080	睿智	dkk
+ui.65a856807cd8	牧师/贼	dkk
+ui.65cb8bc4d032	全部禁用	dkk
+ui.65ebeeba7880	遭遇设计	batch-editorial
+ui.66279f5a7114	马杰里	dkk
+ui.6659c4ca6420	钉头锤	dkk
+ui.668f8131b2e8	巨人之力	dkk
+ui.675f1f81fe21	高山矮人	dkk
+ui.67abe0afb7d7	部位 第一色 第二色 大小 离开	dkk
+ui.681927e34b77	法杖	dkk
+ui.68423657b7c7	受到诅咒	batch-editorial
+ui.6852e524971b	已在使用	dkk
+ui.688449dc6f1d	去路被挡住了	batch-editorial
+ui.6891a569c292	防护力 10	dkk
+ui.68945ce37c83	力量	dkk
+ui.69686409f3e8	心灵之槌	dkk
+ui.69ec6af313aa	半径10呎内隐形	dkk
+ui.6a198c100d8c	被迷惑了	dkk
+ui.6a3c6c77892d	恢复术	dkk
+ui.6a88445bbf65	项链	dkk
+ui.6ac8fcdfb8e4	完全痊愈	dkk
+ui.6ae066ae37be	要永远放弃	batch-editorial
+ui.6af2bad77d57	治疗轻伤	dkk
+ui.6b0e38e88d73	按任意键	batch-editorial
+ui.6b19f0a49196	防护力 6	dkk
+ui.6b7573221b4f	解除诅咒	dkk
+ui.6bb4327fa15a	喷出气息！	batch-editorial
+ui.6bd1127b18aa	下一个 前一个 手动瞄准	batch-editorial
+ui.6bdc33eef062	中止施法吗？	batch-editorial
+ui.6bed4a4b0f2d	保留 离开	batch-editorial
+ui.6c0bd5eba822	魔法师/贼	dkk
+ui.6c8e3155e463	真正中立	dkk
+ui.6ca94c9f8a62	配乐：	batch-editorial
+ui.6d152f07d42a	若这些是您的原版磁片，请用 DISKCOPY 制作复本。	dkk
+ui.6d88eb730ffb	混乱的邪恶	dkk
+ui.6dc21afe4ede	中毒	dkk
+ui.6ddb1b49d365	精灵锁甲	dkk
+ui.6e30dd4787fe	圣剑	dkk
+ui.6e399f2787a0	祈祷	dkk
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	batch-editorial
+ui.6eac636b81bf	保存哪个游戏：	batch-editorial
+ui.6ec6ae52db55	经验太浅了	batch-editorial
+ui.6f5f6a7876cf	松了一口气	dkk
+ui.6f7418045e72	防护	dkk
+ui.700ceab2be74	鼠标打开	batch-editorial
+ui.70807119543d	寒霜之刃	dkk
+ui.7084340de831	半径10呎内免受善良伤害	batch-editorial
+ui.70b79e8927e9	想杀死	dkk
+ui.70be2a9d7c9c	美术设计：	batch-editorial
+ui.70d00aad3b51	Jim Ward	batch-editorial
+ui.71c095b134e2	三叉戟	dkk
+ui.72114d9f7221	分半	batch-editorial
+ui.723e24cd425b	青铜币	batch-editorial
+ui.72403cdf00a1	点伤害。	dkk
+ui.72839726ec25	开始咳嗽	dkk
+ui.728baf5375e7	感到害怕	batch-editorial
+ui.729dccf7638c	超出负重，金钱将放入集中财物。	batch-editorial
+ui.72e81feaa8a1	棍棒	dkk
+ui.72f5a9907af4	交易给谁？	batch-editorial
+ui.73017b67c80b	按任意键继续	batch-editorial
+ui.7308fcc58956	请将存盘磁片放入磁盘机	batch-editorial
+ui.7313f57bf6d1	点经验。	dkk
+ui.733a7885c841	调整人物的属性	dkk
+ui.735b03a3f745	魅力	dkk
+ui.735b64972b07	确定 换另一片磁片	batch-editorial
+ui.736c6c9e4924	无助	dkk
+ui.737108f33c35	对动物隐形	dkk
+ui.73967b10f229	继续战斗：	batch-editorial
+ui.73aacaa0a21a	鼠标关闭	batch-editorial
+ui.73c9c98668a3	他的	batch-editorial
+ui.73dda53255f5	火球	dkk
+ui.7425046ea84b	这个造形可以吗？	batch-editorial
+ui.746ea349ca6f	电击所致	batch-editorial
+ui.74bc11c5490c	买了	dkk
+ui.7558c8476131	要回去取回你们的钱吗？	batch-editorial
+ui.755c8b2a9fb1	状况：	dkk
+ui.75a84e162ae7	抗毒	dkk
+ui.75c0ba1cdca8	被电到了	dkk
+ui.762226aafd83	宝石	batch-editorial
+ui.77bf07480400	抄写法术	dkk
+ui.7935c6648824	要交易多少？	dkk
+ui.793e1cf7b3d2	米夏凯尔	dkk
+ui.796642c29190	医治失明	dkk
+ui.7996af070c23	交易	batch-editorial
+ui.7a44906cbe68	热火盾牌	dkk
+ui.7ac6561f7ff4	严守中立	dkk
+ui.7afde2cf9e6c	珠宝	dkk
+ui.7b682d92b448	严守邪恶	dkk
+ui.7bd75e5bf8f3	队伍中的游侠太多了。	batch-editorial
+ui.7bfdfa1353ed	普通善良	dkk
+ui.7c0376ae0ea9	负重	dkk
+ui.7c2da26ef6e0	确定吗？	dkk
+ui.7c6cfd76225a	备妥   动作	dkk
+ui.7cbba619e3ba	状况不佳，无法	batch-editorial
+ui.7d08b2536e65	记忆法术	dkk
+ui.7e4f7d7e6c00	搜索隐形物品	dkk
+ui.7e94675ff2de	头盔	dkk
+ui.7f7a297e2c31	是	batch-editorial
+ui.7f94b4b11a1d	地图切换 施法 查看人物 扎营 搜索 查看环境	batch-editorial
+ui.7fbe1537394e	弩箭	dkk
+ui.7ffbeb7f1164	加载保存游戏	dkk
+ui.803a155fcf80	以及等级	dkk
+ui.80a02596ee54	死亡。	dkk
+ui.812d570d8988	已经学会这个法术了。	batch-editorial
+ui.814d608d6c4d	失去它也没关系吗？	batch-editorial
+ui.8168693b9714	基瑞尤里斯	dkk
+ui.81910caf6e3a	怪物束缚术	dkk
+ui.81a66e3516e8	日 时 分 加 减 离开	batch-editorial
+ui.81fd6926a24c	冷火盾牌	dkk
+ui.821f45c33704	音效类型：[1] C/MS	dkk
+ui.8248fe0af52a	Michael Mancuso	batch-editorial
+ui.8250c2c4f12a	具有抗寒能力	dkk
+ui.838bb792ae73	请问	dkk
+ui.83c519b42fab	Russ Brown	batch-editorial
+ui.8400e60db7ca	被打乱了	dkk
+ui.840bee47957d	点	dkk
+ui.8421b34e6c23	酸液流干了……	batch-editorial
+ui.842c3f9a9151	复合长弓	dkk
+ui.84e79ec5c06b	金钱不足	batch-editorial
+ui.85508313b762	法术书中	dkk
+ui.8575fa9ba811	惊恐逃跑	batch-editorial
+ui.8588955900e4	已经在抄写这个法术了。	batch-editorial
+ui.858cd61e5d1e	复活术	dkk
+ui.85b9417a7c41	第六级	dkk
+ui.866ae4750924	受到保护	dkk
+ui.86d864d10977	没有宝石或珠宝	batch-editorial
+ui.87d6ec410a8b	小型魔法防护罩	dkk
+ui.87e376689f8a	蓝宝石	dkk
+ui.8879ab4f6391	较慢	batch-editorial
+ui.88b3d8eed54f	诅咒术	batch-editorial
+ui.892b3e482474	投石索	dkk
+ui.8a1b78216a61	动画打开	batch-editorial
+ui.8a21969b3d68	防护力 4	dkk
+ui.8a55e534e3ad	索兰尼克铠甲	dkk
+ui.8acea952864e	失去了武器	batch-editorial
+ui.8b2ffdc98579	不符资格。	dkk
+ui.8b4c3701309d	飞弹	dkk
+ui.8b862ba45dce	拾取	dkk
+ui.8be704dd2de1	，有什么需要帮忙的吗？	batch-editorial
+ui.8be91414fd53	颗宝石	batch-editorial
+ui.8c3c927feb92	被束缚了	dkk
+ui.8cd68723841c	施放法术	batch-editorial
+ui.8d06f22a0748	要使用吗？	dkk
+ui.8d69b49af8e4	受到盾牌保护	dkk
+ui.8d77768365dd	斗篷	dkk
+ui.8d89e4a829ae	加入	batch-editorial
+ui.8e3e8d7a009c	，并且垂死	batch-editorial
+ui.8e8bcedc6f14	Susan Manley	batch-editorial
+ui.8eaa4fbfbbfa	电击术	dkk
+ui.8f17aeef225d	失去一个幻影	dkk
+ui.8f24e7e793e7	其他输入设备：  [1] 摇杆  [2] 鼠标  [3] 无	batch-editorial
+ui.8f324fb8d441	受到影响	dkk
+ui.8f4a0aaa62c4	法术	batch-editorial
+ui.901bc8dfb280	铜币	batch-editorial
+ui.906fe79445af	已痊愈	batch-editorial
+ui.908881ec8eb9	智能	dkk
+ui.90d8d6de638c	轻弩	dkk
+ui.90fade6fb78e	镜	dkk
+ui.925f9d446890	选择功能	batch-editorial
+ui.929433e4be1d	靴	dkk
+ui.92ecb2f088b1	步兵用	dkk
+ui.93022dfd9b34	缓毒	dkk
+ui.9305d3a8e566	查看人物 拾取 集中财物 均分	batch-editorial
+ui.931eb807b63f	不受影响	dkk
+ui.93515f638926	点伤害。按 <Enter> 键继续	batch-editorial
+ui.938134818dcb	丘陵矮人	dkk
+ui.939473c4290e	迷惑术	dkk
+ui.93f97649cdeb	侦测 离开	batch-editorial
+ui.93fe3ac0ddb8	巨石	dkk
+ui.94390fc2be66	购买 查看人物 拾取 集中财物 均分 鉴定 离开	dkk
+ui.94be0417569f	这把武器办不到	batch-editorial
+ui.94c736fde0c8	已卖出！	batch-editorial
+ui.94c9f9f80b24	属于酒店传闻 #	dkk
+ui.9507ad17d71f	混淆术	dkk
+ui.9596e8d6030b	岁	dkk
+ui.95a0c6cfd7d2	已被选取	dkk
+ui.95e71ac192ed	无法记忆任何法术	dkk
+ui.963a606aee50	迷惑怪物	dkk
+ui.96626dd4be2c	超渡不死怪物……	dkk
+ui.967a6bde0596	无法读取摇杆。校正中止。	batch-editorial
+ui.9760e90581ce	手半剑	dkk
+ui.978354db0c00	选定目标	batch-editorial
+ui.97b83b7e68be	有一件物品解除了诅咒	dkk
+ui.98a2052f16f7	穿过时空之门而来	batch-editorial
+ui.995c038a6623	战士/魔法师	dkk
+ui.997c544f1be0	特殊法术	dkk
+ui.99b4eba4e920	John Halbleib	batch-editorial
+ui.99c4cc7855b7	牧师/游侠	dkk
+ui.99ef77603df2	队伍提了款。	batch-editorial
+ui.9a1cce7fcc35	职业不符	dkk
+ui.9a5253015a01	较快	batch-editorial
+ui.9ab184b85e05	将会消失	batch-editorial
+ui.9ada56224d0b	免受龙息伤害	dkk
+ui.9ae5a4479a81	无法保存。磁片空间不足。	batch-editorial
+ui.9c87350ca200	法术	dkk
+ui.9ce61a439558	魔法师法术：	batch-editorial
+ui.9d6a11309ab7	冰锥术	dkk
+ui.9d8e4869a5ce	件珠宝	batch-editorial
+ui.9e2bbca238ae	无法调整。	dkk
+ui.9e5d3472e05f	（施法中）	batch-editorial
+ui.9fc3eff8f2ea	长袍	dkk
+ui.9ffa865f2bc6	人类	dkk
+ui.a0323615baef	绝不容忍邪恶！	batch-editorial
+ui.a0b43df06f52	银币	dkk
+ui.a123dd728a7a	易伤	dkk
+ui.a1c1212619a3	巨大术	dkk
+ui.a1e592fecee5	金钱 物品 离开	dkk
+ui.a22d9fc5be57	正在祈祷	dkk
+ui.a24f89fb7eb3	防护力	dkk
+ui.a26d873b3d51	抱歉，A 磁盘机不能有写保护。	batch-editorial
+ui.a29e9feca009	将摇杆 #1 推到最左上角位置，然后按下按钮读取摇杆	batch-editorial
+ui.a3237f49325a	验证	batch-editorial
+ui.a37430e22cd0	闪烁术	dkk
+ui.a39e9ac3b463	屠龙枪	dkk
+ui.a3bf67830817	我出	dkk
+ui.a3c6a0e36a49	逃脱了	batch-editorial
+ui.a3d5382fff70	正与蛇搏斗	dkk
+ui.a3e0b6a1c528	黑暗精灵	dkk
+ui.a3ef91cb4236	护手	dkk
+ui.a44c47b1ee24	圣剑	dkk
+ui.a47214d1d511	队伍扎营了……	batch-editorial
+ui.a47547af2017	变得笨手笨脚	dkk
+ui.a4d9c62a66cc	选择 离开	batch-editorial
+ui.a56df8de4062	我们这里不训练那个职业。	batch-editorial
+ui.a592855d0508	护甲	dkk
+ui.a5c730d6127b	图像打开	batch-editorial
+ui.a62ba7f80094	化为一滩酸液！	batch-editorial
+ui.a681116d0f70	坎德人	dkk
+ui.a7008d8fa62b	对爬虫类	dkk
+ui.a719751ac171	停止休息吗？	batch-editorial
+ui.a7290a044b25	杀人云	dkk
+ui.a793518be0c2	敏捷	dkk
+ui.a7cd5d8f8422	铠甲	dkk
+ui.a7d973a732d0	圣骑士	dkk
+ui.a804b8f44ebe	什么事也没发生……	batch-editorial
+ui.a824f34f6cbe	施以诅咒	dkk
+ui.a8e7482dbad8	速度加快	batch-editorial
+ui.a95140d02db9	被杀死了	dkk
+ui.a9f72cd0b8a2	再生中	batch-editorial
+ui.aa433e0ea3c6	免受善良伤害	batch-editorial
+ui.aa4400500190	西里恩	dkk
+ui.aa537527975c	中止施法吗？	batch-editorial
+ui.aa67752cdcbc	选择人物	dkk
+ui.aa70a305f3f2	粉碎	dkk
+ui.ab0a55d5f6b3	动画关闭	batch-editorial
+ui.ab0f2b906319	半径10呎内不受邪恶伤害	dkk
+ui.ab741ba7a7a6	查看人物数据	dkk
+ui.ab80540d98d2	大	batch-editorial
+ui.ababed4823ab	头发	batch-editorial
+ui.abf5c0694d45	变强壮了	dkk
+ui.ac08bed00d4d	（无力反抗）	batch-editorial
+ui.ac1f2683d765	第五级	dkk
+ui.ac461667a825	创造新人物	dkk
+ui.ac7104fc4031	没有可抄写的卷轴	dkk
+ui.accf5e41d3a8	受到1点伤害	dkk
+ui.ad1096e9f7c3	记忆法术	dkk
+ui.ad96bf258370	没有失明。	dkk
+ui.add58d08294b	此处无法施法	batch-editorial
+ui.ade38ca9f73c	被电到了！	batch-editorial
+ui.adfe0feb6f39	加入人物：	batch-editorial
+ui.ae351f9a3fcd	圣水	dkk
+ui.ae48de661444	它看起来像是某种	batch-editorial
+ui.aee3b8154004	保存时发生意外错误：	batch-editorial
+ui.aeeabe9647b6	内存不足，无法运行游戏。需要	batch-editorial
+ui.af1ccb31304d	绿宝石	dkk
+ui.b03578c1ebc4	骑士阶级：	batch-editorial
+ui.b053c961f2ac	袋	dkk
+ui.b0556164a81c	克莱恩英豪 v1.2	batch-editorial
+ui.b0a3e9daee9d	被丢进沟里	dkk
+ui.b0b21f129832	保存目前游戏进度	dkk
+ui.b0b3678b4c63	点伤害	batch-editorial
+ui.b11529a1854f	队伍已被消灭，怪物欢呼雀跃。	batch-editorial
+ui.b156b926dc3a	调整：	batch-editorial
+ui.b17ae4e8dd75	感到混乱	dkk
+ui.b1daf7d8771a	护符	dkk
+ui.b1edfd1bc6f9	加载哪个游戏：	batch-editorial
+ui.b21d60d3c86e	治疗 离开	batch-editorial
+ui.b3063dda39ee	这件珠宝价值	batch-editorial
+ui.b327d99c300f	钢币买你的	dkk
+ui.b370fd5fed0b	坏消息	batch-editorial
+ui.b38102de71ef	躲过了	batch-editorial
+ui.b3ac0c907f0b	发狂了！	batch-editorial
+ui.b3f952e8b678	戒指	dkk
+ui.b46d015704ec	要抄写这些法术吗？	batch-editorial
+ui.b46fe55938ec	你的	dkk
+ui.b4eb600e2bd2	搜索陷阱	dkk
+ui.b507eb205317	你们把	batch-editorial
+ui.b55d3062e7db	复合短弓	dkk
+ui.b59528a9bc9f	宽刃剑	dkk
+ui.b639c243cebd	钻石	dkk
+ui.b67514c6d13f	抗火术	dkk
+ui.b879ba1b6add	已被诅咒	dkk
+ui.b9267e64e341	丢弃吗？	batch-editorial
+ui.b970634c8409	防火盾牌	dkk
+ui.b97410f97c75	请将磁片 2 插入磁盘机	dkk
+ui.b979617559ad	鉴定：	dkk
+ui.b991604729c6	超载	dkk
+ui.b9d05f332634	守卫	batch-editorial
+ui.b9ec2686588d	是 否	batch-editorial
+ui.ba19e9c3d5f4	红	dkk
+ui.ba24b7992d5d	变老了	dkk
+ui.ba77b08db988	看得见了	dkk
+ui.ba7ebb6c0b12	选择职业	dkk
+ui.baa3e9b41f45	治疗重伤	dkk
+ui.bb33dbdb2f21	使用	batch-editorial
+ui.bb4e56df6695	使用	batch-editorial
+ui.bbe963c645f0	龙族	dkk
+ui.bc0f80620ba6	短弓	dkk
+ui.bc15529dc7b3	经验不足	batch-editorial
+ui.bc4ac4b84ba5	队伍获胜。	batch-editorial
+ui.bce9e63c661b	查看人物 集中财物 离开	batch-editorial
+ui.bcf47e35fc5f	倒下了	dkk
+ui.bd104d1b98d0	友好术	dkk
+ui.bd89d0b81174	要回去取走你们的宝藏吗？	batch-editorial
+ui.be057371a9ba	Victor Penman	batch-editorial
+ui.be547a8c19df	的位置，然后按下1号按钮。	dkk
+ui.bec2538a4c67	战斗 等待 逃跑 谈判	batch-editorial
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	batch-editorial
+ui.bf6c2c94e57c	投石杖	dkk
+ui.c031b229eabd	找不到	dkk
+ui.c03e83a9774a	扎营专用法术	dkk
+ui.c08b2b9e8fbd	点	dkk
+ui.c141faa80e43	火焰	batch-editorial
+ui.c157cbf647f5	铁锤	dkk
+ui.c16b1d325028	施法失败	batch-editorial
+ui.c1fcf83e875d	西北	dkk
+ui.c210bfdf28ce	保存	batch-editorial
+ui.c2144e87fdf4	较快	batch-editorial
+ui.c2322227f700	医治疾病	dkk
+ui.c2753bcb60bc	交易	batch-editorial
+ui.c35ed1964164	生命力	batch-editorial
+ui.c372fee9b456	速度	dkk
+ui.c38a51535885	离开游戏	dkk
+ui.c46f278027d6	摇杆关闭	batch-editorial
+ui.c4774fc6d0d8	被激怒了	dkk
+ui.c478e4d87da2	被麻痹了	dkk
+ui.c4e0e1d86094	开始冒险	dkk
+ui.c4ff4a77d890	不能去那里	batch-editorial
+ui.c5031dcec9ef	搜索中	dkk
+ui.c5432cc858f5	已选为目标	dkk
+ui.c590c2ac22d4	要记忆这些法术吗？	batch-editorial
+ui.c600613067cb	手斧	dkk
+ui.c6cfe6e4f129	黑	dkk
+ui.c71c66ea7e4c	长矛	dkk
+ui.c7530f5eb6c1	克莱恩英豪 v1.2	batch-editorial
+ui.c83cfaf4080c	魔法飞弹	dkk
+ui.c848bff204f4	移动	batch-editorial
+ui.c8c487bf9b56	颗宝石	batch-editorial
+ui.c8d3812485c0	使用物品	dkk
+ui.c8ed26fc0fb3	测试人员：	batch-editorial
+ui.c9d58272a014	已治愈。	dkk
+ui.c9e47f12e274	免受一般飞弹伤害	dkk
+ui.ca4d5dab9791	头部 武器 离开	dkk
+ui.ca82600f30f3	离开时，一名祭司说：「不好意思，你们把一些钱留在这里了。」	batch-editorial
+ui.ca949ab43e76	晨星锤	dkk
+ui.cab923a670e4	长剑	dkk
+ui.cb96521ce500	麻痹	dkk
+ui.cba06b5736fa	旧	dkk
+ui.cbefa25e9f4e	怪物逃走了。	batch-editorial
+ui.cc15607b461e	（规则书，页	dkk
+ui.cc173df6702c	火球	dkk
+ui.cd29a99041b6	属于旅行手札 #	dkk
+ui.cd9bcf31a14e	魔法卷轴	dkk
+ui.cdbf2aad986c	金钱不足。	batch-editorial
+ui.cdfbf57b7d97	以新的形态重生	batch-editorial
+ui.ce690cd0c4fa	被减速了	dkk
+ui.ce732dd1274e	存盘数据路径（预设 -	dkk
+ui.ce78afd0e6a2	学习	dkk
+ui.d004ff3c3b43	解除法术	dkk
+ui.d0291caff432	这颗宝石价值	batch-editorial
+ui.d0b494caae7e	白金币	batch-editorial
+ui.d119669b1a25	产生一团毒云	batch-editorial
+ui.d17044a2f3d3	法术：	dkk
+ui.d17d84a60499	离开	dkk
+ui.d1965cb2d2e5	防护力 3	dkk
+ui.d1d632796f8a	活化	dkk
+ui.d1e9567da9a8	猛击	batch-editorial
+ui.d26017d8ab4d	喷出毒气	batch-editorial
+ui.d28b15c6a6d9	变卖物品 保留	dkk
+ui.d2c838f79473	抱歉，A 磁盘不能有写保护。	dkk
+ui.d3298bdbb939	将人物加入队伍	dkk
+ui.d35b0efe2128	铜币	dkk
+ui.d3e4217f335c	选择钱币种类	batch-editorial
+ui.d466bcf52eb6	催眠术	dkk
+ui.d4769daf9f05	向你告别。	dkk
+ui.d49562742155	更改 离开	dkk
+ui.d4c766f7a1fd	被沉静了	dkk
+ui.d520d4a25f73	要丢弃多少？	dkk
+ui.d52b96d2ce02	引发轻伤	batch-editorial
+ui.d53895c6eb78	隐形	dkk
+ui.d539cd97ca1a	东北	dkk
+ui.d5a78b996fe6	毒术	dkk
+ui.d5bed51cd121	被麻痹了	batch-editorial
+ui.d5cc133735e7	珠宝	batch-editorial
+ui.d5d56ec05001	Victor Penman,	batch-editorial
+ui.d5eb90184aff	对动物隐形	dkk
+ui.d60cd2e0bb8c	防护 生命力	dkk
+ui.d61160238799	施法	batch-editorial
+ui.d6186a504f76	阅读魔法	dkk
+ui.d6359f6ff9fc	选择性别	dkk
+ui.d65cab4bfd56	战士/魔法师/贼	dkk
+ui.d69eecab2f76	搜索魔法物品	dkk
+ui.d6be94e808f0	必须先备妥	batch-editorial
+ui.d6d123e2e8ce	免费训练打开	batch-editorial
+ui.d70f9fe84763	启动鼠标和摇杆	dkk
+ui.d88ade772ab3	要重掷属性吗？	batch-editorial
+ui.d916515d826c	青铜币	dkk
+ui.d91e43895d60	战斗开始了……	batch-editorial
+ui.d93c6868d131	查看备妥	batch-editorial
+ui.d95ff49dc502	动作加倍	batch-editorial
+ui.dae0896cbc2c	锁甲	dkk
+ui.daf064fe39bd	不省人事	dkk
+ui.dbdad44271b9	夸林内斯提精灵	dkk
+ui.dc0c1dbcae76	将成为：	dkk
+ui.dc937b598926	无	dkk
+ui.dcd1d5223f73	姓名	dkk
+ui.dcddc47e957c	弱智术	dkk
+ui.dd4e144bbc0f	排列次序 丢弃队员 消息速度 人物造形 图像 难度 离开	batch-editorial
+ui.dd6b632301cc	无法加载怪物数据	batch-editorial
+ui.dd751c4d0018	小型魔法防护罩	batch-editorial
+ui.dddde79baf4c	抄写任何卷轴。	batch-editorial
+ui.ddf77ddccbc7	笨拙	dkk
+ui.de1e334ce4b4	按下按钮或 <Enter> 键继续。	batch-editorial
+ui.de3b46da4da8	加倍术	dkk
+ui.de5a971d55c5	离开游戏	batch-editorial
+ui.df4f6c72ae34	警告：保存人物时发生问题	batch-editorial
+ui.dfa14d065fe1	第九级	dkk
+ui.dfc5d1c129a5	混乱的中立	dkk
+ui.dfccfbed6a52	冰雪风暴	dkk
+ui.e00b7065984d	腕甲	dkk
+ui.e01ae25b03ab	巫术	dkk
+ui.e07f87e5bf6f	垂死	dkk
+ui.e0cf46fc6a62	卷轴上	dkk
+ui.e155361c7f5d	牧师法术：	batch-editorial
+ui.e181bc015be0	魔法师	dkk
+ui.e186c12f3ef1	可以成为	dkk
+ui.e188d7831c07	弯刀	dkk
+ui.e1b7002772b5	手续费。	dkk
+ui.e1e5a4931ff6	瞄准：	batch-editorial
+ui.e1f3cf2badbf	吐出	dkk
+ui.e23621e57725	抗火	dkk
+ui.e2491eec6c44	游戏速度（	batch-editorial
+ui.e26c6f94d702	恭喜，队伍获得经验！	batch-editorial
+ui.e272deecde72	寒冰	batch-editorial
+ui.e35ab226a22a	失明了	dkk
+ui.e3e1e619a1c8	双手剑	dkk
+ui.e420dd994483	选定目标	batch-editorial
+ui.e4cba1c76c15	的位置，然后按下1号按钮。	dkk
+ui.e514a637da16	没有中毒。	dkk
+ui.e5282f4df0a5	不能选自己为目标	dkk
+ui.e52a3fb722bd	拾取：	batch-editorial
+ui.e5320c614271	西维亚内斯提精灵	dkk
+ui.e57bab47cfc9	初学者 随从 老手 熟练 优胜者	dkk
+ui.e66ad0bcb4ad	引发失明	dkk
+ui.e6aba2bd5a6b	编程	batch-editorial
+ui.e6cd637f954b	游侠	dkk
+ui.e6f16936a01e	失去一个法术	dkk
+ui.e718fa37db3b	半径10呎内不受邪恶伤害	dkk
+ui.e721e319e5f9	护身符	dkk
+ui.e75e05069bb4	仅限坎德人使用	dkk
+ui.e77b0d967b7c	睡着了	dkk
+ui.e78cbf4eb76b	反射了法术	dkk
+ui.e800a6dfe581	射出能量箭！	batch-editorial
+ui.e864a8c0c782	半径15呎的沉静术	dkk
+ui.e8cca808ae5a	女	dkk
+ui.e8e775159a57	皮甲	dkk
+ui.e913d0b16469	范围 =	batch-editorial
+ui.e920b38b45dd	加载中……请稍候	dkk
+ui.e932f4664fa9	选择种族	dkk
+ui.e948f1f230fc	杀死无助的	dkk
+ui.ea41abe045db	混乱	dkk
+ui.ea42b3d67cea	被击晕了	dkk
+ui.ea72375de926	额外法术	batch-editorial
+ui.ea9973d1460e	钢币	dkk
+ui.eaca812fbb25	爆炸了！	batch-editorial
+ui.eadd361adaa7	物品：	batch-editorial
+ui.eb05ac334a9f	已治愈	batch-editorial
+ui.eb0b6be42cae	查看人物 拾取 集中财物 均分 鉴定 离开	batch-editorial
+ui.eb320b192b6a	动作减慢	batch-editorial
+ui.eb45597f7b2c	攻击盟友：	batch-editorial
+ui.eb5ce7d3c9df	与谁交易？	dkk
+ui.ebb4cacf2286	获得经验！	dkk
+ui.ebc583583e1a	按 <Enter> 键继续	batch-editorial
+ui.ebe2888cf1da	待抄写	dkk
+ui.ec1d85c28e73	（0=最快 9=最慢）	batch-editorial
+ui.ec9b10a4a79c	死亡	dkk
+ui.ed044e582700	蛇魅术	dkk
+ui.ed695f1dd60f	Tandy 1000 用户：请确认 NUMLOCK 已打开。	batch-editorial
+ui.edb9de30ada2	你的双手已满！	dkk
+ui.ee223764db80	队伍发现了宝藏！	batch-editorial
+ui.eeebd533ebee	腰带	dkk
+ui.efb9cda48d9d	开始施法	dkk
+ui.effd09803c06	叩叩	batch-editorial
+ui.f005dc729cc9	牧师/战士	dkk
+ui.f0275105a953	经验太浅了。	batch-editorial
+ui.f031b70a2653	东南	dkk
+ui.f06c19b93b2c	火焰种类：	batch-editorial
+ui.f0d155c43ee0	请将存盘磁片放入磁盘机	dkk
+ui.f0d35390cb24	束缚术	dkk
+ui.f0e791ada740	要回去拿你们的钱吗？	batch-editorial
+ui.f102986b39ef	鳞甲	dkk
+ui.f11aa46e52cb	衰弱术	dkk
+ui.f24b52468bfa	骑士	dkk
+ui.f2764d5f52fb	被超渡	dkk
+ui.f2fbdfd7c100	等级	dkk
+ui.f340e8d20774	游戏制作：	batch-editorial
+ui.f348fb4839ff	位移	dkk
+ui.f34a08403165	离开游戏：	batch-editorial
+ui.f499c0e6f8ea	请将磁片 4 插入磁盘机	dkk
+ui.f4ccae29e1bb	逃跑	dkk
+ui.f5312298209e	没有记忆任何法术	dkk
+ui.f5a329b998d9	无法分半	dkk
+ui.f5e1d63728c2	点伤害	batch-editorial
+ui.f5f25c5769e6	保存	batch-editorial
+ui.f5fbe5aaf483	决斗者获得	batch-editorial
+ui.f6410fb009d4	魔法打开	batch-editorial
+ui.f64329361c6f	施法 记忆法术 抄写法术 显示法术 休息 离开	dkk
+ui.f64fa5018db4	魔光	dkk
+ui.f65f10298556	离开	dkk
+ui.f77a2cc8468f	将摇杆 #1 推到最左上角位置，然后按下按钮 #1。	batch-editorial
+ui.f791fef558be	引发致命伤	batch-editorial
+ui.f839023a6d2e	变虚弱了	dkk
+ui.f8e1a5e2c265	部分痊愈	dkk
+ui.f8e9641e3a5a	武器 身体 xxxx 盾牌 手臂 脚部 离开	batch-editorial
+ui.f9137bd3fdae	酸液所致	batch-editorial
+ui.f92b6804d576	要记忆这些法术吗？	batch-editorial
+ui.f99222122177	仍要施展治疗术：	batch-editorial
+ui.f9b8e202385e	延后 弃权	batch-editorial
+ui.fa23d2522252	施展任何法术	dkk
+ui.fa4791077ad5	半径15呎的沉静术	dkk
+ui.fa4925ece175	进入游戏 示范	dkk
+ui.fa67303aecda	精良	dkk
+ui.fabb9e2392ab	点经验。按 <Enter> 键继续	batch-editorial
+ui.faee4715888d	将摇杆 #1 推到最右下角位置，然后按下按钮读取摇杆	batch-editorial
+ui.fb0d083b55a8	吓坏了	dkk
+ui.fb620a982a5c	皇冠	dkk
+ui.fb8e7a1a3cb7	物品	dkk
+ui.fbd6007fa4e6	对谁施法	batch-editorial
+ui.fc0615ed1942	体质	dkk
+ui.fcdfcb21ab14	1 个法术	dkk
+ui.fcfe1a334f70	食人魔之力	dkk
+ui.fd5da56f78ed	倒下了	batch-editorial
+ui.fdca9980f11f	支付治疗费用	batch-editorial
+ui.fe5b48644212	战士	dkk
+ui.fe6c9d4d8e5b	启动鼠标和摇杆：	batch-editorial
+ui.fe95d23deff6	物品：	dkk
+ui.fee1e0c181cf	第二级	dkk
+ui.ff5804bd833f	位移	dkk
+ui.ffb770a75172	玫瑰	dkk

@@ -32,3 +32,4 @@ toolbar.music	配樂	規格 014 切換列：遊戲中配樂開關（同 F4）
 toolbar.shot	截圖	規格 011 切換列：截圖（同 F10）
 toolbar.fullscreen	全螢幕	規格 011 切換列：全螢幕（同 F11）
 quiz.entry.tavern	酒店傳聞第 {entry} 則	本作：英文手冊第 44 頁起是 Tavern Tale（docs/re/005）
+lang.name	繁中	規格 015 切換列語言項：載入兩種以上語言時顯示目前語言

@@ -1,0 +1,37 @@
+key	translation	note
+quiz.entry	旅行手札第 {entry} 则	規格 006 第 2 列
+quiz.word	（英文手札第 {page} 页）的第 {word} 个字？	規格 006 第 4 列
+quiz.answer	答案：{answer}	規格 006 第 6 列，答案顯示開啟時
+journal.title	{title}	規格 007 面板第 1 列
+journal.page	第 {page}／{pages} 页	規格 007 面板頁碼
+journal.none	尚未记录任何手札（F5 关闭）	規格 007 翻閱模式沒有已讀手札時
+guide.title	攻略：{title}	規格 008 面板第 1 列
+guide.page	{source} 第 {page}／{pages} 页	規格 008 面板末列
+guide.toc	克莱恩英豪攻略（软件世界杂志）	規格 008 目錄頁標題
+guide.tocline	{n}. {title}	規格 008 目錄每章一列
+guide.tochint	→／← 换章，PgDn／PgUp 翻页，Esc 或 F6 关闭。内容有剧情与解谜答案，请斟酌翻阅。	規格 008 目錄頁說明
+map.unknown	（尚未对应的地图）	規格 009 地圖名稱查不到時
+map.nodata	这张地图还没有攻略点。	規格 009 沒有攻略點時
+map.pos	{x},{y} 面向{dir}	規格 009 目前位置
+map.dirs	北东南西	規格 009 面向（0 北、1 東、2 南、3 西）
+map.hint	V 全图 F7 关闭	規格 009 底列（只顯示走過的格子時）
+map.all	V 只看走过 F7 关闭	規格 009 底列（全圖時）
+map.more	{page}／{pages} 页 PgDn 换页	規格 009 清單多頁時底列提示
+toolbar.scale2	2倍	規格 011 切換列：2×（同 F2）
+toolbar.scale3	3倍	規格 011 切換列：3×，沒有 HD 素材時
+toolbar.scale3hd	3倍HD	規格 011 切換列：3× 並顯示 HD（同 F2）
+toolbar.nohd	无HD素材	規格 011 切換列：沒有 HD 素材時的停用說明
+toolbar.chinese	中文	規格 011 切換列：目前為中文，按下切原版（同 F12）
+toolbar.original	原版	規格 011 切換列：目前為原版，按下切中文（同 F12）
+toolbar.journal	手札	規格 011 切換列：手札翻閱（同 F5）
+toolbar.guide	攻略	規格 011 切換列：攻略面板（同 F6）
+toolbar.map	地图	規格 011 切換列：地圖疊層（同 F7）
+toolbar.answers	答案	規格 011 切換列：查驗題答案顯示（同 F9）
+toolbar.mute	静音	規格 011 切換列：靜音（同 F3）
+toolbar.music	配乐	規格 014 切換列：遊戲中配樂開關（同 F4）
+toolbar.shot	截屏	規格 011 切換列：截圖（同 F10）
+toolbar.fullscreen	全屏幕	規格 011 切換列：全螢幕（同 F11）
+quiz.entry.tavern	酒店传闻第 {entry} 则	本作：英文手冊第 44 頁起是 Tavern Tale（docs/re/005）
+lang.name	简中	
+journal.ref	 %d 则%s	
+journal.refdot	。	
