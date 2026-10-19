@@ -18,15 +18,17 @@ const (
 	menuCols      = 40
 )
 
-// menuCallSites 是選單模組呼叫 01F5 的返回位址後 bytes（規格 003 §2.1）。
+// menuCallSites 是選單模組呼叫逐字程序的返回位址後 bytes（幽靈騎士規格 003 §2.1 的同一機制）。
+// 本作值取自營地選單繪製時的呼叫端（overlay 執行期段 33E7：028F、02E9、0327、0397；本專案 docs/re/004，已證實）。
+// pad 的返回位址後是遠呼叫 `9A 30 00 <段>`，段值會重定位，只比前 3 bytes。
 var menuCallSites = []struct {
 	name  string
 	after []byte
 }{
-	{"selected", []byte{0xE9, 0x96, 0x00}},
+	{"selected", []byte{0xE9, 0x95, 0x00}},
 	{"hotkey", []byte{0xEB, 0x3C}},
-	{"normal", []byte{0xFE, 0x46, 0xFF}},
-	{"pad", []byte{0xC4, 0x7E, 0xFC, 0x26, 0x8B, 0x45, 0x2A}},
+	{"normal", []byte{0x8A, 0x46, 0xFF, 0x3A, 0x46, 0xFE}},
+	{"pad", []byte{0x9A, 0x30, 0x00}},
 }
 
 type menuCell struct {
@@ -81,7 +83,8 @@ func NewPathC(mem CPUView, cat Lookuper, font *xlate.Font, layer *xlate.Layer) (
 }
 
 func menuSite(mem CPUView, ret uint32) string {
-	if mem.Read8(ret-5) != 0x9A || mem.Read8(ret-4) != 0xF5 || mem.Read8(ret-3) != 0x01 {
+	// 遠呼叫 `9A DF 01 <段>`：本作逐字程序位移 01DF（幽靈騎士 01F5）
+	if mem.Read8(ret-5) != 0x9A || mem.Read8(ret-4) != 0xDF || mem.Read8(ret-3) != 0x01 {
 		return ""
 	}
 	for _, s := range menuCallSites {

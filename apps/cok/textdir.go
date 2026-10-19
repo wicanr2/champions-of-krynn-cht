@@ -37,7 +37,10 @@ func LoadTextDir(dir string) (ui *Translator, ecl *Catalog, err error) {
 	if err != nil {
 		return nil, nil, err
 	}
-	ui = &Translator{Exact: []Lookuper{uiCat}, Names: names, Words: uiCat}
+	// 本作 ECL 腳本的選單選項是逐詞的獨立字串（例 INN、HALL、ARMOURY、LEAVE），由路徑 A／C 印出，
+	// 介面 catalog 查不到時再查 ECL catalog（本專案 docs/re/004）。選單把選項改成首字大寫（例 Armoury），
+	// ECL catalog 收的是全大寫原文，查之前轉大寫。
+	ui = &Translator{Exact: []Lookuper{uiCat, upperLookup{ecl}}, Names: names, Words: uiCat}
 	mm, err := read("menu-masters.tsv")
 	if err != nil {
 		return nil, nil, err
@@ -143,4 +146,11 @@ func AppendJournalSeen(path string, n int) error {
 		err = cerr
 	}
 	return err
+}
+
+// upperLookup 把查詢字串轉成大寫再查（ECL 原文全大寫，選單印出時改成首字大寫）。
+type upperLookup struct{ c Lookuper }
+
+func (u upperLookup) Lookup(original []byte) (Entry, bool) {
+	return u.c.Lookup([]byte(strings.ToUpper(string(original))))
 }

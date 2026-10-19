@@ -59,8 +59,12 @@ type quizTrack struct {
 }
 
 // QuizFormat 是改寫後三列的格式（text/host-text.zh-TW.tsv 的 quiz.entry、quiz.word、quiz.answer），
-// 佔位 {entry}、{page}、{word}、{answer}。
-type QuizFormat [3]string
+// 佔位 {entry}、{page}、{word}、{answer}。第 4 格是選用的 quiz.entry.tavern：原書第 44 頁起的題目
+// 在英文手冊上是酒店傳聞（Tavern Tale），遊戲仍稱 journal entry（本專案 docs/re/005）。
+type QuizFormat [4]string
+
+// tavernFirstPage 是英文手冊酒店傳聞的起始頁（本專案 docs/re/005，題目表頁碼 44–48）。
+const tavernFirstPage = 44
 
 // LoadHostText 讀 text/host-text.zh-TW.tsv（key、translation、note）：前端自己畫的固定中文。
 func LoadHostText(b []byte) (map[string]string, error) {
@@ -83,6 +87,7 @@ func QuizFormatOf(host map[string]string) (QuizFormat, bool) {
 			return f, false
 		}
 	}
+	f[3] = host["quiz.entry.tavern"]
 	return f, true
 }
 
@@ -90,7 +95,11 @@ func QuizFormatOf(host map[string]string) (QuizFormat, bool) {
 func (f QuizFormat) lines(k QuizKey, answer string, show bool) [3]string {
 	r := strings.NewReplacer("{entry}", strconv.Itoa(k.Entry), "{page}", strconv.Itoa(k.Page),
 		"{word}", strconv.Itoa(k.Word), "{answer}", answer)
-	l := [3]string{r.Replace(f[0]), r.Replace(f[1])}
+	head := f[0]
+	if k.Page >= tavernFirstPage && f[3] != "" {
+		head = f[3]
+	}
+	l := [3]string{r.Replace(head), r.Replace(f[1])}
 	if show && answer != "" {
 		l[2] = r.Replace(f[2])
 	}

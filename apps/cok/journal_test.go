@@ -6,19 +6,25 @@ import (
 	"testing"
 )
 
-func TestJournalEntryOf(t *testing.T) {
-	for in, want := range map[string]int{
-		"This is recorded as journal entry 7.":   7,
-		"This is recorded as journal entry 60.":  60,
-		"This is recorded as journal entry 123.": 123,
-	} {
-		if n, ok := JournalEntryOf([]byte(in)); !ok || n != want {
-			t.Errorf("%q → %d %v", in, n, ok)
-		}
+func TestJournalRefOf(t *testing.T) {
+	// 本作實機字串（docs/re/004）：前一則以 JOURNAL ENTRY 結尾，下一則以編號開頭
+	cases := []struct {
+		prev, text string
+		n          int
+		bare, ok   bool
+	}{
+		{" AND YOU RECORD IT IN JOURNAL ENTRY ", "51.", 51, true, true},
+		{" AND YOU RECORD IT IN JOURNAL ENTRY ", "81. THEY THEN DISPERSE.", 81, false, true},
+		{"YOU OVERHEAR TAVERN TALE NUMBER ", "12.", 1012, true, true},
+		{"SIR KARL CONTINUES,", "51.", 0, false, false},
+		{"YOU HEAR TAVERN TALE ", "7.", 1007, true, true},
+		{"", "RECORD IT AS JOURNAL ENTRY 29.", 29, false, true},
+		{" AND YOU RECORD IT IN JOURNAL ENTRY ", "THE END.", 0, false, false},
 	}
-	for _, in := range []string{"This is recorded as journal entry .", "recorded as journal entry 7.", "This is recorded as journal entry 7"} {
-		if _, ok := JournalEntryOf([]byte(in)); ok {
-			t.Errorf("%q 不該命中", in)
+	for _, c := range cases {
+		n, bare, ok := JournalRefOf([]byte(c.prev), []byte(c.text))
+		if n != c.n || bare != c.bare || ok != c.ok {
+			t.Errorf("%q + %q → %d %v %v", c.prev, c.text, n, bare, ok)
 		}
 	}
 }

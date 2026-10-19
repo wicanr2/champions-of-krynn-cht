@@ -14,7 +14,7 @@ var PathBSignature = sig(
 )
 
 const (
-	pathBArgBytes = 0x12   // 9 個 word
+	pathBArgBytes = 0x12 // 9 個 word
 	// 本作 DS:6134／6135：與幽靈騎士路徑 B 函式逐 byte 對齊，原 B43A／B43B 的每一處都換成 6134／6135（本專案 docs/re/004，強推論）。
 	cursorColAddr = 0x6134 // 欄
 	cursorRowAddr = 0x6135 // 列
@@ -56,6 +56,7 @@ type bCall struct {
 // PathB 依規格 002 呈現文字視窗的中文。
 type PathB struct {
 	Entry   uint32
+	prev    []byte     // 上一則字串（手札引用分兩則印，本專案 docs/re/004）
 	Lookups []Lookuper // 依序查：ECL、介面（含規格 004 組句）
 	Font    *xlate.Font
 	Layer   *xlate.Layer
@@ -143,7 +144,16 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 		b.OnEntry(text, mem)
 	}
 	oc, or := int(mem.Read8(linear(ds, cursorColAddr))), int(mem.Read8(linear(ds, cursorRowAddr)))
+	prev := b.prev
+	b.prev = append(b.prev[:0], text...)
 	e, hit := b.lookup(text)
+	// 手札引用的編號單獨成一則（例 `51.`）：補成「51 則。」接在「……手札第」之後
+	if n, bare, ok := JournalRefOf(prev, text); ok && !hit && bare {
+		if n > 1000 {
+			n -= 1000
+		}
+		e, hit = Entry{Key: pathBKey + "entryref", Translation: fmt.Sprintf(" %d 則。", n)}, true
+	}
 	if hit {
 		h.Key = e.Key
 	}

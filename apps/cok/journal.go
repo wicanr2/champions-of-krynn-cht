@@ -1,6 +1,7 @@
 package cok
 
 import (
+	"bytes"
 	"fmt"
 	"regexp"
 	"sort"
@@ -45,17 +46,45 @@ const (
 	JournalMaxPages    = 3
 )
 
-var journalMsg = regexp.MustCompile(`^This is recorded as journal entry ([0-9]{1,3})\.$`)
+// 本作的手札引用分兩次印（本專案 docs/re/004，已證實）：先印以 `JOURNAL ENTRY ` 結尾的句子
+// （例 ` AND YOU RECORD IT IN JOURNAL ENTRY `），再印以編號開頭的下一則（例 `51.`、`81. THEY THEN DISPERSE.`）。
+// 酒店傳聞同樣以 `TAVERN TALE NUMBER ` 結尾，面板編號用 1000+N。
+var (
+	entryRefNum = regexp.MustCompile(`^([0-9]{1,3})(\.?)(.*)$`)
+	entryRefs   = []struct {
+		suffix string
+		base   int
+	}{{"JOURNAL ENTRY ", 0}, {"TAVERN TALE NUMBER ", 1000}, {"TAVERN TALE ", 1000}}
+	// 也有整句含編號的寫法（例 `RECORD IT AS JOURNAL ENTRY 29.`）
+	entryRefInline = regexp.MustCompile(`JOURNAL ENTRY ([0-9]{1,3})\.`)
+)
 
-// JournalEntryOf 從路徑 B 字串取出手札編號（規格 007 §2.2）。
-func JournalEntryOf(text []byte) (int, bool) {
-	m := journalMsg.FindSubmatch(text)
-	if m == nil {
-		return 0, false
+// JournalRefOf 依上一則與這一則路徑 B 字串判斷手札引用，回面板編號、編號後是否只剩句點。
+func JournalRefOf(prev, text []byte) (n int, bare bool, ok bool) {
+	if m := entryRefInline.FindSubmatch(bytes.ToUpper(text)); m != nil {
+		v, _ := strconv.Atoi(string(m[1]))
+		return v, false, true
 	}
-	n, err := strconv.Atoi(string(m[1]))
-	return n, err == nil
+	p := strings.ToUpper(string(prev))
+	for _, r := range entryRefs {
+		if !strings.HasSuffix(p, r.suffix) {
+			continue
+		}
+		m := entryRefNum.FindStringSubmatch(string(text))
+		if m == nil {
+			return 0, false, false
+		}
+		v, err := strconv.Atoi(m[1])
+		if err != nil {
+			return 0, false, false
+		}
+		return r.base + v, strings.TrimSpace(m[3]) == "", true
+	}
+	return 0, false, false
 }
+
+// JournalEntryOf 保留給只看單則字串的呼叫端：本作沒有單則觸發句，一律回 false。
+func JournalEntryOf(text []byte) (int, bool) { return 0, false }
 
 // wrapJournal 把段落排成每列 journalCols 格（規格 007 §2.3）。
 func wrapJournal(body string) [][]rune { return wrapCols(body, journalCols) }

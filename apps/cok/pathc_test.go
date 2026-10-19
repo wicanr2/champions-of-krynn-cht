@@ -21,7 +21,7 @@ func plantC(m fakeMem) {
 	// 四個呼叫點：返回位址前 5 bytes 是 call far 01F5，後面接 menuCallSites 的 bytes
 	for i, s := range menuCallSites {
 		ret := linear(menuSeg, uint16(retBase+0x40*i))
-		copy(m[ret-5:], []byte{0x9A, 0xF5, 0x01, 0xE4, 0x04})
+		copy(m[ret-5:], []byte{0x9A, 0xDF, 0x01, 0x31, 0x06}) // 本作 call far 0631:01DF
 		copy(m[ret:], s.after)
 	}
 }

@@ -122,7 +122,7 @@ type AutoMap struct {
 	open, reveal bool
 	ptr          uint32
 	sum          string
-	ecl          int // 目前的 ECL 區塊（-1 未知）
+	ecl          int    // 目前的 ECL 區塊（-1 未知）
 	Key          string // 目前地圖鍵（查不到雜湊時沿用同指標的上一個鍵，或空）
 	walls        [16][16][4]uint8
 	loaded       bool

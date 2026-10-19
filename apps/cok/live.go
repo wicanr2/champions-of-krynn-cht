@@ -25,6 +25,7 @@ type StepCPU interface {
 // （ModeChange），或由呼叫端在已進入遊戲的狀態檔上呼叫 Arm。失敗就每 bindRetry 步再試；
 // 搜尋結果不唯一就不綁定、不猜位址；最後一次失敗原因留在 BindErr。
 type Live struct {
+	prevB []byte // 路徑 B 上一則字串（手札引用分兩則印）
 	Layer *xlate.Layer
 	// HDItems 是 AddHD 載入的 HD 主題項數（主專案規格 010）；0 表示沒有 HD 素材（規格 011 切換列停用 HD）。
 	HDItems int
@@ -179,7 +180,9 @@ func (l *Live) journalEntry(text []byte, mem CPUView) {
 		return
 	}
 	l.Journal.CloseAuto()
-	if n, ok := JournalEntryOf(text); ok {
+	prev := l.prevB
+	l.prevB = append(l.prevB[:0], text...)
+	if n, _, ok := JournalRefOf(prev, text); ok {
 		l.Journal.OpenAuto(n, mem.Read16(bdaKeyHead))
 	}
 }
