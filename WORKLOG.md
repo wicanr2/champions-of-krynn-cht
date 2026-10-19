@@ -102,3 +102,4 @@
 - `tools/package.sh v.0.9.2-20261019 all`：原版包與原版＋HD 包各三平台，外洩掃描通過；`COK_WITH_DATA=1` 本機完整版三平台。
 - 冒煙：Linux 與 Wine 的原版、HD 包都開到標題且截圖相同（冒煙以 2 倍執行，HD 只在 3 倍顯示）；macOS 結構檢查通過（HD 版含 `hd/theme.json`、不含原版檔）。規格 012 CONFORMED。
 - 散布範圍：使用者決定 patch 包全放，只私下分享（CONTEXT 決策表）。
+- 正常玩家路徑 `tools/g3-party-receipt.sh` 以 c7ab271 與本輪譯文重跑通過（建角到開場，查驗題自動作答）。
