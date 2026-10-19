@@ -26,3 +26,11 @@
 - 新增 `tools/docker/pdf.Dockerfile`（取自幽靈騎士，poppler-utils），建 `cok-pdf:bookworm-r1`；`pdftotext` 抽文字到 `workplace/reference-src/txt/`。
 - 結果見 `docs/re/002-reference-sources.md`：使用者 PDF 32 頁、Journal Entry 1–88 全部可辨識；mocagh 版 OCR 漏第 76 則，作校對。
 - `.gitignore` 補 `*.pdf`。容器皆 `--rm`。
+
+## 2026-10-19 G2 dosgolem 基線（#3）
+
+- 由幽靈騎士工作 clone（`d4cd48c`，等於遠端 `dosgolem/dkk` 頂端）本機 clone 到 `workplace/dosgolem/`，分支 `champions-of-krynn-cht`；module cache 由幽靈騎士 clone 複製，未開網路。
+- 原版 `KRYNN.CFG` 選 Roland LAPC，冷啟動卡在 MPU-401 輪詢（`5252:02AC`，`DX=0331`）。新增 `tools/cfg-adlib.sh`，scratch 層放 AdLib 版設定後可到標題、製作群、PLAY DEMO。
+- 新增 `tools/g2-startup-receipt.sh`：送 `p` 到建立隊伍主選單，重播 a、b 雜湊一致。結果見 `docs/re/003-dosgolem-startup.md`。
+- 一次手動測試把 `/dev/stdout` 當 `cfg-adlib.sh` 的輸出，`cmp` 讀它卡住，已中止該行程；腳本用法只接一般檔案。
+- 清理：dosgolem 容器皆 `--rm`，無殘留；`workplace/` 無 root 擁有檔。

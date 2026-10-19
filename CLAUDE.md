@@ -14,7 +14,21 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## 常用指令
 
-G2 建立 dosgolem 基線後補上。
+全部在 Docker 內執行，前置為 G1 解壓的 `workplace/input/dos/ckrynn/` 與 dosgolem 隔離 clone `workplace/dosgolem/`。
+
+```sh
+# 原版冷啟動到建立隊伍主選單，重播兩次比對畫面雜湊（docs/re/003）
+tools/g2-startup-receipt.sh
+
+# 任意探針：原版唯讀掛到 /orig；scratch 要先放 AdLib 版設定，否則卡在 MPU-401
+tools/cfg-adlib.sh workplace/input/dos/ckrynn/KRYNN.CFG workplace/probe/x/scratch/KRYNN.CFG
+cd workplace/dosgolem
+DOSGOLEM_ORIG=../input/dos/ckrynn DOSGOLEM_EXTRA_MOUNT="$PWD/../probe/x:/out" \
+  tools/go.sh run ./cmd/probe -exe /orig/START.EXE -root /orig -scratch-dir /out/scratch \
+  -steps 300001000 -bios-keys 'p' -bios-key-from 205000000 -dump-at "299000000:/out/menu.png"
+```
+
+- 送鍵用 `-bios-keys`。`-dump-at` 多個時點用 `;` 分隔，步數要小於 `-steps`。
 
 ## 資料索引
 

@@ -22,6 +22,7 @@
 | 2026-10-19 | repo `champions-of-krynn-cht`；遊戲短名 `cok`，adapter 在 dosgolem `apps/cok/`，分支推到本 repo 的 `dosgolem/cok` | 使用者回答 |
 | 2026-10-19 | 幽靈騎士的 adapter、譯名與工具當參考逐項重驗；dosgolem clone 從 `dosgolem/dkk` 分支起；共用譯名直接繼承 | 使用者回答 |
 | 2026-10-19 | 中文題名「克萊恩英豪」 | 使用者指定 |
+| 2026-10-19 | 執行時音效設定用 AdLib（scratch 層的 `KRYNN.CFG` 副本），原版檔不改 | 原版 Roland 設定在 dosgolem 卡住（docs/re/003）；比照幽靈騎士 |
 | 2026-10-19 | 旅行手札採英文 Adventurer's Journal：使用者下載的 PDF 為主要來源，mocagh 版校對（docs/re/002）；手札入遊戲與查驗題顯示答案兩條決策生效 | 使用者指示 |
 | 2026-10-19 | 軟體世界第 16–18 期攻略掃描已提供，放 `walkthrough/`（docs/re/002） | 使用者提供 |
 
@@ -31,7 +32,11 @@
 
 ## dosgolem 基線
 
-G2（#3）建立後填入 commit、Go 版本與 image ID。
+| 項目 | 值 |
+|---|---|
+| commit | `d4cd48c`（幽靈騎士 `dosgolem/dkk` 頂端；本作分支 `champions-of-krynn-cht`，推到本 repo 的 `dosgolem/cok`） |
+| Go／image | go1.24.13；`dosgolem-go-ebiten:1.24-r1` `sha256:8ed6bdee2bce…` |
+| 冷啟動 | 0 種缺服務；mode 0Dh；scratch 放 AdLib 版 `KRYNN.CFG`（原版選 Roland 會卡在 MPU-401）；送 `p` 到建立隊伍主選單，見 [docs/re/003](docs/re/003-dosgolem-startup.md) |
 
 ## 原始輸入
 
@@ -49,6 +54,7 @@ G2（#3）建立後填入 commit、Go 版本與 image ID。
 - cok：本作遊戲短名，用於 dosgolem `apps/cok/` 與程式識別。
 - dkk：幽靈騎士的遊戲短名；`dosgolem/dkk` 是本作 dosgolem clone 的起點分支。
 - 覆繪：在原版已輸出的畫面上清除原文墨跡、重畫中文。_Avoid_：替換、打字串補丁
+- scratch 層：dosgolem 的可寫暫存目錄，開檔先找它再找唯讀原版目錄；執行時設定與存檔放這裡。
 - 收據：dosgolem 以固定輸入重播產生、可重現的執行證據。_Avoid_：截圖證明
 - HD 批次：一組交給 Codex 重繪的原版圖塊，含請求與輸出兩個目錄。
 
