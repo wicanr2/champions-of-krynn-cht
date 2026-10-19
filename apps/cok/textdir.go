@@ -40,7 +40,7 @@ func LoadTextDir(dir string) (ui *Translator, ecl *Catalog, err error) {
 	// 本作 ECL 腳本的選單選項是逐詞的獨立字串（例 INN、HALL、ARMOURY、LEAVE），由路徑 A／C 印出，
 	// 介面 catalog 查不到時再查 ECL catalog（本專案 docs/re/004）。選單把選項改成首字大寫（例 Armoury），
 	// ECL catalog 收的是全大寫原文，查之前轉大寫。
-	ui = &Translator{Exact: []Lookuper{uiCat, upperLookup{ecl}}, Names: names, Words: uiCat}
+	ui = &Translator{Exact: []Lookuper{uiCat, upperLookup{ecl}}, Names: names, Words: chainLookup{uiCat, names}}
 	mm, err := read("menu-masters.tsv")
 	if err != nil {
 		return nil, nil, err
@@ -153,4 +153,16 @@ type upperLookup struct{ c Lookuper }
 
 func (u upperLookup) Lookup(original []byte) (Entry, bool) {
 	return u.c.Lookup([]byte(strings.ToUpper(string(original))))
+}
+
+// chainLookup 依序查多個 catalog：物品名詞組（例 Ring Mail）在術語表的名稱 catalog，單詞在介面 catalog。
+type chainLookup []Lookuper
+
+func (c chainLookup) Lookup(original []byte) (Entry, bool) {
+	for _, l := range c {
+		if e, ok := l.Lookup(original); ok {
+			return e, true
+		}
+	}
+	return Entry{}, false
 }
