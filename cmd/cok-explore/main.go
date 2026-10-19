@@ -64,6 +64,7 @@ func main() {
 	maxActions := flag.Int("max-actions", 600, "最多送幾個鍵")
 	pokeSpec := flag.String("poke", "", "依步數改記憶體 `線性位址hex@步數=hex bytes`（例：起點座標 18E53@步數=05；主專案小地圖觸發格盤點）")
 	fight := flag.Bool("fight", false, "遇到戰鬥時按 Q 交給電腦控制繼續探索（預設停下）")
+	partyFlag := flag.String("party", "", "本作戰鬥閉迴路：隊員名，逗號分隔（瞄準時跳過自己人）")
 	outDir := flag.String("out", "", "輸出目錄（end.state、inv.tsv、log）")
 	picsDir := flag.String("pics-dir", "", "視窗圖 (24,24) 88×88 或大圖 (8,8) 304×120 出現沒見過、且連續兩次取樣不變的內容時，把整張色號畫面存成 <步數>.bin（HD 抽樣，主專案規格 010）")
 	flag.Parse()
@@ -124,6 +125,13 @@ func main() {
 	lastCIdx := -1
 	// 本作戰鬥（主專案 docs/re/008）：選單沒有交給電腦（Q），以瞄準近戰推進
 	lastRange, aimTries, passNext := -1, 0, false
+	panelName := ""
+	party := map[string]bool{}
+	for _, n := range strings.Split(*partyFlag, ",") {
+		if n = strings.TrimSpace(n); n != "" {
+			party[n] = true
+		}
+	}
 	stopAt := uint64(0)
 	pics := picSampler{seen: map[[32]byte]bool{}}
 
@@ -184,6 +192,9 @@ func main() {
 				if r := rangeRe.FindStringSubmatch(e.Text); r != nil {
 					lastRange, _ = strconv.Atoi(r[1])
 				}
+				if e.Row == 1 && e.Col >= 20 { // 戰鬥右側面板第一列是目前角色或瞄準目標的名字
+					panelName = strings.TrimSpace(e.Text)
+				}
 				if c := coordRe.FindStringSubmatch(e.Text); c != nil {
 					x, _ := strconv.Atoi(c[1])
 					y, _ := strconv.Atoi(c[2])
@@ -236,7 +247,7 @@ func main() {
 			}
 			lastC = ""
 			continue
-		case strings.HasPrefix(lastC, "Press button"), strings.HasPrefix(lastC, "press"):
+		case strings.HasPrefix(lastC, "Press button"), strings.HasPrefix(lastC, "press"), strings.HasPrefix(lastC, "Press <enter>"):
 			push("Return")
 			lastC = ""
 			continue
@@ -245,12 +256,13 @@ func main() {
 			lastC = ""
 			continue
 		case *fight && strings.HasPrefix(lastC, "Aim:") || *fight && strings.Contains(lastC, "Next Prev Manual"):
-			// 瞄準中：距離 1 攻擊；0 是瞄到自己、其他距離換下一個目標；換 8 次都不相鄰就離開瞄準，這回合跳過
+			// 瞄準中：目前目標不是隊員、選單有 Target 才攻擊；換一輪都是自己人就離開瞄準，這回合跳過等敵人靠近
 			switch {
-			case lastRange == 1:
+			case !party[panelName] && panelName != "" && strings.Contains(lastC, "Target"):
+				say("瞄準 %s 距離 %d", panelName, lastRange)
 				push("T")
 				aimTries = 0
-			case aimTries < 8:
+			case aimTries < 7:
 				push("N")
 				aimTries++
 			default:
@@ -258,6 +270,14 @@ func main() {
 				aimTries, passNext = 0, true
 			}
 			lastRange = -1
+			lastC = ""
+			continue
+		case *fight && strings.Contains(" "+lastC+" ", " Auto "):
+			push("A") // 本作 Done 子選單的 Auto：這名角色交給電腦控制（主專案 docs/re/008）
+			lastC = ""
+			continue
+		case inCombat(lastC) && *fight && strings.HasPrefix(lastC, "Move View Aim"):
+			push("D")
 			lastC = ""
 			continue
 		case inCombat(lastC) && *fight:
@@ -274,6 +294,7 @@ func main() {
 			stopAt = m.Steps + 1
 			continue
 		case lastC != "" && lastC != "Exit":
+			say("選單 %q", lastC)
 			// 其他選單（神殿、商店、事件抉擇）：選不會開打、能離開的選項，按它的熱鍵（首字母）
 			if k := preferredOption(lastC); k != "" {
 				push(k)
@@ -303,6 +324,10 @@ func main() {
 			continue
 		}
 		if !known { // 狀態檔起點的座標列早已印好：先進移動模式、轉一次向讓它重印
+			if *fight && actions < 3 {
+				push("Return") // 本作戰鬥起點：選單已印好，M 會變成戰鬥移動；先 Enter 讓畫面往下走、選單重印
+				continue
+			}
 			if actions == 0 {
 				push("M")
 			} else {
