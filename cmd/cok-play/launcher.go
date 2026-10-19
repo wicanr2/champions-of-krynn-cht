@@ -25,7 +25,7 @@ var version, dosgolemCommit string
 // 原版必要檔（主專案 docs/re/001）。覆繪依賴這兩個檔的位址。
 var requiredOriginals = []struct{ name, sha string }{
 	{"START.EXE", startEXESHA256},
-	{"GAME.OVR", "fdbe7265ac9b04c67f8648331d9845bf33c6a1438e676389eae3f4526796c817"},
+	{"GAME.OVR", "c3f448c391ea860f97dec99ce88b0b8b0a4a7e807cf3b1f5a8f1515e2a7a0529"},
 }
 
 const errorLogName = "cok-error.log"
@@ -50,17 +50,17 @@ func userDataDir() (string, error) {
 	switch runtime.GOOS {
 	case "windows":
 		if d := os.Getenv("APPDATA"); d != "" {
-			return filepath.Join(d, "DKKCHT"), nil
+			return filepath.Join(d, "COKCHT"), nil
 		}
 		if err != nil {
 			return "", err
 		}
-		return filepath.Join(home, "AppData", "Roaming", "DKKCHT"), nil
+		return filepath.Join(home, "AppData", "Roaming", "COKCHT"), nil
 	case "darwin":
 		if err != nil {
 			return "", err
 		}
-		return filepath.Join(home, "Library", "Application Support", "DKKCHT"), nil
+		return filepath.Join(home, "Library", "Application Support", "COKCHT"), nil
 	default:
 		if d := os.Getenv("XDG_DATA_HOME"); d != "" {
 			return filepath.Join(d, "cok-cht"), nil
@@ -187,7 +187,7 @@ func locateOriginals(dir string) (map[string]string, error) {
 			return nil, err
 		}
 		if got != r.sha {
-			return nil, fmt.Errorf("%s 的 SHA-256 不符：預期 %s，實際 %s（本中文化只支援 DOS 英文版 1.10）", filepath.Join(dir, n), r.sha, got)
+			return nil, fmt.Errorf("%s 的 SHA-256 不符：預期 %s，實際 %s（本中文化只支援 DOS 英文版 1.2）", filepath.Join(dir, n), r.sha, got)
 		}
 		names[r.name] = n
 	}
@@ -261,13 +261,13 @@ func missingOriginalHelp(data string) string {
 	example := "把原版遊戲資料夾（含 START.EXE、GAME.OVR）複製成本程式旁邊的 original 資料夾"
 	switch runtime.GOOS {
 	case "windows":
-		example += `，或執行 DKKCHT.exe -original D:\games\DKKRYNN`
+		example += `，或執行 COKCHT.exe -original D:\games\CKRYNN`
 	case "darwin":
-		example += "（與 DKKCHT.app 同一層），或在終端機執行 DKKCHT.app/Contents/MacOS/cok-play -original ~/games/DKKRYNN"
+		example += "（與 COKCHT.app 同一層），或在終端機執行 COKCHT.app/Contents/MacOS/cok-play -original ~/games/CKRYNN"
 	default:
-		example += "（與 AppImage 同一層），或執行 ./DKKCHT-x86_64.AppImage -original ~/games/DKKRYNN"
+		example += "（與 AppImage 同一層），或執行 ./COKCHT-x86_64.AppImage -original ~/games/CKRYNN"
 	}
-	return fmt.Sprintf("找不到原版《Death Knights of Krynn》（DOS 英文版 1.10）。\n本程式不附原版遊戲，請自備合法取得的原版：\n%s；\n也可以放在 %s。",
+	return fmt.Sprintf("找不到原版《Champions of Krynn》（DOS 英文版 1.2）。\n本程式不附原版遊戲，請自備合法取得的原版：\n%s；\n也可以放在 %s。",
 		example, filepath.Join(data, "original"))
 }
 
@@ -286,7 +286,7 @@ func fatal(err error) {
 			}
 		}
 	}
-	if os.Getenv("DKK_NO_DIALOG") != "1" {
+	if os.Getenv("COK_NO_DIALOG") != "1" {
 		text := msg
 		if path != "" {
 			text += "\n\n錯誤紀錄：" + path

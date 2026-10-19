@@ -160,7 +160,7 @@ func drawToolbar(dst []uint8, scale int, font *xlate.Font, items []toolbarItem, 
 			setRGB(dst, w, x, y, c)
 		}
 	}
-	f, k, ox, oy := font.ForScale(scale) // 3× 用 22×22 變體（apps/dkk AddScaledVariants）
+	f, k, ox, oy := font.ForScale(scale) // 3× 用 22×22 變體（apps/cok AddScaledVariants）
 	rb := (f.W + 7) / 8
 	for i, it := range items {
 		c := barText

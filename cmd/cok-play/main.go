@@ -38,8 +38,8 @@ import (
 
 const (
 	windowTitle = "克萊恩英豪"
-	// startEXESHA256 是 G1 盤點的 START.EXE（death-knights-of-krynn-cht docs/re/001）。
-	startEXESHA256 = "5426c2098b92eb0712e8a238a07fa3923fbb494a2667f3a16eb3be25c1f3a458"
+	// startEXESHA256 是 G1 盤點的 START.EXE v1.2（champions-of-krynn-cht docs/re/001）。
+	startEXESHA256 = "e087c20258cc87a06fb9db62a3898896b47c0b94796f748f72eb8986919ee384"
 )
 
 func stepsPerHostFrame(clock int) uint64 {
@@ -473,6 +473,9 @@ func main() {
 	}
 	if startName == "" {
 		startName = "START.EXE"
+	}
+	if err := installCoK(saveRoot); err != nil {
+		fail(err)
 	}
 	exe, err := os.ReadFile(filepath.Join(saveRoot, startName))
 	if err != nil {
