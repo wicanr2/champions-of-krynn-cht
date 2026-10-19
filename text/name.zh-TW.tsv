@@ -30,6 +30,7 @@ name.08c3bf4ca8aa	卡拉蒙	glossary
 name.099434a0ec4a	幽靈	glossary
 name.0a1ddc93fd7b	祈禱	glossary
 name.0a3bba05acfd	奎茲馬索梅提斯	glossary
+name.0a76fa2fa80b	大哥布林首領	glossary
 name.0aac4f3d8041	連枷	glossary
 name.0b2bedbaa478	不死老鼠	glossary
 name.0b317bb1b9ad	達加德山	glossary
@@ -229,11 +230,13 @@ name.3c4e12b93b25	迷惑人類或哺乳動物	glossary
 name.3c89010ac384	多人隱形術	glossary
 name.3cb54af82050	清澈玻璃酒店	glossary
 name.3d0f05378002	緩慢術	glossary
+name.3d927167b438	巨鼠	glossary
 name.3df333ef9040	斯拉托地窖	glossary
 name.3e7962d21cc5	魔法杖	glossary
 name.3ef153595169	教育公會	glossary
 name.3f0c88ea43ad	半徑10呎內免受邪惡傷害	glossary
 name.3f74287ce1e9	恢復術	glossary
+name.3f9c5d1cff44	邪惡鬥士	glossary
 name.3fc515c9cac0	血肉魔像	glossary
 name.3fe3b1c8cc69	阿明德茄克	glossary
 name.4028706adedf	大力術	glossary
@@ -318,6 +321,7 @@ name.54a23f83c8f5	加倍術	glossary
 name.54a2eee8a8af	第四級	glossary
 name.54c73af96af4	巴茲龍人	glossary
 name.54e152ae0ae9	第三級	glossary
+name.553acccb46fe	巨型蜈蚣	glossary
 name.554f837d2872	抗毒護符	glossary
 name.55ab05f964a1	僵屍象	glossary
 name.55d96bf99110	鐵皮術	glossary
@@ -385,6 +389,7 @@ name.619437b4201c	甲	glossary
 name.61b178e4efa8	達飛	glossary
 name.61e932cd1783	引發重傷	glossary
 name.62035a9bd7e1	食腐蛇	glossary
+name.6222d08388be	黑魔法師	glossary
 name.6231de32f0ca	賈爾克蘭德	glossary
 name.626170d4e713	卡爾	glossary
 name.633786f477fb	臭雲術	glossary
@@ -423,6 +428,7 @@ name.6a88445bbf65	項鍊	glossary
 name.6af2bad77d57	治療輕傷	glossary
 name.6afee3a2a711	史川朋	glossary
 name.6b7573221b4f	解除詛咒	glossary
+name.6ba9d1aac783	精靈盜匪	glossary
 name.6c02e88a8fec	交叉雙劍酒店	glossary
 name.6c352fb26e1e	第六級	glossary
 name.6cebe56a7fec	短劍	glossary
@@ -460,6 +466,7 @@ name.749323213ac1	燃燒的手	glossary
 name.74b5ff37bd79	迪妮莎	glossary
 name.74ca12fc08a4	龍族	glossary
 name.74d43d5f84c3	食人魔	glossary
+name.75498629ea8a	黑魔法師	glossary
 name.75a84e162ae7	抗毒	glossary
 name.7636be09d8cd	銅龍	glossary
 name.769b700c244b	工程師公會	glossary
@@ -523,6 +530,7 @@ name.83f2441ebd85	復活術	glossary
 name.83f3724c2560	化石術	glossary
 name.842c3f9a9151	複合長弓	glossary
 name.843c16663f27	火之吻	glossary
+name.8446869f8325	精靈助祭	glossary
 name.8483460e43ab	寶珠	glossary
 name.84efb3405723	傷害術	glossary
 name.853f8cbf6538	達加德城堡	glossary
@@ -596,6 +604,7 @@ name.950e97133c3a	帕蘭薩斯	glossary
 name.95322b782d6d	威加滕	glossary
 name.9545f6dcad96	步兵用	glossary
 name.9559d579f7ee	牛頭人	glossary
+name.956e39907ed9	戰士	glossary
 name.958212eb6a95	守衛所	glossary
 name.95d64cacce0f	酒館	glossary
 name.95fc3199048c	巨人之力	glossary
@@ -691,10 +700,12 @@ name.abb55a39258b	對爬蟲類	glossary
 name.abee243cc5b5	塔下地道	glossary
 name.ac1f2683d765	第五級	glossary
 name.ac6251ebbc3d	指揮官	glossary
+name.ac7b0cc87b07	巨鼠	glossary
 name.ac85bbc0b7a3	幻影術	glossary
 name.ac8d4037a42b	黑龍	glossary
 name.acf3b9f6cc3a	緩毒術	glossary
 name.ad5ec4ef038c	大牧師塔	glossary
+name.ad5ef2b876ed	巨型蜈蚣	glossary
 name.ad8638888e8a	傑勒克	glossary
 name.add4b7d9c9b2	魯飛	glossary
 name.ae29bc37ec51	外交事務局	glossary
@@ -886,6 +897,7 @@ name.d9b44cbbf1e3	魯飛	glossary
 name.d9c27a01199e	查卡利	glossary
 name.d9cadfcdcb88	市政廳	glossary
 name.da3333e193aa	醫治失明	glossary
+name.daad712ce9ae	邪惡鬥士	glossary
 name.dab7b32328ef	額外治療藥劑	glossary
 name.dae0896cbc2c	鎖甲	glossary
 name.db2dc1531c9c	護甲	glossary
@@ -945,7 +957,9 @@ name.ea5f6bdc79b8	骷髏	glossary
 name.ea74ae1d2204	提卡	glossary
 name.ea9973d1460e	鋼幣	glossary
 name.ea9cb17f6393	湯高凡蒙	glossary
+name.eaf0fe0a362b	戰士	glossary
 name.eb0a474a39ad	玉牙	glossary
+name.eb48080c64e4	精靈助祭	glossary
 name.ebfd541332de	外交事務局	glossary
 name.ec288e8635ee	海洛	glossary
 name.ec5864202f39	史川朋	glossary
@@ -987,6 +1001,7 @@ name.f45802dfcef3	庫奧托亞人監督	glossary
 name.f4a4136b4bd9	莉諾	glossary
 name.f4d41386dfcd	杖投石索	glossary
 name.f4f89400211d	鱗甲	glossary
+name.f5c88906efbe	大哥布林首領	glossary
 name.f5d225751138	第五級	glossary
 name.f5e93a89cdd1	長矛	glossary
 name.f5fbe34a35de	笨拙術	glossary
@@ -1002,6 +1017,7 @@ name.f8d2aef518ff	火蜥蜴	glossary
 name.f92d02ab0ac8	蓋加斯屯墾區	glossary
 name.f9d153b9019b	庫奧托亞人牧師	glossary
 name.fa4791077ad5	半徑15呎的沉靜術	glossary
+name.fa5bbe36a2f6	精靈盜匪	glossary
 name.fa67303aecda	精良	glossary
 name.fa7425d60af9	達西默	glossary
 name.fabb750458e7	西維克龍人	glossary

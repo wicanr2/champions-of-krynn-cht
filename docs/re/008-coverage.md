@@ -40,3 +40,34 @@ demo 第 600M–3,500M 步有自動戰鬥。未命中的是本作與幽靈騎士
 ## 底列繼續提示
 
 `Press <enter>/<return> to continue` 印成首字大寫，字串表只有全小寫、全大寫兩種；路徑 C 查表補試大小寫變體後覆繪（旅店場景 `workplace/probe/inn1`）。
+
+## 城鎮服務（屯墾區）
+
+| 場景 | 探針 | 印字 | 缺口 |
+|---|---|---|---|
+| 酒店傳聞（面板 1000+N） | `tavern1` | 18 | 0 |
+| 神殿 | `temple1` | 222 | 0 |
+| 金庫 | `vault1` | 21 | 0 |
+| 訓練場選單 | `train1`、`train2` | 138、228 | 0 |
+| 法術記憶與抄寫 | `magic1`、`magic2` | 117、231 | 0 |
+| 旅店 | `inn1` | 36 | 0 |
+
+缺口以 `tools/area-misses.sh` 計算（排除純數字、骰子、空白與預建隊員名）。訓練只到選單，預建隊伍經驗值不足，沒有實際升級。
+
+## 跨區（`tools/g6-area-coverage.sh`，docs/re/009）
+
+從商隊戰後的大地圖狀態出發，生命值改 250、大地圖座標改到據點左側，正規進城後交給 `cok-explore` 自動探索（戰鬥交電腦、選單優先 Attack）。
+依使用者指示抽三區，ECL1、ECL2、ECL3 各一。
+
+| 區 | 探針 | 結果 |
+|---|---|---|
+| 斯拉托 1/20 | `throtl1`（988 動作，43 格） | 缺口：怪物名 `WARRIOR`、`HOBGOBLIN LDR`、`BLACK ROBE MAGE`、`GIANT RAT`、`GIANT CENTIPEDE`；背後攻擊 `(from behind) Hitting for N points of damage`、`(from behind) and Misses`（本作 `)` 後有空白、`points of` 單一空白）；戰鬥訊息 `3 Darts`（數量＋物品整串） |
+| 蓋加斯 2/30 | `area1/GARGATH`、`GARGATH2` | 只到城門：守衛每次都攻擊，戰後回城外。缺口：`ELVISH CURATE`、`ELVISH ROGUE`、`EVIL FIGHTER`、背後攻擊 |
+| 桑克申 3/50 | `area2/SANCTION`（800 動作，130 格） | 2,366 筆印字，缺口 0（含武器店與旅店招牌、酒館招呼、手札 69 引用） |
+
+處理：術語表加 8 個怪物名並重產名稱 catalog；組句模板加本作背後攻擊三條；`compose.go` 加「數量＋物品」整串規則（數量置後，同商店清單）。
+補完後重跑斯拉托（`area2/THROTL`，500 動作、34 格）：10,415 筆印字，缺口 0。
+
+限制：
+- 只走自動探索碰得到的格子，需要劇情進度、特定道具或對話選擇的分支沒有涵蓋。
+- 其餘 12 張地圖沒有實機進入。覆繪不改引擎，事件文字都走同一條路徑 B，靜態譯文已齊（docs/re/004）。

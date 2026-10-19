@@ -727,3 +727,11 @@ Animate Dead	活化死者	spell	translation-cok	新詞，2026-10-19 全量翻譯
 Grilliard	格里利亞德	person	translation-cok	新詞，手札譯文
 Flying Citadel	飛行堡壘	place	translation-cok	遊戲譯文
 Bozak	波札克龍人	monster	translation-cok	新詞，demo 戰鬥盤點
+Giant Rat	巨鼠	monster	translation-cok	新詞，跨區盤點蓋加斯 2026-10-19
+Elvish Curate	精靈助祭	monster	translation-cok	新詞，跨區盤點蓋加斯 2026-10-19；Curate 是牧師的低階頭銜
+Elvish Rogue	精靈盜匪	monster	translation-cok	新詞，跨區盤點蓋加斯 2026-10-19；與職業 Rogue（淘氣法師）無關，這裡是盜賊頭銜
+Evil Fighter	邪惡鬥士	monster	translation-cok	新詞，跨區盤點蓋加斯 2026-10-19；與 Evil Warrior（邪惡戰士）區分
+Warrior	戰士	monster	translation-cok	遊戲印 WARRIOR（怪物名）；同職業 Fighter 譯法；跨區盤點斯拉托 2026-10-19
+Hobgoblin Ldr	大哥布林首領	monster	translation-cok	遊戲印 HOBGOBLIN LDR（Leader 縮寫）；跨區盤點斯拉托 2026-10-19
+Black Robe Mage	黑魔法師	monster	dkk:b13.md	遊戲印 BLACK ROBE MAGE（怪物名）；同職業列譯法；跨區盤點斯拉托 2026-10-19
+Giant Centipede	巨型蜈蚣	monster	translation-cok	新詞，跨區盤點斯拉托 2026-10-19

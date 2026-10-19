@@ -41,6 +41,7 @@ Knight of the Rose	玫瑰騎士	同上
 wants to kill {name}	想殺死 {name}	戰鬥中怪物名之後另起一頁（名字模板）
 {name}, how can we help yo	{name}，需要什麼幫助？	神殿招呼（原文在 yo 截斷；名字模板）
 each character receives {n}	每人獲得 {n}	戰後經驗值，下一列「點經驗。」
+Each character receives {n}	每人獲得 {n}	本作開頭大寫（docs/re/008 商隊戰），下一列「點經驗。」
 (from behind)Hitting for {n} points  of damage	（背後攻擊）造成 {n} 點傷害	背刺傷害（跨區盤點第 2 輪 2026-10-18；原文兩個空白）
 (from behind)Hitting for {n} point  of damage	（背後攻擊）造成 {n} 點傷害	單數（推測，未觀測）
 a level {n} {name}	{n} 級{name}	訓練升級「將成為：」下一列，{name} 為職業（介面詞表）；2026-10-18 升級盤點
@@ -89,3 +90,6 @@ takes {n} points of damage from Acid	受到 {n} 點酸液傷害	本作（demo �
 takes {n} point of damage from Acid	受到 {n} 點酸液傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
 takes {n} points of damage from Poison	受到 {n} 點毒素傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
 takes {n} point of damage from Poison	受到 {n} 點毒素傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+(from behind) Hitting for {n} points of damage	（背後攻擊）造成 {n} 點傷害	本作背刺傷害（單一空白；跨區盤點蓋加斯 2026-10-19）
+(from behind) Hitting for {n} point of damage	（背後攻擊）造成 {n} 點傷害	單數（推測，未觀測）
+(from behind) and Misses	（背後攻擊）但沒有命中	本作背刺落空（跨區盤點蓋加斯 2026-10-19）
