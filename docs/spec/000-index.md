@@ -16,5 +16,5 @@
 | [009-map-overlay.md](009-map-overlay.md) | CONFORMED | #8 | 遊戲內地圖疊層 |
 | [010-hd-theme.md](010-hd-theme.md) | CONFORMED（b01 首批） | #9、#11 | HD 重繪主題 |
 | [011-toolbar.md](011-toolbar.md) | CONFORMED | #9 | 視窗頂端切換列 |
-| [012-release-packaging.md](012-release-packaging.md) | READY | #10 | 發行包 |
+| [012-release-packaging.md](012-release-packaging.md) | CONFORMED | #10 | 發行包 |
 | [013-player-name.md](013-player-name.md) | CONFORMED | #6 | 玩家角色名自動音譯 |
