@@ -33,6 +33,7 @@ GENERIC = {'Fighter', 'Cleric', 'Thief', 'Ranger', 'Paladin', 'Knight', 'Mage', 
 ALLOW = {
     '鬼怪': r'妖魔鬼怪',
     '黑暗之后塔克西絲': r'黑暗之后塔克西絲',  # 兩個術語表譯名並列（Dark Queen、Takhisis）
+    '賣出': r'賣出',  # 介面短字（底列選單字數受限），術語表全名「變賣物品」
 }
 
 
@@ -56,7 +57,7 @@ def variants(note):
     for m in re.finditer(r'(?:另見|取代異譯)：([^；;]+)', note or ''):
         for v in re.split(r'[、，,]', m.group(1)):
             v = strip_paren(v)
-            if v:
+            if v and not v.isascii():  # 頁碼註記（例 b17）不是譯名
                 out.append(v)
     return out
 

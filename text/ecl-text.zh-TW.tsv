@@ -93,7 +93,7 @@ ecl.1.17.01463	卡爾爵士接著說：	batch-editorial
 ecl.1.17.01495	「另外，請從	batch-editorial
 ecl.1.17.01525	武器庫購置並備妥裝備。出發前先記憶好法術。」	batch-editorial
 ecl.1.17.01594	屯墾區的所有人聚在一起，並	batch-editorial
-ecl.1.17.01631	為你們歡呼三聲。酒館大門敞開，一場	batch-editorial
+ecl.1.17.01631	為你們歡呼三聲。酒店大門敞開，一場	batch-editorial
 ecl.1.17.01673	宴會就此展開。	batch-editorial
 ecl.1.17.01709	你們想去哪裡？	batch-editorial
 ecl.1.17.01735	旅店	batch-editorial
@@ -104,7 +104,7 @@ ecl.1.17.01763	下一個	batch-editorial
 ecl.1.17.01768	離開	dkk
 ecl.1.17.01804	金庫	batch-editorial
 ecl.1.17.01810	神廟	dkk
-ecl.1.17.01817	酒館	batch-editorial
+ecl.1.17.01817	酒店	batch-editorial
 ecl.1.17.01822	前一個	batch-editorial
 ecl.1.17.01855	歡迎光臨，我們有足夠的空位給你們。	batch-editorial
 ecl.1.17.01978	「我們可以為你們保管錢財，但只接受	batch-editorial
@@ -709,7 +709,7 @@ ecl.2.49.02577	後牆邊。他看出你們並非	batch-editorial
 ecl.2.49.02616	他所預期的人，便試探地向你們問候。	batch-editorial
 ecl.2.49.02661	他自稱是此地的前任	batch-editorial
 ecl.2.49.02699	要塞城主。你們將他的話記為手札第 36 則。	batch-editorial
-ecl.2.49.02747	總管離開了。	batch-editorial
+ecl.2.49.02747	城主離開了。	batch-editorial
 ecl.2.49.02801	一名囚犯躺在地上腐臭的污穢之中。	batch-editorial
 ecl.2.49.02840	他招手要你們靠近，低聲對你們說話，	batch-editorial
 ecl.2.49.02873	你們把這件事記為手札第 42 則。	batch-editorial
@@ -738,7 +738,7 @@ ecl.2.49.03865	你們一進來，便響起一聲沮喪的低吼，隨著	batch-e
 ecl.2.49.03904	祭壇周圍的光芒熄滅。這群人轉向	batch-editorial
 ecl.2.49.03943	你們，眼中充滿殺意。	batch-editorial
 ecl.2.49.04101	你們發現北邊有一道密門。	batch-editorial
-ecl.2.49.04148	這就是總管跟你們提過的	batch-editorial
+ecl.2.49.04148	這就是城主跟你們提過的	batch-editorial
 ecl.2.49.04181	那道門。它不過是一面幻牆，你們	batch-editorial
 ecl.2.49.04220	可以直接穿過。	batch-editorial
 ecl.2.49.04275	寶庫幾乎空了。大部分的	batch-editorial
@@ -1304,12 +1304,12 @@ ecl.2.68.02686	他們帶人離開時，那名男子尖叫：「你們這些蠢�
 ecl.2.68.02747	既然他沒有告發你們，你們便聽他說。	batch-editorial
 ecl.2.68.02791	他向你們說明真正的守衛是如何被俘的	batch-editorial
 ecl.2.68.02841	他交給你們一張地圖，標示著通往監獄的密門	batch-editorial
-ecl.2.68.02908	你們走進擠滿人的酒館，眾人歡呼，酒保大喊：「酒水由本店請客。」	batch-editorial
-ecl.2.68.02988	你們走進一間骯髒噁心的酒館。	batch-editorial
+ecl.2.68.02908	你們走進擠滿人的酒店，眾人歡呼，酒保大喊：「酒水由本店請客。」	batch-editorial
+ecl.2.68.02988	你們走進一間骯髒噁心的酒店。	batch-editorial
 ecl.2.68.03179	哇！這真是令人放鬆。	batch-editorial
 ecl.2.68.03211	你們在旅店醒來，頭痛欲裂。	batch-editorial
 ecl.2.68.03284	你們離開了酒店。	batch-editorial
-ecl.2.68.03309	酒館已打烊，這裡沒有人。	batch-editorial
+ecl.2.68.03309	酒店已打烊，這裡沒有人。	batch-editorial
 ecl.2.68.03344	你們感到這扇門後有一股龐大的邪惡氣息。	batch-editorial
 ecl.2.68.03561	幾名龍人伏擊你們。	batch-editorial
 ecl.2.68.03664	守衛們丟下手中的牌，發動攻擊。	batch-editorial
@@ -1904,7 +1904,7 @@ ecl.3.96.06799	幾名垂頭喪氣的守衛站在一處	batch-editorial
 ecl.3.96.06836	突出的岩簷下。你們或許能突襲他們。要	batch-editorial
 ecl.3.96.06880	攻擊嗎？	batch-editorial
 ecl.3.96.06961	你們發現了一處寶藏。	batch-editorial
-ecl.3.97.00235	「我們必須阻止麥坦尼，否則善方軍隊將會潰敗。」	batch-editorial
+ecl.3.97.00235	「我們必須阻止麥坦尼，否則善良陣營的軍隊將會潰敗。」	batch-editorial
 ecl.3.97.00288	泰斯希望隊伍突襲麥坦尼的基地。	batch-editorial
 ecl.3.97.00370	瓦礫堵住了街道。	batch-editorial
 ecl.3.97.00671	食人魔打量著你們的隊伍。	batch-editorial
@@ -2049,7 +2049,7 @@ ecl.3.97.07447	你們被護送出去。	batch-editorial
 ecl.3.97.07491	「準備好了再回來。」你們離開了。	batch-editorial
 ecl.3.97.07662	你們要怎麼做？	batch-editorial
 ecl.3.98.00071	你們無法休息，因為麥坦尼即將	batch-editorial
-ecl.3.98.00106	毀滅善方軍隊。	batch-editorial
+ecl.3.98.00106	毀滅善良陣營的軍隊。	batch-editorial
 ecl.3.98.00171	去路被瓦礫堵住了。	batch-editorial
 ecl.3.98.00232	麥坦尼的軍隊正試圖奪回入口。	batch-editorial
 ecl.3.98.00274	你們無法強行突破他們。	batch-editorial
@@ -2093,7 +2093,7 @@ ecl.3.98.02437	屋頂敞開，直通天空。天空	batch-editorial
 ecl.3.98.02471	晴朗無雲，三頭龍準備	batch-editorial
 ecl.3.98.02513	起飛。若你們未能阻止牠們，善方	batch-editorial
 ecl.3.98.02557	軍隊就會被毀滅。	batch-editorial
-ecl.3.98.02610	勝利了。你們拯救了善方軍隊。	batch-editorial
+ecl.3.98.02610	勝利了。你們拯救了善良陣營的軍隊。	batch-editorial
 ecl.3.98.02656	索蘭尼克騎士騎龍抵達。他們	batch-editorial
 ecl.3.98.02696	降落後向你們躬身致敬。「你們阻止了	batch-editorial
 ecl.3.98.02736	我軍的覆滅。你們的英勇奮戰	batch-editorial
