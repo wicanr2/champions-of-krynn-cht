@@ -29,6 +29,9 @@ import (
 
 var coordRe = regexp.MustCompile(`^(\d+),(\d+) ([NESW]) \d+:\d+`)
 
+// 本作瞄準畫面左上的距離列（`Range = N  `）
+var rangeRe = regexp.MustCompile(`^Range = (\d+)`)
+
 type pos struct{ x, y int }
 
 // dirs：N E S W 的位移（Gold Box：y 往南增加）。
@@ -119,6 +122,8 @@ func main() {
 	var stallPos pos
 	unstick := []string{"Return", "Esc", " "}
 	lastCIdx := -1
+	// 本作戰鬥（主專案 docs/re/008）：選單沒有交給電腦（Q），以瞄準近戰推進
+	lastRange, aimTries, passNext := -1, 0, false
 	stopAt := uint64(0)
 	pics := picSampler{seen: map[[32]byte]bool{}}
 
@@ -176,6 +181,9 @@ func main() {
 			e := live.Inv.Events[seen]
 			switch e.Path {
 			case "A":
+				if r := rangeRe.FindStringSubmatch(e.Text); r != nil {
+					lastRange, _ = strconv.Atoi(r[1])
+				}
 				if c := coordRe.FindStringSubmatch(e.Text); c != nil {
 					x, _ := strconv.Atoi(c[1])
 					y, _ := strconv.Atoi(c[2])
@@ -236,8 +244,29 @@ func main() {
 			push("M")
 			lastC = ""
 			continue
+		case *fight && strings.HasPrefix(lastC, "Aim:") || *fight && strings.Contains(lastC, "Next Prev Manual"):
+			// 瞄準中：距離 1 攻擊；0 是瞄到自己、其他距離換下一個目標；換 8 次都不相鄰就離開瞄準，這回合跳過
+			switch {
+			case lastRange == 1:
+				push("T")
+				aimTries = 0
+			case aimTries < 8:
+				push("N")
+				aimTries++
+			default:
+				push("E")
+				aimTries, passNext = 0, true
+			}
+			lastRange = -1
+			lastC = ""
+			continue
 		case inCombat(lastC) && *fight:
-			push("Q") // 這名角色交給電腦控制；每名角色輪到時各按一次
+			if passNext {
+				push("D") // 這名角色這回合不動，等敵人靠近
+				passNext = false
+			} else {
+				push("A")
+			}
 			lastC = ""
 			continue
 		case inCombat(lastC):
@@ -423,5 +452,6 @@ func (p *picSampler) sample(idx []byte, step uint64, dir string, say func(string
 // inCombat 判斷戰鬥選單。選單分兩列印（`Move Aim … Quick` 與 `Delay … View Speed End`），
 // 最後一段逐字可能只是第二列。
 func inCombat(c string) bool {
-	return strings.HasPrefix(c, "Move Aim") || strings.HasPrefix(c, "Delay ") && strings.HasSuffix(c, "Speed End")
+	return strings.HasPrefix(c, "Move Aim") || strings.HasPrefix(c, "Delay ") && strings.HasSuffix(c, "Speed End") ||
+		strings.HasPrefix(c, "Move View Aim") // 本作戰鬥選單
 }

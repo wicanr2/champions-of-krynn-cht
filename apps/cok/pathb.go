@@ -3,6 +3,7 @@ package cok
 import (
 	"bytes"
 	"fmt"
+	"regexp"
 	"strings"
 
 	"github.com/wicanr2/dosgolem/xlate"
@@ -144,15 +145,21 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 		b.OnEntry(text, mem)
 	}
 	oc, or := int(mem.Read8(linear(ds, cursorColAddr))), int(mem.Read8(linear(ds, cursorRowAddr)))
-	prev := b.prev
+	prev := append([]byte(nil), b.prev...) // 複製：下一行會重用 b.prev 的底層陣列
 	b.prev = append(b.prev[:0], text...)
 	e, hit := b.lookup(text)
 	// 手札引用的編號單獨成一則（例 `51.`）：補成「51 則。」接在「……手札第」之後
-	if n, bare, ok := JournalRefOf(prev, text); ok && !hit && bare {
+	if n, bare, ok := JournalRefOf(prev, text); ok && bare { // 純編號優先於 catalog（`40` 可能另有命中）
 		if n > 1000 {
 			n -= 1000
 		}
-		e, hit = Entry{Key: pathBKey + "entryref", Translation: fmt.Sprintf(" %d 則。", n)}, true
+		tail := "。"
+		if !bytes.HasSuffix(bytes.TrimSpace(text), []byte(".")) {
+			tail = "" // 句點另成一則（酒店傳聞），由下一則補「。」
+		}
+		e, hit = Entry{Key: pathBKey + "entryref", Translation: fmt.Sprintf(" %d 則%s", n, tail)}, true
+	} else if string(bytes.TrimSpace(text)) == "." && regexp.MustCompile(`^[0-9]{1,3}$`).Match(bytes.TrimSpace(prev)) {
+		e, hit = Entry{Key: pathBKey + "entryref.", Translation: "。"}, true
 	}
 	if hit {
 		h.Key = e.Key

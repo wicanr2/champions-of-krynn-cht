@@ -2,6 +2,7 @@ package cok
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/wicanr2/dosgolem/xlate"
 )
@@ -179,8 +180,12 @@ func (l *Live) journalEntry(text []byte, mem CPUView) {
 	if l.Journal == nil {
 		return
 	}
+	// 酒店傳聞的編號後單獨印一個句點（`YOU HEAR TAVERN TALE `、`40`、`.`；本專案 docs/re/008）：純標點不關面板
+	if strings.Trim(string(text), " .,!?") == "" {
+		return
+	}
 	l.Journal.CloseAuto()
-	prev := l.prevB
+	prev := append([]byte(nil), l.prevB...) // 複製：下一行會重用 l.prevB 的底層陣列
 	l.prevB = append(l.prevB[:0], text...)
 	if n, _, ok := JournalRefOf(prev, text); ok {
 		l.Journal.OpenAuto(n, mem.Read16(bdaKeyHead))

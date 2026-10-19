@@ -124,12 +124,13 @@ func (t *Translator) readyRow(s string) (Entry, bool) {
 	if m == nil {
 		return Entry{}, false
 	}
-	it, ok := t.item(m[3] + " ")
+	// 品名可帶數量（本作 ` Yes  60 Arrows `，docs/re/008）：走 goodsName，數量置後
+	it, ok := t.goodsName(m[3])
 	if !ok {
 		return Entry{}, false
 	}
 	flag := map[string]string{"Yes": "是", "No": "否"}[m[2]]
-	return Entry{Key: "ready", Translation: m[1] + flag + " " + it.Translation}, true // 前導空白保留，與反白列對齊
+	return Entry{Key: "ready", Translation: m[1] + flag + " " + it}, true // 前導空白保留，與反白列對齊
 }
 
 func (t *Translator) exact(b []byte) (Entry, bool) {
