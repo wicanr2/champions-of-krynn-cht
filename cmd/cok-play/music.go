@@ -18,7 +18,7 @@ import (
 )
 
 const (
-	musicFade = 0.5  // 換曲淡出秒數
+	musicFade = 0.5 // 換曲淡出秒數
 	musicGain = 1.0 // 整體音量；各曲增益在 music.tsv（對齊原版標題曲響度的 0.7 倍）
 )
 
@@ -28,12 +28,12 @@ type oplWrite struct {
 }
 
 type musicTrack struct {
-	key                 string
-	writes              []oplWrite
-	loop                bool
-	loopStart, loopEnd  float64
-	length              float64
-	gain                float64
+	key                string
+	writes             []oplWrite
+	loop               bool
+	loopStart, loopEnd float64
+	length             float64
+	gain               float64
 }
 
 // musicPlayer 依 MusicDirector 的選曲播放；Mix 在每次混音後呼叫。

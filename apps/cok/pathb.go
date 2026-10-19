@@ -39,7 +39,20 @@ type bPage struct {
 	lastRow            int
 	grid               map[int][]rune // 列 → 左欄到右欄的格子，0 為空
 	stamps             map[int]*xlate.Stamp
+	segs               []bSeg // 排進這頁的原文，換語言時依序重排（主專案規格 015 §2）
 }
+
+// bSeg 是排進頁面的一則原文：prev 是上一則（手札編號的判斷要用），nl 是接續呼叫時游標在視窗左緣。
+type bSeg struct {
+	prev, text []byte
+	nl         bool
+}
+
+// JournalRef 是路徑 B 手札編號單獨成一則時補上的文字（本專案 docs/re/004）：Format 收編號與結尾，Dot 是句點。
+type JournalRef struct{ Format, Dot string }
+
+// DefaultJournalRef 是繁中的手札編號格式。
+var DefaultJournalRef = JournalRef{Format: " %d 則%s", Dot: "。"}
 
 func (p *bPage) maskFrom(row int) int {
 	if row == p.startRow {
@@ -64,6 +77,8 @@ type PathB struct {
 	Hits    []Hit
 	// OnEntry 在每次合法進入時以原字串呼叫（規格 007 手札面板用）；可為 nil。
 	OnEntry func(text []byte, mem CPUView)
+	// Ref 是手札編號格式；空白時用 DefaultJournalRef。
+	Ref JournalRef
 
 	pal   [256][3]uint8
 	pages []*bPage
@@ -147,26 +162,14 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 	oc, or := int(mem.Read8(linear(ds, cursorColAddr))), int(mem.Read8(linear(ds, cursorRowAddr)))
 	prev := append([]byte(nil), b.prev...) // 複製：下一行會重用 b.prev 的底層陣列
 	b.prev = append(b.prev[:0], text...)
-	e, hit := b.lookup(text)
-	// 手札引用的編號單獨成一則（例 `51.`）：補成「51 則。」接在「……手札第」之後
-	if n, bare, ok := JournalRefOf(prev, text); ok && bare { // 純編號優先於 catalog（`40` 可能另有命中）
-		if n > 1000 {
-			n -= 1000
-		}
-		tail := "。"
-		if !bytes.HasSuffix(bytes.TrimSpace(text), []byte(".")) {
-			tail = "" // 句點另成一則（酒店傳聞），由下一則補「。」
-		}
-		e, hit = Entry{Key: pathBKey + "entryref", Translation: fmt.Sprintf(" %d 則%s", n, tail)}, true
-	} else if string(bytes.TrimSpace(text)) == "." && regexp.MustCompile(`^[0-9]{1,3}$`).Match(bytes.TrimSpace(prev)) {
-		e, hit = Entry{Key: pathBKey + "entryref.", Translation: "。"}, true
-	}
+	e, hit := b.resolve(prev, text)
 	if hit {
 		h.Key = e.Key
 	}
 	page := b.pageAt(r)
 	newPage := flag != 0 || !r.contains(or, oc)
 	var runes []rune
+	seg := bSeg{prev: prev, text: text}
 	switch {
 	case newPage:
 		b.removeIntersecting(r)
@@ -184,6 +187,7 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 		page = b.newPage(r, uint8(bg), uint8(fg), or, oc)
 		runes = PackHalfWidth([]rune(e.Translation))
 	default:
+		seg.nl = oc == r.Left
 		if oc == r.Left && page.curCol != r.Left {
 			page.curRow, page.curCol = page.curRow+1, r.Left
 		}
@@ -199,9 +203,75 @@ func (b *PathB) Before(step uint64, cs, ip, ss, sp, ds uint16, mem CPUView) {
 		h.Rejected = "溢出"
 		return
 	}
+	page.segs = append(page.segs, seg)
 	b.rebuild(page)
 	if h.Rejected == "" {
 		h.Stamped = true
+	}
+}
+
+// resolve 查一則原文的譯文；手札引用的編號單獨成一則（例 `51.`）時補成「51 則。」接在「……手札第」之後。
+func (b *PathB) resolve(prev, text []byte) (Entry, bool) {
+	ref := b.Ref
+	if ref.Format == "" {
+		ref = DefaultJournalRef
+	}
+	if n, bare, ok := JournalRefOf(prev, text); ok && bare { // 純編號優先於 catalog（`40` 可能另有命中）
+		if n > 1000 {
+			n -= 1000
+		}
+		tail := ref.Dot
+		if !bytes.HasSuffix(bytes.TrimSpace(text), []byte(".")) {
+			tail = "" // 句點另成一則（酒店傳聞），由下一則補句點
+		}
+		return Entry{Key: pathBKey + "entryref", Translation: fmt.Sprintf(ref.Format, n, tail)}, true
+	}
+	if string(bytes.TrimSpace(text)) == "." && regexp.MustCompile(`^[0-9]{1,3}$`).Match(bytes.TrimSpace(prev)) {
+		return Entry{Key: pathBKey + "entryref.", Translation: ref.Dot}, true
+	}
+	return b.lookup(text)
+}
+
+// relang 換語言後依各頁記下的原文重排（主專案規格 015 §2）。已被原版蓋掉的列維持移除；
+// 新語言排不下的頁整頁移除，露出原版。
+func (b *PathB) relang(font *xlate.Font, ref JournalRef, lookups ...Lookuper) {
+	b.Font, b.Ref, b.Lookups = font, ref, lookups
+	for _, p := range append([]*bPage(nil), b.pages...) {
+		var gone []int
+		for row := p.startRow; row <= p.rect.Bottom; row++ {
+			if p.stamps[row] == nil {
+				gone = append(gone, row)
+			}
+		}
+		p.grid, p.curRow, p.curCol, p.lastRow = map[int][]rune{}, p.startRow, p.startCol, p.startRow
+		ok := true
+		for i, s := range p.segs {
+			if i > 0 && s.nl && p.curCol != p.rect.Left {
+				p.curRow, p.curCol = p.curRow+1, p.rect.Left
+			}
+			e, hit := b.resolve(s.prev, s.text)
+			runes := []rune(string(s.text)) // 照原文接入（名字、數字）
+			if hit {
+				runes = PackHalfWidth([]rune(e.Translation))
+			} else if i == 0 {
+				ok = false
+			}
+			if !ok || !layout(p, runes) {
+				ok = false
+				break
+			}
+		}
+		if !ok {
+			b.removePage(p)
+			continue
+		}
+		for _, s := range p.stamps {
+			s.Font = font
+		}
+		b.rebuild(p)
+		for _, row := range gone {
+			b.removeRow(p, row)
+		}
 	}
 }
 

@@ -205,7 +205,12 @@ func InGuidePanel(x, y int) bool { return x >= 0 && x < 8*guideCols && y >= 0 &&
 
 // LoadGuideDir 從譯文目錄讀攻略表與面板格式；沒有 walkthrough.zh-TW.tsv 時回 nil（不啟用）。
 func LoadGuideDir(dir string) (*GuidePanel, error) {
-	b, err := os.ReadFile(filepath.Join(dir, "walkthrough.zh-TW.tsv"))
+	return LoadGuideDirLang(dir, DefaultLang)
+}
+
+// LoadGuideDirLang 同 LoadGuideDir，取 lang 的攻略表與前端文字表；該語言沒有攻略表時回 nil。
+func LoadGuideDirLang(dir, lang string) (*GuidePanel, error) {
+	b, err := os.ReadFile(filepath.Join(dir, langName("walkthrough", lang)))
 	if os.IsNotExist(err) {
 		return nil, nil
 	}
@@ -216,16 +221,13 @@ func LoadGuideDir(dir string) (*GuidePanel, error) {
 	if err != nil {
 		return nil, err
 	}
-	if b, err = os.ReadFile(filepath.Join(dir, "host-text.zh-TW.tsv")); err != nil {
-		return nil, err
-	}
-	host, err := LoadHostText(b)
+	host, err := loadHostDir(dir, lang)
 	if err != nil {
 		return nil, err
 	}
 	f, ok := GuideFormatOf(host)
 	if !ok {
-		return nil, fmt.Errorf("cok: host-text.zh-TW.tsv 缺 guide.title／page／toc／tocline／tochint")
+		return nil, fmt.Errorf("cok: %s 缺 guide.title／page／toc／tocline／tochint", langName("host-text", lang))
 	}
 	return &GuidePanel{Chapters: chs, Format: f}, nil
 }

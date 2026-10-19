@@ -92,6 +92,8 @@ type PathA struct {
 	pending []pendingStamp
 	// bgOf 記每筆 Stamp 呼叫時給的背景 attribute，PrepareFrame 用它校正定色方向。
 	bgOf map[*xlate.Stamp]uint8
+	// src 記每筆 Stamp 查表用的原文，換語言時重譯（主專案規格 015 §2）。
+	src map[*xlate.Stamp][]byte
 
 	// 規格 006 查驗題：答案表、是否隱藏答案、最近一次改寫。
 	Answers     map[QuizKey]string
@@ -175,13 +177,13 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 	if l, ok := p.Catalog.(playerLearner); ok && inPartyList(row, col) {
 		l.LearnPlayer(text, sexOf(mem.Read8(base+recordSexOff))) // 規格 013：隊伍欄只印隊員名字，指標是角色記錄
 	}
-	lead := 0
+	lead, key := 0, text
 	e, ok := p.Catalog.Lookup(text)
 	if !ok {
 		trimmed := bytes.TrimRight(bytes.TrimLeft(text, " "), " ")
 		if len(trimmed) > 0 && len(trimmed) < len(text) {
 			if e, ok = p.Catalog.Lookup(trimmed); ok {
-				lead = len(text) - len(bytes.TrimLeft(text, " "))
+				lead, key = len(text)-len(bytes.TrimLeft(text, " ")), trimmed
 			}
 		}
 	}
@@ -219,6 +221,13 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 		p.bgOf = map[*xlate.Stamp]uint8{}
 	}
 	p.bgOf[st] = uint8(bg)
+	if p.src == nil {
+		p.src = map[*xlate.Stamp][]byte{}
+	}
+	p.src[st] = key
+	if len(p.src) > 2*len(p.Layer.Stamps)+512 {
+		p.prune()
+	}
 	p.pending = append(p.pending, pendingStamp{ret: linear(retSeg, retOff), ss: ss, sp: sp + 4 + argBytes, stamp: st})
 	h.Stamped = true
 	added = st
@@ -244,5 +253,57 @@ func (p *PathA) PrepareFrame(indexed []uint8, w, h int) {
 		}
 		most, second := xlate.Colors(region)
 		st.SwapColors = most != bg && second == bg
+	}
+}
+
+// relang 換語言後重譯仍在 Layer 上的路徑 A 疊字（主專案規格 015 §2）：新譯文放不下或查不到的移除，露出原版。
+func (p *PathA) relang(cat Lookuper, font *xlate.Font, f QuizFormat) {
+	p.Catalog, p.Font, p.QuizFormat = cat, font, f
+	shown := map[*xlate.Stamp]bool{}
+	for _, s := range p.Layer.Stamps {
+		shown[s] = true
+	}
+	drop := map[*xlate.Stamp]bool{}
+	for st, key := range p.src {
+		if !shown[st] {
+			delete(p.src, st)
+			delete(p.bgOf, st)
+			continue
+		}
+		e, ok := cat.Lookup(key)
+		runes := PackHalfWidth([]rune(e.Translation))
+		if !ok || len(runes) > st.Cells {
+			drop[st] = true
+			delete(p.src, st)
+			continue
+		}
+		for len(runes) < st.Cells {
+			runes = append(runes, ' ')
+		}
+		st.Text, st.Font = runes, font
+	}
+	if len(drop) > 0 {
+		keep := p.Layer.Stamps[:0]
+		for _, s := range p.Layer.Stamps {
+			if !drop[s] {
+				keep = append(keep, s)
+			}
+		}
+		p.Layer.Stamps = keep
+	}
+	p.relangQuiz()
+}
+
+// prune 丟掉已不在 Layer 上的 Stamp 紀錄（長時間遊玩時 src、bgOf 不無限成長）。
+func (p *PathA) prune() {
+	shown := map[*xlate.Stamp]bool{}
+	for _, s := range p.Layer.Stamps {
+		shown[s] = true
+	}
+	for st := range p.src {
+		if !shown[st] {
+			delete(p.src, st)
+			delete(p.bgOf, st)
+		}
 	}
 }

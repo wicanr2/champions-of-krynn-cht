@@ -76,11 +76,12 @@ func (p *PlayerNames) Lookup(original []byte) (Entry, bool) {
 // LearnPlayer 由路徑 A 在隊伍欄印字時呼叫：去頭尾空白後，UI 目錄與名稱表都查不到才學成玩家名，
 // 所以和怪物、人物同名時沿用名稱表的譯名（規格 013 §3.3）。
 func (t *Translator) LearnPlayer(text []byte, sex Sex) {
-	if t.Players == nil {
-		return
-	}
 	s := bytes.TrimSpace(text)
 	if len(s) == 0 {
+		return
+	}
+	t.hear(string(s), sex)
+	if t.Players == nil {
 		return
 	}
 	for _, c := range t.Exact {
@@ -101,4 +102,29 @@ type playerLearner interface{ LearnPlayer(text []byte, sex Sex) }
 
 func inPartyList(row, col int) bool {
 	return (col == partyListCol || col == partyMenuCol) && row >= partyListRow0 && row <= partyListRow1
+}
+
+// heardPlayer 是路徑 A 在隊伍欄看過的名字，換語言時交給新語言的 Translator 重學（主專案規格 015 §2）。
+type heardPlayer struct {
+	name string
+	sex  Sex
+}
+
+func (t *Translator) hear(name string, sex Sex) {
+	for _, h := range t.heard {
+		if h.name == name {
+			return
+		}
+	}
+	t.heard = append(t.heard, heardPlayer{name, sex})
+}
+
+// Relearn 讓 t 學會 from 看過的全部隊員名（換語言時隊伍欄不一定重印）。
+func (t *Translator) Relearn(from *Translator) {
+	if from == nil || from == t {
+		return
+	}
+	for _, h := range from.heard {
+		t.LearnPlayer([]byte(h.name), h.sex)
+	}
 }

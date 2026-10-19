@@ -61,6 +61,7 @@ type Live struct {
 	BoundAt uint64 // 綁定成功的步數
 	indexed []byte
 	pal     [256][3]uint8
+	lang    *LangPack // 目前語言（主專案規格 015；SetLang 設定，nil 表示 NewLive 給的表）
 }
 
 // NewLive 建立尚未綁定位址的覆繪；ui 是介面字串查表（可為規格 004 的 Translator），

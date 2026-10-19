@@ -162,6 +162,19 @@ func (c *PathC) Reset() {
 	c.call = nil
 }
 
+// relang 換語言後以保留的原文格子重組每一列（主專案規格 015 §2）；不觸發 OnLine，配樂不因換語言而換曲。
+func (c *PathC) relang(cat Lookuper, font *xlate.Font) {
+	c.Catalog, c.Font = cat, font
+	on := c.OnLine
+	c.OnLine = nil
+	c.Words = c.Words[:0]
+	for row := range c.rows {
+		c.rebuild(row)
+	}
+	c.dirty = map[int]bool{}
+	c.OnLine = on
+}
+
 func (c *PathC) clearStamps(row int) {
 	old := c.stamps[row]
 	if len(old) == 0 {

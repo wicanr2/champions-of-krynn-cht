@@ -157,7 +157,7 @@ func (p *PathA) finishQuiz(k QuizKey, last *xlate.Stamp) {
 	p.Layer.Replace(ask)
 	p.bgOf[ask] = q.bg
 	q.entry.Text, last.Text = t1, t2
-	p.QuizShown = &QuizShown{Key: k, Answer: ans, stamp: last}
+	p.QuizShown = &QuizShown{Key: k, Answer: ans, stamp: last, ask: ask, entry: q.entry}
 }
 
 // QuizShown 記最近一次改寫的查驗題，供切換答案顯示。
@@ -165,6 +165,8 @@ type QuizShown struct {
 	Key    QuizKey
 	Answer string
 	stamp  *xlate.Stamp
+	ask    *xlate.Stamp // 第 1 列（換語言時重寫）
+	entry  *xlate.Stamp // 第 2 列
 }
 
 // SetHideAnswers 切換答案顯示（只改覆繪，規格 006 §2.2）。
@@ -173,6 +175,23 @@ func (p *PathA) SetHideAnswers(hide bool) {
 	if s := p.QuizShown; s != nil {
 		if t, ok := fitText(p.QuizFormat.lines(s.Key, s.Answer, !hide)[2], s.stamp.Cells); ok {
 			s.stamp.Text = t
+		}
+	}
+}
+
+// relangQuiz 換語言後以新格式重寫最近一次改寫的查驗題三列；放不下的列保持原樣。
+func (p *PathA) relangQuiz() {
+	s := p.QuizShown
+	if s == nil || p.QuizFormat[0] == "" {
+		return
+	}
+	lines := p.QuizFormat.lines(s.Key, s.Answer, !p.HideAnswers)
+	for i, st := range []*xlate.Stamp{s.ask, s.entry, s.stamp} {
+		if st == nil {
+			continue
+		}
+		if t, ok := fitText(lines[i], st.Cells); ok {
+			st.Text, st.Font = t, p.Font
 		}
 	}
 }
