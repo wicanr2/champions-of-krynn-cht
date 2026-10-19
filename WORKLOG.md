@@ -34,3 +34,27 @@
 - 新增 `tools/g2-startup-receipt.sh`：送 `p` 到建立隊伍主選單，重播 a、b 雜湊一致。結果見 `docs/re/003-dosgolem-startup.md`。
 - 一次手動測試把 `/dev/stdout` 當 `cfg-adlib.sh` 的輸出，`cmp` 讀它卡住，已中止該行程；腳本用法只接一般檔案。
 - 清理：dosgolem 容器皆 `--rm`，無殘留；`workplace/` 無 root 擁有檔。
+
+## 2026-10-19 G3 輸出路徑盤點（#4）
+
+- 以幽靈騎士 adapter 的位元組簽章在本作 `START.EXE` 找到三個 resident 印字程序（路徑 A `0631:0353`、逐字 `0631:01DF`、路徑 B `0631:04AC`），
+  主選單 `-call-args` 證實參數格式相同。路徑 B 與幽靈騎士逐 byte 對齊得游標 `DS:6134／6135`。見 `docs/re/004-output-paths.md`。
+- dosgolem 分支建 `apps/cok`（複製 `apps/dkk`，換簽章、預設 DS `0CD6`、游標位址）與 `cmd/cok-play`、`cok-overlay-shot`、`cok-explore`。
+- 預建隊伍讀檔到查驗題；`tools/g3-party-receipt.sh` 走建角（ANNA）→ 加入隊伍 → 開始冒險 → 查驗題 → 開場劇情。
+- 路徑 C 呼叫端 bytes 與逐字程序位移 `01DF` 是逐版本的，改用本作值；城鎮選單詞是獨立 ECL 字串，介面查表加轉大寫查 ECL catalog。
+- 手札引用分兩則印（`… JOURNAL ENTRY ` ＋ `51.`），adapter 改成兩段式觸發；酒店傳聞用 1000+N。實機第 51 則自動彈出。
+
+## 2026-10-19 G4 譯文（#5）
+
+- 靜態抽取 ECL 2302 則（83,495 字元）、介面候選 1326 則。繼承幽靈騎士：介面 517 則（雜湊相同）、ECL 50 則、術語表 664 條。
+- 試譯 1 批經使用者確認文風後，8 個 sonnet subagent 平行翻譯 34 批；合併驗證 0 錯誤，ECL 2284 則、介面 889 則。
+- 譯名：人名以幽靈騎士術語表優先（使用者提醒）；表外依 zh.wikipedia「龍槍系列小說」通行譯名；新詞 48 條收斂進術語表。
+- 已知待查：介面候選中 32 字元滑動視窗的重疊片段，譯者只在一列放全句，實際印出的是哪一列待盤點確認。
+
+## 2026-10-19 G6 手札與查驗題（#7）
+
+- 三個英文轉錄 subagent 以著作權為由拒絕逐字重製手札，一個完成第 60–88 則（只留本機 `workplace/journal/en/`）。改用作法：
+  查驗題答案由原版題目表＋OCR 逐字座標算出（只存答案字），手札中文版由 subagent 看頁面圖直接翻譯。
+- `START.EXE` 題目表 49 筆（`docs/re/005-quiz-table.md`），答案長度 49 題全部相符，第 67 則一題人工覆寫；實機答對 2 題。
+- 手札 88 則、酒店傳聞 57 則中譯進 `text/journal.zh-TW.tsv`；Tavern Tale 依幽靈騎士術語表譯「酒店傳聞」。
+- 清理：容器皆 `--rm`；新建映像 `cok-pdf:bookworm-r1`、`cok-img:r1`（Pillow 11.0.0、numpy 2.1.3）。
