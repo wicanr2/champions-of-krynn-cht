@@ -1,0 +1,53 @@
+克萊恩英豪（繁體中文化）
+SSI《Champions of Krynn》DOS 英文版 1.2 的繁體中文輸出覆繪
+https://github.com/wicanr2/champions-of-krynn-cht
+
+一、本程式不附原版遊戲
+  請自備合法取得的 DOS 英文版原版遊戲。程式會核對 START.EXE 與 GAME.OVR
+  的 SHA-256，只支援下列版本：
+    START.EXE  e087c20258cc87a06fb9db62a3898896b47c0b94796f748f72eb8986919ee384
+    GAME.OVR   c3f448c391ea860f97dec99ce88b0b8b0a4a7e807cf3b1f5a8f1515e2a7a0529
+
+二、第一次啟動
+  把原版遊戲資料夾（含 START.EXE、GAME.OVR 等全部檔案）複製成本程式旁邊的
+  original 資料夾：
+    Windows：與 COKCHT.exe 同一層
+    macOS：與 COKCHT.app 同一層
+    Linux：與 AppImage 檔同一層
+  也可以用 -original 指定原版資料夾的位置。
+  第一次啟動會把原版複製到使用者資料目錄的 game 資料夾，之後就不再需要
+  original 資料夾；遊戲存檔也寫在 game 資料夾裡：
+    Windows：%APPDATA%\COKCHT
+    macOS：~/Library/Application Support/COKCHT
+    Linux：~/.local/share/cok-cht（或 $XDG_DATA_HOME/cok-cht）
+  出錯時同一個目錄會留下錯誤紀錄。截圖存在同一個目錄的 screenshots。
+  原版的音效設定若選 Roland，程式會改成 AdLib；原版附的預建隊伍會放進存檔目錄，
+  主選單選 LOAD SAVED GAME、遊戲 A 即可載入。
+
+三、按鍵
+  F2   切換 2 倍／3 倍（HD 版的重繪圖只在 3 倍顯示）
+  F3   靜音
+  F5   翻閱已讀過的旅行手札與酒店傳聞（PgUp／PgDn 翻頁，←／→ 換則，Esc 關閉）
+  F6   遊戲內攻略（內容有劇情與解謎答案）
+  F7   地圖與攻略點（V 切換全圖／只看走過的格子）
+  F9   查驗題答案顯示開關
+  F10  截圖
+  F11  全螢幕
+  F12  中文／英文原版切換
+  滑鼠移到視窗頂端會出現切換列，點項目等同按對應的鍵。
+  其餘按鍵照原版送進遊戲。
+
+四、版本
+  COKCHT-<版本>-…：原版畫面加中文。
+  COKCHT-<版本>-hd-…：另附 HD 重繪圖（3 倍時顯示），重繪圖由 AI 生成。有 HD 版時才會出這個檔。
+  沒有 HD 素材時，切換列上的 HD 會停用並顯示「無HD素材」。
+
+五、macOS 第一次開啟
+  本程式沒有 Apple 簽章。第一次請在 Finder 對 COKCHT.app 按右鍵選「打開」，
+  或到「系統設定 → 隱私權與安全性」允許開啟。
+
+六、授權
+  本程式採 RRSAL-1.0（LICENSE），非商業免費。第三方元件見 THIRD-PARTY.md、
+  LICENSE-dosgolem、COPYING.LGPL 與 font/ 內的字型授權。
+  旅行手札與酒店傳聞譯自 SSI 英文版 Adventurer's Journal，攻略內容取自《軟體世界》雜誌第 16–18 期，
+  著作權屬原權利人。原版遊戲的著作權屬原權利人，本程式不含原版遊戲。
