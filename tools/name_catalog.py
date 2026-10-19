@@ -10,7 +10,8 @@ import hashlib
 import sys
 from pathlib import Path
 
-CATS = {'monster', 'person', 'place'}
+# item、spell 也收：物品名由詞組合（例 Ring Mail），詞組要先於單詞命中（apps/cok compose.go item）
+CATS = {'monster', 'person', 'place', 'item', 'spell'}
 
 
 def main():

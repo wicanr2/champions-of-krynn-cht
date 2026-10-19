@@ -13,6 +13,6 @@
 | [006-manual-quiz.md](006-manual-quiz.md) | READY | #7 | 手冊查驗題（答案顯示） |
 | [007-journal-panel.md](007-journal-panel.md) | READY | #7 | 旅行手札與酒店傳聞面板 |
 | [008-walkthrough-panel.md](008-walkthrough-panel.md) | READY | #8 | 遊戲內攻略面板 |
-| [009-map-overlay.md](009-map-overlay.md) | DRAFT | #8 | 遊戲內地圖疊層 |
+| [009-map-overlay.md](009-map-overlay.md) | READY | #8 | 遊戲內地圖疊層 |
 | [012-release-packaging.md](012-release-packaging.md) | DRAFT | #10 | 發行包 |
 | [013-player-name.md](013-player-name.md) | READY | #6 | 玩家角色名自動音譯 |
