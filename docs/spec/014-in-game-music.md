@@ -1,6 +1,6 @@
 # 014 遊戲中配樂
 
-狀態：**READY**（作曲與素材契約，§2–§3）；播放接入 §4 為 **DRAFT**，觸發字串待實機盤點。Issue：#16。日期：2026-10-19。
+狀態：**READY**（作曲與素材契約 §2–§3；播放接入 §4 已實作，實機聽感與遊戲內錄音待驗）。Issue：#16。日期：2026-10-19。
 
 使用者指示（2026-10-19）：以原版 MIDI 音樂為基礎，用 Codex 產生本作專屬配樂，至少 10 首；觸發時機由 Claude 決定；預設開、可在切換列關閉。
 
@@ -43,7 +43,12 @@
 - 權利註記：衍生自 SSI 原版標題曲的新編曲，隨可散布包私下分享（CONTEXT 決策表 2026-10-19）。
 - 響度：各曲 RMS 相近（±3 dB），峰值不削波。
 
-## 4. 播放接入（DRAFT）
+## 4. 播放接入
+
+實作：dosgolem `apps/cok/music.go`（選曲）、`cmd/cok-play/music.go`（第二顆 Nuked OPL 即時合成 `.opl`，每曲增益在 `music.tsv`，對齊原版標題曲響度的 0.7 倍）。發行包放 `music/`（`tools/package.sh`）。
+
+重播收據（`cmd/cok-music-cues`，實機盤點 `workplace/probe/throtl1/inv.tsv`）：斯拉托 10 場戰鬥都切到 `battle`，9 次勝利播 `victory`，座標列出現時回到區域曲。全隊交電腦的戰鬥不再印戰鬥選單，所以戰鬥另以戰鬥訊息（`Attacks`、`Hitting for`、`and Misses`、`Casts a Spell`）觸發。3D 畫面的底列選單不經過三條印字路徑，回到 3D 以路徑 A 的座標列判斷。盤點檔沒有地圖鍵，3D 地圖曲由 AutoMap 的 GEO 雜湊提供（規格 009）。
+
 
 - cok-play 混音器加一條音樂軌（PCM），與原版 OPL、喇叭聲道並存；原版音效照常。
 - 觸發來源（adapter 已有的訊號）：GEO 地圖鍵（`text/map-geo.tsv`）、路徑 C 底列選單、路徑 B 訊息。字串以實機盤點為準，寫成對照表 `text/music-cues.tsv`。

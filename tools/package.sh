@@ -97,6 +97,16 @@ cp "$STAGE/src/LICENSE" "$STAGE/common/LICENSE-dosgolem"
 cp "$STAGE/src/audio/nukedopl/COPYING.LGPL" "$STAGE/common/COPYING.LGPL"
 cp "$STAGE/src/audio/nukedopl/SOURCE.md" "$STAGE/common/nukedopl-SOURCE.md"
 cp docs/release/讀我.txt "$STAGE/common/讀我.txt"
+# 規格 014：遊戲中配樂（Codex 以原版標題曲為基礎的新編曲，OPL2 寫入序列；cok-play 即時合成）
+MUSIC="$W/music/out"
+if [[ -f "$MUSIC/music.tsv" ]]; then
+  mkdir -p "$STAGE/common/music"
+  cp "$MUSIC/music.tsv" "$STAGE/common/music/"
+  while IFS=$'\t' read -r key _; do
+    [[ "$key" == key ]] && continue
+    cp "$MUSIC/$key.opl" "$STAGE/common/music/" || die "缺配樂 $key.opl"
+  done < "$MUSIC/music.tsv"
+fi
 
 build_linux() {
   dr "${GOENV[@]}" "${GOMOUNT[@]}" -w /src "$GO_IMAGE" sh -c "
