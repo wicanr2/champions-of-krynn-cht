@@ -12,9 +12,9 @@ import (
 // 三層：區域曲（地圖鍵、城鎮與大地圖選單、營地與神殿選單）、戰鬥曲（戰鬥選單出現到勝負訊息）、
 // 短曲（勝利、全滅，播完回到下面一層）。
 type MusicDirector struct {
-	menus []musicCue          // 底列選單：整列以 pattern 開頭
-	texts []musicCue          // 路徑 A、B 文字：包含 pattern
-	maps  map[string]string   // 地圖鍵 → 區域曲
+	menus                  []musicCue        // 底列選單：整列以 pattern 開頭
+	texts                  []musicCue        // 路徑 A、B 文字：包含 pattern
+	maps                   map[string]string // 地圖鍵 → 區域曲
 	battleTrack, bossTrack string
 
 	area    string // 目前區域曲

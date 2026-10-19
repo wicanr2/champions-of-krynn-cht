@@ -134,9 +134,14 @@ func (l *Live) AddHD(dir string) error {
 	if err != nil {
 		return err
 	}
+	layers, count, err := LoadHDLayers(dir)
+	if err != nil {
+		return err
+	}
 	for _, it := range items {
 		l.Layer.Watch(it.Watcher())
 	}
-	l.HDItems += len(items)
+	l.HDLayers = layers
+	l.HDItems += len(items) + count
 	return nil
 }

@@ -47,17 +47,17 @@ type shot struct {
 }
 
 type shotResult struct {
-	Name          string `json:"name"`
-	Step          uint64 `json:"step"`
-	IndexedSHA256 string `json:"indexed_sha256"` // 原版色號陣列，與 probe -dump-at 的 .bin 同一份資料
-	BaseSHA256    string `json:"base_sha256"`
-	OverlaySHA256 string `json:"overlay_sha256"`
-	DiffPixels    int    `json:"diff_pixels"`
-	DiffOutside   int    `json:"diff_outside_stamps"`
-	Stamps        int    `json:"stamps"`
-	StampsShown   int    `json:"stamps_shown"`
-	Missing       string `json:"missing_glyphs,omitempty"`
-	Journal       bool   `json:"journal_panel,omitempty"`
+	Name          string   `json:"name"`
+	Step          uint64   `json:"step"`
+	IndexedSHA256 string   `json:"indexed_sha256"` // 原版色號陣列，與 probe -dump-at 的 .bin 同一份資料
+	BaseSHA256    string   `json:"base_sha256"`
+	OverlaySHA256 string   `json:"overlay_sha256"`
+	DiffPixels    int      `json:"diff_pixels"`
+	DiffOutside   int      `json:"diff_outside_stamps"`
+	Stamps        int      `json:"stamps"`
+	StampsShown   int      `json:"stamps_shown"`
+	Missing       string   `json:"missing_glyphs,omitempty"`
+	Journal       bool     `json:"journal_panel,omitempty"`
 	StampList     []string `json:"stamp_list,omitempty"` // 每筆疊字：key、位置、狀態、透明格數、文字（查殘字用）
 }
 
@@ -161,7 +161,7 @@ func main() {
 			}
 		}
 	}
-	live := cok.NewLive(font, ui, ecl)
+	live := cok.NewHDLive(font, ui, ecl)
 	if *hdDir != "" {
 		if err := live.AddHD(*hdDir); err != nil {
 			fail(err)
@@ -277,7 +277,7 @@ func main() {
 	}
 }
 
-func capture(m *machine.Machine, live *cok.Live, s shot, dir string) shotResult {
+func capture(m *machine.Machine, live *cok.HDLive, s shot, dir string) shotResult {
 	// 截圖用此刻的畫面（不是最後一個 retrace），與 probe -dump-at 同一份資料。
 	idx := m.Indexed()
 	if len(idx) != 320*200 {
@@ -286,20 +286,13 @@ func capture(m *machine.Machine, live *cok.Live, s shot, dir string) shotResult 
 	layer := live.Layer
 	pal := m.FramePalette()
 	base := upscale(idx, pal)
-	over := append([]uint8(nil), base...)
+	live.Frame(idx, pal)
 	var missing []rune
-	layer.Draw(over, scale, func(r rune) { missing = append(missing, r) })
+	over := live.Compose(scale, true, func(r rune) { missing = append(missing, r) })
 	journal := live.Journal.Open()
-	if journal {
-		live.Journal.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
-	}
 	guide := live.Guide.Open()
-	if guide {
-		live.Guide.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
-	}
 	if live.Map.Open() {
 		guide = true // 面板範圍同攻略面板（[0,320)×[0,192)）
-		live.Map.Draw(over, scale, live.Font, func(r rune) { missing = append(missing, r) })
 	}
 	isum := sha256.Sum256(idx)
 	r := shotResult{Name: s.name, Step: m.Steps, IndexedSHA256: hex.EncodeToString(isum[:]), Stamps: len(layer.Stamps)}
@@ -321,7 +314,7 @@ func capture(m *machine.Machine, live *cok.Live, s shot, dir string) shotResult 
 		}
 		r.DiffPixels++
 		x, y := (i/4)%(320*scale)/scale, (i/4)/(320*scale)/scale
-		inside := journal && cok.InJournalPanel(x, y) || guide && cok.InGuidePanel(x, y)
+		inside := journal && cok.InJournalPanel(x, y) || guide && cok.InGuidePanel(x, y) || live.HDAllowed(x, y)
 		for _, st := range layer.Stamps {
 			x0, y0, x1, y1 := st.Rect()
 			if x >= x0 && x < x1 && y >= y0 && y < y1 {

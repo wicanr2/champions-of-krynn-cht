@@ -26,8 +26,9 @@ type StepCPU interface {
 // （ModeChange），或由呼叫端在已進入遊戲的狀態檔上呼叫 Arm。失敗就每 bindRetry 步再試；
 // 搜尋結果不唯一就不綁定、不猜位址；最後一次失敗原因留在 BindErr。
 type Live struct {
-	prevB []byte // 路徑 B 上一則字串（手札引用分兩則印）
-	Layer *xlate.Layer
+	*HDLayers        // 規格010 §6，僅讀原版畫面。
+	prevB     []byte // 路徑 B 上一則字串（手札引用分兩則印）
+	Layer     *xlate.Layer
 	// HDItems 是 AddHD 載入的 HD 主題項數（主專案規格 010）；0 表示沒有 HD 素材（規格 011 切換列停用 HD）。
 	HDItems int
 	Font    *xlate.Font
@@ -47,7 +48,7 @@ type Live struct {
 	Map *AutoMap
 	// Music 是配樂選曲（規格 014）；nil 時不啟用。
 	Music *MusicDirector
-	ds  uint16 // 遊戲資料段（路徑 A 進入時取）
+	ds    uint16 // 遊戲資料段（路徑 A 進入時取）
 	// Inventory 為 true 時，綁定後建立 Inv 記錄印字路徑盤點（issue #11）。
 	Inventory bool
 	Inv       *Inventory
@@ -67,7 +68,7 @@ type Live struct {
 func NewLive(font *xlate.Font, ui Lookuper, ecl *Catalog) *Live {
 	AddHalfWidthPairs(font)
 	AddScaledVariants(font)
-	return &Live{Layer: &xlate.Layer{W: 320, H: 200}, Font: font, ui: ui, ecl: ecl}
+	return &Live{HDLayers: &HDLayers{}, Layer: &xlate.Layer{W: 320, H: 200}, Font: font, ui: ui, ecl: ecl}
 }
 
 const bindRetry = 1_000_000
@@ -215,6 +216,7 @@ func (l *Live) ModeChange() {
 
 // Frame 在每個 retrace 呼叫；palette 須是與 indexed 配對的色盤（machine.FramePalette）。
 func (l *Live) Frame(indexed []byte, palette [256][3]uint8) {
+	l.HDLayers.Frame(indexed, palette)
 	l.indexed = append(l.indexed[:0], indexed...)
 	l.pal = palette
 	if len(indexed) != 320*200 {
@@ -254,6 +256,7 @@ func (l *Live) Compose(scale int, overlay bool, missing func(rune)) []byte {
 		}
 	}
 	if overlay {
+		l.HDLayers.Draw(out, l.indexed, scale)
 		l.Layer.Draw(out, scale, missing)
 		if l.Journal.Open() {
 			l.Journal.Draw(out, scale, l.Font, missing)
