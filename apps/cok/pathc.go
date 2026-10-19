@@ -261,7 +261,7 @@ func (c *PathC) rebuild(row int) {
 	for i, w := range words {
 		parts[i] = w.text()
 	}
-	if e, ok := c.Catalog.Lookup([]byte(strings.Join(parts, " "))); ok && len(words) > 1 {
+	if e, ok := c.lookupFold(strings.Join(parts, " ")); ok && len(words) > 1 {
 		if f := strings.Fields(e.Translation); len(f) == len(words) {
 			lineWords = f
 		} else if c.wholeLine(row, words, e) {
@@ -350,7 +350,7 @@ func (c *PathC) segments(parts []string) []string {
 		for j := len(parts); j > i && n == 0; j-- {
 			key := strings.Join(parts[i:j], " ")
 			for _, k := range []string{key, key + " "} {
-				e, ok := c.Catalog.Lookup([]byte(k))
+				e, ok := c.lookupFold(k)
 				if !ok {
 					continue
 				}
@@ -367,4 +367,15 @@ func (c *PathC) segments(parts []string) []string {
 		i += n
 	}
 	return out
+}
+
+// lookupFold 查原樣，再查全小寫、全大寫：本作底列提示印成首字大寫（`Press <enter>/<return> to continue`），
+// 原版字串表只有全小寫與全大寫兩種（本專案 docs/re/008）。
+func (c *PathC) lookupFold(s string) (Entry, bool) {
+	for _, k := range []string{s, strings.ToLower(s), strings.ToUpper(s)} {
+		if e, ok := c.Catalog.Lookup([]byte(k)); ok {
+			return e, true
+		}
+	}
+	return Entry{}, false
 }
