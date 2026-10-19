@@ -1,6 +1,6 @@
 # 011 視窗頂端切換列
 
-狀態：**CONFORMED**（2026-10-19，無 HD 範圍；收據 `tools/g7-toolbar-receipt.sh`）。Issue：#9。
+狀態：**CONFORMED**（2026-10-19；收據 `tools/g7-toolbar-receipt.sh`，含 3 倍 HD）。Issue：#9。
 
 ## 1. 契約
 
