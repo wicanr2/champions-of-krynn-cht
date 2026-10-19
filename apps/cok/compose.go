@@ -103,6 +103,12 @@ func (t *Translator) Lookup(original []byte) (Entry, bool) {
 	if e, ok := t.buys(string(original)); ok {
 		return e, true
 	}
+	// 數量＋物品整串（戰鬥訊息的投擲武器 `3 Darts`，docs/re/008 跨區盤點）：數量置後
+	if s := strings.TrimSpace(string(original)); quantityRe.MatchString(s) {
+		if zh, ok := t.goodsName(s); ok {
+			return Entry{Key: "goods", Translation: zh}, true
+		}
+	}
 	// 詞組：不以空白結尾、兩詞以上、每段都是介面詞組（例 `Paladine Cleric` 神祇＋職業；規格 004 §2.2）。
 	if s := string(original); !strings.HasSuffix(s, " ") && len(strings.Fields(s)) >= 2 {
 		if e, ok := t.item(s + " "); ok {

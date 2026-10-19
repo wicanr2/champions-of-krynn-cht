@@ -27,6 +27,9 @@ func TestPricedRowKeepsPriceRightAligned(t *testing.T) {
 	if e, ok := tr.Lookup([]byte(" Yes  60 Arrows ")); !ok || e.Translation != " 是 箭矢 60" {
 		t.Errorf("備妥列帶數量：%q %v", e.Translation, ok)
 	}
+	if e, ok := tr.Lookup([]byte("3 Arrows")); !ok || e.Translation != "箭矢 3" {
+		t.Errorf("戰鬥訊息帶數量：%q %v", e.Translation, ok)
+	}
 	if e, ok := tr.Lookup([]byte("SIR STRONGSWORD buys a Hoopak ")); !ok || e.Translation != "SIR STRONGSWORD買下呼帕克杖" {
 		t.Errorf("購買訊息：%q %v", e.Translation, ok)
 	}

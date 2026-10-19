@@ -57,7 +57,7 @@ func main() {
 	fontPath := flag.String("font", "", "16×16 GOLEMFNT")
 	textDir := flag.String("text-dir", "", "譯文目錄")
 	until := flag.String("until", "", "路徑 B 訊息符合此正規式就停")
-	yes := flag.String("yes", "", "Yes/No 提問前的路徑 B 訊息符合此正規式時答 Y（預設一律 N）")
+	yes := flag.String("yes", "", "Yes/No 提問前最近四段路徑 B 訊息（以空白串接）符合此正規式時答 Y（預設一律 N）")
 	reset := flag.String("reset", `CLIMB|DESCEND|UPPER|LOWER`, "路徑 B 訊息符合時視為換層，清空已造訪紀錄（上下樓座標會重疊）")
 	settle := flag.Uint64("settle", 300_000_000, "停下後再跑幾步才存狀態")
 	every := flag.Uint64("every", 30_000_000, "送鍵後至少等幾步才判讀")
@@ -66,6 +66,8 @@ func main() {
 	fight := flag.Bool("fight", false, "遇到戰鬥時按 Q 交給電腦控制繼續探索（預設停下）")
 	partyFlag := flag.String("party", "", "本作戰鬥閉迴路：隊員名，逗號分隔（瞄準時跳過自己人）")
 	outDir := flag.String("out", "", "輸出目錄（end.state、inv.tsv、log）")
+	pick := flag.String("pick", "", "其他選單優先選這些選項（逗號分隔，例 `Attack`），沒有才用預設的不開打、能離開的選項")
+	overland := flag.String("overland", "", "大地圖（沒有座標列）依序循環送這些方向鍵，逗號分隔（例 `Right,Right,Up`：主專案往斯拉托）")
 	picsDir := flag.String("pics-dir", "", "視窗圖 (24,24) 88×88 或大圖 (8,8) 304×120 出現沒見過、且連續兩次取樣不變的內容時，把整張色號畫面存成 <步數>.bin（HD 抽樣，主專案規格 010）")
 	flag.Parse()
 	if *statePath == "" || *root == "" || *fontPath == "" || *textDir == "" || *outDir == "" || *until == "" {
@@ -118,7 +120,8 @@ func main() {
 	seen := 0 // 已讀過的事件數
 	lastKey := m.Steps
 	actions := 0
-	var lastB, lastC string
+	var lastC string
+	var recentB []string // 最近四段路徑 B 文字
 	stall, lastBCount, nB := 0, 0, 0
 	var stallPos pos
 	unstick := []string{"Return", "Esc", " "}
@@ -133,6 +136,17 @@ func main() {
 		}
 	}
 	stopAt := uint64(0)
+	ovr, _ := os.ReadFile(filepath.Join(*root, "GAME.OVR"))
+	savedAt := 0
+	snapshot := func() { // end.state 與 inv.tsv
+		if err := state.Save(filepath.Join(*outDir, "end.state"), m, d); err != nil {
+			fail(err)
+		}
+		if err := live.Inv.WriteTSV(filepath.Join(*outDir, "inv.tsv"), ovr); err != nil {
+			fail(err)
+		}
+	}
+	ovIdx := 0
 	pics := picSampler{seen: map[[32]byte]bool{}}
 
 	push := func(name string) {
@@ -202,7 +216,10 @@ func main() {
 				}
 			case "B":
 				if t := strings.TrimSpace(e.Text); t != "" {
-					lastB = t
+					recentB = append(recentB, t)
+					if len(recentB) > 4 {
+						recentB = recentB[1:]
+					}
 					nB++
 					say("B %d,%d %c %s", cur.x, cur.y, dirNames[dir], t)
 					if resetRe.MatchString(t) {
@@ -233,6 +250,10 @@ func main() {
 			lastC = strings.Join(strings.Fields(live.Inv.Events[lastCIdx].Text), " ")
 			lastCIdx = -1
 		}
+		if actions > 0 && actions%100 == 0 && actions != savedAt { // 長跑被外層 timeout 殺掉時保留已盤點的部分
+			savedAt = actions
+			snapshot()
+		}
 		if actions >= *maxActions {
 			say("達到 -max-actions")
 			break
@@ -240,10 +261,13 @@ func main() {
 		// 對話
 		switch {
 		case strings.Contains(lastC, "Yes No"):
-			if yesRe != nil && yesRe.MatchString(lastB) {
+			if yesRe != nil && yesRe.MatchString(strings.Join(recentB, " ")) { // 提問常分段印（`YOU ARE NEAR `、地名、`. DO YOU ENTER?`）
 				push("Y")
 			} else {
 				push("N")
+			}
+			if *overland != "" {
+				known = false // 進出城鎮的提問：答完回到大地圖或進新地圖，舊座標不再適用
 			}
 			lastC = ""
 			continue
@@ -251,7 +275,11 @@ func main() {
 			push("Return")
 			lastC = ""
 			continue
-		case strings.HasPrefix(lastC, "Move Area"):
+		case lastC == "Select": // 直列清單只有 Select（沒有 Exit）：選反白的第一項
+			push("Return")
+			lastC = ""
+			continue
+		case strings.HasPrefix(lastC, "Move Area"), strings.HasPrefix(lastC, "Move Encamp"): // 3D 冒險畫面、大地圖都要先進移動模式
 			push("M")
 			lastC = ""
 			continue
@@ -296,7 +324,7 @@ func main() {
 		case lastC != "" && lastC != "Exit":
 			say("選單 %q", lastC)
 			// 其他選單（神殿、商店、事件抉擇）：選不會開打、能離開的選項，按它的熱鍵（首字母）
-			if k := preferredOption(lastC); k != "" {
+			if k := preferredOption(lastC, *pick); k != "" {
 				push(k)
 				lastC = ""
 				continue
@@ -324,6 +352,12 @@ func main() {
 			continue
 		}
 		if !known { // 狀態檔起點的座標列早已印好：先進移動模式、轉一次向讓它重印
+			if *overland != "" && actions > 0 {
+				ks := strings.Split(*overland, ",")
+				push(ks[ovIdx%len(ks)])
+				ovIdx++
+				continue
+			}
 			if *fight && actions < 3 {
 				push("Return") // 本作戰鬥起點：選單已印好，M 會變成戰鬥移動；先 Enter 讓畫面往下走、選單重印
 				continue
@@ -363,20 +397,18 @@ func main() {
 		plan = append(turnTo(next), "Up")
 	}
 	say("結束：位置 %v 方向 %c，造訪 %d 格，送鍵 %d", cur, dirNames[dir], len(visited), actions)
-	if err := state.Save(filepath.Join(*outDir, "end.state"), m, d); err != nil {
-		fail(err)
-	}
-	ovr, _ := os.ReadFile(filepath.Join(*root, "GAME.OVR"))
-	if err := live.Inv.WriteTSV(filepath.Join(*outDir, "inv.tsv"), ovr); err != nil {
-		fail(err)
-	}
+	snapshot()
 	fmt.Printf("steps=%d pos=%v dir=%c visited=%d actions=%d stopped=%v\n", m.Steps, cur, dirNames[dir], len(visited), actions, stopAt != 0)
 }
 
 // preferredOption 回選單中「不開打、能離開」選項的熱鍵；沒有回空字串。
-func preferredOption(menu string) string {
+func preferredOption(menu, pick string) string {
 	words := strings.Fields(menu)
-	for _, want := range []string{"Wait", "Leave", "Continue", "Done", "Exit", "No"} {
+	var prefer []string
+	if pick != "" {
+		prefer = strings.Split(pick, ",")
+	}
+	for _, want := range append(prefer, "Wait", "Leave", "Continue", "Done", "Exit", "No") {
 		for _, w := range words {
 			if w == want {
 				return w[:1]
