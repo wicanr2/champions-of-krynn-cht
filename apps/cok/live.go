@@ -45,6 +45,8 @@ type Live struct {
 	Guide *GuidePanel
 	// Map 是地圖疊層（規格 009）；nil 時不啟用。
 	Map *AutoMap
+	// Music 是配樂選曲（規格 014）；nil 時不啟用。
+	Music *MusicDirector
 	ds  uint16 // 遊戲資料段（路徑 A 進入時取）
 	// Inventory 為 true 時，綁定後建立 Inv 記錄印字路徑盤點（issue #11）。
 	Inventory bool
@@ -97,6 +99,10 @@ func (l *Live) bind(mem CPUView) error {
 		}
 		l.B.OnEntry = l.journalEntry
 	}
+	if l.Music != nil {
+		l.A.OnText = func(t []byte) { l.Music.Text(string(t)) }
+		l.C.OnLine = func(_ int, line string) { l.Music.Menu(line) }
+	}
 	l.ready = true
 	l.ds = defaultDS
 	if l.Inventory {
@@ -127,6 +133,7 @@ func (l *Live) BeforeStep(v StepCPU) error {
 		}
 		if l.ds != 0 && v.Steps()%mapSampleEvery == 0 {
 			l.Map.Sample(v, l.ds)
+			l.Music.MapKey(l.Map.Key)
 		}
 	}
 	na, nb := len(l.A.Hits), 0
@@ -177,6 +184,7 @@ const bdaKeyHead = 0x41A
 
 // journalEntry 是路徑 B 進入時的手札處理（規格 007 §2.2、§2.4 條件 1）。
 func (l *Live) journalEntry(text []byte, mem CPUView) {
+	l.Music.Text(string(text))
 	if l.Journal == nil {
 		return
 	}

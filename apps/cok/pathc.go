@@ -50,6 +50,8 @@ type PathC struct {
 	Font    *xlate.Font
 	Layer   *xlate.Layer
 	Words   []MenuWord // 最近一次重組的結果（收據用）
+	// OnLine 在每次重組一列時以整列原文（詞以單一空白相連）呼叫（規格 014 配樂觸發）；可為 nil。
+	OnLine func(row int, line string)
 
 	pal    [256][3]uint8
 	rows   map[int]*[menuCols]menuCell
@@ -260,6 +262,9 @@ func (c *PathC) rebuild(row int) {
 	parts := make([]string, len(words))
 	for i, w := range words {
 		parts[i] = w.text()
+	}
+	if c.OnLine != nil {
+		c.OnLine(row, strings.Join(parts, " "))
 	}
 	if e, ok := c.lookupFold(strings.Join(parts, " ")); ok && len(words) > 1 {
 		if f := strings.Fields(e.Translation); len(f) == len(words) {

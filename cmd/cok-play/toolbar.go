@@ -39,6 +39,7 @@ type toolbarItem struct {
 type toolbarState struct {
 	scale                             int
 	hasHD, chinese, muted, fullscreen bool
+	hasMusic, music                   bool // 有配樂素材、配樂開啟中（規格 014）
 	answers                           bool // 查驗題答案顯示中
 	journal, guide, mapOpen           bool
 }
@@ -78,6 +79,7 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 		toolbarItem{key: "toolbar.guide", act: actGuide, state: panel(st.guide)},
 		toolbarItem{key: "toolbar.map", act: actMap, state: panel(st.mapOpen)},
 		toolbarItem{key: "toolbar.answers", act: actAnswers, state: on(st.answers)},
+		toolbarItem{key: "toolbar.music", act: actMusic, state: musicState(st)},
 		toolbarItem{key: "toolbar.mute", act: actMute, state: on(st.muted)},
 		toolbarItem{key: "toolbar.shot", act: actShot},
 		toolbarItem{key: "toolbar.fullscreen", act: actFullscreen, state: on(st.fullscreen)},
@@ -212,7 +214,7 @@ func setRGB(dst []uint8, w, x, y int, c [3]uint8) {
 
 // toolbarKeys 是切換列用到的全部 host-text 鍵。
 var toolbarKeys = []string{"toolbar.scale2", "toolbar.scale3", "toolbar.scale3hd", "toolbar.nohd", "toolbar.chinese",
-	"toolbar.original", "toolbar.journal", "toolbar.guide", "toolbar.map", "toolbar.answers", "toolbar.mute",
+	"toolbar.original", "toolbar.journal", "toolbar.guide", "toolbar.map", "toolbar.answers", "toolbar.mute", "toolbar.music",
 	"toolbar.shot", "toolbar.fullscreen"}
 
 // checkToolbarText 確認 host-text 有全部切換列文字。
@@ -223,4 +225,15 @@ func checkToolbarText(text map[string]string) error {
 		}
 	}
 	return nil
+}
+
+// musicState：沒有配樂素材時停用；開啟中為目前狀態，但與倍率不同，按下仍會切換（toolbarClick 只擋倍率）。
+func musicState(st toolbarState) itemState {
+	switch {
+	case !st.hasMusic:
+		return itemDisabled
+	case st.music:
+		return itemActive
+	}
+	return itemEnabled
 }

@@ -85,6 +85,8 @@ type PathA struct {
 	Font    *xlate.Font
 	Layer   *xlate.Layer
 	Hits    []Hit
+	// OnText 在每次合法進入時以原字串呼叫（規格 014 配樂觸發）；可為 nil。
+	OnText func(text []byte)
 
 	// pending 是已加入、等原版印完的 Stamp：返回位址命中且 SP 回到呼叫前加參數時轉 Pending。
 	pending []pendingStamp
@@ -149,6 +151,9 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 	text := make([]byte, n)
 	for i := range text {
 		text[i] = mem.Read8(base + 1 + uint32(i))
+	}
+	if p.OnText != nil {
+		p.OnText(text)
 	}
 	h := Hit{Step: step, Caller: fmt.Sprintf("%04X:%04X", retSeg, retOff), Length: n, Row: row, Col: col, BG: bg, FG: fg, Str: base}
 	var added *xlate.Stamp

@@ -38,6 +38,7 @@ const (
 	actMap                                // F7：地圖疊層（規格 009）
 	actReveal                             // 地圖開啟時的 V：全圖／只看走過
 	actScale                              // F2：2× ↔ 3×
+	actMusic                              // F4：遊戲中配樂開關（主專案規格 014）
 )
 
 // panelMode 是手札面板的狀態：開啟時部分鍵由前端吃掉（規格 007 §2.4、§2.5）。
@@ -54,7 +55,7 @@ var panelKeys = map[panelMode]map[string]hostAction{
 	panelBrowse: {"PgUp": actPageUp, "PgDn": actPageDown, "Left": actPrevEntry, "Right": actNextEntry, "Escape": actCloseJournal, "V": actReveal},
 }
 
-var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal, "F6": actGuide, "F7": actMap, "F2": actScale}
+var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal, "F6": actGuide, "F7": actMap, "F2": actScale, "F4": actMusic}
 
 // frameInput 是一個畫格的主機鍵盤狀態。Held 的值是按住的格數（剛按下為 1）。
 type frameInput struct {

@@ -304,3 +304,11 @@ func clearErrorLog() {
 		}
 	}
 }
+
+// releaseMusic 回發行模式的配樂目錄（含 music.tsv）；沒有就回空字串。
+func releaseMusic() string {
+	if p, err := resourcePath(filepath.Join("music", "music.tsv")); err == nil {
+		return filepath.Dir(p)
+	}
+	return ""
+}

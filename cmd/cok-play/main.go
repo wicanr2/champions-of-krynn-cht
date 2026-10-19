@@ -104,6 +104,7 @@ type game struct {
 	missing  map[rune]bool
 	bar      toolbar           // 視窗頂端切換列（主專案規格 011）
 	barText  map[string]string // host-text 的 toolbar.* 文字
+	music    *musicPlayer      // 遊戲中配樂（規格 014）；nil 表示沒有素材
 	cursorX  int               // 游標邏輯位置（切換列懸停用）
 	cursorY  int
 }
@@ -154,6 +155,8 @@ func (g *game) apply(acts []hostAction) {
 			if g.player != nil {
 				g.player.SetVolume(map[bool]float64{true: 0, false: 1}[g.muted])
 			}
+		case actMusic:
+			g.music.Toggle()
 		case actScale:
 			g.scale = 5 - g.scale // 2 ↔ 3
 			if !ebiten.IsFullscreen() {
@@ -290,6 +293,7 @@ func (g *game) Update() error {
 		return err
 	}
 	g.samples = g.mix.Render(g.samples[:0], tick.MachineStepsBefore, tick.MachineStepsAfter)
+	g.music.Mix(g.samples)
 	if g.ring != nil {
 		g.ring.Push(g.samples)
 	}
@@ -352,6 +356,7 @@ func (g *game) finish() error {
 
 func (g *game) toolbarItems() []toolbarItem {
 	return toolbarItems(g.barText, toolbarState{scale: g.scale, hasHD: g.live.HDItems > 0, chinese: g.chinese, muted: g.muted,
+		hasMusic: g.music != nil, music: g.music != nil && g.music.enabled,
 		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
 		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open()})
 }
@@ -400,6 +405,8 @@ func main() {
 	original0 := flag.Bool("original-view", false, "開機時顯示原版（F12 切換）")
 	invPath := flag.String("inventory", "", "結束時把印字路徑盤點（issue #11）寫成這個 TSV；含原文，只放工作區")
 	scaleFlag := flag.Int("scale", 2, "起始倍率（2 或 3；F2 切換）")
+	musicDir := flag.String("music-dir", "", "配樂目錄（music.tsv 與 <曲目>.opl；主專案規格 014）；選曲表讀 text-dir 的 music-cues.tsv")
+	noMusic := flag.Bool("no-music", false, "開機時配樂關閉（切換列或 F4 可再打開）")
 	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
 	showVersion := flag.Bool("version", false, "印版號與 dosgolem commit 後結束")
 	flag.Parse()
@@ -429,6 +436,9 @@ func main() {
 		}
 		if *hdDir == "" {
 			*hdDir = releaseHD()
+		}
+		if *musicDir == "" {
+			*musicDir = releaseMusic()
 		}
 		if gameDir, startName, err = prepareGame(*original, data); err != nil {
 			fail(err)
@@ -530,6 +540,13 @@ func main() {
 	if live.Map, err = cok.LoadAutoMapDir(*textDir); err != nil {
 		fail(err)
 	}
+	if cues, err := os.ReadFile(filepath.Join(*textDir, "music-cues.tsv")); err == nil {
+		if live.Music, err = cok.LoadMusicCues(cues); err != nil {
+			fail(err)
+		}
+	} else if !os.IsNotExist(err) {
+		fail(err)
+	}
 	if live.Map != nil {
 		visitedPath := filepath.Join(stateDir, "cok-map-visited.txt")
 		v, err := cok.ReadVisited(visitedPath)
@@ -572,6 +589,14 @@ func main() {
 	}
 	g := &game{owner: owner, live: live, scale: *scaleFlag, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
 		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText}
+	if *musicDir != "" {
+		if g.music, err = loadMusic(*musicDir, live.Music); err != nil {
+			fail(err)
+		}
+		if *noMusic {
+			g.music.Toggle()
+		}
+	}
 	if *frames == 0 && *audioOn {
 		g.ring = mixer.NewRing(200)
 		player, err := audio.NewContext(mixer.SampleRate).NewPlayerF32(g.ring)

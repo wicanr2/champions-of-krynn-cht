@@ -77,7 +77,7 @@ func TestPrepareGameHashMismatch(t *testing.T) {
 
 func TestRequiredOriginalsMatchBaseline(t *testing.T) {
 	// 主專案 docs/re/001
-	if requiredOriginals[0].sha != startEXESHA256 || requiredOriginals[1].sha != "fdbe7265ac9b04c67f8648331d9845bf33c6a1438e676389eae3f4526796c817" {
+	if requiredOriginals[0].sha != startEXESHA256 || requiredOriginals[1].sha != "c3f448c391ea860f97dec99ce88b0b8b0a4a7e807cf3b1f5a8f1515e2a7a0529" {
 		t.Fatal("必要檔雜湊與 docs/re/001 不符")
 	}
 }

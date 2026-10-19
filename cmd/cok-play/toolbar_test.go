@@ -11,7 +11,7 @@ import (
 var testBarText = map[string]string{
 	"toolbar.scale2": "2倍", "toolbar.scale3": "3倍", "toolbar.scale3hd": "3倍HD", "toolbar.nohd": "無HD素材",
 	"toolbar.chinese": "中文", "toolbar.original": "原版", "toolbar.journal": "手札", "toolbar.guide": "攻略",
-	"toolbar.map": "地圖", "toolbar.answers": "答案", "toolbar.mute": "靜音", "toolbar.shot": "截圖",
+	"toolbar.map": "地圖", "toolbar.answers": "答案", "toolbar.mute": "靜音", "toolbar.music": "配樂", "toolbar.shot": "截圖",
 	"toolbar.fullscreen": "全螢幕",
 }
 
