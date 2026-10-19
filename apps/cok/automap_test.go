@@ -148,6 +148,9 @@ func TestAutoMapQuadrants(t *testing.T) {
 
 // 同一塊 GEO 依目前 ECL 區塊分鍵（3/50 塞普路斯與達西默；規格 009 §2.1）。
 func TestAutoMapEclQualifiedKey(t *testing.T) {
+	if statePtrOff == 0 {
+		t.Skip("本作尚未找到遊戲狀態區塊指標，ECL 區塊區分停用（automap.go）")
+	}
 	m := make(fakeMem, 0x100000)
 	sum := plantGeo(m, 0x0CDE, 0x4C28, 2, 3, 4)
 	base := linear(0x0CDE, 0)

@@ -14,16 +14,18 @@ import (
 	"github.com/wicanr2/dosgolem/xlate"
 )
 
-// 規格 009：遊戲內地圖疊層。牆面從記憶體裡已載入的 GEO 區塊讀（DS:C06A 遠指標），位置讀 DS:C073..C075，
+// 幽靈騎士規格 009：遊戲內地圖疊層。牆面從記憶體裡已載入的 GEO 區塊讀，位置讀隊伍 x、y、面向，
 // 地圖身分以 0x400 本體雜湊對 text/map-geo.tsv；攻略點取自 text/map-guide.zh-TW.tsv。
 
 const (
-	geoPtrOff   = 0xC06A // DS 內的遠指標（off, seg）指向目前 GEO 區塊本體
-	partyXOff   = 0xC073 // x、y、面向（0 北、2 東、4 南、6 西）
+	// 本作 DS:6D7C 是指向目前 GEO 區塊本體的遠指標（off, seg），DS:6D85 起是 x、y、面向（0 北、2 東、4 南、6 西）。
+	// 開場 7,13 面北時 DS:6D85 為 07 0D 00，前 9 bytes 的遠指標 0000:45AC；與幽靈騎士 C06A／C073 相差 9 bytes 的配置相同
+	// （本專案 docs/re/006，強推論，地圖雜湊比對後升級）。
+	geoPtrOff   = 0x6D7C
+	partyXOff   = 0x6D85
 	geoBodySize = 0x400
-	// DS:8484 是遊戲狀態區塊的遠指標（存檔 0x001–0x400 讀進的那塊），+0xF2 是 ECL 區塊、+0xC5 是 GEO 區塊。
-	// 前哨站（新局）與跨區讀檔三區的狀態都一致（主專案 docs/re/011）。
-	statePtrOff = 0x8484
+	// 遊戲狀態區塊指標（幽靈騎士 DS:8484，用來以 ECL 區塊區分重用的 GEO）本作尚未找到，0 表示停用。
+	statePtrOff = 0
 	stateEclOff = 0xF2
 )
 
@@ -162,7 +164,7 @@ func (m *AutoMap) Sample(mem CPUView, ds uint16) {
 	s := sha256.Sum256(body)
 	sum := hex.EncodeToString(s[:])
 	ecl := -1
-	if so, ss := mem.Read16(base+statePtrOff), mem.Read16(base+statePtrOff+2); ss != 0 {
+	if so, ss := mem.Read16(base+statePtrOff), mem.Read16(base+statePtrOff+2); statePtrOff != 0 && ss != 0 {
 		ecl = int(mem.Read8(linear(ss, so) + stateEclOff))
 	}
 	if sum != m.sum || ptr != m.ptr || ecl != m.ecl {
