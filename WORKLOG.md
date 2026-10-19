@@ -58,3 +58,22 @@
 - `START.EXE` 題目表 49 筆（`docs/re/005-quiz-table.md`），答案長度 49 題全部相符，第 67 則一題人工覆寫；實機答對 2 題。
 - 手札 88 則、酒店傳聞 57 則中譯進 `text/journal.zh-TW.tsv`；Tavern Tale 依幽靈騎士術語表譯「酒店傳聞」。
 - 清理：容器皆 `--rm`；新建映像 `cok-pdf:bookworm-r1`、`cok-img:r1`（Pillow 11.0.0、numpy 2.1.3）。
+
+## 2026-10-19 G7 攻略面板與地圖疊層（#8）
+
+- subagent 轉錄《軟體世界》第 16–18 期攻略 14 頁、19 章到 `reference/walkthrough-zh/`（private）；雜誌譯名對照 `text/walkthrough-terms.tsv` 27 列；面板 26 段。
+- 地圖：GEO 15 塊；名稱依同號 ECL 區塊文字判讀（`text/map-titles.tsv`）；攻略座標產生 157 個攻略點（`tools/map_guide_build.py`），標籤由 subagent 改寫成 8 字內。
+- 地圖位址 `DS:6D7C`／`6D85` 在 demo 3D 畫面以 GEO 2/40 雜湊與畫面座標證實（docs/re/006）；性別 `+0x109` 以建角對照證實。
+- 術語一致性檢查改本作版（`tools/term-check.sh`），收斂城主、酒店、善良陣營的軍隊、火球等，結果 0 問題。
+
+## 2026-10-19 G5 收據與路徑修正（#6）
+
+- 路徑 C 改以連續片段查表（戰鬥選單 `Move `、`View Aim ` 等多字串組成）；物品名詞組先查名稱 catalog（`Ring Mail` 環甲）。
+- 本作組句模板：無尾端空白的移動力列、`Range = {n}  `、靠右對齊的金錢列、丟錢提示。
+- `tools/g5-receipt.sh` 7 場景通過（docs/re/007），規格 001–003、006–009、013 升級 CONFORMED。
+
+## 2026-10-19 G9 試打包（#10）
+
+- `tools/package.sh v.0.9.0-20261019 all`：三平台原版包（沒有 HD 主題時只出原版包），外洩掃描通過。
+- 冒煙：Linux AppImage 與 Windows（Wine 9.0，映像 `psgolem-wine-verify:noble-r2`，只使用）從乾淨目錄開到標題畫面、兩者截圖相同；缺原版時以錯誤結束並留 `cok-error.log`；macOS 只驗結構。
+- 清理：兩個背景容器因外層 timeout 只殺 client 而殘留（`kind_bose`、`bold_wilson`，皆本 session 建立），已 `docker stop`，`--rm` 自動移除。
