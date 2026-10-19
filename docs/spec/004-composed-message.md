@@ -1,6 +1,6 @@
 # 004 組句訊息（戰鬥、座標列）
 
-狀態：**DRAFT**（2026-10-19）。Issue：#6。證據：未盤點。
+狀態：**CONFORMED**（2026-10-19，收據 docs/re/008 demo 戰鬥重跑）。Issue：#6。證據：docs/re/008。
 
 ## 1. 契約
 
@@ -8,7 +8,7 @@
 
 ## 2. 本作差異
 
-模板 `text/composed-templates.tsv` 繼承幽靈騎士，本作戰鬥訊息待盤點驗證。
+模板 `text/composed-templates.tsv` 繼承幽靈騎士，另補本作寫法：`Hitting for {n} points of damage`（單一空白）、`takes {n} points of damage from <元素>`、無尾端空白的移動力列、`Range = {n}  `、金錢列；商店清單與購買訊息由 `compose.go` 的 pricedRow、buys 規則處理。
 
 ## 3. 驗收
 

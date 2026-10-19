@@ -8,7 +8,7 @@
 | [001-pascal-string-overlay.md](001-pascal-string-overlay.md) | CONFORMED | #4、#6 | 路徑 A：Pascal 字串印字覆繪 |
 | [002-ecl-text-window-overlay.md](002-ecl-text-window-overlay.md) | CONFORMED | #4、#6 | 路徑 B：ECL 文字視窗覆繪 |
 | [003-horizontal-menu-overlay.md](003-horizontal-menu-overlay.md) | CONFORMED | #4、#6 | 路徑 C：底列水平選單覆繪 |
-| [004-composed-message.md](004-composed-message.md) | DRAFT | #6 | 組句訊息（戰鬥、座標列） |
+| [004-composed-message.md](004-composed-message.md) | CONFORMED | #6 | 組句訊息（戰鬥、座標列） |
 | [005-halfwidth-latin.md](005-halfwidth-latin.md) | READY | #6 | 中文句中的半形英數 |
 | [006-manual-quiz.md](006-manual-quiz.md) | CONFORMED | #7 | 手冊查驗題（答案顯示） |
 | [007-journal-panel.md](007-journal-panel.md) | CONFORMED | #7 | 旅行手札與酒店傳聞面板 |
