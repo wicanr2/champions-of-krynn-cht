@@ -8,6 +8,7 @@ import hashlib
 import json
 from pathlib import Path
 import numpy as np
+from PIL import Image, ImageFilter
 from hd_compare import read_png, align_score, hue_score, structural_score
 
 
@@ -20,6 +21,9 @@ def main():
     rows=[]
     for item in request['items']:
         key=item['key']; p=a.hd/f'{key}.png'
+        if item.get('disposition'):
+            rows.append(dict(key=key,required=False,target_met=None,status=item['disposition']))
+            continue
         if not p.exists():
             rows.append(dict(key=key,target_met=False,error='缺輸出'))
             continue
@@ -36,11 +40,13 @@ def main():
             structure=structural_score(orig,hd)
             anim=item.get('composition') or item.get('animation') or {}
             if anim.get('mask'):
-                m=read_png(a.req/anim['mask'])[1][...,0]>0
-                for ax in (0,1):
-                    for _ in range(6): m=m|np.roll(m,1,ax)|np.roll(m,-1,ax)
-                base=read_png(a.hd/f'{anim["base"]}.png')[1]
-                off=int(np.any(base!=hd,axis=2)[~m].sum())
+                m=np.asarray(Image.open(a.req/anim['mask']).convert('L').filter(ImageFilter.MaxFilter(13)))>0
+                bp=a.hd/f'{anim["base"]}.png'
+                if not bp.exists():
+                    off=-1
+                else:
+                    base=read_png(bp)[1]
+                    off=int(np.any(base!=hd,axis=2)[~m].sum()) if base.shape==hd.shape else -1
         constant = item.get('rendering')=='native_exact_constant' and len(set(idx))==1
         constant_exact = constant and hd.shape==(H,W,4) and bool(np.all(hd[...,:3]==orig[0,0]))
         preserved_difference=0
@@ -54,9 +60,12 @@ def main():
                          constant_source_exact=bool(constant_exact),
                          preserved_color_difference=preserved_difference,
                          outside_mask_difference=off,format_ok=ct==6 and hd.shape==(H,W,4),
+                         alpha_ok=bool(np.all(hd[...,3]==255)),
                          target_met=bool(good),png_sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
         print(key,f'raw={edge:.3f} structure={structure:.3f} hue={hue:.1f} off={off}',bool(good))
-    result=dict(batch=request['batch'],spec=request['spec'],all_pass=all(r['target_met'] for r in rows),items=rows)
+    result=dict(batch=request['batch'],spec=request['spec'],
+                request_manifest_sha256=hashlib.sha256((a.req/'manifest.json').read_bytes()).hexdigest(),
+                all_pass=all(r['target_met'] for r in rows if r.get('required',True)),items=rows)
     (a.hd/'validation.json').write_text(json.dumps(result,ensure_ascii=False,indent=2)+'\n')
     raise SystemExit(0 if result['all_pass'] else 1)
 

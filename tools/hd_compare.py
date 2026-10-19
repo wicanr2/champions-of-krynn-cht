@@ -21,58 +21,18 @@ from dax_pics import EGA  # noqa: E402
 
 
 def read_png(p):
+    """以 PNG IHDR 保留原色彩型態，Pillow 解碼成 RGBA；避免逐點 Python 解濾波。"""
+    from PIL import Image
     d = Path(p).read_bytes()
-    pos, idat, plte = 8, b'', None
-    while pos < len(d):
-        n, t = struct.unpack('>I4s', d[pos:pos + 8])
-        c = d[pos + 8:pos + 8 + n]
-        pos += 12 + n
-        if t == b'IHDR':
-            w, h, bd, ct, _, _, il = struct.unpack('>IIBBBBB', c)
-        elif t == b'PLTE':
-            plte = np.frombuffer(c, np.uint8).reshape(-1, 3)
-        elif t == b'IDAT':
-            idat += c
-    if bd != 8 or il:
-        raise ValueError(f'{p}：不支援 bit depth {bd} 或交錯')
-    bpp = {0: 1, 2: 3, 3: 1, 4: 2, 6: 4}[ct]
-    raw = np.frombuffer(zlib.decompress(idat), np.uint8)
-    st = w * bpp
-    out = np.zeros((h, st), np.uint8)
-    prev = np.zeros(st, np.int32)
-    for y in range(h):
-        f = raw[y * (st + 1)]
-        line = raw[y * (st + 1) + 1:(y + 1) * (st + 1)].astype(np.int32)
-        if f == 0:
-            r = line
-        elif f == 2:
-            r = (line + prev) & 255
-        else:
-            r = line.copy()
-            for x in range(st):
-                a = r[x - bpp] if x >= bpp else 0
-                b = prev[x]
-                if f == 1:
-                    p_ = a
-                elif f == 3:
-                    p_ = (a + b) // 2
-                else:
-                    c = prev[x - bpp] if x >= bpp else 0
-                    pa, pb, pc = abs(b - c), abs(a - c), abs(a + b - 2 * c)
-                    p_ = a if pa <= pb and pa <= pc else b if pb <= pc else c
-                r[x] = (r[x] + p_) & 255
-        out[y] = r
-        prev = r
-    px = out.reshape(h, w, bpp)
-    if ct == 3:
-        rgb = plte[px[..., 0]]
-        return ct, np.dstack([rgb, np.full((h, w), 255, np.uint8)])
-    if ct == 0:
-        px = np.repeat(px, 3, axis=2)
-    if ct == 4:
-        px = np.dstack([np.repeat(px[..., :1], 3, axis=2), px[..., 1:]])
-    if px.shape[2] == 3:
-        px = np.dstack([px, np.full((h, w), 255, np.uint8)])
+    if d[:8] != b'\x89PNG\r\n\x1a\n' or d[12:16] != b'IHDR':
+        raise ValueError(f'{p}：不是 PNG')
+    w, h, bd, ct, _, _, il = struct.unpack('>IIBBBBB', d[16:29])
+    if bd != 8 or il or ct not in (0, 2, 3, 4, 6):
+        raise ValueError(f'{p}：不支援 bit depth {bd}、color type {ct} 或交錯 {il}')
+    with Image.open(p) as im:
+        px = np.array(im.convert('RGBA'), dtype=np.uint8)
+    if px.shape != (h, w, 4):
+        raise ValueError(f'{p}：PNG 尺寸不合')
     return ct, px
 
 
