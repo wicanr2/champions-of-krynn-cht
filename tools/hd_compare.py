@@ -156,10 +156,8 @@ def main():
                 anim = it.get('composition') or it.get('animation') or {}
                 if anim.get('mask'):
                     # 動畫狀態（規格 010 §12）：XOR 遮罩向外擴 6 像素以外，必須與 @0 逐像素相同
-                    m = read_png(a.req / anim['mask'])[1][..., 0] > 0
-                    for ax in (0, 1):  # 方形擴張：每個方向 6 像素
-                        for _ in range(6):
-                            m = m | np.roll(m, 1, ax) | np.roll(m, -1, ax)
+                    from PIL import Image, ImageFilter
+                    m = np.asarray(Image.open(a.req / anim['mask']).convert('L').filter(ImageFilter.MaxFilter(13))) > 0
                     bf = a.hd / (f'{anim["base"]}.png' if st == '-' else f'{anim["base"]}-{st}.png')
                     off = int((read_png(bf)[1][..., :3] != px[..., :3]).any(axis=2)[~m].sum()) if bf.exists() else -1
                     msg += f' 遮罩外與 {anim["base"]} 不同 {off} 像素'

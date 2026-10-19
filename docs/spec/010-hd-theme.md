@@ -26,7 +26,7 @@ Codex 重繪（3 倍、風格 B、配色照原版）、主題（`tools/hd_theme.
 - `tools/g7-toolbar-receipt.sh`：3 倍 HD 標題頁與無 HD 差異 527,184 像素；切換列在 HD 下正常。
 - 起點狀態若在圖畫好之後才開始，watcher 看不到繪製，不會畫 HD（正常遊玩從冷開機起不受影響）。
 
-## 4. 未做
+## 4. 首批 b01 當時未做
 
 DragonLance 版標題（TITLE 區塊 4）、其他 PIC／BIGPIC、戰鬥圖塊、3D 牆面。
 
@@ -60,3 +60,15 @@ DragonLance 版標題（TITLE 區塊 4）、其他 PIC／BIGPIC、戰鬥圖塊�
 - `apps/cok/hd_receipt_test.go` 與 `tools/issue12-hd-receipt.sh` 將來源衍生正負對照及既有原版畫面回歸分開記錄。收據為 `workplace/hd/out/issue12-receipts.json`，不把 fixture 列為遊戲執行畫面。
 - 保存畫面回歸驗證呈現層的 3 倍覆繪範圍與 2 倍完全不變。它不驗證原版記憶體、暫存器或存檔。需要執行器狀態對照的項目另列在本輪報告，未量測者不宣稱完成。
 - 戰鬥圖塊與 3D 牆面不屬本 Issue。封包不重打，其他規格與有效決策不修改。
+
+### 5.4 本輪結果
+
+- b02–b06 共 95 筆請求，其中 92 筆是新增主題候選，另 3 筆為 TITLE 原始零件索引。92 筆全部通過數值與逐張目視，接入後主題為 97 項，包含 b01 的 5 項。
+- PIC 的 85 個獨立狀態與 BIGPIC 的 9 個來源全部有主題對應。TITLE 1 直接對應 SSI 頁；TITLE 2+3 對應既有主標題，TITLE 2+4 對應新增 DragonLance 交替標題。完整色號相同的前作重繪沿用 15 項，其餘 77 項本輪生成；含重畫共保存 79 次生成紀錄。
+- 新增候選的結構分數最低 0.408，未濾波色相差中位最大 29.4 度。37 個非基底動畫狀態的遮罩外差異皆為 0。BIGPIC3 區塊 120 的初版結構分數 0.369，重畫後為 0.480；PIC3 區塊 24 的 @1 初版色相差 36.2 度，重畫後為 29.4 度。初版與提示詞均保留。
+- DragonLance 冷啟動畫面為 `workplace/hd/screens/title750.bin`，TITLE 4 貼在 (0,8)，320×88。與 TITLE 2 組成的 320×200 完整圖逐色號相同，來源與擷取方式見 `title750-receipt.json`。
+- 請求重播的 327 個檔案及處理重播的 92 張 PNG 逐位元組相同，見 `workplace/hd/out/issue12-replay-control.json`。`tools/hd_gate_checks.py` 另驗證撤銷目視、目視雜湊過期及請求雜湊過期時，主題工具拒絕產生新 manifest。
+- `bash tools/issue12-hd-receipt.sh` 通過：`apps/cok` 全套單元測試、97 項來源正負對照共 194 例、185 張原版側保存畫面回歸。其中 71 張有完整來源匹配；全部 2 倍無 HD 差異，3 倍範圍外差異為 0。此處的保存畫面不是本輪重新走過全部劇情。
+- `bash tools/issue12-hd-runtime.sh` 通過：相同前端二進位與冷啟動輸入，主標題及 DragonLance 在 3 倍分別改變 560,714、512,814 像素；DragonLance 的 2 倍差異為 0。各組執行步數、原版記憶體 SHA-256 與色號 SHA-256 完全相同。未逐項比較暫存器，也未做存讀檔 A/B。
+- 最終盤點為 PIC observed 7、unobserved 78；BIGPIC observed 2、unobserved 7；TITLE 原始區塊 observed 3、unobserved 1。未單獨觀測的是 TITLE 2 背景，其兩種組圖均有畫面證據。所有未知來源保留 `unobserved`，不宣稱本輪取得其正常玩家路徑或動畫時序。
+- 交付索引為各批 `manifest.json`、`visual-review.json`、`validation.json`、`jobs/`、`reuse.json` 與 `reused/`；`tools/hd_batch_manifest.py` 可重建逐項索引。來源、數值、主題、重播及執行收據統一由本輪報告連結，不重打發行包。
