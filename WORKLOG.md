@@ -77,3 +77,12 @@
 - `tools/package.sh v.0.9.0-20261019 all`：三平台原版包（沒有 HD 主題時只出原版包），外洩掃描通過。
 - 冒煙：Linux AppImage 與 Windows（Wine 9.0，映像 `psgolem-wine-verify:noble-r2`，只使用）從乾淨目錄開到標題畫面、兩者截圖相同；缺原版時以錯誤結束並留 `cok-error.log`；macOS 只驗結構。
 - 清理：兩個背景容器因外層 timeout 只殺 client 而殘留（`kind_bose`、`bold_wilson`，皆本 session 建立），已 `docker stop`，`--rm` 自動移除。
+
+## 2026-10-19 跨畫面盤點與 v.0.9.1（#6、#10）
+
+- 盤點 demo 戰鬥、大地圖與手動戰鬥、屯墾區武器庫、旅店、紮營存讀檔（docs/re/008）。補本作戰鬥模板、Bozak 譯名；
+  `compose.go` 新增商店價格列（補位按半形合併後格數）、購買訊息、數量置後與複數；路徑 C 補試大小寫變體（底列繼續提示）；
+  建立隊伍選單第 1 欄也學隊員名。demo 重跑 10 張截圖全部通過，未命中只剩純數字。規格 004 升級 CONFORMED。
+- G5 收據回歸 7 場景通過。
+- `v.0.9.1-20261019`：三平台原版包（Linux、Wine 冒煙到標題且截圖相同，macOS 結構通過）與本機完整版（`COK_WITH_DATA=1`），都在 `dist-all/`，未公開。
+- 清理：本輪背景容器都已結束；`workplace/`、`dist-all/` 無 root 擁有檔。
