@@ -69,3 +69,27 @@ func TestMusicCuesRejectUnknownKind(t *testing.T) {
 		t.Fatal("未知 kind 要報錯")
 	}
 }
+
+func TestMusicDirectorTextCues(t *testing.T) {
+	d, err := LoadMusicCues([]byte("kind\tpattern\ttrack\nmap\t1/20\toccupied\nmenu\tMove Encamp\toverland\n" +
+		"battle\tMove View Aim\tbattle\nbattle-text\tAttacks\tbattle\n" +
+		"leave-text\tre:^[0-9]+,[0-9]+ [NESW] [0-9]{2}:[0-9]{2}$\t-\n"))
+	if err != nil {
+		t.Fatal(err)
+	}
+	d.Menu("Move Encamp")
+	d.MapKey("1/20")
+	d.Menu("Move Encamp") // 回大地圖
+	d.Text("Attacks")     // 全隊交電腦的戰鬥沒有戰鬥選單，只有戰鬥訊息
+	if got, _, _ := d.Want(); got != "battle" {
+		t.Fatalf("戰鬥訊息要進戰鬥曲：%q", got)
+	}
+	d.Text("17,13 N 00:18")
+	if got, _, _ := d.Want(); got != "occupied" {
+		t.Fatalf("座標列要回到地圖曲（同一張地圖重進也要）：%q", got)
+	}
+	d.Text("117,13 X 00:18") // 不符正規式
+	if _, err := LoadMusicCues([]byte("kind\tpattern\ttrack\nleave-text\tre:(\t-\n")); err == nil {
+		t.Fatal("壞正規式要報錯")
+	}
+}

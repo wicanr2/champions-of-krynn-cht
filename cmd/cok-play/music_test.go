@@ -15,7 +15,7 @@ func writeMusicFixture(t *testing.T) string {
 	note := "0 20 01\n0 23 01\n0 40 10\n0 43 00\n0 60 F0\n0 63 F0\n0 80 77\n0 83 77\n0 A0 98\n0 B0 31\n0.4 B0 11\n"
 	os.WriteFile(filepath.Join(dir, "loop.opl"), []byte(note+"0.5 B0 31\n0.9 B0 11\n"), 0o644)
 	os.WriteFile(filepath.Join(dir, "hit.opl"), []byte(note), 0o644)
-	os.WriteFile(filepath.Join(dir, "music.tsv"), []byte("key\tloop\tloop_start\tloop_end\tlength\nloop\t1\t0.5\t1.0\t1.0\nhit\t0\t0\t0\t0.2\n"), 0o644)
+	os.WriteFile(filepath.Join(dir, "music.tsv"), []byte("key\tloop\tloop_start\tloop_end\tlength\tgain\nloop\t1\t0.5\t1.0\t1.0\t1\nhit\t0\t0\t0\t0.2\t1\n"), 0o644)
 	return dir
 }
 
@@ -94,7 +94,7 @@ func TestMusicPlayerToggleOffIsSilent(t *testing.T) {
 
 func TestMusicTSVRejectsBadLoop(t *testing.T) {
 	dir := writeMusicFixture(t)
-	os.WriteFile(filepath.Join(dir, "music.tsv"), []byte("key\tloop\tloop_start\tloop_end\tlength\nloop\t1\t1.0\t0.5\t1.0\n"), 0o644)
+	os.WriteFile(filepath.Join(dir, "music.tsv"), []byte("key\tloop\tloop_start\tloop_end\tlength\tgain\nloop\t1\t1.0\t0.5\t1.0\t1\n"), 0o644)
 	if _, err := loadMusic(dir, musicDirector(t)); err == nil {
 		t.Fatal("循環點顛倒要報錯")
 	}

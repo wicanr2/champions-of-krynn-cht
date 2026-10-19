@@ -19,7 +19,7 @@ import (
 
 const (
 	musicFade = 0.5  // 換曲淡出秒數
-	musicGain = 0.85 // 配樂相對遊戲音效的音量
+	musicGain = 1.0 // 整體音量；各曲增益在 music.tsv（對齊原版標題曲響度的 0.7 倍）
 )
 
 type oplWrite struct {
@@ -33,6 +33,7 @@ type musicTrack struct {
 	loop                bool
 	loopStart, loopEnd  float64
 	length              float64
+	gain                float64
 }
 
 // musicPlayer 依 MusicDirector 的選曲播放；Mix 在每次混音後呼叫。
@@ -50,7 +51,7 @@ type musicPlayer struct {
 	frame   [2]int16
 }
 
-// loadMusic 讀 dir/music.tsv（key、loop、loop_start、loop_end、length）與各曲 <key>.opl。
+// loadMusic 讀 dir/music.tsv（key、loop、loop_start、loop_end、length、gain）與各曲 <key>.opl。
 func loadMusic(dir string, d *cok.MusicDirector) (*musicPlayer, error) {
 	f, err := os.Open(filepath.Join(dir, "music.tsv"))
 	if err != nil {
@@ -64,15 +65,16 @@ func loadMusic(dir string, d *cok.MusicDirector) (*musicPlayer, error) {
 		if ln == 1 || len(fs) == 1 && fs[0] == "" {
 			continue
 		}
-		if len(fs) != 5 {
-			return nil, fmt.Errorf("music.tsv:%d：要 5 欄", ln)
+		if len(fs) != 6 {
+			return nil, fmt.Errorf("music.tsv:%d：要 6 欄", ln)
 		}
 		t := &musicTrack{key: fs[0], loop: fs[1] == "1"}
-		var e1, e2, e3 error
+		var e1, e2, e3, e4 error
 		t.loopStart, e1 = strconv.ParseFloat(fs[2], 64)
 		t.loopEnd, e2 = strconv.ParseFloat(fs[3], 64)
 		t.length, e3 = strconv.ParseFloat(fs[4], 64)
-		if e1 != nil || e2 != nil || e3 != nil || t.length <= 0 || t.loop && !(t.loopStart < t.loopEnd && t.loopEnd <= t.length) {
+		t.gain, e4 = strconv.ParseFloat(fs[5], 64)
+		if e1 != nil || e2 != nil || e3 != nil || e4 != nil || t.gain <= 0 || t.length <= 0 || t.loop && !(t.loopStart < t.loopEnd && t.loopEnd <= t.length) {
 			return nil, fmt.Errorf("music.tsv:%d：時間欄不合法", ln)
 		}
 		if t.writes, err = readOPL(filepath.Join(dir, t.key+".opl")); err != nil {
@@ -174,7 +176,7 @@ func (p *musicPlayer) Mix(dst []float32) {
 			p.idx++
 		}
 		p.chip.GenerateStream(p.frame[:])
-		g := musicGain * p.vol / 32768
+		g := musicGain * t.gain * p.vol / 32768
 		dst[i] = clampF(dst[i] + float32(float64(p.frame[0])*g))
 		dst[i+1] = clampF(dst[i+1] + float32(float64(p.frame[1])*g))
 		p.pos += 1.0 / mixer.SampleRate

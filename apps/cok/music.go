@@ -2,6 +2,7 @@ package cok
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 )
 
@@ -38,10 +39,22 @@ type musicCue struct {
 	pattern string
 	track   string
 	kind    cueKind
+	re      *regexp.Regexp // pattern 以 `re:` 開頭時的正規式
+}
+
+// match：正規式全文比對；否則選單以 pattern 開頭、文字包含 pattern。
+func (c musicCue) match(s string, menu bool) bool {
+	switch {
+	case c.re != nil:
+		return c.re.MatchString(s)
+	case menu:
+		return strings.HasPrefix(s, c.pattern)
+	}
+	return strings.Contains(s, c.pattern)
 }
 
 // LoadMusicCues 讀 music-cues.tsv：kind、pattern、track。kind 為 map（地圖鍵）、menu（area）、
-// battle、leave、boss、end。
+// battle、leave（選單）、battle-text、leave-text（路徑 A、B 文字）、boss、end。pattern 以 `re:` 開頭時是正規式。
 func LoadMusicCues(b []byte) (*MusicDirector, error) {
 	rows, err := readTSV(b, []string{"kind", "pattern", "track"})
 	if err != nil {
@@ -50,21 +63,32 @@ func LoadMusicCues(b []byte) (*MusicDirector, error) {
 	d := &MusicDirector{maps: map[string]string{}}
 	for _, r := range rows {
 		kind, pat, track := r[0], r[1], r[2]
+		var re *regexp.Regexp
+		if strings.HasPrefix(pat, "re:") {
+			if re, err = regexp.Compile(pat[3:]); err != nil {
+				return nil, fmt.Errorf("music-cues：%q：%w", pat, err)
+			}
+		}
+		cue := func(k cueKind) musicCue { return musicCue{pat, track, k, re} }
 		switch kind {
 		case "map":
 			d.maps[pat] = track
 		case "menu":
-			d.menus = append(d.menus, musicCue{pat, track, cueArea})
+			d.menus = append(d.menus, cue(cueArea))
 		case "battle":
-			d.menus = append(d.menus, musicCue{pat, track, cueBattle})
+			d.menus = append(d.menus, cue(cueBattle))
 			d.battleTrack = track
+		case "battle-text":
+			d.texts = append(d.texts, cue(cueBattle))
+		case "leave-text":
+			d.texts = append(d.texts, cue(cueLeave))
 		case "leave":
-			d.menus = append(d.menus, musicCue{pat, track, cueLeave})
+			d.menus = append(d.menus, cue(cueLeave))
 		case "boss":
-			d.texts = append(d.texts, musicCue{pat, track, cueBoss})
+			d.texts = append(d.texts, cue(cueBoss))
 			d.bossTrack = track
 		case "end":
-			d.texts = append(d.texts, musicCue{pat, track, cueEnd})
+			d.texts = append(d.texts, cue(cueEnd))
 		default:
 			return nil, fmt.Errorf("music-cues：未知 kind %q", kind)
 		}
@@ -78,7 +102,7 @@ func (d *MusicDirector) Menu(line string) {
 		return
 	}
 	for _, c := range d.menus {
-		if !strings.HasPrefix(line, c.pattern) {
+		if !c.match(line, true) {
 			continue
 		}
 		switch c.kind {
@@ -90,10 +114,7 @@ func (d *MusicDirector) Menu(line string) {
 				d.combat, d.boss = true, false
 			}
 		case cueLeave:
-			d.combat, d.boss = false, false
-			if t, ok := d.maps[d.mapKey]; ok {
-				d.area = t
-			}
+			d.leave()
 		}
 		return
 	}
@@ -105,10 +126,16 @@ func (d *MusicDirector) Text(s string) {
 		return
 	}
 	for _, c := range d.texts {
-		if !strings.Contains(s, c.pattern) {
+		if !c.match(s, false) {
 			continue
 		}
 		switch c.kind {
+		case cueBattle:
+			if !d.combat {
+				d.combat, d.boss = true, false
+			}
+		case cueLeave:
+			d.leave()
 		case cueBoss:
 			if d.combat {
 				d.boss = true
@@ -155,4 +182,12 @@ func (d *MusicDirector) Want() (track string, oneShot bool, serial int) {
 		return d.battleTrack, false, d.serial
 	}
 	return d.area, false, d.serial
+}
+
+// leave：回到 3D 移動（座標列、移動選單）時結束戰鬥，區域曲回到目前地圖的曲目。
+func (d *MusicDirector) leave() {
+	d.combat, d.boss = false, false
+	if t, ok := d.maps[d.mapKey]; ok {
+		d.area = t
+	}
 }
