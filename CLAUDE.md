@@ -19,6 +19,17 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ```sh
 # 原版冷啟動到建立隊伍主選單，重播兩次比對畫面雜湊（docs/re/003）
 tools/g2-startup-receipt.sh
+# 正常玩家路徑：建角 ANNA → 加入隊伍 → 開始冒險 → 查驗題（答案表自動作答）→ 開場；FROM=<段名> 續跑
+tools/g3-party-receipt.sh
+# 覆繪收據 7 場景（docs/re/007）
+tools/g5-receipt.sh
+# 字型（倚天，本機）、術語一致性、查驗題答案、攻略與地圖點資料
+tools/font-dev.sh; tools/term-check.sh
+# 發行包與冒煙（沒有 HD 主題時只出原版包；COK_WITH_DATA=1 出本機完整版）
+tools/package.sh v.0.9.1-20261019 all
+tools/release/smoke-linux.sh v.0.9.1-20261019; tools/release/smoke-windows.sh v.0.9.1-20261019; tools/release/smoke-macos.sh v.0.9.1-20261019
+# 開視窗遊玩（Docker＋主機 X11）
+tools/play.sh
 
 # 任意探針：原版唯讀掛到 /orig；scratch 要先放 AdLib 版設定，否則卡在 MPU-401
 tools/cfg-adlib.sh workplace/input/dos/ckrynn/KRYNN.CFG workplace/probe/x/scratch/KRYNN.CFG

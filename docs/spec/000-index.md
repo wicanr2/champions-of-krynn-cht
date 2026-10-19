@@ -14,5 +14,6 @@
 | [007-journal-panel.md](007-journal-panel.md) | CONFORMED | #7 | 旅行手札與酒店傳聞面板 |
 | [008-walkthrough-panel.md](008-walkthrough-panel.md) | CONFORMED | #8 | 遊戲內攻略面板 |
 | [009-map-overlay.md](009-map-overlay.md) | CONFORMED | #8 | 遊戲內地圖疊層 |
+| （011 切換列） | 繼承，本作未驗 | #9 | `cmd/cok-play/toolbar.go` 沿用幽靈騎士規格 011，未做收據 |
 | [012-release-packaging.md](012-release-packaging.md) | READY | #10 | 發行包 |
 | [013-player-name.md](013-player-name.md) | CONFORMED | #6 | 玩家角色名自動音譯 |
