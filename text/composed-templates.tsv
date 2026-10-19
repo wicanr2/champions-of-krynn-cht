@@ -1,0 +1,53 @@
+template	translation	note
+Move/Attack, Move Left = {n} 	移動／攻擊，剩餘移動力 {n}	戰鬥指令列
+move/attack, move left = {n}	移動／攻擊，剩餘移動力 {n}	戰鬥指令列（小寫版）
+Hitting for {n} points  of damage	造成 {n} 點傷害	戰鬥結果（原文兩個空白）
+Hitting for {n} point  of damage	造成 {n} 點傷害	單數（推測，未觀測）
+takes {n} points of damagefrom fire	受到 {n} 點火焰傷害	原文 damage 與 from 相連
+takes {n} points of damagefrom cold	受到 {n} 點寒冷傷害	同上（推測）
+takes {n} points of damagefrom electricity	受到 {n} 點電擊傷害	同上
+takes {n} points of damagefrom acid	受到 {n} 點酸液傷害	同上（推測）
+takes {n} points of damagefrom magic	受到 {n} 點魔法傷害	同上（推測）
+{n},{n} N {n}:{n}	{1},{2} 北 {3}:{4}	座標、方位、時間
+{n},{n} E {n}:{n}	{1},{2} 東 {3}:{4}	同上
+{n},{n} S {n}:{n}	{1},{2} 南 {3}:{4}	同上
+{n},{n} W {n}:{n}	{1},{2} 西 {3}:{4}	同上
+ of journal entry # {n}     	在旅行手札第 {n} 則	手冊查驗題第二行
+ (journal, page {n})?      	（手札第 {n} 頁）？	手冊查驗題第三行
+This is recorded as journal entry {n}.	此事記為旅行手札第 {n} 則。	規格 007 手札訊息
+{n} years	{n} 歲	角色檢視年齡（片段 ` years`）
+Experience {n}	經驗值 {n}	角色檢視（片段 `Experience `）
+Game Speed ({n}=fastest {n}=slowest) = {n}	遊戲速度（{1}＝最快 {2}＝最慢）＝{3}	營地調整速度；0、9 也是數字
+{n},{n} N {n}:{n} camping	{1},{2} 北 {3}:{4} 紮營中	座標列加狀態（片段 ` camping`）
+{n},{n} E {n}:{n} camping	{1},{2} 東 {3}:{4} 紮營中	同上
+{n},{n} S {n}:{n} camping	{1},{2} 南 {3}:{4} 紮營中	同上
+{n},{n} W {n}:{n} camping	{1},{2} 西 {3}:{4} 紮營中	同上
+{n},{n} N {n}:{n} search	{1},{2} 北 {3}:{4} 搜尋中	座標列加狀態（片段 ` search`；2026-10-16 前哨站觀測到南向）
+{n},{n} E {n}:{n} search	{1},{2} 東 {3}:{4} 搜尋中	同上
+{n},{n} S {n}:{n} search	{1},{2} 南 {3}:{4} 搜尋中	同上
+{n},{n} W {n}:{n} search	{1},{2} 西 {3}:{4} 搜尋中	同上
+Spells in Grimoire	法術書中的法術	法術顯示標題（片段 `Spells ` ＋ `in Grimoire`）
+Spells in Memory	記憶中的法術	同上（推測，未觀測）
+Spells on Scroll	卷軸上的法術	同上（推測，未觀測）
+Spells on Scrolls	卷軸上的法術	同上（推測，未觀測）
+Spells to Choose	可選擇的法術	同上（推測，未觀測）
+Spells to Memorize	可記憶的法術	同上（推測，未觀測）
+Spells to Scribe	可抄寫的法術	同上（推測，未觀測）
+'s	的	名字後的所有格（物品、法術畫面標題）
+Knight of the Crown	皇冠騎士	角色檢視職業（片段 Knight ＋ ` of the Crown`；術語表）
+Knight of the Sword	聖劍騎士	同上
+Knight of the Rose	玫瑰騎士	同上
+{name} is hit FOR {n} points of Damage.	{name} 受到 {n} 點傷害。	陷阱傷害（名字模板，規格 004 §2.1.1；跨區盤點 2026-10-18）
+wants to kill {name}	想殺死 {name}	戰鬥中怪物名之後另起一頁（名字模板）
+{name}, how can we help yo	{name}，需要什麼幫助？	神殿招呼（原文在 yo 截斷；名字模板）
+each character receives {n}	每人獲得 {n}	戰後經驗值，下一列「點經驗。」
+(from behind)Hitting for {n} points  of damage	（背後攻擊）造成 {n} 點傷害	背刺傷害（跨區盤點第 2 輪 2026-10-18；原文兩個空白）
+(from behind)Hitting for {n} point  of damage	（背後攻擊）造成 {n} 點傷害	單數（推測，未觀測）
+a level {n} {name}	{n} 級{name}	訓練升級「將成為：」下一列，{name} 為職業（介面詞表）；2026-10-18 升級盤點
+and a level {n} {name}	以及 {n} 級{name}	多職業第二段（推測，未觀測）
+{name} may become a	{name} 可以晉升為	騎士升級時的騎士團晉階提示（名字模板）；2026-10-18 升級盤點
+knight of the sword	聖劍騎士	晉階提示下一列（術語表 Knight of the Sword）
+knight of the crown	皇冠騎士	同上（術語表 Knight of the Crown；推測，未觀測）
+knight of the rose	玫瑰騎士	同上（術語表 Knight of the Rose；推測，未觀測）
+goes down, and is dying	倒下了，且已垂死	我方生命力歸零時的整句（片段 goes down、, and is dying 的既有譯法合併）；戰鬥盤點 2026-10-18
+congratulations...{name} gains experience!	恭喜……{name}獲得經驗值！	發現秘門等的個人經驗（路徑 B 單行；3/63 實測）
