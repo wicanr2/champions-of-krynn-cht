@@ -30,3 +30,4 @@ toolbar.answers	答案	規格 011 切換列：查驗題答案顯示（同 F9）
 toolbar.mute	靜音	規格 011 切換列：靜音（同 F3）
 toolbar.shot	截圖	規格 011 切換列：截圖（同 F10）
 toolbar.fullscreen	全螢幕	規格 011 切換列：全螢幕（同 F11）
+quiz.entry.tavern	酒店傳聞第 {entry} 則	本作：英文手冊第 44 頁起是 Tavern Tale（docs/re/005）

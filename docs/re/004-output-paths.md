@@ -42,6 +42,28 @@ Issue：#4（G3）。基線見 [003](003-dosgolem-startup.md)。位址為 dosgol
 | 開場劇情畫面 `AT THE INN OF THE LAST HOME IN SOLACE, …` 底列 `PRESS <ENTER>/<RETURN> TO CONTINUE` | 已證實（畫面） |
 | 遊戲開檔時以讀寫模式開部分 DAX，dosgolem 依規格 009 把它們複製到 scratch；收據每次要清空 scratch | 已證實（scratch 出現 `ECL2.dax` 等副本） |
 
+## 路徑 C：底列水平選單（已證實）
+
+營地選單繪製時呼叫逐字程序 `0631:01DF` 的 overlay 呼叫端（執行期段 `33E7`），返回位址前是 `9A DF 01 <段>`（幽靈騎士 `9A F5 01`），
+返回位址後的 bytes 分辨四種呼叫：
+
+| 種類 | 呼叫端 | 返回位址後 | 幽靈騎士 |
+|---|---|---|---|
+| selected | `33E7:028F` | `E9 95 00` | `E9 96 00` |
+| hotkey | `33E7:02E9` | `EB 3C` | `EB 3C` |
+| normal | `33E7:0327` | `8A 46 FF 3A 46 FE` | `FE 46 FF` |
+| pad | `33E7:0397` | `9A 30 00 <段>`（只比前 3 bytes） | `C4 7E FC 26 8B 45 2A` |
+
+城鎮選單 `INN HALL COMMANDANT ARMOURY NEXT LEAVE` 的每個詞是獨立的 ECL 字串（`ecl.1.17.01735`–`01768`），
+印出時改成首字大寫；介面查表找不到時轉大寫查 ECL catalog。營地與城鎮選單 6 詞全部覆繪。
+
+## 手札引用（已證實）
+
+開場劇情以兩則路徑 B 字串印出 `… AND YOU RECORD IT IN JOURNAL ENTRY ` 與 `51.`。ECL 原文另有整句含編號的寫法
+（`RECORD IT AS JOURNAL ENTRY 29.`）與酒店傳聞（`YOU HEAR TAVERN TALE `、`YOU OVERHEAR TAVERN TALE NUMBER `）。
+adapter 依「上一則結尾＋這一則開頭的編號」打開手札面板（酒店傳聞用 1000+N），單獨的 `51.` 補成「 51 則。」。
+實機：第 51 則自動彈出中文面板。
+
 ## 下一步
 
 - 路徑 B 呼叫參數、視窗矩形與換頁。
