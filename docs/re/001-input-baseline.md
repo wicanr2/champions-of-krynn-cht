@@ -1,0 +1,118 @@
+# 001 原始輸入基線
+
+G1（#2）。2026-10-19 在 Docker（`python:3.13-slim`，`--network none`）內以 `tools/inventory.py` 解壓到
+`workplace/input/dos/`，逐檔雜湊存於 `workplace/input/inventory.json`。
+
+## 壓縮檔
+
+| 項目 | 值 | 證據等級 |
+|---|---|---|
+| 檔名 | `Champions of Krynn (1990).zip` | 已證實 |
+| SHA-256 | `ebb21cd871c2aae952a2c91d8e322fb0c5cb5c352c7c8a635d8ba7fa8361cdfc` | 已證實 |
+| 成員 | 79 筆（含目錄），77 個檔案，全在 `ckrynn/` 下 | 已證實 |
+| 成員日期 | 1996-12-24 23:32，屬重新封裝時間，不作版本證據 | 已證實 |
+
+## 版本與入口
+
+| 項目 | 值 | 證據等級 |
+|---|---|---|
+| 版本 | `START.EXE` offset `0x206` 字串 `Champions of Krynn v1.2` | 已證實 |
+| 入口 | `START.EXE`（MZ），由 `HD35.BAT` 安裝說明「Type START」與 `dosbox.conf` autoexec 的 `start` 佐證 | 已證實 |
+| overlay | `GAME.OVR` 開頭 `FBOV`，與幽靈騎士相同魔數；格式對應待 G2、G3 驗證 | 已證實（魔數）／假說（格式相同） |
+| 編譯器 | `START.EXE` offset `0xa2ea` `Portions Copyright (c) 1983,91 Borland` | 已證實 |
+| 設定 | `KRYNN.CFG` 第 4 行存檔路徑 `C:\CKRYNN\SAVE\`；執行時目錄需對應 | 已證實（檔案內容）／未知（執行時用法） |
+| `dosbox.conf` | 封裝者附的 DOSBox 設定，autoexec 為 `mount c .\games\`、`cd ckrynn`、`start`；非原版檔案 | 強推論 |
+
+## 存檔
+
+`SAVE/` 內有 `CHRDATA1`–`CHRDATA6`（`.SAV`、`.STF`、`.SFX`）與 `SAVGAMA.DAT`。`COPYSAVE.BAT` 說明它們是
+「pregenerated party」，安裝時複製到 `KRYNN\SAVE`。屬原版素材，可作 G2 之後的測試起點（強推論，未載入驗證）。
+
+## 手冊、旅行手札與查驗題
+
+- 壓縮檔內沒有手冊、旅行手札或查驗題題庫的文件檔（已證實，依檔案清單）。
+- `GAME.OVR` 含 `what is word # `（`0x4d46`、`0x1a962`）、` of journal entry # `（`0x4d5c`）、` (journal, page `
+  （`0x4d77`、`0x1a9cd`）。查驗題以旅行手札的條目與字序出題（強推論，輸出事件待 G3）。
+- 手札原文來源要向使用者索取，G6（#7）與手札入遊戲決策依此生效。
+
+## 逐檔雜湊
+
+| 檔案 | 位元組 | SHA-256 |
+|---|---|---|
+| `8X8D1.DAX` | 14346 | `14fd0bed83d383deca6195e3145145ad0ab4c58a5939a6e6fc0d3efc8c4bc915` |
+| `8X8D2.DAX` | 20229 | `0ddd323d8732b5fce0a0f1fdc07f10b0a77bd3709b27d1d0c98f47f487685649` |
+| `8X8D3.DAX` | 20592 | `069e54395cc51f705ec5576e9f3d29199f3baf56d5848fb2176d7395897aa2c9` |
+| `BIGPIC1.DAX` | 65694 | `34cf5207584cb859817e1fc9b579cd51beea2e00e3393adbdc251e07f93483ec` |
+| `BIGPIC2.DAX` | 30905 | `553dc458be8209bea0ca5f1dea6406b5cd8a96750d3badc05658f5a8ef241f0a` |
+| `BIGPIC3.DAX` | 37495 | `2be3773e7f4ed0611c8e7d36ee1593160756ab2742c458d6adc7d14fd0900f25` |
+| `BODY2.DAX` | 1793 | `7edd8e0841581b1643828a21787594f6c96dddc1718710de9a8159575bef467f` |
+| `BODY3.DAX` | 1793 | `7edd8e0841581b1643828a21787594f6c96dddc1718710de9a8159575bef467f` |
+| `CBODY.DAX` | 23889 | `0c93206b020e30eecc1f761a9408b5befc20113fde18a8b401ae2ddad2c103bd` |
+| `CHEAD.DAX` | 3428 | `8e61d8cf23b7094353425224f02be4423b880c5e8a7e168d478ec851bfaea568` |
+| `COMSPR.DAX` | 3612 | `6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5` |
+| `COPYSAVE.BAT` | 3057 | `69b08339b68a8147fbcfaf8d8f864e950b792cca9dbb29949b3fe963f37ac3b5` |
+| `CPIC1.DAX` | 16911 | `5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b` |
+| `CPIC2.DAX` | 19604 | `7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4` |
+| `CPIC3.DAX` | 17235 | `8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395` |
+| `CURSOR.DAX` | 62 | `0d47e2fabc26b4e4dbea63fa034ec1c075e7031401536cea5171c40bd1307c00` |
+| `DUNGCOM.DAX` | 5542 | `827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a` |
+| `ECL1.DAX` | 31721 | `6387021ed8c84f2834d32d7c5e66dd03b88322d0c5072cba6cfb64a48e9ccf79` |
+| `ECL2.DAX` | 49982 | `4f4ba999b0d46817091e82fe5ccf27cb6eee95cd833389353d7285c2a8dccbea` |
+| `ECL3.DAX` | 49969 | `9629aa3ef46bb354270aab1fa3e158d5b1507363bdf452fec5ca5d190f602f1f` |
+| `GAME.OVR` | 269031 | `c3f448c391ea860f97dec99ce88b0b8b0a4a7e807cf3b1f5a8f1515e2a7a0529` |
+| `GEO1.DAX` | 1835 | `e3670f73462c68dc15a438229aba82daf62f55e8e029a87e9da47ec4769165ae` |
+| `GEO2.DAX` | 6365 | `8030dd8b50828cbdb0e53fa32e75a4f9d56778a21618cd44c650c5a2bd61af05` |
+| `GEO3.DAX` | 5483 | `59d0e8e2a1486a0fe04329847fcd8451e933b347fc1675296ffe84cbc1df4131` |
+| `HD35.BAT` | 643 | `c7782c56b265eee89c05fb8aac2fc52b167606a7da374a09031fb1dee02f0fd0` |
+| `HEAD2.DAX` | 3406 | `9b26657869b3d033866de66ace9e8ebde3dedfcdae5ed05fa00fc9d00bbec27b` |
+| `HEAD3.DAX` | 3406 | `9b26657869b3d033866de66ace9e8ebde3dedfcdae5ed05fa00fc9d00bbec27b` |
+| `ITEM1.DAX` | 1469 | `7e0068c2fc065a542b7009b7614e8179c97320027712fed2ce8d76ab629b5232` |
+| `ITEM2.DAX` | 1745 | `a9236cd8b54754ade99c395562b0e664770abca07dd00e6e54d9f5f9be0a9c24` |
+| `ITEM3.DAX` | 1079 | `52d6061d9518ff58aeb11d8eba3e6d80bb6291e7bc0220dfe25a3de23fa1ed5c` |
+| `ITEMS` | 2050 | `7e584796e84b5e6eb521804f67da5eb28c18ad5e8bd064928364ee65ccd3fd1a` |
+| `KRYNN.CFG` | 71 | `8099328f610242aae3f199568d4b40527a5834776fa65e920b6a92e113d95d5b` |
+| `MIDI.DAX` | 7369 | `5a06d9fc975ab9423d43f63d5cbdb0b02b1658cb5391baf54238ab1e9b1579bd` |
+| `MON1CHA.DAX` | 2661 | `5a46d0718ed7cec1a152235139bc52a69df2490ed1765edb3ea88c8dc6c1ca2b` |
+| `MON1ITM.DAX` | 1473 | `1a7f3d88690c4238b5b479d1d321cee547291bc363991193a8d7a14c5208c8f4` |
+| `MON1SPC.DAX` | 329 | `4e76ba4d9ce8091ff77826fd13048677e8e5e089dfb7606f2afa0e16d404b2ce` |
+| `MON2CHA.DAX` | 3418 | `b6034b1accae8964d724c033f99a8b7c95c370a31c9f5ac7329e47604d5008df` |
+| `MON2ITM.DAX` | 1701 | `c95d2bec68008b39733095c900f7add4f3964cdbed86fd3a95d24ea5fa4a566e` |
+| `MON2SPC.DAX` | 518 | `2fe85111b833678ac8e94477b6af5deef48e768ba0231e563dc6ed2559f5d358` |
+| `MON3CHA.DAX` | 3179 | `b4a9b6d1024048b430f924f5a6e096dde675d5c8ca0a0eb20d2b3bda14b83278` |
+| `MON3ITM.DAX` | 914 | `80fbd6c2fd5389d402eae2d5782b8f9efed10e8c077120aa8502fbd7fb34d338` |
+| `MON3SPC.DAX` | 567 | `e85f56132c9b834ccde9c09d4ee31f756b513b484f3c19fcaa39cb9151283410` |
+| `PIC1.DAX` | 66736 | `2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97` |
+| `PIC2.DAX` | 101466 | `b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51` |
+| `PIC3.DAX` | 97632 | `21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4` |
+| `RANDCOM.DAX` | 1023 | `78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925` |
+| `SAVE/CHRDATA1.SAV` | 409 | `6c377828d2f97b06c96fac92056844e5c733395425c8c5d028ee88acac839b1c` |
+| `SAVE/CHRDATA1.STF` | 189 | `4cd2ad481bf1bf0e1ddd936e3cc9f99955ba4ca28cf0f80dbebc9c7257926290` |
+| `SAVE/CHRDATA2.SAV` | 409 | `018feee310e9426c17ad56c4ad49e2ad59e5fef8e057ab7ca5d4e0768358bdb7` |
+| `SAVE/CHRDATA2.SFX` | 18 | `d433de3949ebebf1e8fdd51becca2f0c6aeb4f654ffa3d76e49114dbc1d8e814` |
+| `SAVE/CHRDATA2.STF` | 315 | `b1c41da8d61ce9465df3e45b533ee2b5bdffeb1a61536c56bea337c8d5521005` |
+| `SAVE/CHRDATA3.SAV` | 409 | `9baf39d30e7be8a5f281644c6216cb8769df58719a411e3f111c79aa5ba38be6` |
+| `SAVE/CHRDATA3.SFX` | 9 | `08ef8317ae70156ed2fac4b01cd3d6be921d9153e8caa31ce211941fb09b3b94` |
+| `SAVE/CHRDATA3.STF` | 315 | `8f5c4352ac8e86d70c9ccc21a013afce5238b1b97eb4ba800282d7d3116baf85` |
+| `SAVE/CHRDATA4.SAV` | 409 | `70949844d3e4de7d4de9e11e313916a3206b7dce4d6ee48ffbf32f1b26907b50` |
+| `SAVE/CHRDATA4.SFX` | 27 | `8827edf5c4bd0f65613b4750729bde7333d0c788b0a7638cccd4002cd4edc8d4` |
+| `SAVE/CHRDATA4.STF` | 252 | `5de460d0b2c7c7b7d5fd107e9d72844d547b9fb82175e4078ef3706ab688277c` |
+| `SAVE/CHRDATA5.SAV` | 409 | `d9bda153c5727b8d3251a1b27744e3956eb6457a45b7dee706ec8510f310ae9e` |
+| `SAVE/CHRDATA5.SFX` | 9 | `2dc3ea9719de5477dc6311837e0ff1502aacd91d2dd432c69a538ad89f64a5be` |
+| `SAVE/CHRDATA5.STF` | 252 | `05b7ba6944997965676b92fed2f0f266f8dd698ee5d90ecd8fd4a9e21a1524e3` |
+| `SAVE/CHRDATA6.SAV` | 409 | `517efabe3679f0d424af22b12f77bf8c4a5af7e48654c8eb05bc5e3e794924f2` |
+| `SAVE/CHRDATA6.SFX` | 9 | `2dc3ea9719de5477dc6311837e0ff1502aacd91d2dd432c69a538ad89f64a5be` |
+| `SAVE/CHRDATA6.STF` | 315 | `e111c059c0f06d2e775c20df5285e1d13b5b8951cf1ba025f9e25005ff48de88` |
+| `SAVE/SAVGAMA.DAT` | 5469 | `8e65839875fd0e15251a585777f5e2572a176d222eda6104f3a0fce7ad3f6a33` |
+| `SKY.DAX` | 2448 | `1ffe6b50f6d76116a9d72fbb05a94ea70160c8fad2a49b9c4b08776b16fbadf9` |
+| `SOUND.DAX` | 14206 | `7df3bde460feacf8372e01a282b99691d61dfa0a832f2cfd06ce5f39cd4246a5` |
+| `SPRIT1.DAX` | 8712 | `9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115` |
+| `SPRIT2.DAX` | 31307 | `888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a` |
+| `SPRIT3.DAX` | 22578 | `2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24` |
+| `START.EXE` | 61607 | `e087c20258cc87a06fb9db62a3898896b47c0b94796f748f72eb8986919ee384` |
+| `TILES.DAX` | 13488 | `9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205` |
+| `TITLE.DAX` | 57528 | `5276ba718f3c31018c25852f0b6858a292aed5a94f8bd938803961bb1ade0a00` |
+| `WALLDEF1.DAX` | 3877 | `70cf9f18fe0dc87bf5cec047c52a33ad48dc543d48812d627c3b05579c29be85` |
+| `WALLDEF2.DAX` | 6637 | `1739b685f289ebcfaaca2cc01b93dbadfd9cc47ff95c291142a6d2279823fabc` |
+| `WALLDEF3.DAX` | 6565 | `7f4e84f9428714a8d51447770143d21a8ac11fdce43bcf92eed796a8763ef47f` |
+| `WILDCOM.DAX` | 5462 | `00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5` |
+| `dosbox.conf` | 11063 | `0482c3c0c0c574804a21089ed1b14bea5a750da33b8f3b13dd5010332107a0d7` |

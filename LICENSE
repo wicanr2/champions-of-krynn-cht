@@ -41,7 +41,7 @@ the English translation below is provided for convenience only）。
   (b) 本條款不適用於原版素材。本作品不散布原版素材；使用本作品的人必須自備
       合法取得的原版副本。著作權人對原版素材不主張任何權利，也無權授權它們。
   (c) 本儲存庫為了文件、研究與展示的目的，收錄了少量含有原版素材的片段，
-      包括：目前沒有；G1 盤點後收錄的原版檔案內容雜湊、為辨識版本引用的少量原版英文字串與原版檔名清單，將逐項列於此處。這些片段中屬於
+      包括：由原版檔案計算的內容雜湊、為辨識版本與查驗題引用的少量原版英文字串，以及原版檔名清單。這些片段中屬於
       原版素材的部分不在本條款的授權範圍內；其收錄依據是研究與評論之目的。
       著作權人創作的譯文與量測所得的資料表屬於本作品，在著作權人享有權利的
       範圍內依本條款授權；譯文是原版文字的衍生著作，使用譯文重現遊戲仍以
@@ -194,7 +194,7 @@ separate agreement with the copyright holder.
        the original game. The copyright holder claims no rights in Original
        Assets and cannot license them.
    (c) For documentation, research and demonstration this repository contains
-       small excerpts that include Original Assets: none at present; content hashes of original files, a few original English strings quoted to identify the version and lists of original file names collected from G1 onward will be listed here. The Original-Asset portions of
+       small excerpts that include Original Assets: content hashes computed from original files, a few original English strings quoted to identify the version and the manual check, and lists of original file names. The Original-Asset portions of
        these excerpts are outside this license and are included for research
        and commentary. Translations and measured tables authored by the
        copyright holder are part of the Work and are licensed under these

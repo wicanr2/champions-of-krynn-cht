@@ -22,3 +22,13 @@ __pycache__/
 *.EXE
 *.exe
 Thumbs.db
+*.DAX
+*.dax
+*.OVR
+*.CFG
+*.BAT
+*.SAV
+*.STF
+*.SFX
+SAVGAMA.DAT
+dosbox.conf

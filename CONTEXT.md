@@ -27,7 +27,7 @@
 
 | 項目 | 決定時機 |
 |---|---|
-| 英文手冊、旅行手札、查驗題原文來源 | G1（#2）盤點後；壓縮檔內沒有時向使用者索取 |
+| 旅行手札原文來源 | 壓縮檔內沒有（docs/re/001）；查驗題以手札條目出題，需使用者提供手冊或手札來源，G6（#7）依此生效 |
 | 軟體世界攻略掃描 | 使用者提供後開 G7（#8） |
 
 ## dosgolem 基線
@@ -38,7 +38,7 @@ G2（#3）建立後填入 commit、Go 版本與 image ID。
 
 | 檔案 | 狀態 |
 |---|---|
-| `Champions of Krynn (1990).zip` | 未盤點（G1） |
+| `Champions of Krynn (1990).zip` | 原版 DOS v1.2，入口 `START.EXE`＋`GAME.OVR`（`FBOV`），附 pregenerated party 存檔；見 [docs/re/001](docs/re/001-input-baseline.md) |
 
 ## Glossary
 
