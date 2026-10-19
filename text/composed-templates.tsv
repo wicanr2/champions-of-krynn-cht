@@ -74,3 +74,18 @@ Jewelry       {n}	珠寶            {n}	本作金錢列，總寬 18、4 位數�
 Jewelry      {n}	珠寶           {n}	本作金錢列，總寬 18、5 位數靠右（overland1 盤點）
 Jewelry     {n}	珠寶          {n}	本作金錢列，總寬 18、6 位數靠右（overland1 盤點）
 How much jewelry will you drop? 	要丟下多少珠寶？	本作丟錢提示（overland1 盤點）
+Hitting for {n} points of damage	造成 {n} 點傷害	本作戰鬥結果（單一空白，demo 盤點）
+Hitting for {n} point of damage	造成 {n} 點傷害	本作單數（推測）
+Goes Down, and is Dying	倒下了，瀕臨死亡	本作戰鬥結果（demo 盤點）
+takes {n} points of damage from Magic	受到 {n} 點魔法傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Magic	受到 {n} 點魔法傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Electricity	受到 {n} 點電擊傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Electricity	受到 {n} 點電擊傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Fire	受到 {n} 點火焰傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Fire	受到 {n} 點火焰傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Cold	受到 {n} 點寒冷傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Cold	受到 {n} 點寒冷傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Acid	受到 {n} 點酸液傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Acid	受到 {n} 點酸液傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Poison	受到 {n} 點毒素傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Poison	受到 {n} 點毒素傷害	本作（demo 盤點 Magic、Electricity；其餘推測）
