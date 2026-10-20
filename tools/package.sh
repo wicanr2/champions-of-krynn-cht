@@ -157,7 +157,7 @@ printf '%s\n' "" "另含玩家名音譯資料（規格 013）：" \
 payload() {
   if [[ "$2" == hd ]]; then
     mkdir -p "$1/hd"
-    cp "$THEME"/theme.json "$THEME"/*.png "$THEME"/*.idx "$1/hd/"
+    cp -r "$THEME"/. "$1/hd/"  # 整個主題：戰鬥、人物、效果、牆面（walls/）與完整來源（exact.json）都在子檔
   fi
   [[ "$WITH_DATA" == 1 ]] || return 0
   mkdir -p "$1/original" "$1/font"
@@ -175,7 +175,11 @@ scan() {  # scan <解開目錄>：禁止來源為原版、倚天來源與本機�
 check() {
   local hd
   hd="$(find "$1" -path '*hd/theme.json' | head -1)"
-  if [[ "$2" == hd ]]; then [[ -n "$hd" ]] || die "HD 版缺 hd/theme.json"; else [[ -z "$hd" ]] || die "原版包不得含 hd/"; fi
+  if [[ "$2" == hd ]]; then
+    [[ -n "$hd" ]] || die "HD 版缺 hd/theme.json"
+    local d; d="$(dirname "$hd")"
+    for f in $(cd "$THEME" && find . -type f | sort); do [[ -f "$d/$f" ]] || die "HD 版缺主題檔 $f"; done
+  else [[ -z "$hd" ]] || die "原版包不得含 hd/"; fi
   if [[ "$WITH_DATA" == 1 ]]; then
     [[ -n "$(find "$1" -path '*original/START.EXE' | head -1)" ]] || die "完整版缺 original/START.EXE"
     [[ -n "$(find "$1" -path '*font/cok-eten.golemfnt' | head -1)" ]] || die "完整版缺倚天字型"

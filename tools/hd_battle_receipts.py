@@ -8,6 +8,7 @@ import numpy as np
 from PIL import Image
 from dax_pics import EGA
 from hd_battle_inventory import sha,write
+from hd_issue21 import exact_positions
 
 class Oracle:
     def __init__(self,theme):
@@ -75,9 +76,10 @@ class Oracle:
                     tile=frame[y:y+24,x:x+24].tobytes();row=self.characters.get(tile)
                     if row:
                         p,im,key=row;candidates.append((x,y,key,p,im,p!=8))
-                    effect=self.effect_lookup.get(tile)
-                    if effect:
-                        it,p,im=effect;candidates.append((x,y,it['key'],p,im,p!=8))
+            # 規格010 §8.4：COMSPR 的完整模板可位於移動格之間。
+            for it,p,im in self.effects:
+                for x,y in exact_positions(frame[8:176,8:176],p):
+                    candidates.append((x+8,y+8,it['key'],p,im,p!=8))
             ownership=np.zeros((200,320),np.uint16)
             for x,y,key,p,im,m in candidates:h,w=p.shape;ownership[y:y+h,x:x+w]+=m
             for x,y,key,p,im,m in candidates:
