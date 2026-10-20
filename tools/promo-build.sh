@@ -11,9 +11,9 @@ open	7.0	2.5	大地圖與地名	sanctuary
 open	20.5	2.8	人物對話	sanctuary
 open	23.4	3.1	手札內文自動顯示	sanctuary
 open	32.5	3.0	選單中文化	-
-throtl	1.5	9.0	3D 牆面 HD 重繪	-
-throtl	16.0	2.2	自動地圖	-
-throtl	18.6	4.0	軟體世界攻略對照	-
+throtl	9.6	9.0	3D 牆面 HD 重繪	-
+throtl	23.7	2.2	自動地圖	-
+throtl	26.8	4.0	軟體世界攻略對照	-
 battle	0.0	12.0	戰鬥畫面 HD 重繪	-
 langs	0.0	6.9	繁中・简中・日本語・한국어・English	outpost'
 for s in $(printf '%s\n' "$CUTS" | cut -f1 | sort -u); do test -f "$P/seg/$s/audio.s16le" || { echo "缺 $P/seg/$s" >&2; exit 1; }; done
