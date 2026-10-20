@@ -21,6 +21,7 @@ type Translator struct {
 	Players   *PlayerNames // 玩家名音譯（規格 013；可為 nil）
 	templates map[string]string
 	named     []namedTemplate // 含 {name} 的模板（規格 004 §2.1.1），依表中順序
+	heard     []heardPlayer   // 隊伍欄看過的名字（規格 013；換語言時重學）
 }
 
 // namedTemplate 是含 {name} 的模板：re 的子群組依 kinds 為名字（"name"）或數字（"n"）。

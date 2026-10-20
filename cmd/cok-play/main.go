@@ -105,7 +105,10 @@ type game struct {
 	bar      toolbar           // 視窗頂端切換列（主專案規格 011）
 	barText  map[string]string // host-text 的 toolbar.* 文字
 	music    *musicPlayer      // 遊戲中配樂（規格 014）；nil 表示沒有素材
-	cursorX  int               // 游標邏輯位置（切換列懸停用）
+	langs    []*cok.LangPack   // 已載入的語言（規格 015），索引 lang 為目前語言
+	lang     int
+	langDir  string // 語言選擇記錄的目錄
+	cursorX  int    // 游標邏輯位置（切換列懸停用）
 	cursorY  int
 }
 
@@ -157,6 +160,10 @@ func (g *game) apply(acts []hostAction) {
 			}
 		case actMusic:
 			g.music.Toggle()
+		case actLang:
+			g.nextLang()
+		case actLangCycle:
+			g.cycleLang()
 		case actScale:
 			g.scale = 5 - g.scale // 2 ↔ 3
 			if !ebiten.IsFullscreen() {
@@ -272,6 +279,8 @@ func (g *game) Update() error {
 			g.bar.forced, g.bar.shown = true, true
 		} else if a.toggle {
 			acts = append(acts, actToggle)
+		} else if a.lang {
+			acts = append(acts, actLang)
 		} else if a.key != nil {
 			u.BIOSKeys = append(u.BIOSKeys, *a.key)
 		}
@@ -358,7 +367,7 @@ func (g *game) toolbarItems() []toolbarItem {
 	return toolbarItems(g.barText, toolbarState{scale: g.scale, hasHD: g.live.HDItems > 0, chinese: g.chinese, muted: g.muted,
 		hasMusic: g.music != nil, music: g.music != nil && g.music.enabled,
 		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
-		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open()})
+		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open(), langs: len(g.langs)})
 }
 
 // drawBar 在切換列顯示時把它疊到 rgba 上（截圖 F10 不含切換列）。
@@ -407,6 +416,8 @@ func main() {
 	scaleFlag := flag.Int("scale", 2, "起始倍率（2 或 3；F2 切換）")
 	musicDir := flag.String("music-dir", "", "配樂目錄（music.tsv 與 <曲目>.opl；主專案規格 014）；選曲表讀 text-dir 的 music-cues.tsv")
 	noMusic := flag.Bool("no-music", false, "開機時配樂關閉（切換列或 F4 可再打開）")
+	langFlag := flag.String("lang", "", "起始語言代碼（主專案規格 015；預設為上次的選擇或 zh-TW）")
+	langFonts := flag.String("lang-fonts", "", "繁中以外語言的字型：代碼=路徑，逗號分隔（發行模式另找 font/cok-<代碼>.golemfnt）")
 	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
 	showVersion := flag.Bool("version", false, "印版號與 dosgolem commit 後結束")
 	flag.Parse()
@@ -573,6 +584,23 @@ func main() {
 	layout := host.MouseLayout{Epoch: 1, Scale: s, ChromeHeight: 18 * int(s), Canvas: host.Canvas{Width: 320, Height: 200},
 		FrameWidth: 320 * int(s), FrameHeight: 18*int(s) + 200*int(s)}
 	budget := stepsPerHostFrame(*clock)
+	fontsByLang, err := parseLangFonts(*langFonts)
+	if err != nil {
+		fail(err)
+	}
+	langs, err := loadLangs(*textDir, font, fontsByLang, release)
+	if err != nil {
+		fail(err)
+	}
+	langIdx, err := pickLang(langs, *langFlag, stateDir)
+	if err != nil {
+		fail(err)
+	}
+	live.SetLang(langs[langIdx])
+	barText = langs[langIdx].Host
+	if len(langs) > 1 {
+		hostKeysReserved["F8"] = actLang
+	}
 	mix := mixer.New(budget * 60)
 	owner, err := session.New(session.Config{InitialScale: s, InitialLayout: layout, AdLib: *adlib, ClockPercent: *clock,
 		Observer: observer{live: live, mix: mix}})
@@ -588,7 +616,8 @@ func main() {
 		dir = filepath.Join(filepath.Dir(filepath.Clean(saveRoot)), "screenshots")
 	}
 	g := &game{owner: owner, live: live, scale: *scaleFlag, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
-		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText}
+		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText,
+		langs: langs, lang: langIdx, langDir: stateDir}
 	if *musicDir != "" {
 		if g.music, err = loadMusic(*musicDir, live.Music); err != nil {
 			fail(err)

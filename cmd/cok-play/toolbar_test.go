@@ -200,3 +200,66 @@ func TestToolbarHalfWidthPacked(t *testing.T) {
 		t.Fatalf("無HD素材佔 %d 格，要 4", it.cols)
 	}
 }
+
+func TestToolbarLangItem(t *testing.T) {
+	one := toolbarItems(testBarText, toolbarState{scale: 2, chinese: true, langs: 1})
+	if it, _ := find(one, "toolbar.chinese"); it.act != actToggle {
+		t.Fatal("只有一種語言時語言項維持中文／原版切換")
+	}
+	for _, name := range []string{"繁中", "简中", "日本", "한국", "EN"} {
+		text := map[string]string{"lang.name": name}
+		for k, v := range testBarText {
+			text[k] = v
+		}
+		items := toolbarItems(text, toolbarState{scale: 2, chinese: true, langs: 5})
+		it, ok := find(items, "lang.name")
+		if !ok || toolbarClick(items, it.col*8, barTextY) != actLangCycle {
+			t.Fatalf("%s：語言項要顯示語言名稱並送出 actLangCycle", name)
+		}
+		if last := items[len(items)-1]; (last.col+last.cols)*8 > 320 {
+			t.Fatalf("%s：切換列寬 %d 超過 320", name, (last.col+last.cols)*8)
+		}
+		orig := toolbarItems(text, toolbarState{scale: 2, langs: 5})
+		if it, ok := find(orig, "toolbar.original"); !ok || it.act != actLangCycle {
+			t.Fatalf("%s：原版時語言項寫原版", name)
+		}
+	}
+}
+
+func TestParseLangFontsAndPick(t *testing.T) {
+	m, err := parseLangFonts("zh-CN=/f/cn.golemfnt, ja=/f/ja.golemfnt")
+	if err != nil || m["zh-CN"] != "/f/cn.golemfnt" || m["ja"] != "/f/ja.golemfnt" {
+		t.Fatalf("%v %v", m, err)
+	}
+	if _, err := parseLangFonts("ja"); err == nil {
+		t.Fatal("缺路徑要報錯")
+	}
+	packs := []*cok.LangPack{{Code: "zh-TW"}, {Code: "ja"}}
+	dir := t.TempDir()
+	if i, _ := pickLang(packs, "", dir); i != 0 {
+		t.Fatal("沒有選擇時用第一種")
+	}
+	g := &game{langs: packs, langDir: dir, live: cok.NewLive(&xlate.Font{W: 16, H: 16, Glyphs: map[rune][]byte{}}, nil, nil)}
+	packs[1].Host = map[string]string{"lang.name": "日本語"}
+	packs[1].UI = &cok.Translator{}
+	g.chinese = true
+	g.nextLang()
+	if g.lang != 1 || g.barText["lang.name"] != "日本語" || g.live.Lang() != packs[1] {
+		t.Fatal("換語言要更新語言包與切換列文字")
+	}
+	if i, _ := pickLang(packs, "", dir); i != 1 {
+		t.Fatal("要記住上次的選擇")
+	}
+	g.cycleLang()
+	if g.chinese || g.lang != 1 {
+		t.Fatal("最後一種語言之後回原版")
+	}
+	packs[0].UI = &cok.Translator{}
+	g.cycleLang()
+	if !g.chinese || g.lang != 0 || g.live.Lang() != packs[0] {
+		t.Fatal("原版之後回第一種語言")
+	}
+	if _, err := pickLang(packs, "ko", dir); err == nil {
+		t.Fatal("-lang 指定不存在的語言要報錯")
+	}
+}

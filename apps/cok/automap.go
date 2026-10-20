@@ -45,27 +45,34 @@ type MapGuide struct {
 
 // LoadAutoMapDir 讀地圖資料與面板格式；沒有 map-geo.tsv 時回 nil（不啟用）。
 func LoadAutoMapDir(dir string) (*AutoMap, error) {
-	g, err := LoadMapGuideDir(dir)
+	return LoadAutoMapDirLang(dir, DefaultLang)
+}
+
+// LoadAutoMapDirLang 同 LoadAutoMapDir，地圖名稱、攻略點與面板格式取 lang 的表。
+func LoadAutoMapDirLang(dir, lang string) (*AutoMap, error) {
+	g, err := LoadMapGuideDirLang(dir, lang)
 	if err != nil || g == nil {
 		return nil, err
 	}
-	b, err := os.ReadFile(filepath.Join(dir, "host-text.zh-TW.tsv"))
-	if err != nil {
-		return nil, err
-	}
-	host, err := LoadHostText(b)
+	host, err := loadHostDir(dir, lang)
 	if err != nil {
 		return nil, err
 	}
 	f, ok := MapFormatOf(host)
 	if !ok {
-		return nil, fmt.Errorf("cok: host-text.zh-TW.tsv 缺 map.* 或 map.dirs 不是四個字")
+		return nil, fmt.Errorf("cok: %s 缺 map.* 或 map.dirs 不是四個字", langName("host-text", lang))
 	}
 	return &AutoMap{Guide: g, Format: f}, nil
 }
 
 // LoadMapGuideDir 讀 map-geo.tsv 與 map-guide.zh-TW.tsv；兩者都沒有時回 nil。
 func LoadMapGuideDir(dir string) (*MapGuide, error) {
+	return LoadMapGuideDirLang(dir, DefaultLang)
+}
+
+// LoadMapGuideDirLang 同 LoadMapGuideDir；繁中以外的語言以 map-titles.<lang>.tsv（map、title）
+// 覆寫 map-geo.tsv 的繁中地圖名，攻略點取 map-guide.<lang>.tsv（沒有就不顯示攻略點）。
+func LoadMapGuideDirLang(dir, lang string) (*MapGuide, error) {
 	b, err := os.ReadFile(filepath.Join(dir, "map-geo.tsv"))
 	if os.IsNotExist(err) {
 		return nil, nil
@@ -84,7 +91,19 @@ func LoadMapGuideDir(dir string) (*MapGuide, error) {
 		}
 		g.Titles[r[0]] = r[2]
 	}
-	b, err = os.ReadFile(filepath.Join(dir, "map-guide.zh-TW.tsv"))
+	if lang != DefaultLang {
+		g.Titles = map[string]string{} // 沒有該語言名稱的地圖顯示 map.unknown，不露出繁中
+		if b, err = os.ReadFile(filepath.Join(dir, langName("map-titles", lang))); err != nil {
+			return nil, err
+		}
+		if rows, err = readTSV(b, []string{"map", "title"}); err != nil {
+			return nil, fmt.Errorf("cok: 地圖名稱表：%w", err)
+		}
+		for _, r := range rows {
+			g.Titles[r[0]] = r[1]
+		}
+	}
+	b, err = os.ReadFile(filepath.Join(dir, langName("map-guide", lang)))
 	if os.IsNotExist(err) {
 		return g, nil
 	}

@@ -42,6 +42,7 @@ type toolbarState struct {
 	hasMusic, music                   bool // 有配樂素材、配樂開啟中（規格 014）
 	answers                           bool // 查驗題答案顯示中
 	journal, guide, mapOpen           bool
+	langs                             int // 已載入的語言數（規格 015）；兩種以上才顯示語言項
 }
 
 // toolbarItems 依規格 011 §2.2 排出項目，項目間空一格。text 為 host-text 的 toolbar.* 鍵。
@@ -62,9 +63,15 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 	if st.hasHD {
 		scale3 = "toolbar.scale3hd"
 	}
-	lang := "toolbar.original"
+	lang, langAct := "toolbar.original", actToggle
 	if st.chinese {
 		lang = "toolbar.chinese"
+	}
+	if st.langs > 1 { // 規格 015：語言項顯示目前語言名稱，按下依序換下一種語言，最後一種之後回原版
+		langAct = actLangCycle
+		if st.chinese {
+			lang = "lang.name"
+		}
 	}
 	items := []toolbarItem{
 		{key: "toolbar.scale2", act: actScale, state: on(st.scale == 2)},
@@ -74,7 +81,7 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 		items = append(items, toolbarItem{key: "toolbar.nohd", state: itemDisabled})
 	}
 	items = append(items,
-		toolbarItem{key: lang, act: actToggle, state: on(st.chinese)},
+		toolbarItem{key: lang, act: langAct, state: on(st.chinese)},
 		toolbarItem{key: "toolbar.journal", act: actJournal, state: panel(st.journal)},
 		toolbarItem{key: "toolbar.guide", act: actGuide, state: panel(st.guide)},
 		toolbarItem{key: "toolbar.map", act: actMap, state: panel(st.mapOpen)},

@@ -148,7 +148,12 @@ func Load(textDir string) (*Transliterator, error) {
 			t.allowed[ch] = true
 		}
 	}
-	if err := t.loadCMU(filepath.Join(textDir, "cmudict", "cmudict.dict")); err != nil {
+	// 發音詞典與語言無關：子目錄（例：主專案的 translit-zh-CN/）沒有自己的 cmudict 時用上一層的
+	dict := filepath.Join(textDir, "cmudict", "cmudict.dict")
+	if _, err := os.Stat(dict); os.IsNotExist(err) {
+		dict = filepath.Join(textDir, "..", "cmudict", "cmudict.dict")
+	}
+	if err := t.loadCMU(dict); err != nil {
 		return nil, err
 	}
 	return t, t.selfCheck()

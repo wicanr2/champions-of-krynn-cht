@@ -39,6 +39,8 @@ const (
 	actReveal                             // 地圖開啟時的 V：全圖／只看走過
 	actScale                              // F2：2× ↔ 3×
 	actMusic                              // F4：遊戲中配樂開關（主專案規格 014）
+	actLang                               // F8：循環切換語言（主專案規格 015；載入兩種以上語言時才保留 F8）
+	actLangCycle                          // 切換列語言項：各語言依序，最後一種之後回原版
 )
 
 // panelMode 是手札面板的狀態：開啟時部分鍵由前端吃掉（規格 007 §2.4、§2.5）。
@@ -168,10 +170,11 @@ type scriptAction struct {
 	key    *dos.Key
 	toggle bool
 	bar    bool // 切換列保持顯示（主專案規格 011，收據截圖用）
+	lang   bool // 換下一種語言（等同 F8，主專案規格 015）
 }
 
 // parseScript 解析 `畫格:動作[,…]`。動作是鍵名（dos.KeyNamed，例 Enter、Down）、
-// 單一可列印字元、toggle（等同 F12），或 bar（切換列保持顯示）。
+// 單一可列印字元、toggle（等同 F12）、lang（等同 F8），或 bar（切換列保持顯示）。
 func parseScript(s string) (map[int][]scriptAction, error) {
 	out := map[int][]scriptAction{}
 	if s == "" {
@@ -188,6 +191,8 @@ func parseScript(s string) (map[int][]scriptAction, error) {
 			out[frame] = append(out[frame], scriptAction{toggle: true})
 		case name == "bar":
 			out[frame] = append(out[frame], scriptAction{bar: true})
+		case name == "lang":
+			out[frame] = append(out[frame], scriptAction{lang: true})
 		case len([]rune(name)) == 1:
 			k, ok := dos.KeyForRune([]rune(name)[0])
 			if !ok {
