@@ -47,7 +47,7 @@ tools/play.sh   # Docker＋主機 X11；F2 切換 2 倍／3 倍，F12 中文／�
 
 ## 語言
 
-繁體中文為人工翻譯。簡體中文由繁體中文以 OpenCC 轉換。日文、韓文為機器翻譯，未經母語者校對。英文版保留原文，以 Courier Prime 重繪，並可在遊戲內閱讀英文手札。遊戲中按 F8 切換語言，規格見 [docs/spec/015](docs/spec/015-multilingual.md)。
+繁體中文為人工翻譯。簡體中文由繁體中文以 OpenCC 轉換。日文、韓文為機器翻譯，未經母語者校對。英文版保留原文，以 Courier Prime 重繪，並可在遊戲內閱讀英文手札。第一次啟動依系統語言選擇，遊戲中按 F8 切換，規格見 [docs/spec/015](docs/spec/015-multilingual.md)。
 
 ## 授權
 
