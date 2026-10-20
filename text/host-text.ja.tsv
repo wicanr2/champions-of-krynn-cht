@@ -27,6 +27,7 @@ toolbar.journal	手記	規格 011 切換列：手札翻閱（同 F5）
 toolbar.guide	攻略	規格 011 切換列：攻略面板（同 F6）
 toolbar.map	地図	規格 011 切換列：地圖疊層（同 F7）
 toolbar.answers	答え	規格 011 切換列：查驗題答案顯示（同 F9）
+toolbar.cheat	無敵	規格 017 切換列：我方無敵（同 F1）
 toolbar.mute	消音	規格 011 切換列：靜音（同 F3）
 toolbar.music	BGM	規格 014 切換列：遊戲中配樂開關（同 F4）
 toolbar.shot	撮影	規格 011 切換列：截圖（同 F10）
