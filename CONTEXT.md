@@ -59,7 +59,7 @@
 | 攻略面板 | 規格 008 CONFORMED；軟體世界 16–18 期 19 章 |
 | 地圖疊層 | 規格 009 CONFORMED；15 張地圖、157 個攻略點 |
 | 玩家名音譯 | 規格 013 CONFORMED；性別 +0x109（docs/re/006） |
-| 發行包 | 規格 012 CONFORMED；`v.0.9.6-20261020` 原版包、原版＋HD 包（三平台，五種語言、配樂）與本機完整版在 `dist-all/`；Linux、Wine 冒煙到標題、macOS 驗結構；只私下分享，不公開上架 |
+| 發行包 | 規格 012 CONFORMED；`v.1.0.0-20261020`（正式版）原版包、原版＋HD 包（三平台，五種語言、配樂）與本機完整版在 `dist-all/`；Linux、Wine 冒煙到標題、macOS 驗結構；只私下分享，不公開上架 |
 | 存讀檔不殘字 | 紮營存遊戲 B、主選單讀回，隊伍選單 19/19、範圍外差異 0（docs/re/008） |
 | HD（G8） | 規格 010 CONFORMED；Codex 重繪 1,984 項（PIC／BIGPIC／TITLE、戰鬥、3D 牆面與天空、HEAD/BODY 立繪、TILES、COMSPR，簡單符號與游標以 Scale3x），3 倍顯示接入、2 倍不變；3D 視窗逐格替換，`tools/hd-3d-sample.sh` 抽樣覆蓋率 97–100%；報告 `workplace/hd/out/issue21-report.md`、`issue22-report.md` |
 | 配樂 | 規格 014 CONFORMED；12 首新編曲，使用者試聽通過 |
