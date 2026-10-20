@@ -1,7 +1,6 @@
-package main
-
-// 遊戲中配樂（主專案規格 014 §4）：第二顆 Nuked OPL 即時合成配樂的 OPL2 寫入序列，疊加在遊戲音訊上。
-// 遊戲本身的 OPL 與喇叭聲道照常；配樂關閉時完全不混入，輸出與原版相同。
+// Package bgm 是遊戲中配樂（主專案規格 014 §4）：第二顆 Nuked OPL 即時合成配樂的 OPL2 寫入序列，疊加在遊戲音訊上。
+// 遊戲本身的 OPL 與喇叭聲道照常；配樂關閉時完全不混入，輸出與原版相同。cok-play 與 cok-promo 共用。
+package bgm
 
 import (
 	"bufio"
@@ -27,7 +26,7 @@ type oplWrite struct {
 	reg, val uint8
 }
 
-type musicTrack struct {
+type track struct {
 	key                string
 	writes             []oplWrite
 	loop               bool
@@ -36,12 +35,12 @@ type musicTrack struct {
 	gain               float64
 }
 
-// musicPlayer 依 MusicDirector 的選曲播放；Mix 在每次混音後呼叫。
-type musicPlayer struct {
-	tracks  map[string]*musicTrack
+// Player 依 MusicDirector 的選曲播放；Mix 在每次混音後呼叫。nil 表示沒有素材，各方法都可以呼叫。
+type Player struct {
+	tracks  map[string]*track
 	dir     *cok.MusicDirector
 	chip    *nukedopl.Chip
-	cur     *musicTrack
+	cur     *track
 	pos     float64 // 目前曲目的秒數
 	idx     int     // 下一筆待寫入
 	vol     float64 // 淡出中的音量（1 → 0）
@@ -51,14 +50,14 @@ type musicPlayer struct {
 	frame   [2]int16
 }
 
-// loadMusic 讀 dir/music.tsv（key、loop、loop_start、loop_end、length、gain）與各曲 <key>.opl。
-func loadMusic(dir string, d *cok.MusicDirector) (*musicPlayer, error) {
+// Load 讀 dir/music.tsv（key、loop、loop_start、loop_end、length、gain）與各曲 <key>.opl。
+func Load(dir string, d *cok.MusicDirector) (*Player, error) {
 	f, err := os.Open(filepath.Join(dir, "music.tsv"))
 	if err != nil {
 		return nil, err
 	}
 	defer f.Close()
-	p := &musicPlayer{tracks: map[string]*musicTrack{}, dir: d, chip: nukedopl.New(mixer.SampleRate), vol: 1, enabled: true}
+	p := &Player{tracks: map[string]*track{}, dir: d, chip: nukedopl.New(mixer.SampleRate), vol: 1, enabled: true}
 	sc := bufio.NewScanner(f)
 	for ln := 1; sc.Scan(); ln++ {
 		fs := strings.Split(sc.Text(), "\t")
@@ -68,7 +67,7 @@ func loadMusic(dir string, d *cok.MusicDirector) (*musicPlayer, error) {
 		if len(fs) != 6 {
 			return nil, fmt.Errorf("music.tsv:%d：要 6 欄", ln)
 		}
-		t := &musicTrack{key: fs[0], loop: fs[1] == "1"}
+		t := &track{key: fs[0], loop: fs[1] == "1"}
 		var e1, e2, e3, e4 error
 		t.loopStart, e1 = strconv.ParseFloat(fs[2], 64)
 		t.loopEnd, e2 = strconv.ParseFloat(fs[3], 64)
@@ -124,7 +123,7 @@ func readOPL(path string) ([]oplWrite, error) {
 }
 
 // start 從 at 秒開始播 t：重設合成器，把 at 之前的寫入立即套用以重建音色狀態。
-func (p *musicPlayer) start(t *musicTrack, at float64) {
+func (p *Player) start(t *track, at float64) {
 	p.chip.Reset(mixer.SampleRate)
 	p.cur, p.pos, p.idx = t, at, 0
 	if t == nil {
@@ -140,7 +139,7 @@ func (p *musicPlayer) start(t *musicTrack, at float64) {
 }
 
 // Mix 把配樂疊加到交錯立體聲 dst（float32，-1..1）。
-func (p *musicPlayer) Mix(dst []float32) {
+func (p *Player) Mix(dst []float32) {
 	if p == nil {
 		return
 	}
@@ -198,7 +197,7 @@ func (p *musicPlayer) Mix(dst []float32) {
 }
 
 // Toggle 切換配樂開關（切換列「配樂」、F4）；關閉時立即停止混入。
-func (p *musicPlayer) Toggle() {
+func (p *Player) Toggle() {
 	if p == nil {
 		return
 	}
@@ -218,3 +217,6 @@ func clampF(v float32) float32 {
 	}
 	return v
 }
+
+// Enabled 回配樂是否開著。
+func (p *Player) Enabled() bool { return p != nil && p.enabled }

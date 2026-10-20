@@ -28,6 +28,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2/inpututil"
 
 	"github.com/wicanr2/dosgolem/apps/cok"
+	"github.com/wicanr2/dosgolem/apps/cok/bgm"
 	"github.com/wicanr2/dosgolem/audio/mixer"
 	"github.com/wicanr2/dosgolem/bootroot"
 	"github.com/wicanr2/dosgolem/host"
@@ -104,7 +105,7 @@ type game struct {
 	missing  map[rune]bool
 	bar      toolbar           // 視窗頂端切換列（主專案規格 011）
 	barText  map[string]string // host-text 的 toolbar.* 文字
-	music    *musicPlayer      // 遊戲中配樂（規格 014）；nil 表示沒有素材
+	music    *bgm.Player       // 遊戲中配樂（規格 014）；nil 表示沒有素材
 	langs    []*cok.LangPack   // 已載入的語言（規格 015），索引 lang 為目前語言
 	lang     int
 	langDir  string      // 語言選擇記錄的目錄
@@ -366,7 +367,7 @@ func (g *game) finish() error {
 
 func (g *game) toolbarItems() []toolbarItem {
 	return toolbarItems(g.barText, toolbarState{scale: g.scale, hasHD: g.live.HDItems > 0, chinese: g.chinese, muted: g.muted,
-		hasMusic: g.music != nil, music: g.music != nil && g.music.enabled,
+		hasMusic: g.music != nil, music: g.music.Enabled(),
 		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
 		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open(), langs: len(g.langs),
 		packASCII: g.english(), noJournal: g.live.Journal == nil, noGuide: g.live.Guide == nil})
@@ -621,7 +622,7 @@ func main() {
 		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText,
 		langs: langs, lang: langIdx, langDir: stateDir, mainFont: font}
 	if *musicDir != "" {
-		if g.music, err = loadMusic(*musicDir, live.Music); err != nil {
+		if g.music, err = bgm.Load(*musicDir, live.Music); err != nil {
 			fail(err)
 		}
 		if *noMusic {

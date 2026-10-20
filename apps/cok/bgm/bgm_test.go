@@ -1,4 +1,4 @@
-package main
+package bgm
 
 import (
 	"os"
@@ -37,7 +37,7 @@ func energy(b []float32) float64 {
 }
 
 func TestMusicPlayerSilentUntilCue(t *testing.T) {
-	p, err := loadMusic(writeMusicFixture(t), musicDirector(t))
+	p, err := Load(writeMusicFixture(t), musicDirector(t))
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -50,7 +50,7 @@ func TestMusicPlayerSilentUntilCue(t *testing.T) {
 
 func TestMusicPlayerPlaysLoopsAndOneShot(t *testing.T) {
 	d := musicDirector(t)
-	p, err := loadMusic(writeMusicFixture(t), d)
+	p, err := Load(writeMusicFixture(t), d)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -76,7 +76,7 @@ func TestMusicPlayerPlaysLoopsAndOneShot(t *testing.T) {
 
 func TestMusicPlayerToggleOffIsSilent(t *testing.T) {
 	d := musicDirector(t)
-	p, err := loadMusic(writeMusicFixture(t), d)
+	p, err := Load(writeMusicFixture(t), d)
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -87,7 +87,7 @@ func TestMusicPlayerToggleOffIsSilent(t *testing.T) {
 	if energy(buf) != 0 {
 		t.Fatal("配樂關閉時不得混入任何樣本")
 	}
-	var nilPlayer *musicPlayer
+	var nilPlayer *Player
 	nilPlayer.Mix(buf)
 	nilPlayer.Toggle()
 }
@@ -95,7 +95,7 @@ func TestMusicPlayerToggleOffIsSilent(t *testing.T) {
 func TestMusicTSVRejectsBadLoop(t *testing.T) {
 	dir := writeMusicFixture(t)
 	os.WriteFile(filepath.Join(dir, "music.tsv"), []byte("key\tloop\tloop_start\tloop_end\tlength\tgain\nloop\t1\t1.0\t0.5\t1.0\t1\n"), 0o644)
-	if _, err := loadMusic(dir, musicDirector(t)); err == nil {
+	if _, err := Load(dir, musicDirector(t)); err == nil {
 		t.Fatal("循環點顛倒要報錯")
 	}
 }
