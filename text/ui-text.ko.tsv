@@ -1,0 +1,890 @@
+key	translation	source
+ui.c7530f5eb6c1	크린의 용사들 v1.2	machine
+ui.fa4925ece175	시작 데모	machine
+ui.b0556164a81c	크린의 용사들 v1.2	machine
+ui.d2c838f79473	죄송합니다. 디스크 A는 쓰기 방지 상태이면 안 됩니다.	machine
+ui.a26d873b3d51	디스크 A는 쓰기 방지 상태이면 안 됩니다.	machine
+ui.6d152f07d42a	원본 디스크라면 DISKCOPY로 복사본을 만드십시오.	machine
+ui.5672c76c7da3	DISKCOPY로 복사본을 만드십시오.	machine
+ui.199dbea375a6	그래픽 어댑터 종류:  [1] CGA  [2] EGA  [3] Tandy	machine
+ui.821f45c33704	사운드 종류:  [1] C/MS	machine
+ui.8f24e7e793e7	보조 입력 장치:  [1] 조이스틱  [2] 마우스  [3] 없음	machine
+ui.c210bfdf28ce	저장	machine
+ui.ce732dd1274e	저장 데이터 경로 (기본값 -	machine
+ui.015d99b7535a	기본 경로 사용:	machine
+ui.ed695f1dd60f	TANDY 1000 사용자: NUMLOCK을 켜십시오.	machine
+ui.aeeabe9647b6	게임을 실행하기에 메모리가 부족합니다.  필요한 추가 용량은	machine
+ui.0ff3d2b8d663	바이트입니다.	machine
+ui.2e433cd6427d	오버레이 오류, 프로그램 중단!	machine
+ui.73017b67c80b	계속하려면 아무 키나 누르십시오	machine
+ui.282cac63534b	오버레이 디스크를 넣어 주십시오.	machine
+ui.c031b229eabd	찾지 못함:	machine
+ui.067ef9857799	. 설치를 확인하십시오.	machine
+ui.f77a2cc8468f	조이스틱 #1을 맨 왼쪽 위로 밀고 버튼 #1을 누르십시오.	machine
+ui.967a6bde0596	조이스틱을 읽을 수 없습니다.  보정을 중단합니다.	machine
+ui.2c9e0d734b01	조이스틱 #1을 맨 오른쪽 아래로 밀고 버튼 #1을 누르십시오.	machine
+ui.796642c29190	실명 치료	machine
+ui.c2322227f700	질병 치료	machine
+ui.6af2bad77d57	경상 치료	machine
+ui.baa3e9b41f45	중상 치료	machine
+ui.1b7842e88a0a	치명상 치료	machine
+ui.421acf13c1cb	회복	machine
+ui.0c55eaf2db39	독 중화	machine
+ui.858cd61e5d1e	사자 소생	machine
+ui.6b7573221b4f	저주 해제	machine
+ui.26e53d2410e1	석화 해제	machine
+ui.d17d84a60499	나감	machine
+ui.32e5d942458f	저장 보기 마법 휴식 설정 치료 나감	machine
+ui.f64329361c6f	시전 준비 필사 표시 휴식 나감	machine
+ui.4cf2381cda99	준비 필사 표시 휴식 나감	machine
+ui.dd4e144bbc0f	순서 버림 속도 외형 그림 레벨 나감	machine
+ui.e57bab47cfc9	초보 종자 고참 달인 용사	machine
+ui.a4d9c62a66cc	선택 나감	machine
+ui.311f423fde0b	배치 나감	machine
+ui.ac461667a825	캐릭터 생성	machine
+ui.64bc55f61b77	캐릭터 삭제	machine
+ui.733a7885c841	캐릭터 수정	machine
+ui.3b7cf1876cf3	캐릭터 훈련	machine
+ui.1ae9ab54cdc0	기사 클래스 변경	machine
+ui.ab741ba7a7a6	캐릭터 보기	machine
+ui.d3298bdbb939	파티에 추가	machine
+ui.4ebb4dbf49e1	파티에서 제외	machine
+ui.7ffbeb7f1164	불러오기	machine
+ui.b0b21f129832	저장하기	machine
+ui.c4e0e1d86094	모험 시작	machine
+ui.d70f9fe84763	마우스/조이스틱 설정	machine
+ui.622af18ec40b	DOS로 종료	machine
+ui.22d6186bb653	#부위	machine
+ui.67abe0afb7d7	부위 첫째색 둘째색 크기 나감	machine
+ui.ca4d5dab9791	머리 무기 나감	machine
+ui.f8e9641e3a5a	무기 몸통 xxxx 방패 팔 다리 나감	machine
+ui.6bed4a4b0f2d	유지 나감	machine
+ui.3a3bf7a09be2	다음 이전 유지 나감	machine
+ui.997c544f1be0	특수 주문	machine
+ui.183cb292f370	1레벨	machine
+ui.fee1e0c181cf	2레벨	machine
+ui.228265bc1e9e	3레벨	machine
+ui.54a2eee8a8af	4레벨	machine
+ui.ac1f2683d765	5레벨	machine
+ui.85b9417a7c41	6레벨	machine
+ui.12577141602b	7레벨	machine
+ui.38d99bc52505	8레벨	machine
+ui.dfa14d065fe1	9레벨	machine
+ui.356e7e8add97	클레릭	machine
+ui.274814f1a96f	드루이드	machine
+ui.fe5b48644212	파이터	machine
+ui.a7d973a732d0	팔라딘	machine
+ui.e6cd637f954b	레인저	machine
+ui.e181bc015be0	마법사	machine
+ui.2fd478c88ca0	도적	machine
+ui.f24b52468bfa	기사	machine
+ui.f005dc729cc9	클레릭/파이터	machine
+ui.1dddfa7fc08c	클레릭/파이터/마법사	machine
+ui.99c4cc7855b7	클레릭/레인저	machine
+ui.4382d5e51bac	클레릭/마법사	machine
+ui.65a856807cd8	클레릭/도적	machine
+ui.995c038a6623	파이터/마법사	machine
+ui.52b785e40b86	파이터/도적	machine
+ui.d65cab4bfd56	파이터/마법사/도적	machine
+ui.6c0bd5eba822	마법사/도적	machine
+ui.50b0613a9efc	좋아 친구, 넌 누구지?	machine
+ui.e5320c614271	실바네스티 엘프	machine
+ui.dbdad44271b9	퀼리네스티 엘프	machine
+ui.64f4e5d464ae	하프 엘프	machine
+ui.675f1f81fe21	산 드워프	machine
+ui.938134818dcb	언덕 드워프	machine
+ui.a681116d0f70	켄더	machine
+ui.9ffa865f2bc6	인간	machine
+ui.3a241d59687b	괴물	machine
+ui.205c9cf60516	질서 선	machine
+ui.7ac6561f7ff4	질서 중립	machine
+ui.7b682d92b448	질서 악	machine
+ui.7bfdfa1353ed	중립 선	machine
+ui.6c8e3155e463	중립	machine
+ui.59e74f11c96a	중립 악	machine
+ui.53916d1113a3	혼돈 선	machine
+ui.dfc5d1c129a5	혼돈 중립	machine
+ui.6d88eb730ffb	혼돈 악	machine
+ui.dc937b598926	없음	machine
+ui.16d58af88764	팔라다인	machine
+ui.66279f5a7114	마지어	machine
+ui.8168693b9714	키리졸리스	machine
+ui.793e1cf7b3d2	미샤칼	machine
+ui.aa4400500190	시리온	machine
+ui.2138b8ca3a69	레오룩스	machine
+ui.041ecee8a387	시네어	machine
+ui.3495e757855a	흰색	machine
+ui.ba19e9c3d5f4	붉은색	machine
+ui.c6cfe6e4f129	검은색	machine
+ui.03f8c1273e3d	남	machine
+ui.e8cca808ae5a	여	machine
+ui.a0b43df06f52	은화	machine
+ui.d35b0efe2128	구리화	machine
+ui.d916515d826c	청동화	machine
+ui.5a98505ed913	백금화	machine
+ui.ea9973d1460e	강철화	machine
+ui.6024329694ab	보석	machine
+ui.7afde2cf9e6c	장신구	machine
+ui.16584052fd33	정상	machine
+ui.d1d632796f8a	활성	machine
+ui.f4ccae29e1bb	도주 중	machine
+ui.daf064fe39bd	무의식	machine
+ui.e07f87e5bf6f	빈사	machine
+ui.ec9b10a4a79c	사망	machine
+ui.60f83bf1e1cf	석화	machine
+ui.55f6a88dc025	소멸	machine
+ui.218e607c02c8	배틀액스	machine
+ui.c600613067cb	핸드액스	machine
+ui.72e81feaa8a1	클럽	machine
+ui.5679daa7c55d	대거	machine
+ui.5a5c3f75ebce	다트	machine
+ui.c157cbf647f5	해머	machine
+ui.3331d5456d2d	자벨린	machine
+ui.6659c4ca6420	메이스	machine
+ui.ca949ab43e76	모닝스타	machine
+ui.19dd0c4eb6b7	밀리터리 픽	machine
+ui.32f6c2ed53d7	아울 파이크	machine
+ui.7fbe1537394e	쿼럴	machine
+ui.e188d7831c07	시미터	machine
+ui.c71c66ea7e4c	스피어	machine
+ui.1d992b785bf9	쿼터스태프	machine
+ui.9760e90581ce	바스타드 소드	machine
+ui.b59528a9bc9f	브로드소드	machine
+ui.cab923a670e4	롱소드	machine
+ui.07467b84a7ed	숏소드	machine
+ui.e3e1e619a1c8	투핸디드 소드	machine
+ui.71c095b134e2	트라이던트	machine
+ui.842c3f9a9151	컴포지트 롱보우	machine
+ui.b55d3062e7db	컴포지트 숏보우	machine
+ui.4cf469d6ea54	롱보우	machine
+ui.bc0f80620ba6	숏보우	machine
+ui.fa67303aecda	고급	machine
+ui.90d8d6de638c	라이트 크로스보우	machine
+ui.892b3e482474	슬링	machine
+ui.681927e34b77	지팡이	machine
+ui.05800e70aa10	화살	machine
+ui.e8e775159a57	가죽	machine
+ui.b3f952e8b678	링	machine
+ui.f102986b39ef	스케일	machine
+ui.dae0896cbc2c	체인	machine
+ui.5253705f15ab	밴디드	machine
+ui.a7cd5d8f8422	판금	machine
+ui.480d4be7d61f	방패	machine
+ui.58851b8fac82	클레릭	machine
+ui.291873e31ccb	두루마리	machine
+ui.cd9bcf31a14e	마법사 두루마리	machine
+ui.7e94675ff2de	투구	machine
+ui.eeebd533ebee	허리띠	machine
+ui.9fc3eff8f2ea	로브	machine
+ui.8d77768365dd	망토	machine
+ui.929433e4be1d	장화	machine
+ui.07ed6ccf6bf6	메일	machine
+ui.a592855d0508	갑옷	machine
+ui.6f7418045e72	보호의	machine
+ui.e00b7065984d	브레이서	machine
+ui.3e7962d21cc5	완드	machine
+ui.e721e319e5f9	아뮬렛	machine
+ui.41e4ae984c22	물약	machine
+ui.ae351f9a3fcd	성수	machine
+ui.108040ac289a	루비	machine
+ui.93fe3ac0ddb8	바위	machine
+ui.3b439567997b	드래곤 브레스	machine
+ui.f348fb4839ff	변위	machine
+ui.b053c961f2ac	가방	machine
+ui.a3e0b6a1c528	드로우	machine
+ui.6ddb1b49d365	엘프 체인	machine
+ui.dfccfbed6a52	얼음 폭풍	machine
+ui.87e376689f8a	사파이어	machine
+ui.af1ccb31304d	에메랄드	machine
+ui.e01ae25b03ab	마력	machine
+ui.25d16d4516b5	말벌집	machine
+ui.bf6c2c94e57c	후팍	machine
+ui.8a55e534e3ad	솔람니아 판금 갑옷	machine
+ui.a39e9ac3b463	드래곤랜스	machine
+ui.0aac4f3d8041	플레일	machine
+ui.60c397046c19	할버드	machine
+ui.a3ef91cb4236	건틀릿	machine
+ui.b1daf7d8771a	부적	machine
+ui.75a84e162ae7	독 방지	machine
+ui.aa70a305f3f2	분쇄	machine
+ui.fcfe1a334f70	오우거의 힘	machine
+ui.254d82b0f10c	요대	machine
+ui.668f8131b2e8	거인의 힘	machine
+ui.90fade6fb78e	거울	machine
+ui.6a88445bbf65	목걸이	machine
+ui.bbe963c645f0	드래곤	machine
+ui.a7008d8fa62b	대 파충류	machine
+ui.70807119543d	서리의 검	machine
+ui.143f40fdffa4	광전사	machine
+ui.b639c243cebd	다이아몬드	machine
+ui.41e68f2cdb38	번개	machine
+ui.73dda53255f5	화염구	machine
+ui.28391d3bc64e	의	machine
+ui.a123dd728a7a	취약	machine
+ui.c372fee9b456	속도	machine
+ui.2e4aaf05df1c	상급	machine
+ui.44bc3799892c	치유	machine
+ui.140262b32b0c	공포	machine
+ui.c83cfaf4080c	마법 화살	machine
+ui.8b4c3701309d	투사체	machine
+ui.fcdfcb21ab14	주문 1개	machine
+ui.4dc5cfc054ce	주문 2개	machine
+ui.05b44ae47de4	주문 3개	machine
+ui.cb96521ce500	마비	machine
+ui.d53895c6eb78	투명화	machine
+ui.92ecb2f088b1	보병용	machine
+ui.6891a569c292	AC 10	machine
+ui.6b19f0a49196	AC 6	machine
+ui.8a21969b3d68	AC 4	machine
+ui.d1965cb2d2e5	AC 3	machine
+ui.1922ea761b22	AC 2	machine
+ui.271c24e9ae7b	영체	machine
+ui.5108a0f0dc36	보석	machine
+ui.d539cd97ca1a	북동	machine
+ui.f031b70a2653	남동	machine
+ui.072f005fc3f2	남서	machine
+ui.c1fcf83e875d	북서	machine
+ui.b97410f97c75	디스크 2를 넣으십시오. 드라이브:	machine
+ui.3995fd69e31b	디스크 3을 넣으십시오. 드라이브:	machine
+ui.f499c0e6f8ea	디스크 4를 넣으십시오. 드라이브:	machine
+ui.3abbd69ed48b	축복	machine
+ui.88b3d8eed54f	저주	machine
+ui.d52b96d2ce02	경상 가해	machine
+ui.d69eecab2f76	마법 탐지	machine
+ui.23e3e052927b	악으로부터의 보호	machine
+ui.aa433e0ea3c6	선으로부터의 보호	machine
+ui.263bc44ae6ee	냉기 저항	machine
+ui.35dc00703dc4	타오르는 손길	machine
+ui.939473c4290e	인간형 매혹	machine
+ui.a1c1212619a3	거대화	machine
+ui.42412678202e	축소화	machine
+ui.bd104d1b98d0	친밀화	machine
+ui.111a74afc067	마법 화살	machine
+ui.5021111cfddc	선으로부터의 보호	machine
+ui.d6186a504f76	마법 판독	machine
+ui.8eaa4fbfbbfa	전격의 손아귀	machine
+ui.d466bcf52eb6	수면	machine
+ui.b4eb600e2bd2	함정 탐지	machine
+ui.f0d35390cb24	인간형 포박	machine
+ui.b67514c6d13f	화염 저항	machine
+ui.e864a8c0c782	반경 15ft 침묵	machine
+ui.93022dfd9b34	독 지연	machine
+ui.ed044e582700	뱀 매혹	machine
+ui.69686409f3e8	영체 망치	machine
+ui.7e4f7d7e6c00	투명체 감지	machine
+ui.61622162cdb3	문열기	machine
+ui.1624e5bc418d	거울 분신	machine
+ui.f11aa46e52cb	무력화 광선	machine
+ui.1d9f00d3365b	악취 구름	machine
+ui.63ee3a1b965a	괴력	machine
+ui.5a36e355b239	사체 조종	machine
+ui.e66ad0bcb4ad	실명 부여	machine
+ui.37aa87a44f5f	질병 부여	machine
+ui.d004ff3c3b43	마법 무효화	machine
+ui.6e399f2787a0	기도	machine
+ui.a824f34f6cbe	저주 부여	machine
+ui.a37430e22cd0	점멸	machine
+ui.cc173df6702c	화염구	machine
+ui.de3b46da4da8	가속	machine
+ui.69ec6af313aa	반경 10ft 투명화	machine
+ui.6501d6e4ac16	번개	machine
+ui.3f0c88ea43ad	반경 10ft 악으로부터의 보호	machine
+ui.7084340de831	반경 10ft 선으로부터의 보호	machine
+ui.c9e47f12e274	일반 투사체로부터의 보호	machine
+ui.4b2bebbf33ae	저속화	machine
+ui.6a3c6c77892d	상급 회복	machine
+ui.61e932cd1783	중상 가해	machine
+ui.d5a78b996fe6	독	machine
+ui.e718fa37db3b	반경 10ft 악으로부터의 보호	machine
+ui.56d88a11d595	막대기를 뱀으로	machine
+ui.f791fef558be	치명상 가해	machine
+ui.59b74e17ac37	악 퇴치	machine
+ui.5a0009478568	화염 직격	machine
+ui.22cd189987e0	생명 말살	machine
+ui.45fe07b35406	얽혀듬	machine
+ui.f64fa5018db4	요정 불꽃	machine
+ui.d5eb90184aff	동물 대상 투명화	machine
+ui.963a606aee50	괴물 매혹	machine
+ui.9507ad17d71f	혼란	machine
+ui.45f3b27f0f45	차원문	machine
+ui.b970634c8409	화염 방패	machine
+ui.19fee74864a2	헛손질	machine
+ui.87d6ec410a8b	하급 무적의 구체	machine
+ui.a7290a044b25	죽음구름	machine
+ui.9d6a11309ab7	냉기 분사	machine
+ui.dcddc47e957c	저능화	machine
+ui.81910caf6e3a	괴물 포박	machine
+ui.ab0f2b906319	반경 10ft 악으로부터의 보호	machine
+ui.fa4791077ad5	반경 15ft 침묵	machine
+ui.3dd5d43f43a7	경고: 메모리 부족	machine
+ui.57cf485824df	메모리 부족$메모리 부족. 프로그램 종료.	machine
+ui.099d027ca3b5	메모리 부족. 프로그램 종료.	machine
+ui.073939be1ea4	원작 스토리:	machine
+ui.70d00aad3b51	Jim Ward	machine
+ui.d5d56ec05001	Victor Penman,	machine
+ui.6201111b83a0	및	machine
+ui.433429f7d12c	Dave Shelley	machine
+ui.f340e8d20774	게임 제작:	machine
+ui.173162217929	SSI Special Projects	machine
+ui.362825bf06b1	프로젝트 총괄:	machine
+ui.e6aba2bd5a6b	프로그래밍	machine
+ui.be057371a9ba	Victor Penman	machine
+ui.83c519b42fab	Russ Brown	machine
+ui.09b9f8622ac7	Scot Bayless	machine
+ui.70be2a9d7c9c	그래픽 아트:	machine
+ui.3581aabee3ca	Tom Wahl	machine
+ui.65ebeeba7880	조우 설계	machine
+ui.0dd635c636cd	Fred Butts	machine
+ui.080cb09b9a95	Mark Johnson	machine
+ui.8248fe0af52a	Michael Mancuso	machine
+ui.53a33189ab7f	Cyrus Lum	machine
+ui.406eec9126ed	Ken Humphries	machine
+ui.8e8bcedc6f14	Susan Manley	machine
+ui.c8ed26fc0fb3	플레이테스트:	machine
+ui.490dd4c44847	Rick White,Don Mc Clure,	machine
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	machine
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	machine
+ui.6ca94c9f8a62	음악:	machine
+ui.532c7e0084da	음악 드라이버:	machine
+ui.99b4eba4e920	John Halbleib	machine
+ui.328b53003a80	Electronic Arts	machine
+ui.de1e334ce4b4	버튼이나 <Enter>를 눌러 계속.	machine
+ui.ebc583583e1a	<Enter>를 눌러 계속	machine
+ui.34695f140781	물품 파일을 찾을 수 없다	machine
+ui.bec2538a4c67	전투 대기 도주 협상	machine
+ui.466738c48568	전투 대기 도주 전진	machine
+ui.002c9650368c	양측 모두 대기한다.	machine
+ui.cbefa25e9f4e	괴물들이 도주했다.	machine
+ui.543df38bbe50	오만 교활 친절 공손 욕설	machine
+ui.08fc07e88648	일행이 전멸했다!	machine
+ui.30c0783e66a7	일행이 전멸했다! <Enter>를 눌러 계속	machine
+ui.254153c4b85f	<Enter>를 눌러 계속	machine
+ui.8f4a0aaa62c4	주문	machine
+ui.e26c6f94d702	축하한다, 일행이 경험치를 얻었다!	machine
+ui.0ae630e4f1dd	축하한다,	machine
+ui.ebb4cacf2286	경험치를 얻었다!	machine
+ui.3cf3aa82aeb1	단어 번호 #	machine
+ui.cd29a99041b6	해당 일지 #	machine
+ui.16ff676853e2	(일지, 쪽	machine
+ui.94c9f9f80b24	해당 주점 소문 #	machine
+ui.1d174814bac2	입력:	machine
+ui.f99222122177	그래도 완치 시전:	machine
+ui.08ac4a5f6ce6	치료 비용:	machine
+ui.2b770e03b085	강철화.	machine
+ui.fdca9980f11f	치료비 지불	machine
+ui.19f27030a2e1	돈이 부족하다.	machine
+ui.c9d58272a014	치료되었다.	machine
+ui.ad96bf258370	실명 상태가 아니다.	machine
+ui.1537c7fd9f65	질병에 걸리지 않았다.	machine
+ui.0e3dfc592d73	소생시킬 수 없다	machine
+ui.4c2c1aae96f7	죽지 않았다.	machine
+ui.e514a637da16	중독되지 않았다.	machine
+ui.2f4c6d25053a	저주받지 않았다.	machine
+ui.26400797a39c	석화되지 않았다.	machine
+ui.8be704dd2de1	, 무엇을 도와드릴까요?	machine
+ui.b21d60d3c86e	회복 나감	machine
+ui.351beff47541	회복 보기 줍기 모음 분배 감정 나감	machine
+ui.eb0b6be42cae	보기 줍기 모음 분배 감정 나감	machine
+ui.3dd4009a9b56	회복 보기 모음 감정 나감	machine
+ui.b9ec2686588d	예 아니오	machine
+ui.ca82600f30f3	떠나려는데 사제가 말했다. "실례지만 돈을 두고 가셨습니다."	machine
+ui.7558c8476131	돌아가서 돈을 되찾겠는가?	machine
+ui.1a4b1e57ec5a	일행이 도주했다.	machine
+ui.488eda7de4cb	싸움에서 패배했다.	machine
+ui.3cf31df67fb7	결투에서 승리했다.	machine
+ui.bc4ac4b84ba5	일행이 승리했다.	machine
+ui.99ef77603df2	일행이 출금했다. 은행이	machine
+ui.3221280f22c4	소액의 수수료를 부과했다.	machine
+ui.e1b7002772b5	소액의 수수료를 부과했다.	machine
+ui.ee223764db80	일행이 보물을 발견했다!	machine
+ui.f5fbe5aaf483	결투자가 얻은 경험치:	machine
+ui.366dc8f46f54	각 캐릭터가 얻은 경험치:	machine
+ui.7313f57bf6d1	점.	machine
+ui.fabb9e2392ab	점. <Enter>를 눌러 계속	machine
+ui.eadd361adaa7	물품:	machine
+ui.8b862ba45dce	줍기	machine
+ui.e52a3fb722bd	줍기:	machine
+ui.a1e592fecee5	금전 물품 나감	machine
+ui.bce9e63c661b	보기 모음 나감	machine
+ui.f65f10298556	나감	machine
+ui.93f97649cdeb	탐지 나감	machine
+ui.9305d3a8e566	보기 줍기 모음 분배	machine
+ui.1a794bb3020f	보기 줍기 모음	machine
+ui.5a7dff7cd74c	아직 보물이 남아 있다.	machine
+ui.bd89d0b81174	돌아가서 보물을 가져오겠는가?	machine
+ui.1d1c7913869b	몰래 챙겨 숨겼다:	machine
+ui.73c9c98668a3	그의	machine
+ui.1a82b7ad5db1	몫.	machine
+ui.354cbfc81426	그녀의	machine
+ui.b11529a1854f	일행이 전멸하자 괴물들이 환호했다.	machine
+ui.64e3cb0e4960	구입	machine
+ui.64b9370e4ffa	무게 초과	machine
+ui.74bc11c5490c	구입:	machine
+ui.1ed8f78de4b4	한 개 구입:	machine
+ui.cdbf2aad986c	돈이 부족하다.	machine
+ui.94390fc2be66	구입 보기 줍기 모음 분배 감정 나감	machine
+ui.16d4625e4e14	구입 보기 모음 감정 나감	machine
+ui.528e6cd82712	떠나려는데 상점 주인이 말했다. "실례지만 돈을 두고 가셨습니다."	machine
+ui.f0e791ada740	돌아가서 돈을 가져오겠는가?	machine
+ui.e920b38b45dd	불러오는 중... 잠시 대기	machine
+ui.2a78025de6aa	선택	machine
+ui.80a02596ee54	죽었다.	machine
+ui.354888db7e7a	에게 명중!	machine
+ui.72403cdf00a1	점의 피해.	machine
+ui.93515f638926	점의 피해. <Enter>를 눌러 계속	machine
+ui.f6410fb009d4	마법 켜짐	machine
+ui.629ffe46b6a0	마법 꺼짐	machine
+ui.46e50b3cdce8	소용없다.	machine
+ui.c848bff204f4	이동	machine
+ui.00813b28c9bc	보기 조준	machine
+ui.bb33dbdb2f21	사용	machine
+ui.d61160238799	시전	machine
+ui.38ff7074c72d	퇴치	machine
+ui.104b7e4ac60a	고함	machine
+ui.11a6767d5674	완료	machine
+ui.50e28de96686	동료가 빈사 상태다.	machine
+ui.73967b10f229	전투 계속:	machine
+ui.5af65b05298f	이동/공격, 남은 이동력 =	machine
+ui.12e9a0c0cda7	완료	machine
+ui.637c8ce00e81	도주:	machine
+ui.c4ff4a77d890	갈 수 없다	machine
+ui.94be0417569f	그 무기로는 안 된다	machine
+ui.b9d05f332634	경계	machine
+ui.f9b8e202385e	지연 포기	machine
+ui.430ea16f1ff6	붕대	machine
+ui.5c2e73b9229d	자동 속도 나감	machine
+ui.e2491eec6c44	게임 속도 (	machine
+ui.8879ab4f6391	느리게	machine
+ui.c2144e87fdf4	빠르게	machine
+ui.4391105bd3a7	공포에 질려 도주했다	machine
+ui.4dd7612e9230	어쩔 수 없이 도주했다	machine
+ui.0d0ae56ee488	항복했다	machine
+ui.d91e43895d60	전투가 시작됐다...	machine
+ui.d5bed51cd121	마비되었다	machine
+ui.a3d5382fff70	뱀과 싸우고 있다	machine
+ui.b370fd5fed0b	나쁜 소식	machine
+ui.b3ac0c907f0b	미쳐 버렸다!	machine
+ui.d4c766f7a1fd	침묵에 걸렸다	machine
+ui.3b3a7629d93f	독으로 죽었다	machine
+ui.335328d0950d	물품을 얻었다	machine
+ui.8f17aeef225d	분신 하나를 잃었다	machine
+ui.4994cb288152	기침하고 있다	machine
+ui.cdfbf57b7d97	새로운 모습으로 되살아났다	machine
+ui.0485df8c54f4	달아났다	machine
+ui.b17ae4e8dd75	혼란에 빠졌다	machine
+ui.58814d4cbc04	광폭해졌다	machine
+ui.c4774fc6d0d8	분노했다	machine
+ui.ba24b7992d5d	늙었다	machine
+ui.2c234a550746	공기가 조금 맑아졌다...	machine
+ui.b38102de71ef	피했다	machine
+ui.f839023a6d2e	약해졌다	machine
+ui.216a83ec3e38	스스로를 불태웠다	machine
+ui.eaca812fbb25	폭발했다!	machine
+ui.ea42b3d67cea	기절했다	machine
+ui.10e51a565fd3	중독되었다	machine
+ui.a95140d02db9	살해되었다	machine
+ui.ade38ca9f73c	전격에 맞았다!	machine
+ui.8acea952864e	무기를 잃었다	machine
+ui.a62ba7f80094	산이 되어 녹아내렸다!	machine
+ui.e78cbf4eb76b	주문을 반사했다	machine
+ui.fb0d083b55a8	몹시 겁먹었다	machine
+ui.931eb807b63f	영향받지 않았다	machine
+ui.98a2052f16f7	문을 통해 출현	machine
+ui.364728379c5a	사악한 악취를 뿜었다	machine
+ui.8f324fb8d441	영향을 받았다	machine
+ui.8421b34e6c23	산이 흘러 사라졌다..	machine
+ui.728baf5375e7	겁에 질렸다	machine
+ui.75c0ba1cdca8	전격에 맞았다	machine
+ui.8400e60db7ca	교란되었다	machine
+ui.038686f70c2d	-뒤에서 찌름-	machine
+ui.e948f1f230fc	무력한 자를 죽였다:	machine
+ui.1e3a955bd202	공격	machine
+ui.618ae3799df9	(뒤에서)	machine
+ui.2c063fc99025	잔혹한 일격으로	machine
+ui.560c5f3c8b5b	명중!	machine
+ui.840bee47957d	점	machine
+ui.c08b2b9e8fbd	점	machine
+ui.b0b3678b4c63	피해	machine
+ui.3d07afbdb11d	그러나 빗나갔다	machine
+ui.e6f16936a01e	주문 하나를 잃었다	machine
+ui.bcf47e35fc5f	쓰러졌다	machine
+ui.4c07a5e27143	빈사 상태가 되었다	machine
+ui.a3c6a0e36a49	도망쳤다	machine
+ui.688449dc6f1d	퇴로가 막혔다	machine
+ui.14d67424e599	휩쓸었다	machine
+ui.96626dd4be2c	언데드 퇴치 시도...	machine
+ui.f2764d5f52fb	퇴치되었다	machine
+ui.24478a7c0f45	파괴되었다	machine
+ui.a804b8f44ebe	아무 일도 일어나지 않았다...	machine
+ui.c5432cc858f5	이미 목표다	machine
+ui.e5282f4df0a5	자신을 목표로 할 수 없다	machine
+ui.c03e83a9774a	야영 전용 주문	machine
+ui.efb9cda48d9d	시전을 시작했다	machine
+ui.eb45597f7b2c	아군 공격:	machine
+ui.e913d0b16469	사거리 =	machine
+ui.e420dd994483	목표	machine
+ui.6bd1127b18aa	다음 이전 수동	machine
+ui.02492c9d09d4	중앙 나감	machine
+ui.e1e5a4931ff6	조준:	machine
+ui.978354db0c00	목표	machine
+ui.5e9fc445ff43	(방향키 사용)	machine
+ui.11261a05f7cd	신들이 개입했다!	machine
+ui.4fbac6d75981	이동 지역 시전 보기 야영 수색 관찰	machine
+ui.7f94b4b11a1d	지역 시전 보기 야영 수색 관찰	machine
+ui.44592af7565b	여기선 안 된다	machine
+ui.61bc0b5f3924	이동 야영	machine
+ui.d1e9567da9a8	부수기	machine
+ui.0f2958102b8f	따기	machine
+ui.37193853a694	문열기	machine
+ui.46d70e7d2926	잠겨 있다.	machine
+ui.39ce92102d66	제목 다음	machine
+ui.1a587084469f	제목 다음	machine
+ui.cc15607b461e	(규칙서, 쪽	machine
+ui.add58d08294b	이곳에서는 주문을 시전할 수 없다	machine
+ui.7cbba619e3ba	몸 상태가 나빠	machine
+ui.fa23d2522252	주문을 시전할 수 없다	machine
+ui.7d08b2536e65	주문을 준비할 수 없다	machine
+ui.dddde79baf4c	두루마리를 필사할 수 없다.	machine
+ui.f5312298209e	준비한 주문이 없다	machine
+ui.e155361c7f5d	클레릭 주문:	machine
+ui.3411c79aeedd	드루이드 주문:	machine
+ui.4f8a51fd0b1c	특수 주문:	machine
+ui.9ce61a439558	마법사 주문:	machine
+ui.ea72375de926	추가 주문	machine
+ui.f92b6804d576	이 주문들을 준비하겠는가?	machine
+ui.95e71ac192ed	주문을 준비할 수 없다	machine
+ui.c590c2ac22d4	이 주문들을 준비하겠는가?	machine
+ui.b46d015704ec	이 주문들을 필사하겠는가?	machine
+ui.ac7104fc4031	필사할 수 있는 두루마리가 없다	machine
+ui.812d570d8988	이미 아는 주문이다.	machine
+ui.8588955900e4	이미 그 주문을 필사하고 있다.	machine
+ui.379385551034	그 주문은 필사할 수 없다.	machine
+ui.2f5809efd162	이 주문들을 필사하겠는가?	machine
+ui.ddf77ddccbc7	헛손질	machine
+ui.736c6c9e4924	무력	machine
+ui.ea41abe045db	혼란	machine
+ui.7a44906cbe68	열기 화염 방패	machine
+ui.81fd6926a24c	냉기 화염 방패	machine
+ui.6dc21afe4ede	중독	machine
+ui.a9f72cd0b8a2	재생 중	machine
+ui.e23621e57725	화염 저항	machine
+ui.dd751c4d0018	하급 무적의 구체	machine
+ui.17799e76b378	무력화	machine
+ui.737108f33c35	동물 대상 투명화	machine
+ui.4ee447c54034	투명	machine
+ui.21db684dca81	위장	machine
+ui.9ada56224d0b	드래곤 브레스로부터 보호	machine
+ui.30282be22ebd	광폭	machine
+ui.ff5804bd833f	변위	machine
+ui.07259b8cfb9f	<주문 효과 없음>	machine
+ui.0e04961c51ea	파티 순서:	machine
+ui.95a0c6cfd7d2	선택되었다	machine
+ui.f34a08403165	DOS로 종료:	machine
+ui.9ab184b85e05	사라진다	machine
+ui.443204696da2	파티에서 제외하겠는가?	machine
+ui.32679609640d	작별 인사를 건넸다	machine
+ui.b0a3e9daee9d	도랑에 버려졌다	machine
+ui.6f5f6a7876cf	안도의 한숨을 쉬었다	machine
+ui.1d60a3338962	게임 속도 =	machine
+ui.ec1d85c28e73	(0=가장 빠름 9=가장 느림)	machine
+ui.9a5253015a01	빠르게	machine
+ui.3faa383606fc	느리게	machine
+ui.5e88d3982ab7	게임 속도:	machine
+ui.a5c730d6127b	그림 켜짐	machine
+ui.8a1b78216a61	애니메이션 켜짐	machine
+ui.ab0a55d5f6b3	애니메이션 꺼짐	machine
+ui.474287e99ea4	그림 꺼짐	machine
+ui.a47214d1d511	일행이 야영을 시작했다...	machine
+ui.de5a971d55c5	DOS로 종료	machine
+ui.2246705b46f3	저장된 게임에서	machine
+ui.f0d155c43ee0	저장 디스크를 넣을 드라이브:	machine
+ui.7308fcc58956	저장 디스크가 있는 드라이브:	machine
+ui.aee3b8154004	저장 중 예기치 않은 오류:	machine
+ui.9ae5a4479a81	저장할 수 없다. 디스크 공간이 없다.	machine
+ui.278253d44e93	캐릭터를 잃겠는가?	machine
+ui.735b64972b07	확인 다른 디스크	machine
+ui.38301f8e6c25	덮어쓰기	machine
+ui.5250b5de07b3	새 파일 이름:	machine
+ui.dd6b632301cc	괴물 데이터 로드 실패	machine
+ui.b1edfd1bc6f9	불러올 게임:	machine
+ui.6eac636b81bf	저장할 게임:	machine
+ui.5db98e7af406	저장 중... 잠시 대기	machine
+ui.3a2157e63ae3	...잠시 대기	machine
+ui.df4f6c72ae34	경고: 캐릭터 저장 중 문제 발생	machine
+ui.925f9d446890	기능을 선택하라	machine
+ui.1f7133c21072	선택	machine
+ui.c38a51535885	DOS로 종료	machine
+ui.35023ac32083	게임이 저장되지 않았다. 그래도 종료하겠는가?	machine
+ui.d6d123e2e8ce	무료 훈련 켜짐	machine
+ui.204a2f952b3e	무료 훈련 꺼짐	machine
+ui.e932f4664fa9	종족 선택	machine
+ui.d6359f6ff9fc	성별 선택	machine
+ui.ba7ebb6c0b12	클래스 선택	machine
+ui.12d61f44905b	신 선택	machine
+ui.0224e7c79995	성향 선택	machine
+ui.d88ade772ab3	능력치를 다시 굴리겠는가?	machine
+ui.246a64eabf86	캐릭터 이름:	machine
+ui.f5f25c5769e6	저장	machine
+ui.6ae066ae37be	영구히	machine
+ui.188cac7e138b	삭제하겠는가?	machine
+ui.7c2da26ef6e0	정말인가?	machine
+ui.b507eb205317	내다 버림:	machine
+ui.4d09b992377b	(뒤뜰로)	machine
+ui.d4769daf9f05	작별 인사를 건넸다.	machine
+ui.3cfa88873404	안도의 한숨을 쉬었다.	machine
+ui.9e2bbca238ae	수정할 수 없다.	machine
+ui.b156b926dc3a	수정:	machine
+ui.43ae65428a8f	증가 감소 유지 나감	machine
+ui.adfe0feb6f39	캐릭터 추가:	machine
+ui.8d89e4a829ae	추가	machine
+ui.36851157efde	팔라딘은 사악한 쓰레기와 함께하지 않는다	machine
+ui.7bd75e5bf8f3	파티에 레인저가 너무 많다	machine
+ui.a0323615baef	악을 용납하지 않는다!	machine
+ui.cba06b5736fa	기존	machine
+ui.7c6cfd76225a	장비   동작	machine
+ui.11507a0e2f5e	신규	machine
+ui.5263293fc202	작음	machine
+ui.ab80540d98d2	큼	machine
+ui.50522ed6b01a	죄송, CGA 모드에서는 불가	machine
+ui.ababed4823ab	모발	machine
+ui.304afc32b7ff	얼굴	machine
+ui.7425046ea84b	이 외형으로 하겠는가?	machine
+ui.59d6cf4f638f	의식이 있는 사람만 훈련한다	machine
+ui.a56df8de4062	우리는 그 클래스를 훈련하지 않는다.	machine
+ui.bc15529dc7b3	경험치 부족	machine
+ui.dc0c1dbcae76	성장 후:	machine
+ui.f2fbdfd7c100	레벨	machine
+ui.803a155fcf80	및 레벨	machine
+ui.0befe68474e9	훈련을 받겠는가?	machine
+ui.5392c12fa251	축하한다...	machine
+ui.3600952e2943	승급을 청원했다:	machine
+ui.a44c47b1ee24	검	machine
+ui.618d663af0f1	장미	machine
+ui.b03578c1ebc4	기사 계급:	machine
+ui.f0275105a953	경험이 너무 부족하다.	machine
+ui.8b2ffdc98579	자격이 되지 않는다.	machine
+ui.e186c12f3ef1	승급할 수 있다:	machine
+ui.137405043c32	검의 기사	machine
+ui.d49562742155	변경 나감	machine
+ui.6ec6ae52db55	경험이 너무 부족하다	machine
+ui.4a2d595a8d23	장미 기사	machine
+ui.700ceab2be74	마우스 켜짐	machine
+ui.73aacaa0a21a	마우스 꺼짐	machine
+ui.0dc5be426a8c	조이스틱 켜짐	machine
+ui.c46f278027d6	조이스틱 꺼짐	machine
+ui.65cb8bc4d032	모두 끄기	machine
+ui.fe6c9d4d8e5b	마우스/조이스틱 설정:	machine
+ui.a29e9feca009	조이스틱 #1을 맨 왼쪽 위 끝까지	machine
+ui.be547a8c19df	밀고 1번 버튼을 눌러라.	machine
+ui.542599d6762b	조이스틱을 읽을 수 없다	machine
+ui.faee4715888d	조이스틱 #1을 맨 오른쪽 아래 끝까지	machine
+ui.e4cba1c76c15	밀고 1번 버튼을 눌러라.	machine
+ui.755c8b2a9fb1	상태:	machine
+ui.9596e8d6030b	세	machine
+ui.fb620a982a5c	왕관	machine
+ui.6e30dd4787fe	검	machine
+ui.ffb770a75172	장미	machine
+ui.1709305c9fa9	레벨	machine
+ui.1ddcb2c6551d	경험치	machine
+ui.68945ce37c83	근력	machine
+ui.908881ec8eb9	지능	machine
+ui.65a45b3db080	지혜	machine
+ui.a793518be0c2	민첩	machine
+ui.fc0615ed1942	건강	machine
+ui.735b03a3f745	매력	machine
+ui.47e1a40ec961	히트 포인트	machine
+ui.a24f89fb7eb3	방어도	machine
+ui.7c0376ae0ea9	무게	machine
+ui.4c644b040133	THAC0	machine
+ui.49ba63e89af6	이동력	machine
+ui.0c874f581a45	피해	machine
+ui.2aaf9bfd20c4	소지품	machine
+ui.9c87350ca200	주문	machine
+ui.7996af070c23	교환	machine
+ui.0d20c6ca62b0	회복	machine
+ui.42b745650343	완치	machine
+ui.3aaab8a73c8f	먼저 장비 해제 필요	machine
+ui.32c9fd9a0415	이 두루마리에서 필사하려던 참인데	machine
+ui.27f004b67f24	이 두루마리에서 필사하려던 참인데,	machine
+ui.814d608d6c4d	잃어도 괜찮겠는가?	machine
+ui.6b0e38e88d73	아무 키나 눌러라	machine
+ui.d93c6868d131	보기 장비	machine
+ui.5fa7aac5375c	장비	machine
+ui.bb4e56df6695	사용	machine
+ui.c2753bcb60bc	교환	machine
+ui.54b6b6331136	버림	machine
+ui.72114d9f7221	분할	machine
+ui.418b784a860f	합침	machine
+ui.1520b330a354	판매	machine
+ui.a3237f49325a	식별	machine
+ui.fb8e7a1a3cb7	소지품	machine
+ui.0f7b79cee0ba	소지품 장비	machine
+ui.d6be94e808f0	먼저 장비해야 한다	machine
+ui.b46fe55938ec	일행의	machine
+ui.07d4f0d9ade4	영원히 사라진다	machine
+ui.b9267e64e341	버리겠는가?	machine
+ui.b879ba1b6add	저주받았다	machine
+ui.9a1cce7fcc35	클래스 불일치	machine
+ui.6852e524971b	이미 사용 중:	machine
+ui.edb9de30ada2	양손이 이미 찼다!	machine
+ui.066ee45ed434	마법 계파 불일치	machine
+ui.e75e05069bb4	켄더 전용	machine
+ui.eb5ce7d3c9df	누구와 교환하겠는가?	machine
+ui.b991604729c6	무게 초과	machine
+ui.f5a329b998d9	분할할 수 없다	machine
+ui.c8d3812485c0	물품을 사용했다	machine
+ui.fe95d23deff6	물품:	machine
+ui.20691bd0739f	이런!	machine
+ui.a3bf67830817	제시가:	machine
+ui.b327d99c300f	강철화. 물품:	machine
+ui.0d3f5e18425a	이 가격에 거래하겠는가?	machine
+ui.94c736fde0c8	팔렸다!	machine
+ui.5971145b42aa	무게 초과. 돈은 모음에 넣는다.	machine
+ui.3325d0b241c1	100 강철화를 내시면 식별해 드리겠습니다:	machine
+ui.84e79ec5c06b	돈이 부족하다	machine
+ui.0ec329bcd4dc	다음 물품은 더 알아낼 것이 없습니다:	machine
+ui.ae48de661444	언뜻 보기에 일종의	machine
+ui.72f5a9907af4	교환 상대는?	machine
+ui.d3e4217f335c	동전 종류 선택	machine
+ui.1d7961e4ed0d	선택	machine
+ui.838bb792ae73	얼마나	machine
+ui.7935c6648824	교환하겠는가?	machine
+ui.d520d4a25f73	버리겠는가?	machine
+ui.323d3bd94dc3	준비됨	machine
+ui.85508313b762	마도서 수록	machine
+ui.5b7ea832e1b1	두루마리	machine
+ui.e0cf46fc6a62	두루마리들	machine
+ui.1303d3de9773	선택 대기	machine
+ui.12ca55d7e7e9	준비 대기	machine
+ui.ebe2888cf1da	필사 대기	machine
+ui.aa67752cdcbc	캐릭터 선택	machine
+ui.3836f8c4efdd	휴식 시간:	machine
+ui.3eb4db249b6e	휴식 일 시 분 증가 감소 나감	machine
+ui.81a66e3516e8	일 시 분 증가 감소 나감	machine
+ui.1325fc582bac	일행 전원이 회복되었다	machine
+ui.5c4efffc1a54	준비했다	machine
+ui.20a26081e1d6	필사했다	machine
+ui.a719751ac171	휴식을 멈추겠는가?	machine
+ui.088721ec6d4a	휴식이 갑자기 방해받았다!	machine
+ui.729dccf7638c	무게 초과. 돈은 모음에 넣는다.	machine
+ui.373447f83c3b	보석	machine
+ui.d0b494caae7e	백금화	machine
+ui.723e24cd425b	청동화	machine
+ui.1b9adc638021	은화	machine
+ui.4dc6ae7b6f7d	강철화	machine
+ui.901bc8dfb280	구리화	machine
+ui.d5cc133735e7	장신구	machine
+ui.4f4ab16743c0	몇 개	machine
+ui.23542cb0bb46	가져가겠는가?	machine
+ui.86d864d10977	보석도 장신구도 없음	machine
+ui.8be91414fd53	보석	machine
+ui.c8c487bf9b56	보석	machine
+ui.1c893adcd5ec	장신구	machine
+ui.9d8e4869a5ce	장신구	machine
+ui.4bebe28dca57	훌륭한 수집품을 지녔다:	machine
+ui.762226aafd83	보석	machine
+ui.36ba3f71ad6e	장신구	machine
+ui.b979617559ad	감정:	machine
+ui.d0291caff432	이 보석의 가치:	machine
+ui.61f23b5499d0	강철화.	machine
+ui.2ec1e2815946	판매	machine
+ui.d28b15c6a6d9	판매 유지	machine
+ui.1b060046c58b	할 수 있는 일:	machine
+ui.b3063dda39ee	이 장신구의 가치:	machine
+ui.150040557337	시전	machine
+ui.ad1096e9f7c3	준비	machine
+ui.77bf07480400	필사	machine
+ui.ce78afd0e6a2	습득	machine
+ui.00d0fa5542f1	주문 선택:	machine
+ui.fbd6007fa4e6	누구에게 시전하겠는가	machine
+ui.0101e4ce36f7	여기서는 시전할 수 없다...	machine
+ui.4a24b8af9cec	잃어도 되겠는가?	machine
+ui.29ea779dcb6a	그 물품	machine
+ui.23ffe2ed4c9b	전투 전용이다...	machine
+ui.8d06f22a0748	사용하겠는가?	machine
+ui.c16b1d325028	시전 실패	machine
+ui.0653216d8920	시전:	machine
+ui.aa537527975c	주문을 중단하겠는가?	machine
+ui.624a5b72859b	주문이 중단되었다	machine
+ui.44c3b4f71a5c	축복받았다	machine
+ui.68423657b7c7	저주받았다	machine
+ui.866ae4750924	보호받는다	machine
+ui.8250c2c4f12a	냉기 저항을 얻었다	machine
+ui.6a198c100d8c	매혹되었다	machine
+ui.abf5c0694d45	더 강해졌다	machine
+ui.63b579c5009b	축소되었다	machine
+ui.1084266e89ee	우호적이 되었다	machine
+ui.8d69b49af8e4	방패가 생겼다	machine
+ui.e77b0d967b7c	잠들었다	machine
+ui.8c3c927feb92	포박되었다	machine
+ui.325563121a6d	화염 저항을 얻었다	machine
+ui.481cb0fe2b2c	투명해졌다	machine
+ui.effd09803c06	똑똑	machine
+ui.62a61d211285	복제되었다	machine
+ui.d119669b1a25	유독 구름을 만들었다	machine
+ui.ba77b08db988	보이게 되었다	machine
+ui.e35ab226a22a	실명했다	machine
+ui.1b161713df5c	병에 걸렸다	machine
+ui.a22d9fc5be57	기도 중이다	machine
+ui.1a9e62ad568b	저주가 풀렸다	machine
+ui.97b83b7e68be	물품 하나의 저주가 풀렸다	machine
+ui.6503fd1bd5d2	저주받았다!	machine
+ui.22ed2f2c4af7	점멸하고 있다	machine
+ui.d95ff49dc502	가속되었다	machine
+ui.eb320b192b6a	느려졌다	machine
+ui.a8e7482dbad8	빨라졌다	machine
+ui.c478e4d87da2	마비되었다	machine
+ui.eb05ac334a9f	회복되었다	machine
+ui.3e772edeeb89	해독되었다	machine
+ui.2cef23028b6d	납작하게 짓눌렀다	machine
+ui.595ba83def48	순간이동했다	machine
+ui.8575fa9ba811	허겁지겁 달아났다	machine
+ui.f06c19b93b2c	불꽃 종류:	machine
+ui.38d9edf514a9	열기 냉기	machine
+ui.6bdc33eef062	주문을 중단하겠는가?	machine
+ui.63783b1ec102	예 아니오	machine
+ui.a47547af2017	둔해졌다	machine
+ui.ce690cd0c4fa	느려졌다	machine
+ui.6bb4327fa15a	브레스를 뿜었다!	machine
+ui.42cbbfc27a4d	눈이 멀었다	machine
+ui.e800a6dfe581	에너지 화살을 쐈다!	machine
+ui.58b2b3e0f21f	화염구를 던졌다	machine
+ui.d26017d8ab4d	독을 내뿜었다	machine
+ui.34de4e86df99	산을 내뿜었다	machine
+ui.e272deecde72	냉기	machine
+ui.c141faa80e43	화염	machine
+ui.e1f3cf2badbf	내뿜음:	machine
+ui.8cd68723841c	주문을 시전했다	machine
+ui.d17044a2f3d3	주문:	machine
+ui.70b79e8927e9	죽이려는 대상:	machine
+ui.72839726ec25	기침하기 시작했다	machine
+ui.431f23d55810	메스꺼움에 숨이 막혀 켁켁거렸다	machine
+ui.906fe79445af	치료되었다	machine
+ui.4219be8c1840	피해 입음:	machine
+ui.f5e1d63728c2	점	machine
+ui.accf5e41d3a8	피해 입음: 1점	machine
+ui.15834b2c3777	원인: 화염	machine
+ui.546fc10be49b	원인: 냉기	machine
+ui.746ea349ca6f	원인: 전기	machine
+ui.f9137bd3fdae	원인: 산	machine
+ui.61e52adc2174	원인: 마법	machine
+ui.fd5da56f78ed	쓰러졌다	machine
+ui.8e3e8d7a009c	, 빈사 상태가 되었다	machine
+ui.4b7899783330	영향받지 않았다	machine
+ui.6023d3cce98d	폭발했다.	machine
+ui.7f7a297e2c31	예	machine
+ui.0b05e966e945	아니오	machine
+ui.dcd1d5223f73	이름	machine
+ui.d60cd2e0bb8c	AC HP	machine
+ui.c35ed1964164	히트 포인트	machine
+ui.472e73d796e2	AC	machine
+ui.ac08bed00d4d	(무력)	machine
+ui.9e5d3472e05f	(시전 중)	machine
+ui.6ac8fcdfb8e4	완전히 회복되었다	machine
+ui.f8e1a5e2c265	일부 회복되었다	machine
+ui.0323473424f1	경계 중	machine
+ui.58f6ffe741db	야영 중	machine
+ui.c5031dcec9ef	수색 중	machine
+ui.1116c3efebb0	붕대를 감았다	machine
+ui.2fa787bb6baf	다음	machine
+ui.4abb1289fa79	이전	machine

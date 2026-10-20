@@ -1,0 +1,95 @@
+template	translation	note
+Move/Attack, Move Left = {n} 	이동/공격, 남은 이동력 {n}	戰鬥指令列
+move/attack, move left = {n}	이동/공격, 남은 이동력 {n}	戰鬥指令列（小寫版）
+Hitting for {n} points  of damage	{n}점 피해를 입혔다	戰鬥結果（原文兩個空白）
+Hitting for {n} point  of damage	{n}점 피해를 입혔다	單數（推測，未觀測）
+takes {n} points of damagefrom fire	{n}점 화염 피해를 입었다	原文 damage 與 from 相連
+takes {n} points of damagefrom cold	{n}점 냉기 피해를 입었다	同上（推測）
+takes {n} points of damagefrom electricity	{n}점 전격 피해를 입었다	同上
+takes {n} points of damagefrom acid	{n}점 산성 피해를 입었다	同上（推測）
+takes {n} points of damagefrom magic	{n}점 마법 피해를 입었다	同上（推測）
+{n},{n} N {n}:{n}	{1},{2} 북 {3}:{4}	座標、方位、時間
+{n},{n} E {n}:{n}	{1},{2} 동 {3}:{4}	同上
+{n},{n} S {n}:{n}	{1},{2} 남 {3}:{4}	同上
+{n},{n} W {n}:{n}	{1},{2} 서 {3}:{4}	同上
+ of journal entry # {n}     	여행 일지 {n}번에서	手冊查驗題第二行
+ (journal, page {n})?      	(일지 {n}쪽)?	手冊查驗題第三行
+This is recorded as journal entry {n}.	이 내용은 여행 일지 {n}번에 기록되었다.	規格 007 手札訊息
+{n} years	{n}세	角色檢視年齡（片段 ` years`）
+Experience {n}	경험치 {n}	角色檢視（片段 `Experience `）
+Game Speed ({n}=fastest {n}=slowest) = {n}	게임 속도 ({1}=가장 빠름 {2}=가장 느림) = {3}	營地調整速度；0、9 也是數字
+{n},{n} N {n}:{n} camping	{1},{2} 북 {3}:{4} 야영 중	座標列加狀態（片段 ` camping`）
+{n},{n} E {n}:{n} camping	{1},{2} 동 {3}:{4} 야영 중	同上
+{n},{n} S {n}:{n} camping	{1},{2} 남 {3}:{4} 야영 중	同上
+{n},{n} W {n}:{n} camping	{1},{2} 서 {3}:{4} 야영 중	同上
+{n},{n} N {n}:{n} search	{1},{2} 북 {3}:{4} 수색 중	座標列加狀態（片段 ` search`；2026-10-16 前哨站觀測到南向）
+{n},{n} E {n}:{n} search	{1},{2} 동 {3}:{4} 수색 중	同上
+{n},{n} S {n}:{n} search	{1},{2} 남 {3}:{4} 수색 중	同上
+{n},{n} W {n}:{n} search	{1},{2} 서 {3}:{4} 수색 중	同上
+Spells in Grimoire	마도서의 주문	法術顯示標題（片段 `Spells ` ＋ `in Grimoire`）
+Spells in Memory	준비한 주문	同上（推測，未觀測）
+Spells on Scroll	두루마리의 주문	同上（推測，未觀測）
+Spells on Scrolls	두루마리의 주문	同上（推測，未觀測）
+Spells to Choose	선택할 주문	同上（推測，未觀測）
+Spells to Memorize	준비할 주문	同上（推測，未觀測）
+Spells to Scribe	필사할 주문	同上（推測，未觀測）
+'s	의	名字後的所有格（物品、法術畫面標題）
+Knight of the Crown	왕관 기사	角色檢視職業（片段 Knight ＋ ` of the Crown`；術語表）
+Knight of the Sword	검의 기사	同上
+Knight of the Rose	장미 기사	同上
+{name} is hit FOR {n} points of Damage.	{name}에게 {n}점의 피해가 들어왔다.	陷阱傷害（名字模板，規格 004 §2.1.1；跨區盤點 2026-10-18）
+wants to kill {name}	{name}에게 살의를 품었다	戰鬥中怪物名之後另起一頁（名字模板）
+{name}, how can we help yo	{name}, 무엇을 도와드릴까요?	神殿招呼（原文在 yo 截斷；名字模板）
+each character receives {n}	각 캐릭터가 얻는 경험치 {n}	戰後經驗值，下一列「點經驗。」
+Each character receives {n}	각 캐릭터가 얻는 경험치 {n}	本作開頭大寫（docs/re/008 商隊戰），下一列「點經驗。」
+(from behind)Hitting for {n} points  of damage	(배후 공격) {n}점 피해를 입혔다	背刺傷害（跨區盤點第 2 輪 2026-10-18；原文兩個空白）
+(from behind)Hitting for {n} point  of damage	(배후 공격) {n}점 피해를 입혔다	單數（推測，未觀測）
+a level {n} {name}	{n}레벨 {name}	訓練升級「將成為：」下一列，{name} 為職業（介面詞表）；2026-10-18 升級盤點
+and a level {n} {name}	그리고 {n}레벨 {name}	多職業第二段（推測，未觀測）
+{name} may become a	{name}의 승급 후보:	騎士升級時的騎士團晉階提示（名字模板）；2026-10-18 升級盤點
+knight of the sword	검의 기사	晉階提示下一列（術語表 Knight of the Sword）
+knight of the crown	왕관 기사	同上（術語表 Knight of the Crown；推測，未觀測）
+knight of the rose	장미 기사	同上（術語表 Knight of the Rose；推測，未觀測）
+goes down, and is dying	쓰러져 빈사 상태가 되었다	我方生命力歸零時的整句（片段 goes down、, and is dying 的既有譯法合併）；戰鬥盤點 2026-10-18
+congratulations...{name} gains experience!	축하한다... {name}의 경험치가 올랐다!	發現秘門等的個人經驗（路徑 B 單行；3/63 實測）
+Move/Attack, Move Left = {n}	이동/공격, 남은 이동력 {n}	本作戰鬥指令列（無尾端空白，overland1 盤點）
+Range = {n}  	거리 {n}  	本作瞄準距離（overland1 盤點）
+Steel            {n}	강철화              {n}	本作金錢列，總寬 18、1 位數靠右（overland1 盤點）
+Steel           {n}	강철화             {n}	本作金錢列，總寬 18、2 位數靠右（overland1 盤點）
+Steel          {n}	강철화            {n}	本作金錢列，總寬 18、3 位數靠右（overland1 盤點）
+Steel         {n}	강철화           {n}	本作金錢列，總寬 18、4 位數靠右（overland1 盤點）
+Steel        {n}	강철화          {n}	本作金錢列，總寬 18、5 位數靠右（overland1 盤點）
+Steel       {n}	강철화         {n}	本作金錢列，總寬 18、6 位數靠右（overland1 盤點）
+How much steel will you drop? 	강철화를 얼마나 버리겠는가?	本作丟錢提示（overland1 盤點）
+Gems             {n}	보석               {n}	本作金錢列，總寬 18、1 位數靠右（overland1 盤點）
+Gems            {n}	보석              {n}	本作金錢列，總寬 18、2 位數靠右（overland1 盤點）
+Gems           {n}	보석             {n}	本作金錢列，總寬 18、3 位數靠右（overland1 盤點）
+Gems          {n}	보석            {n}	本作金錢列，總寬 18、4 位數靠右（overland1 盤點）
+Gems         {n}	보석           {n}	本作金錢列，總寬 18、5 位數靠右（overland1 盤點）
+Gems        {n}	보석          {n}	本作金錢列，總寬 18、6 位數靠右（overland1 盤點）
+How much gems will you drop? 	보석을 얼마나 버리겠는가?	本作丟錢提示（overland1 盤點）
+Jewelry          {n}	장신구              {n}	本作金錢列，總寬 18、1 位數靠右（overland1 盤點）
+Jewelry         {n}	장신구             {n}	本作金錢列，總寬 18、2 位數靠右（overland1 盤點）
+Jewelry        {n}	장신구            {n}	本作金錢列，總寬 18、3 位數靠右（overland1 盤點）
+Jewelry       {n}	장신구           {n}	本作金錢列，總寬 18、4 位數靠右（overland1 盤點）
+Jewelry      {n}	장신구          {n}	本作金錢列，總寬 18、5 位數靠右（overland1 盤點）
+Jewelry     {n}	장신구         {n}	本作金錢列，總寬 18、6 位數靠右（overland1 盤點）
+How much jewelry will you drop? 	장신구를 얼마나 버리겠는가?	本作丟錢提示（overland1 盤點）
+Hitting for {n} points of damage	{n}점 피해를 입혔다	本作戰鬥結果（單一空白，demo 盤點）
+Hitting for {n} point of damage	{n}점 피해를 입혔다	本作單數（推測）
+Goes Down, and is Dying	쓰러져 빈사 상태가 되었다	本作戰鬥結果（demo 盤點）
+takes {n} points of damage from Magic	{n}점 마법 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Magic	{n}점 마법 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Electricity	{n}점 전격 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Electricity	{n}점 전격 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Fire	{n}점 화염 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Fire	{n}점 화염 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Cold	{n}점 냉기 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Cold	{n}점 냉기 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Acid	{n}점 산성 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Acid	{n}점 산성 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} points of damage from Poison	{n}점 독 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+takes {n} point of damage from Poison	{n}점 독 피해를 입었다	本作（demo 盤點 Magic、Electricity；其餘推測）
+(from behind) Hitting for {n} points of damage	(배후 공격) {n}점 피해를 입혔다	本作背刺傷害（單一空白；跨區盤點蓋加斯 2026-10-19）
+(from behind) Hitting for {n} point of damage	(배후 공격) {n}점 피해를 입혔다	單數（推測，未觀測）
+(from behind) and Misses	(배후 공격) 하지만 빗나갔다	本作背刺落空（跨區盤點蓋加斯 2026-10-19）

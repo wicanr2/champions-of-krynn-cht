@@ -1,0 +1,737 @@
+en	target	basis	note
+Silvanesti Elf	シルヴァネスティ・エルフ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Qualinesti Elf	クォリネスティ・エルフ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Half-elf	ハーフ・エルフ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；BGEE 作 ハーフエルフ，取龍槍寫法
+Mountain Dwarf	山ドワーフ	meaning	比照官方「丘ドワーフ」
+Hill Dwarf	丘ドワーフ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Kender	ケンダー	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Human	人間	meaning	
+Dwarf	ドワーフ	translit	D&D 日文慣用片假名，未查到可引用出處
+Elf	エルフ	translit	D&D 日文慣用片假名，未查到可引用出處
+Gnome	ノーム	translit	D&D 日文慣用片假名，未查到可引用出處
+Sage Gnome	賢者ノーム	meaning	比照 Gnome
+Fighter	ファイター	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/クラス）；ja.wikipedia「ダンジョンズ&ドラゴンズ」 亦作 ファイター
+Cleric	クレリック	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/クラス）；ja.wikipedia「ダンジョンズ&ドラゴンズ」 亦作 クレリック
+Mage	魔術師	meaning	BGEE 作 メイジ；取龍槍小說常見稱呼，未查證出處
+Paladin	パラディン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/クラス）
+Ranger	レンジャー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/クラス）
+Thief	シーフ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/クラス）
+Knight	騎士	meaning	
+Druid	ドルイド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/クラス）
+Solamnic Knights	ソラムニア騎士	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（「高潔なソラムニア騎士」）
+Knight of the Crown	冠勲爵士	meaning	由官方騎士團名〈冠〉勲爵士団（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））推出個人稱呼
+Knight of the Sword	剣勲爵士	meaning	由官方騎士團名 剣勲爵士団（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））推出個人稱呼
+Knight of the Rose	薔薇勲爵士	meaning	由官方騎士團名 薔薇勲爵士団（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））推出個人稱呼
+White Robe Mage	白ローブ魔術師	meaning	遊戲 UI 僅 White；龍槍小說「白ローブ」說法未查證出處
+Red Robe Mage	赤ローブ魔術師	meaning	遊戲 UI 僅 Red；同上
+Black Robe Mage	黒ローブ魔術師	meaning	遊戲 UI 僅 Black；同上；第 735 列同字同譯
+Rogue	はぐれ魔術師	meaning	不屬於任何法袍的魔法師；未查到官方譯名
+Lawful Good	秩序にして善	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+Lawful Neutral	秩序にして中立	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+Neutral Good	中立にして善	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+True Neutral	真なる中立	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+Chaotic Good	混沌にして善	official	ja.wikipedia「ダンジョンズ&ドラゴンズ」
+Chaotic Neutral	混沌にして中立	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+STR	STR	ui	縮寫保留英文；ja.wikipedia「ダンジョンズ&ドラゴンズ」 全名 筋力
+INT	INT	ui	縮寫保留英文；ja.wikipedia「ダンジョンズ&ドラゴンズ」 全名 知力
+WIS	WIS	ui	縮寫保留英文；ja.wikipedia「ダンジョンズ&ドラゴンズ」 全名 判断力
+DEX	DEX	ui	縮寫保留英文；ja.wikipedia「ダンジョンズ&ドラゴンズ」 全名 敏捷力
+CON	CON	ui	縮寫保留英文；ja.wikipedia「ダンジョンズ&ドラゴンズ」 全名 耐久力
+CHA	CHA	ui	縮寫保留英文；ja.wikipedia「ダンジョンズ&ドラゴンズ」 全名 魅力
+Hit Points	HP	ui	全名 ヒット・ポイント（ja.wikipedia「ダンジョンズ&ドラゴンズ」）超過長度上限，用縮寫
+HP	HP	ui	
+Armor Class	AC	ui	全名 アーマー・クラス（ja.wikipedia「ダンジョンズ&ドラゴンズ」）超過長度上限，用縮寫
+AC	AC	ui	
+THAC0	THAC0	ui	
+Damage	ダメージ	ui	
+Experience	経験値	ui	
+Level	レベル	ui	
+Encumbrance	重量	ui	
+Movement	移動力	ui	
+Status	状態	ui	
+Saving Throw	抵抗判定	ui	ja.wikipedia「ダンジョンズ&ドラゴンズ」 作 セーヴィング・スロー（抵抗判定），取短形
+XP	XP	ui	
+Paladine	パラダイン	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Majere	マジェーレ	translit	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯） 只有姓氏 マジェーレ（キャラモン・マジェーレ），神名未查證
+Kiri-Jolith	キリ・ジョリス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Mishakal	ミシャカル	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Sirrion	シリオン	translit	
+Reorx	レオルクス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Shinare	シナーレ	translit	
+Takhisis	タキシス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Dark Queen	暗黒の女王	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；wpn.wizards.com/ja 作 闇の女王
+Soth	ソス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（「死の騎士ソス」）
+Lord Soth	ソス卿	official	kadokawa.co.jp/product/321712000193（ドラゴンランス5 簡介）；wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Karl	カール	translit	
+Sir Karl	カール卿	translit	Sir 譯「卿」（比照官方 ソス卿）
+Sir Thom	トム卿	translit	
+Thom Govamont	トム・ゴヴァモント	translit	
+Maya	マヤ	translit	銀龍
+Garren	ガレン	translit	
+Sebas	セバス	translit	
+Sebas Astmoor	セバス・アストムーア	translit	
+Skomp	スコンプ	translit	
+Kai	カイ	translit	
+Daine	デイン	translit	
+Major Tems	テムズ少佐	translit	
+Ariela	アリエラ	translit	
+Durfey	ダーフィー	translit	
+Lenore	レノア	translit	真名 Erline
+Erline	アーリン	translit	レノア的真名
+Kitiara	キティアラ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Igorf	イゴルフ	translit	
+Zakarie	ザカリー	translit	
+Loring	ローリング	translit	
+Denissa	デニッサ	translit	玩家輸入答案時仍須輸入英文
+Sir Vansward	ヴァンスワード卿	translit	
+Ruffian	ラフィアン	translit	是否人名不明（zh 註）
+Quartzberkl	クォーツバークル	translit	
+Quax	クワックス	translit	
+Quizmarxomatix	クイズマークソマティクス	translit	
+Myrtani	マータニ	translit	
+Dream Merchant	夢商人	meaning	
+Fortune Teller	占い師	meaning	
+Commander	司令官	meaning	
+Ansalon	アンサロン	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（アンサロン大陸）；wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Krynn	クリン	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Kalaman	カラマン	official	wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Vingaard	ヴィンガード	translit	
+Dulcimer	ダルシマー	translit	
+Quazle	クァズル村	translit	zh 連同「村」字
+Cerberus	ケルベロス	translit	
+Cekos	セコス村	translit	原文為 village
+Throtl	スロトル	translit	
+Turef	トゥレフ町	translit	zh 連同「鎮」字
+Dargaard	ダーガード	translit	
+Dargaard Keep	ダーガード城	translit	
+Dargaard Mountain	ダーガード山	translit	
+Gargath	ガルガス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（ガルガスの灰色石）
+Gargath Outpost	ガルガス前哨地	meaning	ガルガス 為官方；Outpost 意譯
+High Clerist's Tower	大司教の塔	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Voice Wood	声の森	meaning	
+Sudulto	スダルト	translit	
+Oubliette	地下牢	meaning	
+Kernen	ケルネン	translit	
+Hall	練兵場	meaning	zh 檢閱廳
+Commandant	司令官室	meaning	
+Bazaar	市場	meaning	
+Shop	店	meaning	
+Temple	神殿	meaning	
+Bank	銀行	meaning	
+Inn	宿屋	meaning	
+Tavern	酒場	meaning	
+Guards	衛兵所	meaning	
+Outpost	前哨地	meaning	
+Dragon	ドラゴン	translit	
+Undead	アンデッド	translit	D&D 日文慣用片假名，未查到可引用出處
+Undead Beast	アンデッド・ビースト	translit	
+Death Knight	死の騎士	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（「死の騎士ソス」）；wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen 作 デスナイト
+Black Dragon	ブラック・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Blue Dragon	ブルー・ドラゴン	official	kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介）
+Death Dragon	デス・ドラゴン	translit	
+Red Dragon	レッド・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Silver Dragon	シルバー・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Spectral Dragon	スペクトラル・ドラゴン	translit	
+Undead Dragon	アンデッド・ドラゴン	translit	
+Dread Wolf	ドレッド・ウルフ	translit	
+Fire Lizard	ファイアー・リザード	translit	
+Fire Minion	ファイアー・ミニオン	translit	
+Ghast	ガスト	translit	D&D 日文慣用片假名，未查到可引用出處
+Ghoul	グール	translit	D&D 日文慣用片假名，未查到可引用出處
+Golem	ゴーレム	translit	D&D 日文慣用片假名，未查到可引用出處
+Flesh Golem	フレッシュ・ゴーレム	translit	D&D 日文慣用片假名，未查到可引用出處
+Iron Golem	アイアン・ゴーレム	translit	D&D 日文慣用片假名，未查到可引用出處
+Hatori	ハトリ	translit	
+Hellhound	ヘルハウンド	translit	D&D 日文慣用片假名，未查到可引用出處
+Kuo-Toa	クオ・トア	translit	D&D 日文慣用片假名，未查到可引用出處
+Lich	リッチ	translit	D&D 日文慣用片假名，未查到可引用出處
+Lycanthrope	ライカンスロープ	translit	D&D 日文慣用片假名，未查到可引用出處
+Wereboar	ワーボア	translit	D&D 日文慣用片假名，未查到可引用出處
+Weretiger	ワータイガー	translit	D&D 日文慣用片假名，未查到可引用出處
+Nightmare	ナイトメア	translit	D&D 日文慣用片假名，未查到可引用出處
+Rhino Beetle	ライノ・ビートル	translit	
+Undead Roc	アンデッド・ロック	translit	
+Sivak	シヴァク	official	ja.wikipedia「ドラコニアン」
+Draconian	ドラコニアン	official	ja.wikipedia「ドラコニアン」；wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Skeleton	スケルトン	translit	D&D 日文慣用片假名，未查到可引用出處
+Skeleton Giant	スケルトン・ジャイアント	translit	
+Skeleton Warrior	スケルトン・ウォリアー	translit	D&D 日文慣用片假名，未查到可引用出處
+Spectral Minion	スペクトラル・ミニオン	translit	
+Spectre	スペクター	translit	D&D 日文慣用片假名，未查到可引用出處
+Vampire	ヴァンパイア	translit	D&D 日文慣用片假名，未查到可引用出處
+Vodyanoi	ヴォジャノーイ	translit	
+Whisper Spider	ウィスパー・スパイダー	translit	
+Wight	ワイト	translit	D&D 日文慣用片假名，未查到可引用出處
+Wraith	レイス	translit	D&D 日文慣用片假名，未查到可引用出處
+Wyndlass	ウィンドラス	translit	
+Zombie	ゾンビ	translit	D&D 日文慣用片假名，未查到可引用出處
+Zombie Giant	ゾンビ・ジャイアント	translit	
+Zombie Mastodon	ゾンビ・マストドン	translit	
+Zombie Minotaur	ゾンビ・ミノタウロス	translit	ミノタウロス 見 wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Goblin	ゴブリン	translit	D&D 日文慣用片假名，未查到可引用出處
+Hobgoblin	ホブゴブリン	translit	D&D 日文慣用片假名，未查到可引用出處
+Ogre	オーガ	official	wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Giant	ジャイアント	translit	D&D 日文慣用片假名，未查到可引用出處
+Wand	ワンド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Potion	ポーション	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Scroll	巻物	meaning	BGEE 混用 スクロール 與「の巻物」，取短形
+Mage Scroll	魔術師の巻物	meaning	
+Solamnic Plate	ソラムニア・プレート	translit	ソラムニア 為官方（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））
+Plate Mail	プレートメイル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Leather Armor	レザーアーマー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Bracers	ブレーサー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Dragonlance	ドラゴンランス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（ドラゴンランス（武器））
+Hoopak	フーパック	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Rod of Omniscience	全知のロッド	meaning	
+Sleepstone	眠りの石	meaning	
+Steel	鋼貨	meaning	龍槍貨幣；日文小說譯法未查證
+Ambush Made Easy	『奇襲入門』	meaning	書名
+Create New Character	新規キャラ作成	ui	
+Drop Character	キャラ削除	ui	
+Modify Character	キャラ修正	ui	
+Train Character	キャラ訓練	ui	
+Knight Change Order	騎士団変更	ui	
+View Character	キャラ確認	ui	
+Add Character to Party	仲間に加える	ui	
+Remove Character from Party	仲間から外す	ui	
+Load Saved Game	ゲーム読込	ui	
+Save Current Game	ゲーム保存	ui	
+Begin Adventuring	冒険開始	ui	
+Initialize Mouse/Joystick	入力機器の初期化	ui	
+Exit to DOS	DOSへ	ui	
+Pick Race	種族選択	ui	
+Pick Gender	性別選択	ui	
+Pick Class	職業選択	ui	
+Pick Diety	信仰選択	ui	遊戲字串拼作 Diety
+Pick Alignment	属性選択	ui	
+Male	男	ui	
+Female	女	ui	
+Move	移動	ui	
+Area	地図	ui	地圖切換
+Cast	詠唱	ui	
+View	確認	ui	檢視人物
+Encamp	野営	ui	
+Search	探索	ui	
+Look	調査	ui	檢視環境
+Save	保存	ui	儲存遊戲；與 Save Current Game 一致
+Magic	魔法	ui	
+Rest	休息	ui	
+Alter	設定	ui	
+Fix	治療	ui	
+Order	隊列	ui	
+Icon	外見	ui	人物造形
+Novice	初心者	ui	難易度
+Squire	従士	ui	難易度；Squire＝従士 見 ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Veteran	熟練者	ui	難易度
+Adept	達人	ui	難易度
+Champion	勇者	ui	難易度
+Okay	健在	ui	狀態
+Unconscious	気絶	ui	狀態
+Dying	瀕死	ui	狀態
+Dead	死亡	ui	狀態
+Gone	消滅	ui	狀態
+Running	逃走	ui	狀態
+Items	道具	ui	
+Ready	装備	ui	
+Use	使う	ui	
+Trade	渡す	ui	
+Drop	破棄	ui	物品與金錢；Alter 選單為捨棄隊員
+Halve	分割	ui	
+Join	統合	ui	
+Sell	売却	ui	
+ID	鑑定	ui	
+Spells	呪文	ui	
+Cure	治癒	ui	遊俠指令（治病）
+Heal	回復	ui	
+Memorize	記憶	ui	
+Scribe	筆写	ui	
+Display	表示	ui	
+Exit	終了	ui	
+Buy	購入	ui	
+Take	拾う	ui	
+Pool	集約	ui	集中財物
+Share	分配	ui	
+Appraise	査定	ui	
+Detect	探知	ui	
+Deposit	預金	ui	
+Withdraw	引出	ui	
+View Balance	残高照会	ui	
+Flee	逃走	ui	
+Attack	攻撃	ui	
+Talk	会話	ui	
+Wait	待機	ui	
+Aim	狙う	ui	
+Turn	退散	ui	Turn Undead 指令
+Guard	防御	ui	
+Quick	自動	ui	
+Delay	遅延	ui	
+Bandage	包帯	ui	
+Yell	罵倒	ui	ケンダー專用
+Speed	速度	ui	
+End	放棄	ui	回合棄權
+Next	次	ui	
+Prev	前	ui	
+Manual	手動	ui	
+Target	目標	ui	
+Center	中央	ui	
+Play	開始	ui	
+Demo	デモ	ui	
+Champions	勇者たち	ui	指《Champions of Krynn》存檔，與遊戲名 クリンの勇者たち 一致
+Journal Entry	手記	ui	
+Name Character	命名	ui	
+Select Combat Icon	戦闘アイコン選択	ui	
+Head	頭	ui	造形編輯
+Weapon	武器	ui	造形編輯
+Body	胴	ui	造形編輯
+Hair	髪	ui	造形編輯
+Shield	盾	ui	造形編輯；法術 Shield 另作 シールド（第 347 列）
+Arm	腕	ui	造形編輯
+Leg	脚	ui	造形編輯
+Size	大小	ui	造形編輯
+Keep	残す	ui	
+Word	単語	ui	密碼輸入提示
+Page	頁	ui	密碼輸入提示
+Answer	答え	ui	密碼輸入提示
+Magic-User	魔術師呪文	ui	
+Special	特殊呪文	ui	
+Cleric Spells	クレリック呪文	ui	
+Mage Spells	魔術師呪文	ui	
+Druid Spells	ドルイド呪文	ui	
+1st Level	第1レベル	ui	
+2nd Level	第2レベル	ui	
+3rd Level	第3レベル	ui	
+4th Level	第4レベル	ui	
+5th Level	第5レベル	ui	
+6th Level	第6レベル	ui	
+7th Level	第7レベル	ui	
+8th Level	第8レベル	ui	
+Bless	ブレス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Cure Light Wounds	キュア・ライト・ウーンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Detect Magic	ディテクトマジック	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Protection From Evil	プロテクション・フロム・イービル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Resist Cold	レジストコールド	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Find Traps	ファインドトラップ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Hold Person	ホールドパースン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Resist Fire	レジストファイアー	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Silence, 15' Radius	サイレンス：15フィートレイディアス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Silence 15' radius	サイレンス：15フィートレイディアス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）；同第 315 列
+Slow Poison	スローポイズン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Snake Charm	スネークチャーム	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Spiritual Hammer	スピリチュアルハンマー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Cure Blindness	キュア・ブラインドネス	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Cure Disease	キュア・ディジーズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Dispel Magic	ディスペルマジック	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Prayer	祈祷	meaning	音譯 プレイヤー 會與 player 混淆，改意譯
+Remove Curse	リムーブカース	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Cure Serious Wounds	キュア・シリアス・ウーンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Neutralize Poison	ニュートラライズポイズン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Protection Evil, 10' Radius	プロテクション・フロム・イービル：10フィートレイディアス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Protection From Evil, 10' Radius	プロテクション・フロム・イービル：10フィートレイディアス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）；同第 327 列
+Protection From Evil 10' Radius	プロテクション・フロム・イービル：10フィートレイディアス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）；同第 327 列
+Sticks to Snakes	スティックス・トゥ・スネークス	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Cure Critical Wounds	キュア・クリティカル・ウーンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Dispel Evil	ディスペルイービル	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Raise Dead	レイズデッド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Restoration	レストレーション	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE；BGEE 有 レッサー／グレーター・レストレーション
+Ressurection	リザレクション	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Entangle	エンタングル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Druid Spells）
+Faerie Fire	フェアリーファイアー	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Invisibility to Animals	インヴィジビリティ・トゥ・アニマルズ	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Barkskin	バークスキン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Charm Person/Mammal	チャームパースン・オア・ママル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Druid Spells）
+Burning Hands	バーニングハンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Charm Person	チャームパースン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Enlarge	エンラージ	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Friends	フレンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Magic Missile	マジックミサイル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Read Magic	リードマジック	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Shield	シールド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）；造形編輯的 Shield 另作 盾（第 286 列）
+Shocking Grasp	ショッキンググラスプ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Sleep	スリープ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Detect Invisibility	ディテクトインヴィジビリティ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Invisibility	インヴィジビリティ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Knock	ノック	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Mirror Image	ミラーイメージ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Ray of Enfeeblement	レイ・オブ・エンフィーブルメント	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Stinking Cloud	スティンキングクラウド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Strength	ストレングス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Blink	ブリンク	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Fireball	ファイアーボール	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Haste	ヘイスト	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Invisibility, 10' Radius	インヴィジビリティ：10フィートレイディアス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Lightning Bolt	ライトニングボルト	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Protection From Normal Missiles	プロテクション・フロム・ノーマルミサイル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Slow	スロー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Bestow Curse	ビストウカース	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Charm Monsters	チャームモンスター	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Confusion	コンフュージョン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Dimension Door	ディメンションドア	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Fear	フィアー	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Fire Shield	ファイアーシールド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Fumble	ファンブル	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Ice Storm	アイスストーム	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Minor Globe Of Invulnerability	マイナー・グローブ・オブ・インヴァルナラビリティ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Cloud Kill	クラウドキル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Cone of Cold	コーン・オブ・コールド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Feeblemind	フィーブルマインド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Fire Touch	ファイアータッチ	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Hold Monsters	ホールドモンスター	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Iron Skin	アイアンスキン	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE；BGEE 有 アイアンスキンズ
+Death Spell	デススペル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Disentegrate	ディスインテグレイト	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Flesh to Stone	フレッシュ・トゥ・ストーン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Globe Of Invulnerability	グローブ・オブ・インヴァルナラビリティ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Stone to Flesh	ストーン・トゥ・フレッシュ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Delay Blast Fireball	ディレイド・ブラスト・ファイアーボール	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Mass Invisibility	マス・インヴィジビリティ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Power Word Stun	パワーワード：スタン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Mass Charm	マスチャーム	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Mind Blank	マインドブランク	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Otto's Irresitable Dance	オットーズ・イレジスティブル・ダンス	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Power Word Blind	パワーワード：ブラインド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Wizard Spells）
+Solinari	ソリナリ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；白之月
+Lunitari	ルニタリ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；紅之月
+Nuitari	ヌイタリ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；黑之月
+Sir	卿	ui	比照官方 ソス卿；接在名字後
+Cataclysm	大変動	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；other 類，依專有名詞處理
+Non-Player Character	NPC	ui	
+NPC	NPC	ui	
+Champions of Krynn	クリンの勇者たち	meaning	遊戲名；未查到日文版正式譯名；other 類，依專有名詞處理
+Death Knights of Krynn	クリンの死の騎士	meaning	續作遊戲名；Death Knight＝死の騎士（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））；未查到日文版正式譯名
+Turn Undead	アンデッド退散	ui	與戰鬥指令 Turn（退散）一致
+Gaardsen	ガードセン	translit	全名 Sir Karl Gaardsen＝カール・ガードセン卿
+Faeries	妖精たち	meaning	
+Father of Trees	樹の父	meaning	
+Throtl Keep	スロトル城	translit	
+Sturm Brightblade	スターム・ブライトブレイド	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Sturm	スターム	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Dave	デイヴ	translit	
+Dave's Challenge	デイヴの挑戦	meaning	
+Headley	ヘドリー	translit	
+Kal	カル	translit	神名或地名不明（zh 註）
+Hylo	ハイロ	translit	
+Ergoth	エルゴス	translit	
+Thom	トム	translit	
+Armind Cekos	アーミンド・セコス	translit	
+Ayn Rampike	アイン・ランパイク	translit	
+Sir Bertil	バーティル卿	translit	
+Flare	フレア	translit	紅龍名
+Spark	スパーク	translit	紅龍名
+Sir Bregen	ブレゲン卿	translit	
+Lessiter	レシター	translit	
+Sarah	サラ	translit	
+Sir Michael	マイケル卿	translit	
+Marcwestrons	マークウェストロンズ	translit	
+Fromm	フロム	translit	
+Luff	ラフ	translit	
+Gluten	グルーテン	translit	
+Throtl Vault	スロトルの地下室	meaning	
+Dragon Pit	竜の穴	meaning	
+Whistling Whale Inn	口笛鯨亭	meaning	宿屋招牌；比照官方「憩いの我が家亭」的「〜亭」
+Golden Hay Inn	金の干草亭	meaning	
+Muddy Straw Inn	泥わら亭	meaning	
+Clear Glass Tavern	透きガラス亭	meaning	
+Muddy Plate Tavern	泥皿亭	meaning	
+Oddities and Collectibles	珍品骨董店	meaning	
+Bout Hall	試合場	meaning	
+Hall of Innovation	発明の殿堂	meaning	
+Sage Gnome Guild	賢者ノーム組合	meaning	
+Medical Guild	医療組合	meaning	
+Education Guild	教育組合	meaning	
+Military Weapons and Planning Guild	軍事兵器・計画組合	meaning	
+Grand Council of Bureaucracy	官僚大評議会	meaning	
+Council of Knights	騎士評議会	meaning	
+Farmer's Market	農夫の市場	meaning	
+Common Garden	共同菜園	meaning	
+Town Hall	町役場	meaning	
+Armory	武器庫	meaning	
+Pub	飲み屋	meaning	
+Bar	バー	meaning	
+Pavilion	天幕	meaning	
+Alcove	小部屋	meaning	
+Stocks	さらし台	meaning	
+Portcullis	落とし格子	meaning	
+Priest	司祭	meaning	Cleric 仍為 クレリック
+Priestess	女司祭	meaning	
+Sorcerer	妖術師	meaning	
+Herbalist	薬草師	meaning	
+Innkeeper	宿屋の主人	meaning	
+Tavernkeeper	酒場の主人	meaning	
+Mayor	町長	meaning	
+Aides	従者	meaning	
+Lady	淑女	ui	
+Imposter	偽者	ui	
+Beast Master	獣使い	meaning	
+Dragonarmy	ドラゴン軍	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；other 類，依專有名詞處理
+Oath and Measure	誓約と規範	meaning	ソラムニア騎士の掟；小說譯名未查證
+Geas	ギアス	ui	D&D 術語慣用片假名
+Password	合言葉	ui	
+Copper Dragon	カッパー・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Carrion Snake	腐肉食いの蛇	meaning	
+Sprite	スプライト	translit	D&D 日文慣用片假名，未查到可引用出處
+Phylactery	魂の器	meaning	
+Amulet	アミュレット	translit	
+Staff	スタッフ	translit	
+Orb	オーブ	translit	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯） 有 ドラゴン・オーブ
+Meteor	隕石	meaning	
+Wand of Tree Healing	樹木治癒のワンド	meaning	
+Necklace of Revante	レヴァンテの首飾り	translit	
+Tracker-Clicker	追跡カチカチ器	meaning	ノーム發明
+Rutabaga	ルタバガ	meaning	
+Asparagus	アスパラガス	meaning	
+Broccoli	ブロッコリー	meaning	
+Rod	ロッド	translit	指 Rod of Omniscience
+Tavern Tale	酒場の噂	ui	
+Protection From Good	プロテクション・フロム・グッド	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE；比照 プロテクション・フロム・イービル
+Cause Disease	コーズ・ディジーズ	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Cause Blindness	コーズ・ブラインドネス	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Hot Fire Shield	ホット・ファイアーシールド	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE；BGEE 作 ファイアーシールド（赤）
+Cold Fire Shield	コールド・ファイアーシールド	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE；BGEE 作 ファイアーシールド（青）
+Reduce	リデュース	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Harm	ハーム	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Poison	ポイズン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Druid Spells）
+Flame Strike	フレイムストライク	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Slay Living	スレイリヴィング	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Camouflaged	迷彩	ui	狀態
+Displaced	幻位	ui	狀態
+Displacement	ディスプレイスメント	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）（クローク・オブ・ディスプレイスメント）
+Animated	傀儡	ui	狀態，指被魔法驅動的不死者
+Grimoire	魔道書	ui	
+Lawful Evil	秩序にして悪	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+Neutral Evil	中立にして悪	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+Chaotic Evil	混沌にして悪	meaning	只有「混沌にして善」在 ja.wikipedia「ダンジョンズ&ドラゴンズ」查到，其餘依同一命名法類推
+Bronze	青銅貨	meaning	
+Platinum	白金貨	meaning	
+Learn	学習	ui	
+Gems	宝石	ui	
+Jewelry	装飾品	ui	
+Parts	部位	ui	
+Face	顔	ui	
+9th Level	第9レベル	ui	
+Battle Axe	バトルアックス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Hand Axe	ハンドアックス	translit	D&D 日文慣用片假名，未查到可引用出處
+Club	クラブ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Dagger	ダガー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Dart	ダーツ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Hammer	ハンマー	translit	D&D 日文慣用片假名，未查到可引用出處
+Javelin	ジャベリン	translit	D&D 日文慣用片假名，未查到可引用出處
+Mace	メイス	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Morning Star	モーニングスター	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Military Pick	ミリタリー・ピック	translit	D&D 日文慣用片假名，未查到可引用出處
+Awl Pike	オール・パイク	translit	D&D 日文慣用片假名，未查到可引用出處
+Quarrel	クォレル	translit	D&D 日文慣用片假名，未查到可引用出處
+Scimitar	シミター	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Spear	スピア	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Quarter Staff	クォータースタッフ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Bastard Sword	バスタードソード	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Broad Sword	ブロードソード	translit	D&D 日文慣用片假名，未查到可引用出處
+Long Sword	ロングソード	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Short Sword	ショートソード	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Two-Handed Sword	ツーハンデッドソード	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Trident	トライデント	translit	D&D 日文慣用片假名，未查到可引用出處
+Composite Long Bow	コンポジット・ロングボウ	translit	D&D 日文慣用片假名，未查到可引用出處
+Composite Short Bow	コンポジット・ショートボウ	translit	D&D 日文慣用片假名，未查到可引用出處
+Long Bow	ロングボウ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Short Bow	ショートボウ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Light Crossbow	ライトクロスボウ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Sling	スリング	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Arrow	アロー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Flail	フレイル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Halberd	ハルバード	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Ring	リング	translit	單獨 Ring 指戒指；Ring Mail 另列
+Scale	スケイル	translit	D&D 日文慣用片假名，未查到可引用出處
+Chain	チェイン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Banded	バンデッド	translit	D&D 日文慣用片假名，未查到可引用出處
+Elven Chain	エルフチェイン	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Mail	メイル	translit	後綴
+Armor	アーマー	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Helm	ヘルム	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Belt	ベルト	translit	
+Robe	ローブ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Cloak	クローク	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Boots	ブーツ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Gauntlets	ガントレット	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Girdle	ガードル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Periapt	ペリアプト	translit	D&D 日文慣用片假名，未查到可引用出處
+Necklace	ネックレス	translit	
+Mirror	ミラー	translit	
+Bag	バッグ	translit	
+Holy Water	聖水	meaning	
+Ruby	ルビー	translit	
+Saphire	サファイア	translit	原文拼作 Saphire
+Emerald	エメラルド	translit	
+Diamond	ダイヤモンド	translit	
+Boulder	大岩	meaning	
+Dragon Breath	ドラゴンブレス	translit	
+Hornet's Nest	ホーネッツ・ネスト	translit	
+Elixir Of Youth	若返りの霊薬	meaning	
+Eyes Of Charming	アイズ・オブ・チャーミング	translit	D&D 日文慣用片假名，未查到可引用出處
+Proof vs Poison	耐毒	meaning	詞素；與 ペリアプト 組合為 耐毒のペリアプト
+Disruption	ディスラプション	translit	D&D 日文慣用片假名，未查到可引用出處
+Ogre Power	オーガ・パワー	translit	オーガ 見 wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Giant Strength	ジャイアント・ストレングス	translit	D&D 日文慣用片假名，未查到可引用出處
+Frost Giant Strength	フロストジャイアント・ストレングス	translit	D&D 日文慣用片假名，未查到可引用出處
+Frost Brand	フロスト・ブランド	translit	D&D 日文慣用片假名，未查到可引用出處
+vs Reptiles	対爬虫類	meaning	詞素
+Wizardry	ウィザードリィ	translit	
+Berserker	バーサーカー	translit	
+Vulnerability	脆弱	meaning	
+Paralyzation	パラライゼーション	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）（ワンド・オブ・パラライゼーション）
+Olin's	オリンの	translit	片段
+Footman's	歩兵用	meaning	
+Fine	上質の	meaning	用途不確定（zh 註）
+Drow	ドロウ	translit	D&D 日文慣用片假名，未查到可引用出處
+Skel Warrior	スケルトン・ウォリアー	translit	遊戲畫面縮寫 Skel Warrior；同第 157 列
+Evil Warlord	邪悪な将軍	meaning	
+Solamnic Knight	ソラムニア騎士	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；同第 20 列
+Chain Mail	チェインメイル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Ring Mail	リングメイル	translit	D&D 日文慣用片假名，未查到可引用出處
+Scale Mail	スケイルメイル	translit	D&D 日文慣用片假名，未查到可引用出處
+Banded Mail	バンデッドメイル	translit	D&D 日文慣用片假名，未查到可引用出處
+Solamnic Plate Mail	ソラムニア・プレートメイル	translit	ソラムニア 為官方（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））
+Elven Chain Mail	エルフチェインメイル	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Crook Street	悪党通り	meaning	
+Battle of Kernen	ケルネンの戦い	meaning	
+Fun House	びっくり迷宮	meaning	
+Cursed Village	呪われた村	meaning	
+Shipwreck	難破船	meaning	
+Graveyard	墓地	meaning	
+Foreign Relations guild	外務局	meaning	
+Mechanical Engineering guild	機械工学組合	meaning	
+Military Planning guild	軍事計画組合	meaning	
+Candle Shop	ろうそく屋	meaning	
+Dream Pavilion	夢の天幕	meaning	
+Hall of Voice Wood	声の森の大広間	meaning	
+Throne Room	玉座の間	meaning	
+Guardhouse	衛兵詰所	meaning	
+Overland	地上マップ	meaning	
+Lower Planes	下層界	meaning	
+Milo	マイロ	translit	
+Magistrate	治安判事	meaning	
+Gravedigger	墓掘り	meaning	
+Vagabond	放浪者	meaning	
+City Commander	都市司令官	meaning	
+Kuo-Toa Monitor	クオ・トアの監督者	meaning	
+Undead Rat	アンデッド・ラット	translit	
+Wrestle	格闘	ui	
+Chant	呪句	ui	與 Cast（詠唱）區分
+Chanting	詠唱の声	ui	
+Ward	結界	ui	
+Silver	銀貨	meaning	
+Earring	イヤリング	translit	
+Mace of Disruption	メイス・オブ・ディスラプション	translit	D&D 日文慣用片假名，未查到可引用出處
+Ring of Protection	リング・オブ・プロテクション	translit	BGEE 作 プロテクションリング；為與其他「〜・オブ・〜」一致改此形
+Potion of Speed	ポーション・オブ・スピード	translit	D&D 日文慣用片假名，未查到可引用出處
+Potion of Extra Healing	ポーション・オブ・エクストラヒーリング	translit	D&D 日文慣用片假名，未查到可引用出處
+Potion of Healing	ポーション・オブ・ヒーリング	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Potion of Invisibility	ポーション・オブ・インヴィジビリティ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Wand of Fireball	ワンド・オブ・ファイアーボール	translit	D&D 日文慣用片假名，未查到可引用出處
+Wand of Lightning	ワンド・オブ・ライトニング	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Wand of Ice Storm	ワンド・オブ・アイスストーム	translit	D&D 日文慣用片假名，未查到可引用出處
+Wand of Paralyzation	ワンド・オブ・パラライゼーション	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Necklace of Missiles	ネックレス・オブ・ミサイル	translit	D&D 日文慣用片假名，未查到可引用出處
+Periapt Proof vs Poison	耐毒のペリアプト	meaning	
+Girdle of Frost Giant Strength	ガードル・オブ・フロストジャイアント・ストレングス	translit	D&D 日文慣用片假名，未查到可引用出處
+Gauntlets of Ogre Power	ガントレット・オブ・オーガ・パワー	translit	D&D 日文慣用片假名，未查到可引用出處
+Boots of Speed	ブーツ・オブ・スピード	translit	D&D 日文慣用片假名，未查到可引用出處
+Cloak of Displacement	クローク・オブ・ディスプレイスメント	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion 武器・防具・その他頁）
+Staff Sling	スタッフ・スリング	translit	D&D 日文慣用片假名，未查到可引用出處
+Dart of the Hornet's Nest	ダーツ・オブ・ホーネッツ・ネスト	translit	
+Scroll of Protection from Dragon Breath	ドラゴンブレス防御の巻物	meaning	
+White Mage Scroll	白魔術師の巻物	meaning	
+Red Mage Scroll	赤魔術師の巻物	meaning	
+Clerical Scroll	クレリックの巻物	meaning	
+Olin's Quarterstaff	オリンのクォータースタッフ	translit	
+Advanced Dungeons & Dragons	アドバンスト・ダンジョンズ&ドラゴンズ	translit	ja.wikipedia「ダンジョンズ&ドラゴンズ」 標題作 ダンジョンズ&ドラゴンズ；& 用半形
+Pool of Radiance	プール・オブ・レイディアンス	translit	
+Buck Rogers	バック・ロジャース	translit	
+Challenge	デイヴの挑戦	meaning	同第 408 列
+Kuo-Toa Slave Ship	クオ・トアの奴隷船	meaning	
+Tunnels Beneath Tower	塔の下の地下道	meaning	
+Faerie	妖精	meaning	
+Skeletal Giant	スケルトン・ジャイアント	translit	同第 156 列
+Charm Snakes	スネークチャーム	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE；同第 318 列
+Training Hall	練兵場	meaning	同第 114 列
+Council Knight	評議会の騎士	meaning	
+Knights of Solamnia	ソラムニア騎士	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）；同第 20 列
+Experience Points	経験値	ui	
+Kuo Toa	クオ・トア	translit	同第 145 列
+Kuo Toa Cleric	クオ・トアのクレリック	translit	
+High Wizard	大魔術師	meaning	
+Black Wizard	黒魔術師	meaning	
+Evil Warrior	邪悪な戦士	meaning	
+Patriarch	大司祭	meaning	
+Vampire Mage	ヴァンパイア魔術師	meaning	
+Vampire Cleric	ヴァンパイア・クレリック	translit	
+Neraka	ネラーカ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Palanthas	パランサス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Solamnia	ソラムニア	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Caramon	キャラモン	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Tanis	タニス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Raistlin	レイストリン	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Flint	フリント	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Tasslehoff	タッスルホッフ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Goldmoon	ゴールドムーン	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Riverwind	リヴァーウィンド	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Laurana	ローラナ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Gilthanas	ギルサナス	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Tika	ティカ	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Jelek	ジェレク	translit	
+Sanction	サンクション	translit	小說譯名未查證
+Gargath Keep	ガルガス城	meaning	ガルガス 為官方（ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯））
+Solace	ソレース	translit	小說譯名未查證
+Inn of the Last Home	憩いの我が家亭	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）
+Red Dagger Inn	赤い短剣亭	meaning	
+Trencher Tavern	木皿亭	meaning	
+Tavern of the Crossed Swords	交差剣亭	meaning	
+Burial Glen	埋葬の谷	meaning	
+Thieves Guild	盗賊ギルド	meaning	
+Skyla	スカイラ	translit	
+Mysellia	ミセリア	translit	
+Jerboam	ジェロボアム	translit	
+Jarlkrand	ヤールクランド	translit	
+Wilgarten	ウィルガルテン	translit	
+Sir Lebaum	ルボーム卿	translit	
+Sir Mathias	マティアス卿	translit	
+Sir Dargaard	ダーガード卿	translit	
+Larcent Strangbourn	ラーセント・ストラングボーン	translit	
+Strangbourn	ストラングボーン	translit	
+Kildirf	キルディルフ	translit	
+Huerzyd	ヒュアジッド	translit	
+Duerghast	デュアガスト	translit	
+Horgathindorn	ホーガシンドーン	translit	
+Gusmarken	ガスマーケン	translit	
+Habbakuk	ハバクク	translit	
+Brachala	ブラチャラ	translit	
+Gravnak	グラヴナク	translit	
+Morog	モログ	translit	
+Jadefang	翡翠牙	meaning	
+Tas	タッスル	official	ja.wikipedia「ドラゴンランス」（富士見書房／KADOKAWA 安田均譯）（通称タッスル）
+Prison Lord	牢獄の主	meaning	
+Baaz	バアズ	official	ja.wikipedia「ドラコニアン」
+Kapak	カパク	official	ja.wikipedia「ドラコニアン」
+Aurak	オーラク	official	ja.wikipedia「ドラコニアン」
+Mobat	モバット	translit	
+Minotaur	ミノタウロス	official	wpn.wizards.com/ja/products/dragonlance-shadow-of-the-dragon-queen
+Green Dragon	グリーン・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+White Dragon	ホワイト・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Gold Dragon	ゴールド・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Brass Dragon	ブラス・ドラゴン	translit	比照官方 ブルー・ドラゴン（kadokawa.co.jp/product/321712000192（ドラゴンランス4 簡介））
+Shadowpeople	影の民	meaning	
+Windcaptain	風の船長	ui	
+Good Armies	善の軍勢	ui	
+Cause Light Wounds	コーズ・ライト・ウーンズ	translit	比照 BGEE 日文版片假名寫法，該詞未見於 BGEE
+Cause Serious Wounds	コーズ・シリアス・ウーンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Cause Critical Wounds	コーズ・クリティカル・ウーンズ	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Animate Dead	アニメイトデッド	translit	與 BGEE 日文版同形（wikiwiki.jp/gorion/Cleric Spells）
+Grilliard	グリリアード	translit	
+Flying Citadel	浮揚城塞	meaning	搜尋摘要稱小說作「浮揚城塞」，原文頁未逐字核對
+Bozak	ボザク	official	ja.wikipedia「ドラコニアン」
+Giant Rat	ジャイアント・ラット	translit	
+Elvish Curate	エルフの助祭	meaning	
+Elvish Rogue	エルフの無頼漢	meaning	與職業 Rogue 無關
+Evil Fighter	邪悪な闘士	meaning	與 Evil Warrior 區分
+Warrior	戦士	meaning	怪物名
+Hobgoblin Ldr	ホブゴブリンの頭目	meaning	
+Black Robe Mage	黒ローブ魔術師	meaning	同第 26 列
+Giant Centipede	ジャイアント・センチピード	translit	D&D 日文慣用片假名，未查到可引用出處
