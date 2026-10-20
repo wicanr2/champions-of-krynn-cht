@@ -70,7 +70,7 @@ func (l *HDLive) HDAllowed(x, y int) bool {
 		}
 	}
 	if h.walls != nil && h.walls.active && x >= 24 && x < 112 && y >= 24 && y < 112 {
-		return true
+		return h.walls.matches[(y-24)/8*11+(x-24)/8] != nil
 	}
 	if h.combat != nil {
 		for _, m := range h.combat.matches {

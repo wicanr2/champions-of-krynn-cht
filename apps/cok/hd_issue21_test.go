@@ -140,8 +140,8 @@ func TestHDIssue21WallCompleteBackground(t *testing.T) {
 	}
 	idx[(24+60/11*8)*320+24+60%11*8] = 5
 	h.frame(idx, pal)
-	if h.active {
-		t.Fatal("留底區一點失配仍畫")
+	if !h.active || h.matches[60] != nil || h.matches[0] == nil {
+		t.Fatal("留底區失配未限於單格")
 	}
 	m.Cells[len(m.Cells)-1].CompleteBackground = false
 	write()
@@ -158,7 +158,7 @@ func TestHDIssue21ThemeCoverage(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if count < 1800 || h.exact == nil || len(h.exact.items) != 51 {
+	if count < 1800 || h.exact == nil || len(h.exact.items) < 51 {
 		t.Fatalf("來源未載入：%d", count)
 	}
 	raw, err := os.ReadFile(filepath.Join(dir, "walls.json"))

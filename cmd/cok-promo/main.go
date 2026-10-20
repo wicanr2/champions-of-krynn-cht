@@ -114,6 +114,7 @@ func main() {
 	keyEvery := flag.Uint64("key-every", 30_000_000, "-keys 兩鍵間隔步數")
 	actions := flag.String("actions", "", "依步數做前端動作 `步數:動作[=參數]`，逗號分隔："+
 		"journal、journal-next、guide=章:頁、guide-page、guide-close、map、map-reveal、map-close、lang=代碼、original、chinese")
+	withIndexed := flag.Bool("indexed", false, "驗證用：每格另存該格合成所用的原版色號 frames/NNNNNN.idx（64000 bytes）與色盤 .pal（768 bytes）")
 	dumpAt := flag.String("dump-mem-at", "", "診斷：到這些步數把線性 0–9FFFF 寫成 <out>/mem-<步數>.bin，逗號分隔")
 	cheatOn := flag.Bool("cheat", false, "我方無敵（主專案規格 017）：同 cok-play 的判斷，以 machine 寫入監看實作，每格更新監看範圍")
 	poke := flag.String("initial-poke", "", "起點注入：線性十六進位位址=hex bytes，分號分隔（同 cok-hd-probe）")
@@ -276,7 +277,15 @@ func main() {
 	live.Arm() // 狀態檔已在遊戲中
 	m.ObserveVideoWrites(func(w machine.VideoWrite) { live.VideoWrite(w.Offset) })
 	m.ObserveModeChanges(func(machine.ModeChange) { live.ModeChange() })
-	m.SetOnFrame(func() { live.Frame(m.Indexed(), m.FramePalette()) })
+	var lastIdx []byte
+	var lastPal [256][3]uint8
+	m.SetOnFrame(func() {
+		idx, pal := m.Indexed(), m.FramePalette()
+		live.Frame(idx, pal)
+		if *withIndexed && len(idx) == 64000 {
+			lastIdx, lastPal = append(lastIdx[:0], idx...), pal
+		}
+	})
 	m.ObserveOPLWrites(mix.OPLWrite)
 	m.ObserveSpeaker(mix.SpeakerSample)
 	m.ObservePITChannel2(mix.PITChannel2)
@@ -391,6 +400,19 @@ func main() {
 			}
 		}
 		writeFrame(&enc, filepath.Join(framesDir, fmt.Sprintf("%06d.png", frames)), pix, *scale, frameHash)
+		if *withIndexed && lastIdx != nil {
+			pal := make([]byte, 0, 768)
+			for _, c := range lastPal {
+				pal = append(pal, c[0], c[1], c[2])
+			}
+			base := filepath.Join(framesDir, fmt.Sprintf("%06d", frames))
+			if err := os.WriteFile(base+".idx", lastIdx, 0o644); err != nil {
+				fail(err)
+			}
+			if err := os.WriteFile(base+".pal", pal, 0o644); err != nil {
+				fail(err)
+			}
+		}
 		frames++
 	}
 	for m.Steps < *until && !d.Exited {

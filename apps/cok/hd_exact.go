@@ -38,10 +38,13 @@ func loadExactHD(dir string) (*exactHD, error) {
 		return nil, err
 	}
 	var m struct {
-		Version int             `json:"version"`
-		Scale   int             `json:"scale"`
-		Kind    string          `json:"kind"`
-		Items   []characterItem `json:"items"`
+		Version int    `json:"version"`
+		Scale   int    `json:"scale"`
+		Kind    string `json:"kind"`
+		Items   []struct {
+			characterItem
+			Algorithm string `json:"algorithm,omitempty"`
+		} `json:"items"`
 	}
 	if err = json.Unmarshal(raw, &m); err != nil {
 		return nil, err
@@ -58,6 +61,9 @@ func loadExactHD(dir string) (*exactHD, error) {
 		return readChecked(filepath.Join(dir, name), hash)
 	}
 	for _, it := range m.Items {
+		if it.Algorithm != "" && (it.Algorithm != "scale3x" || it.Size != [2]int{8, 8}) {
+			return nil, fmt.Errorf("完整來源演算法不合法")
+		}
 		w, ht := it.Size[0], it.Size[1]
 		if it.Key == "" || keys[it.Key] || w < 8 || ht < 8 || w > 320 || ht > 200 {
 			return nil, fmt.Errorf("%s：完整來源 key 或尺寸不合法", it.Key)
@@ -106,6 +112,9 @@ func loadExactHD(dir string) (*exactHD, error) {
 			if rgba.Pix[n] != 255 {
 				return nil, fmt.Errorf("%s：PNG 含透明點", it.Key)
 			}
+		}
+		if it.Algorithm == "scale3x" && !hdScale3xPixelsEqual(ref, rgba.Pix, w, ht) {
+			return nil, fmt.Errorf("Scale3x完整來源結果不符")
 		}
 		p := exactHDItem{key: it.Key, w: w, h: ht, ref: ref, pixels: rgba.Pix}
 		p.makeAnchor()

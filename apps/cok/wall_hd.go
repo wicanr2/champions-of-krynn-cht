@@ -1,6 +1,6 @@
 package cok
 
-// 規格010 §7：來源推得的完整8×8組合格。全視窗逐點吻合後才畫。
+// 規格010 §9：來源推得的完整8×8組合格。逐格吻合、逐格回退。
 import (
 	"bytes"
 	"crypto/sha256"
@@ -15,13 +15,14 @@ import (
 )
 
 type wallAssetSpec struct {
-	Key      string `json:"key"`
-	Kind     string `json:"kind"`
-	Size     [2]int `json:"size"`
-	Indexed  string `json:"indexed"`
-	IndexSHA string `json:"indexed_sha256"`
-	PNG      string `json:"png"`
-	PNGSHA   string `json:"png_sha256"`
+	Key       string `json:"key"`
+	Kind      string `json:"kind"`
+	Size      [2]int `json:"size"`
+	Indexed   string `json:"indexed"`
+	IndexSHA  string `json:"indexed_sha256"`
+	PNG       string `json:"png"`
+	PNGSHA    string `json:"png_sha256"`
+	Algorithm string `json:"algorithm,omitempty"`
 }
 type wallLayerSpec struct {
 	Key string `json:"key"`
@@ -40,6 +41,7 @@ type wallManifest struct {
 	Version  int             `json:"version"`
 	Scale    int             `json:"scale"`
 	Kind     string          `json:"kind"`
+	Matching string          `json:"matching,omitempty"`
 	Viewport [5]int          `json:"viewport"`
 	Assets   []wallAssetSpec `json:"assets"`
 	Cells    []wallCellSpec  `json:"cells"`
@@ -48,6 +50,7 @@ type wallAsset struct {
 	w, h     int
 	wall     bool
 	ref, pix []byte
+	scaled   []byte
 }
 type wallCell struct {
 	ref   [64]byte
@@ -59,7 +62,6 @@ type wallHD struct {
 	global  map[[64]byte]*wallCell
 	cells   [121]map[[64]byte]*wallCell
 	matches [121]*wallCell
-	panel   [88 * 88]byte
 	active  bool
 }
 
@@ -78,6 +80,9 @@ func loadWallHD(dir string) (*wallHD, error) {
 	if m.Version != 1 || m.Scale != 3 || m.Kind != "wall-grid" || m.Viewport != [5]int{24, 24, 11, 11, 8} || len(m.Assets) < 1 || len(m.Assets) > 2048 || len(m.Cells) < 1 || len(m.Cells) > 32768 {
 		return nil, fmt.Errorf("walls.json不符規格010 §7")
 	}
+	if m.Matching != "" && m.Matching != "portable-complete-cells" {
+		return nil, fmt.Errorf("牆面完整格比對模式不合法")
+	}
 	assets := map[string]wallAsset{}
 	checked := func(name, hash string) ([]byte, error) {
 		if name == "" || filepath.IsAbs(name) || filepath.Clean(name) != name || name == ".." || len(name) >= 3 && name[:3] == "../" {
@@ -92,6 +97,9 @@ func loadWallHD(dir string) (*wallHD, error) {
 		}
 		if s.Kind != "wall" && s.Kind != "sky" || s.Kind == "wall" && (w != 8 || h != 8) || s.Kind == "sky" && s.Size != [2]int{88, 16} && s.Size != [2]int{24, 24} && s.Size != [2]int{88, 48} {
 			return nil, fmt.Errorf("牆面來源種類或尺寸不合法")
+		}
+		if s.Algorithm != "" && (s.Algorithm != "scale3x" || s.Kind != "wall") {
+			return nil, fmt.Errorf("牆面演算法不合法")
 		}
 		ref, err := checked(s.Indexed, s.IndexSHA)
 		if err != nil {
@@ -125,10 +133,10 @@ func loadWallHD(dir string) (*wallHD, error) {
 				if rgba.Pix[n+3] != 255 {
 					return nil, fmt.Errorf("牆面PNG非不透明")
 				}
-				if v == 13 && !bytes.Equal(rgba.Pix[n:n+3], []byte{85, 85, 85}) {
+				if s.Algorithm == "" && v == 13 && !bytes.Equal(rgba.Pix[n:n+3], []byte{85, 85, 85}) {
 					return nil, fmt.Errorf("牆面留底遮罩被改動")
 				}
-				if s.Kind == "wall" && (x == 0 || y == 0 || x == w*3-1 || y == h*3-1) {
+				if s.Algorithm == "" && s.Kind == "wall" && (x == 0 || y == 0 || x == w*3-1 || y == h*3-1) {
 					c := v
 					if c == 13 {
 						c = 8
@@ -139,7 +147,14 @@ func loadWallHD(dir string) (*wallHD, error) {
 				}
 			}
 		}
-		assets[s.Key] = wallAsset{w, h, s.Kind == "wall", ref, rgba.Pix}
+		a := wallAsset{w: w, h: h, wall: s.Kind == "wall", ref: ref, pix: rgba.Pix}
+		if s.Algorithm == "scale3x" {
+			if !hdScale3xPixelsEqual(ref, rgba.Pix, w, h) {
+				return nil, fmt.Errorf("Scale3x牆面結果不符")
+			}
+			a.scaled = hdScale3x(ref, w, h)
+		}
+		assets[s.Key] = a
 	}
 	h := &wallHD{sources: len(assets), global: map[[64]byte]*wallCell{}}
 	for i := range h.cells {
@@ -181,10 +196,25 @@ func loadWallHD(dir string) (*wallHD, error) {
 					}
 					cell.ref[y*8+x] = v
 					owners[y*8+x] = a.wall
+					if a.scaled != nil {
+						continue
+					}
 					for row := 0; row < 3; row++ {
 						src := ((sy*3+row)*a.w*3 + sx*3) * 4
 						dst := ((y*3+row)*24 + x*3) * 4
 						copy(cell.pix[dst:dst+12], a.pix[src:src+12])
+					}
+				}
+			}
+			if a.scaled != nil {
+				for y := 0; y < 24; y++ {
+					for x := 0; x < 24; x++ {
+						sx, sy := x-dx*3, y-dy*3
+						if sx < 0 || sy < 0 || sx >= a.w*3 || sy >= a.h*3 || a.scaled[sy*a.w*3+sx] == 13 {
+							continue
+						}
+						src, dst := (sy*a.w*3+sx)*4, (y*24+x)*4
+						copy(cell.pix[dst:dst+4], a.pix[src:src+4])
 					}
 				}
 			}
@@ -227,7 +257,7 @@ func loadWallHD(dir string) (*wallHD, error) {
 						break
 					}
 				}
-				if !nonempty {
+				if !nonempty && a.scaled == nil {
 					return nil, fmt.Errorf("牆面通用格沒有來源像素")
 				}
 			}
@@ -251,6 +281,44 @@ func loadWallHD(dir string) (*wallHD, error) {
 			}
 		}
 	}
+	if m.Matching == "portable-complete-cells" {
+		all := map[[64]byte]*wallCell{}
+		conflicts := map[[64]byte]bool{}
+		add := func(ref [64]byte, cell *wallCell) {
+			old := all[ref]
+			if old == nil {
+				all[ref] = cell
+				return
+			}
+			if conflicts[ref] {
+				old.guard = old.guard || cell.guard
+				return
+			}
+			if !bytes.Equal(old.pix, cell.pix) {
+				pix := make([]byte, 24*24*4)
+				for y := 0; y < 24; y++ {
+					for x := 0; x < 24; x++ {
+						n := (y*24 + x) * 4
+						copy(pix[n:n+3], combatEGA[ref[y/3*8+x/3]][:])
+						pix[n+3] = 255
+					}
+				}
+				all[ref] = &wallCell{ref: ref, pix: pix, guard: old.guard || cell.guard}
+				conflicts[ref] = true
+			} else {
+				old.guard = old.guard || cell.guard
+			}
+		}
+		for ref, c := range h.global {
+			add(ref, c)
+		}
+		for _, lookup := range h.cells {
+			for ref, c := range lookup {
+				add(ref, c)
+			}
+		}
+		h.global = all
+	}
 	return h, nil
 }
 
@@ -259,6 +327,7 @@ func (h *wallHD) frame(idx []byte, pal [256][3]uint8) {
 		return
 	}
 	h.active = false
+	clear(h.matches[:])
 	if len(idx) != 64000 {
 		return
 	}
@@ -267,7 +336,6 @@ func (h *wallHD) frame(idx []byte, pal [256][3]uint8) {
 			return
 		}
 	}
-	guards := 0
 	for pos := 0; pos < 121; pos++ {
 		x, y := 24+pos%11*8, 24+pos/11*8
 		var ref [64]byte
@@ -279,31 +347,31 @@ func (h *wallHD) frame(idx []byte, pal [256][3]uint8) {
 			cell = h.cells[pos][ref]
 		}
 		if cell == nil {
-			return
+			continue
 		}
 		h.matches[pos] = cell
-		if cell.guard {
-			guards++
-		}
+		h.active = true
 	}
-	if guards < 3 {
-		return
-	}
-	for row := 0; row < 88; row++ {
-		copy(h.panel[row*88:(row+1)*88], idx[(24+row)*320+24:(24+row)*320+112])
-	}
-	h.active = true
 }
 func (h *wallHD) draw(out, idx []byte, scale int) {
 	if h == nil || !h.active || scale != 3 || len(out) != 960*600*4 || len(idx) != 64000 {
 		return
 	}
-	for row := 0; row < 88; row++ {
-		if !bytes.Equal(h.panel[row*88:(row+1)*88], idx[(24+row)*320+24:(24+row)*320+112]) {
-			return
-		}
-	}
 	for pos, cell := range h.matches {
+		if cell == nil {
+			continue
+		}
+		nx, ny := 24+pos%11*8, 24+pos/11*8
+		present := true
+		for row := 0; row < 8; row++ {
+			if !bytes.Equal(cell.ref[row*8:(row+1)*8], idx[(ny+row)*320+nx:(ny+row)*320+nx+8]) {
+				present = false
+				break
+			}
+		}
+		if !present {
+			continue
+		}
 		x, y := (24+pos%11*8)*3, (24+pos/11*8)*3
 		for row := 0; row < 24; row++ {
 			dst := ((y+row)*960 + x) * 4

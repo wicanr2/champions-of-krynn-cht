@@ -96,7 +96,7 @@ func wallLive(t *testing.T, dir string) *Live {
 	}
 	return l
 }
-func TestWallHDCompleteViewportAndFallback(t *testing.T) {
+func TestWallHDPerCellViewportAndFallback(t *testing.T) {
 	dir, refs := wallFixture(t)
 	l := wallLive(t, dir)
 	var pal [256][3]uint8
@@ -130,11 +130,11 @@ func TestWallHDCompleteViewportAndFallback(t *testing.T) {
 	if !bytes.Equal(hd, l.Compose(3, true, nil)) {
 		t.Fatal("切換後結果不同")
 	}
-	// 每一格都必要，守衛外一點失配也須撤除整個牆面家族。
+	// 未知格只撤除自己，不影響別處的牆面。
 	screen[100*320+100] = 15
 	l.Frame(screen, pal)
-	if !bytes.Equal(l.Compose(3, true, nil), l.Compose(3, false, nil)) || l.walls.active {
-		t.Fatal("未知格未全視窗回退")
+	if bytes.Equal(l.Compose(3, true, nil), l.Compose(3, false, nil)) || !l.walls.active || l.walls.matches[9*11+9] != nil {
+		t.Fatal("未知格影響其他格，或自身未回退")
 	}
 	screen[100*320+100] = 0
 	l.Frame(screen, pal)
@@ -152,8 +152,8 @@ func TestWallHDCompleteViewportAndFallback(t *testing.T) {
 		putWallCell(screen, n+12, make([]byte, 64))
 	}
 	l.Frame(screen, pal)
-	if l.walls.active {
-		t.Fatal("不足三個牆面守衛仍啟用")
+	if !l.walls.active || l.walls.matches[14] == nil {
+		t.Fatal("一個完整牆面被其他格擋住")
 	}
 }
 func TestWallHDMaskedCompositionAndStaleDraw(t *testing.T) {
@@ -179,14 +179,14 @@ func TestWallHDMaskedCompositionAndStaleDraw(t *testing.T) {
 	if !bytes.Equal(out[left:left+3], combatEGA[11][:]) || !bytes.Equal(out[right:right+3], []byte{17, 123, 231}) {
 		t.Fatal("留底與牆面遮擋不符")
 	}
-	// 在Frame後才變動畫面，Draw必須重新核對全部視窗。
+	// Frame後單格變動，只跳過過期格，其餘格仍須畫。
 	altered := append([]byte{}, screen...)
 	altered[100*320+100] ^= 1
 	base := l.Compose(3, false, nil)
 	want := append([]byte{}, base...)
 	l.walls.draw(base, altered, 3)
-	if !bytes.Equal(base, want) {
-		t.Fatal("過期畫格仍畫出HD")
+	if bytes.Equal(base, want) || !bytes.Equal(base[left:left+3], out[left:left+3]) {
+		t.Fatal("過期單格錯誤阻擋其他完整格")
 	}
 	putWallCell(screen, 0, make([]byte, 64))
 	l.Frame(screen, pal)

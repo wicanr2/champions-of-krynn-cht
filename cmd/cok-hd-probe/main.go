@@ -134,6 +134,14 @@ func main() {
 	var prev [32]byte
 	next := m.Steps
 	var shots []map[string]any
+	paletteHash := func() string {
+		pal := m.FramePalette()
+		var raw [256 * 3]byte
+		for n, c := range pal {
+			copy(raw[n*3:n*3+3], c[:])
+		}
+		return fmt.Sprintf("%x", sha256.Sum256(raw[:]))
+	}
 	capture := func(name string) {
 		idx := m.Indexed()
 		if len(idx) != 64000 {
@@ -148,7 +156,7 @@ func main() {
 			must(png.Encode(f, &image.NRGBA{Pix: pix, Stride: 320 * (*scale) * 4, Rect: image.Rect(0, 0, 320*(*scale), 200*(*scale))}))
 			must(f.Close())
 		}
-		shots = append(shots, map[string]any{"name": name, "steps": m.Steps, "indexed_sha256": fmt.Sprintf("%x", sha256.Sum256(idx))})
+		shots = append(shots, map[string]any{"name": name, "steps": m.Steps, "indexed_sha256": fmt.Sprintf("%x", sha256.Sum256(idx)), "palette_sha256": paletteHash()})
 	}
 	m.SetOnFrame(func() {
 		idx := m.Indexed()
@@ -195,7 +203,11 @@ func main() {
 		Seg       [4]uint16
 		IP, Flags uint16
 	}{m.CPU.R, m.CPU.Seg, m.CPU.IP, m.CPU.Flags}
-	raw, err := json.MarshalIndent(map[string]any{"initial_state_sha256": fmt.Sprintf("%x", sha256.Sum256(input)), "initial_steps": initial, "initial_poke": *poke, "steps": m.Steps, "memory_sha256": fmt.Sprintf("%x", sha256.Sum256(ram)), "registers": registers, "shots": shots, "keys_sent": ki, "keys": *keys, "key_names": *keyNames, "key_from": *from, "key_every": *every, "hd_items": live.HDItems, "scope": "既有狀態續跑；相同state固定初始亂數與虛擬時鐘。initial_poke明列診斷注入，空字串代表本輪無注入。不是新冷開機玩家路徑。"}, "", "  ")
+	exe, err := os.Executable()
+	must(err)
+	binary, err := os.ReadFile(exe)
+	must(err)
+	raw, err := json.MarshalIndent(map[string]any{"binary_sha256": fmt.Sprintf("%x", sha256.Sum256(binary)), "initial_state_sha256": fmt.Sprintf("%x", sha256.Sum256(input)), "initial_steps": initial, "initial_poke": *poke, "steps": m.Steps, "memory_sha256": fmt.Sprintf("%x", sha256.Sum256(ram)), "palette_sha256": paletteHash(), "registers": registers, "shots": shots, "keys_sent": ki, "keys": *keys, "key_names": *keyNames, "key_from": *from, "key_every": *every, "hd_items": live.HDItems, "scope": "既有狀態續跑；相同state固定初始亂數與虛擬時鐘。initial_poke明列診斷注入，空字串代表本輪無注入。不是新冷開機玩家路徑。"}, "", "  ")
 	must(err)
 	must(os.WriteFile(filepath.Join(*output, "receipt.json"), append(raw, '\n'), 0644))
 	fmt.Printf("steps=%d shots=%d HD=%d\n", m.Steps, len(shots), live.HDItems)
