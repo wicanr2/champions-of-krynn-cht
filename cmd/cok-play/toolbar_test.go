@@ -236,8 +236,18 @@ func TestParseLangFontsAndPick(t *testing.T) {
 	}
 	packs := []*cok.LangPack{{Code: "zh-TW"}, {Code: "ja"}}
 	dir := t.TempDir()
+	defer func(f func() string) { systemLocale = f }(systemLocale)
+	systemLocale = func() string { return "" }
 	if i, _ := pickLang(packs, "", dir); i != 0 {
 		t.Fatal("沒有選擇時用第一種")
+	}
+	systemLocale = func() string { return "ja_JP.UTF-8" }
+	if i, _ := pickLang(packs, "", dir); i != 1 {
+		t.Fatal("第一次執行依系統語言")
+	}
+	systemLocale = func() string { return "ko_KR" }
+	if i, _ := pickLang(packs, "", dir); i != 0 {
+		t.Fatal("系統語言沒有對應的語言包時用第一種")
 	}
 	g := &game{langs: packs, langDir: dir, live: cok.NewLive(&xlate.Font{W: 16, H: 16, Glyphs: map[rune][]byte{}}, nil, nil)}
 	packs[1].Host = map[string]string{"lang.name": "日本語"}
@@ -247,8 +257,9 @@ func TestParseLangFontsAndPick(t *testing.T) {
 	if g.lang != 1 || g.barText["lang.name"] != "日本語" || g.live.Lang() != packs[1] {
 		t.Fatal("換語言要更新語言包與切換列文字")
 	}
+	systemLocale = func() string { return "zh_TW" }
 	if i, _ := pickLang(packs, "", dir); i != 1 {
-		t.Fatal("要記住上次的選擇")
+		t.Fatal("記住的選擇優先於系統語言")
 	}
 	g.cycleLang()
 	if g.chinese || g.lang != 1 {
@@ -271,5 +282,18 @@ func TestToolbarPanelAbsentDisabled(t *testing.T) {
 	}
 	if it, _ := find(items, "toolbar.journal"); it.state == itemDisabled {
 		t.Fatal("手札仍可用")
+	}
+}
+
+func TestLocaleLang(t *testing.T) {
+	for tag, want := range map[string]string{
+		"zh_TW.UTF-8": "zh-TW", "zh-Hant-TW": "zh-TW", "zh_HK": "zh-TW", "zh": "zh-TW",
+		"zh_CN.UTF-8": "zh-CN", "zh-Hans-CN": "zh-CN", "zh-Hans": "zh-CN", "zh_SG": "zh-CN",
+		"ja_JP.UTF-8": "ja", "ja": "ja", "ko-KR": "ko", "en_US.UTF-8": "en", "fr_FR": "en",
+		"C": "", "POSIX": "", "C.UTF-8": "", "": "",
+	} {
+		if got := localeLang(tag); got != want {
+			t.Errorf("localeLang(%q) = %q，要 %q", tag, got, want)
+		}
 	}
 }

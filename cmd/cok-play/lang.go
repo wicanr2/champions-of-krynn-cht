@@ -98,23 +98,79 @@ func loadLangs(textDir string, main *xlate.Font, fonts map[string]string, releas
 	return packs, nil
 }
 
-// pickLang 回起始語言的索引：-lang 優先，其次是上次的選擇，都沒有就是第一種（繁中）。
+// pickLang 回起始語言的索引：-lang 優先，其次是上次的選擇，再來是系統語言（第一次執行），都沒有就是第一種（繁中）。
 func pickLang(packs []*cok.LangPack, flagLang, stateDir string) (int, error) {
-	want := flagLang
-	if want == "" && stateDir != "" {
-		if b, err := os.ReadFile(filepath.Join(stateDir, langChoiceFile)); err == nil {
-			want = strings.TrimSpace(string(b))
+	find := func(code string) int {
+		for i, p := range packs {
+			if code != "" && p.Code == code {
+				return i
+			}
 		}
-	}
-	for i, p := range packs {
-		if p.Code == want {
-			return i, nil
-		}
+		return -1
 	}
 	if flagLang != "" {
+		if i := find(flagLang); i >= 0 {
+			return i, nil
+		}
 		return 0, fmt.Errorf("-lang %s：沒有這個語言或缺字型", flagLang)
 	}
+	if stateDir != "" {
+		if b, err := os.ReadFile(filepath.Join(stateDir, langChoiceFile)); err == nil {
+			if i := find(strings.TrimSpace(string(b))); i >= 0 {
+				return i, nil
+			}
+		}
+	}
+	if i := find(localeLang(systemLocale())); i >= 0 {
+		return i, nil
+	}
 	return 0, nil
+}
+
+// systemLocale 回作業系統的語言設定（lang_sys_*.go）；測試可以換掉。
+var systemLocale = osLocale
+
+// localeLang 把系統語言標記（zh_TW.UTF-8、zh-Hant-TW、ja-JP、ko_KR 等）對到語言代碼。
+// 中文以字體（Hant、Hans）或地區分繁簡，只寫 zh 時用繁中；C、POSIX 與空字串回空；其他語言回英文。
+func localeLang(tag string) string {
+	tag = strings.ToLower(strings.TrimSpace(tag))
+	if i := strings.IndexAny(tag, ".@"); i >= 0 {
+		tag = tag[:i]
+	}
+	if tag == "" || tag == "c" || tag == "posix" {
+		return ""
+	}
+	parts := strings.FieldsFunc(tag, func(r rune) bool { return r == '_' || r == '-' })
+	switch parts[0] {
+	case "zh":
+		for _, p := range parts[1:] {
+			switch p {
+			case "hans", "cn", "sg", "my":
+				return "zh-CN"
+			case "hant", "tw", "hk", "mo":
+				return cok.DefaultLang
+			}
+		}
+		return cok.DefaultLang
+	case "ja":
+		return "ja"
+	case "ko":
+		return "ko"
+	}
+	return cok.EnglishLang
+}
+
+// envLocale 依 POSIX 優先序讀語言環境變數：LANGUAGE（冒號分隔的第一項）、LC_ALL、LC_MESSAGES、LANG。
+func envLocale() string {
+	if v, _, _ := strings.Cut(os.Getenv("LANGUAGE"), ":"); v != "" {
+		return v
+	}
+	for _, k := range []string{"LC_ALL", "LC_MESSAGES", "LANG"} {
+		if v := os.Getenv(k); v != "" {
+			return v
+		}
+	}
+	return ""
 }
 
 // nextLang 換到下一種語言（F8，最後一種之後回第一種）並記下選擇。
