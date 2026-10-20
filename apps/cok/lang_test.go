@@ -225,3 +225,15 @@ func TestWrapColsEnglishDropsLeadingSpace(t *testing.T) {
 		}
 	}
 }
+
+func TestKoreanHalfwidthPunctNotAtLineStart(t *testing.T) {
+	lines := wrapCols("가나다라마바사아자차. 카타파", 10)
+	for i, ln := range lines {
+		if i > 0 && len(ln) > 0 && (ln[0] == '.' || ln[0] == pairRune('.', ' ')) {
+			t.Fatalf("第 %d 列以半形句號開頭：%q", i, string(ln))
+		}
+	}
+	if !closeAfter('다', '.') || !closeAfter('다', pairRune('.', ' ')) || closeAfter('a', '.') || !closeAfter('a', '。') {
+		t.Fatal("closeAfter：韓文後的半形標點與全形標點不放行首，拉丁字後的半形標點照舊")
+	}
+}

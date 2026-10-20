@@ -110,7 +110,7 @@ func wrapCols(body string, cols int) [][]rune {
 			word := rs[i:j]
 			if len(line)+len(word) > cols && len(line) > 0 && len(word) <= cols {
 				var carry []rune
-				if isClosePunct(word[0]) && len(line) > 1 {
+				if len(line) > 1 && closeAfter(line[len(line)-1], word[0]) {
 					carry, line = []rune{line[len(line)-1]}, line[:len(line)-1]
 				}
 				lines = append(lines, line)

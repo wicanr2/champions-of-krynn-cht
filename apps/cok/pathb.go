@@ -294,6 +294,14 @@ func (b *PathB) newPage(r Rect, bg, fg uint8, row, col int) *bPage {
 // isClosePunct 是不放行首的全形句讀。
 func isClosePunct(r rune) bool { return strings.ContainsRune("，。、；：！？」』）…", r) }
 
+// closeAfter：r 不放行首。全形句讀一律如此；韓文用半形標點，接在韓文音節後的 . , ! ? 也不放行首（主專案規格 015 §5）。
+func closeAfter(prev, r rune) bool {
+	if isPair(r) { // 半形併字（規格 005）：「. 」這類組合字看第一個字
+		r = (r - pairBase) >> 7
+	}
+	return isClosePunct(r) || prev >= 0xAC00 && prev <= 0xD7A3 && strings.ContainsRune(".,!?", r)
+}
+
 func isWordRune(r rune) bool { return r < 0x80 && r != ' ' || isPair(r) } // 組合字不從中間斷行（規格 005）
 
 // layout 把 runes 從頁的中文游標排進格子；溢出回 false（不改格子）。
@@ -329,7 +337,7 @@ func layout(p *bPage, runes []rune) bool {
 				continue
 			}
 		}
-		if isClosePunct(r) && col == p.rect.Left && len(placed) > 0 && placed[len(placed)-1].row == row-1 {
+		if len(placed) > 0 && closeAfter(placed[len(placed)-1].r, r) && col == p.rect.Left && placed[len(placed)-1].row == row-1 {
 			last := placed[len(placed)-1]
 			placed = placed[:len(placed)-1]
 			placed = append(placed, cell{row, col, last.r})
