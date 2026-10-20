@@ -23,6 +23,11 @@ func PackHalfWidth(rs []rune) []rune {
 	if !wide {
 		return rs
 	}
+	return PackHalfWidthAll(rs)
+}
+
+// PackHalfWidthAll 同 PackHalfWidth，但全是 ASCII 也合併（英文版的切換列，主專案規格 015 §3.2）。
+func PackHalfWidthAll(rs []rune) []rune {
 	out := make([]rune, 0, len(rs))
 	for i := 0; i < len(rs); {
 		if !isHalf(rs[i]) {

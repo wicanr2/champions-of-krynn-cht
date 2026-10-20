@@ -107,8 +107,9 @@ type game struct {
 	music    *musicPlayer      // 遊戲中配樂（規格 014）；nil 表示沒有素材
 	langs    []*cok.LangPack   // 已載入的語言（規格 015），索引 lang 為目前語言
 	lang     int
-	langDir  string // 語言選擇記錄的目錄
-	cursorX  int    // 游標邏輯位置（切換列懸停用）
+	langDir  string      // 語言選擇記錄的目錄
+	mainFont *xlate.Font // -font（切換列在英文版用它）
+	cursorX  int         // 游標邏輯位置（切換列懸停用）
 	cursorY  int
 }
 
@@ -367,7 +368,8 @@ func (g *game) toolbarItems() []toolbarItem {
 	return toolbarItems(g.barText, toolbarState{scale: g.scale, hasHD: g.live.HDItems > 0, chinese: g.chinese, muted: g.muted,
 		hasMusic: g.music != nil, music: g.music != nil && g.music.enabled,
 		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
-		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open(), langs: len(g.langs)})
+		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open(), langs: len(g.langs),
+		packASCII: g.english(), noJournal: g.live.Journal == nil, noGuide: g.live.Guide == nil})
 }
 
 // drawBar 在切換列顯示時把它疊到 rgba 上（截圖 F10 不含切換列）。
@@ -376,7 +378,7 @@ func (g *game) drawBar(rgba []byte) {
 		return
 	}
 	items := g.toolbarItems()
-	drawToolbar(rgba, g.scale, g.live.Font, items, toolbarHit(items, g.cursorX, g.cursorY), func(r rune) {
+	drawToolbar(rgba, g.scale, g.barFont(), items, toolbarHit(items, g.cursorX, g.cursorY), func(r rune) {
 		if !g.missing[r] {
 			g.missing[r] = true
 			fmt.Fprintf(os.Stderr, "cok-play: 字型缺字 %q（U+%04X）\n", r, r)
@@ -617,7 +619,7 @@ func main() {
 	}
 	g := &game{owner: owner, live: live, scale: *scaleFlag, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
 		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText,
-		langs: langs, lang: langIdx, langDir: stateDir}
+		langs: langs, lang: langIdx, langDir: stateDir, mainFont: font}
 	if *musicDir != "" {
 		if g.music, err = loadMusic(*musicDir, live.Music); err != nil {
 			fail(err)

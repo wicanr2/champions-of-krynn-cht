@@ -62,6 +62,9 @@ type Live struct {
 	indexed []byte
 	pal     [256][3]uint8
 	lang    *LangPack // 目前語言（主專案規格 015；SetLang 設定，nil 表示 NewLive 給的表）
+	// journalKeep、guideKeep 保存面板物件：語言沒有該面板時 Journal／Guide 設為 nil（停用），換回時還原
+	journalKeep *JournalPanel
+	guideKeep   *GuidePanel
 }
 
 // NewLive 建立尚未綁定位址的覆繪；ui 是介面字串查表（可為規格 004 的 Translator），
@@ -100,6 +103,9 @@ func (l *Live) bind(mem CPUView) error {
 			return err
 		}
 		l.B.OnEntry = l.journalEntry
+		if l.lang != nil {
+			l.B.Ref = l.lang.Ref // 綁定前已 SetLang（主專案規格 015）
+		}
 	}
 	if l.Music != nil {
 		l.A.OnText = func(t []byte) { l.Music.Text(string(t)) }

@@ -64,6 +64,14 @@ func loadLangs(textDir string, main *xlate.Font, fonts map[string]string, releas
 				return nil, fmt.Errorf("語言 %s 的字型：%w", code, err)
 			}
 			font.Name = filepath.Base(path)
+			// 同目錄的 <名稱>-3x.golemfnt（24×24）是 3 倍畫面專用字模（英文版，規格 015 §3.1）
+			if p3 := strings.TrimSuffix(path, ".golemfnt") + "-3x.golemfnt"; fileExists(p3) {
+				f3, err := xlate.LoadFont(p3)
+				if err != nil || f3.W != 24 || f3.H != 24 {
+					return nil, fmt.Errorf("語言 %s 的 3 倍字型 %s 要是 24×24：%v", code, p3, err)
+				}
+				font.Scaled = map[int]xlate.ScaledFont{3: {Font: f3}}
+			}
 		}
 		p, err := cok.LoadLangPack(textDir, code, font)
 		if err != nil {
@@ -79,7 +87,7 @@ func loadLangs(textDir string, main *xlate.Font, fonts map[string]string, releas
 			return nil, fmt.Errorf("語言 %s：host-text.%s.tsv 缺 lang.name（切換列的語言名稱）", p.Code, p.Code)
 		}
 		// 項目最多的狀態（沒有 HD 素材時多一個說明項）也要放得進 320 像素寬
-		items := toolbarItems(p.Host, toolbarState{scale: 2, langs: len(packs)})
+		items := toolbarItems(p.Host, toolbarState{scale: 2, langs: len(packs), packASCII: p.Code == cok.EnglishLang})
 		if last := items[len(items)-1]; (last.col+last.cols)*8 > 320 {
 			return nil, fmt.Errorf("語言 %s：切換列寬 %d 像素，超過 320", p.Code, (last.col+last.cols)*8)
 		}
@@ -143,4 +151,22 @@ func (g *game) setLang(i int) {
 			fmt.Fprintln(os.Stderr, "cok-play: 語言選擇寫入失敗：", err)
 		}
 	}
+}
+
+func fileExists(p string) bool {
+	st, err := os.Stat(p)
+	return err == nil && st.Mode().IsRegular()
+}
+
+// english 回目前是否為英文版。
+func (g *game) english() bool {
+	return len(g.langs) > 0 && g.langs[g.lang].Code == cok.EnglishLang
+}
+
+// barFont 回切換列的字型：英文字型沒有半形組合字與中文，英文版的切換列改用預設字型（-font）。
+func (g *game) barFont() *xlate.Font {
+	if g.english() && g.mainFont != nil {
+		return g.mainFont
+	}
+	return g.live.Font
 }

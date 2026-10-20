@@ -42,7 +42,9 @@ type toolbarState struct {
 	hasMusic, music                   bool // 有配樂素材、配樂開啟中（規格 014）
 	answers                           bool // 查驗題答案顯示中
 	journal, guide, mapOpen           bool
-	langs                             int // 已載入的語言數（規格 015）；兩種以上才顯示語言項
+	langs                             int  // 已載入的語言數（規格 015）；兩種以上才顯示語言項
+	packASCII                         bool // 英文版：切換列以預設字型畫，ASCII 也兩字併一格
+	noJournal, noGuide                bool // 目前語言沒有手札、攻略（規格 015），項目停用
 }
 
 // toolbarItems 依規格 011 §2.2 排出項目，項目間空一格。text 為 host-text 的 toolbar.* 鍵。
@@ -82,8 +84,8 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 	}
 	items = append(items,
 		toolbarItem{key: lang, act: langAct, state: on(st.chinese)},
-		toolbarItem{key: "toolbar.journal", act: actJournal, state: panel(st.journal)},
-		toolbarItem{key: "toolbar.guide", act: actGuide, state: panel(st.guide)},
+		toolbarItem{key: "toolbar.journal", act: actJournal, state: absent(st.noJournal, panel(st.journal))},
+		toolbarItem{key: "toolbar.guide", act: actGuide, state: absent(st.noGuide, panel(st.guide))},
 		toolbarItem{key: "toolbar.map", act: actMap, state: panel(st.mapOpen)},
 		toolbarItem{key: "toolbar.answers", act: actAnswers, state: on(st.answers)},
 		toolbarItem{key: "toolbar.music", act: actMusic, state: musicState(st)},
@@ -94,6 +96,9 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 	col := barFirstCol
 	for i := range items {
 		items[i].label = cok.PackHalfWidth([]rune(text[items[i].key])) // 半形兩字併一格（規格 005 §2；#18）
+		if st.packASCII {
+			items[i].label = cok.PackHalfWidthAll([]rune(text[items[i].key]))
+		}
 		items[i].col, items[i].cols = col, len(items[i].label)
 		col += items[i].cols + 1
 	}
@@ -243,4 +248,12 @@ func musicState(st toolbarState) itemState {
 		return itemActive
 	}
 	return itemEnabled
+}
+
+// absent：目前語言沒有這個面板時停用。
+func absent(none bool, st itemState) itemState {
+	if none {
+		return itemDisabled
+	}
+	return st
 }

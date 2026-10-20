@@ -263,3 +263,13 @@ func TestParseLangFontsAndPick(t *testing.T) {
 		t.Fatal("-lang 指定不存在的語言要報錯")
 	}
 }
+
+func TestToolbarPanelAbsentDisabled(t *testing.T) {
+	items := toolbarItems(testBarText, toolbarState{scale: 2, chinese: true, noGuide: true})
+	if it, _ := find(items, "toolbar.guide"); it.state != itemDisabled || toolbarClick(items, it.col*8, barTextY) != 0 {
+		t.Fatal("語言沒有攻略時攻略項停用")
+	}
+	if it, _ := find(items, "toolbar.journal"); it.state == itemDisabled {
+		t.Fatal("手札仍可用")
+	}
+}

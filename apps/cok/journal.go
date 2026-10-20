@@ -94,8 +94,13 @@ func wrapCols(body string, cols int) [][]rune {
 	var lines [][]rune
 	for _, para := range strings.Split(body, `\n`) {
 		rs := PackHalfWidth([]rune(para))
+		ascii := isASCII(para) // 英文段落（規格 015 §3.3）：換行後的行首空白略過
 		var line []rune
 		for i := 0; i < len(rs); {
+			if ascii && rs[i] == ' ' && len(line) == 0 && len(lines) > 0 && i > 0 {
+				i++
+				continue
+			}
 			j := i + 1
 			if isWordRune(rs[i]) {
 				for j < len(rs) && isWordRune(rs[j]) {
@@ -110,6 +115,10 @@ func wrapCols(body string, cols int) [][]rune {
 				}
 				lines = append(lines, line)
 				line = carry
+				if ascii && len(line) == 0 && word[0] == ' ' {
+					i = j // 英文段落：換行點落在空白上，空白不帶到下一列行首
+					continue
+				}
 			}
 			for _, r := range word {
 				if len(line) == cols {
@@ -361,4 +370,13 @@ func putRGB(dst []uint8, w, x, y int, c [3]uint8) {
 // InJournalPanel 回邏輯像素 (x, y) 是否在面板範圍內（收據判斷差異位置用）。
 func InJournalPanel(x, y int) bool {
 	return x >= journalX && x < journalX+8*journalCols && y >= journalY && y < journalY+8*journalRows
+}
+
+func isASCII(s string) bool {
+	for i := 0; i < len(s); i++ {
+		if s[i] >= 0x80 {
+			return false
+		}
+	}
+	return true
 }

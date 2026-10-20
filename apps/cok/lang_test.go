@@ -127,7 +127,7 @@ func TestTranslatorRelearnPlayers(t *testing.T) {
 
 func TestLangFilesAndAvailableLangs(t *testing.T) {
 	dir := t.TempDir()
-	for _, n := range []string{"ui-text.zh-TW.tsv", "ui-text.ja.tsv", "ui-text.zh-CN.tsv", "ui-text-events.tsv", "composed-templates.tsv"} {
+	for _, n := range []string{"host-text.zh-TW.tsv", "host-text.ja.tsv", "host-text.zh-CN.tsv", "ui-text-events.tsv", "composed-templates.tsv"} {
 		if err := os.WriteFile(filepath.Join(dir, n), nil, 0o644); err != nil {
 			t.Fatal(err)
 		}
@@ -156,5 +156,72 @@ func TestLoadLangPackRealText(t *testing.T) {
 	}
 	if p.Ref != DefaultJournalRef || p.Journal == nil || p.Guide == nil || p.Map == nil || p.Name() == "" {
 		t.Fatalf("繁中語言包不完整：%+v", p.Ref)
+	}
+}
+
+const enHost = "key\ttranslation\tnote\n" +
+	"quiz.entry\tJournal entry {entry}\t\nquiz.word\t(page {page}) word {word}?\t\nquiz.answer\tAnswer: {answer}\t\n" +
+	"journal.ref\t%d%s\t\njournal.refdot\t.\t\nlang.name\tEN\t\n"
+
+func TestEnglishPackIsIdentityAndHidesMissingPanels(t *testing.T) {
+	dir := t.TempDir()
+	if err := os.WriteFile(filepath.Join(dir, "host-text.en.tsv"), []byte(enHost), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	if err := os.WriteFile(filepath.Join(dir, "quiz-answers.tsv"), []byte("page\tentry\tword\tanswer\n"), 0o644); err != nil {
+		t.Fatal(err)
+	}
+	en, err := LoadLangPack(dir, EnglishLang, &xlate.Font{W: 16, H: 16, Glyphs: map[rune][]byte{}})
+	if err != nil {
+		t.Fatal(err)
+	}
+	if e, ok := en.UI.Lookup([]byte("View Take Pool Exit")); !ok || e.Translation != "View Take Pool Exit" {
+		t.Fatalf("英文原文即譯文：%+v", e)
+	}
+	if en.ECL == nil || en.Journal != nil || en.Guide != nil || en.Ref.Format != "%d%s" {
+		t.Fatal("英文語言包：空 ECL catalog、沒有手札與攻略、手札編號不補空白")
+	}
+	l := NewLive(&xlate.Font{W: 16, H: 16, Glyphs: map[rune][]byte{}}, nil, nil)
+	l.Journal = &JournalPanel{Entries: map[int]JournalEntry{1: {}}, Seen: map[int]bool{}}
+	l.Guide = &GuidePanel{Chapters: []GuideChapter{{Title: "x"}}}
+	keepJ, keepG := l.Journal, l.Guide
+	l.SetLang(en)
+	if l.Journal != nil || l.Guide != nil {
+		t.Fatal("語言沒有手札、攻略時面板要停用")
+	}
+	zh := &LangPack{Code: DefaultLang, UI: &Translator{}, Journal: &JournalPanel{Entries: map[int]JournalEntry{2: {}}},
+		Guide: &GuidePanel{Chapters: []GuideChapter{{Title: "y"}}}}
+	l.SetLang(zh)
+	if l.Journal != keepJ || l.Guide != keepG || l.Guide.Chapters[0].Title != "y" || len(l.Journal.Entries) != 1 {
+		t.Fatal("換回有面板的語言要還原同一個面板物件並換內容")
+	}
+}
+
+func TestPathCEnglishKeepsHotkeyColor(t *testing.T) {
+	c, m, l := newC(t, nil)
+	c.Catalog = &Translator{Exact: []Lookuper{identityLookup{}}}
+	drawWord(c, m, 24, 7, "Exit", 0, false)
+	c.SetPalette(c.pal)
+	var word, hot *xlate.Stamp
+	for _, s := range l.Stamps {
+		switch s.Key {
+		case pathCKey + "24.7":
+			word = s
+		case pathCKey + "24.7.hot":
+			hot = s
+		}
+	}
+	if word == nil || string(word.Text) != "Exit" || hot == nil || hot.X != 7*8 || hot.Text[0] != 'E' || hot.FG != c.pal[15] {
+		t.Fatalf("英文詞整詞重畫，熱鍵字母在原位置用熱鍵色：%+v %+v", word, hot)
+	}
+}
+
+func TestWrapColsEnglishDropsLeadingSpace(t *testing.T) {
+	lines := wrapCols("I want you to find the adventurers and put them out of our misery", 12)
+	lines = append(lines, wrapCols("abcdefghijk lmnop", 11)...) // 換行點正好是空白
+	for i, ln := range lines {
+		if i > 0 && len(ln) > 0 && ln[0] == ' ' {
+			t.Fatalf("第 %d 列行首空白：%q", i, string(ln))
+		}
 	}
 }

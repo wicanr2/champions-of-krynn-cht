@@ -16,6 +16,16 @@ import (
 // DefaultLang 是沒有指定語言時的譯文語言。
 const DefaultLang = "zh-TW"
 
+// EnglishLang 是英文版（規格 015 §3）：不查譯文表，攔截到的原文照原樣以英文字型重繪。
+const EnglishLang = "en"
+
+// identityLookup 把原文當譯文（英文版）。
+type identityLookup struct{}
+
+func (identityLookup) Lookup(original []byte) (Entry, bool) {
+	return Entry{Key: EnglishLang, Translation: string(original)}, true
+}
+
 // langName 回 stem 在 lang 的檔名。
 func langName(stem, lang string) string { return stem + "." + lang + ".tsv" }
 
@@ -38,15 +48,15 @@ func loadHostDir(dir, lang string) (map[string]string, error) {
 	return LoadHostText(b)
 }
 
-// AvailableLangs 列出譯文目錄裡有介面譯文表（ui-text.<語言>.tsv）的語言，繁中排第一，其餘依代碼排序。
+// AvailableLangs 列出譯文目錄裡有前端文字表（host-text.<語言>.tsv）的語言，繁中排第一，其餘依代碼排序。
 func AvailableLangs(dir string) ([]string, error) {
-	m, err := filepath.Glob(filepath.Join(dir, "ui-text.*.tsv"))
+	m, err := filepath.Glob(filepath.Join(dir, "host-text.*.tsv"))
 	if err != nil {
 		return nil, err
 	}
 	var langs []string
 	for _, p := range m {
-		code := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(p), "ui-text."), ".tsv")
+		code := strings.TrimSuffix(strings.TrimPrefix(filepath.Base(p), "host-text."), ".tsv")
 		if code != "" && !strings.Contains(code, ".") {
 			langs = append(langs, code)
 		}
@@ -87,7 +97,13 @@ func (p *LangPack) Name() string {
 func LoadLangPack(dir, lang string, font *xlate.Font) (*LangPack, error) {
 	p := &LangPack{Code: lang, Font: font}
 	var err error
-	if p.UI, p.ECL, err = LoadTextDirLang(dir, lang); err != nil {
+	if lang == EnglishLang {
+		// 路徑 B 由 ECL catalog 是否存在決定要不要綁，英文給空 catalog，查表全落到原文即譯文
+		if p.ECL, err = LoadCatalog([]byte("event_key\toriginal_length\toriginal_sha256\tsources\n"), []byte("key\ttranslation\tsource\n")); err != nil {
+			return nil, err
+		}
+		p.UI = &Translator{Exact: []Lookuper{identityLookup{}}}
+	} else if p.UI, p.ECL, err = LoadTextDirLang(dir, lang); err != nil {
 		return nil, err
 	}
 	if _, p.QuizFormat, err = LoadQuizDirLang(dir, lang); err != nil {
@@ -115,7 +131,9 @@ func LoadLangPack(dir, lang string, font *xlate.Font) (*LangPack, error) {
 		return nil, err
 	}
 	AddHalfWidthPairs(font)
-	AddScaledVariants(font)
+	if _, ok := font.Scaled[3]; !ok { // 英文字型另有 3 倍字模（cok-en-3x），不從 16×16 放大
+		AddScaledVariants(font)
+	}
 	return p, nil
 }
 
@@ -133,11 +151,22 @@ func (l *Live) SetLang(p *LangPack) {
 	}
 	l.lang = p
 	l.Font, l.ui, l.ecl, l.QuizFormat = p.Font, p.UI, p.ECL, p.QuizFormat
-	if l.Journal != nil && p.Journal != nil {
-		l.Journal.setContent(p.Journal.Entries, p.Journal.Format)
+	// 語言沒有手札或攻略時面板停用（nil），不沿用上一種語言的內容；面板物件與狀態留在 keep 欄位
+	if l.journalKeep == nil {
+		l.journalKeep, l.guideKeep = l.Journal, l.Guide
 	}
-	if l.Guide != nil && p.Guide != nil {
+	l.Journal, l.Guide = nil, nil
+	if l.journalKeep != nil && p.Journal != nil {
+		l.Journal = l.journalKeep
+		l.Journal.setContent(p.Journal.Entries, p.Journal.Format)
+	} else {
+		l.journalKeep.closeAll()
+	}
+	if l.guideKeep != nil && p.Guide != nil {
+		l.Guide = l.guideKeep
 		l.Guide.setContent(p.Guide.Chapters, p.Guide.Format)
+	} else {
+		l.guideKeep.Close()
 	}
 	if l.Map != nil && p.Map != nil {
 		l.Map.Guide, l.Map.Format = p.Map.Guide, p.Map.Format
@@ -170,5 +199,12 @@ func (g *GuidePanel) setContent(chs []GuideChapter, f GuideFormat) {
 		g.OnMove = nil
 		g.show(g.ch, g.page)
 		g.OnMove = on
+	}
+}
+
+// closeAll 關掉面板（自動與翻閱模式）。
+func (j *JournalPanel) closeAll() {
+	if j != nil {
+		j.open, j.browse = false, false
 	}
 }

@@ -323,7 +323,15 @@ func (c *PathC) rebuild(row int) {
 			BG: c.pal[bg], FG: c.pal[fg]}
 		c.Layer.Stamps = append(c.Layer.Stamps, s)
 		c.stamps[row] = append(c.stamps[row], s)
-		if hot >= 0 && len(runes) < len(w.cells) {
+		if hot >= 0 && hot < len(w.cells) && mw.Key == EnglishLang {
+			// 英文版原文即譯文：熱鍵字母在原位置以熱鍵色重畫（規格 015 §3.2）
+			h := w.cells[hot]
+			hs := &xlate.Stamp{Key: fmt.Sprintf("%s%d.%d.hot", pathCKey, row, w.col), X: (w.col + hot) * 8, Y: row * 8,
+				Cells: 1, CellW: 8, CellH: 8, Font: c.Font, Text: []rune{rune(h.r)}, State: xlate.Shown,
+				BG: c.pal[h.bg], FG: c.pal[h.fg]}
+			c.Layer.Stamps = append(c.Layer.Stamps, hs)
+			c.stamps[row] = append(c.stamps[row], hs)
+		} else if hot >= 0 && len(runes) < len(w.cells) {
 			h := w.cells[hot]
 			hs := &xlate.Stamp{Key: fmt.Sprintf("%s%d.%d.hot", pathCKey, row, w.col), X: (w.col + len(runes)) * 8, Y: row * 8,
 				Cells: 1, CellW: 8, CellH: 8, Font: c.Font, Text: []rune{rune(h.r)}, State: xlate.Shown,

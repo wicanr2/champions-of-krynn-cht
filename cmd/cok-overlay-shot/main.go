@@ -85,6 +85,8 @@ func main() {
 	mapPreview := flag.String("map-preview", "", "開地圖疊層（規格 009）：`走過` 只畫走過的格子、`全圖` 全畫（需 -text-dir）")
 	noOverlay := flag.Bool("no-overlay", false, "不掛攔截點（同一套送鍵跑出原版畫面，比對色號雜湊用）")
 	invPath := flag.String("inventory", "", "印字路徑盤點（issue #11）寫到這個 TSV；含原文，只放工作區")
+	langCode := flag.String("lang", "", "語言代碼（主專案規格 015；空白為繁中）：載入該語言包後 SetLang，需 -text-dir")
+	langFont := flag.String("lang-font", "", "-lang 的 16×16 字型；同目錄有 <名稱>-3x.golemfnt 時當 3 倍字模")
 	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
 	pokeSpec := flag.String("poke", "", "依步數改記憶體 `線性位址hex@步數=hex bytes`，分號分隔（例 18E53@1400001000=05；跳格抽樣用，同 probe -poke 的 lin: 寫法）")
 	flag.IntVar(&scale, "scale", 2, "輸出倍率 2 或 3（3× 用 22×22 變體字型，xlate spec 202 §2.4.1）")
@@ -201,6 +203,28 @@ func main() {
 		if *mapPreview == "全圖" {
 			live.Map.ToggleReveal()
 		}
+	}
+	if *langCode != "" && *langCode != cok.DefaultLang {
+		if *textDir == "" || *langFont == "" {
+			fail(fmt.Errorf("-lang 需要 -text-dir 與 -lang-font"))
+		}
+		lf, err := xlate.LoadFont(*langFont)
+		if err != nil {
+			fail(err)
+		}
+		lf.Name = filepath.Base(*langFont)
+		if p3 := strings.TrimSuffix(*langFont, ".golemfnt") + "-3x.golemfnt"; fileExists(p3) {
+			f3, err := xlate.LoadFont(p3)
+			if err != nil {
+				fail(err)
+			}
+			lf.Scaled = map[int]xlate.ScaledFont{3: {Font: f3}}
+		}
+		pack, err := cok.LoadLangPack(*textDir, *langCode, lf)
+		if err != nil {
+			fail(err)
+		}
+		live.SetLang(pack)
 	}
 	live.Inventory = *invPath != ""
 	live.Arm() // 狀態檔已在遊戲中
@@ -445,4 +469,9 @@ func mustRead(path string) []byte {
 func fail(err error) {
 	fmt.Fprintln(os.Stderr, "cok-overlay-shot：", err)
 	os.Exit(1)
+}
+
+func fileExists(p string) bool {
+	st, err := os.Stat(p)
+	return err == nil && st.Mode().IsRegular()
 }
