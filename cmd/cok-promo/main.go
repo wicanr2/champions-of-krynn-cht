@@ -104,7 +104,7 @@ func main() {
 	langFonts := flag.String("lang-fonts", "", "繁中以外語言的字型：代碼=路徑，逗號分隔；同目錄 <名稱>-3x.golemfnt 當 3 倍字模")
 	langCode := flag.String("lang", "zh-TW", "起始語言")
 	scale := flag.Int("scale", 3, "輸出倍率 2 或 3")
-	fps := flag.Int("fps", 30, "影片畫格率；須整除 60")
+	fps := flag.Int("fps", 30, "影片畫格率")
 	from := flag.Uint64("from", 0, "開始錄的絕對步數（之前照跑、不輸出）")
 	until := flag.Uint64("until", 0, "絕對步數上限")
 	keysAt := flag.String("keys-at", "", "依步數送鍵 `步數:鍵名`，逗號分隔；鍵盤緩衝區有鍵時順延")
@@ -117,7 +117,7 @@ func main() {
 	poke := flag.String("initial-poke", "", "起點注入：線性十六進位位址=hex bytes，分號分隔（同 cok-hd-probe）")
 	flag.Parse()
 	if *st == "" || *root == "" || *scratch == "" || *output == "" || *fontPath == "" || *textDir == "" || *until == 0 ||
-		(*scale != 2 && *scale != 3) || *fps <= 0 || 60%*fps != 0 {
+		(*scale != 2 && *scale != 3) || *fps <= 0 {
 		flag.Usage()
 		os.Exit(2)
 	}
@@ -253,6 +253,8 @@ func main() {
 		fail(err)
 	}
 	m.SetAdLib(true)
+	// 不用 StepsPerSecondNow()：它是 IRQ0 間隔×PIT 頻率，本作狀態下約 890k 步／秒，影片會慢 13 倍；
+	// 這裡要的是與 cok-play 相同的時間（VGA 回掃 70 Hz）。
 	stepsPerSecond := m.VGAFrameEvery * 70
 	mix := mixer.New(stepsPerSecond)
 	if *poke != "" {
