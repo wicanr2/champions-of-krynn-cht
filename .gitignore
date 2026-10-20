@@ -35,3 +35,5 @@ dosbox.conf
 
 # 手冊、手札、提示書等原版文件（不進版控）。
 *.pdf
+# 英文手札逐字稿（手冊原文，規格 015 §3.3）：tools/journal_en_build.py 產生，只放本機與發行包。
+text/journal.en.tsv

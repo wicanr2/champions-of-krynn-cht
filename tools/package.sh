@@ -80,6 +80,8 @@ GOMOUNT=(-v "$STAGE/src:/src" -v "$MODCACHE:/gomodcache:ro" -v "$GOCACHE_DIR:/go
 
 # --- 共同內容：譯文、字型、授權文件 ------------------------------------------------
 cp text/*.tsv "$STAGE/common/text/"
+# 規格 015 §3.3：英文手札逐字稿只在本機（不進 Git），有就放進發行包
+[[ -f "$W/journal/journal.en.tsv" ]] && cp "$W/journal/journal.en.tsv" "$STAGE/common/text/"
 # 規格 013：玩家名音譯資料（CMU 發音詞典 BSD 式、譯音表 CC BY-SA 4.0，授權隨檔）
 cp -r text/cmudict "$STAGE/common/text/"
 cp text/LICENSE-translit-table.md "$STAGE/common/text/"
@@ -94,13 +96,25 @@ dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$UNI:/uni:ro" -v "$ET
 # 規格 015：繁中以外的語言各以自己的譯文字集從 Unifont 建字型 font/cok-<代碼>.golemfnt（cok-play 依代碼找）
 for ui in text/ui-text.*.tsv; do
   code="${ui#text/ui-text.}"; code="${code%.tsv}"
-  [[ "$code" == zh-TW ]] && continue
+  [[ "$code" == zh-TW || "$code" == en ]] && continue
   LANG_CATALOGS=($(cd text && ls ./*."$code".tsv))
   dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$UNI:/uni:ro" -v "$STAGE:/stage" -w /text "$PY_IMAGE" \
     python -I /tools/eten_font.py "${LANG_CATALOGS[@]}" --unifont /uni/font/precompiled/unifont_t-17.0.05.hex \
     --out "/stage/common/font/cok-$code.golemfnt"
   echo "[package] 語言 $code 字型：${#LANG_CATALOGS[@]} 份表"
 done
+# 規格 015 §3.1：英文版字型由 Courier Prime Bold（OFL）產生，2 倍 16×16、3 倍 24×24
+if [[ -f text/host-text.en.tsv ]]; then
+  COURIER="$W/fonts-en/courierprime__CourierPrime-Bold.ttf"
+  [[ -f "$COURIER" ]] || die "缺英文字型來源 $COURIER"
+  docker image inspect cok-img:r1 >/dev/null 2>&1 || die "缺映像 cok-img:r1（tools/docker/img.Dockerfile，英文字型要 Pillow）"
+  for c in 16 24; do
+    n=cok-en; [[ $c == 24 ]] && n=cok-en-3x
+    dr -v "$ROOT/tools:/tools:ro" -v "$W/fonts-en:/f:ro" -v "$STAGE:/stage" cok-img:r1 \
+      python -I /tools/en_font.py --ttf /f/courierprime__CourierPrime-Bold.ttf --cell $c --out "/stage/common/font/$n.golemfnt"
+  done
+  cp "$W/fonts-en/courierprime__OFL.txt" "$STAGE/common/font/OFL-CourierPrime.txt"
+fi
 cp "$UNI/OFL-1.1.txt" "$STAGE/common/font/OFL-1.1.txt"
 cp "$UNI/COPYING" "$STAGE/common/font/COPYING-unifont"
 cp LICENSE "$STAGE/common/LICENSE"

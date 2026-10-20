@@ -80,6 +80,8 @@ class Converter:
 
 
 def convert_table(conv, text, name, cols=TEXT_COLS, charwise=False):
+    if name.startswith('walkthrough.'):
+        cols = cols | {'source'}  # 攻略的出處（軟體世界第 N 期）顯示在面板頁碼列
     h, rows = read(text / name)
     idx = [i for i, c in enumerate(h) if c in cols]
     out = []

@@ -1,0 +1,32 @@
+key	translation	note
+quiz.entry	Journal entry {entry}	規格 006 第 2 列（英文版）
+quiz.word	(journal page {page}) word {word}?	規格 006 第 4 列
+quiz.answer	Answer: {answer}	規格 006 第 6 列
+quiz.entry.tavern	Tavern tale {entry}	規格 006，英文手冊第 44 頁起
+journal.title	{title}	規格 007 面板第 1 列
+journal.page	Page {page}/{pages}	規格 007 面板頁碼
+journal.none	No journal entries yet (F5 closes)	規格 007 翻閱模式沒有已讀手札時
+journal.ref	%d%s	規格 015：英文原文已有空白，不補
+journal.refdot	.	規格 015
+map.unknown	(Unknown map)	規格 009
+map.nodata	No guide points for this map.	規格 009
+map.pos	{x},{y} facing {dir}	規格 009
+map.dirs	NESW	規格 009（0 北、1 東、2 南、3 西）
+map.hint	V all  F7 close	規格 009
+map.all	V visited  F7 close	規格 009
+map.more	{page}/{pages} PgDn next	規格 009
+toolbar.scale2	2x	規格 011
+toolbar.scale3	3x	規格 011
+toolbar.scale3hd	3xHD	規格 011
+toolbar.nohd	No HD	規格 011
+toolbar.chinese	EN	規格 011：譯文顯示中（英文版只有一種語言時）
+toolbar.original	Orig	規格 011
+toolbar.journal	Jrnl	規格 011
+toolbar.guide	Guide	規格 011
+toolbar.map	Map	規格 011
+toolbar.answers	Ans	規格 011
+toolbar.mute	Mute	規格 011
+toolbar.music	Music	規格 014
+toolbar.shot	Shot	規格 011
+toolbar.fullscreen	Full	規格 011
+lang.name	EN	規格 015

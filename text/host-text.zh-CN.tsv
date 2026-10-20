@@ -7,7 +7,7 @@ journal.page	第 {page}／{pages} 页	規格 007 面板頁碼
 journal.none	尚未记录任何手札（F5 关闭）	規格 007 翻閱模式沒有已讀手札時
 guide.title	攻略：{title}	規格 008 面板第 1 列
 guide.page	{source} 第 {page}／{pages} 页	規格 008 面板末列
-guide.toc	克莱恩英豪攻略（软件世界杂志）	規格 008 目錄頁標題
+guide.toc	克莱恩英豪攻略（软体世界杂志）	規格 008 目錄頁標題
 guide.tocline	{n}. {title}	規格 008 目錄每章一列
 guide.tochint	→／← 换章，PgDn／PgUp 翻页，Esc 或 F6 关闭。内容有剧情与解谜答案，请斟酌翻阅。	規格 008 目錄頁說明
 map.unknown	（尚未对应的地图）	規格 009 地圖名稱查不到時
