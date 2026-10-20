@@ -54,8 +54,8 @@ type observer struct {
 	cheat *cok.Invincible
 }
 
-func (o observer) GuardRange(peek func(uint32) uint8) (uint32, uint32) {
-	return o.cheat.GuardRange(peek)
+func (o observer) GuardRange(mem session.GuardMemory) (uint32, uint32) {
+	return o.cheat.GuardRange(mem)
 }
 func (o observer) GuardWrite(addr uint32, old, new uint8) bool {
 	return o.cheat.GuardWrite(addr, old, new)
@@ -373,7 +373,7 @@ func (g *game) finish() error {
 		fmt.Fprintf(os.Stderr, "cok-play: Layer stamps=%d\n", len(g.live.Layer.Stamps))
 	}
 	if g.cheat.On {
-		fmt.Fprintf(os.Stderr, "cok-play: 無敵 還原 %d 次；隊伍 %s\n", g.cheat.Restored, g.cheat.Report)
+		fmt.Fprintf(os.Stderr, "cok-play: 無敵 還原 %d 次、移除有害效果 %d 筆；隊伍 %s\n", g.cheat.Restored, g.cheat.Removed, g.cheat.Report)
 	}
 	if d, err := g.owner.Digest(); err == nil {
 		fmt.Fprintf(os.Stderr, "cok-play: frames=%d steps=%d memory_sha256=%x indexed_sha256=%x\n", g.frame, d.Steps, d.MemorySHA256, d.IndexedSHA256)

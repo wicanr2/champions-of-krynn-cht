@@ -2,9 +2,14 @@ package cok
 
 import "testing"
 
+type cheatMem map[uint32]uint8
+
+func (m cheatMem) Peek8(a uint32) uint8    { return m[a] }
+func (m cheatMem) Poke8(a uint32, v uint8) { m[a] = v }
+
 // fakeParty 在 64 KB 以上擺三筆紀錄：兩名隊員、一隻怪物，串成隊伍串列。
-func fakeParty() map[uint32]uint8 {
-	mem := map[uint32]uint8{}
+func fakeParty() cheatMem {
+	mem := cheatMem{}
 	put := func(a uint32, seg uint16) {
 		mem[a], mem[a+1], mem[a+2], mem[a+3] = 0, 0, uint8(seg), uint8(seg>>8)
 	}
@@ -32,16 +37,15 @@ func TestInvinciblePartyWalk(t *testing.T) {
 
 func TestInvincibleGuard(t *testing.T) {
 	mem := fakeParty()
-	peek := func(a uint32) uint8 { return mem[a] }
 	c := &Invincible{}
-	if lo, hi := c.GuardRange(peek); lo <= hi {
+	if lo, hi := c.GuardRange(mem); lo <= hi {
 		t.Fatal("關閉時不監看")
 	}
 	if c.GuardWrite(0x52190+recHP, 50, 40) {
 		t.Fatal("關閉時不還原")
 	}
 	c.On = true
-	lo, hi := c.GuardRange(peek)
+	lo, hi := c.GuardRange(mem)
 	if lo != 0x52190+recStatus || hi != 0x52330+recHP {
 		t.Fatalf("範圍 %x–%x", lo, hi)
 	}
@@ -55,12 +59,43 @@ func TestInvincibleGuard(t *testing.T) {
 		{0x52330 + recHP, 50, 51, false, "回血"},
 		{0x52190 + recStatus, 0, 4, true, "正常變異常"},
 		{0x52190 + recStatus, 6, 0, false, "復活"},
-		{0x52190 + recTeam, 0, 1, false, "其他欄位"},
+		{0x52190 + recTeam, 0, 1, true, "魅惑（陣營改成敵方）"},
+		{0x52190 + recTeam - 1, 0, 1, false, "其他欄位"},
 		{0x57BA0 + recHP, 9, 0, false, "怪物"},
 	}
 	for _, k := range cases {
 		if got := c.GuardWrite(k.addr, k.old, k.new); got != k.restore {
 			t.Errorf("%s：還原 %v，要 %v", k.why, got, k.restore)
 		}
+	}
+}
+
+func TestInvincibleStripsHarmfulAffects(t *testing.T) {
+	mem := fakeParty()
+	// 隊員 1 的效果串列：麻痺 → 有益(0x12) → 睡眠 → 失明 → 有益(0x5F)
+	nodes := []struct {
+		at  uint32
+		typ uint8
+	}{{0x60000, 0x34}, {0x60010, 0x12}, {0x60020, 0x35}, {0x60030, 0x21}, {0x60040, 0x5F}}
+	link := uint32(0x52190 + recAffects)
+	for _, n := range nodes {
+		mem[link], mem[link+1], mem[link+2], mem[link+3] = 0, 0, uint8((n.at>>4)&0xFF), uint8(n.at>>12)
+		mem[n.at] = n.typ
+		link = n.at + affectNext
+	}
+	c := &Invincible{On: true}
+	c.GuardRange(mem)
+	var got []uint8
+	for a := far(mem.Peek8, 0x52190+recAffects); a != 0; a = far(mem.Peek8, a+affectNext) {
+		got = append(got, mem[a])
+	}
+	if len(got) != 2 || got[0] != 0x12 || got[1] != 0x5F || c.Removed != 3 {
+		t.Fatalf("剩下 %x、移除 %d，要剩 12、5F，移除 3", got, c.Removed)
+	}
+	off := &Invincible{}
+	mem[0x52330+recAffects+2], mem[0x52330+recAffects+3] = 0x00, 0x60 // 隊員 2 指向麻痺
+	off.GuardRange(mem)
+	if far(mem.Peek8, 0x52330+recAffects) != 0x60000 {
+		t.Fatal("關閉時不可改效果串列")
 	}
 }

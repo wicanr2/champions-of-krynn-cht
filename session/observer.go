@@ -41,15 +41,27 @@ type ModeObserver interface {
 // WriteGuard is an optional extension of StepObserver for a frontend-chosen
 // memory guard (champions-of-krynn-cht 規格 017：我方無敵).  At the start of
 // every Advance the owner asks GuardRange for one linear range [lo, hi]
-// (lo > hi watches nothing) with read-only access to memory; every byte write
+// (lo > hi watches nothing); GuardRange may also patch memory through mem
+// before the turn runs (removing a harmful record, say).  Every byte write
 // into that range is then reported to GuardWrite after it lands, and a true
 // result writes the old byte back at once.  This changes guest execution, so
 // only a user-chosen option may implement it; an observer that does not
 // implement it leaves the run identical to the original.
 type WriteGuard interface {
-	GuardRange(peek func(addr uint32) uint8) (lo, hi uint32)
+	GuardRange(mem GuardMemory) (lo, hi uint32)
 	GuardWrite(addr uint32, old, new uint8) (restore bool)
 }
+
+// GuardMemory is a WriteGuard's direct memory access at the start of a turn.
+type GuardMemory interface {
+	Peek8(addr uint32) uint8
+	Poke8(addr uint32, v uint8)
+}
+
+type guardMemory struct{ m *machine.Machine }
+
+func (g guardMemory) Peek8(a uint32) uint8    { return g.m.Peek8(a) }
+func (g guardMemory) Poke8(a uint32, v uint8) { g.m.Write8(a, v) }
 
 // muteAudio keeps m.OPL/m.Speaker from growing while AdLib is on and no
 // AudioObserver is forwarding (§3.1): the empty collectors drop every write.
@@ -200,7 +212,7 @@ func (o *Owner) runObserved(budget uint64) (stop machine.Stop, rawErr, observerE
 	}
 	if wg, ok := o.observer.(WriteGuard); ok {
 		var lo, hi uint32
-		guard("GuardRange", func() { lo, hi = wg.GuardRange(o.machine.Peek8) })
+		guard("GuardRange", func() { lo, hi = wg.GuardRange(guardMemory{o.machine}) })
 		if lo <= hi {
 			restoring := false
 			id := o.machine.WatchWrite(lo, hi, func(m *machine.Machine, a uint32, old, v uint8) {

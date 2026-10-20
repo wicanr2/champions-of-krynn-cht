@@ -114,6 +114,8 @@ func main() {
 	keyEvery := flag.Uint64("key-every", 30_000_000, "-keys 兩鍵間隔步數")
 	actions := flag.String("actions", "", "依步數做前端動作 `步數:動作[=參數]`，逗號分隔："+
 		"journal、journal-next、guide=章:頁、guide-page、guide-close、map、map-reveal、map-close、lang=代碼、original、chinese")
+	dumpAt := flag.String("dump-mem-at", "", "診斷：到這些步數把線性 0–9FFFF 寫成 <out>/mem-<步數>.bin，逗號分隔")
+	cheatOn := flag.Bool("cheat", false, "我方無敵（主專案規格 017）：同 cok-play 的判斷，以 machine 寫入監看實作，每格更新監看範圍")
 	poke := flag.String("initial-poke", "", "起點注入：線性十六進位位址=hex bytes，分號分隔（同 cok-hd-probe）")
 	flag.Parse()
 	if *st == "" || *root == "" || *scratch == "" || *output == "" || *fontPath == "" || *textDir == "" || *until == 0 ||
@@ -298,6 +300,32 @@ func main() {
 	last := m.Steps
 	next := m.Steps + frameEvery
 	ki, ai := 0, 0
+	cheat := &cok.Invincible{On: *cheatOn}
+	watchID, restoring := 0, false
+	rewatch := func() {
+		if watchID != 0 {
+			m.Unwatch(watchID)
+			watchID = 0
+		}
+		if lo, hi := cheat.GuardRange(machineMem{m}); lo <= hi {
+			watchID = m.WatchWrite(lo, hi, func(m *machine.Machine, a uint32, old, v uint8) {
+				if restoring || old == v || !cheat.GuardWrite(a, old, v) {
+					return
+				}
+				restoring = true
+				m.Write8(a, old)
+				restoring = false
+			})
+		}
+	}
+	rewatch()
+	var dumps []uint64
+	for _, f := range strings.Split(*dumpAt, ",") {
+		if v, err := strconv.ParseUint(strings.TrimSpace(f), 10, 64); err == nil {
+			dumps = append(dumps, v)
+		}
+	}
+	sort.Slice(dumps, func(a, b int) bool { return dumps[a] < dumps[b] })
 
 	doAction := func(a action) {
 		switch a.name {
@@ -382,9 +410,20 @@ func main() {
 		if err := m.Step(); err != nil {
 			fail(err)
 		}
+		for len(dumps) > 0 && m.Steps >= dumps[0] {
+			mem := make([]byte, 0xA0000)
+			for i := range mem {
+				mem[i] = m.Peek8(uint32(i))
+			}
+			if err := os.WriteFile(filepath.Join(*output, fmt.Sprintf("mem-%d.bin", dumps[0])), mem, 0o644); err != nil {
+				fail(err)
+			}
+			dumps = dumps[1:]
+		}
 		if m.Steps >= next {
 			emit()
 			next += frameEvery
+			rewatch()
 		}
 	}
 	if err := audioFile.Close(); err != nil {
@@ -399,6 +438,7 @@ func main() {
 		"audio_sha256": hexSum(audioHash), "frames_sha256": hexSum(frameHash),
 		"keys_sent": ki, "keys_total": len(timed), "actions_done": ai, "hd_items": live.HDItems, "lang": *langCode,
 		"music": *musicDir != "", "missing_glyphs": len(missing),
+		"cheat": *cheatOn, "cheat_restored": cheat.Restored, "cheat_removed_affects": cheat.Removed, "cheat_party": cheat.Report,
 	}, "", "  ")
 	if err != nil {
 		fail(err)
@@ -425,6 +465,12 @@ func writeFrame(enc *png.Encoder, path string, pix []byte, scale int, h hash.Has
 		fail(err)
 	}
 }
+
+// machineMem 讓無敵在每格開頭直接讀寫記憶體（同 session.GuardMemory）。
+type machineMem struct{ m *machine.Machine }
+
+func (g machineMem) Peek8(a uint32) uint8    { return g.m.Peek8(a) }
+func (g machineMem) Poke8(a uint32, v uint8) { g.m.Write8(a, v) }
 
 func hexSum(h hash.Hash) string { return fmt.Sprintf("%x", h.Sum(nil)) }
 
