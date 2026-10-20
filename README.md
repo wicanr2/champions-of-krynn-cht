@@ -6,6 +6,22 @@
 現況見 [CONTEXT.md](CONTEXT.md)，工作項目見
 [GitHub Issues](https://github.com/wicanr2/champions-of-krynn-cht/issues)，協作規則見 [AGENTS.md](AGENTS.md)。
 
+## 成果
+
+| 項目 | 內容 |
+|---|---|
+| 中文化 | 遊戲內文字全部覆繪繁體中文：選單、劇情視窗、底列選單、組句訊息，3,173 句；玩家自建角色名自動音譯 |
+| 手札與傳聞 | 88 則旅行手札與 57 則酒店傳聞，劇情提到「參見手札第 N 則」時在遊戲內直接開啟 |
+| 手冊查驗題 | 49 題答案表，問句後直接顯示答案 |
+| 攻略與地圖 | 《軟體世界》第 16–18 期攻略 19 章（F6）；15 張地圖疊層與 157 個攻略點（F7） |
+| HD 重繪 | 1,841 項：標題、場景圖、人物頭像、戰鬥圖塊、3D 牆面與天空，在 3 倍畫面顯示 |
+| 配樂 | 以原版標題曲動機新編 12 首 OPL2 配樂，依地圖與戰鬥切換；原版 AdLib 音效照常 |
+| 多語系 | 繁中、简中、日本語、한국어、English，第一次啟動依系統語言，F8 切換 |
+| 作弊 | 我方無敵（F1，預設關）：HP 不減少、不會昏迷中毒等異常 |
+| 發行 | Linux AppImage、Windows、macOS 三平台包，各有原版與原版加 HD 兩種，玩家自備原版 |
+
+原版程式不做任何修改，所有中文、HD 與配樂都在執行時疊加；切換列或 F12 可隨時切回英文原版對照。
+
 ## 故事背景
 
 本作的舞台是《龍槍》系列小說與 AD&D 共用的世界克萊恩（Krynn），也是 SSI 克萊恩三部曲的第一部，續作是《幽靈騎士》（Death Knights of Krynn）。
@@ -23,7 +39,7 @@
 
 ## 畫面
 
-以下是 dosgolem 執行原版並覆繪中文後的畫面（2026-10-19，收據 [docs/re/007](docs/re/007-g5-receipt.md)）。
+以下是 dosgolem 執行原版並覆繪中文後的 2 倍畫面（2026-10-19，收據 [docs/re/007](docs/re/007-g5-receipt.md)）。
 
 | | |
 |---|---|
@@ -35,6 +51,25 @@
 | 屯墾區底列選單 | 戰鬥選單與角色欄 |
 | ![攻略](docs/screenshots/06-guide.png) | ![地圖](docs/screenshots/07-map.png) |
 | 遊戲內攻略（F6，軟體世界雜誌） | 地圖疊層與攻略點（F7） |
+
+### 3 倍與 HD 重繪
+
+3 倍畫面（F2 切換）。標題、場景、頭像、營地、3D 牆面與戰鬥是 HD 重繪；大地圖與手札面板是原版圖與中文字的 3 倍放大。
+
+| | |
+|---|---|
+| ![HD 主標題](docs/screenshots/hd-01-title.png) | ![最後家園旅店](docs/screenshots/hd-02-inn.png) |
+| 主標題，HD 重繪 | 開場劇情，最後家園旅店 HD 重繪 |
+| ![卡爾爵士](docs/screenshots/hd-03-karl.png) | ![大地圖](docs/screenshots/hd-04-overland.png) |
+| 卡爾爵士頭像，HD 重繪 | 大地圖與劇情（原版圖 3 倍） |
+| ![3D 探索](docs/screenshots/hd-05-3d.png) | ![營地](docs/screenshots/hd-06-camp.png) |
+| 斯拉托 3D 牆面，HD 重繪 | 紮營畫面，HD 重繪 |
+| ![戰鬥](docs/screenshots/hd-07-combat.png) | ![手札](docs/screenshots/hd-08-journal.png) |
+| 戰鬥圖塊，HD 重繪 | 旅行手札第 51 則（3 倍） |
+
+同一段對話的简中、日文、韓文、英文：
+
+![四種語言](docs/screenshots/hd-09-langs.png)
 
 ## 遊玩
 

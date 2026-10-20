@@ -124,3 +124,9 @@
 - 使用者試聽 12 首新配樂通過，規格 014 CONFORMED。播放器搬到 dosgolem `apps/cok/bgm`，cok-play 與新的 cok-promo 共用。
 - 推廣影片（規格 016）：dosgolem `cmd/cok-promo` 從狀態檔續跑逐格輸出畫面與音訊，`tools/promo.sh` 錄五段、`tools/promo-build.sh` 剪成 66 秒 1920×1200 H.264。三段重錄雜湊相同；配樂以有無 `-music-dir` 相減確認混入。
 - 試錄時以 cok-play 預設 50% 時脈換算步數，但狀態檔是 100% 時脈，影片快兩倍；改從載入後的機器讀 `VGAFrameEvery`。原版開場劇情沒有音樂，這幾段以新編配樂渲染檔墊底。
+
+## 2026-10-20 作弊與 README
+
+- 我方無敵（規格 017）：逆向隊伍串列 `DS:609A`、紀錄 `+0x17F` 下一位、`+0x197` HP、`+0x188` 狀態、`+0x18A` 陣營（docs/re/010）。dosgolem session 加選用擴充 `WriteGuard`，寫入落地後可寫回舊值；`machine.WatchWrites` 在寫入前通知，回呼寫回會被接著的寫入蓋掉，所以改用寫入後通知的 `WatchWrite`。
+- 切換列多一項後無 HD 素材時超寬，繁中、简中「無HD素材」縮為「無HD」。
+- README 加成果表與 3 倍 HD 截圖（取自推廣影片錄影畫格）。發行包 v.0.9.5-20261020，三平台冒煙通過。
