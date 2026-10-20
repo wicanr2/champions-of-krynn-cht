@@ -1,11 +1,12 @@
 package cok
 
-// HDLayers 是逐幀的戰鬥與遭遇圖呈現層。主專案規格 010 §6。
+// HDLayers 是逐幀的牆面、戰鬥與遭遇圖呈現層。主專案規格 010 §6、§7。
 // 它只讀原版色號，呼叫端在既有文字與面板之前繪製。
 type HDLayers struct {
 	combat     *combatHD
 	actors     *actorHD
 	encounters *encounterHD
+	walls      *wallHD
 }
 
 func LoadHDLayers(dir string) (*HDLayers, int, error) {
@@ -34,6 +35,10 @@ func LoadHDLayers(dir string) (*HDLayers, int, error) {
 	if err != nil {
 		return nil, 0, err
 	}
+	walls, err := loadWallHD(dir)
+	if err != nil {
+		return nil, 0, err
+	}
 	count := 0
 	if combat != nil {
 		count += len(combat.tiles)
@@ -44,7 +49,10 @@ func LoadHDLayers(dir string) (*HDLayers, int, error) {
 	if encounters != nil {
 		count += len(encounters.items)
 	}
-	return &HDLayers{combat, actors, encounters}, count, nil
+	if walls != nil {
+		count += walls.sources
+	}
+	return &HDLayers{combat: combat, actors: actors, encounters: encounters, walls: walls}, count, nil
 }
 
 func (h *HDLayers) Frame(indexed []byte, pal [256][3]uint8) {
@@ -55,12 +63,14 @@ func (h *HDLayers) Frame(indexed []byte, pal [256][3]uint8) {
 	guard := h.combat != nil && len(h.combat.matches) >= 3
 	h.actors.frame(indexed, guard)
 	h.encounters.frame(indexed, pal)
+	h.walls.frame(indexed, pal)
 }
 
 func (h *HDLayers) Draw(out, indexed []byte, scale int) {
 	if h == nil {
 		return
 	}
+	h.walls.draw(out, indexed, scale)
 	h.combat.draw(out, indexed, scale)
 	h.actors.draw(out, indexed, scale)
 	h.encounters.draw(out, indexed, scale)

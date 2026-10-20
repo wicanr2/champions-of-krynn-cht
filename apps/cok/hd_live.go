@@ -3,7 +3,7 @@ package cok
 import "github.com/wicanr2/dosgolem/xlate"
 
 // HDLive 沿用 Live 的配樂、印字與遊戲攔截，僅在 Compose 增加圖面。
-// live.go 的修改尚待寫入範圍確認，獨立收據入口先使用此包裝。
+// 正式Live亦已接入HDLayers；此型別保留相容既有收據入口。
 type HDLive struct {
 	*Live
 	*HDLayers
@@ -60,6 +60,9 @@ func (l *HDLive) HDAllowed(x, y int) bool {
 	h := l.HDLayers
 	if h == nil {
 		return false
+	}
+	if h.walls != nil && h.walls.active && x >= 24 && x < 112 && y >= 24 && y < 112 {
+		return true
 	}
 	if h.combat != nil {
 		for _, m := range h.combat.matches {

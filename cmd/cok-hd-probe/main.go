@@ -3,6 +3,7 @@ package main
 
 import (
 	"crypto/sha256"
+	"encoding/hex"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -16,6 +17,8 @@ import (
 	"image/png"
 	"os"
 	"path/filepath"
+	"strconv"
+	"strings"
 )
 
 type view struct{ m *machine.Machine }
@@ -41,6 +44,8 @@ func main() {
 	text := flag.String("text-dir", "", "可選譯文")
 	scale := flag.Int("scale", 3, "輸出倍率")
 	keys := flag.String("keys", "", "依序送字元")
+	keyNames := flag.String("key-names", "", "接續送具名鍵，逗號分隔")
+	poke := flag.String("initial-poke", "", "診斷起點注入：線性十六進位位址=hex bytes，以分號分隔")
 	from := flag.Uint64("key-from", 0, "第一個鍵步數")
 	every := flag.Uint64("key-every", 30_000_000, "鍵間隔")
 	limit := flag.Int("limit", 200, "最多保存獨立畫格")
@@ -50,6 +55,26 @@ func main() {
 		if err != nil {
 			fmt.Fprintln(os.Stderr, err)
 			os.Exit(1)
+		}
+	}
+	var inputKeys []dos.Key
+	for _, r := range *keys {
+		k, ok := dos.KeyForRune(r)
+		if !ok {
+			k = dos.Key{ASCII: uint8(r)}
+		}
+		inputKeys = append(inputKeys, k)
+	}
+	if strings.TrimSpace(*keyNames) != "" {
+		for _, name := range strings.Split(*keyNames, ",") {
+			k, ok := dos.KeyNamed(strings.TrimSpace(name))
+			if r := []rune(strings.TrimSpace(name)); !ok && len(r) == 1 {
+				k, ok = dos.KeyForRune(r[0])
+			}
+			if !ok {
+				must(fmt.Errorf("未知具名鍵 %q", name))
+			}
+			inputKeys = append(inputKeys, k)
 		}
 	}
 	if *st == "" || *root == "" || *scratch == "" || *output == "" || *until == 0 || *sample == 0 || (*scale != 2 && *scale != 3) {
@@ -64,6 +89,24 @@ func main() {
 	d.Install()
 	d.Scratch = *scratch
 	must(state.Load(*st, m, d))
+	if *poke != "" {
+		for _, entry := range strings.Split(*poke, ";") {
+			address, value, ok := strings.Cut(entry, "=")
+			if !ok {
+				must(fmt.Errorf("起點注入格式不合法"))
+			}
+			a, err := strconv.ParseUint(address, 16, 20)
+			must(err)
+			data, err := hex.DecodeString(value)
+			must(err)
+			if a+uint64(len(data)) > 1<<20 {
+				must(fmt.Errorf("起點注入越界"))
+			}
+			for n, v := range data {
+				m.Write8(uint32(a)+uint32(n), v)
+			}
+		}
+	}
 	initial := m.Steps
 	font := &xlate.Font{W: 16, H: 16, Glyphs: map[rune][]byte{}}
 	if *fontpath != "" {
@@ -76,7 +119,7 @@ func main() {
 		ui, ecl, err = cok.LoadTextDir(*text)
 		must(err)
 	}
-	live := cok.NewHDLive(font, ui, ecl)
+	live := cok.NewLive(font, ui, ecl)
 	if *hd != "" {
 		must(live.AddHD(*hd))
 	}
@@ -124,13 +167,9 @@ func main() {
 	})
 	ki := 0
 	for m.Steps < *until && !d.Exited {
-		if ki < len(*keys) && m.Steps >= *from+uint64(ki)*(*every) {
+		if ki < len(inputKeys) && m.Steps >= *from+uint64(ki)*(*every) {
 			if _, pending := m.PeekKey(); !pending {
-				k, ok := dos.KeyForRune(rune((*keys)[ki]))
-				if !ok {
-					k = dos.Key{ASCII: (*keys)[ki]}
-				}
-				d.PushKey(k)
+				d.PushKey(inputKeys[ki])
 				ki++
 			}
 		}
@@ -152,7 +191,7 @@ func main() {
 		Seg       [4]uint16
 		IP, Flags uint16
 	}{m.CPU.R, m.CPU.Seg, m.CPU.IP, m.CPU.Flags}
-	raw, err := json.MarshalIndent(map[string]any{"initial_state_sha256": fmt.Sprintf("%x", sha256.Sum256(input)), "initial_steps": initial, "steps": m.Steps, "memory_sha256": fmt.Sprintf("%x", sha256.Sum256(ram)), "registers": registers, "shots": shots, "keys_sent": ki, "hd_items": live.HDItems, "scope": "既有狀態續跑；相同state固定初始亂數與虛擬時鐘，沒有注入記憶體。不是新冷開機玩家路徑。"}, "", "  ")
+	raw, err := json.MarshalIndent(map[string]any{"initial_state_sha256": fmt.Sprintf("%x", sha256.Sum256(input)), "initial_steps": initial, "initial_poke": *poke, "steps": m.Steps, "memory_sha256": fmt.Sprintf("%x", sha256.Sum256(ram)), "registers": registers, "shots": shots, "keys_sent": ki, "keys": *keys, "key_names": *keyNames, "key_from": *from, "key_every": *every, "hd_items": live.HDItems, "scope": "既有狀態續跑；相同state固定初始亂數與虛擬時鐘。initial_poke明列診斷注入，空字串代表本輪無注入。不是新冷開機玩家路徑。"}, "", "  ")
 	must(err)
 	must(os.WriteFile(filepath.Join(*output, "receipt.json"), append(raw, '\n'), 0644))
 	fmt.Printf("steps=%d shots=%d HD=%d\n", m.Steps, len(shots), live.HDItems)
