@@ -84,15 +84,20 @@ def charset(paths, extra):
     return sorted(chars)
 
 
-# 發行用 GNU Unifont 17.0.05 台灣字源（規格 012；拯救地球規格 050 同一檔）
-UNIFONT_T = ('unifont_t-17.0.05.hex', '169634258e4037b507beaafad5d72edc2e44b3faeaa856d9669e4657d1eee454')
+# 發行用 GNU Unifont 17.0.05（同一個 tarball 的 precompiled/）。繁中、韓文用台灣字源 unifont_t（規格 012；
+# 拯救地球規格 050 同一檔），簡中用預設版 unifont（漢字取自文泉驛，大陸字形），日文用 unifont_jp（規格 015 §4.1）。
+UNIFONT = {
+    'unifont_t-17.0.05.hex': '169634258e4037b507beaafad5d72edc2e44b3faeaa856d9669e4657d1eee454',
+    'unifont-17.0.05.hex': 'fd79af3613ec1b984a98d33428fdd43fcf06018d18059960d78edeb63d958622',
+    'unifont_jp-17.0.05.hex': '3e88e5e98470e7547555202cebb13bcd4c393d417e2296a0f0f8adade7d37f43',
+}
 
 
 def load_unifont(path):
     """回 {碼點: 32 bytes}。8×16 字左移 4 bits（墨跡在 x=4..11，同倚天 ASCII 對齊），16×16 照用。"""
     b = Path(path).read_bytes()
-    if Path(path).name != UNIFONT_T[0] or hashlib.sha256(b).hexdigest() != UNIFONT_T[1]:
-        sys.exit(f'unifont: 來源身份不符（需 {UNIFONT_T[0]}、{UNIFONT_T[1][:12]}…）')
+    if UNIFONT.get(Path(path).name) != hashlib.sha256(b).hexdigest():
+        sys.exit(f'unifont: 來源身份不符（需 {"、".join(UNIFONT)} 之一，雜湊相符）')
     out = {}
     for line in b.decode('ascii').splitlines():
         cp, _, hx = line.partition(':')
@@ -117,7 +122,7 @@ def main():
     ap.add_argument('--asc')
     ap.add_argument('--spc')
     ap.add_argument('--std')
-    ap.add_argument('--unifont', help='改用 Unifont 台灣字源 hex（發行用，規格 012）；與 --asc／--spc／--std 擇一')
+    ap.add_argument('--unifont', help='改用 Unifont hex（發行用，規格 012、015 §4.1）；與 --asc／--spc／--std 擇一')
     ap.add_argument('--out', required=True)
     ap.add_argument('--extra', default=''.join(chr(c) for c in range(0x20, 0x7F)),
                     help='額外必收字元（預設全部可列印 ASCII：選單熱鍵字母與照原文接入的名字要用）')

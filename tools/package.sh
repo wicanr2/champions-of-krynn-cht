@@ -98,10 +98,15 @@ for ui in text/ui-text.*.tsv; do
   code="${ui#text/ui-text.}"; code="${code%.tsv}"
   [[ "$code" == zh-TW || "$code" == en ]] && continue
   LANG_CATALOGS=($(cd text && ls ./*."$code".tsv))
+  # 該語言有自己的玩家名音譯表時，音譯用字也要收（簡中 77 字只出現在這裡）
+  [[ -f "text/translit-$code/translit-chars.zh-TW.tsv" ]] && LANG_CATALOGS+=("translit-$code/translit-chars.zh-TW.tsv")
+  # 規格 015 §4.1：簡中用大陸字形、日文用日本字形，其餘（韓文）沿用台灣字源
+  case "$code" in zh-CN) hex=unifont-17.0.05.hex ;; ja) hex=unifont_jp-17.0.05.hex ;; *) hex=unifont_t-17.0.05.hex ;; esac
+  [[ -f "$UNI/font/precompiled/$hex" ]] || die "缺 Unifont $hex（從 $UNIFONT_TAR 解開）"
   dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$UNI:/uni:ro" -v "$STAGE:/stage" -w /text "$PY_IMAGE" \
-    python -I /tools/eten_font.py "${LANG_CATALOGS[@]}" --unifont /uni/font/precompiled/unifont_t-17.0.05.hex \
+    python -I /tools/eten_font.py "${LANG_CATALOGS[@]}" --unifont "/uni/font/precompiled/$hex" \
     --out "/stage/common/font/cok-$code.golemfnt"
-  echo "[package] 語言 $code 字型：${#LANG_CATALOGS[@]} 份表"
+  echo "[package] 語言 $code 字型：${#LANG_CATALOGS[@]} 份表，$hex"
 done
 # 規格 015 §3.1：英文版字型由 Courier Prime Bold（OFL）產生，2 倍 16×16、3 倍 24×24
 if [[ -f text/host-text.en.tsv ]]; then

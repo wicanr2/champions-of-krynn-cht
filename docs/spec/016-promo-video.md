@@ -34,7 +34,7 @@ dosgolem `cmd/cok-promo` 從既有狀態檔續跑，逐格輸出覆繪後的 3 �
 
 ## 4. 收據（2026-10-20）
 
-- 成品 66.0 秒，H.264 1920×1200 30 fps 加 AAC，SHA-256 `887dd76d0413…`。
+- 成品 66.0 秒，H.264 1920×1200 30 fps 加 AAC，SHA-256 `4ced5f7d7f16…`（langs 段以在地字形重錄後）。
 - title、langs、battle、throtl 各重錄一次，畫格與音訊 SHA-256 完全相同。
 - 全片的隊伍欄、戰鬥面板與劇情文字都是覆繪後的文字（分鏡檢查 `tools/promo-sheet.sh`）。
 - 每段 `audio_seconds` 等於 `video_seconds`；各段沒有缺字。

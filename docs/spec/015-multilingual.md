@@ -1,6 +1,6 @@
 # 015 多語系：簡體中文、日文、韓文、英文
 
-狀態：**READY**（2026-10-20：§2–§5 已實作，G5 七場景繁中、簡中、日文、韓文、英文（六場景，無攻略）通過；第一次執行依系統語言選擇）。Issue：#17–#20。
+狀態：**CONFORMED**（2026-10-20：§2–§5 實作完成；G5 七場景繁中、簡中、日文、韓文、英文（六場景，無攻略）通過；第一次執行依系統語言；簡中、日文用各地字形）通過；第一次執行依系統語言選擇）。Issue：#17–#20。
 
 使用者指示（2026-10-20）：規劃簡體中文、日文、韓文、英文的支援；英文版把原版英文整個換成更好看的英文字，並把手札放進遊戲。
 
@@ -68,7 +68,15 @@
 
 ### 2.5 字形
 
-發行包的 Unifont 來源目前只有台灣字形版 `unifont_t`，涵蓋簡體字、假名與韓文，但漢字是台灣寫法。簡中、日文要改用各地字形時，從 Unifont 原始碼建對應的 hex，隨 #19、#20 處理。
+字源都取自同一個 Unifont 17.0.05 tarball 的 `font/precompiled/`，雜湊鎖在 `tools/eten_font.py`：
+
+| 語言 | 字源 | 漢字寫法 |
+|---|---|---|
+| 繁中、韓文 | `unifont_t-17.0.05.hex` | 台灣 |
+| 簡中 | `unifont-17.0.05.hex`（漢字取自文泉驛） | 大陸 |
+| 日文 | `unifont_jp-17.0.05.hex` | 日本 |
+
+韓文譯文不用漢字，沿用台灣字源。
 
 ## 3. 英文版（#18）
 
@@ -108,7 +116,7 @@
 - 轉換後套 `text/zhcn-fixes.tsv`（from、to、note）逐條修正。目前一條：OpenCC 把「防寫保護」轉成「写保护保护」。
 - 每列 `{…}` 佔位符與 `\n` 數量不變，否則工具中止；轉換後變長的列寫到 `workplace/zhcn/longer.tsv` 審查（目前 1 列：「新檔名：」→「新文件名：」，原文格數足夠）。
 - 產出：`*.zh-CN.tsv`（7 份正式表）、`composed-templates.zh-CN.tsv`、`menu-masters.zh-CN.tsv`、`map-titles.zh-CN.tsv`、`translit-zh-CN/`（音譯表逐字轉簡體，發音詞典沿用上一層 `cmudict/`）。`host-text.zh-CN.tsv` 的 `lang.name`、`journal.ref`、`journal.refdot` 由工具指定（简中、「 %d 则%s」、「。」）。
-- 字型：發行包由 `tools/package.sh` 以簡中表字集從 `unifont_t` 建 `font/cok-zh-CN.golemfnt`；2,341 字全部有字模。開發用同一指令輸出到 `workplace/font/cok-zh-CN.golemfnt`。
+- 字型：發行包由 `tools/package.sh` 以簡中表字集加 `translit-zh-CN/translit-chars.zh-TW.tsv`（玩家名音譯用字）從 `unifont` 建 `font/cok-zh-CN.golemfnt`；2,341 字全部有字模。開發用同一指令輸出到 `workplace/font/cok-zh-CN.golemfnt`。
 - 引號沿用「」。
 
 ## 5. 日文與韓文（#20）
@@ -122,7 +130,7 @@
 - 手札編號補字：日文譯文收在「手記第」，`journal.ref`「%d項%s」；韓文收在「…제」，`journal.ref`「%d항%s」。
 - 玩家名不音譯（沒有 `translit-{ja,ko}/`），隊伍欄名字顯示原版英文。
 - 版面：韓文用半形標點，接在韓文音節後的 . , ! ?（含半形併字的組合字）不放行首（路徑 B 排版與面板斷行共用 `closeAfter`）。底列提示「Press <enter>/<return> to continue」的譯文詞數必須和原文不同，才會走整列對應（規格 003 §2.2），韓文寫成三個詞。
-- 字型：Unifont `unifont_t` 子集，日文 1,693 字、韓文 1,097 字，全部有字模；漢字是台灣字形（§2.5）。
+- 字型：日文用 `unifont_jp` 子集 1,693 字，韓文用 `unifont_t` 子集 1,097 字，全部有字模（§2.5）。
 - 發行包與 README 註明日文、韓文為機器翻譯、未經母語者校對。
 
 ## 6. 已定案的範圍
