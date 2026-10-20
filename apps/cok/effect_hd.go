@@ -106,6 +106,12 @@ func loadEffectHD(dir string) (*actorHD, error) {
 			if _, exists := result.full[sum]; exists {
 				continue
 			}
+			anchor := exactHDItem{w: 24, h: 24, ref: p.full}
+			anchor.makeAnchor()
+			p.freeFull = true
+			p.fullAnchor = anchor.anchor
+			p.fullAX = anchor.ax
+			p.fullAY = anchor.ay
 			for y := 0; y < 72; y++ {
 				for x := 0; x < 72; x++ {
 					sx := x

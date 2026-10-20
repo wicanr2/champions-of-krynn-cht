@@ -28,12 +28,13 @@ type wallLayerSpec struct {
 	At  [2]int `json:"at"`
 }
 type wallCellSpec struct {
-	Key       string          `json:"key"`
-	Positions []int           `json:"positions"`
-	Base      int             `json:"base_color"`
-	Layers    []wallLayerSpec `json:"layers"`
-	IndexSHA  string          `json:"indexed_sha256"`
-	Paint     bool            `json:"paint"`
+	Key                string          `json:"key"`
+	Positions          []int           `json:"positions"`
+	Base               int             `json:"base_color"`
+	Layers             []wallLayerSpec `json:"layers"`
+	IndexSHA           string          `json:"indexed_sha256"`
+	Paint              bool            `json:"paint"`
+	CompleteBackground bool            `json:"complete_background,omitempty"`
 }
 type wallManifest struct {
 	Version  int             `json:"version"`
@@ -214,8 +215,21 @@ func loadWallHD(dir string) (*wallHD, error) {
 				return nil, fmt.Errorf("牆面通用格須為單一完整來源")
 			}
 			a := assets[s.Layers[0].Key]
-			if !a.wall || bytes.IndexByte(a.ref, 13) >= 0 {
-				return nil, fmt.Errorf("牆面通用格含留底或非牆面")
+			masked := bytes.IndexByte(a.ref, 13) >= 0
+			if !a.wall || masked != s.CompleteBackground {
+				return nil, fmt.Errorf("牆面通用格留底須有完整背景契約")
+			}
+			if s.CompleteBackground {
+				nonempty := false
+				for _, v := range a.ref {
+					if v != 13 {
+						nonempty = true
+						break
+					}
+				}
+				if !nonempty {
+					return nil, fmt.Errorf("牆面通用格沒有來源像素")
+				}
 			}
 			if h.global[cell.ref] != nil {
 				return nil, fmt.Errorf("牆面重複通用基準")

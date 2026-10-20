@@ -19,13 +19,16 @@ type actorInk struct {
 }
 
 type actorPattern struct {
-	key     string
-	w, h    int
-	ink     []actorInk
-	anchors []actorInk
-	pixels  []byte
-	full    []byte // 頭身組合另核對完整24×24；CPIC維持逐前景契約。
-	parts   *characterLayers
+	key            string
+	w, h           int
+	ink            []actorInk
+	anchors        []actorInk
+	pixels         []byte
+	full           []byte // 頭身組合另核對完整24×24；CPIC維持逐前景契約。
+	parts          *characterLayers
+	freeFull       bool // COMSPR 完整模板可位於格子間；規格010 §8.4。
+	fullAnchor     []byte
+	fullAX, fullAY int
 }
 
 type actorMatch struct {
@@ -215,9 +218,27 @@ func (a *actorHD) frame(indexed []byte, terrainGuard bool) {
 				for row := 0; row < 24; row++ {
 					copy(tile[row*24:(row+1)*24], indexed[(y+row)*320+x:(y+row)*320+x+24])
 				}
-				if n, found := a.full[sha256.Sum256(tile[:])]; found {
+				if n, found := a.full[sha256.Sum256(tile[:])]; found && !a.patterns[n].freeFull {
 					a.matches = append(a.matches, actorMatch{pattern: n, x: x, y: y})
 				}
+			}
+		}
+	}
+	for n := range a.patterns {
+		p := &a.patterns[n]
+		if !p.freeFull {
+			continue
+		}
+		for from := 0; from+len(p.fullAnchor) <= len(indexed); {
+			off := bytes.Index(indexed[from:], p.fullAnchor)
+			if off < 0 {
+				break
+			}
+			at := from + off
+			from = at + 1
+			x, y := at%320-p.fullAX, at/320-p.fullAY
+			if x >= 8 && y >= 8 && x+p.w <= 176 && y+p.h <= 176 && p.present(indexed, x, y) {
+				a.matches = append(a.matches, actorMatch{pattern: n, x: x, y: y})
 			}
 		}
 	}

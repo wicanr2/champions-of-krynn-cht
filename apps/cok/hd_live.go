@@ -61,6 +61,14 @@ func (l *HDLive) HDAllowed(x, y int) bool {
 	if h == nil {
 		return false
 	}
+	if h.exact != nil {
+		for _, m := range h.exact.matches {
+			p := &h.exact.items[m.item]
+			if !m.conflict && x >= m.x && y >= m.y && x < m.x+p.w && y < m.y+p.h {
+				return true
+			}
+		}
+	}
 	if h.walls != nil && h.walls.active && x >= 24 && x < 112 && y >= 24 && y < 112 {
 		return true
 	}

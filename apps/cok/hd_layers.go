@@ -7,6 +7,7 @@ type HDLayers struct {
 	actors     *actorHD
 	encounters *encounterHD
 	walls      *wallHD
+	exact      *exactHD
 }
 
 func LoadHDLayers(dir string) (*HDLayers, int, error) {
@@ -39,6 +40,10 @@ func LoadHDLayers(dir string) (*HDLayers, int, error) {
 	if err != nil {
 		return nil, 0, err
 	}
+	exact, err := loadExactHD(dir)
+	if err != nil {
+		return nil, 0, err
+	}
 	count := 0
 	if combat != nil {
 		count += len(combat.tiles)
@@ -52,7 +57,10 @@ func LoadHDLayers(dir string) (*HDLayers, int, error) {
 	if walls != nil {
 		count += walls.sources
 	}
-	return &HDLayers{combat: combat, actors: actors, encounters: encounters, walls: walls}, count, nil
+	if exact != nil {
+		count += len(exact.items)
+	}
+	return &HDLayers{combat: combat, actors: actors, encounters: encounters, walls: walls, exact: exact}, count, nil
 }
 
 func (h *HDLayers) Frame(indexed []byte, pal [256][3]uint8) {
@@ -64,6 +72,7 @@ func (h *HDLayers) Frame(indexed []byte, pal [256][3]uint8) {
 	h.actors.frame(indexed, guard)
 	h.encounters.frame(indexed, pal)
 	h.walls.frame(indexed, pal)
+	h.exact.frame(indexed, pal)
 }
 
 func (h *HDLayers) Draw(out, indexed []byte, scale int) {
@@ -74,4 +83,5 @@ func (h *HDLayers) Draw(out, indexed []byte, scale int) {
 	h.combat.draw(out, indexed, scale)
 	h.actors.draw(out, indexed, scale)
 	h.encounters.draw(out, indexed, scale)
+	h.exact.draw(out, indexed, scale)
 }

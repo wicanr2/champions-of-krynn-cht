@@ -49,6 +49,8 @@ func main() {
 	from := flag.Uint64("key-from", 0, "第一個鍵步數")
 	every := flag.Uint64("key-every", 30_000_000, "鍵間隔")
 	limit := flag.Int("limit", 200, "最多保存獨立畫格")
+	transient := flag.Bool("capture-transient", false, "來源研究：保存第一個採樣畫格，含繪製中的過渡畫格")
+	indexedOnly := flag.Bool("indexed-only", false, "來源研究：只保存色號，省略 PNG")
 	saveState := flag.String("save-state", "", "可選：保存續跑終點，僅供本機收據")
 	flag.Parse()
 	must := func(err error) {
@@ -139,11 +141,13 @@ func main() {
 		}
 		live.Frame(idx, m.FramePalette())
 		must(os.WriteFile(filepath.Join(*output, name+".bin"), idx, 0644))
-		pix := live.Compose(*scale, true, nil)
-		f, e := os.Create(filepath.Join(*output, name+".png"))
-		must(e)
-		must(png.Encode(f, &image.NRGBA{Pix: pix, Stride: 320 * (*scale) * 4, Rect: image.Rect(0, 0, 320*(*scale), 200*(*scale))}))
-		must(f.Close())
+		if !*indexedOnly {
+			pix := live.Compose(*scale, true, nil)
+			f, e := os.Create(filepath.Join(*output, name+".png"))
+			must(e)
+			must(png.Encode(f, &image.NRGBA{Pix: pix, Stride: 320 * (*scale) * 4, Rect: image.Rect(0, 0, 320*(*scale), 200*(*scale))}))
+			must(f.Close())
+		}
 		shots = append(shots, map[string]any{"name": name, "steps": m.Steps, "indexed_sha256": fmt.Sprintf("%x", sha256.Sum256(idx))})
 	}
 	m.SetOnFrame(func() {
@@ -159,7 +163,7 @@ func main() {
 			region = append(region, idx[y*320+8:y*320+176]...)
 		}
 		sig := sha256.Sum256(region)
-		if sig == prev && !seen[sig] && len(shots) < *limit {
+		if (*transient || sig == prev) && !seen[sig] && len(shots) < *limit {
 			seen[sig] = true
 			capture(fmt.Sprintf("frame-%012d", m.Steps))
 		}
