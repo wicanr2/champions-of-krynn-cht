@@ -47,10 +47,18 @@ func stepsPerHostFrame(clock int) uint64 {
 	return machine.ScaleSteps(machine.DefaultVGAFrameEvery, clock) * 70 / 60
 }
 
-// observer 把 session 的觀測事件轉給 cok.Live 與音訊混音器。
+// observer 把 session 的觀測事件轉給 cok.Live 與音訊混音器，寫入守衛轉給無敵開關（主專案規格 017）。
 type observer struct {
-	live *cok.Live
-	mix  *mixer.Mixer
+	live  *cok.Live
+	mix   *mixer.Mixer
+	cheat *cok.Invincible
+}
+
+func (o observer) GuardRange(peek func(uint32) uint8) (uint32, uint32) {
+	return o.cheat.GuardRange(peek)
+}
+func (o observer) GuardWrite(addr uint32, old, new uint8) bool {
+	return o.cheat.GuardWrite(addr, old, new)
 }
 
 func (o observer) BeforeStep(v session.StepView) error { return o.live.BeforeStep(v) }
@@ -106,6 +114,7 @@ type game struct {
 	bar      toolbar           // 視窗頂端切換列（主專案規格 011）
 	barText  map[string]string // host-text 的 toolbar.* 文字
 	music    *bgm.Player       // 遊戲中配樂（規格 014）；nil 表示沒有素材
+	cheat    *cok.Invincible   // 我方無敵（主專案規格 017），預設關
 	langs    []*cok.LangPack   // 已載入的語言（規格 015），索引 lang 為目前語言
 	lang     int
 	langDir  string      // 語言選擇記錄的目錄
@@ -162,6 +171,8 @@ func (g *game) apply(acts []hostAction) {
 			}
 		case actMusic:
 			g.music.Toggle()
+		case actCheat:
+			g.cheat.On = !g.cheat.On
 		case actLang:
 			g.nextLang()
 		case actLangCycle:
@@ -283,6 +294,8 @@ func (g *game) Update() error {
 			acts = append(acts, actToggle)
 		} else if a.lang {
 			acts = append(acts, actLang)
+		} else if a.cheat {
+			acts = append(acts, actCheat)
 		} else if a.key != nil {
 			u.BIOSKeys = append(u.BIOSKeys, *a.key)
 		}
@@ -359,6 +372,9 @@ func (g *game) finish() error {
 		}
 		fmt.Fprintf(os.Stderr, "cok-play: Layer stamps=%d\n", len(g.live.Layer.Stamps))
 	}
+	if g.cheat.On {
+		fmt.Fprintf(os.Stderr, "cok-play: 無敵 還原 %d 次；隊伍 %s\n", g.cheat.Restored, g.cheat.Report)
+	}
 	if d, err := g.owner.Digest(); err == nil {
 		fmt.Fprintf(os.Stderr, "cok-play: frames=%d steps=%d memory_sha256=%x indexed_sha256=%x\n", g.frame, d.Steps, d.MemorySHA256, d.IndexedSHA256)
 	}
@@ -370,7 +386,7 @@ func (g *game) toolbarItems() []toolbarItem {
 		hasMusic: g.music != nil, music: g.music.Enabled(),
 		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
 		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open(), langs: len(g.langs),
-		packASCII: g.english(), noJournal: g.live.Journal == nil, noGuide: g.live.Guide == nil})
+		packASCII: g.english(), cheat: g.cheat.On, noJournal: g.live.Journal == nil, noGuide: g.live.Guide == nil})
 }
 
 // drawBar 在切換列顯示時把它疊到 rgba 上（截圖 F10 不含切換列）。
@@ -421,6 +437,7 @@ func main() {
 	noMusic := flag.Bool("no-music", false, "開機時配樂關閉（切換列或 F4 可再打開）")
 	langFlag := flag.String("lang", "", "起始語言代碼（主專案規格 015；預設為上次的選擇或 zh-TW）")
 	langFonts := flag.String("lang-fonts", "", "繁中以外語言的字型：代碼=路徑，逗號分隔（發行模式另找 font/cok-<代碼>.golemfnt）")
+	cheatOn := flag.Bool("cheat", false, "開機時開啟我方無敵（主專案規格 017；F1 或切換列切換）")
 	hdDir := flag.String("hd", "", "HD 主題目錄（theme.json；主專案規格 010，只在 3× 顯示）")
 	showVersion := flag.Bool("version", false, "印版號與 dosgolem commit 後結束")
 	flag.Parse()
@@ -605,8 +622,9 @@ func main() {
 		hostKeysReserved["F8"] = actLang
 	}
 	mix := mixer.New(budget * 60)
+	cheat := &cok.Invincible{On: *cheatOn}
 	owner, err := session.New(session.Config{InitialScale: s, InitialLayout: layout, AdLib: *adlib, ClockPercent: *clock,
-		Observer: observer{live: live, mix: mix}})
+		Observer: observer{live: live, mix: mix, cheat: cheat}})
 	if err != nil {
 		fail(err)
 	}
@@ -620,7 +638,7 @@ func main() {
 	}
 	g := &game{owner: owner, live: live, scale: *scaleFlag, chinese: !*original0, frames: *frames, script: keys, shot: *shot, shotOrig: *shotOrig,
 		shotDir: dir, budget: budget, mix: mix, focused: true, missing: map[rune]bool{}, barText: barText,
-		langs: langs, lang: langIdx, langDir: stateDir, mainFont: font}
+		langs: langs, lang: langIdx, langDir: stateDir, mainFont: font, cheat: cheat}
 	if *musicDir != "" {
 		if g.music, err = bgm.Load(*musicDir, live.Music); err != nil {
 			fail(err)

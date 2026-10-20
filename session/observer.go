@@ -38,6 +38,19 @@ type ModeObserver interface {
 	VideoModeChange(c machine.ModeChange)
 }
 
+// WriteGuard is an optional extension of StepObserver for a frontend-chosen
+// memory guard (champions-of-krynn-cht 規格 017：我方無敵).  At the start of
+// every Advance the owner asks GuardRange for one linear range [lo, hi]
+// (lo > hi watches nothing) with read-only access to memory; every byte write
+// into that range is then reported to GuardWrite after it lands, and a true
+// result writes the old byte back at once.  This changes guest execution, so
+// only a user-chosen option may implement it; an observer that does not
+// implement it leaves the run identical to the original.
+type WriteGuard interface {
+	GuardRange(peek func(addr uint32) uint8) (lo, hi uint32)
+	GuardWrite(addr uint32, old, new uint8) (restore bool)
+}
+
 // muteAudio keeps m.OPL/m.Speaker from growing while AdLib is on and no
 // AudioObserver is forwarding (§3.1): the empty collectors drop every write.
 func (o *Owner) muteAudio() {
@@ -184,6 +197,26 @@ func (o *Owner) runObserved(budget uint64) (stop machine.Stop, rawErr, observerE
 		o.machine.ObserveOPLWrites(func(w machine.OPLWrite) { guard("OPLWrite", func() { ao.OPLWrite(w) }) })
 		o.machine.ObserveSpeaker(func(s machine.SpeakerSample) { guard("SpeakerSample", func() { ao.SpeakerSample(s) }) })
 		o.machine.ObservePITChannel2(func(c machine.PIT2Change) { guard("PITChannel2", func() { ao.PITChannel2(c) }) })
+	}
+	if wg, ok := o.observer.(WriteGuard); ok {
+		var lo, hi uint32
+		guard("GuardRange", func() { lo, hi = wg.GuardRange(o.machine.Peek8) })
+		if lo <= hi {
+			restoring := false
+			id := o.machine.WatchWrite(lo, hi, func(m *machine.Machine, a uint32, old, v uint8) {
+				if restoring || old == v {
+					return
+				}
+				restore := false
+				guard("GuardWrite", func() { restore = wg.GuardWrite(a, old, v) })
+				if restore {
+					restoring = true
+					m.Write8(a, old)
+					restoring = false
+				}
+			})
+			defer o.machine.Unwatch(id)
+		}
 	}
 	defer func() {
 		o.machine.ObserveVideoWrites(nil)

@@ -41,6 +41,7 @@ const (
 	actMusic                              // F4：遊戲中配樂開關（主專案規格 014）
 	actLang                               // F8：循環切換語言（主專案規格 015；載入兩種以上語言時才保留 F8）
 	actLangCycle                          // 切換列語言項：各語言依序，最後一種之後回原版
+	actCheat                              // F1：我方無敵（主專案規格 017）
 )
 
 // panelMode 是手札面板的狀態：開啟時部分鍵由前端吃掉（規格 007 §2.4、§2.5）。
@@ -57,7 +58,7 @@ var panelKeys = map[panelMode]map[string]hostAction{
 	panelBrowse: {"PgUp": actPageUp, "PgDn": actPageDown, "Left": actPrevEntry, "Right": actNextEntry, "Escape": actCloseJournal, "V": actReveal},
 }
 
-var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal, "F6": actGuide, "F7": actMap, "F2": actScale, "F4": actMusic}
+var hostKeysReserved = map[string]hostAction{"F3": actMute, "F10": actShot, "F11": actFullscreen, "F12": actToggle, "F9": actAnswers, "F5": actJournal, "F6": actGuide, "F7": actMap, "F2": actScale, "F4": actMusic, "F1": actCheat}
 
 // frameInput 是一個畫格的主機鍵盤狀態。Held 的值是按住的格數（剛按下為 1）。
 type frameInput struct {
@@ -171,10 +172,11 @@ type scriptAction struct {
 	toggle bool
 	bar    bool // 切換列保持顯示（主專案規格 011，收據截圖用）
 	lang   bool // 換下一種語言（等同 F8，主專案規格 015）
+	cheat  bool // 無敵開關（等同 F1，主專案規格 017）
 }
 
 // parseScript 解析 `畫格:動作[,…]`。動作是鍵名（dos.KeyNamed，例 Enter、Down）、
-// 單一可列印字元、toggle（等同 F12）、lang（等同 F8），或 bar（切換列保持顯示）。
+// 單一可列印字元、toggle（等同 F12）、lang（等同 F8）、cheat（等同 F1），或 bar（切換列保持顯示）。
 func parseScript(s string) (map[int][]scriptAction, error) {
 	out := map[int][]scriptAction{}
 	if s == "" {
@@ -193,6 +195,8 @@ func parseScript(s string) (map[int][]scriptAction, error) {
 			out[frame] = append(out[frame], scriptAction{bar: true})
 		case name == "lang":
 			out[frame] = append(out[frame], scriptAction{lang: true})
+		case name == "cheat":
+			out[frame] = append(out[frame], scriptAction{cheat: true})
 		case len([]rune(name)) == 1:
 			k, ok := dos.KeyForRune([]rune(name)[0])
 			if !ok {

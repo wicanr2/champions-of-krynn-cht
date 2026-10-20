@@ -9,9 +9,9 @@ import (
 
 // 主專案 text/host-text.zh-TW.tsv 的 toolbar.* 文字（規格 011 §2.2）。
 var testBarText = map[string]string{
-	"toolbar.scale2": "2倍", "toolbar.scale3": "3倍", "toolbar.scale3hd": "3倍HD", "toolbar.nohd": "無HD素材",
+	"toolbar.scale2": "2倍", "toolbar.scale3": "3倍", "toolbar.scale3hd": "3倍HD", "toolbar.nohd": "無HD",
 	"toolbar.chinese": "中文", "toolbar.original": "原版", "toolbar.journal": "手札", "toolbar.guide": "攻略",
-	"toolbar.map": "地圖", "toolbar.answers": "答案", "toolbar.mute": "靜音", "toolbar.music": "配樂", "toolbar.shot": "截圖",
+	"toolbar.map": "地圖", "toolbar.answers": "答案", "toolbar.cheat": "無敵", "toolbar.mute": "靜音", "toolbar.music": "配樂", "toolbar.shot": "截圖",
 	"toolbar.fullscreen": "全螢幕",
 }
 
@@ -196,8 +196,8 @@ func TestDrawToolbarOnlyTopRows(t *testing.T) {
 func TestToolbarHalfWidthPacked(t *testing.T) {
 	items := toolbarItems(testBarText, toolbarState{scale: 2})
 	it, _ := find(items, "toolbar.nohd")
-	if it.cols != 4 { // 無、HD（併一格）、素、材
-		t.Fatalf("無HD素材佔 %d 格，要 4", it.cols)
+	if it.cols != 2 { // 無、HD（併一格）
+		t.Fatalf("無HD佔 %d 格，要 2", it.cols)
 	}
 }
 

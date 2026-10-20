@@ -41,6 +41,7 @@ type toolbarState struct {
 	hasHD, chinese, muted, fullscreen bool
 	hasMusic, music                   bool // 有配樂素材、配樂開啟中（規格 014）
 	answers                           bool // 查驗題答案顯示中
+	cheat                             bool // 我方無敵開啟中（主專案規格 017）
 	journal, guide, mapOpen           bool
 	langs                             int  // 已載入的語言數（規格 015）；兩種以上才顯示語言項
 	packASCII                         bool // 英文版：切換列以預設字型畫，ASCII 也兩字併一格
@@ -88,6 +89,7 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 		toolbarItem{key: "toolbar.guide", act: actGuide, state: absent(st.noGuide, panel(st.guide))},
 		toolbarItem{key: "toolbar.map", act: actMap, state: panel(st.mapOpen)},
 		toolbarItem{key: "toolbar.answers", act: actAnswers, state: on(st.answers)},
+		toolbarItem{key: "toolbar.cheat", act: actCheat, state: on(st.cheat)},
 		toolbarItem{key: "toolbar.music", act: actMusic, state: musicState(st)},
 		toolbarItem{key: "toolbar.mute", act: actMute, state: on(st.muted)},
 		toolbarItem{key: "toolbar.shot", act: actShot},
@@ -226,7 +228,7 @@ func setRGB(dst []uint8, w, x, y int, c [3]uint8) {
 
 // toolbarKeys 是切換列用到的全部 host-text 鍵。
 var toolbarKeys = []string{"toolbar.scale2", "toolbar.scale3", "toolbar.scale3hd", "toolbar.nohd", "toolbar.chinese",
-	"toolbar.original", "toolbar.journal", "toolbar.guide", "toolbar.map", "toolbar.answers", "toolbar.mute", "toolbar.music",
+	"toolbar.original", "toolbar.journal", "toolbar.guide", "toolbar.map", "toolbar.answers", "toolbar.cheat", "toolbar.mute", "toolbar.music",
 	"toolbar.shot", "toolbar.fullscreen"}
 
 // checkToolbarText 確認 host-text 有全部切換列文字。
