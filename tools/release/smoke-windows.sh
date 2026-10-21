@@ -35,6 +35,10 @@ rm -rf original "$D/game"
 wine ./COKCHT.exe -audio=false -frames 5 > /v/noorig.log 2>&1; echo "noorig exit=$?"
 cp "$D/cok-error.log" /v/ 2>/dev/null; ls "$D"' > "$out/smoke.txt" 2>&1
   cat "$out/smoke.txt"
+  # 結束碼與截圖都要檢查：v.0.9.5–v.1.0.2 的程式一啟動就因切換列超寬結束，舊腳本沒看結束碼而照樣回報成功
+  grep -qx "run exit=0" "$out/smoke.txt" || { echo "$ed：有原版的執行失敗" >&2; tail -5 "$out/run.log" >&2; exit 1; }
+  grep -qE "^noorig exit=[1-9]" "$out/smoke.txt" || { echo "$ed：拿掉原版後應以錯誤結束" >&2; exit 1; }
+  test -s "$out/title.rgba" || { echo "$ed：沒有標題截圖" >&2; exit 1; }
   rm -rf "$out/win"
 done
 docker run -i --rm --network none --memory 1g --cpus 1 --pids-limit 32 --log-opt max-size=10m --log-opt max-file=3 \
