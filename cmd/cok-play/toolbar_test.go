@@ -1,6 +1,8 @@
 package main
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/wicanr2/dosgolem/apps/cok"
@@ -294,6 +296,33 @@ func TestLocaleLang(t *testing.T) {
 	} {
 		if got := localeLang(tag); got != want {
 			t.Errorf("localeLang(%q) = %q，要 %q", tag, got, want)
+		}
+	}
+}
+
+// TestToolbarFitsEveryLanguage 以主專案正式譯文表（DOSGOLEM_COK_TEXT 指定 text/ 目錄）檢查每種語言最寬的
+// 切換列狀態（沒有 HD 素材、多語言項）不超過 320 像素；沒給目錄時略過。
+func TestToolbarFitsEveryLanguage(t *testing.T) {
+	dir := os.Getenv("DOSGOLEM_COK_TEXT")
+	if dir == "" {
+		t.Skip("未設 DOSGOLEM_COK_TEXT")
+	}
+	files, _ := filepath.Glob(filepath.Join(dir, "host-text.*.tsv"))
+	if len(files) == 0 {
+		t.Fatalf("%s 沒有 host-text 表", dir)
+	}
+	for _, f := range files {
+		raw, err := os.ReadFile(f)
+		if err != nil {
+			t.Fatal(err)
+		}
+		text, err := cok.LoadHostText(raw)
+		if err != nil {
+			t.Fatal(err)
+		}
+		items := toolbarItems(text, toolbarState{scale: 2, langs: 5})
+		if last := items[len(items)-1]; (last.col+last.cols)*8 > 320 {
+			t.Errorf("%s：切換列寬 %d 像素，超過 320", filepath.Base(f), (last.col+last.cols)*8)
 		}
 	}
 }

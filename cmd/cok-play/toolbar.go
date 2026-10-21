@@ -44,7 +44,6 @@ type toolbarState struct {
 	cheat                             bool // 我方無敵開啟中（主專案規格 017）
 	journal, guide, mapOpen           bool
 	langs                             int  // 已載入的語言數（規格 015）；兩種以上才顯示語言項
-	packASCII                         bool // 英文版：切換列以預設字型畫，ASCII 也兩字併一格
 	noJournal, noGuide                bool // 目前語言沒有手札、攻略（規格 015），項目停用
 }
 
@@ -97,10 +96,8 @@ func toolbarItems(text map[string]string, st toolbarState) []toolbarItem {
 	)
 	col := barFirstCol
 	for i := range items {
-		items[i].label = cok.PackHalfWidth([]rune(text[items[i].key])) // 半形兩字併一格（規格 005 §2；#18）
-		if st.packASCII {
-			items[i].label = cok.PackHalfWidthAll([]rune(text[items[i].key]))
-		}
+		// 半形兩字併一格（規格 005 §2；#18），純英文標籤也併：日文「BGM」原本三格，使切換列超過 320 像素
+		items[i].label = cok.PackHalfWidthAll([]rune(text[items[i].key]))
 		items[i].col, items[i].cols = col, len(items[i].label)
 		col += items[i].cols + 1
 	}

@@ -79,7 +79,7 @@ func loadLangs(textDir string, main *xlate.Font, fonts map[string]string, releas
 			return nil, fmt.Errorf("語言 %s：host-text.%s.tsv 缺 lang.name（切換列的語言名稱）", p.Code, p.Code)
 		}
 		// 項目最多的狀態（沒有 HD 素材時多一個說明項）也要放得進 320 像素寬
-		items := toolbarItems(p.Host, toolbarState{scale: 2, langs: len(packs), packASCII: p.Code == cok.EnglishLang})
+		items := toolbarItems(p.Host, toolbarState{scale: 2, langs: len(packs)})
 		if last := items[len(items)-1]; (last.col+last.cols)*8 > 320 {
 			return nil, fmt.Errorf("語言 %s：切換列寬 %d 像素，超過 320", p.Code, (last.col+last.cols)*8)
 		}

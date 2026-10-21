@@ -386,7 +386,7 @@ func (g *game) toolbarItems() []toolbarItem {
 		hasMusic: g.music != nil, music: g.music.Enabled(),
 		fullscreen: ebiten.IsFullscreen(), answers: !g.live.HideAnswers(),
 		journal: g.live.Journal.Browsing(), guide: g.live.Guide.Open(), mapOpen: g.live.Map.Open(), langs: len(g.langs),
-		packASCII: g.english(), cheat: g.cheat.On, noJournal: g.live.Journal == nil, noGuide: g.live.Guide == nil})
+		cheat: g.cheat.On, noJournal: g.live.Journal == nil, noGuide: g.live.Guide == nil})
 }
 
 // drawBar 在切換列顯示時把它疊到 rgba 上（截圖 F10 不含切換列）。
