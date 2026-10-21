@@ -71,7 +71,9 @@ type Live struct {
 // ecl 可為 nil（不啟用路徑 B）。
 func NewLive(font *xlate.Font, ui Lookuper, ecl *Catalog) *Live {
 	AddHalfWidthPairs(font)
-	AddScaledVariants(font)
+	if font == nil || font.Scaled[3].Font == nil { // 有外部 3 倍字模（<名稱>-3x.golemfnt）時不從 16×16 放大
+		AddScaledVariants(font)
+	}
 	return &Live{HDLayers: &HDLayers{}, Layer: &xlate.Layer{W: 320, H: 200}, Font: font, ui: ui, ecl: ecl}
 }
 
@@ -95,6 +97,7 @@ func (l *Live) bind(mem CPUView) error {
 		return err
 	}
 	l.A.Answers, l.A.QuizFormat, l.A.HideAnswers = l.Answers, l.QuizFormat, l.hideAnswers
+	l.A.ASCIIWide = l.lang != nil && l.lang.Code == EnglishLang
 	if l.C, err = NewPathC(mem, l.ui, l.Font, l.Layer); err != nil {
 		return err
 	}

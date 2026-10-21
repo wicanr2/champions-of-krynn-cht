@@ -124,11 +124,10 @@ func main() {
 			timed = append(timed, timedKey{n, k[0]})
 		}
 	}
-	font, err := xlate.LoadFont(*fontPath)
+	font, err := cok.LoadFontScaled(*fontPath)
 	if err != nil {
 		fail(err)
 	}
-	font.Name = filepath.Base(*fontPath)
 
 	m := machine.New()
 	d := dos.New(m, *root)
@@ -208,17 +207,9 @@ func main() {
 		if *textDir == "" || *langFont == "" {
 			fail(fmt.Errorf("-lang 需要 -text-dir 與 -lang-font"))
 		}
-		lf, err := xlate.LoadFont(*langFont)
+		lf, err := cok.LoadFontScaled(*langFont)
 		if err != nil {
 			fail(err)
-		}
-		lf.Name = filepath.Base(*langFont)
-		if p3 := strings.TrimSuffix(*langFont, ".golemfnt") + "-3x.golemfnt"; fileExists(p3) {
-			f3, err := xlate.LoadFont(p3)
-			if err != nil {
-				fail(err)
-			}
-			lf.Scaled = map[int]xlate.ScaledFont{3: {Font: f3}}
 		}
 		pack, err := cok.LoadLangPack(*textDir, *langCode, lf)
 		if err != nil {

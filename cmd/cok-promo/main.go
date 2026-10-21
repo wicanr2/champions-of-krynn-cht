@@ -28,7 +28,6 @@ import (
 	"github.com/wicanr2/dosgolem/internal/dos"
 	"github.com/wicanr2/dosgolem/internal/machine"
 	"github.com/wicanr2/dosgolem/internal/state"
-	"github.com/wicanr2/dosgolem/xlate"
 )
 
 type view struct{ m *machine.Machine }
@@ -167,11 +166,10 @@ func main() {
 	}
 	sort.SliceStable(acts, func(a, b int) bool { return acts[a].at < acts[b].at })
 
-	font, err := xlate.LoadFont(*fontPath)
+	font, err := cok.LoadFontScaled(*fontPath)
 	if err != nil {
 		fail(err)
 	}
-	font.Name = filepath.Base(*fontPath)
 	ui, ecl, err := cok.LoadTextDir(*textDir)
 	if err != nil {
 		fail(err)
@@ -203,16 +201,8 @@ func main() {
 	loadPack := func(code, path string) {
 		f := font
 		if code != cok.DefaultLang {
-			if f, err = xlate.LoadFont(path); err != nil {
+			if f, err = cok.LoadFontScaled(path); err != nil {
 				fail(fmt.Errorf("語言 %s 的字型：%w", code, err))
-			}
-			f.Name = filepath.Base(path)
-			if p3 := strings.TrimSuffix(path, ".golemfnt") + "-3x.golemfnt"; fileExists(p3) {
-				f3, err := xlate.LoadFont(p3)
-				if err != nil {
-					fail(err)
-				}
-				f.Scaled = map[int]xlate.ScaledFont{3: {Font: f3}}
 			}
 		}
 		p, err := cok.LoadLangPack(*textDir, code, f)

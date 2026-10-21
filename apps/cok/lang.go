@@ -174,6 +174,7 @@ func (l *Live) SetLang(p *LangPack) {
 	if !l.ready {
 		return
 	}
+	l.A.ASCIIWide = p.Code == EnglishLang
 	l.A.relang(p.UI, p.Font, p.QuizFormat)
 	l.C.relang(p.UI, p.Font)
 	if l.B != nil {

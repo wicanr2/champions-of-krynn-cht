@@ -60,17 +60,9 @@ func loadLangs(textDir string, main *xlate.Font, fonts map[string]string, releas
 				fmt.Fprintf(os.Stderr, "cok-play: 語言 %s 沒有字型，略過\n", code)
 				continue
 			}
-			if font, err = xlate.LoadFont(path); err != nil {
-				return nil, fmt.Errorf("語言 %s 的字型：%w", code, err)
-			}
-			font.Name = filepath.Base(path)
 			// 同目錄的 <名稱>-3x.golemfnt（24×24）是 3 倍畫面專用字模（英文版，規格 015 §3.1）
-			if p3 := strings.TrimSuffix(path, ".golemfnt") + "-3x.golemfnt"; fileExists(p3) {
-				f3, err := xlate.LoadFont(p3)
-				if err != nil || f3.W != 24 || f3.H != 24 {
-					return nil, fmt.Errorf("語言 %s 的 3 倍字型 %s 要是 24×24：%v", code, p3, err)
-				}
-				font.Scaled = map[int]xlate.ScaledFont{3: {Font: f3}}
+			if font, err = cok.LoadFontScaled(path); err != nil {
+				return nil, fmt.Errorf("語言 %s 的字型：%w", code, err)
 			}
 		}
 		p, err := cok.LoadLangPack(textDir, code, font)

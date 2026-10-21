@@ -484,11 +484,10 @@ func main() {
 	if *scaleFlag != 2 && *scaleFlag != 3 {
 		fail(fmt.Errorf("-scale 須為 2 或 3"))
 	}
-	font, err := xlate.LoadFont(*fontPath)
+	font, err := cok.LoadFontScaled(*fontPath)
 	if err != nil {
 		fail(err)
 	}
-	font.Name = filepath.Base(*fontPath)
 	ui, ecl, err := cok.LoadTextDir(*textDir)
 	if err != nil {
 		fail(err)

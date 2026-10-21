@@ -119,7 +119,8 @@ func resourcePath(rel string) (string, error) {
 // releaseFont 回發行模式的字型：本機完整版附的倚天優先，其次 Unifont。
 func releaseFont() (string, error) {
 	var err error
-	for _, name := range []string{"cok-eten.golemfnt", "cok-unifont.golemfnt"} {
+	// 圓體（源泉圓體，使用者 2026-10-21 指示）優先；沒有時本機完整版用倚天，可散布包用 Unifont
+	for _, name := range []string{"cok-rounded.golemfnt", "cok-eten.golemfnt", "cok-unifont.golemfnt"} {
 		var p string
 		if p, err = resourcePath(filepath.Join("font", name)); err == nil {
 			return p, nil

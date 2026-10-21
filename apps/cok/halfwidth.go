@@ -56,11 +56,18 @@ func PackHalfWidthAll(rs []rune) []rune {
 	return out
 }
 
-// AddHalfWidthPairs 在 16×16 字型補上全部組合字（規格 005 §2）。倚天 ASCII 墨跡在 x=4..11。
+// AddHalfWidthPairs 補上全部組合字（規格 005 §2）：半形字墨跡在中間半格（16 格 x=4..11、24 格 x=6..17），
+// 組合字左半取 a、右半取 b。字型的 3 倍字模（Scaled[3]，24×24 外部字模）一併處理。
 func AddHalfWidthPairs(f *xlate.Font) {
-	if f == nil || f.W != 16 {
+	if f == nil || f.W != f.H || f.W%8 != 0 {
 		return
 	}
+	if s, ok := f.Scaled[3]; ok && s.Font != f {
+		AddHalfWidthPairs(s.Font)
+	}
+	w, rb := f.W, f.W/8
+	half, quarter := w/2, w/4
+	bit := func(g []byte, x, y int) bool { return g[y*rb+x/8]&(0x80>>(x%8)) != 0 }
 	for a := rune(0x20); a <= 0x7E; a++ {
 		ga, okA := f.Glyphs[a]
 		for b := rune(0x20); b <= 0x7E; b++ {
@@ -69,11 +76,15 @@ func AddHalfWidthPairs(f *xlate.Font) {
 				continue
 			}
 			g := make([]byte, len(ga))
-			for y := 0; y+1 < len(g); y += 2 {
-				l := uint16(ga[y])<<8 | uint16(ga[y+1])
-				r := uint16(gb[y])<<8 | uint16(gb[y+1])
-				v := (l<<4)&0xFF00 | (r>>4)&0x00FF
-				g[y], g[y+1] = byte(v>>8), byte(v)
+			for y := 0; y < f.H; y++ {
+				for x := 0; x < half; x++ {
+					if bit(ga, x+quarter, y) {
+						g[y*rb+x/8] |= 0x80 >> (x % 8)
+					}
+					if bit(gb, x+quarter, y) {
+						g[y*rb+(x+half)/8] |= 0x80 >> ((x + half) % 8)
+					}
+				}
 			}
 			f.Glyphs[pairRune(a, b)] = g
 		}

@@ -95,12 +95,24 @@ type PathA struct {
 	// src 記每筆 Stamp 查表用的原文，換語言時重譯（主專案規格 015 §2）。
 	src map[*xlate.Stamp][]byte
 
+	// ASCIIWide 為真時純 ASCII 譯文一字一格（英文版，主專案規格 015 §3）；否則兩字併一格，
+	// 中文等語言的製作群英文名才不會每個字母佔一個全形格（使用者 2026-10-21 指示）。
+	ASCIIWide bool
+
 	// 規格 006 查驗題：答案表、是否隱藏答案、最近一次改寫。
 	Answers     map[QuizKey]string
 	QuizFormat  QuizFormat // 空白時不改寫查驗題
 	HideAnswers bool
 	QuizShown   *QuizShown
 	quiz        quizTrack
+}
+
+// pack 把譯文轉成格子：半形兩字併一格；純 ASCII 只有 ASCIIWide（英文版）時維持一字一格。
+func (p *PathA) pack(s string) []rune {
+	if p.ASCIIWide {
+		return PackHalfWidth([]rune(s))
+	}
+	return PackHalfWidthAll([]rune(s))
 }
 
 type pendingStamp struct {
@@ -192,7 +204,7 @@ func (p *PathA) Before(step uint64, cs, ip, ss, sp uint16, mem CPUView) {
 		return
 	}
 	h.Key = e.Key
-	runes := PackHalfWidth([]rune(e.Translation))
+	runes := p.pack(e.Translation)
 	cells := n - lead
 	if len(runes) > cells {
 		h.Rejected = "譯文超過原文格數"
@@ -271,7 +283,7 @@ func (p *PathA) relang(cat Lookuper, font *xlate.Font, f QuizFormat) {
 			continue
 		}
 		e, ok := cat.Lookup(key)
-		runes := PackHalfWidth([]rune(e.Translation))
+		runes := p.pack(e.Translation)
 		if !ok || len(runes) > st.Cells {
 			drop[st] = true
 			delete(p.src, st)
