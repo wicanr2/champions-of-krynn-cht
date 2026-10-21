@@ -10,7 +10,9 @@ import (
 	"image/draw"
 	"image/png"
 	"os"
+	"path"
 	"path/filepath"
+	"strings"
 )
 
 type exactHDItem struct {
@@ -55,10 +57,11 @@ func loadExactHD(dir string) (*exactHD, error) {
 	h := &exactHD{}
 	keys, refs := map[string]bool{}, map[string]bool{}
 	checked := func(name, hash string) ([]byte, error) {
-		if name == "" || filepath.IsAbs(name) || filepath.Clean(name) != name || name == ".." || len(name) >= 3 && name[:3] == "../" {
+		full, ok := themeFile(dir, name)
+		if !ok {
 			return nil, fmt.Errorf("完整來源資產路徑不合法")
 		}
-		return readChecked(filepath.Join(dir, name), hash)
+		return readChecked(full, hash)
 	}
 	for _, it := range m.Items {
 		if it.Algorithm != "" && (it.Algorithm != "scale3x" || it.Size != [2]int{8, 8}) {
@@ -121,6 +124,17 @@ func loadExactHD(dir string) (*exactHD, error) {
 		h.items = append(h.items, p)
 	}
 	return h, nil
+}
+
+// themeFile 把主題清單裡的相對路徑（一律以 / 分隔）轉成 dir 底下的檔案路徑。空字串、絕對路徑、反斜線、
+// 未正規化或跳出主題目錄的路徑回 false。用 path 而非 filepath 檢查：Windows 上 filepath.Clean 會把 / 換成 \，
+// 合法路徑也會被判為未正規化（v.1.0.3 以前 Windows HD 版牆面與完整來源因此無法載入）。
+func themeFile(dir, name string) (string, bool) {
+	if name == "" || path.IsAbs(name) || strings.ContainsAny(name, `\:`) || path.Clean(name) != name ||
+		name == ".." || strings.HasPrefix(name, "../") {
+		return "", false
+	}
+	return filepath.Join(dir, filepath.FromSlash(name)), true
 }
 
 func (p *exactHDItem) makeAnchor() {

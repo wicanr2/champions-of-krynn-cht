@@ -85,10 +85,11 @@ func loadWallHD(dir string) (*wallHD, error) {
 	}
 	assets := map[string]wallAsset{}
 	checked := func(name, hash string) ([]byte, error) {
-		if name == "" || filepath.IsAbs(name) || filepath.Clean(name) != name || name == ".." || len(name) >= 3 && name[:3] == "../" {
+		full, ok := themeFile(dir, name)
+		if !ok {
 			return nil, fmt.Errorf("牆面資產路徑不合法")
 		}
-		return readChecked(filepath.Join(dir, name), hash)
+		return readChecked(full, hash)
 	}
 	for _, s := range m.Assets {
 		w, h := s.Size[0], s.Size[1]

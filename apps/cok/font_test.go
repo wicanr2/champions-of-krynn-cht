@@ -1,6 +1,7 @@
 package cok
 
 import (
+	"path/filepath"
 	"testing"
 
 	"github.com/wicanr2/dosgolem/xlate"
@@ -36,5 +37,17 @@ func TestPathAPackASCII(t *testing.T) {
 	p.ASCIIWide = true
 	if got := len(p.pack("Jim Ward")); got != 8 {
 		t.Fatalf("英文版要一字一格 8 格，得 %d", got)
+	}
+}
+
+// 主題清單路徑以 / 分隔；檢查不能依作業系統的分隔符（Windows 上 filepath.Clean 會改寫 /）。
+func TestThemeFile(t *testing.T) {
+	if p, ok := themeFile("d", "walls/a.idx"); !ok || p != filepath.Join("d", "walls", "a.idx") {
+		t.Fatalf("合法路徑被拒：%q %v", p, ok)
+	}
+	for _, bad := range []string{"", "/abs.png", "../x.png", "..", "a/../b.png", "a/./b.png", `walls\a.idx`, "C:a.png"} {
+		if _, ok := themeFile("d", bad); ok {
+			t.Errorf("%q 應被拒", bad)
+		}
 	}
 }
