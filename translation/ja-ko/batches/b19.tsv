@@ -1,0 +1,131 @@
+key	original	prev	next	zh
+ui.67abe0afb7d7	Parts 1st-color 2nd-color Size Exit	#Parts 	Head Weapon Exit	部位 第一色 第二色 大小 離開
+ui.ca4d5dab9791	Head Weapon Exit	Parts 1st-color 2nd-color Size Exit	Weapon Body xxxx Shield Arm Leg Exit	頭部 武器 離開
+ui.f8e9641e3a5a	Weapon Body xxxx Shield Arm Leg Exit	Head Weapon Exit	 Keep Exit	武器 身體 xxxx 盾牌 手臂 腳部 離開
+ui.6bed4a4b0f2d	 Keep Exit	Weapon Body xxxx Shield Arm Leg Exit	Next Prev Keep Exit	保留 離開
+ui.3a3bf7a09be2	Next Prev Keep Exit	 Keep Exit	Special	下一個 前一個 保留 離開
+ui.997c544f1be0	Special	Next Prev Keep Exit	1st Level	特殊法術
+ui.183cb292f370	1st Level	Special	2nd Level	第一級
+ui.fee1e0c181cf	2nd Level	1st Level	3rd Level	第二級
+ui.228265bc1e9e	3rd Level	2nd Level	4th Level	第三級
+ui.54a2eee8a8af	4th Level	3rd Level	5th Level	第四級
+ui.ac1f2683d765	5th Level	4th Level	6th Level	第五級
+ui.85b9417a7c41	6th Level	5th Level	7th Level	第六級
+ui.12577141602b	7th Level	6th Level	8th Level	第七級
+ui.38d99bc52505	8th Level	7th Level	9th Level	第八級
+ui.dfa14d065fe1	9th Level	8th Level	Cleric	第九級
+ui.356e7e8add97	Cleric	9th Level	Druid	牧師
+ui.274814f1a96f	Druid	Cleric	Fighter	得魯依
+ui.fe5b48644212	Fighter	Druid	Paladin	戰士
+ui.a7d973a732d0	Paladin	Fighter	Ranger	聖騎士
+ui.e6cd637f954b	Ranger	Paladin	Mage	遊俠
+ui.e181bc015be0	Mage	Ranger	Thief	魔法師
+ui.2fd478c88ca0	Thief	Mage	Knight	賊
+ui.f24b52468bfa	Knight	Thief	Cleric/Fighter	騎士
+ui.f005dc729cc9	Cleric/Fighter	Knight	Cleric/Fighter/Mage	牧師/戰士
+ui.1dddfa7fc08c	Cleric/Fighter/Mage	Cleric/Fighter	Cleric/Ranger	牧師/戰士/魔法師
+ui.99c4cc7855b7	Cleric/Ranger	Cleric/Fighter/Mage	Cleric/Mage	牧師/遊俠
+ui.4382d5e51bac	Cleric/Mage	Cleric/Ranger	Cleric/Thief	牧師/魔法師
+ui.65a856807cd8	Cleric/Thief	Cleric/Mage	Fighter/Mage	牧師/賊
+ui.995c038a6623	Fighter/Mage	Cleric/Thief	Fighter/Thief	戰士/魔法師
+ui.52b785e40b86	Fighter/Thief	Fighter/Mage	Fighter/Mage/Thief	戰士/賊
+ui.d65cab4bfd56	Fighter/Mage/Thief	Fighter/Thief	Mage/Thief	戰士/魔法師/賊
+ui.6c0bd5eba822	Mage/Thief	Fighter/Mage/Thief	OK buddy, who are you?	魔法師/賊
+ui.50b0613a9efc	OK buddy, who are you?	Mage/Thief	Silvanesti Elf	好了老兄，你是誰？
+ui.e5320c614271	Silvanesti Elf	OK buddy, who are you?	Qualinesti Elf	西維亞內斯提精靈
+ui.dbdad44271b9	Qualinesti Elf	Silvanesti Elf	Half-elf	夸林內斯提精靈
+ui.64f4e5d464ae	Half-elf	Qualinesti Elf	Mountain Dwarf	半精靈
+ui.675f1f81fe21	Mountain Dwarf	Half-elf	Hill Dwarf	高山矮人
+ui.938134818dcb	Hill Dwarf	Mountain Dwarf	Kender	丘陵矮人
+ui.a681116d0f70	Kender	Hill Dwarf	Human	坎德人
+ui.9ffa865f2bc6	Human	Kender	Monster	人類
+ui.3a241d59687b	Monster	Human	Lawful Good	怪物
+ui.205c9cf60516	Lawful Good	Monster	Lawful Neutral	嚴守善良
+ui.7ac6561f7ff4	Lawful Neutral	Lawful Good	Lawful Evil	嚴守中立
+ui.7b682d92b448	Lawful Evil	Lawful Neutral	Neutral Good	嚴守邪惡
+ui.7bfdfa1353ed	Neutral Good	Lawful Evil	True Neutral	普通善良
+ui.6c8e3155e463	True Neutral	Neutral Good	Neutral Evil	真正中立
+ui.59e74f11c96a	Neutral Evil	True Neutral	Chaotic Good	普通邪惡
+ui.53916d1113a3	Chaotic Good	Neutral Evil	Chaotic Neutral	混亂的善良
+ui.dfc5d1c129a5	Chaotic Neutral	Chaotic Good	Chaotic Evil	混亂的中立
+ui.6d88eb730ffb	Chaotic Evil	Chaotic Neutral	None	混亂的邪惡
+ui.dc937b598926	None	Chaotic Evil	Paladine	無
+ui.16d58af88764	Paladine	None	Majere	帕拉丁
+ui.66279f5a7114	Majere	Paladine	Kiri-Jolith	馬傑里
+ui.8168693b9714	Kiri-Jolith	Majere	Mishakal	基瑞尤里斯
+ui.793e1cf7b3d2	Mishakal	Kiri-Jolith	Sirrion	米夏凱爾
+ui.aa4400500190	Sirrion	Mishakal	Reorx	西里恩
+ui.2138b8ca3a69	Reorx	Sirrion	Shinare	李歐克斯
+ui.041ecee8a387	Shinare	Reorx	White	希奈爾
+ui.3495e757855a	White	Shinare	Red	白
+ui.ba19e9c3d5f4	Red	White	Black	紅
+ui.c6cfe6e4f129	Black	Red	Male	黑
+ui.03f8c1273e3d	Male	Black	Female	男
+ui.e8cca808ae5a	Female	Male	Silver	女
+ui.a0b43df06f52	Silver	Female	Copper	銀幣
+ui.d35b0efe2128	Copper	Silver	Bronze	銅幣
+ui.d916515d826c	Bronze	Copper	Platinum	青銅幣
+ui.5a98505ed913	Platinum	Bronze	Steel	白金幣
+ui.ea9973d1460e	Steel	Platinum	Gems	鋼幣
+ui.6024329694ab	Gems	Steel	Jewelry	寶石
+ui.7afde2cf9e6c	Jewelry	Gems	Okay	珠寶
+ui.16584052fd33	Okay	Jewelry	Animated	平安無事
+ui.d1d632796f8a	Animated	Okay	tempgone	活化
+ui.f4ccae29e1bb	Running	tempgone	Unconscious	逃跑
+ui.daf064fe39bd	Unconscious	Running	Dying	不省人事
+ui.e07f87e5bf6f	Dying	Unconscious	Dead	垂死
+ui.ec9b10a4a79c	Dead	Dying	Stoned	死亡
+ui.60f83bf1e1cf	Stoned	Dead	Gone	石化
+ui.55f6a88dc025	Gone	Stoned	Battle Axe	毀滅
+ui.218e607c02c8	Battle Axe	Gone	Hand Axe	戰斧
+ui.c600613067cb	Hand Axe	Battle Axe	Club	手斧
+ui.72e81feaa8a1	Club	Hand Axe	Dagger	棍棒
+ui.5679daa7c55d	Dagger	Club	Dart	匕首
+ui.5a5c3f75ebce	Dart	Dagger	Hammer	飛鏢
+ui.c157cbf647f5	Hammer	Dart	Javelin	鐵錘
+ui.3331d5456d2d	Javelin	Hammer	Mace	標槍
+ui.6659c4ca6420	Mace	Javelin	Morning Star	釘頭錘
+ui.ca949ab43e76	Morning Star	Mace	Military Pick	晨星錘
+ui.19dd0c4eb6b7	Military Pick	Morning Star	Awl Pike	軍用鎬
+ui.32f6c2ed53d7	Awl Pike	Military Pick	Quarrel	錐矛
+ui.7fbe1537394e	Quarrel	Awl Pike	Scimitar	弩箭
+ui.e188d7831c07	Scimitar	Quarrel	Spear	彎刀
+ui.c71c66ea7e4c	Spear	Scimitar	Quarter Staff	長矛
+ui.1d992b785bf9	Quarter Staff	Spear	Bastard Sword	長棍
+ui.9760e90581ce	Bastard Sword	Quarter Staff	Broad Sword	手半劍
+ui.b59528a9bc9f	Broad Sword	Bastard Sword	Long Sword	寬刃劍
+ui.cab923a670e4	Long Sword	Broad Sword	Short Sword	長劍
+ui.07467b84a7ed	Short Sword	Long Sword	Two-Handed Sword	短劍
+ui.e3e1e619a1c8	Two-Handed Sword	Short Sword	Trident	雙手劍
+ui.71c095b134e2	Trident	Two-Handed Sword	Composite Long Bow	三叉戟
+ui.842c3f9a9151	Composite Long Bow	Trident	Composite Short Bow	複合長弓
+ui.b55d3062e7db	Composite Short Bow	Composite Long Bow	Long Bow	複合短弓
+ui.4cf469d6ea54	Long Bow	Composite Short Bow	Short Bow	長弓
+ui.bc0f80620ba6	Short Bow	Long Bow	Fine	短弓
+ui.fa67303aecda	Fine	Short Bow	Light Crossbow	精良
+ui.90d8d6de638c	Light Crossbow	Fine	Sling	輕弩
+ui.892b3e482474	Sling	Light Crossbow	Staff	投石索
+ui.681927e34b77	Staff	Sling	Arrow	法杖
+ui.05800e70aa10	Arrow	Staff	Leather	箭
+ui.e8e775159a57	Leather	Arrow	Ring	皮甲
+ui.b3f952e8b678	Ring	Leather	Scale	戒指
+ui.f102986b39ef	Scale	Ring	Chain	鱗甲
+ui.dae0896cbc2c	Chain	Scale	Banded	鎖甲
+ui.5253705f15ab	Banded	Chain	Plate	帶甲
+ui.a7cd5d8f8422	Plate	Banded	Shield	鎧甲
+ui.480d4be7d61f	Shield	Plate	Cler	盾牌
+ui.58851b8fac82	Cler	Shield	Scroll	牧師
+ui.291873e31ccb	Scroll	Cler	MU Scroll	卷軸
+ui.cd9bcf31a14e	MU Scroll	Scroll	Helm	魔法卷軸
+ui.7e94675ff2de	Helm	MU Scroll	Belt	頭盔
+ui.eeebd533ebee	Belt	Helm	Robe	腰帶
+ui.9fc3eff8f2ea	Robe	Belt	Cloak	長袍
+ui.8d77768365dd	Cloak	Robe	Boots	斗篷
+ui.929433e4be1d	Boots	Cloak	Mail	靴
+ui.07ed6ccf6bf6	Mail	Boots	Armor	甲
+ui.a592855d0508	Armor	Mail	Of Prot	護甲
+ui.6f7418045e72	Of Prot	Armor	Bracers	防護
+ui.e00b7065984d	Bracers	Of Prot	Wand	腕甲
+ui.3e7962d21cc5	Wand	Bracers	Amulet	魔法杖
+ui.e721e319e5f9	Amulet	Wand	Potion	護身符
+ui.41e4ae984c22	Potion	Amulet	Holy Water	藥劑

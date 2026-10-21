@@ -1,0 +1,131 @@
+key	translation	note
+ui.5af067b931b7	-	
+ui.c7530f5eb6c1	克萊恩英豪 v1.2	
+ui.b0556164a81c	克萊恩英豪 v1.2	
+ui.3d521e6a8491	-	
+ui.53e77a92a134	-	
+ui.e54271566b7c	-	
+ui.1492bac065fa	-	
+ui.7d2b411f3aa6	-	
+ui.a26d873b3d51	抱歉，A 磁碟機不能有防寫保護。	真字串為「Sorry, disk A can't be write-protected.」，前段被切在其他片段，完整語意放此則
+ui.de249cd2b158	-	
+ui.2de8036df916	-	
+ui.7263085fdf48	-	
+ui.de7e1770770c	-	
+ui.8d3cd19902c1	-	
+ui.937cbf7a0c2b	-	
+ui.4b52a2192b1e	-	
+ui.f542287f058b	-	
+ui.1ef3003496ab	-	
+ui.e332e9199f71	-	
+ui.4428ee4929ad	-	
+ui.b20bdd3fa3ef	-	
+ui.0e72b68820a9	-	
+ui.3dd5a1b8728e	-	
+ui.5672c76c7da3	若這些是原版磁片，請用 DISKCOPY 複製備份。	真字串為「If these are your masters, use DISKCOPY to make duplicates.」，完整語意放此則
+ui.1846d3f51e3c	-	
+ui.51d94aac84bf	-	
+ui.419c569549a0	-	
+ui.a309989ffe58	-	
+ui.065ffe0a2c00	-	
+ui.6d9653a77528	-	
+ui.a6f0c930d3a7	-	
+ui.261a7a369bcc	-	
+ui.da32879eee63	-	
+ui.199dbea375a6	顯示卡種類：  [1] CGA  [2] EGA  [3] Tandy	真字串前後與中間的空白補位保留兩格，尾端空白省略
+ui.7b357a9dc035	-	
+ui.5f1d19a54d87	-	
+ui.7d5e9f749de2	-	
+ui.e79ad62e715c	-	
+ui.8f24e7e793e7	其他輸入裝置：  [1] 搖桿  [2] 滑鼠  [3] 無	
+ui.0605fbc471be	-	
+ui.ea3fa3bdcf9b	-	
+ui.b51e28a55fd4	-	
+ui.809dfe863c1c	-	
+ui.c3de04a6886c	-	
+ui.c210bfdf28ce	儲存	用途不明，推定為設定存檔選項
+ui.ed695f1dd60f	Tandy 1000 使用者：請確認 NUMLOCK 已開啟。	
+ui.a68b50d18079	-	
+ui.e7d5e377bafa	-	
+ui.daa8b72d1f57	-	
+ui.4cc56edb3be4	-	
+ui.9048abc821f1	-	
+ui.8bb2e81590a2	-	
+ui.c89fc2cc1330	-	
+ui.2d53edd94f70	-	
+ui.8ed9a61e8db6	-	
+ui.3f862e25b34c	-	
+ui.8f4f93ebafde	-	
+ui.14750e647f8c	-	
+ui.475e7e92bd56	-	
+ui.81cfd77868f4	-	
+ui.76905a556117	-	
+ui.59a3bae37900	-	
+ui.01f4d85f29de	-	
+ui.aeeabe9647b6	記憶體不足，無法執行遊戲。需要	後接記憶體容量
+ui.d703b97d347a	-	
+ui.2e433cd6427d	覆蓋檔錯誤，程式中止！	
+ui.6ed429e0f0de	-	
+ui.d3ef7de562f9	-	
+ui.73017b67c80b	按任意鍵繼續	
+ui.d946b7b7a22c	-	
+ui.53ce7a18800c	-	
+ui.6a72c229fd8d	-	
+ui.20f0a4f030a9	-	
+ui.c5c1764a8b18	-	
+ui.dd29442deca6	-	
+ui.53915a73b6dc	-	
+ui.282cac63534b	請插入覆蓋檔磁片。	
+ui.f77a2cc8468f	將搖桿 #1 推到最左上角位置，然後按下按鈕 #1。	
+ui.00dd5594920a	-	
+ui.f24d5c357740	-	
+ui.7c8b9c883543	-	
+ui.fa2dcd406e9f	-	
+ui.4362b9594c58	-	
+ui.b17f912165f0	-	
+ui.19fc8ca7376b	-	
+ui.4d69e075a23d	-	
+ui.699a27ac9965	-	
+ui.27909a3c326a	-	
+ui.7bfe2866a26e	-	
+ui.df0861493c05	-	
+ui.14bba2bd2c99	-	
+ui.ebe02a2e1d64	-	
+ui.b0268c51d1eb	-	
+ui.1f63ee9aac74	-	
+ui.27cddaa3520e	-	
+ui.7054ced26414	-	
+ui.497c76c22b0d	-	
+ui.5155f263c3ce	-	
+ui.29c54d0b7c4f	-	
+ui.5e1438019f87	-	
+ui.0df3981e1d69	-	
+ui.3b92041777ef	-	
+ui.f709bffcc998	-	
+ui.dac0bb10e82e	-	
+ui.967a6bde0596	無法讀取搖桿。校正中止。	
+ui.94d6ad89dd89	-	
+ui.af2079281d18	-	
+ui.18b7d02f93bb	-	
+ui.8ba5e843ce8a	-	
+ui.288ad67af0d2	-	
+ui.42435bb98ad1	-	
+ui.629d4d423e85	-	
+ui.9a770e777cfd	-	
+ui.c45fc8d83f0f	-	
+ui.b8baf756f827	-	
+ui.4ace3a2b3847	-	
+ui.2c9e0d734b01	將搖桿 #1 推到最右下角位置，然後按下按鈕 #1。	
+ui.2512c909e60d	-	
+ui.d36613bc4e11	-	
+ui.2cf108e69f57	-	
+ui.bf61c5fa366b	-	
+ui.ad194452723f	-	
+ui.6828bcda20e2	-	
+ui.a5065984fd53	-	
+ui.17b09f5db72c	-	
+ui.9f55a2c75ea7	-	
+ui.11e030a9b3f5	-	
+ui.26a0457654d4	-	
+ui.08094859cc8e	-	
+ui.cffbf7151757	-	

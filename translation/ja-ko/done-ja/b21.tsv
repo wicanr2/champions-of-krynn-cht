@@ -1,0 +1,131 @@
+key	translation	note
+ui.fa4791077ad5	サイレンス：半径15フィート	術語表 Silence 15' radius 全名超過原文長度，改用「半径15フィート」
+ui.3dd5d43f43a7	警告：メモリ不足	
+ui.57cf485824df	メモリ不足$メモリ不足。プログラムを終了します。	
+ui.099d027ca3b5	メモリ不足。プログラムを終了します。	
+ui.073939be1ea4	原案：	
+ui.70d00aad3b51	Jim Ward	
+ui.d5d56ec05001	Victor Penman,	
+ui.6201111b83a0	および	
+ui.433429f7d12c	Dave Shelley	
+ui.f340e8d20774	ゲーム制作：	
+ui.173162217929	SSI Special Projects	
+ui.362825bf06b1	プロジェクト・ディレクター：	
+ui.e6aba2bd5a6b	プログラム	
+ui.be057371a9ba	Victor Penman	
+ui.83c519b42fab	Russ Brown	
+ui.09b9f8622ac7	Scot Bayless	
+ui.70be2a9d7c9c	グラフィック：	
+ui.3581aabee3ca	Tom Wahl	
+ui.65ebeeba7880	遭遇デザイン	
+ui.0dd635c636cd	Fred Butts	
+ui.080cb09b9a95	Mark Johnson	
+ui.8248fe0af52a	Michael Mancuso	
+ui.53a33189ab7f	Cyrus Lum	
+ui.406eec9126ed	Ken Humphries	
+ui.8e8bcedc6f14	Susan Manley	
+ui.c8ed26fc0fb3	テスト：	
+ui.490dd4c44847	Rick White,Don Mc Clure,	
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	
+ui.6ca94c9f8a62	音楽：	
+ui.532c7e0084da	音楽ドライバ：	
+ui.99b4eba4e920	John Halbleib	
+ui.328b53003a80	Electronic Arts	
+ui.de1e334ce4b4	ボタンか<Enter>キーで続行。	
+ui.ebc583583e1a	<Enter>キーで続行	
+ui.34695f140781	道具ファイルが見つからない	
+ui.bec2538a4c67	戦闘 待機 逃走 交渉	
+ui.466738c48568	戦闘 待機 逃走 前進	
+ui.002c9650368c	双方とも様子を見ている。	
+ui.cbefa25e9f4e	モンスターは逃げ出した。	新詞：monster=モンスター（試譯已用）
+ui.543df38bbe50	高慢 狡猾 親切 卑屈 罵倒	
+ui.08fc07e88648	パーティは全滅した！	新詞：party=パーティ
+ui.30c0783e66a7	全滅した！<Enter>キーで続行	
+ui.254153c4b85f	<Enter>キーで続行	
+ui.8f4a0aaa62c4	呪文	
+ui.e26c6f94d702	おめでとう、パーティは経験値を得た！	
+ui.0ae630e4f1dd	おめでとう、	
+ui.ebb4cacf2286	は経験値を得た！	
+ui.3cf3aa82aeb1	単語 #	
+ui.cd29a99041b6	、手記 #	
+ui.16ff676853e2	（手記、頁	
+ui.94c9f9f80b24	、酒場の噂 #	
+ui.1d174814bac2	入力：	
+ui.f99222122177	それでも治癒を施す：	
+ui.08ac4a5f6ce6	代金は	
+ui.2b770e03b085	鋼貨のみ。	
+ui.fdca9980f11f	治癒の代金を払う	
+ui.19f27030a2e1	お金が足りない。	
+ui.c9d58272a014	は治癒した。	
+ui.ad96bf258370	は盲目ではない。	
+ui.1537c7fd9f65	は病気ではない。	
+ui.0e3dfc592d73	は蘇生できない	
+ui.4c2c1aae96f7	は死んでいない。	
+ui.e514a637da16	は毒に侵されていない。	
+ui.2f4c6d25053a	は呪われていない。	
+ui.26400797a39c	は石化していない。	
+ui.8be704dd2de1	、どのようなご用件ですか？	
+ui.b21d60d3c86e	回復 終了	
+ui.351beff47541	回復 確認 拾う 集約 分配 査定 終了	
+ui.eb0b6be42cae	確認 拾う 集約 分配 査定 終了	
+ui.3dd4009a9b56	回復 確認 集約 査定 終了	
+ui.b9ec2686588d	はい いいえ	
+ui.ca82600f30f3	出ていこうとすると司祭が言った。「失礼、お金をお忘れですよ」	
+ui.7558c8476131	戻って、お金を取り戻すか？	
+ui.1a4b1e57ec5a	パーティは逃走した。	
+ui.488eda7de4cb	あなたたちは戦いに敗れた。	
+ui.3cf31df67fb7	あなたたちは決闘に勝った。	
+ui.bc4ac4b84ba5	パーティが勝利した。	
+ui.99ef77603df2	パーティは預金を引き出した。わずかな	
+ui.3221280f22c4	わずかな手数料が銀行に取られた。	
+ui.e1b7002772b5	手数料が銀行に取られた。	
+ui.ee223764db80	パーティは宝を見つけた！	
+ui.f5fbe5aaf483	決闘者は	
+ui.366dc8f46f54	各キャラは	
+ui.7313f57bf6d1	の経験値を得た。	
+ui.fabb9e2392ab	の経験値を得た。<Enter>キーで続行	
+ui.eadd361adaa7	道具：	
+ui.8b862ba45dce	拾う	
+ui.e52a3fb722bd	拾う：	
+ui.a1e592fecee5	金銭 道具 終了	
+ui.bce9e63c661b	確認 集約 終了	
+ui.f65f10298556	終了	
+ui.93f97649cdeb	探知 終了	
+ui.9305d3a8e566	確認 拾う 集約 分配	
+ui.1a794bb3020f	確認 拾う 集約	
+ui.5a7dff7cd74c	まだ宝が残っている。	
+ui.bd89d0b81174	戻って、宝を取りに行くか？	
+ui.1d1c7913869b	はこっそり	
+ui.73c9c98668a3	自分の	
+ui.1a82b7ad5db1	分を隠した。	
+ui.354cbfc81426	自分の	
+ui.b11529a1854f	パーティは全滅し、モンスターたちが歓声を上げた	
+ui.64e3cb0e4960	購入	
+ui.64b9370e4ffa	重量超過	
+ui.74bc11c5490c	は購入：	
+ui.1ed8f78de4b4	は購入：	
+ui.cdbf2aad986c	お金が足りない。	
+ui.94390fc2be66	購入 確認 拾う 集約 分配 査定 終了	
+ui.16d4625e4e14	購入 確認 集約 査定 終了	
+ui.528e6cd82712	出ようとすると店主が言った。「失礼、お金をお忘れですよ」	
+ui.f0e791ada740	戻って、お金を取ってくるか？	
+ui.e920b38b45dd	読込中……お待ちください	
+ui.2a78025de6aa	選択	
+ui.80a02596ee54	は死んだ。	
+ui.354888db7e7a	は	
+ui.72403cdf00a1	点のダメージを受けた。	
+ui.93515f638926	点のダメージを受けた。<Enter>キーで続行	
+ui.f6410fb009d4	魔法ON	
+ui.629ffe46b6a0	魔法OFF	
+ui.46e50b3cdce8	それは効果がない。	
+ui.c848bff204f4	移動	
+ui.00813b28c9bc	確認 狙う	
+ui.bb33dbdb2f21	使う	
+ui.d61160238799	詠唱	
+ui.38ff7074c72d	退散	
+ui.104b7e4ac60a	罵倒	
+ui.11a6767d5674	完了	
+ui.50e28de96686	仲間が瀕死だ	
+ui.73967b10f229	戦闘を続ける：	
+ui.5af65b05298f	移動/攻撃、残り移動力 =	

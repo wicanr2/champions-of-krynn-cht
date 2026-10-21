@@ -1,0 +1,131 @@
+key	translation	note
+ui.57cf485824df	記憶體不足$記憶體不足，程式結束。	原文是兩個以 $ 結尾的字串併成一列（DKK 作「警告：記憶體不足」「記憶體不足，程式結束。」）；重疊片段寫 -
+ui.12bd818b969a	-	
+ui.d5a3756ccbb4	-	
+ui.073939be1ea4	原創故事：	
+ui.70d00aad3b51	Jim Ward	
+ui.d5d56ec05001	Victor Penman,	
+ui.6201111b83a0	及	
+ui.433429f7d12c	Dave Shelley	
+ui.f340e8d20774	遊戲製作：	
+ui.173162217929	SSI Special Projects	
+ui.362825bf06b1	專案總監：	
+ui.e6aba2bd5a6b	程式設計	
+ui.be057371a9ba	Victor Penman	
+ui.83c519b42fab	Russ Brown	
+ui.09b9f8622ac7	Scot Bayless	
+ui.70be2a9d7c9c	美術設計：	
+ui.3581aabee3ca	Tom Wahl	
+ui.65ebeeba7880	遭遇設計	
+ui.0dd635c636cd	Fred Butts	
+ui.080cb09b9a95	Mark Johnson	
+ui.8248fe0af52a	Michael Mancuso	
+ui.53a33189ab7f	Cyrus Lum	
+ui.406eec9126ed	Ken Humphries	
+ui.8e8bcedc6f14	Susan Manley	
+ui.c8ed26fc0fb3	測試人員：	
+ui.490dd4c44847	Rick White,Don Mc Clure,	
+ui.812c9d28bef1	-	
+ui.993c050ea7d6	-	
+ui.1f862905c00c	-	
+ui.295a234c2fee	-	
+ui.8e0cfbf940b7	-	
+ui.4c1bd15591f0	-	
+ui.c14fbb663735	-	
+ui.b2bf1b06fd5b	-	
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	
+ui.5f785c7e7c4d	-	
+ui.880cde505892	-	
+ui.bb4e210008cb	-	
+ui.f99c275df1b7	-	
+ui.57d62670e4e4	-	
+ui.761a6c7a3c3b	-	
+ui.f03eb16a54cb	-	
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	
+ui.6ca94c9f8a62	配樂：	
+ui.532c7e0084da	音樂驅動程式：	
+ui.99b4eba4e920	John Halbleib	
+ui.328b53003a80	Electronic Arts	
+ui.aaf232064610	-	
+ui.eb87c3d001b4	-	
+ui.5195eed19619	-	
+ui.de1e334ce4b4	按下按鈕或 <Enter> 鍵繼續。	
+ui.a8d6a7c9a25a	-	
+ui.ab57991a5b04	-	
+ui.03522129e997	-	
+ui.de058b50642a	-	
+ui.0cf2018d4a31	-	
+ui.ebc583583e1a	按 <Enter> 鍵繼續	
+ui.8550f3405394	-	
+ui.34695f140781	找不到物品檔案	
+ui.bec2538a4c67	戰鬥 等待 逃跑 談判	
+ui.466738c48568	戰鬥 等待 逃跑 前進	
+ui.002c9650368c	雙方按兵不動。	
+ui.cbefa25e9f4e	怪物逃走了。	
+ui.543df38bbe50	傲慢 狡詐 友善 謙卑 辱罵	
+ui.30c0783e66a7	全隊覆沒！按 <Enter> 鍵繼續	原文 entire party is killed! 與 press <enter>/<return> to continue 以換行相接的重疊片段，意思合併於此列，其餘片段寫 -
+ui.ceffe3b73fd2	-	
+ui.c4cf2918079e	-	
+ui.b23abc28fd21	-	
+ui.9414a1b547d2	-	
+ui.8f4a0aaa62c4	法術	
+ui.e26c6f94d702	恭喜，隊伍獲得經驗！	
+ui.0ae630e4f1dd	恭喜	後接人物名，推定
+ui.f99222122177	仍要施展治療術：	
+ui.08ac4a5f6ce6	只需	前接人物名、後接金額，與下一則接成「某某只需 N 鋼幣。」
+ui.2b770e03b085	鋼幣。	
+ui.fdca9980f11f	支付治療費用	
+ui.19f27030a2e1	金錢不足。	
+ui.1537c7fd9f65	沒有染病。	
+ui.15f57156d86c	-	
+ui.0e3dfc592d73	無法復活。	
+ui.8be704dd2de1	，有什麼需要幫忙的嗎？	前接 NPC 名稱
+ui.b21d60d3c86e	治療 離開	
+ui.eb0b6be42cae	檢視人物 拾取 集中財物 均分 鑑定 離開	原文截斷於 Ex，推定為 Exit
+ui.3dd4009a9b56	治療 檢視人物 集中財物 鑑定 離開	
+ui.b9ec2686588d	是 否	
+ui.39bea64dc385	-	
+ui.d6dde996ac6a	-	
+ui.ca82600f30f3	離開時，一名祭司說：「不好意思，你們把一些錢留在這裡了。」	此句有許多重疊片段，整句放在此列
+ui.d2c27f45bc62	-	
+ui.e2d7a49226b9	-	
+ui.68d911ccb887	-	
+ui.cd5c47e03125	-	
+ui.b49d83ddcc43	-	
+ui.8ba1f26f455c	-	
+ui.9e8cb07897f1	-	
+ui.8b87d050f806	-	
+ui.ff7205ca2b52	-	
+ui.10486695acad	-	
+ui.195d8a0b04b5	-	
+ui.93bde3f0f2a1	-	
+ui.e75ddedfdc0b	-	
+ui.48feb260b180	-	
+ui.cbfcfa54c425	-	
+ui.00776c94771b	-	
+ui.6e8bbce95265	-	
+ui.afc0a78646ed	-	
+ui.a915ea93dc37	-	
+ui.3e82ec7722fb	-	
+ui.7558c8476131	要回去取回你們的錢嗎？	
+ui.bd50c134baea	-	
+ui.2776025f2e22	-	
+ui.cffde0823f16	-	
+ui.302259117289	-	
+ui.1a4b1e57ec5a	隊伍逃走了。	
+ui.488eda7de4cb	你們輸掉了這場戰鬥。	
+ui.3cf31df67fb7	你們贏得了這場決鬥。	
+ui.bc4ac4b84ba5	隊伍獲勝。	
+ui.0da7cde04068	-	
+ui.fd3a71fd2903	-	
+ui.1ea3fa063ca0	-	
+ui.66dec68bfa88	-	
+ui.99ef77603df2	隊伍提了款。	與下一則「已酌收少許手續費。」接讀
+ui.39d71d13cc80	-	
+ui.f868f053c647	-	
+ui.a29472bb8710	-	
+ui.efb4a9fd4b10	-	
+ui.0b86aa5c1336	-	
+ui.3221280f22c4	已酌收少許手續費。	原文截斷於 by，後文不明（DKK 作「手續費。」）
+ui.4fdc2cd47540	-	
+ui.ee223764db80	隊伍發現了寶藏！	

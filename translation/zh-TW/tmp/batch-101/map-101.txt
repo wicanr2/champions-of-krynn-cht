@@ -1,0 +1,63 @@
+Insufficient Memory$Insufficient Memory. Exiting ProgramU ||| 記憶體不足$記憶體不足，程式結束。 ||| 原文是兩個以 $ 結尾的字串併成一列（DKK 作「警告：記憶體不足」「記憶體不足，程式結束。」）；重疊片段寫 -
+based on an original story by: ||| 原創故事：
+Jim Ward ||| Jim Ward
+Victor Penman, ||| Victor Penman,
+and ||| 及
+Dave Shelley ||| Dave Shelley
+game created by: ||| 遊戲製作：
+SSI Special Projects ||| SSI Special Projects
+Project Director: ||| 專案總監：
+Programming ||| 程式設計
+Victor Penman ||| Victor Penman
+Russ Brown ||| Russ Brown
+Scot Bayless ||| Scot Bayless
+Graphic Arts: ||| 美術設計：
+Tom Wahl ||| Tom Wahl
+Encounter Design ||| 遭遇設計
+Fred Butts ||| Fred Butts
+Mark Johnson ||| Mark Johnson
+Michael Mancuso ||| Michael Mancuso
+Cyrus Lum ||| Cyrus Lum
+Ken Humphries ||| Ken Humphries
+Susan Manley ||| Susan Manley
+playtest: ||| 測試人員：
+Rick White,Don Mc Clure, ||| Rick White,Don Mc Clure,
+Mike Bench,Cliff Mann, Rick Wilson, ||| Mike Bench,Cliff Mann, Rick Wilson,
+Erik Flom,James Young,Graeme Bayless ||| Erik Flom,James Young,Graeme Bayless
+Musical Score: ||| 配樂：
+Musical Driver: ||| 音樂驅動程式：
+John Halbleib ||| John Halbleib
+Electronic Arts ||| Electronic Arts
+PRESS BUTTON OR RETURN TO CONTINUE. ||| 按下按鈕或 <Enter> 鍵繼續。
+PRESS <ENTER>/<RETURN> TO CONTINUE ||| 按 <Enter> 鍵繼續
+Unable to find item file ||| 找不到物品檔案
+~COMBAT ~WAIT ~FLEE ~PARLAY ||| 戰鬥 等待 逃跑 談判
+~COMBAT ~WAIT ~FLEE ~ADVANCE ||| 戰鬥 等待 逃跑 前進
+Both sides wait. ||| 雙方按兵不動。
+The monsters flee. ||| 怪物逃走了。
+~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE ||| 傲慢 狡詐 友善 謙卑 辱罵
+entire party is killed!"press <e ||| 全隊覆沒！按 <Enter> 鍵繼續 ||| 原文 entire party is killed! 與 press <enter>/<return> to continue 以換行相接的重疊片段，意思合併於此列，其餘片段寫 -
+spell ||| 法術
+Congratulations the party gains experience! ||| 恭喜，隊伍獲得經驗！
+Congratulations ||| 恭喜 ||| 後接人物名，推定
+cast cure anyway: ||| 仍要施展治療術：
+will only cost ||| 只需 ||| 前接人物名、後接金額，與下一則接成「某某只需 N 鋼幣。」
+steel pieces. ||| 鋼幣。
+pay for cure ||| 支付治療費用
+Not enough money. ||| 金錢不足。
+is not Diseased. ||| 沒有染病。
+cannot be raised ||| 無法復活。
+, how can we help you? ||| ，有什麼需要幫忙的嗎？ ||| 前接 NPC 名稱
+Heal Exit ||| 治療 離開
+View Take Pool Share Appraise Ex ||| 檢視人物 拾取 集中財物 均分 鑑定 離開 ||| 原文截斷於 Ex，推定為 Exit
+Heal View Pool Appraise Exit ||| 治療 檢視人物 集中財物 鑑定 離開
+~Yes ~No ||| 是 否
+As you leave a priest says, "Excuse me but you have left some money here" ||| 離開時，一名祭司說：「不好意思，你們把一些錢留在這裡了。」 ||| 此句有許多重疊片段，整句放在此列
+Do you want to go back and retrieve your money? ||| 要回去取回你們的錢嗎？
+The party has fled. ||| 隊伍逃走了。
+You have lost the fight. ||| 你們輸掉了這場戰鬥。
+You have won the duel. ||| 你們贏得了這場決鬥。
+The party has won. ||| 隊伍獲勝。
+The party makes a withdrawl.  A small ||| 隊伍提了款。 ||| 與下一則「已酌收少許手續費。」接讀
+A small"fee has been assessed by ||| 已酌收少許手續費。 ||| 原文截斷於 by，後文不明（DKK 作「手續費。」）
+The party has found Treasure! ||| 隊伍發現了寶藏！

@@ -1,0 +1,131 @@
+key	original	prev	next	tier	source
+ui.5af067b931b7	Woof		Champions of Krynn v1.2	-	START.EXE:512
+ui.c7530f5eb6c1	Champions of Krynn v1.2	Woof	Champions Of Krynn v1.2	-	START.EXE:517
+ui.b0556164a81c	Champions Of Krynn v1.2	Champions of Krynn v1.2	GAME.OVR	-	START.EXE:551
+ui.3d521e6a8491	GAME.OVR	Champions Of Krynn v1.2	*.exe	-	START.EXE:7435
+ui.53e77a92a134	*.exe	GAME.OVR	krynn.cfg	-	START.EXE:7444
+ui.e54271566b7c	krynn.cfg	*.exe	cfg'Sorry, disk A can't be write-protected.;If	-	START.EXE:7458
+ui.1492bac065fa	cfg'Sorry, disk A can't be write-protected.;If	krynn.cfg	 disk A can't be write-protected.;If these a	-	START.EXE:7464
+ui.7d2b411f3aa6	 disk A can't be write-protected.;If these a	cfg'Sorry, disk A can't be write-protected.;If	disk A can't be write-protected.	-	START.EXE:7474
+ui.a26d873b3d51	disk A can't be write-protected.	 disk A can't be write-protected.;If these a	A can't be write-protected.;If t	-	START.EXE:7475
+ui.de249cd2b158	A can't be write-protected.;If t	disk A can't be write-protected.	 can't be write-protected.;If these are your masters, use DISKCOP	-	START.EXE:7480
+ui.2de8036df916	 can't be write-protected.;If these are your masters, use DISKCOP	A can't be write-protected.;If t	can't be write-protected.;If the	-	START.EXE:7481
+ui.7263085fdf48	can't be write-protected.;If the	 can't be write-protected.;If these are your masters, use DISKCOP	t be write-protected.;If these are your	-	START.EXE:7482
+ui.de7e1770770c	t be write-protected.;If these are your	can't be write-protected.;If the	be write-protected.;If these are	-	START.EXE:7486
+ui.8d3cd19902c1	be write-protected.;If these are	t be write-protected.;If these are your	write-protected.;If these are yo	-	START.EXE:7488
+ui.937cbf7a0c2b	write-protected.;If these are yo	be write-protected.;If these are	protected.;If these are your masters, use DIS	-	START.EXE:7491
+ui.4b52a2192b1e	protected.;If these are your masters, use DIS	write-protected.;If these are yo	;If these are your masters, use DISKCOPY to ma	-	START.EXE:7497
+ui.f542287f058b	;If these are your masters, use DISKCOPY to ma	protected.;If these are your masters, use DIS	f these are your masters, use DISKCOPY to make duplicates.5GRAPHICS ADAPT	-	START.EXE:7507
+ui.1ef3003496ab	f these are your masters, use DISKCOPY to make duplicates.5GRAPHICS ADAPT	;If these are your masters, use DISKCOPY to ma	these are your masters, use DISK	-	START.EXE:7509
+ui.e332e9199f71	these are your masters, use DISK	f these are your masters, use DISKCOPY to make duplicates.5GRAPHICS ADAPT	are your masters, use DISKCOPY t	-	START.EXE:7511
+ui.4428ee4929ad	are your masters, use DISKCOPY t	these are your masters, use DISK	your masters, use DISKCOPY to ma	-	START.EXE:7517
+ui.b20bdd3fa3ef	your masters, use DISKCOPY to ma	are your masters, use DISKCOPY t	masters, use DISKCOPY to make du	-	START.EXE:7521
+ui.0e72b68820a9	masters, use DISKCOPY to make du	your masters, use DISKCOPY to ma	 use DISKCOPY to make duplicates.5GRAPHICS A	-	START.EXE:7526
+ui.3dd5a1b8728e	 use DISKCOPY to make duplicates.5GRAPHICS A	masters, use DISKCOPY to make du	use DISKCOPY to make duplicates.	-	START.EXE:7534
+ui.5672c76c7da3	use DISKCOPY to make duplicates.	 use DISKCOPY to make duplicates.5GRAPHICS A	DISKCOPY to make duplicates.5GRA	-	START.EXE:7535
+ui.1846d3f51e3c	DISKCOPY to make duplicates.5GRA	use DISKCOPY to make duplicates.	ISKCOPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA	-	START.EXE:7539
+ui.51d94aac84bf	ISKCOPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA	DISKCOPY to make duplicates.5GRA	SKCOPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] 	-	START.EXE:7540
+ui.419c569549a0	SKCOPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] 	ISKCOPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA	COPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] Tand	-	START.EXE:7541
+ui.a309989ffe58	COPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] Tand	SKCOPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] 	OPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [	-	START.EXE:7543
+ui.065ffe0a2c00	OPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [	COPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] Tand	to make duplicates.5GRAPHICS ADA	-	START.EXE:7544
+ui.6d9653a77528	to make duplicates.5GRAPHICS ADA	OPY to make duplicates.5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [	make duplicates.5GRAPHICS ADAPTE	-	START.EXE:7548
+ui.a6f0c930d3a7	make duplicates.5GRAPHICS ADAPTE	to make duplicates.5GRAPHICS ADA	duplicates.5GRAPHICS ADAPTER TYP	-	START.EXE:7551
+ui.261a7a369bcc	duplicates.5GRAPHICS ADAPTER TYP	make duplicates.5GRAPHICS ADAPTE	5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3]	-	START.EXE:7556
+ui.da32879eee63	5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3]	duplicates.5GRAPHICS ADAPTER TYP	GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] Tandy  	-	START.EXE:7567
+ui.199dbea375a6	GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] Tandy  	5GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3]	ADAPTER TYPE:  [1] CGA  [2] EGA 	-	START.EXE:7568
+ui.7b357a9dc035	ADAPTER TYPE:  [1] CGA  [2] EGA 	GRAPHICS ADAPTER TYPE:  [1] CGA  [2] EGA  [3] Tandy  	TYPE:  [1] CGA  [2] EGA  [3] Tan	-	START.EXE:7577
+ui.5f1d19a54d87	TYPE:  [1] CGA  [2] EGA  [3] Tan	ADAPTER TYPE:  [1] CGA  [2] EGA 	] Silent=ALTERNATE INPUT TYPE:  [1] JOYSTICK  [2] MOUS	-	START.EXE:7585
+ui.7d5e9f749de2	] Silent=ALTERNATE INPUT TYPE:  [1] JOYSTICK  [2] MOUS	TYPE:  [1] CGA  [2] EGA  [3] Tan	Silent=ALTERNATE INPUT TYPE:  [1	-	START.EXE:7729
+ui.e79ad62e715c	Silent=ALTERNATE INPUT TYPE:  [1	] Silent=ALTERNATE INPUT TYPE:  [1] JOYSTICK  [2] MOUS	ALTERNATE INPUT TYPE:  [1] JOYSTICK  [2] MOUSE  [3] NEITHER  	-	START.EXE:7731
+ui.8f24e7e793e7	ALTERNATE INPUT TYPE:  [1] JOYSTICK  [2] MOUSE  [3] NEITHER  	Silent=ALTERNATE INPUT TYPE:  [1	INPUT TYPE:  [1] JOYSTICK  [2] M	-	START.EXE:7738
+ui.0605fbc471be	INPUT TYPE:  [1] JOYSTICK  [2] M	ALTERNATE INPUT TYPE:  [1] JOYSTICK  [2] MOUSE  [3] NEITHER  	TYPE:  [1] JOYSTICK  [2] MOUSE  	-	START.EXE:7748
+ui.ea3fa3bdcf9b	TYPE:  [1] JOYSTICK  [2] MOUSE  	INPUT TYPE:  [1] JOYSTICK  [2] M	 [1] JOYSTICK  [2] MOUSE  [3] NE	-	START.EXE:7754
+ui.b51e28a55fd4	 [1] JOYSTICK  [2] MOUSE  [3] NE	TYPE:  [1] JOYSTICK  [2] MOUSE  	[1] JOYSTICK  [2] MOUSE  [3] NEI	-	START.EXE:7760
+ui.809dfe863c1c	[1] JOYSTICK  [2] MOUSE  [3] NEI	 [1] JOYSTICK  [2] MOUSE  [3] NE	JOYSTICK  [2] MOUSE  [3] NEITHER	-	START.EXE:7761
+ui.c3de04a6886c	JOYSTICK  [2] MOUSE  [3] NEITHER	[1] JOYSTICK  [2] MOUSE  [3] NEI	SAVE	-	START.EXE:7765
+ui.c210bfdf28ce	SAVE	JOYSTICK  [2] MOUSE  [3] NEITHER	TANDY 1000 USERS - Make sure NUMLOCK is on.	-	START.EXE:7800
+ui.ed695f1dd60f	TANDY 1000 USERS - Make sure NUMLOCK is on.	SAVE	NDY 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to ru	-	START.EXE:7888
+ui.a68b50d18079	NDY 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to ru	TANDY 1000 USERS - Make sure NUMLOCK is on.	DY 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to run game.  You n	-	START.EXE:7890
+ui.e7d5e377bafa	DY 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to run game.  You n	NDY 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to ru	Y 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to run gam	-	START.EXE:7891
+ui.daa8b72d1f57	Y 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to run gam	DY 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to run game.  You n	1000 USERS - Make sure NUMLOCK i	-	START.EXE:7892
+ui.4cc56edb3be4	1000 USERS - Make sure NUMLOCK i	Y 1000 USERS - Make sure NUMLOCK is on.)Not enough memory to run gam	000 USERS - Make sure NUMLOCK is on.)Not enough m	-	START.EXE:7894
+ui.9048abc821f1	000 USERS - Make sure NUMLOCK is on.)Not enough m	1000 USERS - Make sure NUMLOCK i	00 USERS - Make sure NUMLOCK is on.)Not enough m	-	START.EXE:7895
+ui.8bb2e81590a2	00 USERS - Make sure NUMLOCK is on.)Not enough m	000 USERS - Make sure NUMLOCK is on.)Not enough m	0 USERS - Make sure NUMLOCK is on.)Not enough me	-	START.EXE:7896
+ui.c89fc2cc1330	0 USERS - Make sure NUMLOCK is on.)Not enough me	00 USERS - Make sure NUMLOCK is on.)Not enough m	 USERS - Make sure NUMLOCK is on.)Not enough mem	-	START.EXE:7897
+ui.2d53edd94f70	 USERS - Make sure NUMLOCK is on.)Not enough mem	0 USERS - Make sure NUMLOCK is on.)Not enough me	USERS - Make sure NUMLOCK is on.	-	START.EXE:7898
+ui.8ed9a61e8db6	USERS - Make sure NUMLOCK is on.	 USERS - Make sure NUMLOCK is on.)Not enough mem	RS - Make sure NUMLOCK is on.)Not enough memory to run game.  You nee	-	START.EXE:7899
+ui.3f862e25b34c	RS - Make sure NUMLOCK is on.)Not enough memory to run game.  You nee	USERS - Make sure NUMLOCK is on.	- Make sure NUMLOCK is on.)Not e	-	START.EXE:7902
+ui.8f4f93ebafde	- Make sure NUMLOCK is on.)Not e	RS - Make sure NUMLOCK is on.)Not enough memory to run game.  You nee	 Make sure NUMLOCK is on.)Not enough memory t	-	START.EXE:7905
+ui.14750e647f8c	 Make sure NUMLOCK is on.)Not enough memory t	- Make sure NUMLOCK is on.)Not e	Make sure NUMLOCK is on.)Not eno	-	START.EXE:7906
+ui.475e7e92bd56	Make sure NUMLOCK is on.)Not eno	 Make sure NUMLOCK is on.)Not enough memory t	sure NUMLOCK is on.)Not enough m	-	START.EXE:7907
+ui.81cfd77868f4	sure NUMLOCK is on.)Not enough m	Make sure NUMLOCK is on.)Not eno	NUMLOCK is on.)Not enough memory	-	START.EXE:7912
+ui.76905a556117	NUMLOCK is on.)Not enough memory	sure NUMLOCK is on.)Not enough m	is on.)Not enough memory to run 	-	START.EXE:7917
+ui.59a3bae37900	is on.)Not enough memory to run 	NUMLOCK is on.)Not enough memory	on.)Not enough memory to run gam	-	START.EXE:7925
+ui.01f4d85f29de	on.)Not enough memory to run gam	is on.)Not enough memory to run 	Not enough memory to run game.  You need 	-	START.EXE:7928
+ui.aeeabe9647b6	Not enough memory to run game.  You need 	on.)Not enough memory to run gam	enough memory to run game.  You 	-	START.EXE:7932
+ui.d703b97d347a	enough memory to run game.  You 	Not enough memory to run game.  You need 	Overlay error, program abort!	-	START.EXE:7936
+ui.2e433cd6427d	Overlay error, program abort!	enough memory to run game.  You 	.dax	-	START.EXE:7987
+ui.6ed429e0f0de	.dax	Overlay error, program abort!	ui	-	START.EXE:10435
+ui.d3ef7de562f9	ui	.dax	Press any key to continue	-	START.EXE:15628
+ui.73017b67c80b	Press any key to continue	ui	uP	-	START.EXE:22121
+ui.d946b7b7a22c	uP	Press any key to continue	who: 	-	START.EXE:23667
+ui.53ce7a18800c	who: 	uP	  sp#: 	-	START.EXE:24948
+ui.6a72c229fd8d	  sp#: 	who: 	debug.txt	-	START.EXE:24954
+ui.20f0a4f030a9	debug.txt	  sp#: 	midi	-	START.EXE:25408
+ui.c5c1764a8b18	midi	debug.txt	sound	-	START.EXE:26047
+ui.dd29442deca6	sound	midi	game.ovr	-	START.EXE:26369
+ui.53915a73b6dc	game.ovr	sound	Please insert overlay disk.	-	START.EXE:27410
+ui.282cac63534b	Please insert overlay disk.	game.ovr	Push JOYSTICK #1 to the extreme upper left position and press BUTTON #1.	-	START.EXE:27419
+ui.f77a2cc8468f	Push JOYSTICK #1 to the extreme upper left position and press BUTTON #1.	Please insert overlay disk.	ush JOYSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn't	-	START.EXE:31039
+ui.00dd5594920a	ush JOYSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn't	Push JOYSTICK #1 to the extreme upper left position and press BUTTON #1.	JOYSTICK #1 to the extreme upper	-	START.EXE:31040
+ui.f24d5c357740	JOYSTICK #1 to the extreme upper	ush JOYSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn't	OYSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn'	-	START.EXE:31044
+ui.7c8b9c883543	OYSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn'	JOYSTICK #1 to the extreme upper	YSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn't read	-	START.EXE:31045
+ui.fa2dcd406e9f	YSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn't read	OYSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn'	CK #1 to the extreme upper left position and press BUTTON #1.2Couldn't re	-	START.EXE:31046
+ui.4362b9594c58	CK #1 to the extreme upper left position and press BUTTON #1.2Couldn't re	YSTICK #1 to the extreme upper left position and press BUTTON #1.2Couldn't read	K #1 to the extreme upper left position and press BUTTON #1.2Couldn	-	START.EXE:31050
+ui.b17f912165f0	K #1 to the extreme upper left position and press BUTTON #1.2Couldn	CK #1 to the extreme upper left position and press BUTTON #1.2Couldn't re	 #1 to the extreme upper left position and press BUTTON #1.2Couldn't read t	-	START.EXE:31051
+ui.19fc8ca7376b	 #1 to the extreme upper left position and press BUTTON #1.2Couldn't read t	K #1 to the extreme upper left position and press BUTTON #1.2Couldn	#1 to the extreme upper left pos	-	START.EXE:31052
+ui.4d69e075a23d	#1 to the extreme upper left pos	 #1 to the extreme upper left position and press BUTTON #1.2Couldn't read t	1 to the extreme upper left positio	-	START.EXE:31053
+ui.699a27ac9965	1 to the extreme upper left positio	#1 to the extreme upper left pos	 to the extreme upper left position and press BUT	-	START.EXE:31054
+ui.27909a3c326a	 to the extreme upper left position and press BUT	1 to the extreme upper left positio	to the extreme upper left positi	-	START.EXE:31055
+ui.7bfe2866a26e	to the extreme upper left positi	 to the extreme upper left position and press BUT	the extreme upper left position 	-	START.EXE:31056
+ui.df0861493c05	the extreme upper left position 	to the extreme upper left positi	extreme upper left position and 	-	START.EXE:31059
+ui.14bba2bd2c99	extreme upper left position and 	the extreme upper left position 	upper left position and press BU	-	START.EXE:31063
+ui.ebe02a2e1d64	upper left position and press BU	extreme upper left position and 	left position and press BUTTON #	-	START.EXE:31071
+ui.b0268c51d1eb	left position and press BUTTON #	upper left position and press BU	position and press BUTTON #1.2Co	-	START.EXE:31077
+ui.1f63ee9aac74	position and press BUTTON #1.2Co	left position and press BUTTON #	and press BUTTON #1.2Couldn't re	-	START.EXE:31082
+ui.27cddaa3520e	and press BUTTON #1.2Couldn't re	position and press BUTTON #1.2Co	press BUTTON #1.2Couldn't read t	-	START.EXE:31091
+ui.7054ced26414	press BUTTON #1.2Couldn't read t	and press BUTTON #1.2Couldn't re	BUTTON #1.2Couldn't read the joy	-	START.EXE:31095
+ui.497c76c22b0d	BUTTON #1.2Couldn't read the joy	press BUTTON #1.2Couldn't read t	UTTON #1.2Couldn't read the joystick.  Aborting calibration.IPush 	-	START.EXE:31101
+ui.5155f263c3ce	UTTON #1.2Couldn't read the joystick.  Aborting calibration.IPush 	BUTTON #1.2Couldn't read the joy	N #1.2Couldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 to th	-	START.EXE:31102
+ui.29c54d0b7c4f	N #1.2Couldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 to th	UTTON #1.2Couldn't read the joystick.  Aborting calibration.IPush 	 #1.2Couldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 to th	-	START.EXE:31106
+ui.5e1438019f87	 #1.2Couldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 to th	N #1.2Couldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 to th	#1.2Couldn't read the joystick. 	-	START.EXE:31107
+ui.0df3981e1d69	#1.2Couldn't read the joystick. 	 #1.2Couldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 to th	1.2Couldn't read the joystick.  Abo	-	START.EXE:31108
+ui.3b92041777ef	1.2Couldn't read the joystick.  Abo	#1.2Couldn't read the joystick. 	.2Couldn't read the joystick.  Aborting calibrati	-	START.EXE:31109
+ui.f709bffcc998	.2Couldn't read the joystick.  Aborting calibrati	1.2Couldn't read the joystick.  Abo	2Couldn't read the joystick.  Aborting calibra	-	START.EXE:31110
+ui.dac0bb10e82e	2Couldn't read the joystick.  Aborting calibra	.2Couldn't read the joystick.  Aborting calibrati	Couldn't read the joystick.  Aborting calibration.	-	START.EXE:31111
+ui.967a6bde0596	Couldn't read the joystick.  Aborting calibration.	2Couldn't read the joystick.  Aborting calibra	ouldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 	-	START.EXE:31112
+ui.94d6ad89dd89	ouldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 	Couldn't read the joystick.  Aborting calibration.	t read the joystick.  Aborting calibrat	-	START.EXE:31113
+ui.af2079281d18	t read the joystick.  Aborting calibrat	ouldn't read the joystick.  Aborting calibration.IPush JOYSTICK #1 	read the joystick.  Aborting cal	-	START.EXE:31119
+ui.18b7d02f93bb	read the joystick.  Aborting cal	t read the joystick.  Aborting calibrat	the joystick.  Aborting calibrat	-	START.EXE:31121
+ui.8ba5e843ce8a	the joystick.  Aborting calibrat	read the joystick.  Aborting cal	joystick.  Aborting calibration.	-	START.EXE:31126
+ui.288ad67af0d2	joystick.  Aborting calibration.	the joystick.  Aborting calibrat	  Aborting calibration.IPush JOYSTICK #1 to th	-	START.EXE:31130
+ui.42435bb98ad1	  Aborting calibration.IPush JOYSTICK #1 to th	joystick.  Aborting calibration.	 Aborting calibration.IPush JOYS	-	START.EXE:31139
+ui.629d4d423e85	 Aborting calibration.IPush JOYS	  Aborting calibration.IPush JOYSTICK #1 to th	Aborting calibration.IPush JOYST	-	START.EXE:31140
+ui.9a770e777cfd	Aborting calibration.IPush JOYST	 Aborting calibration.IPush JOYS	borting calibration.IPush JOYSTICK #1 to the extreme lower right 	-	START.EXE:31141
+ui.c45fc8d83f0f	borting calibration.IPush JOYSTICK #1 to the extreme lower right 	Aborting calibration.IPush JOYST	calibration.IPush JOYSTICK #1 to	-	START.EXE:31142
+ui.b8baf756f827	calibration.IPush JOYSTICK #1 to	borting calibration.IPush JOYSTICK #1 to the extreme lower right 	IPush JOYSTICK #1 to the extreme lower right p	-	START.EXE:31150
+ui.4ace3a2b3847	IPush JOYSTICK #1 to the extreme lower right p	calibration.IPush JOYSTICK #1 to	Push JOYSTICK #1 to the extreme lower right position and press BUTTON #1.	-	START.EXE:31162
+ui.2c9e0d734b01	Push JOYSTICK #1 to the extreme lower right position and press BUTTON #1.	IPush JOYSTICK #1 to the extreme lower right p	JOYSTICK #1 to the extreme lower	-	START.EXE:31163
+ui.2512c909e60d	JOYSTICK #1 to the extreme lower	Push JOYSTICK #1 to the extreme lower right position and press BUTTON #1.	#1 to the extreme lower right po	-	START.EXE:31168
+ui.d36613bc4e11	#1 to the extreme lower right po	JOYSTICK #1 to the extreme lower	1 to the extreme lower right positi	-	START.EXE:31177
+ui.2cf108e69f57	1 to the extreme lower right positi	#1 to the extreme lower right po	 to the extreme lower right position and press BU	-	START.EXE:31178
+ui.bf61c5fa366b	 to the extreme lower right position and press BU	1 to the extreme lower right positi	to the extreme lower right posit	-	START.EXE:31179
+ui.ad194452723f	to the extreme lower right posit	 to the extreme lower right position and press BU	the extreme lower right position	-	START.EXE:31180
+ui.6828bcda20e2	the extreme lower right position	to the extreme lower right posit	extreme lower right position and	-	START.EXE:31183
+ui.a5065984fd53	extreme lower right position and	the extreme lower right position	lower right position and press B	-	START.EXE:31187
+ui.17b09f5db72c	lower right position and press B	extreme lower right position and	right position and press BUTTON 	-	START.EXE:31195
+ui.9f55a2c75ea7	right position and press BUTTON 	lower right position and press B	!$'*-0369;>ACFIKNPRUWY[^`bdfgi	-	START.EXE:31201
+ui.11e030a9b3f5	!$'*-0369;>ACFIKNPRUWY[^`bdfgi	right position and press BUTTON 	$'*-0369;>ACFIKNPRUWY[^`bdfgiklnp	-	START.EXE:33047
+ui.26a0457654d4	$'*-0369;>ACFIKNPRUWY[^`bdfgiklnp	!$'*-0369;>ACFIKNPRUWY[^`bdfgi	'*-0369;>ACFIKNPRUWY[^`bdfgiklnpqrtu	-	START.EXE:33048
+ui.08094859cc8e	'*-0369;>ACFIKNPRUWY[^`bdfgiklnpqrtu	$'*-0369;>ACFIKNPRUWY[^`bdfgiklnp	*-0369;>ACFIKNPRUWY[^`bdfgiklnpqrtuvwxy	-	START.EXE:33049
+ui.cffbf7151757	*-0369;>ACFIKNPRUWY[^`bdfgiklnpqrtuvwxy	'*-0369;>ACFIKNPRUWY[^`bdfgiklnpqrtu	-0369;>ACFIKNPRUWY[^`bdfgiklnpqrtuvwxyz{{|	-	START.EXE:33050

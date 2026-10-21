@@ -1,0 +1,131 @@
+key	original	prev	next	tier	source
+ui.57cf485824df	 Insufficient Memory$Insufficient Memory. Exiting ProgramU		Insufficient Memory$Insufficient	-	GAME.OVR:16
+ui.12bd818b969a	Insufficient Memory$Insufficient	 Insufficient Memory$Insufficient Memory. Exiting ProgramU	Memory$Insufficient Memory. Exit	-	GAME.OVR:17
+ui.d5a3756ccbb4	Memory$Insufficient Memory. Exit	Insufficient Memory$Insufficient	based on an original story by:	-	GAME.OVR:30
+ui.073939be1ea4	based on an original story by:	Memory$Insufficient Memory. Exit	Jim Ward	-	GAME.OVR:369
+ui.70d00aad3b51	Jim Ward	based on an original story by:	Victor Penman,	-	GAME.OVR:400
+ui.d5d56ec05001	Victor Penman,	Jim Ward	and	-	GAME.OVR:409
+ui.6201111b83a0	and	Victor Penman,	Dave Shelley	-	GAME.OVR:424
+ui.433429f7d12c	Dave Shelley	and	game created by:	-	GAME.OVR:428
+ui.f340e8d20774	game created by:	Dave Shelley	SSI Special Projects	-	GAME.OVR:441
+ui.173162217929	SSI Special Projects	game created by:	Project Director:	-	GAME.OVR:458
+ui.362825bf06b1	Project Director:	SSI Special Projects	Programming	-	GAME.OVR:479
+ui.e6aba2bd5a6b	Programming	Project Director:	Victor Penman	-	GAME.OVR:497
+ui.be057371a9ba	Victor Penman	Programming	Russ Brown	-	GAME.OVR:509
+ui.83c519b42fab	Russ Brown	Victor Penman	Scot Bayless	-	GAME.OVR:523
+ui.09b9f8622ac7	Scot Bayless	Russ Brown	Graphic Arts:	-	GAME.OVR:534
+ui.70be2a9d7c9c	Graphic Arts:	Scot Bayless	Tom Wahl	-	GAME.OVR:547
+ui.3581aabee3ca	Tom Wahl	Graphic Arts:	Encounter Design	-	GAME.OVR:561
+ui.65ebeeba7880	Encounter Design	Tom Wahl	Fred Butts	-	GAME.OVR:570
+ui.0dd635c636cd	Fred Butts	Encounter Design	Mark Johnson	-	GAME.OVR:587
+ui.080cb09b9a95	Mark Johnson	Fred Butts	Michael Mancuso	-	GAME.OVR:598
+ui.8248fe0af52a	Michael Mancuso	Mark Johnson	Cyrus Lum	-	GAME.OVR:611
+ui.53a33189ab7f	Cyrus Lum	Michael Mancuso	Ken Humphries	-	GAME.OVR:627
+ui.406eec9126ed	Ken Humphries	Cyrus Lum	Susan Manley	-	GAME.OVR:637
+ui.8e8bcedc6f14	Susan Manley	Ken Humphries	playtest:	-	GAME.OVR:651
+ui.c8ed26fc0fb3	playtest:	Susan Manley	Rick White,Don Mc Clure,	-	GAME.OVR:664
+ui.490dd4c44847	Rick White,Don Mc Clure,	playtest:	White,Don Mc Clure,#Mike Bench,C	-	GAME.OVR:674
+ui.812c9d28bef1	White,Don Mc Clure,#Mike Bench,C	Rick White,Don Mc Clure,	Don Mc Clure,#Mike Bench,Cliff Mann, Rick Wi	-	GAME.OVR:679
+ui.993c050ea7d6	Don Mc Clure,#Mike Bench,Cliff Mann, Rick Wi	White,Don Mc Clure,#Mike Bench,C	on Mc Clure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James You	-	GAME.OVR:685
+ui.1f862905c00c	on Mc Clure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James You	Don Mc Clure,#Mike Bench,Cliff Mann, Rick Wi	Mc Clure,#Mike Bench,Cliff Mann,	-	GAME.OVR:686
+ui.295a234c2fee	Mc Clure,#Mike Bench,Cliff Mann,	on Mc Clure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James You	c Clure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Graeme Bay	-	GAME.OVR:689
+ui.8e0cfbf940b7	c Clure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Graeme Bay	Mc Clure,#Mike Bench,Cliff Mann,	Clure,#Mike Bench,Cliff Mann, Ri	-	GAME.OVR:690
+ui.4c1bd15591f0	Clure,#Mike Bench,Cliff Mann, Ri	c Clure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Graeme Bay	lure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Gra	-	GAME.OVR:692
+ui.c14fbb663735	lure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Gra	Clure,#Mike Bench,Cliff Mann, Ri	#Mike Bench,Cliff Mann, Rick Wilson,$Erik Fl	-	GAME.OVR:693
+ui.b2bf1b06fd5b	#Mike Bench,Cliff Mann, Rick Wilson,$Erik Fl	lure,#Mike Bench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Gra	Mike Bench,Cliff Mann, Rick Wilson,	-	GAME.OVR:698
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	#Mike Bench,Cliff Mann, Rick Wilson,$Erik Fl	Bench,Cliff Mann, Rick Wilson,$E	-	GAME.OVR:699
+ui.5f785c7e7c4d	Bench,Cliff Mann, Rick Wilson,$E	Mike Bench,Cliff Mann, Rick Wilson,	ench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Graeme Bayless	-	GAME.OVR:704
+ui.880cde505892	ench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Graeme Bayless	Bench,Cliff Mann, Rick Wilson,$E	Cliff Mann, Rick Wilson,$Erik Flom,James You	-	GAME.OVR:705
+ui.bb4e210008cb	Cliff Mann, Rick Wilson,$Erik Flom,James You	ench,Cliff Mann, Rick Wilson,$Erik Flom,James Young,Graeme Bayless	Mann, Rick Wilson,$Erik Flom,Jam	-	GAME.OVR:710
+ui.f99c275df1b7	Mann, Rick Wilson,$Erik Flom,Jam	Cliff Mann, Rick Wilson,$Erik Flom,James You	 Rick Wilson,$Erik Flom,James Young,Graeme B	-	GAME.OVR:716
+ui.57d62670e4e4	 Rick Wilson,$Erik Flom,James Young,Graeme B	Mann, Rick Wilson,$Erik Flom,Jam	Rick Wilson,$Erik Flom,James You	-	GAME.OVR:721
+ui.761a6c7a3c3b	Rick Wilson,$Erik Flom,James You	 Rick Wilson,$Erik Flom,James Young,Graeme B	Wilson,$Erik Flom,James Young,Gr	-	GAME.OVR:722
+ui.f03eb16a54cb	Wilson,$Erik Flom,James Young,Gr	Rick Wilson,$Erik Flom,James You	Erik Flom,James Young,Graeme Bayless	-	GAME.OVR:727
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	Wilson,$Erik Flom,James Young,Gr	Musical Score:	-	GAME.OVR:735
+ui.6ca94c9f8a62	Musical Score:	Erik Flom,James Young,Graeme Bayless	Musical Driver:	-	GAME.OVR:772
+ui.532c7e0084da	Musical Driver:	Musical Score:	John Halbleib	-	GAME.OVR:787
+ui.99b4eba4e920	John Halbleib	Musical Driver:	Electronic Arts	-	GAME.OVR:803
+ui.328b53003a80	Electronic Arts	John Halbleib	title	-	GAME.OVR:817
+ui.aaf232064610	title	Electronic Arts	CPIC	-	GAME.OVR:1808
+ui.eb87c3d001b4	CPIC	title	PIC	-	GAME.OVR:3532
+ui.5195eed19619	PIC	CPIC	PRESS BUTTON OR RETURN TO CONTINUE.	-	GAME.OVR:4732
+ui.de1e334ce4b4	PRESS BUTTON OR RETURN TO CONTINUE.	PIC	BUTTON OR RETURN TO CONTINUE."PR	-	GAME.OVR:6798
+ui.a8d6a7c9a25a	BUTTON OR RETURN TO CONTINUE."PR	PRESS BUTTON OR RETURN TO CONTINUE.	OR RETURN TO CONTINUE."PRESS <EN	-	GAME.OVR:6804
+ui.ab57991a5b04	OR RETURN TO CONTINUE."PRESS <EN	BUTTON OR RETURN TO CONTINUE."PR	RETURN TO CONTINUE."PRESS <ENTER	-	GAME.OVR:6811
+ui.03522129e997	RETURN TO CONTINUE."PRESS <ENTER	OR RETURN TO CONTINUE."PRESS <EN	TO CONTINUE."PRESS <ENTER>/<RETU	-	GAME.OVR:6814
+ui.de058b50642a	TO CONTINUE."PRESS <ENTER>/<RETU	RETURN TO CONTINUE."PRESS <ENTER	CONTINUE."PRESS <ENTER>/<RETURN>	-	GAME.OVR:6821
+ui.0cf2018d4a31	CONTINUE."PRESS <ENTER>/<RETURN>	TO CONTINUE."PRESS <ENTER>/<RETU	PRESS <ENTER>/<RETURN> TO CONTINUE	-	GAME.OVR:6824
+ui.ebc583583e1a	PRESS <ENTER>/<RETURN> TO CONTINUE	CONTINUE."PRESS <ENTER>/<RETURN>	ITEM	-	GAME.OVR:6834
+ui.8550f3405394	ITEM	PRESS <ENTER>/<RETURN> TO CONTINUE	Unable to find item file	-	GAME.OVR:9834
+ui.34695f140781	Unable to find item file	ITEM	~COMBAT ~WAIT ~FLEE ~PARLAY	-	GAME.OVR:9844
+ui.bec2538a4c67	~COMBAT ~WAIT ~FLEE ~PARLAY	Unable to find item file	~COMBAT ~WAIT ~FLEE ~ADVANCE	-	GAME.OVR:11508
+ui.466738c48568	~COMBAT ~WAIT ~FLEE ~ADVANCE	~COMBAT ~WAIT ~FLEE ~PARLAY	Both sides wait.	-	GAME.OVR:11536
+ui.002c9650368c	Both sides wait.	~COMBAT ~WAIT ~FLEE ~ADVANCE	The monsters flee.	-	GAME.OVR:11565
+ui.cbefa25e9f4e	The monsters flee.	Both sides wait.	~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE	-	GAME.OVR:11582
+ui.543df38bbe50	~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE	The monsters flee.	entire party is killed!"press <e	-	GAME.OVR:13352
+ui.30c0783e66a7	entire party is killed!"press <e	~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE	party is killed!"press <enter>/<	-	GAME.OVR:13745
+ui.ceffe3b73fd2	party is killed!"press <enter>/<	entire party is killed!"press <e	is killed!"press <enter>/<return	-	GAME.OVR:13752
+ui.c4cf2918079e	is killed!"press <enter>/<return	party is killed!"press <enter>/<	killed!"press <enter>/<return> t	-	GAME.OVR:13758
+ui.b23abc28fd21	killed!"press <enter>/<return> t	is killed!"press <enter>/<return	"press <enter>/<return> to contin	-	GAME.OVR:13761
+ui.9414a1b547d2	"press <enter>/<return> to contin	killed!"press <enter>/<return> t	spell	-	GAME.OVR:13768
+ui.8f4a0aaa62c4	spell	"press <enter>/<return> to contin	Congratulations the party gains experience!	-	GAME.OVR:15089
+ui.e26c6f94d702	Congratulations the party gains experience!	spell	Congratulations 	-	GAME.OVR:16376
+ui.0ae630e4f1dd	Congratulations 	Congratulations the party gains experience!	cast cure anyway: 	-	GAME.OVR:16420
+ui.f99222122177	cast cure anyway: 	Congratulations 	 will only cost 	-	GAME.OVR:20839
+ui.08ac4a5f6ce6	 will only cost 	cast cure anyway: 	 steel pieces.	-	GAME.OVR:20957
+ui.2b770e03b085	 steel pieces.	 will only cost 	pay for cure 	-	GAME.OVR:20974
+ui.fdca9980f11f	pay for cure 	 steel pieces.	Not enough money.	-	GAME.OVR:20989
+ui.19f27030a2e1	Not enough money.	pay for cure 	is not Diseased.	-	GAME.OVR:21003
+ui.1537c7fd9f65	is not Diseased.	Not enough money.	uK	-	GAME.OVR:21562
+ui.15f57156d86c	uK	is not Diseased.	cannot be raised	-	GAME.OVR:21975
+ui.0e3dfc592d73	cannot be raised	uK	, how can we help you?	-	GAME.OVR:22420
+ui.8be704dd2de1	, how can we help you?	cannot be raised	Heal Exit	-	GAME.OVR:23796
+ui.b21d60d3c86e	Heal Exit	, how can we help you?	View Take Pool Share Appraise Ex	-	GAME.OVR:23820
+ui.eb0b6be42cae	View Take Pool Share Appraise Ex	Heal Exit	Heal View Pool Appraise Exit	-	GAME.OVR:24345
+ui.3dd4009a9b56	Heal View Pool Appraise Exit	View Take Pool Share Appraise Ex	~Yes ~No	-	GAME.OVR:24380
+ui.b9ec2686588d	~Yes ~No	Heal View Pool Appraise Exit	~NoJAs you leave a priest says, 	-	GAME.OVR:24410
+ui.39bea64dc385	~NoJAs you leave a priest says, 	~Yes ~No	oJAs you leave a priest says, "Excuse me but you have left some money here" /D	-	GAME.OVR:24415
+ui.d6dde996ac6a	oJAs you leave a priest says, "Excuse me but you have left some money here" /D	~NoJAs you leave a priest says, 	As you leave a priest says, "Excuse me but you have left some money here" 	-	GAME.OVR:24417
+ui.ca82600f30f3	As you leave a priest says, "Excuse me but you have left some money here" 	oJAs you leave a priest says, "Excuse me but you have left some money here" /D	s you leave a priest says, "Excuse me but you have left some mone	-	GAME.OVR:24419
+ui.d2c27f45bc62	s you leave a priest says, "Excuse me but you have left some mone	As you leave a priest says, "Excuse me but you have left some money here" 	you leave a priest says, "Excuse	-	GAME.OVR:24420
+ui.e2d7a49226b9	you leave a priest says, "Excuse	s you leave a priest says, "Excuse me but you have left some mone	leave a priest says, "Excuse me 	-	GAME.OVR:24422
+ui.68d911ccb887	leave a priest says, "Excuse me 	you leave a priest says, "Excuse	a priest says, "Excuse me but yo	-	GAME.OVR:24426
+ui.cd5c47e03125	a priest says, "Excuse me but yo	leave a priest says, "Excuse me 	priest says, "Excuse me but you 	-	GAME.OVR:24432
+ui.b49d83ddcc43	priest says, "Excuse me but you 	a priest says, "Excuse me but yo	says, "Excuse me but you have le	-	GAME.OVR:24434
+ui.8ba1f26f455c	says, "Excuse me but you have le	priest says, "Excuse me but you 	 "Excuse me but you have left some money her	-	GAME.OVR:24441
+ui.9e8cb07897f1	 "Excuse me but you have left some money her	says, "Excuse me but you have le	"Excuse me but you have left som	-	GAME.OVR:24446
+ui.8b87d050f806	"Excuse me but you have left som	 "Excuse me but you have left some money her	Excuse me but you have left some m	-	GAME.OVR:24447
+ui.ff7205ca2b52	Excuse me but you have left some m	"Excuse me but you have left som	xcuse me but you have left some money here" /Do you want to go back a	-	GAME.OVR:24448
+ui.10486695acad	xcuse me but you have left some money here" /Do you want to go back a	Excuse me but you have left some m	me but you have left some money 	-	GAME.OVR:24449
+ui.195d8a0b04b5	me but you have left some money 	xcuse me but you have left some money here" /Do you want to go back a	but you have left some money her	-	GAME.OVR:24455
+ui.93bde3f0f2a1	but you have left some money her	me but you have left some money 	you have left some money here" /	-	GAME.OVR:24458
+ui.e75ddedfdc0b	you have left some money here" /	but you have left some money her	have left some money here" /Do y	-	GAME.OVR:24462
+ui.48feb260b180	have left some money here" /Do y	you have left some money here" /	left some money here" /Do you wa	-	GAME.OVR:24466
+ui.cbfcfa54c425	left some money here" /Do you wa	have left some money here" /Do y	some money here" /Do you want to	-	GAME.OVR:24471
+ui.00776c94771b	some money here" /Do you want to	left some money here" /Do you wa	money here" /Do you want to go b	-	GAME.OVR:24476
+ui.6e8bbce95265	money here" /Do you want to go b	some money here" /Do you want to	here" /Do you want to go back an	-	GAME.OVR:24481
+ui.afc0a78646ed	here" /Do you want to go back an	money here" /Do you want to go b	 /Do you want to go back and retri	-	GAME.OVR:24487
+ui.a915ea93dc37	 /Do you want to go back and retri	here" /Do you want to go back an	/Do you want to go back and retr	-	GAME.OVR:24492
+ui.3e82ec7722fb	/Do you want to go back and retr	 /Do you want to go back and retri	Do you want to go back and retrieve your money?	-	GAME.OVR:24493
+ui.7558c8476131	Do you want to go back and retrieve your money?	/Do you want to go back and retr	you want to go back and retrieve	-	GAME.OVR:24494
+ui.bd50c134baea	you want to go back and retrieve	Do you want to go back and retrieve your money?	want to go back and retrieve you	-	GAME.OVR:24497
+ui.2776025f2e22	want to go back and retrieve you	you want to go back and retrieve	to go back and retrieve your mon	-	GAME.OVR:24501
+ui.cffde0823f16	to go back and retrieve your mon	want to go back and retrieve you	go back and retrieve your money?	-	GAME.OVR:24506
+ui.302259117289	go back and retrieve your money?	to go back and retrieve your mon	The party has fled.	-	GAME.OVR:24509
+ui.1a4b1e57ec5a	The party has fled.	go back and retrieve your money?	You have lost the fight.	-	GAME.OVR:27902
+ui.488eda7de4cb	You have lost the fight.	The party has fled.	You have won the duel.	-	GAME.OVR:27922
+ui.3cf31df67fb7	You have won the duel.	You have lost the fight.	The party has won.	-	GAME.OVR:27947
+ui.bc4ac4b84ba5	The party has won.	You have won the duel.	party has won.%The party makes a	-	GAME.OVR:27970
+ui.0da7cde04068	party has won.%The party makes a	The party has won.	has won.%The party makes a withd	-	GAME.OVR:27974
+ui.fd3a71fd2903	has won.%The party makes a withd	party has won.%The party makes a	won.%The party makes a withdrawl	-	GAME.OVR:27980
+ui.1ea3fa063ca0	won.%The party makes a withdrawl	has won.%The party makes a withd	%The party makes a withdrawl.  A small"fee has	-	GAME.OVR:27984
+ui.66dec68bfa88	%The party makes a withdrawl.  A small"fee has	won.%The party makes a withdrawl	The party makes a withdrawl.  A small	-	GAME.OVR:27988
+ui.99ef77603df2	The party makes a withdrawl.  A small	%The party makes a withdrawl.  A small"fee has	party makes a withdrawl.  A smal	-	GAME.OVR:27989
+ui.39d71d13cc80	party makes a withdrawl.  A smal	The party makes a withdrawl.  A small	makes a withdrawl.  A small"fee 	-	GAME.OVR:27993
+ui.f868f053c647	makes a withdrawl.  A small"fee 	party makes a withdrawl.  A smal	a withdrawl.  A small"fee has be	-	GAME.OVR:27999
+ui.a29472bb8710	a withdrawl.  A small"fee has be	makes a withdrawl.  A small"fee 	withdrawl.  A small"fee has been	-	GAME.OVR:28005
+ui.efb4a9fd4b10	withdrawl.  A small"fee has been	a withdrawl.  A small"fee has be	 A small"fee has been assessed b	-	GAME.OVR:28007
+ui.0b86aa5c1336	 A small"fee has been assessed b	withdrawl.  A small"fee has been	A small"fee has been assessed by	-	GAME.OVR:28018
+ui.3221280f22c4	A small"fee has been assessed by	 A small"fee has been assessed b	small"fee has been assessed by t	-	GAME.OVR:28019
+ui.4fdc2cd47540	small"fee has been assessed by t	A small"fee has been assessed by	The party has found Treasure!	-	GAME.OVR:28021
+ui.ee223764db80	The party has found Treasure!	small"fee has been assessed by t	The duelist receives 	-	GAME.OVR:28062

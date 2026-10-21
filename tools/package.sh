@@ -26,7 +26,7 @@ STAGE="$W/pkg-stage"
 UNI="$W/unifont-src/unifont-17.0.05"
 UNIFONT_TAR="$W/unifont-src/unifont-17.0.05.tar.gz"
 UNIFONT_TAR_SHA="f287cffb26e22723aa36e6684869b0f3ff3bfb822c4b01008bd847911ec1b631"
-THEME="$W/hd/theme"
+THEME="${COK_THEME:-$ROOT/hd/theme}"  # HD 主題正式版本在 repo；Codex 工作區 workplace/hd/theme 交付後以 tools/hd-sync.sh 同步
 ORIG_TREE="$W/input/dos/ckrynn"
 ETEN_SRC="/home/anr2/cht/etan_font/ET353S/FILES"
 # 規格 012 §3.3：沿用本機既有映像，以映像 ID 釘住（只使用，不刪除、不改標籤）。

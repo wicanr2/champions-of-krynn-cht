@@ -1,0 +1,54 @@
+key	translation	note
+ui.3e772edeeb89	は毒が消えた	
+ui.2cef23028b6d	は彼らを叩き潰した	
+ui.595ba83def48	は転移した	
+ui.8575fa9ba811	は恐怖で逃げ出した	
+ui.f06c19b93b2c	炎の種類：	
+ui.38d9edf514a9	熱 冷	
+ui.6bdc33eef062	呪文を中止するか？	
+ui.63783b1ec102	はい いいえ	
+ui.a47547af2017	は不器用になった	
+ui.ce690cd0c4fa	は減速した	
+ui.6bb4327fa15a	ブレスを吐いた！	
+ui.42cbbfc27a4d	は目がくらんだ	
+ui.e800a6dfe581	エネルギー弾を放った！	
+ui.58b2b3e0f21f	はファイアーボールを放った	
+ui.d26017d8ab4d	は毒を吐いた	
+ui.34de4e86df99	は酸を吐いた	
+ui.e272deecde72	冷気	
+ui.c141faa80e43	炎	
+ui.e1f3cf2badbf	は吐いた：	接 ui.e272deecde72「冷気」／ui.c141faa80e43「炎」
+ui.8cd68723841c	呪文を唱えた	
+ui.d17044a2f3d3	呪文：	
+ui.70b79e8927e9	は殺意を抱いた：	接目標名
+ui.72839726ec25	は咳き込み始めた	
+ui.431f23d55810	は吐き気でむせ込んだ	
+ui.906fe79445af	は治癒した	
+ui.4219be8c1840	は	
+ui.f5e1d63728c2	点のダメージを受けた	
+ui.accf5e41d3a8	は1点のダメージを受けた	
+ui.15834b2c3777	（炎による）	
+ui.546fc10be49b	（冷気による）	
+ui.746ea349ca6f	（電撃による）	
+ui.f9137bd3fdae	（酸による）	
+ui.61e52adc2174	（魔法による）	
+ui.fd5da56f78ed	倒れた	
+ui.8e3e8d7a009c	、瀕死の状態だ	
+ui.4b7899783330	は影響を受けない	
+ui.6023d3cce98d	は爆発した。	
+ui.7f7a297e2c31	はい	
+ui.0b05e966e945	いいえ	
+ui.dcd1d5223f73	名前	
+ui.d60cd2e0bb8c	AC HP	
+ui.c35ed1964164	HP	
+ui.472e73d796e2	AC	
+ui.ac08bed00d4d	（無力）	
+ui.9e5d3472e05f	（詠唱中）	
+ui.6ac8fcdfb8e4	は完全に回復した	
+ui.f8e1a5e2c265	は一部回復した	
+ui.0323473424f1	防御中	
+ui.58f6ffe741db	野営中	
+ui.c5031dcec9ef	探索中	
+ui.1116c3efebb0	は包帯を巻いた	
+ui.2fa787bb6baf	次	
+ui.4abb1289fa79	前	

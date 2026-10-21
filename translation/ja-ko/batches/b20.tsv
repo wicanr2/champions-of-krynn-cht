@@ -1,0 +1,131 @@
+key	original	prev	next	zh
+ui.ae351f9a3fcd	Holy Water	Potion	Ruby	聖水
+ui.108040ac289a	Ruby	Holy Water	Boulder	紅寶石
+ui.93fe3ac0ddb8	Boulder	Ruby	Dragon Breath	巨石
+ui.3b439567997b	Dragon Breath	Boulder	Displacement	龍息
+ui.f348fb4839ff	Displacement	Dragon Breath	Bag	位移
+ui.b053c961f2ac	Bag	Displacement	Drow	袋
+ui.a3e0b6a1c528	Drow	Bag	Elven Chain	黑暗精靈
+ui.6ddb1b49d365	Elven Chain	Drow	Ice Storm	精靈鎖甲
+ui.dfccfbed6a52	Ice Storm	Elven Chain	Saphire	冰雪風暴
+ui.87e376689f8a	Saphire	Ice Storm	Emerald	藍寶石
+ui.af1ccb31304d	Emerald	Saphire	Wizardry	綠寶石
+ui.e01ae25b03ab	Wizardry	Emerald	Hornet's Nest	巫術
+ui.25d16d4516b5	Hornet's Nest	Wizardry	Hoopak	黃蜂巢
+ui.bf6c2c94e57c	Hoopak	Hornet's Nest	Solamnic Plate	投石杖
+ui.8a55e534e3ad	Solamnic Plate	Hoopak	Dragonlance	索蘭尼克鎧甲
+ui.a39e9ac3b463	Dragonlance	Solamnic Plate	Flail	屠龍槍
+ui.0aac4f3d8041	Flail	Dragonlance	Halberd	連枷
+ui.60c397046c19	Halberd	Flail	Gauntlets	戟
+ui.a3ef91cb4236	Gauntlets	Halberd	Periapt	護手
+ui.b1daf7d8771a	Periapt	Gauntlets	Proof vs Poison	護符
+ui.75a84e162ae7	Proof vs Poison	Periapt	Dust	抗毒
+ui.aa70a305f3f2	Disruption	Disappearance	Ogre Power	粉碎
+ui.fcfe1a334f70	Ogre Power	Disruption	Girdle	食人魔之力
+ui.254d82b0f10c	Girdle	Ogre Power	Giant Strength	束帶
+ui.668f8131b2e8	Giant Strength	Girdle	Mirror	巨人之力
+ui.90fade6fb78e	Mirror	Giant Strength	Necklace	鏡
+ui.6a88445bbf65	Necklace	Mirror	Dragon	項鍊
+ui.bbe963c645f0	Dragon	Necklace	vs Reptiles	龍族
+ui.a7008d8fa62b	vs Reptiles	Dragon	Frost Brand	對爬蟲類
+ui.70807119543d	Frost Brand	vs Reptiles	Berserker	寒霜之刃
+ui.143f40fdffa4	Berserker	Frost Brand	Diamond	狂戰士
+ui.b639c243cebd	Diamond	Berserker	Lightning	鑽石
+ui.41e68f2cdb38	Lightning	Diamond	Fireballs	閃電
+ui.73dda53255f5	Fireballs	Lightning	of	火球
+ui.28391d3bc64e	of	Fireballs	Vulnerability	之
+ui.a123dd728a7a	Vulnerability	of	Speed	易傷
+ui.c372fee9b456	Speed	Vulnerability	Extra	速度
+ui.2e4aaf05df1c	Extra	Speed	Healing	額外
+ui.44bc3799892c	Healing	Extra	Opening	治療
+ui.140262b32b0c	Fear	Opening	Magic Missiles	恐懼
+ui.c83cfaf4080c	Magic Missiles	Fear	Missiles	魔法飛彈
+ui.8b4c3701309d	Missiles	Magic Missiles	1 Spell	飛彈
+ui.fcdfcb21ab14	1 Spell	Missiles	2 Spells	1 個法術
+ui.4dc5cfc054ce	2 Spells	1 Spell	3 Spell	2 個法術
+ui.05b44ae47de4	3 Spell	2 Spells	Paralyzation	3 個法術
+ui.cb96521ce500	Paralyzation	3 Spell	Invisibility	麻痺
+ui.d53895c6eb78	Invisibility	Paralyzation	Footman's	隱形
+ui.92ecb2f088b1	Footman's	Invisibility	AC 10	步兵用
+ui.6891a569c292	AC 10	Footman's	AC 6	防護力 10
+ui.6b19f0a49196	AC 6	AC 10	AC 4	防護力 6
+ui.8a21969b3d68	AC 4	AC 6	AC 3	防護力 4
+ui.d1965cb2d2e5	AC 3	AC 4	AC 2	防護力 3
+ui.1922ea761b22	AC 2	AC 3	Spiritual	防護力 2
+ui.271c24e9ae7b	Spiritual	AC 2	Gem	心靈
+ui.5108a0f0dc36	Gem	Spiritual	NE	寶石
+ui.d539cd97ca1a	NE	Gem	SE	東北
+ui.f031b70a2653	SE	NE	SW	東南
+ui.072f005fc3f2	SW	SE	NW	西南
+ui.c1fcf83e875d	NW	SW	Insert disk 2 in drive 	西北
+ui.b97410f97c75	Insert disk 2 in drive 	NW	Insert disk 3 in drive 	請將磁片 2 插入磁碟機
+ui.3995fd69e31b	Insert disk 3 in drive 	Insert disk 2 in drive 	Insert disk 4 in drive 	請將磁片 3 插入磁碟機
+ui.f499c0e6f8ea	Insert disk 4 in drive 	Insert disk 3 in drive 	KKHHHHHHHMMKKKHHHHHMMMKKKKHHHMMMMKKKKKHMMMMMKKKKPPPMMMMKKKPPPPPMMMKKPPPPPPPMM	請將磁片 4 插入磁碟機
+ui.3abbd69ed48b	Bless	HHMMKKKHHHHHMMMKKKKHHHMMMMKKKKKHMMMMMKKKKPPPMMMMKKKPPPPPMMMKKPPPPPPPMMKO	Curse	祝福術
+ui.88b3d8eed54f	Curse	Bless	Cause Light Wounds	詛咒術
+ui.d52b96d2ce02	Cause Light Wounds	Curse	Detect Magic	引發輕傷
+ui.d69eecab2f76	Detect Magic	Cause Light Wounds	Protection From Evil	搜尋魔法物品
+ui.23e3e052927b	Protection From Evil	Detect Magic	Protection from Good	免受邪惡傷害
+ui.aa433e0ea3c6	Protection from Good	Protection From Evil	Resist Cold	免受善良傷害
+ui.263bc44ae6ee	Resist Cold	Protection from Good	Burning Hands	抗凍術
+ui.35dc00703dc4	Burning Hands	Resist Cold	Charm Person	燃燒的手
+ui.939473c4290e	Charm Person	Burning Hands	Enlarge	迷惑術
+ui.a1c1212619a3	Enlarge	Charm Person	Reduce	巨大術
+ui.42412678202e	Reduce	Enlarge	Friends	縮小術
+ui.bd104d1b98d0	Friends	Reduce	Magic Missile	友好術
+ui.111a74afc067	Magic Missile	Friends	Protection From Good	魔法飛彈
+ui.5021111cfddc	Protection From Good	Magic Missile	Read Magic	免受善良傷害
+ui.d6186a504f76	Read Magic	Protection From Good	Shocking Grasp	閱讀魔法
+ui.8eaa4fbfbbfa	Shocking Grasp	Read Magic	Sleep	電擊術
+ui.d466bcf52eb6	Sleep	Shocking Grasp	Find Traps	催眠術
+ui.b4eb600e2bd2	Find Traps	Sleep	Hold Person	搜尋陷阱
+ui.f0d35390cb24	Hold Person	Find Traps	Resist Fire	束縛術
+ui.b67514c6d13f	Resist Fire	Hold Person	Silence, 15' Radius	抗火術
+ui.e864a8c0c782	Silence, 15' Radius	Resist Fire	Slow Poison	半徑15呎的沉靜術
+ui.93022dfd9b34	Slow Poison	Silence, 15' Radius	Snake Charm	緩毒
+ui.ed044e582700	Snake Charm	Slow Poison	Spiritual Hammer	蛇魅術
+ui.69686409f3e8	Spiritual Hammer	Snake Charm	Detect Invisibility	心靈之槌
+ui.7e4f7d7e6c00	Detect Invisibility	Spiritual Hammer	Knock	搜尋隱形物品
+ui.61622162cdb3	Knock	Detect Invisibility	Mirror Image	踢開術
+ui.1624e5bc418d	Mirror Image	Knock	Ray of Enfeeblement	幻影術
+ui.f11aa46e52cb	Ray of Enfeeblement	Mirror Image	Stinking Cloud	衰弱術
+ui.1d9f00d3365b	Stinking Cloud	Ray of Enfeeblement	Strength	臭雲術
+ui.63ee3a1b965a	Strength	Stinking Cloud	Animate Dead	大力術
+ui.5a36e355b239	Animate Dead	Strength	Cause Blindness	活化死者
+ui.e66ad0bcb4ad	Cause Blindness	Animate Dead	Cause Disease	引發失明
+ui.37aa87a44f5f	Cause Disease	Cause Blindness	Dispel Magic	引發疾病
+ui.d004ff3c3b43	Dispel Magic	Cause Disease	Prayer	解除法術
+ui.6e399f2787a0	Prayer	Dispel Magic	Bestow Curse	祈禱
+ui.a824f34f6cbe	Bestow Curse	Prayer	Blink	施以詛咒
+ui.a37430e22cd0	Blink	Bestow Curse	Fireball	閃爍術
+ui.cc173df6702c	Fireball	Blink	Haste	火球
+ui.de3b46da4da8	Haste	Fireball	Invisibility, 10' Radius	加倍術
+ui.69ec6af313aa	Invisibility, 10' Radius	Haste	Lightning Bolt	半徑10呎內隱形
+ui.6501d6e4ac16	Lightning Bolt	Invisibility, 10' Radius	Protection From Evil, 10' Radius	閃電術
+ui.3f0c88ea43ad	Protection From Evil, 10' Radius	Lightning Bolt	Protection From Good, 10' Radius	半徑10呎內免受邪惡傷害
+ui.7084340de831	Protection From Good, 10' Radius	Protection From Evil, 10' Radius	Protection From Normal Missiles	半徑10呎內免受善良傷害
+ui.c9e47f12e274	Protection From Normal Missiles	Protection From Good, 10' Radius	Slow	免受一般飛彈傷害
+ui.4b2bebbf33ae	Slow	Protection From Normal Missiles	Restoration	緩慢術
+ui.6a3c6c77892d	Restoration	Slow	Cause Serious Wounds	恢復術
+ui.61e932cd1783	Cause Serious Wounds	Restoration	Poison	引發重傷
+ui.d5a78b996fe6	Poison	Cause Serious Wounds	Protection Evil, 10' Radius	毒術
+ui.e718fa37db3b	Protection Evil, 10' Radius	Poison	Sticks to Snakes	半徑10呎內不受邪惡傷害
+ui.56d88a11d595	Sticks to Snakes	Protection Evil, 10' Radius	Cause Critical Wounds	弄蛇術
+ui.f791fef558be	Cause Critical Wounds	Sticks to Snakes	Dispel Evil	引發致命傷
+ui.59b74e17ac37	Dispel Evil	Cause Critical Wounds	Flame Strike	解除邪惡
+ui.5a0009478568	Flame Strike	Dispel Evil	Slay Living	火焰打擊
+ui.22cd189987e0	Slay Living	Flame Strike	Entangle	殺生術
+ui.45fe07b35406	Entangle	Slay Living	Faerie Fire	糾纏
+ui.f64fa5018db4	Faerie Fire	Entangle	Invisibility to Animals	魔光
+ui.d5eb90184aff	Invisibility to Animals	Faerie Fire	Charm Monsters	對動物隱形
+ui.963a606aee50	Charm Monsters	Invisibility to Animals	Confusion	迷惑怪物
+ui.9507ad17d71f	Confusion	Charm Monsters	Dimension Door	混淆術
+ui.45f3b27f0f45	Dimension Door	Confusion	Fire Shield	時空之門
+ui.b970634c8409	Fire Shield	Dimension Door	Fumble	防火盾牌
+ui.19fee74864a2	Fumble	Fire Shield	Minor Globe Of Invulnerability	笨拙術
+ui.87d6ec410a8b	Minor Globe Of Invulnerability	Fumble	Cloud Kill	小型魔法防護罩
+ui.a7290a044b25	Cloud Kill	Minor Globe Of Invulnerability	Cone of Cold	殺人雲
+ui.9d6a11309ab7	Cone of Cold	Cloud Kill	Feeblemind	冰錐術
+ui.dcddc47e957c	Feeblemind	Cone of Cold	Hold Monsters	弱智術
+ui.81910caf6e3a	Hold Monsters	Feeblemind	Protection From Evil 10' Radius	怪物束縛術
+ui.ab0f2b906319	Protection From Evil 10' Radius	Hold Monsters	Silence 15' radius	半徑10呎內不受邪惡傷害

@@ -1,0 +1,737 @@
+en	target	basis	note
+Silvanesti Elf	실바네스티 엘프	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 실바네스티 + D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.15 엘프
+Qualinesti Elf	퀼리네스티 엘프	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 퀼리네스티 + D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.15 엘프
+Half-elf	하프 엘프	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 하프 엘프
+Mountain Dwarf	산 드워프	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.15 산 드워프
+Hill Dwarf	언덕 드워프	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.15 언덕 드워프
+Kender	켄더	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 켄더(Kender)
+Human	인간	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.18 인간 Human
+Dwarf	드워프	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.14 드워프 Dwarf
+Elf	엘프	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.15 엘프 Elf
+Gnome	노움	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 숲 노움; D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35 노움
+Sage Gnome	현자 노움	meaning	노움은 dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Fighter	파이터	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.22 파이터 Fighter
+Cleric	클레릭	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.22 클레릭 Cleric
+Mage	마법사	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 마법사 레이스트린; D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 마법사
+Paladin	팔라딘	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 팔라딘
+Ranger	레인저	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 레인저
+Thief	도적	meaning	5판 Rogue는 로그; AD&D Thief를 의역
+Knight	기사	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 솔람니아 기사; D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 기사
+Druid	드루이드	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 드루이드
+Solamnic Knights	솔람니아 기사	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 솔람니아 기사
+Knight of the Crown	왕관 기사	meaning	
+Knight of the Sword	검의 기사	meaning	
+Knight of the Rose	장미 기사	meaning	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 장미의 반란 참고
+White Robe Mage	흰 로브 마법사	meaning	게임 UI는 White만 표시
+Red Robe Mage	붉은 로브 마법사	meaning	게임 UI는 Red만 표시
+Black Robe Mage	검은 로브 마법사	meaning	게임 UI는 Black만 표시
+Rogue	배교 마법사	meaning	어느 로브에도 속하지 않은 마법사
+Lawful Good	질서 선	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Lawful Neutral	질서 중립	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Neutral Good	중립 선	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+True Neutral	중립	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35 중립(N)
+Chaotic Good	혼돈 선	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Chaotic Neutral	혼돈 중립	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+STR	근력	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.59
+INT	지능	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.59
+WIS	지혜	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.59
+DEX	민첩	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.59
+CON	건강	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.59
+CHA	매력	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.59
+Hit Points	히트 포인트	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.76
+HP	HP	ui	약어 유지
+Armor Class	방어도	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 방어도(AC)
+AC	AC	ui	약어 유지
+THAC0	THAC0	ui	약어 유지
+Damage	피해	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 피해
+Experience	경험치	ui	
+Level	레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 1레벨 등
+Encumbrance	무게	ui	소지 중량
+Movement	이동력	ui	
+Status	상태	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.170 상태
+Saving Throw	내성 굴림	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.2 내성 굴림
+XP	XP	ui	약어 유지
+Paladine	팔라다인	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 팔라다인(Paladine)
+Majere	마지어	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 레이스트린 마지어(Majere 성씨 표기)
+Kiri-Jolith	키리졸리스	translit	
+Mishakal	미샤칼	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 미샤칼
+Sirrion	시리온	translit	
+Reorx	레오룩스	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 레오룩스(Reorx)
+Shinare	시네어	translit	
+Takhisis	타키시스	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 타키시스
+Dark Queen	암흑 여왕	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 크린의 암흑 여왕(Dark Queen of Krynn)
+Soth	소스	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 로렌 소스 경(Lord Soth)
+Lord Soth	소스 경	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 로렌 소스 경(Lord Soth)
+Karl	카를	translit	Kal(칼)과 구별
+Sir Karl	카를 경	translit	Sir=경은 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 소스 경 형식
+Sir Thom	톰 경	translit	
+Thom Govamont	톰 고바몬트	translit	
+Maya	마야	translit	
+Garren	개런	translit	
+Sebas	세바스	translit	
+Sebas Astmoor	세바스 애스트무어	translit	
+Skomp	스콤프	translit	
+Kai	카이	translit	
+Daine	데인	translit	
+Major Tems	템스 소령	translit	
+Ariela	아리엘라	translit	
+Durfey	더피	translit	
+Lenore	레노어	translit	
+Erline	얼린	translit	
+Kitiara	키티아라	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 키티아라(Kitiara)
+Igorf	이고르프	translit	
+Zakarie	재커리	translit	
+Loring	로링	translit	
+Denissa	데니사	translit	플레이어 입력 단어일 수 있음
+Sir Vansward	밴스워드 경	translit	
+Ruffian	러피언	translit	원문 의미는 불량배
+Quartzberkl	쿼츠버클	translit	
+Quax	콱스	translit	
+Quizmarxomatix	퀴즈마르소마틱스	translit	
+Myrtani	머타니	translit	
+Dream Merchant	꿈 상인	meaning	
+Fortune Teller	점쟁이	meaning	
+Commander	사령관	meaning	
+Ansalon	안살론	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 안살론
+Krynn	크린	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 크린(Krynn)
+Kalaman	칼라만	translit	
+Vingaard	빈가드	translit	
+Dulcimer	덜시머	translit	
+Quazle	쿼즐	translit	
+Cerberus	케르베로스	translit	
+Cekos	세코스	translit	
+Throtl	스로틀	translit	
+Turef	투레프	translit	
+Dargaard	다르가드	translit	
+Dargaard Keep	다르가드 성채	translit	
+Dargaard Mountain	다르가드 산	translit	
+Gargath	가르가스	translit	
+Gargath Outpost	가르가스 전초기지	meaning	
+High Clerist's Tower	대성직자의 탑	meaning	
+Voice Wood	메아리 숲	meaning	
+Sudulto	수둘토	translit	
+Oubliette	지하 감옥	meaning	
+Kernen	커넌	translit	
+Hall	연병장	meaning	繁中 檢閱廳
+Commandant	사령관실	meaning	
+Bazaar	시장	meaning	
+Shop	상점	ui	
+Temple	신전	ui	
+Bank	은행	ui	
+Inn	여관	ui	
+Tavern	주점	ui	
+Guards	경비실	meaning	
+Outpost	전초기지	meaning	
+Dragon	드래곤	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤
+Undead	언데드	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 언데드 창조
+Undead Beast	언데드 야수	meaning	
+Death Knight	데스 나이트	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 데스 나이트
+Black Dragon	블랙 드래곤	translit	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 블루 드래곤·실버 드래곤 표기 형식
+Blue Dragon	블루 드래곤	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 블루 드래곤
+Death Dragon	데스 드래곤	translit	
+Red Dragon	레드 드래곤	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 레드 드래곤 원숙체
+Silver Dragon	실버 드래곤	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 실버 드래곤
+Spectral Dragon	망령 드래곤	meaning	
+Undead Dragon	언데드 드래곤	meaning	
+Dread Wolf	드레드 울프	translit	
+Fire Lizard	화염 도마뱀	meaning	
+Fire Minion	화염 하수인	meaning	
+Ghast	가스트	translit	
+Ghoul	구울	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 구울
+Golem	골렘	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 살점 골렘 등
+Flesh Golem	살점 골렘	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 살점 골렘
+Iron Golem	강철 골렘	meaning	
+Hatori	하토리	translit	
+Hellhound	헬 하운드	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 헬 하운드
+Kuo-Toa	쿠오토아	translit	
+Lich	리치	translit	
+Lycanthrope	라이칸스로프	translit	
+Wereboar	위어보어	translit	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 위어울프 형식
+Weretiger	위어타이거	translit	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 위어울프 형식
+Nightmare	나이트메어	translit	
+Rhino Beetle	코뿔소 딱정벌레	meaning	
+Undead Roc	언데드 로크	translit	
+Sivak	시바크 드래코니언	translit	드래코니언은 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)
+Draconian	드래코니언	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래코니언(Draconian)
+Skeleton	스켈레톤	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 스켈레톤
+Skeleton Giant	스켈레톤 거인	meaning	
+Skeleton Warrior	스켈레톤 전사	meaning	
+Spectral Minion	망령 하수인	meaning	
+Spectre	스펙터	translit	
+Vampire	뱀파이어	translit	
+Vodyanoi	보댜노이	translit	
+Whisper Spider	속삭이는 거미	meaning	
+Wight	와이트	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 와이트
+Wraith	레이스	translit	
+Wyndlass	윈들라스	translit	
+Zombie	좀비	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 좀비
+Zombie Giant	좀비 거인	meaning	
+Zombie Mastodon	좀비 마스토돈	meaning	
+Zombie Minotaur	좀비 미노타우르스	meaning	미노타우르스는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166
+Goblin	고블린	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 고블린
+Hobgoblin	홉고블린	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 홉고블린
+Ogre	오우거	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 오우거
+Giant	거인	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 언덕 거인 등
+Wand	완드	ui	
+Potion	물약	ui	
+Scroll	두루마리	ui	
+Mage Scroll	마법사 두루마리	meaning	
+Solamnic Plate	솔람니아 판금 갑옷	meaning	판금 갑옷은 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.46
+Plate Mail	판금 갑옷	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.46 플레이트 아머, 즉 판금 갑옷
+Leather Armor	가죽 갑옷	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 레더 아머, 즉 가죽 갑옷
+Bracers	브레이서	translit	
+Dragonlance	드래곤랜스	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤랜스
+Hoopak	후팍	translit	
+Rod of Omniscience	전지의 막대	meaning	
+Sleepstone	잠의 돌	meaning	
+Steel	강철화	meaning	금화·은화 형식(D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.44); 크린의 통화
+Ambush Made Easy	손쉬운 기습	meaning	책 제목
+Create New Character	캐릭터 생성	official	WPN 한국어 PHB 페이지 캐릭터 생성
+Drop Character	캐릭터 삭제	ui	
+Modify Character	캐릭터 수정	ui	
+Train Character	캐릭터 훈련	ui	
+Knight Change Order	기사단 변경	ui	
+View Character	캐릭터 보기	ui	
+Add Character to Party	파티에 추가	ui	
+Remove Character from Party	파티에서 제외	ui	
+Load Saved Game	불러오기	ui	
+Save Current Game	저장하기	ui	
+Begin Adventuring	모험 시작	ui	
+Initialize Mouse/Joystick	마우스/조이스틱 설정	ui	
+Exit to DOS	DOS로 종료	ui	
+Pick Race	종족 선택	ui	종족은 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.13
+Pick Gender	성별 선택	ui	
+Pick Class	클래스 선택	ui	클래스는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.22
+Pick Diety	신 선택	ui	원문 철자 Diety
+Pick Alignment	성향 선택	ui	성향은 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Male	남	ui	
+Female	여	ui	
+Move	이동	ui	
+Area	지역	ui	
+Cast	시전	ui	
+View	보기	ui	
+Encamp	야영	ui	
+Search	수색	ui	
+Look	관찰	ui	
+Save	저장	ui	
+Magic	마법	ui	
+Rest	휴식	ui	
+Alter	설정	ui	
+Fix	치료	ui	
+Order	순서	ui	
+Icon	외형	ui	
+Novice	초보	ui	난이도
+Squire	종자	ui	난이도
+Veteran	고참	ui	난이도
+Adept	달인	ui	난이도
+Champion	용사	ui	난이도
+Okay	정상	ui	
+Unconscious	무의식	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.170 무의식 상태
+Dying	빈사	ui	
+Dead	사망	ui	
+Gone	소멸	ui	
+Running	도주 중	ui	
+Items	소지품	ui	
+Ready	장비	ui	
+Use	사용	ui	
+Trade	교환	ui	
+Drop	버림	ui	
+Halve	분할	ui	
+Join	합침	ui	
+Sell	판매	ui	
+ID	식별	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 식별(Identify)
+Spells	주문	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.85 주문
+Cure	완치	ui	질병 치료 서비스; 확인 필요
+Heal	회복	ui	
+Memorize	준비	ui	5판 주문 준비 개념
+Scribe	필사	ui	
+Display	표시	ui	
+Exit	나감	ui	
+Buy	구입	ui	
+Take	줍기	ui	
+Pool	모음	ui	
+Share	분배	ui	
+Appraise	감정	ui	
+Detect	탐지	ui	
+Deposit	입금	ui	
+Withdraw	출금	ui	
+View Balance	잔고 확인	ui	
+Flee	도주	ui	
+Attack	공격	ui	
+Talk	대화	ui	
+Wait	대기	ui	
+Aim	조준	ui	
+Turn	퇴치	ui	언데드 퇴치
+Guard	경계	ui	
+Quick	자동	ui	
+Delay	지연	ui	
+Bandage	붕대	ui	
+Yell	고함	ui	
+Speed	속도	ui	
+End	종료	ui	
+Next	다음	ui	
+Prev	이전	ui	
+Manual	수동	ui	
+Target	목표	ui	
+Center	중앙	ui	
+Play	시작	ui	
+Demo	데모	ui	
+Champions	크린의 용사들	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 크린의 용사들(Champions of Krynn)
+Journal Entry	여행 일지	ui	
+Name Character	이름 짓기	ui	
+Select Combat Icon	전투 외형 선택	ui	
+Head	머리	ui	
+Weapon	무기	ui	
+Body	몸통	ui	
+Hair	모발	ui	
+Shield	방패	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 방패
+Arm	팔	ui	
+Leg	다리	ui	
+Size	크기	ui	
+Keep	유지	ui	
+Word	단어	ui	
+Page	쪽	ui	
+Answer	답	ui	
+Magic-User	마법사 주문	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.85 위저드 주문을 마법사로 통일
+Special	특수 주문	meaning	
+Cleric Spells	클레릭 주문	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.85 클레릭 주문
+Mage Spells	마법사 주문	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.85 위저드 주문을 마법사로 통일
+Druid Spells	드루이드 주문	meaning	
+1st Level	1레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 1레벨
+2nd Level	2레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+3rd Level	3레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+4th Level	4레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+5th Level	5레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+6th Level	6레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+7th Level	7레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+8th Level	8레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Bless	축복	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 축복(Bless)
+Cure Light Wounds	경상 치료	meaning	5판 상처 치료(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Detect Magic	마법 탐지	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 마법 탐지
+Protection From Evil	악으로부터의 보호	meaning	5판 악과 선으로부터의 보호(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Resist Cold	냉기 저항	meaning	
+Find Traps	함정 탐지	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 함정 탐지
+Hold Person	인간형 포박	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 인간형 포박
+Resist Fire	화염 저항	meaning	
+Silence, 15' Radius	반경 15ft 침묵	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 침묵
+Silence 15' radius	반경 15ft 침묵	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 침묵
+Slow Poison	독 지연	meaning	
+Snake Charm	뱀 매혹	meaning	
+Spiritual Hammer	영체 망치	meaning	5판 영체 무기(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Cure Blindness	실명 치료	meaning	
+Cure Disease	질병 치료	meaning	
+Dispel Magic	마법 무효화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 마법 무효화
+Prayer	기도	meaning	
+Remove Curse	저주 해제	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 저주 해제
+Cure Serious Wounds	중상 치료	meaning	5판 상처 치료(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Neutralize Poison	독 중화	meaning	
+Protection Evil, 10' Radius	반경 10ft 악으로부터의 보호	meaning	
+Protection From Evil, 10' Radius	반경 10ft 악으로부터의 보호	meaning	
+Protection From Evil 10' Radius	반경 10ft 악으로부터의 보호	meaning	
+Sticks to Snakes	막대기를 뱀으로	meaning	
+Cure Critical Wounds	치명상 치료	meaning	5판 상처 치료(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Dispel Evil	악 퇴치	meaning	5판 악과 선 퇴치(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Raise Dead	사자 소생	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 사자 소생
+Restoration	상급 회복	meaning	5판 상급 회복(Greater Restoration) 기반, dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Ressurection	부활	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 부활(Resurrection); 원문 철자 Ressurection
+Entangle	얽혀듬	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 얽혀듬(Entangle)
+Faerie Fire	요정 불꽃	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 요정 불꽃(Faerie Fire)
+Invisibility to Animals	동물 대상 투명화	meaning	
+Barkskin	나무껍질 피부	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 나무껍질 피부
+Charm Person/Mammal	인간/포유류 매혹	meaning	인간형 매혹(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Burning Hands	타오르는 손길	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 타오르는 손길
+Charm Person	인간형 매혹	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 인간형 매혹
+Enlarge	거대화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 거대화/축소화
+Friends	친밀화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 친밀화
+Magic Missile	마법 화살	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 마법 화살(Magic Missile)
+Read Magic	마법 판독	meaning	
+Shield	방패	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 방패(Shield)
+Shocking Grasp	전격의 손아귀	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 전격의 손아귀
+Sleep	수면	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 수면
+Detect Invisibility	투명체 감지	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 투명체 감지
+Invisibility	투명화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 투명화
+Knock	문열기	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 문열기(Knock)
+Mirror Image	거울 분신	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 거울 분신
+Ray of Enfeeblement	무력화 광선	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 무력화 광선
+Stinking Cloud	악취 구름	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 악취 구름
+Strength	괴력	meaning	
+Blink	점멸	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 점멸(Blink)
+Fireball	화염구	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 화염구; D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.76 화염구Fireball
+Haste	가속	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 가속(Haste)
+Invisibility, 10' Radius	반경 10ft 투명화	meaning	투명화는 dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Lightning Bolt	번개	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 번개(Lightning Bolt)
+Protection From Normal Missiles	일반 투사체로부터의 보호	meaning	
+Slow	저속화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 저속화(Slow)
+Bestow Curse	저주 부여	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 저주 부여
+Charm Monsters	괴물 매혹	meaning	
+Confusion	혼란	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 혼란(Confusion)
+Dimension Door	차원문	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 차원문
+Fear	공포	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 공포(Fear)
+Fire Shield	화염 방패	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 화염 방패
+Fumble	헛손질	meaning	
+Ice Storm	얼음 폭풍	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 얼음 폭풍
+Minor Globe Of Invulnerability	하급 무적의 구체	meaning	무적의 구체(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Cloud Kill	죽음구름	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 죽음구름(Cloudkill)
+Cone of Cold	냉기 분사	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 냉기 분사(Cone of Cold)
+Feeblemind	저능화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 저능화(Feeblemind)
+Fire Touch	화염의 손길	meaning	
+Hold Monsters	괴물 포박	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 괴물 포박
+Iron Skin	강철 피부	meaning	
+Death Spell	죽음의 주문	meaning	
+Disentegrate	분해	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 분해; 원문 철자 Disentegrate
+Flesh to Stone	육신 석화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 육신 석화
+Globe Of Invulnerability	무적의 구체	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 무적의 구체
+Stone to Flesh	석화 해제	meaning	
+Delay Blast Fireball	지연 폭발 화염구	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 지연 폭발 화염구
+Mass Invisibility	집단 투명화	meaning	
+Power Word Stun	권능어: 충격	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 권능어: 충격
+Mass Charm	집단 매혹	meaning	
+Mind Blank	무심화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 무심화(Mind Blank)
+Otto's Irresitable Dance	오토의 참을 수 없는 춤	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 오토의 참을 수 없는 춤
+Power Word Blind	권능어: 실명	meaning	권능어(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 형식
+Solinari	솔리나리	translit	흰 달
+Lunitari	루니타리	translit	붉은 달
+Nuitari	누이타리	translit	검은 달
+Sir	경	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 소스 경
+Cataclysm	대격변	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 대격변(Cataclysm)
+Non-Player Character	논플레이어 캐릭터	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.2 논플레이어 캐릭터
+NPC	NPC	ui	약어 유지
+Champions of Krynn	크린의 용사들	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 크린의 용사들
+Death Knights of Krynn	크린의 데스 나이트들	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 크린의 데스 나이트들
+Turn Undead	언데드 퇴치	meaning	
+Gaardsen	가드슨	translit	
+Faeries	요정	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 요정 불꽃·요정 소환
+Father of Trees	나무들의 아버지	meaning	
+Throtl Keep	스로틀 성채	translit	
+Sturm Brightblade	스텀 브라이트블레이드	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 스텀 브라이트블레이드
+Sturm	스텀	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 스텀
+Dave	데이브	translit	
+Dave's Challenge	데이브의 도전	meaning	
+Headley	헤들리	translit	
+Kal	칼	translit	Karl(카를)과 구별
+Hylo	하일로	translit	
+Ergoth	에르고스	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 에르고스
+Thom	톰	translit	
+Armind Cekos	아민드 세코스	translit	
+Ayn Rampike	아인 램파이크	translit	
+Sir Bertil	버틸 경	translit	
+Flare	플레어	translit	
+Spark	스파크	translit	
+Sir Bregen	브레겐 경	translit	
+Lessiter	레시터	translit	
+Sarah	세라	translit	
+Sir Michael	마이클 경	translit	
+Marcwestrons	마크웨스트론스	translit	
+Fromm	프롬	translit	
+Luff	러프	translit	
+Gluten	글루텐	translit	
+Throtl Vault	스로틀 지하실	meaning	
+Dragon Pit	드래곤 구덩이	meaning	
+Whistling Whale Inn	휘파람 고래 여관	meaning	
+Golden Hay Inn	황금 건초 여관	meaning	
+Muddy Straw Inn	진흙 지푸라기 여관	meaning	
+Clear Glass Tavern	맑은 유리 주점	meaning	
+Muddy Plate Tavern	진흙 접시 주점	meaning	
+Oddities and Collectibles	진기한 수집품	meaning	
+Bout Hall	시합장	meaning	
+Hall of Innovation	혁신의 전당	meaning	
+Sage Gnome Guild	현자 노움 길드	meaning	
+Medical Guild	의료 길드	meaning	
+Education Guild	교육 길드	meaning	
+Military Weapons and Planning Guild	군사 무기 기획 길드	meaning	
+Grand Council of Bureaucracy	관료제 대위원회	meaning	
+Council of Knights	기사 평의회	meaning	
+Farmer's Market	농산물 시장	meaning	
+Common Garden	공동 텃밭	meaning	
+Town Hall	시청	meaning	
+Armory	무기고	meaning	
+Pub	선술집	meaning	
+Bar	선술집	meaning	
+Pavilion	천막	meaning	
+Alcove	벽감	meaning	
+Stocks	차꼬	meaning	
+Portcullis	철창문	meaning	
+Priest	사제	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 사제
+Priestess	여사제	meaning	
+Sorcerer	소서러	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.44 소서러
+Herbalist	약초상	meaning	
+Innkeeper	여관 주인	meaning	
+Tavernkeeper	주점 주인	meaning	
+Mayor	촌장	meaning	
+Aides	보좌관	meaning	
+Lady	부인	meaning	
+Imposter	사칭자	meaning	
+Beast Master	조련사	meaning	
+Dragonarmy	드래곤 군대	meaning	
+Oath and Measure	맹세와 척도	meaning	
+Geas	사명 부여	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 사명 부여(Geas)
+Password	암호	meaning	플레이어 입력 단어와 관련
+Copper Dragon	코퍼 드래곤	translit	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤 색 표기 형식
+Carrion Snake	시체 먹는 뱀	meaning	
+Sprite	스프라이트	translit	
+Phylactery	성물함	meaning	
+Amulet	아뮬렛	translit	
+Staff	지팡이	meaning	
+Orb	보주	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤 보주
+Meteor	운석	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 운석 소환
+Wand of Tree Healing	나무 치유의 완드	meaning	
+Necklace of Revante	레반테의 목걸이	meaning	
+Tracker-Clicker	추적 딸깍이	meaning	
+Rutabaga	루타바가	translit	
+Asparagus	아스파라거스	translit	
+Broccoli	브로콜리	translit	
+Rod	전지의 막대	meaning	Rod of Omniscience와 동일
+Tavern Tale	주점 소문	ui	
+Protection From Good	선으로부터의 보호	meaning	5판 악과 선으로부터의 보호(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Cause Disease	질병 부여	meaning	
+Cause Blindness	실명 부여	meaning	
+Hot Fire Shield	열기 화염 방패	meaning	화염 방패(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Cold Fire Shield	냉기 화염 방패	meaning	화염 방패(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Reduce	축소화	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 거대화/축소화
+Harm	가해	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 가해(Harm)
+Poison	독	meaning	
+Flame Strike	화염 직격	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 화염 직격(Flame Strike)
+Slay Living	생명 말살	meaning	
+Camouflaged	위장	ui	
+Displaced	변위	ui	
+Displacement	변위	meaning	
+Animated	활성	ui	
+Grimoire	마도서	ui	
+Lawful Evil	질서 악	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Neutral Evil	중립 악	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Chaotic Evil	혼돈 악	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35
+Bronze	청동화	meaning	금화·은화 형식(D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.44)
+Platinum	백금화	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.44 백금화
+Learn	습득	ui	
+Gems	보석	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 보석
+Jewelry	장신구	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 장신구
+Parts	부위	ui	
+Face	얼굴	ui	
+9th Level	9레벨	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 9레벨
+Battle Axe	배틀액스	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 배틀액스
+Hand Axe	핸드액스	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 핸드액스
+Club	클럽	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 클럽
+Dagger	대거	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 대거
+Dart	다트	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 다트
+Hammer	해머	translit	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 라이트 해머·워해머 참고
+Javelin	자벨린	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 자벨린
+Mace	메이스	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 메이스
+Morning Star	모닝스타	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 모닝스타
+Military Pick	밀리터리 픽	translit	5판 워 픽(D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47) 대응
+Awl Pike	아울 파이크	translit	파이크는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47
+Quarrel	쿼럴	translit	
+Scimitar	시미터	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 시미터
+Spear	스피어	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 스피어
+Quarter Staff	쿼터스태프	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 쿼터스태프
+Bastard Sword	바스타드 소드	translit	
+Broad Sword	브로드소드	translit	
+Long Sword	롱소드	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 롱소드
+Short Sword	숏소드	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 숏소드
+Two-Handed Sword	투핸디드 소드	translit	
+Trident	트라이던트	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 트라이던트
+Composite Long Bow	컴포지트 롱보우	translit	롱보우는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47
+Composite Short Bow	컴포지트 숏보우	translit	숏보우는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47
+Long Bow	롱보우	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 롱보우
+Short Bow	숏보우	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 숏보우
+Light Crossbow	라이트 크로스보우	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 라이트 크로스보우
+Sling	슬링	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 슬링
+Arrow	화살	meaning	
+Flail	플레일	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 플레일
+Halberd	할버드	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47 할버드
+Ring	반지	meaning	
+Scale	스케일	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 스케일 메일
+Chain	체인	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 체인 메일
+Banded	밴디드	translit	
+Elven Chain	엘프 체인	meaning	
+Mail	메일	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 체인 메일 등
+Armor	갑옷	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 갑옷
+Helm	투구	meaning	
+Belt	허리띠	meaning	
+Robe	로브	translit	
+Cloak	망토	meaning	
+Boots	장화	meaning	
+Gauntlets	건틀릿	translit	
+Girdle	요대	meaning	Belt(허리띠)와 구별
+Periapt	부적	meaning	
+Necklace	목걸이	meaning	
+Mirror	거울	meaning	
+Bag	가방	meaning	
+Holy Water	성수	meaning	
+Ruby	루비	translit	
+Saphire	사파이어	translit	원문 철자 Saphire
+Emerald	에메랄드	translit	
+Diamond	다이아몬드	translit	
+Boulder	바위	meaning	
+Dragon Breath	드래곤 브레스	translit	
+Hornet's Nest	말벌집	meaning	
+Elixir Of Youth	젊음의 영약	meaning	
+Eyes Of Charming	매혹의 눈	meaning	
+Proof vs Poison	독 방지	meaning	
+Disruption	분쇄	meaning	
+Ogre Power	오우거의 힘	meaning	오우거는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166
+Giant Strength	거인의 힘	meaning	
+Frost Giant Strength	서리 거인의 힘	meaning	서리 거인은 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166
+Frost Brand	서리의 검	meaning	
+vs Reptiles	대 파충류	meaning	
+Wizardry	마력	meaning	
+Berserker	광전사	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 광전사
+Vulnerability	취약	meaning	
+Paralyzation	마비	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.170 마비 상태
+Olin's	올린의	translit	
+Footman's	보병용	meaning	
+Fine	고급	meaning	
+Drow	드로우	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 드로우
+Skel Warrior	스켈레톤 전사	meaning	Skeleton Warrior와 동일
+Evil Warlord	사악한 군벌	meaning	
+Solamnic Knight	솔람니아 기사	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 솔람니아 기사
+Chain Mail	체인 메일	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 체인 메일
+Ring Mail	링 메일	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 링 메일
+Scale Mail	스케일 메일	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45 스케일 메일
+Banded Mail	밴디드 메일	translit	
+Solamnic Plate Mail	솔람니아 판금 갑옷	meaning	Solamnic Plate와 동일
+Elven Chain Mail	엘프 체인 메일	meaning	체인 메일은 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.45
+Crook Street	악당 골목	meaning	
+Battle of Kernen	커넌 전투	meaning	
+Fun House	놀이 미궁	meaning	
+Cursed Village	저주받은 마을	meaning	
+Shipwreck	난파선	meaning	
+Graveyard	묘지	meaning	
+Foreign Relations guild	외교 길드	meaning	
+Mechanical Engineering guild	기계공학 길드	meaning	
+Military Planning guild	군사 기획 길드	meaning	
+Candle Shop	양초 가게	meaning	
+Dream Pavilion	꿈의 천막	meaning	
+Hall of Voice Wood	메아리 숲 전당	meaning	
+Throne Room	알현실	meaning	
+Guardhouse	경비소	meaning	
+Overland	야외 지도	ui	
+Lower Planes	하계	meaning	
+Milo	마일로	translit	
+Magistrate	치안관	meaning	
+Gravedigger	무덤지기	meaning	
+Vagabond	방랑자	meaning	
+City Commander	도시 사령관	meaning	
+Kuo-Toa Monitor	쿠오토아 감독관	meaning	
+Undead Rat	언데드 쥐	meaning	
+Wrestle	맨손 격투	ui	
+Chant	영창	meaning	
+Chanting	영창 소리	meaning	
+Ward	결계	meaning	
+Silver	은화	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.44 은화
+Earring	귀걸이	meaning	
+Mace of Disruption	분쇄의 메이스	meaning	메이스는 D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.47
+Ring of Protection	보호의 반지	meaning	
+Potion of Speed	신속의 물약	meaning	
+Potion of Extra Healing	상급 치유 물약	meaning	
+Potion of Healing	치유 물약	meaning	
+Potion of Invisibility	투명화 물약	meaning	투명화는 dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Wand of Fireball	화염구 완드	meaning	화염구는 dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Wand of Lightning	번개 완드	meaning	번개는 dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Wand of Ice Storm	얼음 폭풍 완드	meaning	얼음 폭풍은 dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)
+Wand of Paralyzation	마비 완드	meaning	
+Necklace of Missiles	투사체 목걸이	meaning	
+Periapt Proof vs Poison	독 방지 부적	meaning	
+Girdle of Frost Giant Strength	서리 거인의 힘 요대	meaning	
+Gauntlets of Ogre Power	오우거의 힘 건틀릿	meaning	
+Boots of Speed	신속의 장화	meaning	
+Cloak of Displacement	변위의 망토	meaning	
+Staff Sling	스태프 슬링	translit	
+Dart of the Hornet's Nest	말벌집 다트	meaning	
+Scroll of Protection from Dragon Breath	드래곤 브레스 보호 두루마리	meaning	
+White Mage Scroll	흰 로브 두루마리	meaning	
+Red Mage Scroll	붉은 로브 두루마리	meaning	
+Clerical Scroll	클레릭 두루마리	meaning	
+Olin's Quarterstaff	올린의 쿼터스태프	meaning	
+Advanced Dungeons & Dragons	어드밴스드 던전즈 & 드래곤즈	translit	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.3 던전즈 & 드래곤즈 표기 형식
+Pool of Radiance	풀 오브 레이디언스	translit	
+Buck Rogers	벅 로저스	translit	
+Challenge	데이브의 도전	meaning	Dave's Challenge와 동일
+Kuo-Toa Slave Ship	쿠오토아 노예선	meaning	
+Tunnels Beneath Tower	탑 아래 지하도	meaning	
+Faerie	요정	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 요정 불꽃·요정 소환
+Skeletal Giant	스켈레톤 거인	meaning	Skeleton Giant와 동일
+Charm Snakes	뱀 매혹	meaning	Snake Charm과 동일
+Training Hall	연병장	meaning	Hall과 동일
+Council Knight	평의회 기사	meaning	
+Knights of Solamnia	솔람니아 기사단	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 솔람니아 기사단
+Experience Points	경험치	ui	
+Kuo Toa	쿠오토아	translit	
+Kuo Toa Cleric	쿠오토아 클레릭	meaning	
+High Wizard	대마법사	meaning	
+Black Wizard	검은 로브 마법사	meaning	Black Robe Mage와 동일
+Evil Warrior	사악한 전사	meaning	
+Patriarch	대사제	meaning	
+Vampire Mage	뱀파이어 마법사	meaning	
+Vampire Cleric	뱀파이어 클레릭	meaning	
+Neraka	네라카	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 네라카 기사단
+Palanthas	팔란타스	translit	
+Solamnia	솔람니아	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 솔람니아
+Caramon	카라몬	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 카라몬
+Tanis	태니스	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 태니스
+Raistlin	레이스트린	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 레이스트린
+Flint	플린트	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 플린트 파이어포지
+Tasslehoff	태슬호프	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 태슬호프
+Goldmoon	골드문	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 골드문; D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.15
+Riverwind	리버윈드	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 리버윈드
+Laurana	로라나	translit	
+Gilthanas	길타나스	translit	
+Tika	티카	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.35 티카 웨이런
+Jelek	젤렉	translit	
+Sanction	생크션	translit	
+Gargath Keep	가르가스 성채	translit	
+Solace	솔리스	translit	
+Inn of the Last Home	마지막 우리 집 여관	official	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 마지막 우리 집 여관
+Red Dagger Inn	붉은 단검 여관	meaning	
+Trencher Tavern	나무접시 주점	meaning	
+Tavern of the Crossed Swords	엇갈린 검 주점	meaning	
+Burial Glen	매장 골짜기	meaning	
+Thieves Guild	도적 길드	meaning	
+Skyla	스카일라	translit	
+Mysellia	마이셀리아	translit	
+Jerboam	제로보암	translit	
+Jarlkrand	얄크란드	translit	
+Wilgarten	윌가튼	translit	
+Sir Lebaum	르봄 경	translit	
+Sir Mathias	마티아스 경	translit	
+Sir Dargaard	다르가드 경	translit	
+Larcent Strangbourn	라센트 스트랭본	translit	
+Strangbourn	스트랭본	translit	
+Kildirf	킬더프	translit	
+Huerzyd	후에르지드	translit	
+Duerghast	두어가스트	translit	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)에 같은 표기가 영문 없이 나옴
+Horgathindorn	호르가신도른	translit	
+Gusmarken	구스마켄	translit	
+Habbakuk	하바쿡	translit	
+Brachala	브라칼라	translit	
+Gravnak	그라브낙	translit	
+Morog	모로그	translit	
+Jadefang	비취 송곳니	meaning	
+Tas	태스	translit	Tasslehoff 애칭; 태슬호프는 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)
+Prison Lord	감옥 군주	meaning	
+Baaz	바즈 드래코니언	translit	드래코니언은 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)
+Kapak	카팍 드래코니언	translit	드래코니언은 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)
+Aurak	오락 드래코니언	translit	드래코니언은 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)
+Mobat	모뱃	translit	
+Minotaur	미노타우르스	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 미노타우르스
+Green Dragon	그린 드래곤	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 그린 드래곤 성체
+White Dragon	화이트 드래곤	translit	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤 색 표기 형식
+Gold Dragon	골드 드래곤	translit	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤 색 표기 형식
+Brass Dragon	브래스 드래곤	translit	dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼) 드래곤 색 표기 형식
+Shadowpeople	그림자 종족	meaning	
+Windcaptain	바람 선장	meaning	
+Good Armies	선의 군대	meaning	
+Cause Light Wounds	경상 가해	meaning	5판 상처 가해(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Cause Serious Wounds	중상 가해	meaning	5판 상처 가해(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Cause Critical Wounds	치명상 가해	meaning	5판 상처 가해(dndkr.com/spellcards(D&D 한국어판 주문 카드 목록)) 기반
+Animate Dead	사체 조종	official	dndkr.com/spellcards(D&D 한국어판 주문 카드 목록) 사체 조종(Animate Dead)
+Grilliard	그릴리아드	translit	
+Flying Citadel	비행 요새	meaning	
+Bozak	보작 드래코니언	translit	드래코니언은 dndkr.com/post/column019(D&D 한국어판 공식 사이트 칼럼)
+Giant Rat	거대 쥐	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 거대 쥐
+Elvish Curate	엘프 부사제	meaning	
+Elvish Rogue	엘프 무법자	meaning	
+Evil Fighter	사악한 투사	meaning	
+Warrior	전사	meaning	
+Hobgoblin Ldr	홉고블린 대장	meaning	원문 Ldr=Leader
+Black Robe Mage	검은 로브 마법사	meaning	Black Robe Mage와 동일
+Giant Centipede	거대 지네	official	D&D 기초 규칙 한국어판 1.0(dndkr.com/support) p.166 거대 지네

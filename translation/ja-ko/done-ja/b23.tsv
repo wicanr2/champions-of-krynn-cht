@@ -1,0 +1,131 @@
+key	translation	note
+ui.ff5804bd833f	幻位	
+ui.07259b8cfb9f	<呪文効果なし>	
+ui.0e04961c51ea	隊列：	
+ui.95a0c6cfd7d2	は選択された	
+ui.f34a08403165	DOSへ戻る：	
+ui.9ab184b85e05	は消滅する	
+ui.443204696da2	パーティから外すか？	
+ui.32679609640d	は別れを告げた	
+ui.b0a3e9daee9d	は溝に捨てられた	
+ui.6f5f6a7876cf	安堵の息をついた	
+ui.1d60a3338962	ゲーム速度 =	
+ui.ec1d85c28e73	（0=最速 9=最遅）	
+ui.9a5253015a01	速く	
+ui.3faa383606fc	遅く	
+ui.5e88d3982ab7	ゲーム速度：	
+ui.a5c730d6127b	画像ON	
+ui.8a1b78216a61	アニメON	
+ui.ab0a55d5f6b3	アニメOFF	
+ui.474287e99ea4	画像OFF	
+ui.a47214d1d511	パーティは野営した……	
+ui.de5a971d55c5	DOSへ戻る	
+ui.2246705b46f3	保存したゲームから	
+ui.f0d155c43ee0	保存ディスクを入れるドライブ：	
+ui.7308fcc58956	保存ディスクのあるドライブ：	
+ui.aee3b8154004	保存中に予期せぬエラー：	
+ui.9ae5a4479a81	保存できない。ディスクの空きがない。	
+ui.278253d44e93	キャラを失うか？	
+ui.735b64972b07	OK 別ディスクを試す	
+ui.38301f8e6c25	上書き	
+ui.5250b5de07b3	新しいファイル名：	
+ui.dd6b632301cc	モンスターを読み込めません	
+ui.b1edfd1bc6f9	読み込むゲーム：	
+ui.6eac636b81bf	保存するゲーム：	
+ui.5db98e7af406	保存中……お待ちください	
+ui.3a2157e63ae3	……お待ちください	
+ui.df4f6c72ae34	警告：キャラの保存に問題発生	
+ui.925f9d446890	機能を選択	
+ui.1f7133c21072	選択	
+ui.c38a51535885	DOSへ戻る	
+ui.35023ac32083	ゲーム未保存。それでも終了するか？	
+ui.d6d123e2e8ce	無料訓練ON	
+ui.204a2f952b3e	無料訓練OFF	
+ui.e932f4664fa9	種族選択	
+ui.d6359f6ff9fc	性別選択	
+ui.ba7ebb6c0b12	職業選択	
+ui.12d61f44905b	信仰選択	術語表 Pick Diety 的對應（原文 Pick God）
+ui.0224e7c79995	属性選択	
+ui.d88ade772ab3	能力値を振り直すか？	
+ui.246a64eabf86	キャラ名：	
+ui.f5f25c5769e6	保存	
+ui.6ae066ae37be	削除：	接 NAME，再接 ui.188cac7e138b
+ui.188cac7e138b	を永久に消すか？	
+ui.7c2da26ef6e0	よろしいか？	
+ui.b507eb205317	あなたたちは	
+ui.4d09b992377b	を裏に捨てた。	
+ui.d4769daf9f05	は別れを告げた。	
+ui.3cfa88873404	は安堵の息をついた。	
+ui.9e2bbca238ae	は修正できない。	
+ui.b156b926dc3a	修正：	
+ui.43ae65428a8f	加算 減算 残す 終了	
+ui.adfe0feb6f39	キャラを追加：	
+ui.8d89e4a829ae	追加	
+ui.36851157efde	パラディンは邪悪なクズとは組まない。	
+ui.7bd75e5bf8f3	パーティにレンジャーが多すぎる。	
+ui.a0323615baef	は悪を決して許さない！	
+ui.cba06b5736fa	旧	
+ui.7c6cfd76225a	装備 動作	
+ui.11507a0e2f5e	新	
+ui.5263293fc202	小	
+ui.ab80540d98d2	大	
+ui.50522ed6b01a	CGAでは使用できない	
+ui.ababed4823ab	髪	
+ui.304afc32b7ff	顔	
+ui.7425046ea84b	この外見でよいか？	
+ui.59d6cf4f638f	我々は意識のある者しか訓練しない	
+ui.a56df8de4062	ここではその職業は訓練しない。	
+ui.bc15529dc7b3	経験値不足	
+ui.dc0c1dbcae76	は次になる：	
+ui.f2fbdfd7c100	レベル	
+ui.803a155fcf80	と、レベル	
+ui.0befe68474e9	訓練を受けるか？	
+ui.5392c12fa251	おめでとう……	
+ui.3600952e2943	は叙任を願い出た：	
+ui.a44c47b1ee24	剣	接 ui.b03578c1ebc4「騎士団：」之後
+ui.618d663af0f1	薔薇	接 ui.b03578c1ebc4「騎士団：」之後
+ui.b03578c1ebc4	騎士団：	
+ui.f0275105a953	は経験不足だ。	
+ui.8b2ffdc98579	は資格がない。	
+ui.e186c12f3ef1	は次になれる：	
+ui.137405043c32	剣勲爵士	
+ui.d49562742155	変更 終了	
+ui.6ec6ae52db55	は経験不足だ	
+ui.4a2d595a8d23	薔薇勲爵士	
+ui.700ceab2be74	マウスON	
+ui.73aacaa0a21a	マウスOFF	
+ui.0dc5be426a8c	ジョイスティックON	
+ui.c46f278027d6	ジョイスティックOFF	
+ui.65cb8bc4d032	両方無効	
+ui.fe6c9d4d8e5b	入力機器の初期化：	
+ui.a29e9feca009	ジョイスティック#1を左上いっぱいに倒し、	
+ui.be547a8c19df	ボタン#1を押す。	
+ui.542599d6762b	ジョイスティックを読み取れません	
+ui.faee4715888d	ジョイスティック#1を右下いっぱいに倒し、	
+ui.e4cba1c76c15	ボタン#1を押す。	
+ui.755c8b2a9fb1	状態：	
+ui.9596e8d6030b	歳	
+ui.fb620a982a5c	冠勲爵士	前接若已有 Knight 一詞則重複，待確認
+ui.6e30dd4787fe	剣勲爵士	同上
+ui.ffb770a75172	薔薇勲爵士	同上
+ui.1709305c9fa9	レベル	
+ui.1ddcb2c6551d	経験値	
+ui.68945ce37c83	STR	
+ui.908881ec8eb9	INT	
+ui.65a45b3db080	WIS	
+ui.a793518be0c2	DEX	
+ui.fc0615ed1942	CON	
+ui.735b03a3f745	CHA	
+ui.47e1a40ec961	HP	
+ui.a24f89fb7eb3	AC	
+ui.7c0376ae0ea9	重量	
+ui.4c644b040133	THAC0	
+ui.49ba63e89af6	移動力	
+ui.0c874f581a45	ダメージ	
+ui.2aaf9bfd20c4	道具	
+ui.9c87350ca200	呪文	
+ui.7996af070c23	渡す	
+ui.0d20c6ca62b0	回復	
+ui.42b745650343	治癒	
+ui.3aaab8a73c8f	装備を外す必要がある	
+ui.32c9fd9a0415	はその巻物から筆写しようとしていた	

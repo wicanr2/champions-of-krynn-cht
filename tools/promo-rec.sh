@@ -6,7 +6,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 W="$ROOT/workplace"; BIN="$W/dosgolem/workplace/bin/cok-promo"
 name="$1" sd="$(cd "$2" && pwd)" st="$3" from="$4" until="$5"; shift 5
-OUT="$W/promo/seg/$name"; THEME="${PROMO_THEME:-$W/hd/theme}"
+OUT="$W/promo/seg/$name"; THEME="${PROMO_THEME:-$ROOT/hd/theme}"
 FONT="${PROMO_FONT:-cok-rounded.golemfnt}"
 for f in "$BIN" "$sd/$st" "$W/font/$FONT" "$W/music/out/music.tsv"; do test -f "$f" || { echo "缺 $f" >&2; exit 1; }; done
 for d in "$sd/scratch" "$W/input/dos/ckrynn" "$THEME" "$ROOT/text" "$W/font"; do test -d "$d" || { echo "缺 $d" >&2; exit 1; }; done

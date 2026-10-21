@@ -1,0 +1,131 @@
+key	original	prev	next	tier	source
+ui.5b739977969c	<CuD	Nothing Happens...	Attack Ally: 	-	GAME.OVR:96910
+ui.eb45597f7b2c	Attack Ally: 	<CuD	Range = 	-	GAME.OVR:97390
+ui.e913d0b16469	Range = 	Attack Ally: 	Target 	-	GAME.OVR:97625
+ui.e420dd994483	Target 	Range = 	Next Prev Manual 	-	GAME.OVR:97637
+ui.6bd1127b18aa	Next Prev Manual 	Target 	Center Exit	-	GAME.OVR:97645
+ui.02492c9d09d4	Center Exit	Next Prev Manual 	Aim:	-	GAME.OVR:97663
+ui.e1e5a4931ff6	Aim:	Center Exit	Target	-	GAME.OVR:97675
+ui.978354db0c00	Target	Aim:	(Use Cursor keys) 	-	GAME.OVR:98585
+ui.5e9fc445ff43	(Use Cursor keys) 	Target	<Tu_	-	GAME.OVR:98597
+ui.e2e0438fe9ce	<Tu_	(Use Cursor keys) 	Area Cast View Encamp Search Loo	-	GAME.OVR:99552
+ui.7f94b4b11a1d	Area Cast View Encamp Search Loo	<Tu_	Not Here	-	GAME.OVR:105589
+ui.44592af7565b	Not Here	Area Cast View Encamp Search Loo	Move Encamp	-	GAME.OVR:105623
+ui.61bc0b5f3924	Move Encamp	Not Here	Bash	-	GAME.OVR:105637
+ui.d1e9567da9a8	Bash	Move Encamp	 Pick	-	GAME.OVR:106779
+ui.0f2958102b8f	 Pick	Bash	 Knock	-	GAME.OVR:106784
+ui.37193853a694	 Knock	 Pick	Locked. 	-	GAME.OVR:106790
+ui.46d70e7d2926	Locked. 	 Knock	after the heading "             	-	GAME.OVR:106803
+ui.1a587084469f	after the heading "             	Locked. 	the heading "                   	-	GAME.OVR:108920
+ui.96077ac1e9f0	the heading "                   	after the heading "             	heading "                       	-	GAME.OVR:108926
+ui.2c07a41d6778	heading "                       	the heading "                   	uq	-	GAME.OVR:108930
+ui.4fcb2860c68a	uq	heading "                       	cannot cast spells in this area	-	GAME.OVR:109943
+ui.add58d08294b	cannot cast spells in this area	uq	is in no condition to 	-	GAME.OVR:110300
+ui.7cbba619e3ba	is in no condition to 	cannot cast spells in this area	scribe any scrolls	-	GAME.OVR:110332
+ui.dddde79baf4c	scribe any scrolls	is in no condition to 	    Cleric Spells:	-	GAME.OVR:110387
+ui.e155361c7f5d	    Cleric Spells:	scribe any scrolls	     Druid Spells:	-	GAME.OVR:110900
+ui.3411c79aeedd	     Druid Spells:	    Cleric Spells:	   Special Spells:	-	GAME.OVR:110919
+ui.4f8a51fd0b1c	   Special Spells:	     Druid Spells:	Magic-User Spells:	-	GAME.OVR:110938
+ui.9ce61a439558	Magic-User Spells:	   Special Spells:	     Bonus Spells	-	GAME.OVR:110957
+ui.ea72375de926	     Bonus Spells	Magic-User Spells:	Memorize These Spells? 	-	GAME.OVR:110976
+ui.f92b6804d576	Memorize These Spells? 	     Bonus Spells	Memorize these spells? 	-	GAME.OVR:112315
+ui.c590c2ac22d4	Memorize these spells? 	Memorize These Spells? 	Scribe These Spells? 	-	GAME.OVR:112366
+ui.b46d015704ec	Scribe These Spells? 	Memorize these spells? 	You already know that spell	-	GAME.OVR:112887
+ui.812d570d8988	You already know that spell	Scribe These Spells? 	already know that spell"You are 	-	GAME.OVR:112933
+ui.a132e4d2e402	already know that spell"You are 	You already know that spell	know that spell"You are already 	-	GAME.OVR:112937
+ui.f80af1129404	know that spell"You are already 	already know that spell"You are 	that spell"You are already scibi	-	GAME.OVR:112945
+ui.c9395bbbe952	that spell"You are already scibi	know that spell"You are already 	spell"You are already scibing th	-	GAME.OVR:112950
+ui.b566e3a784c4	spell"You are already scibing th	that spell"You are already scibi	You are already scibing that spell	-	GAME.OVR:112955
+ui.8588955900e4	You are already scibing that spell	spell"You are already scibing th	You can not scribe that spell.	-	GAME.OVR:112961
+ui.379385551034	You can not scribe that spell.	You are already scibing that spell	Scribe these spells? 	-	GAME.OVR:112996
+ui.2f5809efd162	Scribe these spells? 	You can not scribe that spell.	Funky--	-	GAME.OVR:113027
+ui.f7f3d5831958	Funky--	Scribe these spells? 	Regenerating	-	GAME.OVR:113920
+ui.a9f72cd0b8a2	Regenerating	Funky--	Minor Globe of Invulnerability	-	GAME.OVR:114023
+ui.dd751c4d0018	Minor Globe of Invulnerability	Regenerating	tZ	-	GAME.OVR:114052
+ui.108ab61eaf62	tZ	Minor Globe of Invulnerability	Party Order: 	-	GAME.OVR:114370
+ui.0e04961c51ea	Party Order: 	tZ	quit TO DOS: 	-	GAME.OVR:116207
+ui.f34a08403165	quit TO DOS: 	Party Order: 	will be gone	-	GAME.OVR:116518
+ui.9ab184b85e05	will be gone	quit TO DOS: 	Game Speed = 	-	GAME.OVR:116532
+ui.1d60a3338962	Game Speed = 	will be gone	 (0=fastest 9=slowest)	-	GAME.OVR:117131
+ui.ec1d85c28e73	 (0=fastest 9=slowest)	Game Speed = 	 Faster	-	GAME.OVR:117145
+ui.9a5253015a01	 Faster	 (0=fastest 9=slowest)	 Slower	-	GAME.OVR:117168
+ui.3faa383606fc	 Slower	 Faster	Game Speed:	-	GAME.OVR:117176
+ui.5e88d3982ab7	Game Speed:	 Slower	Pics on  	-	GAME.OVR:117190
+ui.a5c730d6127b	Pics on  	Game Speed:	Animation on  	-	GAME.OVR:117614
+ui.8a1b78216a61	Animation on  	Pics on  	Animation off  	-	GAME.OVR:117624
+ui.ab0a55d5f6b3	Animation off  	Animation on  	Pics off  	-	GAME.OVR:117639
+ui.474287e99ea4	Pics off  	Animation off  	The party makes camp...	-	GAME.OVR:117655
+ui.a47214d1d511	The party makes camp...	Pics off  	Quit TO DOS 	-	GAME.OVR:119382
+ui.de5a971d55c5	Quit TO DOS 	The party makes camp...	.SAV	-	GAME.OVR:119438
+ui.f33802430b31	.SAV	Quit TO DOS 	from saved game 	-	GAME.OVR:120656
+ui.2246705b46f3	from saved game 	.SAV	uB	-	GAME.OVR:120661
+ui.dd0038b60677	uB	from saved game 	*.who	-	GAME.OVR:121472
+ui.1b0594c54e49	*.who	uB	CHAMP	-	GAME.OVR:121640
+ui.db26d7c72050	CHAMP	*.who	Is your save disk in drive 	-	GAME.OVR:121778
+ui.7308fcc58956	Is your save disk in drive 	CHAMP	Unexpected error during save: 	-	GAME.OVR:121804
+ui.aee3b8154004	Unexpected error during save: 	Is your save disk in drive 	hali	-	GAME.OVR:121836
+ui.0f95cbece950	hali	Unexpected error during save: 	CHEAD	-	GAME.OVR:121867
+ui.8e092f58ec84	CHEAD	hali	CBODY	-	GAME.OVR:122598
+ui.797c9805d3fa	CBODY	CHEAD	.who	-	GAME.OVR:122604
+ui.8c8456ebd705	.who	CBODY	.stf	-	GAME.OVR:123212
+ui.5fe9a69f48a7	.stf	.who	.sfx	-	GAME.OVR:123217
+ui.6a05d85920fe	.sfx	.stf	Can't save.  No room on this disk.	-	GAME.OVR:123222
+ui.9ae5a4479a81	Can't save.  No room on this disk.	.sfx	Lose character? 	-	GAME.OVR:123384
+ui.278253d44e93	Lose character? 	Can't save.  No room on this disk.	Ok  Try another disk	-	GAME.OVR:123419
+ui.735b64972b07	Ok  Try another disk	Lose character? 	.sav	-	GAME.OVR:123436
+ui.5e55d420a59e	.sav	Ok  Try another disk	Overwrite 	-	GAME.OVR:123464
+ui.38301f8e6c25	Overwrite 	.sav	New file name: 	-	GAME.OVR:123552
+ui.5250b5de07b3	New file name: 	Overwrite 	MON	-	GAME.OVR:123566
+ui.2b76b5a38ce5	MON	New file name: 	CHA	-	GAME.OVR:126154
+ui.8fc4416436b5	CHA	MON	Unable to load monster	-	GAME.OVR:126158
+ui.dd6b632301cc	Unable to load monster	CHA	SPC	-	GAME.OVR:126167
+ui.b63d07308aac	SPC	Unable to load monster	ITM	-	GAME.OVR:126190
+ui.cb98eb12dd3c	ITM	SPC	savgam	-	GAME.OVR:126194
+ui.09e94f30e366	savgam	ITM	.dat	-	GAME.OVR:127387
+ui.70d6ad8a5504	.dat	savgam	Load Which Game: 	-	GAME.OVR:127394
+ui.b1edfd1bc6f9	Load Which Game: 	.dat	Save Which Game: 	-	GAME.OVR:127401
+ui.6eac636b81bf	Save Which Game: 	Load Which Game: 	..Please Wait"WARNING: Problem Saving Characte	-	GAME.OVR:129202
+ui.3a2157e63ae3	..Please Wait"WARNING: Problem Saving Characte	Save Which Game: 	.Please Wait"WARNING: Problem Saving Character	-	GAME.OVR:129409
+ui.33f29ff11d47	.Please Wait"WARNING: Problem Saving Character	..Please Wait"WARNING: Problem Saving Characte	Please Wait"WARNING: Problem Saving Characters	-	GAME.OVR:129410
+ui.fd5464131c57	Please Wait"WARNING: Problem Saving Characters	.Please Wait"WARNING: Problem Saving Character	Wait"WARNING: Problem Saving Cha	-	GAME.OVR:129411
+ui.5b052425ba55	Wait"WARNING: Problem Saving Cha	Please Wait"WARNING: Problem Saving Characters	WARNING: Problem Saving Characters	-	GAME.OVR:129418
+ui.df4f6c72ae34	WARNING: Problem Saving Characters	Wait"WARNING: Problem Saving Cha	CHRDAT	-	GAME.OVR:129423
+ui.254d51eae98b	CHRDAT	WARNING: Problem Saving Characters	Choose a FUNCTION 	-	GAME.OVR:129458
+ui.925f9d446890	Choose a FUNCTION 	CHRDAT	Select 	-	GAME.OVR:131891
+ui.1f7133c21072	Select 	Choose a FUNCTION 	Game NOT saved.  Quit anyway? 	-	GAME.OVR:131910
+ui.35023ac32083	Game NOT saved.  Quit anyway? 	Select 	Free training on	-	GAME.OVR:131963
+ui.d6d123e2e8ce	Free training on	Game NOT saved.  Quit anyway? 	Free training off	-	GAME.OVR:131994
+ui.204a2f952b3e	Free training off	Free training on	Pick God	-	GAME.OVR:132011
+ui.12d61f44905b	Pick God	Free training off	Reroll stats? 	-	GAME.OVR:133251
+ui.d88ade772ab3	Reroll stats? 	Pick God	Character name: 	-	GAME.OVR:133309
+ui.246a64eabf86	Character name: 	Reroll stats? 	Save 	-	GAME.OVR:133324
+ui.f5f25c5769e6	Save 	Character name: 	Drop 	-	GAME.OVR:133341
+ui.6ae066ae37be	Drop 	Save 	 forever? 	-	GAME.OVR:141324
+ui.188cac7e138b	 forever? 	Drop 	You dump 	-	GAME.OVR:141330
+ui.b507eb205317	You dump 	 forever? 	 out back.	-	GAME.OVR:141356
+ui.4d09b992377b	 out back.	You dump 	 breathes a sigh of relief.	-	GAME.OVR:141366
+ui.3cfa88873404	 breathes a sigh of relief.	 out back.	Modify: 	-	GAME.OVR:141397
+ui.b156b926dc3a	Modify: 	 breathes a sigh of relief.	Add a character: 	-	GAME.OVR:142051
+ui.adfe0feb6f39	Add a character: 	Modify: 	Add 	-	GAME.OVR:145723
+ui.8d89e4a829ae	Add 	Add a character: 	#paladins do not join with evil 	-	GAME.OVR:145741
+ui.bc4f793901e9	#paladins do not join with evil 	Add 	paladins do not join with evil scum	-	GAME.OVR:145748
+ui.36851157efde	paladins do not join with evil scum	#paladins do not join with evil 	too many rangers in party	-	GAME.OVR:145749
+ui.7bd75e5bf8f3	too many rangers in party	paladins do not join with evil scum	 will tolerate no evil!	-	GAME.OVR:145785
+ui.a0323615baef	 will tolerate no evil!	too many rangers in party	Small	-	GAME.OVR:145811
+ui.5263293fc202	Small	 will tolerate no evil!	Large	-	GAME.OVR:148025
+ui.ab80540d98d2	Large	Small	Sorry, not in CGA	-	GAME.OVR:148031
+ui.50522ed6b01a	Sorry, not in CGA	Large	Hair	-	GAME.OVR:148038
+ui.ababed4823ab	Hair	Sorry, not in CGA	Face	-	GAME.OVR:148056
+ui.304afc32b7ff	Face	Hair	Is this icon ok? 	-	GAME.OVR:148061
+ui.7425046ea84b	Is this icon ok? 	Face	PU	-	GAME.OVR:148098
+ui.14f236709e51	PU	Is this icon ok? 	We don't train that class here	-	GAME.OVR:148277
+ui.a56df8de4062	We don't train that class here	PU	Not Enough Experience	-	GAME.OVR:151326
+ui.bc15529dc7b3	Not Enough Experience	We don't train that class here	Do you wish to train? 	-	GAME.OVR:151357
+ui.0befe68474e9	Do you wish to train? 	Not Enough Experience	Congratulations...	-	GAME.OVR:151421
+ui.5392c12fa251	Congratulations...	Do you wish to train? 	Knight Of The 	-	GAME.OVR:151444
+ui.b03578c1ebc4	Knight Of The 	Congratulations...	 is too inexperienced.	-	GAME.OVR:153994
+ui.f0275105a953	 is too inexperienced.	Knight Of The 	Knight Of The Sword	-	GAME.OVR:154009
+ui.137405043c32	Knight Of The Sword	 is too inexperienced.	 is too inexperienced	-	GAME.OVR:154065
+ui.6ec6ae52db55	 is too inexperienced	Knight Of The Sword	Knight Of The Rose	-	GAME.OVR:154097
+ui.4a2d595a8d23	Knight Of The Rose	 is too inexperienced	mouse ON	-	GAME.OVR:154119
+ui.700ceab2be74	mouse ON	Knight Of The Rose	mouse OFF	-	GAME.OVR:155252

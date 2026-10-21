@@ -1,0 +1,131 @@
+key	original	prev	next	tier	source
+ui.f5fbe5aaf483	The duelist receives 	The party has found Treasure!	Each character receives 	-	GAME.OVR:28092
+ui.366dc8f46f54	Each character receives 	The duelist receives 	points."press <enter>/<return> t	-	GAME.OVR:28114
+ui.fabb9e2392ab	points."press <enter>/<return> t	Each character receives 	Items: 	-	GAME.OVR:28150
+ui.eadd361adaa7	Items: 	points."press <enter>/<return> t	Take: 	-	GAME.OVR:28898
+ui.e52a3fb722bd	Take: 	Items: 	View Pool Exit	-	GAME.OVR:29405
+ui.bce9e63c661b	View Pool Exit	Take: 	 Detect Exit	-	GAME.OVR:29675
+ui.93f97649cdeb	 Detect Exit	View Pool Exit	View Take Pool Share	-	GAME.OVR:29696
+ui.9305d3a8e566	View Take Pool Share	 Detect Exit	View Take Pool	-	GAME.OVR:29709
+ui.1a794bb3020f	View Take Pool	View Take Pool Share	There is still treasure left.  	-	GAME.OVR:29730
+ui.5a7dff7cd74c	There is still treasure left.  	View Take Pool	is still treasure left.  /Do you	-	GAME.OVR:29754
+ui.7d7e2afe17cd	is still treasure left.  /Do you	There is still treasure left.  	still treasure left.  /Do you wa	-	GAME.OVR:29760
+ui.74733abbd9aa	still treasure left.  /Do you wa	is still treasure left.  /Do you	treasure left.  /Do you want to 	-	GAME.OVR:29763
+ui.e39a3170023c	treasure left.  /Do you want to 	still treasure left.  /Do you wa	left.  /Do you want to go back a	-	GAME.OVR:29769
+ui.aa3afc59d4b9	left.  /Do you want to go back a	treasure left.  /Do you want to 	  /Do you want to go back and claim your treas	-	GAME.OVR:29778
+ui.7b78d9c6ec7a	  /Do you want to go back and claim your treas	left.  /Do you want to go back a	 /Do you want to go back and cla	-	GAME.OVR:29783
+ui.51fbab69e0f5	 /Do you want to go back and cla	  /Do you want to go back and claim your treas	/Do you want to go back and clai	-	GAME.OVR:29784
+ui.9f26ae58edbe	/Do you want to go back and clai	 /Do you want to go back and cla	Do you want to go back and claim your treasure?	-	GAME.OVR:29785
+ui.bd89d0b81174	Do you want to go back and claim your treasure?	/Do you want to go back and clai	you want to go back and claim yo	-	GAME.OVR:29786
+ui.101bece1a076	you want to go back and claim yo	Do you want to go back and claim your treasure?	want to go back and claim your t	-	GAME.OVR:29789
+ui.f8e6ea54efd1	want to go back and claim your t	you want to go back and claim yo	to go back and claim your treasu	-	GAME.OVR:29793
+ui.9b85b8569648	to go back and claim your treasu	want to go back and claim your t	go back and claim your treasure?	-	GAME.OVR:29798
+ui.7a0f482c9801	go back and claim your treasure?	to go back and claim your treasu	 takes and hides 	-	GAME.OVR:29801
+ui.1d1c7913869b	 takes and hides 	go back and claim your treasure?	his	-	GAME.OVR:30928
+ui.73c9c98668a3	his	 takes and hides 	 share.	-	GAME.OVR:30946
+ui.1a82b7ad5db1	 share.	his	her	-	GAME.OVR:30950
+ui.354cbfc81426	her	 share.	The monsters rejoice for the party has been destroyed	-	GAME.OVR:30958
+ui.b11529a1854f	The monsters rejoice for the party has been destroyed	her	monsters rejoice for the party h	-	GAME.OVR:31766
+ui.6b1fef9fbea8	monsters rejoice for the party h	The monsters rejoice for the party has been destroyed	rejoice for the party has been d	-	GAME.OVR:31770
+ui.662a7561ce61	rejoice for the party has been d	monsters rejoice for the party h	for the party has been destroyed	-	GAME.OVR:31779
+ui.8a1e48f5104a	for the party has been destroyed	rejoice for the party has been d	OverLoaded	-	GAME.OVR:31787
+ui.64b9370e4ffa	OverLoaded	for the party has been destroyed	Not enough Money.	-	GAME.OVR:33443
+ui.cdbf2aad986c	Not enough Money.	OverLoaded	Buy View Pool Appraise Exit	-	GAME.OVR:33748
+ui.16d4625e4e14	Buy View Pool Appraise Exit	Not enough Money.	~NoRAs you Leave the Shopkeeper 	-	GAME.OVR:34457
+ui.bab60b4fb025	~NoRAs you Leave the Shopkeeper 	Buy View Pool Appraise Exit	oRAs you Leave the Shopkeeper says, "Excuse me but you have Left Some Money he	-	GAME.OVR:34490
+ui.528e6cd82712	oRAs you Leave the Shopkeeper says, "Excuse me but you have Left Some Money he	~NoRAs you Leave the Shopkeeper 	s you Leave the Shopkeeper says, "Excuse me but you have Left Som	-	GAME.OVR:34492
+ui.4b8428cd010c	s you Leave the Shopkeeper says, "Excuse me but you have Left Som	oRAs you Leave the Shopkeeper says, "Excuse me but you have Left Some Money he	you Leave the Shopkeeper says, "	-	GAME.OVR:34495
+ui.c08fa66506c8	you Leave the Shopkeeper says, "	s you Leave the Shopkeeper says, "Excuse me but you have Left Som	Leave the Shopkeeper says, "Excu	-	GAME.OVR:34497
+ui.2f4851c599eb	Leave the Shopkeeper says, "Excu	you Leave the Shopkeeper says, "	eave the Shopkeeper says, "Excuse me but you have Left Some Money here."  *D	-	GAME.OVR:34501
+ui.4fa78ca28693	eave the Shopkeeper says, "Excuse me but you have Left Some Money here."  *D	Leave the Shopkeeper says, "Excu	the Shopkeeper says, "Excuse me 	-	GAME.OVR:34502
+ui.3a68ff1e0799	the Shopkeeper says, "Excuse me 	eave the Shopkeeper says, "Excuse me but you have Left Some Money here."  *D	Shopkeeper says, "Excuse me but 	-	GAME.OVR:34507
+ui.c4e8c0fd83df	Shopkeeper says, "Excuse me but 	the Shopkeeper says, "Excuse me 	says, "Excuse me but you have Le	-	GAME.OVR:34511
+ui.3ec6c8c8ced9	says, "Excuse me but you have Le	Shopkeeper says, "Excuse me but 	 "Excuse me but you have Left Some Money her	-	GAME.OVR:34522
+ui.bb74e61b0d1b	 "Excuse me but you have Left Some Money her	says, "Excuse me but you have Le	"Excuse me but you have Left Som	-	GAME.OVR:34527
+ui.e7c4954f0790	"Excuse me but you have Left Som	 "Excuse me but you have Left Some Money her	Excuse me but you have Left Some M	-	GAME.OVR:34528
+ui.934727db12d1	Excuse me but you have Left Some M	"Excuse me but you have Left Som	xcuse me but you have Left Some Money here."  *Do you want to go back	-	GAME.OVR:34529
+ui.656f8143fa15	xcuse me but you have Left Some Money here."  *Do you want to go back	Excuse me but you have Left Some M	me but you have Left Some Money 	-	GAME.OVR:34530
+ui.ff8c81df6d0e	me but you have Left Some Money 	xcuse me but you have Left Some Money here."  *Do you want to go back	but you have Left Some Money her	-	GAME.OVR:34536
+ui.6e9bbe8d40ed	but you have Left Some Money her	me but you have Left Some Money 	you have Left Some Money here." 	-	GAME.OVR:34539
+ui.a8accc8cbc98	you have Left Some Money here." 	but you have Left Some Money her	have Left Some Money here."  *Do	-	GAME.OVR:34543
+ui.e078aa30cdf3	have Left Some Money here."  *Do	you have Left Some Money here." 	Left Some Money here."  *Do you 	-	GAME.OVR:34547
+ui.9ed735a61a72	Left Some Money here."  *Do you 	have Left Some Money here."  *Do	Some Money here."  *Do you want 	-	GAME.OVR:34552
+ui.df233fd48468	Some Money here."  *Do you want 	Left Some Money here."  *Do you 	Money here."  *Do you want to go	-	GAME.OVR:34557
+ui.59bfc5e80fe3	Money here."  *Do you want to go	Some Money here."  *Do you want 	here."  *Do you want to go back 	-	GAME.OVR:34562
+ui.ad3c92130074	here."  *Do you want to go back 	Money here."  *Do you want to go	"  *Do you want to go back and get your Money?	-	GAME.OVR:34568
+ui.7e9f09c355e1	"  *Do you want to go back and get your Money?	here."  *Do you want to go back 	  *Do you want to go back and get 	-	GAME.OVR:34573
+ui.637324080626	  *Do you want to go back and get 	"  *Do you want to go back and get your Money?	 *Do you want to go back and get	-	GAME.OVR:34574
+ui.53c3a7249b13	 *Do you want to go back and get	  *Do you want to go back and get 	*Do you want to go back and get 	-	GAME.OVR:34575
+ui.6adf71c478fa	*Do you want to go back and get 	 *Do you want to go back and get	Do you want to go back and get your Money?	-	GAME.OVR:34576
+ui.f0e791ada740	Do you want to go back and get your Money?	*Do you want to go back and get 	you want to go back and get your	-	GAME.OVR:34577
+ui.dfa5818ca2f4	you want to go back and get your	Do you want to go back and get your Money?	want to go back and get your Mon	-	GAME.OVR:34580
+ui.85446beb32e1	want to go back and get your Mon	you want to go back and get your	ECL	-	GAME.OVR:34584
+ui.7ab1fe96128a	ECL	want to go back and get your Mon	sQ	-	GAME.OVR:36249
+ui.440c01125ee5	sQ	ECL	SPRIT	-	GAME.OVR:36636
+ui.ec859655f60b	SPRIT	sQ	uo	-	GAME.OVR:36780
+ui.6ad39835c3d6	uo	SPRIT	points of Damage."press <enter>/	-	GAME.OVR:40117
+ui.93515f638926	points of Damage."press <enter>/	uo	of Damage."press <enter>/<return	-	GAME.OVR:43698
+ui.74442adc65dc	of Damage."press <enter>/<return	points of Damage."press <enter>/	Damage."press <enter>/<return> t	-	GAME.OVR:43705
+ui.2949ca20b0db	Damage."press <enter>/<return> t	of Damage."press <enter>/<return	Magic On	-	GAME.OVR:43708
+ui.f6410fb009d4	Magic On	Damage."press <enter>/<return> t	Magic Off	-	GAME.OVR:45733
+ui.629ffe46b6a0	Magic Off	Magic On	That doesn't work	-	GAME.OVR:45742
+ui.46e50b3cdce8	That doesn't work	Magic Off	Move 	-	GAME.OVR:45752
+ui.c848bff204f4	Move 	That doesn't work	View Aim 	-	GAME.OVR:46525
+ui.00813b28c9bc	View Aim 	Move 	Use 	-	GAME.OVR:46531
+ui.bb33dbdb2f21	Use 	View Aim 	Cast 	-	GAME.OVR:46541
+ui.d61160238799	Cast 	Use 	Turn 	-	GAME.OVR:46546
+ui.38ff7074c72d	Turn 	Cast 	Yell 	-	GAME.OVR:46552
+ui.104b7e4ac60a	Yell 	Turn 	Your Teammate is Dying	-	GAME.OVR:46558
+ui.50e28de96686	Your Teammate is Dying	Yell 	Continue Battle:	-	GAME.OVR:47260
+ui.73967b10f229	Continue Battle:	Your Teammate is Dying	 Done	-	GAME.OVR:47283
+ui.12e9a0c0cda7	 Done	Continue Battle:	Flee:	-	GAME.OVR:47832
+ui.637c8ce00e81	Flee:	 Done	can't go there	-	GAME.OVR:47838
+ui.c4ff4a77d890	can't go there	Flee:	Not with that weapon	-	GAME.OVR:47844
+ui.94be0417569f	Not with that weapon	can't go there	Guard 	-	GAME.OVR:48729
+ui.b9d05f332634	Guard 	Not with that weapon	Delay Quit 	-	GAME.OVR:48935
+ui.f9b8e202385e	Delay Quit 	Guard 	Bandage 	-	GAME.OVR:48942
+ui.430ea16f1ff6	Bandage 	Delay Quit 	Auto Speed Exit	-	GAME.OVR:48954
+ui.5c2e73b9229d	Auto Speed Exit	Bandage 	GameSpeed (	-	GAME.OVR:48963
+ui.e2491eec6c44	GameSpeed (	Auto Speed Exit	Slower 	-	GAME.OVR:49663
+ui.8879ab4f6391	Slower 	GameSpeed (	Faster 	-	GAME.OVR:49681
+ui.c2144e87fdf4	Faster 	Slower 	flees in panic	-	GAME.OVR:49689
+ui.4391105bd3a7	flees in panic	Faster 	Surrenders	-	GAME.OVR:50531
+ui.0d0ae56ee488	Surrenders	flees in panic	vG	-	GAME.OVR:55346
+ui.90abedebaa29	vG	Surrenders	sI	-	GAME.OVR:57287
+ui.a68af08a9994	sI	vG	DungCom	-	GAME.OVR:57369
+ui.71e9a983951f	DungCom	sI	WildCom	-	GAME.OVR:61867
+ui.9a1ce076d023	WildCom	DungCom	RandCom	-	GAME.OVR:61875
+ui.cf0e06cd4619	RandCom	WildCom	uu	-	GAME.OVR:61883
+ui.5afab9a620f6	uu	RandCom	A battle begins...	-	GAME.OVR:63028
+ui.d91e43895d60	A battle begins...	uu	COMSPR	-	GAME.OVR:64991
+ui.11adf8e3d38b	COMSPR	A battle begins...	sky	-	GAME.OVR:65755
+ui.05f514fae7ca	sky	COMSPR	cursor	-	GAME.OVR:65762
+ui.46a4eebd20d8	cursor	sky	ITEMS	-	GAME.OVR:65766
+ui.29880ed052f6	ITEMS	cursor	is Paralyzed	-	GAME.OVR:65773
+ui.d5bed51cd121	is Paralyzed	ITEMS	bad news	-	GAME.OVR:68584
+ui.b370fd5fed0b	bad news	is Paralyzed	goes mad!	-	GAME.OVR:69095
+ui.b3ac0c907f0b	goes mad!	bad news	dies from poison	-	GAME.OVR:69792
+ui.3b3a7629d93f	dies from poison	goes mad!	Gains an item	-	GAME.OVR:70396
+ui.335328d0950d	Gains an item	dies from poison	Arises in a new form	-	GAME.OVR:70543
+ui.cdfbf57b7d97	Arises in a new form	Gains an item	The air clears a little...	-	GAME.OVR:71580
+ui.2c234a550746	The air clears a little...	Arises in a new form	Avoids it	-	GAME.OVR:72644
+ui.b38102de71ef	Avoids it	The air clears a little...	immolates	-	GAME.OVR:73486
+ui.216a83ec3e38	immolates	Avoids it	explodes!	-	GAME.OVR:74155
+ui.eaca812fbb25	explodes!	immolates	is Poisoned	-	GAME.OVR:74892
+ui.10e51a565fd3	is Poisoned	explodes!	gets zapped!	-	GAME.OVR:75559
+ui.ade38ca9f73c	gets zapped!	is Poisoned	loses his weapon	-	GAME.OVR:75823
+ui.8acea952864e	loses his weapon	gets zapped!	dissolves into acid!	-	GAME.OVR:76188
+ui.a62ba7f80094	dissolves into acid!	loses his weapon	gates in	-	GAME.OVR:76810
+ui.98a2052f16f7	gates in	dissolves into acid!	The acid drains away..	-	GAME.OVR:78601
+ui.8421b34e6c23	The acid drains away..	gates in	is afraid	-	GAME.OVR:79998
+ui.728baf5375e7	is afraid	The acid drains away..	-Backstabs-	-	GAME.OVR:80922
+ui.038686f70c2d	-Backstabs-	is afraid	Attacks	-	GAME.OVR:85985
+ui.1e3a955bd202	Attacks	-Backstabs-	(from behind) 	-	GAME.OVR:86012
+ui.618ae3799df9	(from behind) 	Attacks	of damage	-	GAME.OVR:86020
+ui.b0b3678b4c63	of damage	(from behind) 	and Misses	-	GAME.OVR:86085
+ui.3d07afbdb11d	and Misses	of damage	and is Dying	-	GAME.OVR:86095
+ui.4c07a5e27143	and is Dying	and Misses	Got Away	-	GAME.OVR:86129
+ui.a3c6a0e36a49	Got Away	and is Dying	Escape is blocked	-	GAME.OVR:88854
+ui.688449dc6f1d	Escape is blocked	Got Away	Is destroyed	-	GAME.OVR:88863
+ui.24478a7c0f45	Is destroyed	Escape is blocked	Nothing Happens...	-	GAME.OVR:90113
+ui.a804b8f44ebe	Nothing Happens...	Is destroyed	<CuD	-	GAME.OVR:90126

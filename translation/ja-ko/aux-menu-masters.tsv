@@ -1,0 +1,145 @@
+master	index	original_word	max_cells	zh	master_line
+ui.02492c9d09d4	0	Center	6	移到畫面中央	Center Exit
+ui.02492c9d09d4	1	Exit	4	離開	Center Exit
+ui.080cb09b9a95	0	Mark	4	Mark	Mark Johnson
+ui.080cb09b9a95	1	Johnson	7	Johnson	Mark Johnson
+ui.09b9f8622ac7	0	Scot	4	Scot	Scot Bayless
+ui.09b9f8622ac7	1	Bayless	7	Bayless	Scot Bayless
+ui.0dd635c636cd	0	Fred	4	Fred	Fred Butts
+ui.0dd635c636cd	1	Butts	5	Butts	Fred Butts
+ui.16d4625e4e14	0	Buy	3	購買	Buy View Pool Appraise Exit
+ui.16d4625e4e14	1	View	4	檢視人物	Buy View Pool Appraise Exit
+ui.16d4625e4e14	2	Pool	4	集中財物	Buy View Pool Appraise Exit
+ui.16d4625e4e14	3	Appraise	8	鑑定	Buy View Pool Appraise Exit
+ui.16d4625e4e14	4	Exit	4	離開	Buy View Pool Appraise Exit
+ui.173162217929	0	SSI	3	SSI	SSI Special Projects
+ui.173162217929	1	Special	7	Special	SSI Special Projects
+ui.173162217929	2	Projects	8	Projects	SSI Special Projects
+ui.311f423fde0b	0	Place	5	放置	Place Exit
+ui.311f423fde0b	1	Exit	4	離開	Place Exit
+ui.328b53003a80	0	Electronic	10	Electronic	Electronic Arts
+ui.328b53003a80	1	Arts	4	Arts	Electronic Arts
+ui.32e5d942458f	0	Save	4	儲存遊戲	Save View Magic Rest Alter Fix Exit
+ui.32e5d942458f	1	View	4	檢視人物	Save View Magic Rest Alter Fix Exit
+ui.32e5d942458f	2	Magic	5	魔法	Save View Magic Rest Alter Fix Exit
+ui.32e5d942458f	3	Rest	4	休息	Save View Magic Rest Alter Fix Exit
+ui.32e5d942458f	4	Alter	5	設定	Save View Magic Rest Alter Fix Exit
+ui.32e5d942458f	5	Fix	3	治療	Save View Magic Rest Alter Fix Exit
+ui.32e5d942458f	6	Exit	4	離開	Save View Magic Rest Alter Fix Exit
+ui.351beff47541	0	Heal	4	治療	Heal View Take Pool Share Appraise Exit
+ui.351beff47541	1	View	4	檢視人物	Heal View Take Pool Share Appraise Exit
+ui.351beff47541	2	Take	4	拾取	Heal View Take Pool Share Appraise Exit
+ui.351beff47541	3	Pool	4	集中財物	Heal View Take Pool Share Appraise Exit
+ui.351beff47541	4	Share	5	均分	Heal View Take Pool Share Appraise Exit
+ui.351beff47541	5	Appraise	8	鑑定	Heal View Take Pool Share Appraise Exit
+ui.351beff47541	6	Exit	4	離開	Heal View Take Pool Share Appraise Exit
+ui.3581aabee3ca	0	Tom	3	Tom	Tom Wahl
+ui.3581aabee3ca	1	Wahl	4	Wahl	Tom Wahl
+ui.38d9edf514a9	0	Hot	3	熱焰	Hot Cold
+ui.38d9edf514a9	1	Cold	4	冷焰	Hot Cold
+ui.3a3bf7a09be2	0	Next	4	下一個	Next Prev Keep Exit
+ui.3a3bf7a09be2	1	Prev	4	前一個	Next Prev Keep Exit
+ui.3a3bf7a09be2	2	Keep	4	保留	Next Prev Keep Exit
+ui.3a3bf7a09be2	3	Exit	4	離開	Next Prev Keep Exit
+ui.3dd4009a9b56	0	Heal	4	治療	Heal View Pool Appraise Exit
+ui.3dd4009a9b56	1	View	4	檢視人物	Heal View Pool Appraise Exit
+ui.3dd4009a9b56	2	Pool	4	集中財物	Heal View Pool Appraise Exit
+ui.3dd4009a9b56	3	Appraise	8	鑑定	Heal View Pool Appraise Exit
+ui.3dd4009a9b56	4	Exit	4	離開	Heal View Pool Appraise Exit
+ui.3eb4db249b6e	0	Rest	4	休息	Rest Days Hours Mins Add Subtract Exit
+ui.3eb4db249b6e	1	Days	4	天	Rest Days Hours Mins Add Subtract Exit
+ui.3eb4db249b6e	2	Hours	5	時	Rest Days Hours Mins Add Subtract Exit
+ui.3eb4db249b6e	3	Mins	4	分	Rest Days Hours Mins Add Subtract Exit
+ui.3eb4db249b6e	4	Add	3	增加	Rest Days Hours Mins Add Subtract Exit
+ui.3eb4db249b6e	5	Subtract	8	減少	Rest Days Hours Mins Add Subtract Exit
+ui.3eb4db249b6e	6	Exit	4	離開	Rest Days Hours Mins Add Subtract Exit
+ui.406eec9126ed	0	Ken	3	Ken	Ken Humphries
+ui.406eec9126ed	1	Humphries	9	Humphries	Ken Humphries
+ui.433429f7d12c	0	Dave	4	Dave	Dave Shelley
+ui.433429f7d12c	1	Shelley	7	Shelley	Dave Shelley
+ui.43ae65428a8f	0	Add	3	增加	Add Subtract Keep Exit
+ui.43ae65428a8f	1	Subtract	8	減少	Add Subtract Keep Exit
+ui.43ae65428a8f	2	Keep	4	保留	Add Subtract Keep Exit
+ui.43ae65428a8f	3	Exit	4	離開	Add Subtract Keep Exit
+ui.4fbac6d75981	0	Move	4	移動	Move Area Cast View Encamp Search Look
+ui.4fbac6d75981	1	Area	4	地圖切換	Move Area Cast View Encamp Search Look
+ui.4fbac6d75981	2	Cast	4	施法	Move Area Cast View Encamp Search Look
+ui.4fbac6d75981	3	View	4	檢視人物	Move Area Cast View Encamp Search Look
+ui.4fbac6d75981	4	Encamp	6	紮營	Move Area Cast View Encamp Search Look
+ui.4fbac6d75981	5	Search	6	搜尋	Move Area Cast View Encamp Search Look
+ui.4fbac6d75981	6	Look	4	檢視環境	Move Area Cast View Encamp Search Look
+ui.53a33189ab7f	0	Cyrus	5	Cyrus	Cyrus Lum
+ui.53a33189ab7f	1	Lum	3	Lum	Cyrus Lum
+ui.5c2e73b9229d	0	Auto	4	自動	Auto Speed Exit
+ui.5c2e73b9229d	1	Speed	5	改變遊戲速度	Auto Speed Exit
+ui.5c2e73b9229d	2	Exit	4	離開	Auto Speed Exit
+ui.61bc0b5f3924	0	Move	4	移動	Move Encamp
+ui.61bc0b5f3924	1	Encamp	6	紮營	Move Encamp
+ui.63783b1ec102	0	Yes	3	是	Yes No
+ui.63783b1ec102	1	No	2	否	Yes No
+ui.67abe0afb7d7	0	Parts	5	部位	Parts 1st-color 2nd-color Size Exit
+ui.67abe0afb7d7	1	1st-color	9	第一色	Parts 1st-color 2nd-color Size Exit
+ui.67abe0afb7d7	2	2nd-color	9	第二色	Parts 1st-color 2nd-color Size Exit
+ui.67abe0afb7d7	3	Size	4	大小	Parts 1st-color 2nd-color Size Exit
+ui.67abe0afb7d7	4	Exit	4	離開	Parts 1st-color 2nd-color Size Exit
+ui.70d00aad3b51	0	Jim	3	Jim	Jim Ward
+ui.70d00aad3b51	1	Ward	4	Ward	Jim Ward
+ui.8248fe0af52a	0	Michael	7	Michael	Michael Mancuso
+ui.8248fe0af52a	1	Mancuso	7	Mancuso	Michael Mancuso
+ui.83c519b42fab	0	Russ	4	Russ	Russ Brown
+ui.83c519b42fab	1	Brown	5	Brown	Russ Brown
+ui.8e8bcedc6f14	0	Susan	5	Susan	Susan Manley
+ui.8e8bcedc6f14	1	Manley	6	Manley	Susan Manley
+ui.94390fc2be66	0	Buy	3	購買	Buy View Take Pool Share Appraise Exit
+ui.94390fc2be66	1	View	4	檢視人物	Buy View Take Pool Share Appraise Exit
+ui.94390fc2be66	2	Take	4	拾取	Buy View Take Pool Share Appraise Exit
+ui.94390fc2be66	3	Pool	4	集中財物	Buy View Take Pool Share Appraise Exit
+ui.94390fc2be66	4	Share	5	均分	Buy View Take Pool Share Appraise Exit
+ui.94390fc2be66	5	Appraise	8	鑑定	Buy View Take Pool Share Appraise Exit
+ui.94390fc2be66	6	Exit	4	離開	Buy View Take Pool Share Appraise Exit
+ui.99b4eba4e920	0	John	4	John	John Halbleib
+ui.99b4eba4e920	1	Halbleib	8	Halbleib	John Halbleib
+ui.a1e592fecee5	0	Money	5	金錢	Money Items Exit
+ui.a1e592fecee5	1	Items	5	物品	Money Items Exit
+ui.a1e592fecee5	2	Exit	4	離開	Money Items Exit
+ui.a4d9c62a66cc	0	Select	6	選擇	Select Exit
+ui.a4d9c62a66cc	1	Exit	4	離開	Select Exit
+ui.b21d60d3c86e	0	Heal	4	治療	Heal Exit
+ui.b21d60d3c86e	1	Exit	4	離開	Heal Exit
+ui.bce9e63c661b	0	View	4	檢視人物	View Pool Exit
+ui.bce9e63c661b	1	Pool	4	集中財物	View Pool Exit
+ui.bce9e63c661b	2	Exit	4	離開	View Pool Exit
+ui.ca4d5dab9791	0	Head	4	頭部	Head Weapon Exit
+ui.ca4d5dab9791	1	Weapon	6	武器	Head Weapon Exit
+ui.ca4d5dab9791	2	Exit	4	離開	Head Weapon Exit
+ui.d28b15c6a6d9	0	Sell	4	變賣物品	Sell Keep
+ui.d28b15c6a6d9	1	Keep	4	保留	Sell Keep
+ui.d49562742155	0	Change	6	更改	Change Exit
+ui.d49562742155	1	Exit	4	離開	Change Exit
+ui.dd4e144bbc0f	0	Order	5	排列次序	Order Drop Speed Icon Pics Level Exit
+ui.dd4e144bbc0f	1	Drop	4	丟棄隊員	Order Drop Speed Icon Pics Level Exit
+ui.dd4e144bbc0f	2	Speed	5	訊息速度	Order Drop Speed Icon Pics Level Exit
+ui.dd4e144bbc0f	3	Icon	4	人物造形	Order Drop Speed Icon Pics Level Exit
+ui.dd4e144bbc0f	4	Pics	4	圖像	Order Drop Speed Icon Pics Level Exit
+ui.dd4e144bbc0f	5	Level	5	難度	Order Drop Speed Icon Pics Level Exit
+ui.dd4e144bbc0f	6	Exit	4	離開	Order Drop Speed Icon Pics Level Exit
+ui.e57bab47cfc9	0	Novice	6	初學者	Novice Squire Veteran Adept Champion
+ui.e57bab47cfc9	1	Squire	6	隨從	Novice Squire Veteran Adept Champion
+ui.e57bab47cfc9	2	Veteran	7	老手	Novice Squire Veteran Adept Champion
+ui.e57bab47cfc9	3	Adept	5	熟練	Novice Squire Veteran Adept Champion
+ui.e57bab47cfc9	4	Champion	8	優勝者	Novice Squire Veteran Adept Champion
+ui.f64329361c6f	0	Cast	4	施法	Cast Memorize Scribe Display Rest Exit
+ui.f64329361c6f	1	Memorize	8	記憶法術	Cast Memorize Scribe Display Rest Exit
+ui.f64329361c6f	2	Scribe	6	抄寫法術	Cast Memorize Scribe Display Rest Exit
+ui.f64329361c6f	3	Display	7	顯示法術	Cast Memorize Scribe Display Rest Exit
+ui.f64329361c6f	4	Rest	4	休息	Cast Memorize Scribe Display Rest Exit
+ui.f64329361c6f	5	Exit	4	離開	Cast Memorize Scribe Display Rest Exit
+ui.f8e9641e3a5a	0	Weapon	6	武器	Weapon Body xxxx Shield Arm Leg Exit
+ui.f8e9641e3a5a	1	Body	4	身體	Weapon Body xxxx Shield Arm Leg Exit
+ui.f8e9641e3a5a	2	xxxx	4	xxxx	Weapon Body xxxx Shield Arm Leg Exit
+ui.f8e9641e3a5a	3	Shield	6	盾牌	Weapon Body xxxx Shield Arm Leg Exit
+ui.f8e9641e3a5a	4	Arm	3	手臂	Weapon Body xxxx Shield Arm Leg Exit
+ui.f8e9641e3a5a	5	Leg	3	腳部	Weapon Body xxxx Shield Arm Leg Exit
+ui.f8e9641e3a5a	6	Exit	4	離開	Weapon Body xxxx Shield Arm Leg Exit
+ui.fa4925ece175	0	Play	4	進入遊戲	Play Demo
+ui.fa4925ece175	1	Demo	4	示範	Play Demo

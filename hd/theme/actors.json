@@ -1,0 +1,4116 @@
+{
+  "version": 1,
+  "scale": 3,
+  "kind": "combat-actors",
+  "grid": [
+    8,
+    8,
+    7,
+    7,
+    24
+  ],
+  "background_index": 8,
+  "request_manifest_sha256": "6e7b36c572e66f399a1b81f03e9232eed1e128d197c798fbf29c03b92f228fab",
+  "validation_sha256": "f08d5e42a91ba4484eef1e9a0e0aa49ae73bea5979af6cb291d64d5a3281740f",
+  "visual_review_sha256": "d3595d0dd9e0d8466a7b834b25a51585abe22dde388b19448c518523aa2b2b0d",
+  "items": [
+    {
+      "key": "cpic1-129-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-129-00-00.png",
+      "png_sha256": "33352f8baf01b88226e62333ba0225955bc7f6856da95af83493e43a458674a9",
+      "indexed": "cpic1-129-00-00.idx",
+      "indexed_sha256": "6b5857d195052557eced06cb0949f35d416fd97e9eca2401b7e6bf35e9bc2055",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 129,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "81000000003101fc00",
+          "offset": 470,
+          "packed_size": 252,
+          "decoded_size": 305,
+          "decoded_sha256": "5bc59d639196af0391b4f5111af8423a1794675aaea11ee058fbb6ac0e05f23f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 129,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "81000000003101fc00",
+          "offset": 542,
+          "packed_size": 252,
+          "decoded_size": 305,
+          "decoded_sha256": "5bc59d639196af0391b4f5111af8423a1794675aaea11ee058fbb6ac0e05f23f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 129,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "812e0200003101fc00",
+          "offset": 956,
+          "packed_size": 252,
+          "decoded_size": 305,
+          "decoded_sha256": "5bc59d639196af0391b4f5111af8423a1794675aaea11ee058fbb6ac0e05f23f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-001-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-001-00-00.png",
+      "png_sha256": "d20ba17634441cca70cc9aa67520ada2e3dc1adaf980729e6e87b1c7a26a87fb",
+      "indexed": "cpic1-001-00-00.idx",
+      "indexed_sha256": "269dacaadebbc1d24c39c0596590608c5c530cf7165c0ac3248d599eb380fbd9",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 1,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "01fc00000031011001",
+          "offset": 722,
+          "packed_size": 272,
+          "decoded_size": 305,
+          "decoded_sha256": "39ea39fa52c4d9f07f757ae04113064d3856bdfce9a243e36fe4d689bbd35a00",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 1,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "01fc00000031011001",
+          "offset": 794,
+          "packed_size": 272,
+          "decoded_size": 305,
+          "decoded_sha256": "39ea39fa52c4d9f07f757ae04113064d3856bdfce9a243e36fe4d689bbd35a00",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 1,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "012a03000031011001",
+          "offset": 1208,
+          "packed_size": 272,
+          "decoded_size": 305,
+          "decoded_sha256": "39ea39fa52c4d9f07f757ae04113064d3856bdfce9a243e36fe4d689bbd35a00",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "cpic1-132-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-132-00-00.png",
+      "png_sha256": "9e03d8824338ba4f685406d7cc114bd5b82303db447faaca52330ec7ef5da3c1",
+      "indexed": "cpic1-132-00-00.idx",
+      "indexed_sha256": "a2670095daf045a88473cb531debb9c8a83d2327660acf9c6d6a9ce2a32679d9",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 132,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "840c02000031011401",
+          "offset": 994,
+          "packed_size": 276,
+          "decoded_size": 305,
+          "decoded_sha256": "86f829c51fc6c56a4ac955fe41eeb3f423835b782657913f5742693aa0854d33",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 132,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "844206000031011401",
+          "offset": 2144,
+          "packed_size": 276,
+          "decoded_size": 305,
+          "decoded_sha256": "86f829c51fc6c56a4ac955fe41eeb3f423835b782657913f5742693aa0854d33",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 132,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "84c30c000031011401",
+          "offset": 3665,
+          "packed_size": 276,
+          "decoded_size": 305,
+          "decoded_sha256": "86f829c51fc6c56a4ac955fe41eeb3f423835b782657913f5742693aa0854d33",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-004-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-004-00-00.png",
+      "png_sha256": "0ec938220e917edcd1be3e7a72caec6a4a317b5b816a2ac85522b12cebcb27d3",
+      "indexed": "cpic1-004-00-00.idx",
+      "indexed_sha256": "c7bdf825587e34c1ebc0ed14226900ae23c14c0c2e73976d69b15ea51f59641a",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 4,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "042003000031013501",
+          "offset": 1270,
+          "packed_size": 309,
+          "decoded_size": 305,
+          "decoded_sha256": "83bd55414300cc3b239bdce75b5cf793b8d7743e4e629567b91218d49575d576",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 4,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "045607000031013501",
+          "offset": 2420,
+          "packed_size": 309,
+          "decoded_size": 305,
+          "decoded_sha256": "83bd55414300cc3b239bdce75b5cf793b8d7743e4e629567b91218d49575d576",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 4,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "04d70d000031013501",
+          "offset": 3941,
+          "packed_size": 309,
+          "decoded_size": 305,
+          "decoded_sha256": "83bd55414300cc3b239bdce75b5cf793b8d7743e4e629567b91218d49575d576",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "cpic1-133-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-133-00-00.png",
+      "png_sha256": "7cdb6b683aa3bed212ad96d5225fee5774c60dd0cc3ed6f2857b309bf846965b",
+      "indexed": "cpic1-133-00-00.idx",
+      "indexed_sha256": "8e9286e5303c5b544a53e6acc511f8358ac825e613671f33958be149e1280ce6",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 133,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "85550400003101d200",
+          "offset": 1579,
+          "packed_size": 210,
+          "decoded_size": 305,
+          "decoded_sha256": "42ab0f6ec89d4fe806b6cb9c7bd4f41afbe8fdcc5f9277bba2edce32252d76ae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 133,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "858b0800003101d200",
+          "offset": 2729,
+          "packed_size": 210,
+          "decoded_size": 305,
+          "decoded_sha256": "42ab0f6ec89d4fe806b6cb9c7bd4f41afbe8fdcc5f9277bba2edce32252d76ae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-005-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-005-00-00.png",
+      "png_sha256": "dd0812a8a88c2453e48f3869ca973075c29de05aeae7804bdb9b383b6fac547a",
+      "indexed": "cpic1-005-00-00.idx",
+      "indexed_sha256": "5121554b597942796fd64969752144043da33e9c197e34d4d89fbcf1d058e64c",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 5,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "05270500003101e400",
+          "offset": 1789,
+          "packed_size": 228,
+          "decoded_size": 305,
+          "decoded_sha256": "1f63ec6e127495e97d2dc1a89e655baf828ef85bc8fcf804e887cd8a881ebdb6",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 5,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "055d0900003101e400",
+          "offset": 2939,
+          "packed_size": 228,
+          "decoded_size": 305,
+          "decoded_sha256": "1f63ec6e127495e97d2dc1a89e655baf828ef85bc8fcf804e887cd8a881ebdb6",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-134-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-134-00-00.png",
+      "png_sha256": "e0daef44586e3878505abc5749e7aec2fa0d24e2b198b98a0375c356b82995aa",
+      "indexed": "cpic1-134-00-00.idx",
+      "indexed_sha256": "126eed0985b8f64cd6e0a06747741f035f16c04b16b4381faf29dce69ada041b",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 134,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "860b0600003101ef00",
+          "offset": 2017,
+          "packed_size": 239,
+          "decoded_size": 305,
+          "decoded_sha256": "64a2f3b04b78d4ab9db5ea9d1698924fa4dff6748a4c62ab5a96a3c32079cd75",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 134,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "86410a00003101ef00",
+          "offset": 3167,
+          "packed_size": 239,
+          "decoded_size": 305,
+          "decoded_sha256": "64a2f3b04b78d4ab9db5ea9d1698924fa4dff6748a4c62ab5a96a3c32079cd75",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 134,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "860c0f00003101ef00",
+          "offset": 4250,
+          "packed_size": 239,
+          "decoded_size": 305,
+          "decoded_sha256": "64a2f3b04b78d4ab9db5ea9d1698924fa4dff6748a4c62ab5a96a3c32079cd75",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-006-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-006-00-00.png",
+      "png_sha256": "e2cb4def24de113ab3d39cfe0e91b7f82f3a53a56f5c20ba55ceb246c4002378",
+      "indexed": "cpic1-006-00-00.idx",
+      "indexed_sha256": "41c91d0ae4b900289c79dbcd8105a4a4c175584b901b2880abf0e808d35b629c",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 6,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "06fa0600003101f100",
+          "offset": 2256,
+          "packed_size": 241,
+          "decoded_size": 305,
+          "decoded_sha256": "1f507492a0535783cf559c1245d62b1dc64ea8f26f0efb618eb39ac958d07e29",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 6,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "06300b00003101f100",
+          "offset": 3406,
+          "packed_size": 241,
+          "decoded_size": 305,
+          "decoded_sha256": "1f507492a0535783cf559c1245d62b1dc64ea8f26f0efb618eb39ac958d07e29",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 6,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "06fb0f00003101f100",
+          "offset": 4489,
+          "packed_size": 241,
+          "decoded_size": 305,
+          "decoded_sha256": "1f507492a0535783cf559c1245d62b1dc64ea8f26f0efb618eb39ac958d07e29",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-136-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-136-00-00.png",
+      "png_sha256": "cf77e454e3be3d6f2e63296c5ae1b85987d69c5d83c048dd75b874d2c6b823f0",
+      "indexed": "cpic1-136-00-00.idx",
+      "indexed_sha256": "9b9e0976f3257bca919b9f23b39986fff62059b0f4942e8fea4214c8fb618767",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 136,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "88eb0700003101dd00",
+          "offset": 2497,
+          "packed_size": 221,
+          "decoded_size": 305,
+          "decoded_sha256": "874ce5f991716133747f036f64685bc25013b4163e48c9e9da19d029fbcfc69e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 136,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "88210c00003101dd00",
+          "offset": 3647,
+          "packed_size": 221,
+          "decoded_size": 305,
+          "decoded_sha256": "874ce5f991716133747f036f64685bc25013b4163e48c9e9da19d029fbcfc69e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-008-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-008-00-00.png",
+      "png_sha256": "b7517ef0f82fa39c0b5e428f09f18c5cec0af152d9d42bfd0f5302771fe60302",
+      "indexed": "cpic1-008-00-00.idx",
+      "indexed_sha256": "3d223a7913f8bb219610b9e9cdcb36a9bd3e0c658ea9e77a8a532b9a74bf68f7",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 8,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "08c808000031011501",
+          "offset": 2718,
+          "packed_size": 277,
+          "decoded_size": 305,
+          "decoded_sha256": "c8ea6fc4db1c87b36b171d67364f59876b12dca4dd8fc06e61656f96e677e27d",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 8,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "08fe0c000031011501",
+          "offset": 3868,
+          "packed_size": 277,
+          "decoded_size": 305,
+          "decoded_sha256": "c8ea6fc4db1c87b36b171d67364f59876b12dca4dd8fc06e61656f96e677e27d",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-137-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-137-00-00.png",
+      "png_sha256": "3595f6a90c6a9e25bd50c47d665cee971b8523a0be06a04f8b88ac4adb42e7c2",
+      "indexed": "cpic1-137-00-00.idx",
+      "indexed_sha256": "45134ca22cead3b6af0b94b7678eed9796ac2b83e1171426f3d4274f8594e9f9",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 137,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "89dd0900003101d900",
+          "offset": 2995,
+          "packed_size": 217,
+          "decoded_size": 305,
+          "decoded_sha256": "0640b8bed63bf43588c2a9706f7b73a8d47ab8798328f712ba7d359756484f47",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-009-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-009-00-00.png",
+      "png_sha256": "68987fd9f926c6407a34b7b475c797d5cddbfce391cea8da51d8ebbc480cd1b9",
+      "indexed": "cpic1-009-00-00.idx",
+      "indexed_sha256": "a765233e321167e2db2eb8b399016f7a9a97dc578239303d5d8490e3372edcb9",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 9,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "09b60a00003101e900",
+          "offset": 3212,
+          "packed_size": 233,
+          "decoded_size": 305,
+          "decoded_sha256": "ae7da26a9d9ac4e5f048dcb0ac6445f5e2b7072f6620cd40f76862c3f76060f6",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-139-00-00",
+      "size": [
+        24,
+        48
+      ],
+      "png": "cpic1-139-00-00.png",
+      "png_sha256": "255778c7c4d6fcc4d5f93816e8e7416795151161a59c73ca191d6d2a4e0fdc3c",
+      "indexed": "cpic1-139-00-00.idx",
+      "indexed_sha256": "e54977e0e6b196c68a6c9b8838ef3c473562a98a25b58af94bcfa214530e7440",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 139,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "8b9f0b000051022402",
+          "offset": 3445,
+          "packed_size": 548,
+          "decoded_size": 593,
+          "decoded_sha256": "72fafcf86f4a0e74a7815df8e4c2555242fe9ff4c4177a5dff79b9336e8bdebb",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-011-00-00",
+      "size": [
+        24,
+        48
+      ],
+      "png": "cpic1-011-00-00.png",
+      "png_sha256": "ee6b226846a00b83ed569a280c8f680646da1dc88606d226fb337888133907d5",
+      "indexed": "cpic1-011-00-00.idx",
+      "indexed_sha256": "2b09d6efe2e38adaec58482ce4f32d4b9358d45c0b028090b84b6f46242b0dcb",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 11,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "0bc30d00005102fd01",
+          "offset": 3993,
+          "packed_size": 509,
+          "decoded_size": 593,
+          "decoded_sha256": "f814d3c913bf7a811a98cf2c050b6931a1d3fbc11ba3bb7a3cf03f14fedf379c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-140-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-140-00-00.png",
+      "png_sha256": "9c5179132bcafec836ccef7ae9d299562c0302992d36068113bb65cc16e7109b",
+      "indexed": "cpic1-140-00-00.idx",
+      "indexed_sha256": "15fb3461dadfcdb072e377b16d550bb4ad29b0d3ef8157ab180d2fc5917b2f9f",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 140,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "8cc00f00003101f400",
+          "offset": 4502,
+          "packed_size": 244,
+          "decoded_size": 305,
+          "decoded_sha256": "0f5f61578953cfd1376b5d53225ba373ec96fc2aff35671c830aeacf37a0ac4c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 140,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "8c6a1200003101f400",
+          "offset": 5256,
+          "packed_size": 244,
+          "decoded_size": 305,
+          "decoded_sha256": "0f5f61578953cfd1376b5d53225ba373ec96fc2aff35671c830aeacf37a0ac4c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-012-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-012-00-00.png",
+      "png_sha256": "ed18a78e01156ebd5e8e67e9ce8fdf2b6a108b90caca3b40ff0760f261398e73",
+      "indexed": "cpic1-012-00-00.idx",
+      "indexed_sha256": "4073a7190f18a615fe73c6bf97e97d317b1c6efa10c4b83840a9f1ad7c91a35a",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 12,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "0cb410000031010001",
+          "offset": 4746,
+          "packed_size": 256,
+          "decoded_size": 305,
+          "decoded_sha256": "bc92baa475a80ce627e76c5542d45a5861727e2120e764963a048fb3af830e39",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 12,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "0c5e13000031010001",
+          "offset": 5500,
+          "packed_size": 256,
+          "decoded_size": 305,
+          "decoded_sha256": "bc92baa475a80ce627e76c5542d45a5861727e2120e764963a048fb3af830e39",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-141-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-141-00-00.png",
+      "png_sha256": "a5278307c50d51227286fc7dcc48007b613dd52eed071f89e506ead62a9add7b",
+      "indexed": "cpic1-141-00-00.idx",
+      "indexed_sha256": "3896f2b3116611e04756d1a09b4bab5b4b994ad94cecb9a4b5022bbd47e99b35",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 141,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "8db41100003101ee00",
+          "offset": 5002,
+          "packed_size": 238,
+          "decoded_size": 305,
+          "decoded_sha256": "b078b05112ffdb18bac366881a8a232f46cf8ebd0726351fe8283c582862a5e3",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 141,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "8d5e1400003101ee00",
+          "offset": 5756,
+          "packed_size": 238,
+          "decoded_size": 305,
+          "decoded_sha256": "b078b05112ffdb18bac366881a8a232f46cf8ebd0726351fe8283c582862a5e3",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-013-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-013-00-00.png",
+      "png_sha256": "c9e92cb64971c4200b54b0ff57bb50b7e046f69bd40c6fffaadac0af41200842",
+      "indexed": "cpic1-013-00-00.idx",
+      "indexed_sha256": "f8891eb37111042871369b1af08462cd42ee98df7c5dba1ae52130aa6551d201",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 13,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "0da21200003101ff00",
+          "offset": 5240,
+          "packed_size": 255,
+          "decoded_size": 305,
+          "decoded_sha256": "c694ca3eb3964762a51719de6f833da2f4406dfedff8107e1e133422518bcf4c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 13,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "0d4c1500003101ff00",
+          "offset": 5994,
+          "packed_size": 255,
+          "decoded_size": 305,
+          "decoded_sha256": "c694ca3eb3964762a51719de6f833da2f4406dfedff8107e1e133422518bcf4c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-142-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-142-00-00.png",
+      "png_sha256": "c0d93fd2ea781f14b1897bf28a9acc37c0496474a5cc5735097507d4e7fccf8c",
+      "indexed": "cpic1-142-00-00.idx",
+      "indexed_sha256": "cdeb60c57827ebbc42b55297da7c10749e1ce06c7caa9dd7723c4a2d13589b97",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 142,
+          "record_index": 18,
+          "entry_offset": 164,
+          "entry_bytes": "8ea113000031010b01",
+          "offset": 5495,
+          "packed_size": 267,
+          "decoded_size": 305,
+          "decoded_sha256": "d05156b7425482117c8879553ddbaf55de0a207f7be789ca86c8b07628154850",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 142,
+          "record_index": 18,
+          "entry_offset": 164,
+          "entry_bytes": "8e4b16000031010b01",
+          "offset": 6249,
+          "packed_size": 267,
+          "decoded_size": 305,
+          "decoded_sha256": "d05156b7425482117c8879553ddbaf55de0a207f7be789ca86c8b07628154850",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 142,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "8eec10000031010b01",
+          "offset": 4730,
+          "packed_size": 267,
+          "decoded_size": 305,
+          "decoded_sha256": "d05156b7425482117c8879553ddbaf55de0a207f7be789ca86c8b07628154850",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-014-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-014-00-00.png",
+      "png_sha256": "854604068347d69b3c9de9132333fd5d8febf271a507c1deafa7dd04972a724d",
+      "indexed": "cpic1-014-00-00.idx",
+      "indexed_sha256": "05a96d387f90cd89c414e237bcf8e8cbe1ed2995ee1c83b1c1af8e7ba343bdfe",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 14,
+          "record_index": 19,
+          "entry_offset": 173,
+          "entry_bytes": "0eac14000031013301",
+          "offset": 5762,
+          "packed_size": 307,
+          "decoded_size": 305,
+          "decoded_sha256": "581fbf41fe4c5744e30fecb18043e893b62b7240b4a646231d62f10db6fb449b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 14,
+          "record_index": 19,
+          "entry_offset": 173,
+          "entry_bytes": "0e5617000031013301",
+          "offset": 6516,
+          "packed_size": 307,
+          "decoded_size": 305,
+          "decoded_sha256": "581fbf41fe4c5744e30fecb18043e893b62b7240b4a646231d62f10db6fb449b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 14,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "0ef711000031013301",
+          "offset": 4997,
+          "packed_size": 307,
+          "decoded_size": 305,
+          "decoded_sha256": "581fbf41fe4c5744e30fecb18043e893b62b7240b4a646231d62f10db6fb449b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-143-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-143-00-00.png",
+      "png_sha256": "88d2ca7fa21773eef845e487c379c9743fadab4e317ca70e56b2987d1319d677",
+      "indexed": "cpic1-143-00-00.idx",
+      "indexed_sha256": "5d913705cfc3d1b6f7e855bfb6f4ef854ff497620588d98c5d2c98d64b3e2308",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 143,
+          "record_index": 20,
+          "entry_offset": 182,
+          "entry_bytes": "8fdf1500003101aa00",
+          "offset": 6069,
+          "packed_size": 170,
+          "decoded_size": 305,
+          "decoded_sha256": "2ed1c27c9f801c32108ec9a42d02543e8e5c532d4da6c8ebf4a42f11b815e885",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 189,
+          "record_index": 56,
+          "entry_offset": 506,
+          "entry_bytes": "bd674700003101aa00",
+          "offset": 18821,
+          "packed_size": 170,
+          "decoded_size": 305,
+          "decoded_sha256": "2ed1c27c9f801c32108ec9a42d02543e8e5c532d4da6c8ebf4a42f11b815e885",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-015-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-015-00-00.png",
+      "png_sha256": "435ac13a41345ce74f89726bcc7025b6ef1efc35b9db4256afe8a383aa6007a8",
+      "indexed": "cpic1-015-00-00.idx",
+      "indexed_sha256": "0ca5176b718d4e3b11d4297e6a066cee2c643bb0438bc7b13d64f35374320ecd",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 15,
+          "record_index": 21,
+          "entry_offset": 191,
+          "entry_bytes": "0f891600003101b100",
+          "offset": 6239,
+          "packed_size": 177,
+          "decoded_size": 305,
+          "decoded_sha256": "db932636fccbb417f532895348a91664f2d00be53240e35e9ab14a9dc2f4035e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 61,
+          "record_index": 57,
+          "entry_offset": 515,
+          "entry_bytes": "3d114800003101b100",
+          "offset": 18991,
+          "packed_size": 177,
+          "decoded_size": 305,
+          "decoded_sha256": "db932636fccbb417f532895348a91664f2d00be53240e35e9ab14a9dc2f4035e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "cpic1-144-00-00",
+      "size": [
+        24,
+        48
+      ],
+      "png": "cpic1-144-00-00.png",
+      "png_sha256": "79884fa1cab1ebf329d51a7bee6af2b903077b25db1ca1176a673d9ac995aa21",
+      "indexed": "cpic1-144-00-00.idx",
+      "indexed_sha256": "a0a0858917f544fe8ea6b257cf63f6ddc4748e6c20da352f9fbc807a1226e4d0",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 144,
+          "record_index": 22,
+          "entry_offset": 200,
+          "entry_bytes": "903a17000051024402",
+          "offset": 6416,
+          "packed_size": 580,
+          "decoded_size": 593,
+          "decoded_sha256": "8c732dad08212597a2d6dc246ce17f31fcc3d9ed3cbeb590dff17b894aa09d83",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 144,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "902a13000051024402",
+          "offset": 5304,
+          "packed_size": 580,
+          "decoded_size": 593,
+          "decoded_sha256": "8c732dad08212597a2d6dc246ce17f31fcc3d9ed3cbeb590dff17b894aa09d83",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-016-00-00",
+      "size": [
+        24,
+        48
+      ],
+      "png": "cpic1-016-00-00.png",
+      "png_sha256": "60c2b517c015cea1e21c10a62091cd9b9ea05b2f8251201d799c5a2195dede42",
+      "indexed": "cpic1-016-00-00.idx",
+      "indexed_sha256": "4b6044eaf2be209d103e6b7a663d6738b7a8123110affd6f54fbfa71854b9eab",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 16,
+          "record_index": 23,
+          "entry_offset": 209,
+          "entry_bytes": "107e19000051026302",
+          "offset": 6996,
+          "packed_size": 611,
+          "decoded_size": 593,
+          "decoded_sha256": "65614eb30a42cddc6eca21ae418baf35272a8f16786dc9a0b4aebd558fdebd49",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 16,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "106e15000051026302",
+          "offset": 5884,
+          "packed_size": 611,
+          "decoded_size": 593,
+          "decoded_sha256": "65614eb30a42cddc6eca21ae418baf35272a8f16786dc9a0b4aebd558fdebd49",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-147-00-00",
+      "size": [
+        24,
+        48
+      ],
+      "png": "cpic1-147-00-00.png",
+      "png_sha256": "aad925a981b29d7207517d8f29509bf70419cee99265c400d2fe62feb4f780c2",
+      "indexed": "cpic1-147-00-00.idx",
+      "indexed_sha256": "f470cce131b308466e89c5f51a54265352e04e5fed1699eb77b59b0bb7ca051c",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 147,
+          "record_index": 24,
+          "entry_offset": 218,
+          "entry_bytes": "93e11b000051020b02",
+          "offset": 7607,
+          "packed_size": 523,
+          "decoded_size": 593,
+          "decoded_sha256": "635a829e36312076b6f2fa04ea658a9e2cbd3d30bfcd485c94a5c4102dbcdc08",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 147,
+          "record_index": 22,
+          "entry_offset": 200,
+          "entry_bytes": "93981a000051020b02",
+          "offset": 7350,
+          "packed_size": 523,
+          "decoded_size": 593,
+          "decoded_sha256": "635a829e36312076b6f2fa04ea658a9e2cbd3d30bfcd485c94a5c4102dbcdc08",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 147,
+          "record_index": 18,
+          "entry_offset": 164,
+          "entry_bytes": "931c1c000051020b02",
+          "offset": 7594,
+          "packed_size": 523,
+          "decoded_size": 593,
+          "decoded_sha256": "635a829e36312076b6f2fa04ea658a9e2cbd3d30bfcd485c94a5c4102dbcdc08",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-019-00-00",
+      "size": [
+        24,
+        48
+      ],
+      "png": "cpic1-019-00-00.png",
+      "png_sha256": "9f857ab846330727412d113396824b8932fc3ecd85a60d5c1b4616777b603452",
+      "indexed": "cpic1-019-00-00.idx",
+      "indexed_sha256": "b93b24badbdda8d82b82dbcc3ad296abb5b94deb689c71410eee44b26a0eabb4",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 19,
+          "record_index": 25,
+          "entry_offset": 227,
+          "entry_bytes": "13ec1d000051022e02",
+          "offset": 8130,
+          "packed_size": 558,
+          "decoded_size": 593,
+          "decoded_sha256": "8178d21b6eee2c994807c995f753c7877e1bd4d5f870564249b6c2a94abc733b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 19,
+          "record_index": 23,
+          "entry_offset": 209,
+          "entry_bytes": "13a31c000051022e02",
+          "offset": 7873,
+          "packed_size": 558,
+          "decoded_size": 593,
+          "decoded_sha256": "8178d21b6eee2c994807c995f753c7877e1bd4d5f870564249b6c2a94abc733b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 19,
+          "record_index": 19,
+          "entry_offset": 173,
+          "entry_bytes": "13271e000051022e02",
+          "offset": 8117,
+          "packed_size": 558,
+          "decoded_size": 593,
+          "decoded_sha256": "8178d21b6eee2c994807c995f753c7877e1bd4d5f870564249b6c2a94abc733b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-149-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-149-00-00.png",
+      "png_sha256": "a9cc943e1b52ea4bd50de30b6a92fe3067295440795a40092f40b89ed3c7a98d",
+      "indexed": "cpic1-149-00-00.idx",
+      "indexed_sha256": "77dc1eebc2c7df229c2d2dc1633246885b071e4c2232d9605615b1a5bcc55419",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 149,
+          "record_index": 26,
+          "entry_offset": 236,
+          "entry_bytes": "951a20000051022b02",
+          "offset": 8688,
+          "packed_size": 555,
+          "decoded_size": 593,
+          "decoded_sha256": "75c295adb3909181d627283893b4390fded0eae4c60da558558076397c0bd4cf",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 149,
+          "record_index": 20,
+          "entry_offset": 182,
+          "entry_bytes": "955520000051022b02",
+          "offset": 8675,
+          "packed_size": 555,
+          "decoded_size": 593,
+          "decoded_sha256": "75c295adb3909181d627283893b4390fded0eae4c60da558558076397c0bd4cf",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-021-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-021-00-00.png",
+      "png_sha256": "caf70fa3b65dc050b8d5af61f1ba928dead1c7dcdbdcefb43a058e4b852a6042",
+      "indexed": "cpic1-021-00-00.idx",
+      "indexed_sha256": "48bd8570186d83c421b5f90cf41ef81df94b252a02a5d0316b660baca73f47ef",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 21,
+          "record_index": 27,
+          "entry_offset": 245,
+          "entry_bytes": "154522000051023402",
+          "offset": 9243,
+          "packed_size": 564,
+          "decoded_size": 593,
+          "decoded_sha256": "2cd9f03dd4f1ac75e4771440d3cf68e949add20a64c801cea40377a1882cdd4e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 21,
+          "record_index": 21,
+          "entry_offset": 191,
+          "entry_bytes": "158022000051023402",
+          "offset": 9230,
+          "packed_size": 564,
+          "decoded_size": 593,
+          "decoded_sha256": "2cd9f03dd4f1ac75e4771440d3cf68e949add20a64c801cea40377a1882cdd4e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-153-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-153-00-00.png",
+      "png_sha256": "2659b8fbca4e588707586485af5bdd5d2d17c172a7ac4e699b00a4560c53bde5",
+      "indexed": "cpic1-153-00-00.idx",
+      "indexed_sha256": "8cac2b4104c4a12d94be9fd6a410d6ea96677bdd30a5a9fe8e5ef3946d2ca0c0",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 153,
+          "record_index": 28,
+          "entry_offset": 254,
+          "entry_bytes": "997924000031011301",
+          "offset": 9807,
+          "packed_size": 275,
+          "decoded_size": 305,
+          "decoded_sha256": "3df0b5b2885c0aeea7e6db7dcad697982bd4f077bce1bd5d895f98d494bb4602",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 153,
+          "record_index": 26,
+          "entry_offset": 236,
+          "entry_bytes": "991023000031011301",
+          "offset": 9518,
+          "packed_size": 275,
+          "decoded_size": 305,
+          "decoded_sha256": "3df0b5b2885c0aeea7e6db7dcad697982bd4f077bce1bd5d895f98d494bb4602",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 153,
+          "record_index": 26,
+          "entry_offset": 236,
+          "entry_bytes": "999e2f000031011301",
+          "offset": 12588,
+          "packed_size": 275,
+          "decoded_size": 305,
+          "decoded_sha256": "3df0b5b2885c0aeea7e6db7dcad697982bd4f077bce1bd5d895f98d494bb4602",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-025-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-025-00-00.png",
+      "png_sha256": "4d49ef1b69687b0e6e631fb07d993a80ac32ef1cb396d8db40a0378efe54dfa7",
+      "indexed": "cpic1-025-00-00.idx",
+      "indexed_sha256": "0e101ccc1b47f9782f206766c96ec8519dfcdd1e3477c7cf3ebcd95c650af378",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 25,
+          "record_index": 29,
+          "entry_offset": 263,
+          "entry_bytes": "198c25000031013301",
+          "offset": 10082,
+          "packed_size": 307,
+          "decoded_size": 305,
+          "decoded_sha256": "c1c1a4bce90fcfae017b86e15c023994b56e6a627c5c67783a1a75829b05c52a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 25,
+          "record_index": 27,
+          "entry_offset": 245,
+          "entry_bytes": "192324000031013301",
+          "offset": 9793,
+          "packed_size": 307,
+          "decoded_size": 305,
+          "decoded_sha256": "c1c1a4bce90fcfae017b86e15c023994b56e6a627c5c67783a1a75829b05c52a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 25,
+          "record_index": 27,
+          "entry_offset": 245,
+          "entry_bytes": "19b130000031013301",
+          "offset": 12863,
+          "packed_size": 307,
+          "decoded_size": 305,
+          "decoded_sha256": "c1c1a4bce90fcfae017b86e15c023994b56e6a627c5c67783a1a75829b05c52a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-154-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-154-00-00.png",
+      "png_sha256": "d088895f6a5fea135b2ce1fd69d809a4f12322024521cd13569ca118693d4de4",
+      "indexed": "cpic1-154-00-00.idx",
+      "indexed_sha256": "e66a461fdee32845f6529bf6e2ef1f30fe3d0821a1b819f4b7bf313f2e7ee488",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 154,
+          "record_index": 30,
+          "entry_offset": 272,
+          "entry_bytes": "9abf2600003101dd00",
+          "offset": 10389,
+          "packed_size": 221,
+          "decoded_size": 305,
+          "decoded_sha256": "37654e8cddae9d8cb83989cd31e09ce7e39ff1b8c6961028e24393125a4d95d0",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 154,
+          "record_index": 28,
+          "entry_offset": 254,
+          "entry_bytes": "9a562500003101dd00",
+          "offset": 10100,
+          "packed_size": 221,
+          "decoded_size": 305,
+          "decoded_sha256": "37654e8cddae9d8cb83989cd31e09ce7e39ff1b8c6961028e24393125a4d95d0",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 154,
+          "record_index": 28,
+          "entry_offset": 254,
+          "entry_bytes": "9ae43100003101dd00",
+          "offset": 13170,
+          "packed_size": 221,
+          "decoded_size": 305,
+          "decoded_sha256": "37654e8cddae9d8cb83989cd31e09ce7e39ff1b8c6961028e24393125a4d95d0",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-026-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-026-00-00.png",
+      "png_sha256": "d962b5d609b9bd4d1930b76e6b00e1a3fbd7c9f29579eaf44059f6273a5dc64e",
+      "indexed": "cpic1-026-00-00.idx",
+      "indexed_sha256": "c9a4cc5448b034b164681d9af294afa0b254faa7557a04efc405d4af1eafd7a3",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 26,
+          "record_index": 31,
+          "entry_offset": 281,
+          "entry_bytes": "1a9c2700003101d600",
+          "offset": 10610,
+          "packed_size": 214,
+          "decoded_size": 305,
+          "decoded_sha256": "498147d9cdfe883db7442b41735dabbdca17f4a01bff547145c65268a31ba124",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 26,
+          "record_index": 29,
+          "entry_offset": 263,
+          "entry_bytes": "1a332600003101d600",
+          "offset": 10321,
+          "packed_size": 214,
+          "decoded_size": 305,
+          "decoded_sha256": "498147d9cdfe883db7442b41735dabbdca17f4a01bff547145c65268a31ba124",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 26,
+          "record_index": 29,
+          "entry_offset": 263,
+          "entry_bytes": "1ac13200003101d600",
+          "offset": 13391,
+          "packed_size": 214,
+          "decoded_size": 305,
+          "decoded_sha256": "498147d9cdfe883db7442b41735dabbdca17f4a01bff547145c65268a31ba124",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-155-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-155-00-00.png",
+      "png_sha256": "be0653d53d33d2dfb3c18e31e837488069f5db60dfc3b53811851bdc063f5c9e",
+      "indexed": "cpic1-155-00-00.idx",
+      "indexed_sha256": "e93fcc68672d7e571ce875d6a8e584a6f5f341674cff50d928b8523d7dcdf453",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 155,
+          "record_index": 32,
+          "entry_offset": 290,
+          "entry_bytes": "9b7228000051021301",
+          "offset": 10824,
+          "packed_size": 275,
+          "decoded_size": 593,
+          "decoded_sha256": "1a0e928788d9bd82887320377b2ba45860c024f325c4e8ae6c809a5a5ee6c486",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 155,
+          "record_index": 30,
+          "entry_offset": 272,
+          "entry_bytes": "9b0927000051021301",
+          "offset": 10535,
+          "packed_size": 275,
+          "decoded_size": 593,
+          "decoded_sha256": "1a0e928788d9bd82887320377b2ba45860c024f325c4e8ae6c809a5a5ee6c486",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-027-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-027-00-00.png",
+      "png_sha256": "8d9735d1478fa94da046e03d3dc0a3b838a9b789957a9c757500c6cb22546090",
+      "indexed": "cpic1-027-00-00.idx",
+      "indexed_sha256": "f68a3dc725985c444c5b6c91eff9712996cd9a88a924b688514d82e16cf4388e",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 27,
+          "record_index": 33,
+          "entry_offset": 299,
+          "entry_bytes": "1b8529000051021b01",
+          "offset": 11099,
+          "packed_size": 283,
+          "decoded_size": 593,
+          "decoded_sha256": "caff32ccf2bcbc6b6dd2d1e4ef59fac37b8ab9f783069b273d5c41b2f610dc42",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 27,
+          "record_index": 31,
+          "entry_offset": 281,
+          "entry_bytes": "1b1c28000051021b01",
+          "offset": 10810,
+          "packed_size": 283,
+          "decoded_size": 593,
+          "decoded_sha256": "caff32ccf2bcbc6b6dd2d1e4ef59fac37b8ab9f783069b273d5c41b2f610dc42",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-157-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-157-00-00.png",
+      "png_sha256": "f81320886fc775f70c9ee65ea38025f7051c82068641fde28495e470c2a97dbb",
+      "indexed": "cpic1-157-00-00.idx",
+      "indexed_sha256": "94f43d5f2928af17157bc3530673c0d8c84961739bbb3f7bed87aaa4ea1de47e",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 157,
+          "record_index": 34,
+          "entry_offset": 308,
+          "entry_bytes": "9da02a000031010701",
+          "offset": 11382,
+          "packed_size": 263,
+          "decoded_size": 305,
+          "decoded_sha256": "2efb6f27da8264660353245687dbbfcf30e3c66afcc43585ee43466c104a308e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-029-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-029-00-00.png",
+      "png_sha256": "ca5e2af38616e14bb07d9243c8fd5d96c3a7bf14ca83c02339862d58c5885d08",
+      "indexed": "cpic1-029-00-00.idx",
+      "indexed_sha256": "50d8ef38d2663dcc36f74d5c5b7f0ecce996bbd1a1a640d68e46d5969d7365a0",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 29,
+          "record_index": 35,
+          "entry_offset": 317,
+          "entry_bytes": "1da72b00003101ed00",
+          "offset": 11645,
+          "packed_size": 237,
+          "decoded_size": 305,
+          "decoded_sha256": "1599390aba2ed69b7b32e8a1bc79108f10591ba57c64693c51812e683443c0de",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-158-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-158-00-00.png",
+      "png_sha256": "7862d42e9ee22a98d2417a80c84f086c4da3dfaf1b4ba5d925842ed4595496d5",
+      "indexed": "cpic1-158-00-00.idx",
+      "indexed_sha256": "0001854969a180aaa89c3755ab062e65db23a3ee60ecf3fae7f5fc2a39508cb4",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 158,
+          "record_index": 36,
+          "entry_offset": 326,
+          "entry_bytes": "9e942c000051021b02",
+          "offset": 11882,
+          "packed_size": 539,
+          "decoded_size": 593,
+          "decoded_sha256": "51e0e602f9ce6cbb9aa7cbfb5e35267605166a1fa664ceccc5e405ca6ea229fe",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-030-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-030-00-00.png",
+      "png_sha256": "11ba115d172756481febfe6353d10ba35cfea3a490d50229a085b2437dbad9fb",
+      "indexed": "cpic1-030-00-00.idx",
+      "indexed_sha256": "ff6b71cebfe3fb8913d8629c81929cfd2b865194b6879374c84b33b1edcdb4db",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 30,
+          "record_index": 37,
+          "entry_offset": 335,
+          "entry_bytes": "1eaf2e000051023a02",
+          "offset": 12421,
+          "packed_size": 570,
+          "decoded_size": 593,
+          "decoded_sha256": "09910e0ba2829bb97dc60f8f844d9e04b9bda9c7988a7219fc2eef1f34dbadb5",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-159-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-159-00-00.png",
+      "png_sha256": "410e69ce7cfae7c5986cdeb13f71e6126178fb4ea217c8fa0b0fcc6844c519e8",
+      "indexed": "cpic1-159-00-00.idx",
+      "indexed_sha256": "5d6cfec90b7c41ef9332b295968158457cc18d548761e1129142eb956534f569",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 159,
+          "record_index": 38,
+          "entry_offset": 344,
+          "entry_bytes": "9fe93000003101f600",
+          "offset": 12991,
+          "packed_size": 246,
+          "decoded_size": 305,
+          "decoded_sha256": "9f99ab8cb51e63f374438ae9322995dd1db1401d75c15f8f8ea8fb5b4bd1e9d7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 159,
+          "record_index": 34,
+          "entry_offset": 308,
+          "entry_bytes": "9f2b2b00003101f600",
+          "offset": 11593,
+          "packed_size": 246,
+          "decoded_size": 305,
+          "decoded_sha256": "9f99ab8cb51e63f374438ae9322995dd1db1401d75c15f8f8ea8fb5b4bd1e9d7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 159,
+          "record_index": 30,
+          "entry_offset": 272,
+          "entry_bytes": "9f973300003101f600",
+          "offset": 13605,
+          "packed_size": 246,
+          "decoded_size": 305,
+          "decoded_sha256": "9f99ab8cb51e63f374438ae9322995dd1db1401d75c15f8f8ea8fb5b4bd1e9d7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-031-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-031-00-00.png",
+      "png_sha256": "3a2c4a2f497706f31d595f763a5a31d54d7512e2f5fccd477a320f9459e2371e",
+      "indexed": "cpic1-031-00-00.idx",
+      "indexed_sha256": "fbe5542045bf1ac91cf2a45d0d46d95bc3271057068bac66ada026f186a92963",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 31,
+          "record_index": 39,
+          "entry_offset": 353,
+          "entry_bytes": "1fdf3100003101f000",
+          "offset": 13237,
+          "packed_size": 240,
+          "decoded_size": 305,
+          "decoded_sha256": "397a233b9057416624f7195ba81ab11dcbbb975fe846b866c2ffd9175654b0ef",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 31,
+          "record_index": 35,
+          "entry_offset": 317,
+          "entry_bytes": "1f212c00003101f000",
+          "offset": 11839,
+          "packed_size": 240,
+          "decoded_size": 305,
+          "decoded_sha256": "397a233b9057416624f7195ba81ab11dcbbb975fe846b866c2ffd9175654b0ef",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 31,
+          "record_index": 33,
+          "entry_offset": 299,
+          "entry_bytes": "1f973600003101f000",
+          "offset": 14373,
+          "packed_size": 240,
+          "decoded_size": 305,
+          "decoded_sha256": "397a233b9057416624f7195ba81ab11dcbbb975fe846b866c2ffd9175654b0ef",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-162-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-162-00-00.png",
+      "png_sha256": "ac86caf6935f3d2e1c131d3fc554b3bf7a0be54f9f7e06284b7f7bc4f45a1d8b",
+      "indexed": "cpic1-162-00-00.idx",
+      "indexed_sha256": "c97c2b892856ea358da6c01d38d8ccf12f68e31900a2e3d997a585bf5ffdb2e1",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 162,
+          "record_index": 40,
+          "entry_offset": 362,
+          "entry_bytes": "a2cf3200003101f600",
+          "offset": 13477,
+          "packed_size": 246,
+          "decoded_size": 305,
+          "decoded_sha256": "aac6b6a08c565f818cab06049646f1e2691512befa499c1957eeae731cd9d4ef",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 188,
+          "record_index": 54,
+          "entry_offset": 488,
+          "entry_bytes": "bc5a4500003101f600",
+          "offset": 18296,
+          "packed_size": 246,
+          "decoded_size": 305,
+          "decoded_sha256": "aac6b6a08c565f818cab06049646f1e2691512befa499c1957eeae731cd9d4ef",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "cpic1-034-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-034-00-00.png",
+      "png_sha256": "da0efb8edf87e798d2429cbffcdc3c612a4865de0b9dfeb97b56ade3f400e83d",
+      "indexed": "cpic1-034-00-00.idx",
+      "indexed_sha256": "f62f6b1570a5b813b6ed1a49944d362715129fbbfe9880bfdbcf29771c655a9a",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 34,
+          "record_index": 41,
+          "entry_offset": 371,
+          "entry_bytes": "22c533000031011701",
+          "offset": 13723,
+          "packed_size": 279,
+          "decoded_size": 305,
+          "decoded_sha256": "efa58d60fa752b0d6cde779ee9fd0fcc01089b97dea6d3323e6d81d0f45f158f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 60,
+          "record_index": 55,
+          "entry_offset": 497,
+          "entry_bytes": "3c5046000031011701",
+          "offset": 18542,
+          "packed_size": 279,
+          "decoded_size": 305,
+          "decoded_sha256": "efa58d60fa752b0d6cde779ee9fd0fcc01089b97dea6d3323e6d81d0f45f158f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "cpic1-163-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-163-00-00.png",
+      "png_sha256": "a65e4172e9870f3c69e5f9887c63d7ab81d54e8f49d0092651f81d6be11408cc",
+      "indexed": "cpic1-163-00-00.idx",
+      "indexed_sha256": "93a58d046ce624c2c227d043bf5ad70c41c1882ed014e1f45fc627b93a7bb5e9",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 163,
+          "record_index": 42,
+          "entry_offset": 380,
+          "entry_bytes": "a3dc34000031010201",
+          "offset": 14002,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "ef3bf4cd3b8527b7338660afd1b05f93f31d327f870d9d3029ae98252fbbac5c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 187,
+          "record_index": 50,
+          "entry_offset": 452,
+          "entry_bytes": "bb283e000031010201",
+          "offset": 16382,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "ef3bf4cd3b8527b7338660afd1b05f93f31d327f870d9d3029ae98252fbbac5c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 163,
+          "record_index": 38,
+          "entry_offset": 344,
+          "entry_bytes": "a3fe2e000031010201",
+          "offset": 12572,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "ef3bf4cd3b8527b7338660afd1b05f93f31d327f870d9d3029ae98252fbbac5c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 163,
+          "record_index": 34,
+          "entry_offset": 308,
+          "entry_bytes": "a38737000031010201",
+          "offset": 14613,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "ef3bf4cd3b8527b7338660afd1b05f93f31d327f870d9d3029ae98252fbbac5c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-035-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-035-00-00.png",
+      "png_sha256": "c97fa9e460e26f6d5f1a5b768a8e7b04353791d51355b39fe2ef9a307d69f463",
+      "indexed": "cpic1-035-00-00.idx",
+      "indexed_sha256": "7aa5e01e54779ddcea6002bfbc468df11e517cc08c26c4d2a785da0c1bfe2a85",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 35,
+          "record_index": 43,
+          "entry_offset": 389,
+          "entry_bytes": "23de35000031010f01",
+          "offset": 14260,
+          "packed_size": 271,
+          "decoded_size": 305,
+          "decoded_sha256": "1235c218054067384820e7701fe9296fce0ee8b5609cd63ad0498f83450086fa",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 59,
+          "record_index": 51,
+          "entry_offset": 461,
+          "entry_bytes": "3b2a3f000031010f01",
+          "offset": 16640,
+          "packed_size": 271,
+          "decoded_size": 305,
+          "decoded_sha256": "1235c218054067384820e7701fe9296fce0ee8b5609cd63ad0498f83450086fa",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 35,
+          "record_index": 39,
+          "entry_offset": 353,
+          "entry_bytes": "230030000031010f01",
+          "offset": 12830,
+          "packed_size": 271,
+          "decoded_size": 305,
+          "decoded_sha256": "1235c218054067384820e7701fe9296fce0ee8b5609cd63ad0498f83450086fa",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 35,
+          "record_index": 35,
+          "entry_offset": 317,
+          "entry_bytes": "238938000031010f01",
+          "offset": 14871,
+          "packed_size": 271,
+          "decoded_size": 305,
+          "decoded_sha256": "1235c218054067384820e7701fe9296fce0ee8b5609cd63ad0498f83450086fa",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-166-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-166-00-00.png",
+      "png_sha256": "09b3f973a150b8045440b1176fcab710d4d1612edd72d6cc551cdb898e554f5e",
+      "indexed": "cpic1-166-00-00.idx",
+      "indexed_sha256": "874fa5c25bfd3a28935dabf21d67525691eae0ce7c298038cd0dc19be30af1a3",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 166,
+          "record_index": 44,
+          "entry_offset": 398,
+          "entry_bytes": "a6ed3600003101e800",
+          "offset": 14531,
+          "packed_size": 232,
+          "decoded_size": 305,
+          "decoded_sha256": "e83954734f1f93cf88bdc89ee25b56a8dc015cb396fd5c8d1b1b4cb36bfc0354",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 166,
+          "record_index": 40,
+          "entry_offset": 362,
+          "entry_bytes": "a60f3100003101e800",
+          "offset": 13101,
+          "packed_size": 232,
+          "decoded_size": 305,
+          "decoded_sha256": "e83954734f1f93cf88bdc89ee25b56a8dc015cb396fd5c8d1b1b4cb36bfc0354",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 166,
+          "record_index": 36,
+          "entry_offset": 326,
+          "entry_bytes": "a6983900003101e800",
+          "offset": 15142,
+          "packed_size": 232,
+          "decoded_size": 305,
+          "decoded_sha256": "e83954734f1f93cf88bdc89ee25b56a8dc015cb396fd5c8d1b1b4cb36bfc0354",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-038-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-038-00-00.png",
+      "png_sha256": "0270e19de163cf45a34aa3e4246b25e27e8b46f6acdc8e62a641bfc0d65fe0f9",
+      "indexed": "cpic1-038-00-00.idx",
+      "indexed_sha256": "9793f36aa0560a2fc004d9e9259e4ef11adfb9ea908ed282df7eb5b8abaa1c92",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 38,
+          "record_index": 45,
+          "entry_offset": 407,
+          "entry_bytes": "26d537000031010801",
+          "offset": 14763,
+          "packed_size": 264,
+          "decoded_size": 305,
+          "decoded_sha256": "a03920fd9888912ae68df4a65b08229382e359933bb380c2602771cb9e5d3e97",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 38,
+          "record_index": 41,
+          "entry_offset": 371,
+          "entry_bytes": "26f731000031010801",
+          "offset": 13333,
+          "packed_size": 264,
+          "decoded_size": 305,
+          "decoded_sha256": "a03920fd9888912ae68df4a65b08229382e359933bb380c2602771cb9e5d3e97",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 38,
+          "record_index": 37,
+          "entry_offset": 335,
+          "entry_bytes": "26803a000031010801",
+          "offset": 15374,
+          "packed_size": 264,
+          "decoded_size": 305,
+          "decoded_sha256": "a03920fd9888912ae68df4a65b08229382e359933bb380c2602771cb9e5d3e97",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-169-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-169-00-00.png",
+      "png_sha256": "4dab67d1f27e66b4c1f6b5c1ed8fc1ccc314117dd8e0914ff280021406e48a79",
+      "indexed": "cpic1-169-00-00.idx",
+      "indexed_sha256": "a1a30bdf4a8783f2f6a629457f863f0a0d4c7ed991e7bf52e70bc4df3cac0d63",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 169,
+          "record_index": 46,
+          "entry_offset": 416,
+          "entry_bytes": "a9dd38000031010201",
+          "offset": 15027,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "b6470741ec83a354ce35286ee0cfb233bac0c7cce72ce60e050791f9929e3bbd",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 169,
+          "record_index": 42,
+          "entry_offset": 380,
+          "entry_bytes": "a9ff32000031010201",
+          "offset": 13597,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "b6470741ec83a354ce35286ee0cfb233bac0c7cce72ce60e050791f9929e3bbd",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 169,
+          "record_index": 38,
+          "entry_offset": 344,
+          "entry_bytes": "a9883b000031010201",
+          "offset": 15638,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "b6470741ec83a354ce35286ee0cfb233bac0c7cce72ce60e050791f9929e3bbd",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-041-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic1-041-00-00.png",
+      "png_sha256": "798e2b47248f20e4a7314f7ef16dc6bc4031a5b3cc8377479223acfd14164475",
+      "indexed": "cpic1-041-00-00.idx",
+      "indexed_sha256": "a9f371e05fdcd2eb81e3628860d43c82eb4ce8cb7bda9c2b6c0f68bd0ada932a",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 41,
+          "record_index": 47,
+          "entry_offset": 425,
+          "entry_bytes": "29df39000031012301",
+          "offset": 15285,
+          "packed_size": 291,
+          "decoded_size": 305,
+          "decoded_sha256": "7a3c5a817964987d0045b2a9a84a8c394eaf0a898a4e2c2b693e905da35f6cae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 41,
+          "record_index": 43,
+          "entry_offset": 389,
+          "entry_bytes": "290134000031012301",
+          "offset": 13855,
+          "packed_size": 291,
+          "decoded_size": 305,
+          "decoded_sha256": "7a3c5a817964987d0045b2a9a84a8c394eaf0a898a4e2c2b693e905da35f6cae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 41,
+          "record_index": 39,
+          "entry_offset": 353,
+          "entry_bytes": "298a3c000031012301",
+          "offset": 15896,
+          "packed_size": 291,
+          "decoded_size": 305,
+          "decoded_sha256": "7a3c5a817964987d0045b2a9a84a8c394eaf0a898a4e2c2b693e905da35f6cae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-185-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-185-00-00.png",
+      "png_sha256": "cefdc123e97e75c20bcc9ca3701601a0738e9000ba49c88f65298aa4d097c857",
+      "indexed": "cpic1-185-00-00.idx",
+      "indexed_sha256": "4c6f94a5063a412d25f18f414d64f874b44b1d6bef7c2a7e6a59f69297714a4a",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 185,
+          "record_index": 48,
+          "entry_offset": 434,
+          "entry_bytes": "b9023b000051027801",
+          "offset": 15576,
+          "packed_size": 376,
+          "decoded_size": 593,
+          "decoded_sha256": "f083f43aafc19b62f29dfb75d3bfeebac68af59f8e5c129ae1888fa17edf3ce2",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic1-057-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic1-057-00-00.png",
+      "png_sha256": "d032413d6374f53a910b2791cafc22fc160228fa5bc99b4ccbff6d5268a8bef5",
+      "indexed": "cpic1-057-00-00.idx",
+      "indexed_sha256": "e4cd79339c9ad23cdaef1e7fa476535662dde097e50b93140b95286acf19641a",
+      "sources": [
+        {
+          "file": "CPIC1.DAX",
+          "file_sha256": "5f3e5fdc1734f8aed583233da9c97630b130ad5628eee0f18d875291dfa5e26b",
+          "block": 57,
+          "record_index": 49,
+          "entry_offset": 443,
+          "entry_bytes": "397a3c00005102ae01",
+          "offset": 15952,
+          "packed_size": 430,
+          "decoded_size": 593,
+          "decoded_sha256": "340f9bf9febb55fb90a6a7b25decd2730477a7f18b1225fa5b08f1fc4fab854a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-130-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic2-130-00-00.png",
+      "png_sha256": "b3d58cfa86b5ef0f134499ff376d94784a8937c2abd6132db4e90b6c599c4d0d",
+      "indexed": "cpic2-130-00-00.idx",
+      "indexed_sha256": "f9e32f50ef99c5610c8fb8e54d1ce767b6ea453f24ea3a13dff393935613fd5e",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 130,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "820c0200005102fc01",
+          "offset": 1066,
+          "packed_size": 508,
+          "decoded_size": 593,
+          "decoded_sha256": "5d5ad40415de7320a2d0e7e9db5687c53c84b7ab3a694c81910af25d15f57ca5",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-002-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic2-002-00-00.png",
+      "png_sha256": "d04abd6f7e41515eb50684f699431972bd23feef448b5a626775ccc459ba2aef",
+      "indexed": "cpic2-002-00-00.idx",
+      "indexed_sha256": "cf16e95cb19375b5fb45a341b097114bbb046a10f83c7fec8bc8212f53565682",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 2,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "020804000051023a02",
+          "offset": 1574,
+          "packed_size": 570,
+          "decoded_size": 593,
+          "decoded_sha256": "0863720068f9a0b4e54b7c1651437d15bdf2e0dafdfb6410961b5cfc88ae6093",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-138-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic2-138-00-00.png",
+      "png_sha256": "f29c13aed655a4a0501d6aa0e8da82448097d8d6728af1084c8b4f23c7a05c77",
+      "indexed": "cpic2-138-00-00.idx",
+      "indexed_sha256": "6b9455e10f41161eb04828e385b84ee1ababfc05a9f4ff1217c3b7bc806cea90",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 138,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "8a130e000051022602",
+          "offset": 4145,
+          "packed_size": 550,
+          "decoded_size": 593,
+          "decoded_sha256": "782b8ca045707497b0339c5cc8a5978495a914873ffe5b84252352fb3fbf8c16",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-010-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic2-010-00-00.png",
+      "png_sha256": "de5819706798a67bcbe84426eeaba937e80eee02f60cd871e485e62e51b852ad",
+      "indexed": "cpic2-010-00-00.idx",
+      "indexed_sha256": "760f3699e7b6eccf8dcbf191ce43102bf0ed2f73ef2961e0fbfed628976f49a8",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 10,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "0a3910000051023102",
+          "offset": 4695,
+          "packed_size": 561,
+          "decoded_size": 593,
+          "decoded_sha256": "f4bf6d4e42eeb506adb5a168874e574cda48b6c2f7cf225bac694ff146e420e6",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-145-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-145-00-00.png",
+      "png_sha256": "b5e9958ef326cf313846fdaf26c905bb4be75b9d165f33cb3647e11dea741ae1",
+      "indexed": "cpic2-145-00-00.idx",
+      "indexed_sha256": "fb9f1d89e23388276e3aab83da11adf8fe1c3978ab4e841a15b83fdd6516ad0f",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 145,
+          "record_index": 20,
+          "entry_offset": 182,
+          "entry_bytes": "91891800003101e600",
+          "offset": 6823,
+          "packed_size": 230,
+          "decoded_size": 305,
+          "decoded_sha256": "9d15cf4014a11901a51b12fb9abca69c2591fecd6480b5f4e0de7b24e9621b2d",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 145,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "91d11700003101e600",
+          "offset": 6495,
+          "packed_size": 230,
+          "decoded_size": 305,
+          "decoded_sha256": "9d15cf4014a11901a51b12fb9abca69c2591fecd6480b5f4e0de7b24e9621b2d",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-017-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-017-00-00.png",
+      "png_sha256": "56ff6e5cb4b1745f5919b3d6a467c73d2a102c86a3da979a3ef3d134b35a53de",
+      "indexed": "cpic2-017-00-00.idx",
+      "indexed_sha256": "cf1808645735abca7a1f0114435a0776d9f65479d1d5d163e58742d5294c6282",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 17,
+          "record_index": 21,
+          "entry_offset": 191,
+          "entry_bytes": "116f19000031012901",
+          "offset": 7053,
+          "packed_size": 297,
+          "decoded_size": 305,
+          "decoded_sha256": "ef2e3127cea3e1a84bc39cb176b7baaef70b5c0de3b309c219a4b1ad611c284a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 17,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "11b718000031012901",
+          "offset": 6725,
+          "packed_size": 297,
+          "decoded_size": 305,
+          "decoded_sha256": "ef2e3127cea3e1a84bc39cb176b7baaef70b5c0de3b309c219a4b1ad611c284a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-151-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic2-151-00-00.png",
+      "png_sha256": "3e4bb4ef766b17bb845cbab1052968b41fccf412dc4488ac2ed5ccdd251ca031",
+      "indexed": "cpic2-151-00-00.idx",
+      "indexed_sha256": "1ed921270116fe01eba13882b694970aaf0ebece43c0a8413c8e9a26e5f6c21e",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 151,
+          "record_index": 24,
+          "entry_offset": 218,
+          "entry_bytes": "97d11e000051022002",
+          "offset": 8431,
+          "packed_size": 544,
+          "decoded_size": 593,
+          "decoded_sha256": "3d89cd9c3be0799d31c096092dd5961d34c3d7c3edfd6e6d1d87b7ab8c24abcf",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-023-00-00",
+      "size": [
+        48,
+        24
+      ],
+      "png": "cpic2-023-00-00.png",
+      "png_sha256": "6f201f9eeafacd95126835605ffaacd80cdd9e7a2978159d4d81a3f3d59a8c7b",
+      "indexed": "cpic2-023-00-00.idx",
+      "indexed_sha256": "1977114a44aeeeb693c85f0ac9ae183ae05dab9257fdf83194909f689c06c546",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 23,
+          "record_index": 25,
+          "entry_offset": 227,
+          "entry_bytes": "17f120000051021f02",
+          "offset": 8975,
+          "packed_size": 543,
+          "decoded_size": 593,
+          "decoded_sha256": "91d29eff091d5275588db100d5b34b4aa489a80611a314d6de1c07d24fc7894e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-156-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-156-00-00.png",
+      "png_sha256": "08c5900723849b61412047f2e071e0fd02d7320b66ba4e020cb7a5f8bf98cf1c",
+      "indexed": "cpic2-156-00-00.idx",
+      "indexed_sha256": "3f24605815a6930a11a902cd27ab2d6d868ed1ea8ec2392abf64e0873ef7b883",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 156,
+          "record_index": 32,
+          "entry_offset": 290,
+          "entry_bytes": "9c372900003101eb00",
+          "offset": 11093,
+          "packed_size": 235,
+          "decoded_size": 305,
+          "decoded_sha256": "e7b7e6244a82ed491d8f2b35d89bf748d9dc0f1906b249d0435dc72fcc272dbd",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-028-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-028-00-00.png",
+      "png_sha256": "7d14d9755aa45f59fa6ccca37985d9230f6ac932ae15ac7ed8d5bf444037a3c8",
+      "indexed": "cpic2-028-00-00.idx",
+      "indexed_sha256": "239870e5d29fde1165483ffaa5692aee5e3d98d3f01abca7d7370502aaff48ed",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 28,
+          "record_index": 33,
+          "entry_offset": 299,
+          "entry_bytes": "1c222a000031010901",
+          "offset": 11328,
+          "packed_size": 265,
+          "decoded_size": 305,
+          "decoded_sha256": "ad0cf7a5369da3fd5e1cd20ac8169c1ea4a5c8a0e72258ce5252055111685a3a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-161-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-161-00-00.png",
+      "png_sha256": "b6530d22b78d55ec6462d7e1adb469364d8a446e636622f9f2f7604ab4360a84",
+      "indexed": "cpic2-161-00-00.idx",
+      "indexed_sha256": "3dcfd353d2bb7f900df814229ac033fe14e9924fa8f8646f188be988c57b2211",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 161,
+          "record_index": 36,
+          "entry_offset": 326,
+          "entry_bytes": "a1112d00003101ec00",
+          "offset": 12079,
+          "packed_size": 236,
+          "decoded_size": 305,
+          "decoded_sha256": "66599ba51d322e5a36dae337f99bdcaf5f33b942738d61478aee91308ab00538",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-033-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-033-00-00.png",
+      "png_sha256": "17086360f2f12558f1dd1faad636da2f479eb8a1e2e0dd704902417a5d7a8eef",
+      "indexed": "cpic2-033-00-00.idx",
+      "indexed_sha256": "28ca283317ea54773b499fcc4ef00158d78fe968ae58a54683170a332b6ac7d4",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 33,
+          "record_index": 37,
+          "entry_offset": 335,
+          "entry_bytes": "21fd2d000031010101",
+          "offset": 12315,
+          "packed_size": 257,
+          "decoded_size": 305,
+          "decoded_sha256": "b98506c87a2ff8c87f654a2a8701604a9a467a8b6e8b1a58087c108bbde1c5f4",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-173-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-173-00-00.png",
+      "png_sha256": "7638521a1890f421eb84c92b59a79c97eb6d81ce23a65d81848d23d9e25b3377",
+      "indexed": "cpic2-173-00-00.idx",
+      "indexed_sha256": "046fd9b1e3dbf98bc61981ea9340ab2ca234893b5cc91630ee5cf2e6062de5b9",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 173,
+          "record_index": 44,
+          "entry_offset": 398,
+          "entry_bytes": "ad243500003101f100",
+          "offset": 14146,
+          "packed_size": 241,
+          "decoded_size": 305,
+          "decoded_sha256": "220937c0027f65b361af899c3c3e5432b33642e66dd92405dd8f1a041ddff8b7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 176,
+          "record_index": 40,
+          "entry_offset": 362,
+          "entry_bytes": "b0ad3d00003101f100",
+          "offset": 16187,
+          "packed_size": 241,
+          "decoded_size": 305,
+          "decoded_sha256": "220937c0027f65b361af899c3c3e5432b33642e66dd92405dd8f1a041ddff8b7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-045-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-045-00-00.png",
+      "png_sha256": "1c34a74dc37d7ee2d0e253eda44dbf8291ee2e202b43a8aa5a022d1eed254343",
+      "indexed": "cpic2-045-00-00.idx",
+      "indexed_sha256": "7fc63d478c8c6d1033e1bcfcff520e5a8df752bc15b68acf41f3b04435051f45",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 45,
+          "record_index": 45,
+          "entry_offset": 407,
+          "entry_bytes": "2d1536000031010a01",
+          "offset": 14387,
+          "packed_size": 266,
+          "decoded_size": 305,
+          "decoded_sha256": "b2e7c48d4b5c425887dbc324000748f20089011ebfa0dba1c58926a57302c41a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 48,
+          "record_index": 41,
+          "entry_offset": 371,
+          "entry_bytes": "309e3e000031010a01",
+          "offset": 16428,
+          "packed_size": 266,
+          "decoded_size": 305,
+          "decoded_sha256": "b2e7c48d4b5c425887dbc324000748f20089011ebfa0dba1c58926a57302c41a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-176-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-176-00-00.png",
+      "png_sha256": "2b1a68644e31d5f7a3b772943360eb486559a457d7aaa406e9b7b8911c9bf28e",
+      "indexed": "cpic2-176-00-00.idx",
+      "indexed_sha256": "e2f5498544bd3edc54811116c9439b5832bf9f64c972ec8b01e5248f0e4dead8",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 176,
+          "record_index": 46,
+          "entry_offset": 416,
+          "entry_bytes": "b01f37000031010201",
+          "offset": 14653,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "939765ba7bb3115bbbb66e1d76dfa17f9648cdc49f3b32706abf7daa31bdd422",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-048-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-048-00-00.png",
+      "png_sha256": "684adbfb09063dcbd2b4d0bd034aa731c65931336b6174b66e7564e8fca4415b",
+      "indexed": "cpic2-048-00-00.idx",
+      "indexed_sha256": "9a7d66a83b4a6de7213fa713f94a6aa1a2c7f2e5f4fbf70ad5d4e17cb3c974f7",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 48,
+          "record_index": 47,
+          "entry_offset": 425,
+          "entry_bytes": "302138000031010201",
+          "offset": 14911,
+          "packed_size": 258,
+          "decoded_size": 305,
+          "decoded_sha256": "492e18e8fa8ffcbff0685301a9058cbbf81ca462e611bbb7597f9cadef3aa658",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-179-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-179-00-00.png",
+      "png_sha256": "2174099cbdcd9dc57279b7a0c0f7afb6e8b3dd5b1cbbd862ed60c70b3c9c5681",
+      "indexed": "cpic2-179-00-00.idx",
+      "indexed_sha256": "67b813e6391f5b899b2191845a1de893dd1cf62db5ae86c0c5394dfdad79d4ad",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 179,
+          "record_index": 48,
+          "entry_offset": 434,
+          "entry_bytes": "b32339000031010701",
+          "offset": 15169,
+          "packed_size": 263,
+          "decoded_size": 305,
+          "decoded_sha256": "16735d9e95b2fedbf295b67050c255713f94d29989105a6402fe78565eb3798b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-051-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-051-00-00.png",
+      "png_sha256": "39a87bfa9efee013cc26862e7e7367fb5dfc086081dac53abaebc4d6e5337bde",
+      "indexed": "cpic2-051-00-00.idx",
+      "indexed_sha256": "a8386be52fb562270d3bac4d9d955ea1475b54af07e2a6ba9102a28a67414d68",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 51,
+          "record_index": 49,
+          "entry_offset": 443,
+          "entry_bytes": "332a3a000031012201",
+          "offset": 15432,
+          "packed_size": 290,
+          "decoded_size": 305,
+          "decoded_sha256": "c47cf197510f1e969c830c2acc1cfbbb2950985b1ca9ff8b37e0ec23d6ead76c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-182-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-182-00-00.png",
+      "png_sha256": "788086c8a2a2179894457a8c3bd988bd323be07581642e89bd19d73ef3e240e4",
+      "indexed": "cpic2-182-00-00.idx",
+      "indexed_sha256": "9fcd63143d6767ae84d777e8c91dbf97bb74f6742d16a22cac327c1b753767c1",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 182,
+          "record_index": 50,
+          "entry_offset": 452,
+          "entry_bytes": "b64c3b00003101e700",
+          "offset": 15722,
+          "packed_size": 231,
+          "decoded_size": 305,
+          "decoded_sha256": "7017042a13f51d66c4b2ccba2af11f91d65dc9d7d0487b16fc5220be935a862e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 190,
+          "record_index": 58,
+          "entry_offset": 524,
+          "entry_bytes": "bec24800003101e700",
+          "offset": 19168,
+          "packed_size": 231,
+          "decoded_size": 305,
+          "decoded_sha256": "7017042a13f51d66c4b2ccba2af11f91d65dc9d7d0487b16fc5220be935a862e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-054-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic2-054-00-00.png",
+      "png_sha256": "3c68417a54542002ff44d02e85ee14403b5986aa68dab37b045a7ce166baa1f5",
+      "indexed": "cpic2-054-00-00.idx",
+      "indexed_sha256": "f5410958153b8cdca34ffb65c314c2210df622e9899239dde5e13fda3366586a",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 54,
+          "record_index": 51,
+          "entry_offset": 461,
+          "entry_bytes": "36333c00003101cd00",
+          "offset": 15953,
+          "packed_size": 205,
+          "decoded_size": 305,
+          "decoded_sha256": "27e6e9fca40cdddf2d65aba6584e70543f51bd48c0e543b16711e82ef91581ae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 62,
+          "record_index": 59,
+          "entry_offset": 533,
+          "entry_bytes": "3ea94900003101cd00",
+          "offset": 19399,
+          "packed_size": 205,
+          "decoded_size": 305,
+          "decoded_sha256": "27e6e9fca40cdddf2d65aba6584e70543f51bd48c0e543b16711e82ef91581ae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "cpic2-184-00-00",
+      "size": [
+        48,
+        48
+      ],
+      "png": "cpic2-184-00-00.png",
+      "png_sha256": "de80a5c445f5e22b6d81fc8185a8b667a80f80e2a11c154ecd05c3bc8ff9de34",
+      "indexed": "cpic2-184-00-00.idx",
+      "indexed_sha256": "8c21a32c2f2179218cb19aa2b337d919289ced681b829d63722384d23032a650",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 184,
+          "record_index": 52,
+          "entry_offset": 470,
+          "entry_bytes": "b8003d000091043504",
+          "offset": 16158,
+          "packed_size": 1077,
+          "decoded_size": 1169,
+          "decoded_sha256": "2e1e497c7006906f9877cd9e5cc391ed141c78c0735b1f227d9f0c7e0458be8c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic2-056-00-00",
+      "size": [
+        48,
+        48
+      ],
+      "png": "cpic2-056-00-00.png",
+      "png_sha256": "302e26be6124487b9c82a5354dc2094e0b35da51f90786a72014c2d1342284b2",
+      "indexed": "cpic2-056-00-00.idx",
+      "indexed_sha256": "f07dec3939bc58f41952ba4ac969b36288818a27e6cccba75e0d9133156d921c",
+      "sources": [
+        {
+          "file": "CPIC2.DAX",
+          "file_sha256": "7925da2db12a4e42ffc2df737fce830fddede11ae9d350e61a9a53f2950b94e4",
+          "block": 56,
+          "record_index": 53,
+          "entry_offset": 479,
+          "entry_bytes": "383541000091042504",
+          "offset": 17235,
+          "packed_size": 1061,
+          "decoded_size": 1169,
+          "decoded_sha256": "232f257ce186336ace4eef0a6547dc53e2ec6a1cd9b989d24c9f0ff3da47ee78",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-128-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-128-00-00.png",
+      "png_sha256": "fdf279d4b3f5573dee52b67a860469469f45cdd2bcfa4de9e38cb9c76d99f3af",
+      "indexed": "cpic3-128-00-00.idx",
+      "indexed_sha256": "5c162f796c47783fe0c24be5b03c1f930a4837c5cfd3b1f3d482066c8161d0f7",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 128,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "800000000031012101",
+          "offset": 398,
+          "packed_size": 289,
+          "decoded_size": 305,
+          "decoded_sha256": "c196996a52642aacb4056218021483998c2289b87d34ef6d8dbb0455e02ef7d8",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-000-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-000-00-00.png",
+      "png_sha256": "3c71c685bd01e9a82ac8da580f826aa024364a4db8a27b4d257e0da7c7693613",
+      "indexed": "cpic3-000-00-00.idx",
+      "indexed_sha256": "020657ecea528c23ba3489c335500eb400eae57f20c10943804b7145279bfef5",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 0,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "002101000031010d01",
+          "offset": 687,
+          "packed_size": 269,
+          "decoded_size": 305,
+          "decoded_sha256": "b7d704d8ec71ee2c21871bfba808b4ae53537796ba07611d19789da5d61c9137",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-131-00-00",
+      "size": [
+        48,
+        48
+      ],
+      "png": "cpic3-131-00-00.png",
+      "png_sha256": "d3f35207bd789a4791664298d858690f04c7261969aad6aa3ad188f6991773d3",
+      "indexed": "cpic3-131-00-00.idx",
+      "indexed_sha256": "7901b98828f033be80a36b7be62005df5def137f62638b0a9c4ca5a70d746033",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 131,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "833a04000091042f04",
+          "offset": 1480,
+          "packed_size": 1071,
+          "decoded_size": 1169,
+          "decoded_sha256": "d189a63c914b757158fae7ef9b890fc80dea18cabcc59bcdcd4a05958d31b558",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-003-00-00",
+      "size": [
+        48,
+        48
+      ],
+      "png": "cpic3-003-00-00.png",
+      "png_sha256": "760a978b6d993694d47d41354ff9ebfc823376ea2ab7bd067ab0b0e153372e2b",
+      "indexed": "cpic3-003-00-00.idx",
+      "indexed_sha256": "3c42315aaa8007bba62f37eeb34b23ec0b72e6184fe7b22540d4184b8ff2856b",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 3,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "036908000091045a04",
+          "offset": 2551,
+          "packed_size": 1114,
+          "decoded_size": 1169,
+          "decoded_sha256": "bec065856a1bd2b8ed43d24027aa614b8d916ad7827cc98da49a51addfc89dd8",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-146-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-146-00-00.png",
+      "png_sha256": "57fcaca3724a8d0393e3ea5ca0d873606d564b4ad6dbb9b4e181b97ac69a33ae",
+      "indexed": "cpic3-146-00-00.idx",
+      "indexed_sha256": "43266a01cd7e9c4cb6b60d1ec0c9515e632c374b74d02dfc52f83abdaa290539",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 146,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "92e019000031012601",
+          "offset": 7022,
+          "packed_size": 294,
+          "decoded_size": 305,
+          "decoded_sha256": "2d5f29de605a607c0ccf927d0b4d2ee05f997fc91b42998b5137544e5c1175e0",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-018-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-018-00-00.png",
+      "png_sha256": "fe6f4942e855e627b750a803700353e666786c2425eb84420d8d30e1aaf06cb6",
+      "indexed": "cpic3-018-00-00.idx",
+      "indexed_sha256": "afc2277d9bb122789449dbdf5a9754a0ba560d6fa985d0967ab48da80730ba21",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 18,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "12061b000031011601",
+          "offset": 7316,
+          "packed_size": 278,
+          "decoded_size": 305,
+          "decoded_sha256": "65b8ce29d491d0a8e51b942f882c6cb274136891308f693e6d0caec2e9fc5906",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-150-00-00",
+      "size": [
+        48,
+        48
+      ],
+      "png": "cpic3-150-00-00.png",
+      "png_sha256": "0080cc864249dc00af066eff06a4a29026a681361719855c85258e00fbe7fa58",
+      "indexed": "cpic3-150-00-00.idx",
+      "indexed_sha256": "08b0260a8a2fc637a8ae22ecc3a3ea0cff5db02ac5587e67a167ef781cdad791",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 150,
+          "record_index": 22,
+          "entry_offset": 200,
+          "entry_bytes": "96b424000091045d04",
+          "offset": 9794,
+          "packed_size": 1117,
+          "decoded_size": 1169,
+          "decoded_sha256": "a8de18a1c073e0395516e801ffeb796b125d632867ea77910cbe9f889addd4de",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-022-00-00",
+      "size": [
+        48,
+        48
+      ],
+      "png": "cpic3-022-00-00.png",
+      "png_sha256": "14c91dcb5b96d546ffec9e148b4be211accbb8c529f73d6906994c3c0cfde11d",
+      "indexed": "cpic3-022-00-00.idx",
+      "indexed_sha256": "be1e578a49a952ca33974a57d9ce477d9f1ae09ad618dd446dd1fa9d0fda9ea9",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 22,
+          "record_index": 23,
+          "entry_offset": 209,
+          "entry_bytes": "161129000091047d04",
+          "offset": 10911,
+          "packed_size": 1149,
+          "decoded_size": 1169,
+          "decoded_sha256": "4016416ec8f5515135804a47cd63faf583fb60883be99d4c6c987251facff944",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-152-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-152-00-00.png",
+      "png_sha256": "91cf7778c444b137688507373ecaee66efe64223d389df3337f785ebd28046f4",
+      "indexed": "cpic3-152-00-00.idx",
+      "indexed_sha256": "24556f105caf2b04e811349ca36d557b4103c3c6a32dae2dff5e7bc65ee65e42",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 152,
+          "record_index": 24,
+          "entry_offset": 218,
+          "entry_bytes": "988e2d00003101fe00",
+          "offset": 12060,
+          "packed_size": 254,
+          "decoded_size": 305,
+          "decoded_sha256": "b10dce6c7a7fb1fd43d89375531c26a775e2175f774e090c7a238b5df6c076d6",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-024-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-024-00-00.png",
+      "png_sha256": "ea28be3a90af82bd27cca7aed8b8c35ed7d7171dc19612588d4e0142f6b3afb5",
+      "indexed": "cpic3-024-00-00.idx",
+      "indexed_sha256": "2565ef76af85a1d66ff8ec365398cf72a314420384fb9b6f982a4cda1ddccc95",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 24,
+          "record_index": 25,
+          "entry_offset": 227,
+          "entry_bytes": "188c2e000031011201",
+          "offset": 12314,
+          "packed_size": 274,
+          "decoded_size": 305,
+          "decoded_sha256": "8f6ef2f8d868e1c5b2e700afab53c2e0b732944aa9d3edac17be69a52f5450bc",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-160-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-160-00-00.png",
+      "png_sha256": "73bafd16710f45c2a0ff57f21cea839cf40cb11a6c58ae1eb40ba54895771363",
+      "indexed": "cpic3-160-00-00.idx",
+      "indexed_sha256": "46a6e5826eb998b6dc9804f50a5a4409f3668eae70facd9d494b9a523caebe73",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 160,
+          "record_index": 31,
+          "entry_offset": 281,
+          "entry_bytes": "a08d34000031010c01",
+          "offset": 13851,
+          "packed_size": 268,
+          "decoded_size": 305,
+          "decoded_sha256": "bea6317375e5ace4cc318d7ecf5f38248f93f8e0b3dc8a295dafacd8303bd17f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-032-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-032-00-00.png",
+      "png_sha256": "5ec4dac8fe83b1e0dd615504152927004c69a79840ea3bf7f6304d35302cf863",
+      "indexed": "cpic3-032-00-00.idx",
+      "indexed_sha256": "5b3767ed3e8715e6361e59d9dc9709200d6bb22e482c4abfa62e7af501b5a1c8",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 32,
+          "record_index": 32,
+          "entry_offset": 290,
+          "entry_bytes": "20993500003101fe00",
+          "offset": 14119,
+          "packed_size": 254,
+          "decoded_size": 305,
+          "decoded_sha256": "a981b24d8723ed9115d66c6e4199c3a97b300ac2dd9866b91e7cce1262e6d502",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-172-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-172-00-00.png",
+      "png_sha256": "32d5a7abdf798a11a80c481cba043d7d8aa473d73ee4f371395fb48e5f94cf37",
+      "indexed": "cpic3-172-00-00.idx",
+      "indexed_sha256": "3ea647e7dea68f91c5d4c70744898e946999f06059f98a31cfe637d66215fd7f",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 172,
+          "record_index": 42,
+          "entry_offset": 380,
+          "entry_bytes": "aca83f000031010101",
+          "offset": 16694,
+          "packed_size": 257,
+          "decoded_size": 305,
+          "decoded_sha256": "4bfb53a1d48c0660ee20d7db30c169fd7081fe09afab2565e8e937ae76ad3b83",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "cpic3-044-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "cpic3-044-00-00.png",
+      "png_sha256": "b9118aa32ec6bd12a0a20938198d3d07eb0b408ad1ca3ab32c1493eeb37a3b8d",
+      "indexed": "cpic3-044-00-00.idx",
+      "indexed_sha256": "e5a87178d91cc15a9c0299c1186d461a879b3ed9c355a578a5b506fc84ea7355",
+      "sources": [
+        {
+          "file": "CPIC3.DAX",
+          "file_sha256": "8a6e976bcc69ab4099ae5c990f6b2926c9a915f9d58b2545b170d0e6cc4da395",
+          "block": 44,
+          "record_index": 43,
+          "entry_offset": 389,
+          "entry_bytes": "2ca940000031011c01",
+          "offset": 16951,
+          "packed_size": 284,
+          "decoded_size": 305,
+          "decoded_sha256": "c8e3850e108a7321dfff177931af973bbf1f1798340125d7331cdd13e3abb1f1",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b08",
+      "runtime_evidence": "unobserved"
+    }
+  ]
+}

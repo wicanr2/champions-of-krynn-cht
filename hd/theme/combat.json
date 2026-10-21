@@ -1,0 +1,2136 @@
+{
+  "version": 1,
+  "scale": 3,
+  "kind": "combat-terrain",
+  "grid": [
+    8,
+    8,
+    7,
+    7,
+    24
+  ],
+  "background_index": 8,
+  "request_manifest_sha256": "60b01091de2dd7311a52124a8da21d4656afc7b1877058678a1bf9320a2f243b",
+  "validation_sha256": "32ef069cc7d67ba2872fda1b22896b207e9647200146de57fa7d6025f02a1fe0",
+  "visual_review_sha256": "58f2e429709c2c027d9b786be6a1d8fde81d32eec145980ee5e68c9098ff14a2",
+  "items": [
+    {
+      "key": "dungcom-001-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-00.png",
+      "png_sha256": "2668f2dabd5dc5f713cf95b50f42708eb920a353de519206ad5606863e27b51c",
+      "indexed": "dungcom-001-00-00.idx",
+      "indexed_sha256": "c8908b4c4ca8983738245d1c7eec1aaf71491818e399a935aad7fbbf4c3f4f97",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-01",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-01.png",
+      "png_sha256": "20489ed47f1c35153c67811dca57af9a7ec64d34a7404d75217b741038c12f4b",
+      "indexed": "dungcom-001-00-01.idx",
+      "indexed_sha256": "3ccebafea5a22121f4e5bd96604b5e566bfc15034d8f9b1da8728940e1297338",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 1,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-02",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-02.png",
+      "png_sha256": "a53fc8dc2fd3001f68e1708e3548dc2cf617d5e572f8600373acb85c1c529653",
+      "indexed": "dungcom-001-00-02.idx",
+      "indexed_sha256": "26ebfb6a8fe54eb6a74df65d1feb2630c62c5821e17ed91388b610e355a3ffe7",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 2,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-03",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-03.png",
+      "png_sha256": "1e157ae4c6c1dbd105f1f38e998ee281d91262eb81a420a44cb2ab1f2059717e",
+      "indexed": "dungcom-001-00-03.idx",
+      "indexed_sha256": "98caac14e05af0715453bc1b21866985d535ce8a8b08cb9b596c932dc8355c8a",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 3,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-04",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-04.png",
+      "png_sha256": "f3759d01e22c69abda13bc97cca4ef1e4d66a62f981489d36b0cfc6bd99205a9",
+      "indexed": "dungcom-001-00-04.idx",
+      "indexed_sha256": "7889952d3935744c7dcde4332fae2dabd1f9137757c7d9b2fb56bbda66b3bd17",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 4,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-05",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-05.png",
+      "png_sha256": "1204c779b6a50dfdc80fed706c5579c5f3d7ae9db2d0e339fa80d7e00c8aa992",
+      "indexed": "dungcom-001-00-05.idx",
+      "indexed_sha256": "0abd90a1832d072fe3fa701bdb0e15c9430243586b24726a1f1acb934422b239",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 5,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-06",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-06.png",
+      "png_sha256": "1ccdadd1c464a947b8e720de566c9a9855d9de965398e1bf132c53318e825bdc",
+      "indexed": "dungcom-001-00-06.idx",
+      "indexed_sha256": "09a68351475ee31a97abd77689c5810bbbb6c71e950c57882d4c41fef8804cb1",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 6,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-07",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-07.png",
+      "png_sha256": "97eec5260162203d67fafc56490dd7c26266a426f13d695152708c7794287ee1",
+      "indexed": "dungcom-001-00-07.idx",
+      "indexed_sha256": "be2197316bbb9c81f8ce856eb2633569ba75a5dd2b1ba0e98b3c05c413d718bd",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 7,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-08",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-08.png",
+      "png_sha256": "fde7048ac15f69010fff0a1e0e1701d445ffb20eebd9ae724eb93040ff5193e1",
+      "indexed": "dungcom-001-00-08.idx",
+      "indexed_sha256": "e05d92e12f8536934e22cd0660df281e6563c7db086c7a32dcd8c26a86e9fc2e",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 8,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-09",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-09.png",
+      "png_sha256": "bbb8e9de1f4d9cbf603b2b3e8ca1dc8817f19f345ab47b297f718b29a83be0d8",
+      "indexed": "dungcom-001-00-09.idx",
+      "indexed_sha256": "717dddd04030501722ca0e58a90edb855a72d76caf4a7b6a89dd4a4965338975",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 9,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-10",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-10.png",
+      "png_sha256": "cf5897945f88d1a340b20d189edceef09b5cb50832a93c7d23080e7b8554def9",
+      "indexed": "dungcom-001-00-10.idx",
+      "indexed_sha256": "10bf164e1385467578ba4cae3c7afa87cc006faf17ba29e6cfc94e9298edf03b",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 10,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-11",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-11.png",
+      "png_sha256": "8931e21767a927cd8c46cfcfa502635a17816e20e1bc3fa058138e2450e18211",
+      "indexed": "dungcom-001-00-11.idx",
+      "indexed_sha256": "2ae41a7d34de778e84d2e7194e467c5ad329c2c27228f7754ecac9ab053e4a61",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 11,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-12",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-12.png",
+      "png_sha256": "a218263c4ca0a5d950456b1f5b1e1f3cee0adf8797dd968e06d66e0ac183e82a",
+      "indexed": "dungcom-001-00-12.idx",
+      "indexed_sha256": "bc1f2bc0faa288d56a7dc98807072a3f7b0b13d1431365668ac934918cd767ef",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 12,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-13",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-13.png",
+      "png_sha256": "f1c221604124e47f5a88ba9c44e334ae44656948710a4d45fc7db31e13454efd",
+      "indexed": "dungcom-001-00-13.idx",
+      "indexed_sha256": "f4a400b5f8b4b5f066acbd6278195673325325203a70a89f50c5d2968aecaea2",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 13,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-14",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-14.png",
+      "png_sha256": "fba2e35985027bf0e9142adcb7bd4fa34cb0380555c6509487a5b5aa492aad58",
+      "indexed": "dungcom-001-00-14.idx",
+      "indexed_sha256": "0240a08fd21a78f487ede639766c71ad767983023b986366b380004289feafd1",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 14,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-15",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-15.png",
+      "png_sha256": "dc48052340456d897ef1d45532684dad076cee00e0f858491683b4599ac96370",
+      "indexed": "dungcom-001-00-15.idx",
+      "indexed_sha256": "9f385f1bc3b3981d131cbac0500217e51c4c7ef6c481ad1326f355bfd85078d2",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 15,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-16",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-16.png",
+      "png_sha256": "a65fb8eba05dcee5053870fb0af6e81ec00e15883f76559d3bea2c715516a998",
+      "indexed": "dungcom-001-00-16.idx",
+      "indexed_sha256": "ebc393874f7ea76c992f873830413d57ac0aa3993f776fbbe79ffc45b7392cef",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 16,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-17",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-17.png",
+      "png_sha256": "7fb8033abeb3e7cd2cefb77e6b7c03c07df47f251cce863448ab4fcdc4023fa0",
+      "indexed": "dungcom-001-00-17.idx",
+      "indexed_sha256": "297e6d91caadeae18e8ecb48af311a7dbb0e476b45059f5d6f2433d1edf24fd6",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 17,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-18",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-18.png",
+      "png_sha256": "4a4fa25b2b41dfb8cfe3f114ee1daa7f93fd10d314a20d7c1b97c17c4a8e22bc",
+      "indexed": "dungcom-001-00-18.idx",
+      "indexed_sha256": "d783aa02ad557cb2af40e528a5cce7567c18bdf7dd733a6c0dd4c753ab02a1a8",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 18,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-19",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-19.png",
+      "png_sha256": "201bf2fcadf2160c5d14b0da1c79c7ae780365028e37d27fccb71519e76720bd",
+      "indexed": "dungcom-001-00-19.idx",
+      "indexed_sha256": "e38b214e94902a06f08ba118a5f5091fc3510505b9b38b47abb051c4970ee2d9",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 19,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-20",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-20.png",
+      "png_sha256": "3d926c1d702e3a33f9cde9c39dadbbb1b94c02c844b3c3731e7e44ec0404b164",
+      "indexed": "dungcom-001-00-20.idx",
+      "indexed_sha256": "50e5bd655c1351403f32fac7060d1c91f8c5e394e3fc7a054d5827b7231c7c20",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 20,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-21",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-21.png",
+      "png_sha256": "2ebaf7ecc6270d020eb90ef82fab88383d48e7eda5f4fbe9bfbd2a26f2fb2d6b",
+      "indexed": "dungcom-001-00-21.idx",
+      "indexed_sha256": "bae26f4b949f84a9ab4906b19bfa36843da168e59754217b31a01ebf041b9079",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 21,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-22",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-22.png",
+      "png_sha256": "0f0d5b7fbdc4f3bede1616e11456d48ac7c9512cf0722b26a6373cb7eb941cb7",
+      "indexed": "dungcom-001-00-22.idx",
+      "indexed_sha256": "fbdf93999e5fdc8d5d8b73b72739f562b4a9f63d75691de03fb57c8545fe98ad",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 22,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 22,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 26,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 27,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 28,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "dungcom-001-00-23",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-23.png",
+      "png_sha256": "c785f3ad714dbde1f53234a8271903ad5c89ef6b38940b24cc3162cc0e38dc57",
+      "indexed": "dungcom-001-00-23.idx",
+      "indexed_sha256": "ffc7c9db9e13c8c76bd32e600ebc2337c835afe2f4d880e97920c02ab6a48e00",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 23,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "dungcom-001-00-24",
+      "size": [
+        24,
+        24
+      ],
+      "png": "dungcom-001-00-24.png",
+      "png_sha256": "d77543ad3f087cdadbfd4ee7222c2545ed51a506ea46f1c871a5f00351e3ddd3",
+      "indexed": "dungcom-001-00-24.idx",
+      "indexed_sha256": "ebf7dbdd3059461954a82b22b7b8d9f5b1bd03d0906d56ff40d2bfc69f79ee51",
+      "sources": [
+        {
+          "file": "DUNGCOM.DAX",
+          "file_sha256": "827176e941f24176f1907bde40a81928cb4c2da66231ca6b07c72b0b03a0bf2a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000311c9b15",
+          "offset": 11,
+          "packed_size": 5531,
+          "decoded_size": 7217,
+          "decoded_sha256": "6742ae49785b11f62adfc3a8c5347ef2b29b3015f2da51fe04548939c7f0c6a5",
+          "frame": 0,
+          "item": 24,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-00.png",
+      "png_sha256": "83e777bf0aa52914e9919de6256f7501feb0e641466f79929978c0457007d56b",
+      "indexed": "wildcom-001-00-00.idx",
+      "indexed_sha256": "fc0b73e3f672222ea1bcc4d792eb717c7f773afdadf6e2c60a3883d14051ded4",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-01",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-01.png",
+      "png_sha256": "c260c2700bd74226dde5544bf112cf6c6632cc9dae0799aff0b9b28d60734bb4",
+      "indexed": "wildcom-001-00-01.idx",
+      "indexed_sha256": "16b66d60c0beacfcf946f3341adf67aa579d60d3c08a4507d0a9932f069f7078",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 1,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-02",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-02.png",
+      "png_sha256": "9b22904bff154307268ed881c032762e2c4d30763b53c230ef03eadd4d0d62bb",
+      "indexed": "wildcom-001-00-02.idx",
+      "indexed_sha256": "07e97b96e173df313fe5bf74b151edd037651900f969c793618882a8860c0109",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 2,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-03",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-03.png",
+      "png_sha256": "4b387caffadafcda3eac69523ea8bbe402875d4f54ca427eacec25d7c9d1e2fd",
+      "indexed": "wildcom-001-00-03.idx",
+      "indexed_sha256": "265d0cc63c9f6ad6f8b0d50bdf5b9ee90fc567373a1e3a6b58f8c8eb00cddd12",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 3,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-04",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-04.png",
+      "png_sha256": "273dd85945fdfe2b2b710862754773261f082938edf7f2ee3e276b45dea41325",
+      "indexed": "wildcom-001-00-04.idx",
+      "indexed_sha256": "b93d3910f62f74386a23f3a2fc8cb5ba93ef7dc6102e82f763a7c9159682e355",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 4,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-05",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-05.png",
+      "png_sha256": "74da9df65de082183ed3adc680ef3b04deaedef42b9141c5218e027600bd53b0",
+      "indexed": "wildcom-001-00-05.idx",
+      "indexed_sha256": "af2c5f8ebbbc990e00781b42d15390911985f7c23cddcd4eff0fcc733c18d20e",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 5,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-06",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-06.png",
+      "png_sha256": "d07b8ce39146cc9266b4c8d5c730996329699a0ad2da58bb4f6b2350c99172d0",
+      "indexed": "wildcom-001-00-06.idx",
+      "indexed_sha256": "3f319bc8edfef2e6df6ea620757789962904a8180b3cfc39e3bdfa3859113e9e",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 6,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-07",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-07.png",
+      "png_sha256": "e957bc1c68db463e5775eb46d4e779d09ab2da3cc5881589b54326b8ae50853f",
+      "indexed": "wildcom-001-00-07.idx",
+      "indexed_sha256": "5dc205f8f1ec263396f337ba9db9c1923572bcb8667a98004d448d4305d8cfe5",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 7,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-08",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-08.png",
+      "png_sha256": "f7f3cbc757ad78ca9f71f59bf05600af11abb06418ee4eb2ec660667a845be11",
+      "indexed": "wildcom-001-00-08.idx",
+      "indexed_sha256": "5bebba718c504d0d9ac2cff68a32bb33be14d12ef4f3f71854278e87c6b4705e",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 8,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-09",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-09.png",
+      "png_sha256": "0a6736f47fcdbdb9fb94c94b82850dbdb45b10f40591ff185b51fa7af5f60dc9",
+      "indexed": "wildcom-001-00-09.idx",
+      "indexed_sha256": "264d0bf9f0e01cd6b50ff9d049740857119bb7298d48f422628ff00e578f62ed",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 9,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-10",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-10.png",
+      "png_sha256": "390f069bae2e4202eaffe60f57d0d07f04db69a65cb71964af0c441ad4d94c49",
+      "indexed": "wildcom-001-00-10.idx",
+      "indexed_sha256": "780c3dd4bd7199599f7ccc6aed65d9d4aadf0f3f827ef0e4b8421f42222f5eb0",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 10,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-11",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-11.png",
+      "png_sha256": "4daa5754c768e7a6fe9b7c046c1a98a4b9b5945279ea8dd922d64c68e7df0826",
+      "indexed": "wildcom-001-00-11.idx",
+      "indexed_sha256": "0f84a4f1cc04a4ed43a20e2eef24e706c83375f0d12ab2ef38f117c5f2d2720a",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 11,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-12",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-12.png",
+      "png_sha256": "ffd6bb8e6873a5ddd588481a695331e969071612cfeac70c8f89e41224fa90a6",
+      "indexed": "wildcom-001-00-12.idx",
+      "indexed_sha256": "e1cc9ddca93ecb529da5bdbdbe41b890e64e0a9c3b22ac94c23156add133363a",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 12,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-13",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-13.png",
+      "png_sha256": "13552ab5a7f97d9a3fc8aec31caff8b9aa3ca19c92673bf747268213ca5af369",
+      "indexed": "wildcom-001-00-13.idx",
+      "indexed_sha256": "1510ad92e8dee83225528b43ec813891d78604054c6923d1994df94181d77d02",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 13,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-14",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-14.png",
+      "png_sha256": "1bfa97af5e43705c1ca19ed9a6d0b408715adb7119aaacca06a19c2c55902677",
+      "indexed": "wildcom-001-00-14.idx",
+      "indexed_sha256": "0946459aac0edd843fc03e6b4606ce4c8662fa04d273f78db09a50bdc2cd2720",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 14,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-15",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-15.png",
+      "png_sha256": "f9613ce4a18fc10ea98b2e63ccb66b716aa887fd293f8993edbc7b890c44a1f2",
+      "indexed": "wildcom-001-00-15.idx",
+      "indexed_sha256": "a5e37e6aee1c28b6ec3359c799047f6c34e56aeb23a392a8995d960f2e197998",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 15,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-16",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-16.png",
+      "png_sha256": "605427a2dc1c663d442a40c0ef85ef27737c02f37891a0c5c6c7cce4639cdbc6",
+      "indexed": "wildcom-001-00-16.idx",
+      "indexed_sha256": "12049680bb4d5b16a5160bbb1e58b9fcb204854e7ae7df871eea1739502dc393",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 16,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-17",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-17.png",
+      "png_sha256": "1292aed3b553560c177171446ac5af65c4021ce9c57f49fe77b3fec0a67e10e3",
+      "indexed": "wildcom-001-00-17.idx",
+      "indexed_sha256": "e77d3f9dbcd0ee01583df6383ec2a4ffafef9b4b3e7638f9e820d3a381c89ce6",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 17,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-18",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-18.png",
+      "png_sha256": "c271869557638bae78e2843b2b74938a2f63931bd59c835cc4df480c59bc84a4",
+      "indexed": "wildcom-001-00-18.idx",
+      "indexed_sha256": "e818f4ddd7a85cc2091da64c4a87080f9fbfba703a6ffa671d97b57ea547743f",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 18,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-19",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-19.png",
+      "png_sha256": "f3a1c539db4b6e8fe6ae834c2ee4d01b4b5aeb7cf6e6d4d4976676857b42c4b5",
+      "indexed": "wildcom-001-00-19.idx",
+      "indexed_sha256": "cb2b34126892bc9b3156eb2a72ade6cf9807802c8ef0dbf1f0ac244e10a2a94e",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 19,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-20",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-20.png",
+      "png_sha256": "128f695e403c05eeb6651c5895a6064a54714ce265d8ff44068548cd574a1fbe",
+      "indexed": "wildcom-001-00-20.idx",
+      "indexed_sha256": "a6567b99fc944592a4a24db3adff2e1cd0c388b2cf87d165e7136e7f2a6ee527",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 20,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-21",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-21.png",
+      "png_sha256": "3f1f9e2b7e5319a2a26b965d1c900f2400fef63e8f98c0966daddb4851fb0570",
+      "indexed": "wildcom-001-00-21.idx",
+      "indexed_sha256": "611fba182993f3045dce7262cd7f7eecb529530fe976311b2579340993144089",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 21,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-23",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-23.png",
+      "png_sha256": "abd27d86b879d289f46a984fef548fc6b72cc7e87f409fc3185e855bff824284",
+      "indexed": "wildcom-001-00-23.idx",
+      "indexed_sha256": "a676b60ded22c4a3555d103a8ed83f3ed57e9b6c20b4a8a747f8705ad501f98a",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 23,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-24",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-24.png",
+      "png_sha256": "a26c7051a7df50b0bd09d662919307e6e99771074290b9759a778e6fa47ca47f",
+      "indexed": "wildcom-001-00-24.idx",
+      "indexed_sha256": "fe6617eaf64661566c95fb04f9706e6f90a208c00190fce8bdcc9d6df9719298",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 24,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-25",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-25.png",
+      "png_sha256": "7e7800eff02c32b0a726f36d23669043b49a2b8d9163f603f2c50cf0ae7973e0",
+      "indexed": "wildcom-001-00-25.idx",
+      "indexed_sha256": "a4875530fe7f43c11e7b6becd3b1d2b2f9f00892dc2965b8ec2a982e00e2e528",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 25,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "observed"
+    },
+    {
+      "key": "wildcom-001-00-29",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-29.png",
+      "png_sha256": "d96c83540ea23107b9944e4546bc9676ca482661ba7cc99a2b63217220e6f05f",
+      "indexed": "wildcom-001-00-29.idx",
+      "indexed_sha256": "5e36fcb1e03ca63256622827825e922ac1658040fbbb7e1fe1429c77e04d2deb",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 29,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-30",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-30.png",
+      "png_sha256": "90bf297813d53003551484522cbe1942ceaad71f5dd49e686aa088652b362d50",
+      "indexed": "wildcom-001-00-30.idx",
+      "indexed_sha256": "9c5a0e9554219796711e4b7ed1660d3661ea042f2db1516b131bd14ab374d757",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 30,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-31",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-31.png",
+      "png_sha256": "749d3d5e999be11c7350263713398091f047958248bfaeea6637fd7393d109ed",
+      "indexed": "wildcom-001-00-31.idx",
+      "indexed_sha256": "d308c6e0df8e9a07b1ffd02720ee0b99d82e1692ebd28808ef39946f27744374",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 31,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-32",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-32.png",
+      "png_sha256": "d8a06bcfd974371d16859516b012a05cf5e9cdfb1eeeedb61e3422922d12e9a0",
+      "indexed": "wildcom-001-00-32.idx",
+      "indexed_sha256": "0a91133ac60615eb1ecf3821b37f01fe98d969d62c037e6b3fe988430fce7a67",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 32,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-33",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-33.png",
+      "png_sha256": "2dafe83cfa56f8691baa9b9b3b3361a8faf23d942f7abd6abfc16bcd66e21daa",
+      "indexed": "wildcom-001-00-33.idx",
+      "indexed_sha256": "d72dd6b2db35dfc45ecb5910cf6b86d5129a90e01ca4290346ba0f3c90c4d052",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 33,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "wildcom-001-00-34",
+      "size": [
+        24,
+        24
+      ],
+      "png": "wildcom-001-00-34.png",
+      "png_sha256": "bec0e5401d4e4a2a0b59c041013e104706cceb097f39d609f54f178ea22de755",
+      "indexed": "wildcom-001-00-34.idx",
+      "indexed_sha256": "e697245a97e325cd698f190a4c731e8db944695354e2a156df2a31565485c2f4",
+      "sources": [
+        {
+          "file": "WILDCOM.DAX",
+          "file_sha256": "00b204d63568ac0cd77c7ad64195fa1c0f682820490de5ac905f4657f30095c5",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000071274b15",
+          "offset": 11,
+          "packed_size": 5451,
+          "decoded_size": 10097,
+          "decoded_sha256": "902f55de81952405759529f84e6b26963a20c8e1cdb560cbab7ef393f7f1ac00",
+          "frame": 0,
+          "item": 34,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "randcom-001-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "randcom-001-00-00.png",
+      "png_sha256": "dc9b963e6ba398cc02cd52b05742d7bb2478e24f47ae16e1f54d610218f93d93",
+      "indexed": "randcom-001-00-00.idx",
+      "indexed_sha256": "a41eebecefd0c2f9ac7913299337c0fe456728884eecd5136554a32d3c0a765a",
+      "sources": [
+        {
+          "file": "RANDCOM.DAX",
+          "file_sha256": "78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000d106f403",
+          "offset": 11,
+          "packed_size": 1012,
+          "decoded_size": 1745,
+          "decoded_sha256": "a75fd1cb5d5fc7a75e87eab375c7b4ea8bac42c53de875cc455a11cef7785a4b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "randcom-001-00-01",
+      "size": [
+        24,
+        24
+      ],
+      "png": "randcom-001-00-01.png",
+      "png_sha256": "4d074f10b972602cf202bbc52c8bf97a64305d3bf547ba6b7dcc562934d809ff",
+      "indexed": "randcom-001-00-01.idx",
+      "indexed_sha256": "ad978812d87c912a7b9235c5c8136c942d19140ff1ee383909a7320d155ba003",
+      "sources": [
+        {
+          "file": "RANDCOM.DAX",
+          "file_sha256": "78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000d106f403",
+          "offset": 11,
+          "packed_size": 1012,
+          "decoded_size": 1745,
+          "decoded_sha256": "a75fd1cb5d5fc7a75e87eab375c7b4ea8bac42c53de875cc455a11cef7785a4b",
+          "frame": 0,
+          "item": 1,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "randcom-001-00-02",
+      "size": [
+        24,
+        24
+      ],
+      "png": "randcom-001-00-02.png",
+      "png_sha256": "f566f80b964faf2b0d0e47096ce99db429f592e1caf91407455e42db8fb8e26c",
+      "indexed": "randcom-001-00-02.idx",
+      "indexed_sha256": "783c97c6306f9774c012f0c362cf164cffcd51534cd6d2807e214caa8fd506d8",
+      "sources": [
+        {
+          "file": "RANDCOM.DAX",
+          "file_sha256": "78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000d106f403",
+          "offset": 11,
+          "packed_size": 1012,
+          "decoded_size": 1745,
+          "decoded_sha256": "a75fd1cb5d5fc7a75e87eab375c7b4ea8bac42c53de875cc455a11cef7785a4b",
+          "frame": 0,
+          "item": 2,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "randcom-001-00-03",
+      "size": [
+        24,
+        24
+      ],
+      "png": "randcom-001-00-03.png",
+      "png_sha256": "04102336e1927b89c30138990d58c1dd9cbd9e6cfbcf672b39563c50019015db",
+      "indexed": "randcom-001-00-03.idx",
+      "indexed_sha256": "c020d0a3ef9370116f08bca857b9f496a45dd9d18c4e6af58ae196ae74a7b885",
+      "sources": [
+        {
+          "file": "RANDCOM.DAX",
+          "file_sha256": "78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000d106f403",
+          "offset": 11,
+          "packed_size": 1012,
+          "decoded_size": 1745,
+          "decoded_sha256": "a75fd1cb5d5fc7a75e87eab375c7b4ea8bac42c53de875cc455a11cef7785a4b",
+          "frame": 0,
+          "item": 3,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "randcom-001-00-04",
+      "size": [
+        24,
+        24
+      ],
+      "png": "randcom-001-00-04.png",
+      "png_sha256": "9fe919e2a7dc9455be909283e9de32c6a4cd495d844557b76832f59797b042f0",
+      "indexed": "randcom-001-00-04.idx",
+      "indexed_sha256": "41e9284fa8d26483d5d14a306453aa878dcb71e89f417cddd1c099806b4b1971",
+      "sources": [
+        {
+          "file": "RANDCOM.DAX",
+          "file_sha256": "78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000d106f403",
+          "offset": 11,
+          "packed_size": 1012,
+          "decoded_size": 1745,
+          "decoded_sha256": "a75fd1cb5d5fc7a75e87eab375c7b4ea8bac42c53de875cc455a11cef7785a4b",
+          "frame": 0,
+          "item": 4,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "randcom-001-00-05",
+      "size": [
+        24,
+        24
+      ],
+      "png": "randcom-001-00-05.png",
+      "png_sha256": "a80ebc64a5d382cb9f9dfbae0db5e497fa53b3df59ed8a63f2e4b7ad225cb3eb",
+      "indexed": "randcom-001-00-05.idx",
+      "indexed_sha256": "de5da7e892b12fe3114f00117a1f268bb537dedb4300392d2d004a9f140e16df",
+      "sources": [
+        {
+          "file": "RANDCOM.DAX",
+          "file_sha256": "78e5daab63d6880e8093e4bd25b50768aac81e7f004f783947f0205a0e69e925",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000d106f403",
+          "offset": 11,
+          "packed_size": 1012,
+          "decoded_size": 1745,
+          "decoded_sha256": "a75fd1cb5d5fc7a75e87eab375c7b4ea8bac42c53de875cc455a11cef7785a4b",
+          "frame": 0,
+          "item": 5,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b07",
+      "runtime_evidence": "unobserved"
+    }
+  ]
+}

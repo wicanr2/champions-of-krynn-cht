@@ -1,0 +1,131 @@
+key	translation	note
+ui.67abe0afb7d7	부위 첫째색 둘째색 크기 나감	新詞：1st-color=첫째색, 2nd-color=둘째색
+ui.ca4d5dab9791	머리 무기 나감	
+ui.f8e9641e3a5a	무기 몸통 xxxx 방패 팔 다리 나감	xxxx는 원문 그대로 유지
+ui.6bed4a4b0f2d	유지 나감	
+ui.3a3bf7a09be2	다음 이전 유지 나감	
+ui.997c544f1be0	특수 주문	
+ui.183cb292f370	1레벨	
+ui.fee1e0c181cf	2레벨	
+ui.228265bc1e9e	3레벨	
+ui.54a2eee8a8af	4레벨	
+ui.ac1f2683d765	5레벨	
+ui.85b9417a7c41	6레벨	
+ui.12577141602b	7레벨	
+ui.38d99bc52505	8레벨	
+ui.dfa14d065fe1	9레벨	
+ui.356e7e8add97	클레릭	
+ui.274814f1a96f	드루이드	
+ui.fe5b48644212	파이터	
+ui.a7d973a732d0	팔라딘	
+ui.e6cd637f954b	레인저	
+ui.e181bc015be0	마법사	
+ui.2fd478c88ca0	도적	
+ui.f24b52468bfa	기사	
+ui.f005dc729cc9	클레릭/파이터	
+ui.1dddfa7fc08c	클레릭/파이터/마법사	
+ui.99c4cc7855b7	클레릭/레인저	
+ui.4382d5e51bac	클레릭/마법사	
+ui.65a856807cd8	클레릭/도적	
+ui.995c038a6623	파이터/마법사	
+ui.52b785e40b86	파이터/도적	
+ui.d65cab4bfd56	파이터/마법사/도적	
+ui.6c0bd5eba822	마법사/도적	
+ui.50b0613a9efc	좋아 친구, 넌 누구지?	
+ui.e5320c614271	실바네스티 엘프	
+ui.dbdad44271b9	퀼리네스티 엘프	
+ui.64f4e5d464ae	하프 엘프	
+ui.675f1f81fe21	산 드워프	
+ui.938134818dcb	언덕 드워프	
+ui.a681116d0f70	켄더	
+ui.9ffa865f2bc6	인간	
+ui.3a241d59687b	괴물	
+ui.205c9cf60516	질서 선	
+ui.7ac6561f7ff4	질서 중립	
+ui.7b682d92b448	질서 악	
+ui.7bfdfa1353ed	중립 선	
+ui.6c8e3155e463	중립	
+ui.59e74f11c96a	중립 악	
+ui.53916d1113a3	혼돈 선	
+ui.dfc5d1c129a5	혼돈 중립	
+ui.6d88eb730ffb	혼돈 악	
+ui.dc937b598926	없음	
+ui.16d58af88764	팔라다인	
+ui.66279f5a7114	마지어	
+ui.8168693b9714	키리졸리스	
+ui.793e1cf7b3d2	미샤칼	
+ui.aa4400500190	시리온	
+ui.2138b8ca3a69	레오룩스	
+ui.041ecee8a387	시네어	
+ui.3495e757855a	흰색	新詞：White=흰색 (마법사 로브 색 표시)
+ui.ba19e9c3d5f4	붉은색	新詞：Red=붉은색 (마법사 로브 색 표시)
+ui.c6cfe6e4f129	검은색	新詞：Black=검은색 (마법사 로브 색 표시)
+ui.03f8c1273e3d	남	
+ui.e8cca808ae5a	여	
+ui.a0b43df06f52	은화	
+ui.d35b0efe2128	구리화	新詞：Copper=구리화
+ui.d916515d826c	청동화	
+ui.5a98505ed913	백금화	
+ui.ea9973d1460e	강철화	
+ui.6024329694ab	보석	
+ui.7afde2cf9e6c	장신구	
+ui.16584052fd33	정상	
+ui.d1d632796f8a	활성	
+ui.f4ccae29e1bb	도주 중	
+ui.daf064fe39bd	무의식	
+ui.e07f87e5bf6f	빈사	
+ui.ec9b10a4a79c	사망	
+ui.60f83bf1e1cf	석화	新詞：Stoned=석화
+ui.55f6a88dc025	소멸	
+ui.218e607c02c8	배틀액스	
+ui.c600613067cb	핸드액스	
+ui.72e81feaa8a1	클럽	
+ui.5679daa7c55d	대거	
+ui.5a5c3f75ebce	다트	
+ui.c157cbf647f5	해머	
+ui.3331d5456d2d	자벨린	
+ui.6659c4ca6420	메이스	
+ui.ca949ab43e76	모닝스타	
+ui.19dd0c4eb6b7	밀리터리 픽	
+ui.32f6c2ed53d7	아울 파이크	
+ui.7fbe1537394e	쿼럴	
+ui.e188d7831c07	시미터	
+ui.c71c66ea7e4c	스피어	
+ui.1d992b785bf9	쿼터스태프	
+ui.9760e90581ce	바스타드 소드	
+ui.b59528a9bc9f	브로드소드	
+ui.cab923a670e4	롱소드	
+ui.07467b84a7ed	숏소드	
+ui.e3e1e619a1c8	투핸디드 소드	
+ui.71c095b134e2	트라이던트	
+ui.842c3f9a9151	컴포지트 롱보우	
+ui.b55d3062e7db	컴포지트 숏보우	
+ui.4cf469d6ea54	롱보우	
+ui.bc0f80620ba6	숏보우	
+ui.fa67303aecda	고급	
+ui.90d8d6de638c	라이트 크로스보우	
+ui.892b3e482474	슬링	
+ui.681927e34b77	지팡이	
+ui.05800e70aa10	화살	
+ui.e8e775159a57	가죽	新詞：Leather=가죽 (Leather Armor=가죽 갑옷의 앞부분)
+ui.b3f952e8b678	링	新詞：Ring=링 (갑옷 종류 Ring Mail의 앞부분. 표의 Ring=반지와 구분)
+ui.f102986b39ef	스케일	
+ui.dae0896cbc2c	체인	
+ui.5253705f15ab	밴디드	
+ui.a7cd5d8f8422	판금	新詞：Plate=판금 (Plate Mail=판금 갑옷의 앞부분)
+ui.480d4be7d61f	방패	
+ui.58851b8fac82	클레릭	Cler는 Cleric의 잘린 형태로 판단
+ui.291873e31ccb	두루마리	
+ui.cd9bcf31a14e	마법사 두루마리	
+ui.7e94675ff2de	투구	
+ui.eeebd533ebee	허리띠	
+ui.9fc3eff8f2ea	로브	
+ui.8d77768365dd	망토	
+ui.929433e4be1d	장화	
+ui.07ed6ccf6bf6	메일	
+ui.a592855d0508	갑옷	
+ui.6f7418045e72	보호의	新詞：Of Prot=보호의
+ui.e00b7065984d	브레이서	
+ui.3e7962d21cc5	완드	
+ui.e721e319e5f9	아뮬렛	
+ui.41e4ae984c22	물약	

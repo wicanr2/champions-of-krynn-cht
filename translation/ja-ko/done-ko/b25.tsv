@@ -1,0 +1,54 @@
+key	translation	note
+ui.3e772edeeb89	해독되었다	
+ui.2cef23028b6d	납작하게 짓눌렀다	
+ui.595ba83def48	순간이동했다	
+ui.8575fa9ba811	허겁지겁 달아났다	
+ui.f06c19b93b2c	불꽃 종류:	
+ui.38d9edf514a9	열기 냉기	
+ui.6bdc33eef062	주문을 중단하겠는가?	
+ui.63783b1ec102	예 아니오	
+ui.a47547af2017	둔해졌다	
+ui.ce690cd0c4fa	느려졌다	
+ui.6bb4327fa15a	브레스를 뿜었다!	
+ui.42cbbfc27a4d	눈이 멀었다	
+ui.e800a6dfe581	에너지 화살을 쐈다!	
+ui.58b2b3e0f21f	화염구를 던졌다	
+ui.d26017d8ab4d	독을 내뿜었다	
+ui.34de4e86df99	산을 내뿜었다	
+ui.e272deecde72	냉기	
+ui.c141faa80e43	화염	
+ui.e1f3cf2badbf	내뿜음:	뒤에 화염/냉기 등이 붙는 것을 가정
+ui.8cd68723841c	주문을 시전했다	
+ui.d17044a2f3d3	주문:	
+ui.70b79e8927e9	죽이려는 대상:	
+ui.72839726ec25	기침하기 시작했다	
+ui.431f23d55810	메스꺼움에 숨이 막혀 켁켁거렸다	
+ui.906fe79445af	치료되었다	
+ui.4219be8c1840	피해 입음:	"이름 피해 입음: N점 원인: 화염" 으로 읽히도록 배분
+ui.f5e1d63728c2	점	
+ui.accf5e41d3a8	피해 입음: 1점	
+ui.15834b2c3777	원인: 화염	
+ui.546fc10be49b	원인: 냉기	
+ui.746ea349ca6f	원인: 전기	
+ui.f9137bd3fdae	원인: 산	
+ui.61e52adc2174	원인: 마법	
+ui.fd5da56f78ed	쓰러졌다	
+ui.8e3e8d7a009c	, 빈사 상태가 되었다	
+ui.4b7899783330	영향받지 않았다	
+ui.6023d3cce98d	폭발했다.	
+ui.7f7a297e2c31	예	
+ui.0b05e966e945	아니오	
+ui.dcd1d5223f73	이름	
+ui.d60cd2e0bb8c	AC HP	
+ui.c35ed1964164	히트 포인트	
+ui.472e73d796e2	AC	
+ui.ac08bed00d4d	(무력)	
+ui.9e5d3472e05f	(시전 중)	
+ui.6ac8fcdfb8e4	완전히 회복되었다	
+ui.f8e1a5e2c265	일부 회복되었다	
+ui.0323473424f1	경계 중	
+ui.58f6ffe741db	야영 중	
+ui.c5031dcec9ef	수색 중	
+ui.1116c3efebb0	붕대를 감았다	
+ui.2fa787bb6baf	다음	
+ui.4abb1289fa79	이전	

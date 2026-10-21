@@ -1,0 +1,131 @@
+key	translation	note
+ui.fa4791077ad5	반경 15ft 침묵	
+ui.3dd5d43f43a7	경고: 메모리 부족	
+ui.57cf485824df	메모리 부족$메모리 부족. 프로그램 종료.	
+ui.099d027ca3b5	메모리 부족. 프로그램 종료.	
+ui.073939be1ea4	원작 스토리:	
+ui.70d00aad3b51	Jim Ward	
+ui.d5d56ec05001	Victor Penman,	
+ui.6201111b83a0	및	
+ui.433429f7d12c	Dave Shelley	
+ui.f340e8d20774	게임 제작:	
+ui.173162217929	SSI Special Projects	
+ui.362825bf06b1	프로젝트 총괄:	
+ui.e6aba2bd5a6b	프로그래밍	
+ui.be057371a9ba	Victor Penman	
+ui.83c519b42fab	Russ Brown	
+ui.09b9f8622ac7	Scot Bayless	
+ui.70be2a9d7c9c	그래픽 아트:	
+ui.3581aabee3ca	Tom Wahl	
+ui.65ebeeba7880	조우 설계	
+ui.0dd635c636cd	Fred Butts	
+ui.080cb09b9a95	Mark Johnson	
+ui.8248fe0af52a	Michael Mancuso	
+ui.53a33189ab7f	Cyrus Lum	
+ui.406eec9126ed	Ken Humphries	
+ui.8e8bcedc6f14	Susan Manley	
+ui.c8ed26fc0fb3	플레이테스트:	
+ui.490dd4c44847	Rick White,Don Mc Clure,	
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	
+ui.6ca94c9f8a62	음악:	
+ui.532c7e0084da	음악 드라이버:	
+ui.99b4eba4e920	John Halbleib	
+ui.328b53003a80	Electronic Arts	
+ui.de1e334ce4b4	버튼이나 <Enter>를 눌러 계속.	
+ui.ebc583583e1a	<Enter>를 눌러 계속	
+ui.34695f140781	물품 파일을 찾을 수 없다	
+ui.bec2538a4c67	전투 대기 도주 협상	
+ui.466738c48568	전투 대기 도주 전진	
+ui.002c9650368c	양측 모두 대기한다.	
+ui.cbefa25e9f4e	괴물들이 도주했다.	
+ui.543df38bbe50	오만 교활 친절 공손 욕설	
+ui.08fc07e88648	일행이 전멸했다!	
+ui.30c0783e66a7	일행이 전멸했다! <Enter>를 눌러 계속	
+ui.254153c4b85f	<Enter>를 눌러 계속	
+ui.8f4a0aaa62c4	주문	
+ui.e26c6f94d702	축하한다, 일행이 경험치를 얻었다!	
+ui.0ae630e4f1dd	축하한다,	이름 앞에 오는 조각. 뒤 조각(경험치를 얻었다!)과 이어 읽힘
+ui.ebb4cacf2286	경험치를 얻었다!	
+ui.3cf3aa82aeb1	단어 번호 #	번호 앞뒤 조각. 한국어 어순 때문에 "단어 번호 #N 해당 일지 #N (일지, 쪽 N" 형태로 이어 읽히게 함
+ui.cd29a99041b6	해당 일지 #	
+ui.16ff676853e2	(일지, 쪽	
+ui.94c9f9f80b24	해당 주점 소문 #	
+ui.1d174814bac2	입력:	
+ui.f99222122177	그래도 완치 시전:	
+ui.08ac4a5f6ce6	치료 비용:	앞 조각(이름)과 이어 읽히는 것을 가정: "이름 치료 비용: N 강철화."
+ui.2b770e03b085	강철화.	
+ui.fdca9980f11f	치료비 지불	
+ui.19f27030a2e1	돈이 부족하다.	
+ui.c9d58272a014	치료되었다.	
+ui.ad96bf258370	실명 상태가 아니다.	
+ui.1537c7fd9f65	질병에 걸리지 않았다.	
+ui.0e3dfc592d73	소생시킬 수 없다	
+ui.4c2c1aae96f7	죽지 않았다.	
+ui.e514a637da16	중독되지 않았다.	
+ui.2f4c6d25053a	저주받지 않았다.	
+ui.26400797a39c	석화되지 않았다.	
+ui.8be704dd2de1	, 무엇을 도와드릴까요?	
+ui.b21d60d3c86e	회복 나감	
+ui.351beff47541	회복 보기 줍기 모음 분배 감정 나감	
+ui.eb0b6be42cae	보기 줍기 모음 분배 감정 나감	
+ui.3dd4009a9b56	회복 보기 모음 감정 나감	
+ui.b9ec2686588d	예 아니오	
+ui.ca82600f30f3	떠나려는데 사제가 말했다. "실례지만 돈을 두고 가셨습니다."	
+ui.7558c8476131	돌아가서 돈을 되찾겠는가?	
+ui.1a4b1e57ec5a	일행이 도주했다.	
+ui.488eda7de4cb	싸움에서 패배했다.	
+ui.3cf31df67fb7	결투에서 승리했다.	
+ui.bc4ac4b84ba5	일행이 승리했다.	
+ui.99ef77603df2	일행이 출금했다. 은행이	
+ui.3221280f22c4	소액의 수수료를 부과했다.	
+ui.e1b7002772b5	소액의 수수료를 부과했다.	
+ui.ee223764db80	일행이 보물을 발견했다!	
+ui.f5fbe5aaf483	결투자가 얻은 경험치:	뒤에 숫자와 "점." 이 이어지는 것을 가정
+ui.366dc8f46f54	각 캐릭터가 얻은 경험치:	
+ui.7313f57bf6d1	점.	
+ui.fabb9e2392ab	점. <Enter>를 눌러 계속	
+ui.eadd361adaa7	물품:	보물 목록의 Items는 소지품(캐릭터 메뉴)과 구분해 물품으로 씀
+ui.8b862ba45dce	줍기	
+ui.e52a3fb722bd	줍기:	
+ui.a1e592fecee5	금전 물품 나감	
+ui.bce9e63c661b	보기 모음 나감	
+ui.f65f10298556	나감	
+ui.93f97649cdeb	탐지 나감	
+ui.9305d3a8e566	보기 줍기 모음 분배	
+ui.1a794bb3020f	보기 줍기 모음	
+ui.5a7dff7cd74c	아직 보물이 남아 있다.	
+ui.bd89d0b81174	돌아가서 보물을 가져오겠는가?	
+ui.1d1c7913869b	몰래 챙겨 숨겼다:	"이름 몰래 챙겨 숨겼다: 그의 몫." 으로 읽히도록 조각 배분. 조사 문제로 한국어 어순을 못 맞춤
+ui.73c9c98668a3	그의	
+ui.1a82b7ad5db1	몫.	
+ui.354cbfc81426	그녀의	
+ui.b11529a1854f	일행이 전멸하자 괴물들이 환호했다.	
+ui.64e3cb0e4960	구입	
+ui.64b9370e4ffa	무게 초과	
+ui.74bc11c5490c	구입:	
+ui.1ed8f78de4b4	한 개 구입:	
+ui.cdbf2aad986c	돈이 부족하다.	
+ui.94390fc2be66	구입 보기 줍기 모음 분배 감정 나감	
+ui.16d4625e4e14	구입 보기 모음 감정 나감	
+ui.528e6cd82712	떠나려는데 상점 주인이 말했다. "실례지만 돈을 두고 가셨습니다."	
+ui.f0e791ada740	돌아가서 돈을 가져오겠는가?	
+ui.e920b38b45dd	불러오는 중... 잠시 대기	
+ui.2a78025de6aa	선택	
+ui.80a02596ee54	죽었다.	
+ui.354888db7e7a	에게 명중!	이름 바로 뒤에 붙는 조사 "에게"만 사용(받침 무관). 이어 "점의 피해."
+ui.72403cdf00a1	점의 피해.	
+ui.93515f638926	점의 피해. <Enter>를 눌러 계속	
+ui.f6410fb009d4	마법 켜짐	
+ui.629ffe46b6a0	마법 꺼짐	
+ui.46e50b3cdce8	소용없다.	
+ui.c848bff204f4	이동	
+ui.00813b28c9bc	보기 조준	
+ui.bb33dbdb2f21	사용	
+ui.d61160238799	시전	
+ui.38ff7074c72d	퇴치	
+ui.104b7e4ac60a	고함	
+ui.11a6767d5674	완료	
+ui.50e28de96686	동료가 빈사 상태다.	
+ui.73967b10f229	전투 계속:	
+ui.5af65b05298f	이동/공격, 남은 이동력 =	

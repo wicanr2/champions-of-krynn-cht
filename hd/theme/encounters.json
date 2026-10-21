@@ -1,0 +1,3216 @@
+{
+  "version": 1,
+  "scale": 3,
+  "kind": "encounter-sprites",
+  "grid": [
+    8,
+    8,
+    7,
+    7,
+    24
+  ],
+  "background_index": 8,
+  "request_manifest_sha256": "968d6ed8fc173954a40ddeb8c503ebdbc51c66f39031876118e3545a30271f1a",
+  "validation_sha256": "618fee85bf4f6b1b882d65d2172e76328cd20a966ace1ee001e03907a064a7b8",
+  "visual_review_sha256": "b8f80fd0483adc66a9e04c0d9362c1e12210368bc44e36712a9caaddbf07eeaf",
+  "items": [
+    {
+      "key": "sprit1-001-00-00",
+      "size": [
+        56,
+        80
+      ],
+      "png": "sprit1-001-00-00.png",
+      "png_sha256": "a0c866bb29c594d7ef8bed29ff848af8703b1d093fba0ca7def2e06df5f0c86a",
+      "indexed": "sprit1-001-00-00.raw.idx",
+      "indexed_sha256": "343b7872842fcb81507ce1e39ef73812dfc7db20f08a2a95b9db5fa7dec02497",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000bc0f6f06",
+          "offset": 47,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000bc0f6f06",
+          "offset": 164,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 14,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "0e86220000bc0f6f06",
+          "offset": 9002,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        40,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-001-01-00",
+      "size": [
+        32,
+        65
+      ],
+      "png": "sprit1-001-01-00.png",
+      "png_sha256": "4a3ac3061564f1b4a8eee1611aa00e5c377181f1d0023553aab90598f5f7805b",
+      "indexed": "sprit1-001-01-00.raw.idx",
+      "indexed_sha256": "925168f6b57ed962658d554db890c9aff861e9b9257137d4d93f73ab28a1f2cd",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000bc0f6f06",
+          "offset": 47,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000bc0f6f06",
+          "offset": 164,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 14,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "0e86220000bc0f6f06",
+          "offset": 9002,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-001-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit1-001-02-00.png",
+      "png_sha256": "eb7a6d4a7b465f166ef12c6b155702d45d8a268ab7a4f8a7bc5bf81f6b3a1ede",
+      "indexed": "sprit1-001-02-00.raw.idx",
+      "indexed_sha256": "6079228bc926db807c790893a51af547f35b6179b9fba0bd70ab97ffb09a449c",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000bc0f6f06",
+          "offset": 47,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000bc0f6f06",
+          "offset": 164,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 14,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "0e86220000bc0f6f06",
+          "offset": 9002,
+          "packed_size": 1647,
+          "decoded_size": 4028,
+          "decoded_sha256": "1a34d48d4dc4c23c6bb88e19c289dcb0dea928c8bbf00586baa4254c6cbdd18e",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-008-00-00",
+      "size": [
+        40,
+        80
+      ],
+      "png": "sprit1-008-00-00.png",
+      "png_sha256": "e878a99953f60bce8567ae7e4f3d55ea656eca3f5b41e3a02fd0e47d3f0444f4",
+      "indexed": "sprit1-008-00-00.raw.idx",
+      "indexed_sha256": "3a74fd00df88bd1c3df8ab4614ad521ff71b70bc086d29aad8273973965de882",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 8,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "086f060000d80bfd03",
+          "offset": 1694,
+          "packed_size": 1021,
+          "decoded_size": 3032,
+          "decoded_sha256": "36a2b8e71daac22a8b2ecf5b5c54694072933f316233b91681d4001fc1aeb7c1",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 8,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "08891e0000d80bfd03",
+          "offset": 7981,
+          "packed_size": 1021,
+          "decoded_size": 3032,
+          "decoded_sha256": "36a2b8e71daac22a8b2ecf5b5c54694072933f316233b91681d4001fc1aeb7c1",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-008-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit1-008-01-00.png",
+      "png_sha256": "43b2eea4d6e5752fb217ad50b63aec5eb8cad3c2200f833d9a60e530d667a2b2",
+      "indexed": "sprit1-008-01-00.raw.idx",
+      "indexed_sha256": "81c0b1dc416e2fdf2f53e5efdf3b443ac005ddeab9a18a0943f2808eccf15309",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 8,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "086f060000d80bfd03",
+          "offset": 1694,
+          "packed_size": 1021,
+          "decoded_size": 3032,
+          "decoded_sha256": "36a2b8e71daac22a8b2ecf5b5c54694072933f316233b91681d4001fc1aeb7c1",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 8,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "08891e0000d80bfd03",
+          "offset": 7981,
+          "packed_size": 1021,
+          "decoded_size": 3032,
+          "decoded_sha256": "36a2b8e71daac22a8b2ecf5b5c54694072933f316233b91681d4001fc1aeb7c1",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-008-02-00",
+      "size": [
+        24,
+        49
+      ],
+      "png": "sprit1-008-02-00.png",
+      "png_sha256": "884156effc53316d596f09984f8118f56ee4e93ed8477c2f7f070bead409ad3e",
+      "indexed": "sprit1-008-02-00.raw.idx",
+      "indexed_sha256": "489093bb8b1e4c24dfe4fd92ab02fa7f021d288ffcb3bb8abd8020bbc8b3ba65",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 8,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "086f060000d80bfd03",
+          "offset": 1694,
+          "packed_size": 1021,
+          "decoded_size": 3032,
+          "decoded_sha256": "36a2b8e71daac22a8b2ecf5b5c54694072933f316233b91681d4001fc1aeb7c1",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 8,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "08891e0000d80bfd03",
+          "offset": 7981,
+          "packed_size": 1021,
+          "decoded_size": 3032,
+          "decoded_sha256": "36a2b8e71daac22a8b2ecf5b5c54694072933f316233b91681d4001fc1aeb7c1",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-012-00-00",
+      "size": [
+        56,
+        80
+      ],
+      "png": "sprit1-012-00-00.png",
+      "png_sha256": "eafc4a142e29b65c0dedd8df4adccccfae3b1a6ac6c9b8220d1cefa0171c6b41",
+      "indexed": "sprit1-012-00-00.raw.idx",
+      "indexed_sha256": "8a0ceea41c6a62348c24282f1d8cecad88bf80ef21672e26ac11e8ea8f4af9b0",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 12,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "0c6c0a0000bc0f8206",
+          "offset": 2715,
+          "packed_size": 1666,
+          "decoded_size": 4028,
+          "decoded_sha256": "c24fbc4257c6f834d9d41f340b317a0f3b6a4964c2edad4f6dde15c79071958d",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        40,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-012-01-00",
+      "size": [
+        32,
+        65
+      ],
+      "png": "sprit1-012-01-00.png",
+      "png_sha256": "561af70311106c5debbbf1eb3469c76d6db8fee9ebdecb85e224610bc4a8690c",
+      "indexed": "sprit1-012-01-00.raw.idx",
+      "indexed_sha256": "5a080d17c2d35189b2bb86d3fcac5dfda31fafd5af0b61a1e26d53728b11945d",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 12,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "0c6c0a0000bc0f8206",
+          "offset": 2715,
+          "packed_size": 1666,
+          "decoded_size": 4028,
+          "decoded_sha256": "c24fbc4257c6f834d9d41f340b317a0f3b6a4964c2edad4f6dde15c79071958d",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-012-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit1-012-02-00.png",
+      "png_sha256": "7026d5f179ecf0cd322068181e4af41db6caa6860956746d3e96af25a6dfd389",
+      "indexed": "sprit1-012-02-00.raw.idx",
+      "indexed_sha256": "d01e42928e6f1ea1acc2bdd12d26bb9334aa065e304193ac62a9391a8f25a946",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 12,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "0c6c0a0000bc0f8206",
+          "offset": 2715,
+          "packed_size": 1666,
+          "decoded_size": 4028,
+          "decoded_sha256": "c24fbc4257c6f834d9d41f340b317a0f3b6a4964c2edad4f6dde15c79071958d",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-030-00-00",
+      "size": [
+        72,
+        80
+      ],
+      "png": "sprit1-030-00-00.png",
+      "png_sha256": "0e2d895efd4de28a4055ecdef36a6c2c68e2a2339bd1d862816a5266b59f1dc0",
+      "indexed": "sprit1-030-00-00.raw.idx",
+      "indexed_sha256": "9627af8f90286fd19e0e88365f816d0e30f931b5488fd57e8dcd211a5c68bcc9",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 30,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "1eee1000004414b80b",
+          "offset": 4381,
+          "packed_size": 3000,
+          "decoded_size": 5188,
+          "decoded_sha256": "cc8505343cc4a7d150a9aeb01e3edb2dcc855c56e55cd7af7c762910da93dcb2",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-030-01-00",
+      "size": [
+        48,
+        65
+      ],
+      "png": "sprit1-030-01-00.png",
+      "png_sha256": "0667ebad126fea5b3d357e4e02eb7ef13f4f4936623fbe011a0fe71681059dd8",
+      "indexed": "sprit1-030-01-00.raw.idx",
+      "indexed_sha256": "e63828351a55ee6ad40ea72f15eb788bbacbac486e84903ac7c87ee645dbef94",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 30,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "1eee1000004414b80b",
+          "offset": 4381,
+          "packed_size": 3000,
+          "decoded_size": 5188,
+          "decoded_sha256": "cc8505343cc4a7d150a9aeb01e3edb2dcc855c56e55cd7af7c762910da93dcb2",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-030-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit1-030-02-00.png",
+      "png_sha256": "7de51aca45ad49ad2c752f82a1f974475f3828eda8c97b119fab888ffdf0ca35",
+      "indexed": "sprit1-030-02-00.raw.idx",
+      "indexed_sha256": "3a3c258ea371fdab7ac62ae2bb006e720481c04376c3ef758889736d8f1bb7e6",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 30,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "1eee1000004414b80b",
+          "offset": 4381,
+          "packed_size": 3000,
+          "decoded_size": 5188,
+          "decoded_sha256": "cc8505343cc4a7d150a9aeb01e3edb2dcc855c56e55cd7af7c762910da93dcb2",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-035-00-00",
+      "size": [
+        48,
+        80
+      ],
+      "png": "sprit1-035-00-00.png",
+      "png_sha256": "930c3eb5db77f36377c67d36a0aee4cb8fb746c2d1cc75cdd112869f2447e40b",
+      "indexed": "sprit1-035-00-00.raw.idx",
+      "indexed_sha256": "a8ae1bd3c78bf0308691afc03f7adc83c3b07da9660796753df6c3971182acee",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 35,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "23a61c00001c0e3305",
+          "offset": 7381,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 35,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "23d43000001c0e3305",
+          "offset": 12664,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 35,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "232f2800001c0e3305",
+          "offset": 10406,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 35,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "23885200001c0e3305",
+          "offset": 21247,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 48,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "30622d00001c0e3305",
+          "offset": 11737,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-035-01-00",
+      "size": [
+        32,
+        65
+      ],
+      "png": "sprit1-035-01-00.png",
+      "png_sha256": "d8392b04ad6ae8d0992b4475d91c217d894d3a9bb5b6214fb576c7c5a559613c",
+      "indexed": "sprit1-035-01-00.raw.idx",
+      "indexed_sha256": "679859e0ab21c7dc04e1cf1a6563054c22c687a8c8778af97cc2c81a951d5d1a",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 35,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "23a61c00001c0e3305",
+          "offset": 7381,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 35,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "23d43000001c0e3305",
+          "offset": 12664,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 35,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "232f2800001c0e3305",
+          "offset": 10406,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 35,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "23885200001c0e3305",
+          "offset": 21247,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 48,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "30622d00001c0e3305",
+          "offset": 11737,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit1-035-02-00",
+      "size": [
+        24,
+        49
+      ],
+      "png": "sprit1-035-02-00.png",
+      "png_sha256": "3152e88ff0f46b2c2d3628ee377073530aa0bbe805d9d2260093ab38d80128c6",
+      "indexed": "sprit1-035-02-00.raw.idx",
+      "indexed_sha256": "4f0b9323e525e9f43e2bfdacd8f026592801cbf113526030feb1fd58aa3a4837",
+      "sources": [
+        {
+          "file": "SPRIT1.DAX",
+          "file_sha256": "9a625c1c78776cd2f733175ea6ceeedf733928b39fa747377eb0ce625fdff115",
+          "block": 35,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "23a61c00001c0e3305",
+          "offset": 7381,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 35,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "23d43000001c0e3305",
+          "offset": 12664,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 35,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "232f2800001c0e3305",
+          "offset": 10406,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 35,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "23885200001c0e3305",
+          "offset": 21247,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 48,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "30622d00001c0e3305",
+          "offset": 11737,
+          "packed_size": 1331,
+          "decoded_size": 3612,
+          "decoded_sha256": "578c2e393570fe4d7344ef3f55ece0c051f599a7c3d97752619293c748b3100a",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-002-00-00",
+      "size": [
+        72,
+        80
+      ],
+      "png": "sprit2-002-00-00.png",
+      "png_sha256": "f5fa1cf48370bad4825a2c4455ff6b3f72cd51176d6abe7ab399995a60197adb",
+      "indexed": "sprit2-002-00-00.raw.idx",
+      "indexed_sha256": "3e5c4641ab3471f2b0e5daed22dabf18c21775579c07877c5e019ee664e924eb",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026f06000044144d0d",
+          "offset": 1811,
+          "packed_size": 3405,
+          "decoded_size": 5188,
+          "decoded_sha256": "84dc93e2ebef08a8e17939f38dd227da273602d7ea94524e5c39feb975d2dee8",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-002-01-00",
+      "size": [
+        48,
+        65
+      ],
+      "png": "sprit2-002-01-00.png",
+      "png_sha256": "27f22d507e1037c0556968b6ead08c7507c207e451a789a7175a922cc0825747",
+      "indexed": "sprit2-002-01-00.raw.idx",
+      "indexed_sha256": "d066e9adac88c4cb260e5f002b9e66e1570ef5fac0575911d3bab19b80179bdc",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026f06000044144d0d",
+          "offset": 1811,
+          "packed_size": 3405,
+          "decoded_size": 5188,
+          "decoded_sha256": "84dc93e2ebef08a8e17939f38dd227da273602d7ea94524e5c39feb975d2dee8",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-002-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-002-02-00.png",
+      "png_sha256": "4c0b5cf212f6ea0fad69be7ebf86d51c3bf961bbc39e8dbdc45e4a97f868c74d",
+      "indexed": "sprit2-002-02-00.raw.idx",
+      "indexed_sha256": "44c61da0eb063751e331dd2824ebcbfb388a304d2b9278b80ea43ac7e2fd28cf",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026f06000044144d0d",
+          "offset": 1811,
+          "packed_size": 3405,
+          "decoded_size": 5188,
+          "decoded_sha256": "84dc93e2ebef08a8e17939f38dd227da273602d7ea94524e5c39feb975d2dee8",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-005-00-00",
+      "size": [
+        64,
+        80
+      ],
+      "png": "sprit2-005-00-00.png",
+      "png_sha256": "015f09ce7bed13aa2fee142b92be0e72a0bd2fa09176d8a6831fe102b734f140",
+      "indexed": "sprit2-005-00-00.raw.idx",
+      "indexed_sha256": "07f0da86ec2c67bfa44818779d6a111a3917bf3f471145ef53fe1d263218277a",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 5,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "05bc1300000012a206",
+          "offset": 5216,
+          "packed_size": 1698,
+          "decoded_size": 4608,
+          "decoded_sha256": "30f0197b0a7c6286ce6e948b545e42dc371bfa03704dfa6869659fff01ac3b94",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-005-01-00",
+      "size": [
+        40,
+        65
+      ],
+      "png": "sprit2-005-01-00.png",
+      "png_sha256": "c9c333d2e1cdb0e8058a9bf2cbc3935787809ad77d6cdcdb6a076fc0fc0ffcb6",
+      "indexed": "sprit2-005-01-00.raw.idx",
+      "indexed_sha256": "12913b8731e96ce43b15cb644b854354cdb4ab8d8d1c5c70b55bc3e94883b958",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 5,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "05bc1300000012a206",
+          "offset": 5216,
+          "packed_size": 1698,
+          "decoded_size": 4608,
+          "decoded_sha256": "30f0197b0a7c6286ce6e948b545e42dc371bfa03704dfa6869659fff01ac3b94",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-005-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-005-02-00.png",
+      "png_sha256": "c8a22678fe06d79e92bcdacab6ed5b5c8275df9818dcb26af83352ec904eb1c6",
+      "indexed": "sprit2-005-02-00.raw.idx",
+      "indexed_sha256": "33d4d76951f37e751db7942e5212c474f9156a5a38fc5b9cf09a97a7f6484c9f",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 5,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "05bc1300000012a206",
+          "offset": 5216,
+          "packed_size": 1698,
+          "decoded_size": 4608,
+          "decoded_sha256": "30f0197b0a7c6286ce6e948b545e42dc371bfa03704dfa6869659fff01ac3b94",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-006-00-00",
+      "size": [
+        40,
+        80
+      ],
+      "png": "sprit2-006-00-00.png",
+      "png_sha256": "8053b098b66386babe88444a3076db5855ae179ceae3d91e9f45295313a3f89f",
+      "indexed": "sprit2-006-00-00.raw.idx",
+      "indexed_sha256": "19dd69c29fbd9f9d3579b0c6fc2e43bf2beb1ac9fdaac5b381846be6e302ab77",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 6,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "065e1a0000d80b2b04",
+          "offset": 6914,
+          "packed_size": 1067,
+          "decoded_size": 3032,
+          "decoded_sha256": "e45e6a045e7740f5f3f09053f97ae2ab01841a714227fc5fd9d7ac2f2d836ba2",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-006-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit2-006-01-00.png",
+      "png_sha256": "b99363ae2bf05729298adc9a6fc610b5e3a4b3204b7a06f066092d7312a4844e",
+      "indexed": "sprit2-006-01-00.raw.idx",
+      "indexed_sha256": "70c37ba148e60f2d5d2f1e7b1cec896cf2808e061ece3ad293ae7490cce844e3",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 6,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "065e1a0000d80b2b04",
+          "offset": 6914,
+          "packed_size": 1067,
+          "decoded_size": 3032,
+          "decoded_sha256": "e45e6a045e7740f5f3f09053f97ae2ab01841a714227fc5fd9d7ac2f2d836ba2",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-006-02-00",
+      "size": [
+        24,
+        49
+      ],
+      "png": "sprit2-006-02-00.png",
+      "png_sha256": "33e403383cf80e4b776f85ffd87f9133c7f296ff299a4348c701be7422cb4fb4",
+      "indexed": "sprit2-006-02-00.raw.idx",
+      "indexed_sha256": "17f1c2eb96bdfc8dffa43b453c28fa20d105ab2efcd474f46afe1782ec31c32e",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 6,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "065e1a0000d80b2b04",
+          "offset": 6914,
+          "packed_size": 1067,
+          "decoded_size": 3032,
+          "decoded_sha256": "e45e6a045e7740f5f3f09053f97ae2ab01841a714227fc5fd9d7ac2f2d836ba2",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-019-00-00",
+      "size": [
+        56,
+        80
+      ],
+      "png": "sprit2-019-00-00.png",
+      "png_sha256": "9b4e391123f12f6f3aca2c86c19b53a58fc19c981f34ea4ebed1491063cc02e3",
+      "indexed": "sprit2-019-00-00.raw.idx",
+      "indexed_sha256": "d9dba06f38684086aa0174c5595018e476f60a3b6f6a07d0c815566efc887234",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 19,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "13f5280000c010df07",
+          "offset": 10649,
+          "packed_size": 2015,
+          "decoded_size": 4288,
+          "decoded_sha256": "7e1299710e06191faaa9697626743daa5747435b35a3a1918dd5887ecacb77d0",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 19,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "13e63d0000c010df07",
+          "offset": 15965,
+          "packed_size": 2015,
+          "decoded_size": 4288,
+          "decoded_sha256": "7e1299710e06191faaa9697626743daa5747435b35a3a1918dd5887ecacb77d0",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        40,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-019-01-00",
+      "size": [
+        40,
+        65
+      ],
+      "png": "sprit2-019-01-00.png",
+      "png_sha256": "73c146a9a78079718402ecb5d8100edd52a30af2690f9f3eff71e52a9b89facb",
+      "indexed": "sprit2-019-01-00.raw.idx",
+      "indexed_sha256": "5533d8122c716f1fe9f6fd0b31f7d6f6962b1a9ef22d9d0d697b458effbdb88f",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 19,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "13f5280000c010df07",
+          "offset": 10649,
+          "packed_size": 2015,
+          "decoded_size": 4288,
+          "decoded_sha256": "7e1299710e06191faaa9697626743daa5747435b35a3a1918dd5887ecacb77d0",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 19,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "13e63d0000c010df07",
+          "offset": 15965,
+          "packed_size": 2015,
+          "decoded_size": 4288,
+          "decoded_sha256": "7e1299710e06191faaa9697626743daa5747435b35a3a1918dd5887ecacb77d0",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-019-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-019-02-00.png",
+      "png_sha256": "a9736bf439a177cc0ae8b287191d12f993448edaf35a03611229ea6f33ff9f1a",
+      "indexed": "sprit2-019-02-00.raw.idx",
+      "indexed_sha256": "eb1a4217233e5ae167fd2fc8b0a3320d0918d94230e0c8c1204546dceb69ae5d",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 19,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "13f5280000c010df07",
+          "offset": 10649,
+          "packed_size": 2015,
+          "decoded_size": 4288,
+          "decoded_sha256": "7e1299710e06191faaa9697626743daa5747435b35a3a1918dd5887ecacb77d0",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 19,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "13e63d0000c010df07",
+          "offset": 15965,
+          "packed_size": 2015,
+          "decoded_size": 4288,
+          "decoded_sha256": "7e1299710e06191faaa9697626743daa5747435b35a3a1918dd5887ecacb77d0",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-048-00-00",
+      "size": [
+        40,
+        80
+      ],
+      "png": "sprit2-048-00-00.png",
+      "png_sha256": "b62063d46cf93a5a68f5c1cd2dbad715073ca7a00b5af23a3f6c7d9d84244d89",
+      "indexed": "sprit2-048-00-00.raw.idx",
+      "indexed_sha256": "219bf639a94ca34bfd9af24f999dd41ab561efcf963b2de00f3133a1bdccaf92",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 48,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "3007360000540b4504",
+          "offset": 13995,
+          "packed_size": 1093,
+          "decoded_size": 2900,
+          "decoded_sha256": "bc4c70d684ee7cb55f4cc0828d1281373b15f634d90fa984b4f0dfaa8c7172ed",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 51,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "334c3a0000540b4504",
+          "offset": 15088,
+          "packed_size": 1093,
+          "decoded_size": 2900,
+          "decoded_sha256": "bc4c70d684ee7cb55f4cc0828d1281373b15f634d90fa984b4f0dfaa8c7172ed",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-048-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit2-048-01-00.png",
+      "png_sha256": "035621b388a5bd1e562232405d432d1495a6050c1976aeebebba12f36e0acc6e",
+      "indexed": "sprit2-048-01-00.raw.idx",
+      "indexed_sha256": "f6a44d625f1299094a043d4268d751458af2db732293b19c76f4b5f3bb70779b",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 48,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "3007360000540b4504",
+          "offset": 13995,
+          "packed_size": 1093,
+          "decoded_size": 2900,
+          "decoded_sha256": "bc4c70d684ee7cb55f4cc0828d1281373b15f634d90fa984b4f0dfaa8c7172ed",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 51,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "334c3a0000540b4504",
+          "offset": 15088,
+          "packed_size": 1093,
+          "decoded_size": 2900,
+          "decoded_sha256": "bc4c70d684ee7cb55f4cc0828d1281373b15f634d90fa984b4f0dfaa8c7172ed",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-048-02-00",
+      "size": [
+        16,
+        57
+      ],
+      "png": "sprit2-048-02-00.png",
+      "png_sha256": "8b20dc23b78915dfcbae7bf00fb8701c4fb683a85045a062f317c56164e1571d",
+      "indexed": "sprit2-048-02-00.raw.idx",
+      "indexed_sha256": "120902d0bbb215cbc62da1fcbec3d6bd03e1676021b4519bd4116362a21e6082",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 48,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "3007360000540b4504",
+          "offset": 13995,
+          "packed_size": 1093,
+          "decoded_size": 2900,
+          "decoded_sha256": "bc4c70d684ee7cb55f4cc0828d1281373b15f634d90fa984b4f0dfaa8c7172ed",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 51,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "334c3a0000540b4504",
+          "offset": 15088,
+          "packed_size": 1093,
+          "decoded_size": 2900,
+          "decoded_sha256": "bc4c70d684ee7cb55f4cc0828d1281373b15f634d90fa984b4f0dfaa8c7172ed",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-004-00-00",
+      "size": [
+        48,
+        80
+      ],
+      "png": "sprit2-004-00-00.png",
+      "png_sha256": "d8623b10c2851ed27d5de0eb3d8cfade5eda7dcd1f2f761f4fcfeb959e10bf80",
+      "indexed": "sprit2-004-00-00.raw.idx",
+      "indexed_sha256": "d605e0ce7ebe9b8e663313a49b55218c9cc0b61b35538b76e70d40dab5835503",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 4,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "04913e0000800f2206",
+          "offset": 16181,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 14,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "0e87500000800f2206",
+          "offset": 20779,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 4,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "04c4370000800f2206",
+          "offset": 14395,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-004-01-00",
+      "size": [
+        40,
+        65
+      ],
+      "png": "sprit2-004-01-00.png",
+      "png_sha256": "9eab8152727931fe5e5c3e99b80062a4e4758cc5ffd82dd76eb465d142529b0f",
+      "indexed": "sprit2-004-01-00.raw.idx",
+      "indexed_sha256": "b9d420a8966d85dce4d801c8bc2584b6d452284a631bb1fb713b965077aa6110",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 4,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "04913e0000800f2206",
+          "offset": 16181,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 14,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "0e87500000800f2206",
+          "offset": 20779,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 4,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "04c4370000800f2206",
+          "offset": 14395,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-004-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-004-02-00.png",
+      "png_sha256": "7d0a7c3db5f7215d517b9e9b25125954937155e801fdbe5cc3e05c0265011f76",
+      "indexed": "sprit2-004-02-00.raw.idx",
+      "indexed_sha256": "f6c63d4a0cb8f80029d9ac56af86c96d17ebf2829670bd407cee5ca03d1419a1",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 4,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "04913e0000800f2206",
+          "offset": 16181,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 14,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "0e87500000800f2206",
+          "offset": 20779,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 4,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "04c4370000800f2206",
+          "offset": 14395,
+          "packed_size": 1570,
+          "decoded_size": 3968,
+          "decoded_sha256": "9e183261a62cf9de43c5fd68e520ef918e2fd18c8b8c64f6947f0117aa010f72",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-010-00-00",
+      "size": [
+        80,
+        80
+      ],
+      "png": "sprit2-010-00-00.png",
+      "png_sha256": "a4cc4d6b9e5e145338bacf2d46313447560985e0b71a4d07e1936d99c8d0216c",
+      "indexed": "sprit2-010-00-00.raw.idx",
+      "indexed_sha256": "01699afdddbad2319d9da38ec2a6748b0d9c2b34df4d77f6c69b2c3552ddfcfb",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 10,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "0ab34400006415d40b",
+          "offset": 17751,
+          "packed_size": 3028,
+          "decoded_size": 5476,
+          "decoded_sha256": "5fba28366e7790566d3676b2ceb5842a6f0167e95a29443161678673166e8346",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "observed",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-010-01-00",
+      "size": [
+        40,
+        65
+      ],
+      "png": "sprit2-010-01-00.png",
+      "png_sha256": "dee23ce29c80331df32440615c3c2853c3368063541d37b5ff6f93c636a0fd78",
+      "indexed": "sprit2-010-01-00.raw.idx",
+      "indexed_sha256": "4245a244a2e6e58566960f0914edba1cf26627dfaf9cb14d8a0117502e6ddde7",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 10,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "0ab34400006415d40b",
+          "offset": 17751,
+          "packed_size": 3028,
+          "decoded_size": 5476,
+          "decoded_sha256": "5fba28366e7790566d3676b2ceb5842a6f0167e95a29443161678673166e8346",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "observed",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-010-02-00",
+      "size": [
+        32,
+        57
+      ],
+      "png": "sprit2-010-02-00.png",
+      "png_sha256": "673e81f2b61e7dace84095c2780c961a9ea64ec7baf93b1bea8681ac88e01ec9",
+      "indexed": "sprit2-010-02-00.raw.idx",
+      "indexed_sha256": "f2896dbbda667e91b32290012771d42aaf36e80e313cd657edbe7c72f4788d93",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 10,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "0ab34400006415d40b",
+          "offset": 17751,
+          "packed_size": 3028,
+          "decoded_size": 5476,
+          "decoded_sha256": "5fba28366e7790566d3676b2ceb5842a6f0167e95a29443161678673166e8346",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "observed",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-017-00-00",
+      "size": [
+        72,
+        80
+      ],
+      "png": "sprit2-017-00-00.png",
+      "png_sha256": "9e200832bcbcda2d739992ce75e53f2d8d9d9dadd38aefe11d7da14b1f9d1ec1",
+      "indexed": "sprit2-017-00-00.raw.idx",
+      "indexed_sha256": "a334f8d87f6b4befbe798cae8a6a7e3a91d3908b7609986652bec866c50a51c8",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 17,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "11a9560000e012bd04",
+          "offset": 22349,
+          "packed_size": 1213,
+          "decoded_size": 4832,
+          "decoded_sha256": "0e2f8bfce38a9185b012d46c96394e2e3be3495fa1532759f91b1a7c2f046a27",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 17,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "1115120000e012bd04",
+          "offset": 4748,
+          "packed_size": 1213,
+          "decoded_size": 4832,
+          "decoded_sha256": "0e2f8bfce38a9185b012d46c96394e2e3be3495fa1532759f91b1a7c2f046a27",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-017-01-00",
+      "size": [
+        40,
+        65
+      ],
+      "png": "sprit2-017-01-00.png",
+      "png_sha256": "3be919b939df836dfab1bced365623295f2e2881f46702270c422c86b3b9160e",
+      "indexed": "sprit2-017-01-00.raw.idx",
+      "indexed_sha256": "e4304b2edbf8a4de511e071a44439a21e060edf93387e1fab43214b320140eb1",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 17,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "11a9560000e012bd04",
+          "offset": 22349,
+          "packed_size": 1213,
+          "decoded_size": 4832,
+          "decoded_sha256": "0e2f8bfce38a9185b012d46c96394e2e3be3495fa1532759f91b1a7c2f046a27",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 17,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "1115120000e012bd04",
+          "offset": 4748,
+          "packed_size": 1213,
+          "decoded_size": 4832,
+          "decoded_sha256": "0e2f8bfce38a9185b012d46c96394e2e3be3495fa1532759f91b1a7c2f046a27",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-017-02-00",
+      "size": [
+        24,
+        49
+      ],
+      "png": "sprit2-017-02-00.png",
+      "png_sha256": "e42d57cd1222bcc9ad5313fa7c0203993487ac76da4d5b58f7e75df74b6a8c9d",
+      "indexed": "sprit2-017-02-00.raw.idx",
+      "indexed_sha256": "880bdc41f4d7e7848b8fcaca5c864cf87f2f58e9b4c978a3db193c534dd631cb",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 17,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "11a9560000e012bd04",
+          "offset": 22349,
+          "packed_size": 1213,
+          "decoded_size": 4832,
+          "decoded_sha256": "0e2f8bfce38a9185b012d46c96394e2e3be3495fa1532759f91b1a7c2f046a27",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 17,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "1115120000e012bd04",
+          "offset": 4748,
+          "packed_size": 1213,
+          "decoded_size": 4832,
+          "decoded_sha256": "0e2f8bfce38a9185b012d46c96394e2e3be3495fa1532759f91b1a7c2f046a27",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-025-00-00",
+      "size": [
+        56,
+        88
+      ],
+      "png": "sprit2-025-00-00.png",
+      "png_sha256": "81ffc4fcbb408eb018570f31cb47fb4ceb2e7a594541c2db46b7d0c794e26dea",
+      "indexed": "sprit2-025-00-00.raw.idx",
+      "indexed_sha256": "201174c8c187d07fe25839c2be13c9eab13bdc5d33c3a2ceb84412e790bb569c",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 25,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "19665b00001c116f07",
+          "offset": 23562,
+          "packed_size": 1903,
+          "decoded_size": 4380,
+          "decoded_sha256": "fc86d7a7a2a6f0a287c101c49b58ef0b2bdb9c0b7cf85174fcab6a59dfacd5fb",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            0
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 25,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "19c31b00001c116f07",
+          "offset": 7226,
+          "packed_size": 1903,
+          "decoded_size": 4380,
+          "decoded_sha256": "fc86d7a7a2a6f0a287c101c49b58ef0b2bdb9c0b7cf85174fcab6a59dfacd5fb",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            2,
+            0
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        40,
+        24
+      ]
+    },
+    {
+      "key": "sprit2-025-01-00",
+      "size": [
+        32,
+        73
+      ],
+      "png": "sprit2-025-01-00.png",
+      "png_sha256": "b852ec9be99c637cf053c4c8977effbe17ec163ed8417a5ffe02b45576e50080",
+      "indexed": "sprit2-025-01-00.raw.idx",
+      "indexed_sha256": "e57f9e367d7902af1918edad2af7b346eee84ba3a5618d8f7665ea0dd6dd376a",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 25,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "19665b00001c116f07",
+          "offset": 23562,
+          "packed_size": 1903,
+          "decoded_size": 4380,
+          "decoded_sha256": "fc86d7a7a2a6f0a287c101c49b58ef0b2bdb9c0b7cf85174fcab6a59dfacd5fb",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 25,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "19c31b00001c116f07",
+          "offset": 7226,
+          "packed_size": 1903,
+          "decoded_size": 4380,
+          "decoded_sha256": "fc86d7a7a2a6f0a287c101c49b58ef0b2bdb9c0b7cf85174fcab6a59dfacd5fb",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-025-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-025-02-00.png",
+      "png_sha256": "cea4dd373a8abe07c472599a36fe9bed10ab570966c3504b3f7083eef1cf0e18",
+      "indexed": "sprit2-025-02-00.raw.idx",
+      "indexed_sha256": "f9cdf70e256420627f2e8249b994f16e6e4576f322bff263a31c9a21c27e4640",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 25,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "19665b00001c116f07",
+          "offset": 23562,
+          "packed_size": 1903,
+          "decoded_size": 4380,
+          "decoded_sha256": "fc86d7a7a2a6f0a287c101c49b58ef0b2bdb9c0b7cf85174fcab6a59dfacd5fb",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 25,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "19c31b00001c116f07",
+          "offset": 7226,
+          "packed_size": 1903,
+          "decoded_size": 4380,
+          "decoded_sha256": "fc86d7a7a2a6f0a287c101c49b58ef0b2bdb9c0b7cf85174fcab6a59dfacd5fb",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-028-00-00",
+      "size": [
+        40,
+        80
+      ],
+      "png": "sprit2-028-00-00.png",
+      "png_sha256": "1feb688281a2da39cf55c4d55a4a762c5ee95e63356c4021749564a50fa07d3f",
+      "indexed": "sprit2-028-00-00.raw.idx",
+      "indexed_sha256": "f101b8f4a3ae550566a49c6851a2db420accb917ed91fa31b14384d4b187eb2b",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 28,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "1cd5620000380c0905",
+          "offset": 25465,
+          "packed_size": 1289,
+          "decoded_size": 3128,
+          "decoded_sha256": "cb009ad79784daf4c7b252253cc464a52778f4bb8a7cc0aabb91582ba73e2f37",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-028-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit2-028-01-00.png",
+      "png_sha256": "a60f1090cc542374d1e9b771a8c592c8d3bd1ebb6c8d9bc8253536175dcd08d8",
+      "indexed": "sprit2-028-01-00.raw.idx",
+      "indexed_sha256": "21badc407e0b9a04be1953865327b0be092f6489c8d27ff6bddf0b05a4d0f4fd",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 28,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "1cd5620000380c0905",
+          "offset": 25465,
+          "packed_size": 1289,
+          "decoded_size": 3128,
+          "decoded_sha256": "cb009ad79784daf4c7b252253cc464a52778f4bb8a7cc0aabb91582ba73e2f37",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-028-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-028-02-00.png",
+      "png_sha256": "5472fd35700467a765efbe6662fe2b5d217ed7f62ce0f17dde56837fb4a2e2a8",
+      "indexed": "sprit2-028-02-00.raw.idx",
+      "indexed_sha256": "e00116a2a9aad55648d5857804bfabd41c4550ec051a4a4975784264df1575b6",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 28,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "1cd5620000380c0905",
+          "offset": 25465,
+          "packed_size": 1289,
+          "decoded_size": 3128,
+          "decoded_sha256": "cb009ad79784daf4c7b252253cc464a52778f4bb8a7cc0aabb91582ba73e2f37",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-026-00-00",
+      "size": [
+        48,
+        80
+      ],
+      "png": "sprit2-026-00-00.png",
+      "png_sha256": "78b2f2c3861b99f72423c5b15824acc784f37b7aba1ff8ad219db9056cce0cfc",
+      "indexed": "sprit2-026-00-00.raw.idx",
+      "indexed_sha256": "7704014bfc89aab8d219b7d047658746983713f21d1f2d972cd344117c79717a",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 26,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "1ade6700007c0efd04",
+          "offset": 26754,
+          "packed_size": 1277,
+          "decoded_size": 3708,
+          "decoded_sha256": "49d23d232141a7205a7ae291ba74582312c2ce4dc08710d4559df8198064233e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 26,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "1a322300007c0efd04",
+          "offset": 9129,
+          "packed_size": 1277,
+          "decoded_size": 3708,
+          "decoded_sha256": "49d23d232141a7205a7ae291ba74582312c2ce4dc08710d4559df8198064233e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-026-01-00",
+      "size": [
+        32,
+        65
+      ],
+      "png": "sprit2-026-01-00.png",
+      "png_sha256": "a79ad3ddf0355422f3e696a622520580d1bfba53b7d29c5129608b4dbf20b601",
+      "indexed": "sprit2-026-01-00.raw.idx",
+      "indexed_sha256": "41bcde0661d5a075c88b0e19337aaf9584f9c9711d22ce5249551fb0aeca0c8a",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 26,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "1ade6700007c0efd04",
+          "offset": 26754,
+          "packed_size": 1277,
+          "decoded_size": 3708,
+          "decoded_sha256": "49d23d232141a7205a7ae291ba74582312c2ce4dc08710d4559df8198064233e",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 26,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "1a322300007c0efd04",
+          "offset": 9129,
+          "packed_size": 1277,
+          "decoded_size": 3708,
+          "decoded_sha256": "49d23d232141a7205a7ae291ba74582312c2ce4dc08710d4559df8198064233e",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-026-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit2-026-02-00.png",
+      "png_sha256": "1a84a5b51e70908ac0526739ccc417c5a618ea18caada023e3e8b231f4d64769",
+      "indexed": "sprit2-026-02-00.raw.idx",
+      "indexed_sha256": "566bf130ba2813518d346516d13bb8d879f74358496406022c5f5ef9a7252c3f",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 26,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "1ade6700007c0efd04",
+          "offset": 26754,
+          "packed_size": 1277,
+          "decoded_size": 3708,
+          "decoded_sha256": "49d23d232141a7205a7ae291ba74582312c2ce4dc08710d4559df8198064233e",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        },
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 26,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "1a322300007c0efd04",
+          "offset": 9129,
+          "packed_size": 1277,
+          "decoded_size": 3708,
+          "decoded_sha256": "49d23d232141a7205a7ae291ba74582312c2ce4dc08710d4559df8198064233e",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-056-00-00",
+      "size": [
+        80,
+        80
+      ],
+      "png": "sprit2-056-00-00.png",
+      "png_sha256": "02eaf85749ee6f6bfbb67884ccf3c312a311dea5de73ee77d7c2608dc8159d77",
+      "indexed": "sprit2-056-00-00.raw.idx",
+      "indexed_sha256": "cc5c1fc2d138e519d90356a8a8e95f62949061d1e85f848b3efc05fc2d3059cf",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 56,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "38db6c00004c18cc0c",
+          "offset": 28031,
+          "packed_size": 3276,
+          "decoded_size": 6220,
+          "decoded_sha256": "5ec7c4ce9431a1426b2c55f47c8ac51cfdf31cfd74a1f5b89b6d38fd378df0d9",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-056-01-00",
+      "size": [
+        56,
+        73
+      ],
+      "png": "sprit2-056-01-00.png",
+      "png_sha256": "81c8df5f4024a0519d86cd4e005b9ae160d7116a97256bea5c66f3654538872e",
+      "indexed": "sprit2-056-01-00.raw.idx",
+      "indexed_sha256": "18364b34cf5dae16e12d2c708f3a727e5f3c4485b828609a048b20cd2488a787",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 56,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "38db6c00004c18cc0c",
+          "offset": 28031,
+          "packed_size": 3276,
+          "decoded_size": 6220,
+          "decoded_sha256": "5ec7c4ce9431a1426b2c55f47c8ac51cfdf31cfd74a1f5b89b6d38fd378df0d9",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            2,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        40,
+        32
+      ]
+    },
+    {
+      "key": "sprit2-056-02-00",
+      "size": [
+        32,
+        57
+      ],
+      "png": "sprit2-056-02-00.png",
+      "png_sha256": "aee26988e29e871d8c2d7d6fc5ca3a687d257db0c94169c93e91a34350071243",
+      "indexed": "sprit2-056-02-00.raw.idx",
+      "indexed_sha256": "0198f4149b7f56c638cdf55e98a2cd174525424ba30d2350cf2ad33fd8ca0400",
+      "sources": [
+        {
+          "file": "SPRIT2.DAX",
+          "file_sha256": "888a2786d382836e611e3cbcc17b9c33eebdd2af27085324be9e12586846d77a",
+          "block": 56,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "38db6c00004c18cc0c",
+          "offset": 28031,
+          "packed_size": 3276,
+          "decoded_size": 6220,
+          "decoded_sha256": "5ec7c4ce9431a1426b2c55f47c8ac51cfdf31cfd74a1f5b89b6d38fd378df0d9",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-003-00-00",
+      "size": [
+        72,
+        80
+      ],
+      "png": "sprit3-003-00-00.png",
+      "png_sha256": "9c2c45d27ab6bbd733551b0f528a86e1003b04703bebcaeac6580a36fbea42c1",
+      "indexed": "sprit3-003-00-00.raw.idx",
+      "indexed_sha256": "0338e4e1bd3408a20ff75eeb15d06f1a580b9cf98f139e6659c8aedca4500792",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 3,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "03000000004013460c",
+          "offset": 119,
+          "packed_size": 3142,
+          "decoded_size": 4928,
+          "decoded_sha256": "231e5eca2585479d17222b4869d3d47f8cbf8e08573016ed71e3e14f5d36bac4",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-003-01-00",
+      "size": [
+        40,
+        65
+      ],
+      "png": "sprit3-003-01-00.png",
+      "png_sha256": "3eee0b9d7ddac8a303cc0558c043f919aa5d2c8914dd5d8f8cf19677cec51243",
+      "indexed": "sprit3-003-01-00.raw.idx",
+      "indexed_sha256": "b331cac0c4fc24da0e5832f5c19a1f3dabbbc183d137bd538bee125f6987a616",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 3,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "03000000004013460c",
+          "offset": 119,
+          "packed_size": 3142,
+          "decoded_size": 4928,
+          "decoded_sha256": "231e5eca2585479d17222b4869d3d47f8cbf8e08573016ed71e3e14f5d36bac4",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-003-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit3-003-02-00.png",
+      "png_sha256": "71f048f2d84f2938372402457306585a6c0822ac7edfbebf864bd4d1ac44549c",
+      "indexed": "sprit3-003-02-00.raw.idx",
+      "indexed_sha256": "bcfc9acc29f074c45e1a235c1c5913bbd8cf7d0fb15f19ba30c1063aa411c319",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 3,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "03000000004013460c",
+          "offset": 119,
+          "packed_size": 3142,
+          "decoded_size": 4928,
+          "decoded_sha256": "231e5eca2585479d17222b4869d3d47f8cbf8e08573016ed71e3e14f5d36bac4",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-016-00-00",
+      "size": [
+        40,
+        80
+      ],
+      "png": "sprit3-016-00-00.png",
+      "png_sha256": "4fada6d28b35499cbabd44ba38d5feb9d9fdb8ab845e3c74d01c1703cc5831ab",
+      "indexed": "sprit3-016-00-00.raw.idx",
+      "indexed_sha256": "eef36a70230011e194143b524891d8069300c760ea3b0f932a74e9c8a9672766",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 16,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "10460c0000d80bcf05",
+          "offset": 3261,
+          "packed_size": 1487,
+          "decoded_size": 3032,
+          "decoded_sha256": "ce2698bbbaef5dc9e75581d58cb950fb932232978b28b1adb8326880b3b229ae",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-016-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit3-016-01-00.png",
+      "png_sha256": "672def172eec6e1f5408ed521dcfa3a5542428c84ccf253d15420eda53d7112a",
+      "indexed": "sprit3-016-01-00.raw.idx",
+      "indexed_sha256": "78cc45f3cf0da621247043307df85d495d0f95aeed95eca8691116be396f830c",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 16,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "10460c0000d80bcf05",
+          "offset": 3261,
+          "packed_size": 1487,
+          "decoded_size": 3032,
+          "decoded_sha256": "ce2698bbbaef5dc9e75581d58cb950fb932232978b28b1adb8326880b3b229ae",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-016-02-00",
+      "size": [
+        24,
+        49
+      ],
+      "png": "sprit3-016-02-00.png",
+      "png_sha256": "5a754f85bd627b61a5a73aa566bf7e451f7b7844dbf15746b44fcc0d637670f8",
+      "indexed": "sprit3-016-02-00.raw.idx",
+      "indexed_sha256": "b14ddffa855ad0e259f3169147a18248bf2a4a1b13c3f7ef5efd9d3d21c67f0a",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 16,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "10460c0000d80bcf05",
+          "offset": 3261,
+          "packed_size": 1487,
+          "decoded_size": 3032,
+          "decoded_sha256": "ce2698bbbaef5dc9e75581d58cb950fb932232978b28b1adb8326880b3b229ae",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-024-00-00",
+      "size": [
+        40,
+        80
+      ],
+      "png": "sprit3-024-00-00.png",
+      "png_sha256": "dddfde24fee71e54c3ae1f567d639d7e43f0f3953879ccfb53c9d713357bb9a3",
+      "indexed": "sprit3-024-00-00.raw.idx",
+      "indexed_sha256": "e3387580f622dffe9518561b8dfced58a69ef758ef3ed836acc4a5ea55d7d0da",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 24,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "18d2160000380cf104",
+          "offset": 5961,
+          "packed_size": 1265,
+          "decoded_size": 3128,
+          "decoded_sha256": "9a43ebda763333d46b1ec84181d0407f34611e945d926c30064ffaf6c32a157d",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-024-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit3-024-01-00.png",
+      "png_sha256": "cf071c63f2aa165e8b738a05b83b964ac5879796459b3df7ee30f8c9f2824b39",
+      "indexed": "sprit3-024-01-00.raw.idx",
+      "indexed_sha256": "4e15d6303379d8bdff82fe9bcdaecae985da73f8961a551b9875bcccfd64aca2",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 24,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "18d2160000380cf104",
+          "offset": 5961,
+          "packed_size": 1265,
+          "decoded_size": 3128,
+          "decoded_sha256": "9a43ebda763333d46b1ec84181d0407f34611e945d926c30064ffaf6c32a157d",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-024-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit3-024-02-00.png",
+      "png_sha256": "041e2ba4d41fae6703300dff8d4670557db53ea9b50375a6eeece3e75b4e83f9",
+      "indexed": "sprit3-024-02-00.raw.idx",
+      "indexed_sha256": "c040a942f3632e2606df4141bd53d8a37bde7381b40030107709abdfa0c97256",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 24,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "18d2160000380cf104",
+          "offset": 5961,
+          "packed_size": 1265,
+          "decoded_size": 3128,
+          "decoded_sha256": "9a43ebda763333d46b1ec84181d0407f34611e945d926c30064ffaf6c32a157d",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-000-00-00",
+      "size": [
+        48,
+        80
+      ],
+      "png": "sprit3-000-00-00.png",
+      "png_sha256": "6fbac87152903331352c4a721e1f51ec6f1cf0cddaf2010452de61fe2cb122ac",
+      "indexed": "sprit3-000-00-00.raw.idx",
+      "indexed_sha256": "63ee2584462a2df74324d4f8ca1cb2fb0a059a9e44120e568b496ac164c70bed",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 0,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "0095320000180d2f05",
+          "offset": 13068,
+          "packed_size": 1327,
+          "decoded_size": 3352,
+          "decoded_sha256": "c242feaa07cd2964001966c554fe86e91731e9c525ce50e178756da577bf07be",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-000-01-00",
+      "size": [
+        24,
+        65
+      ],
+      "png": "sprit3-000-01-00.png",
+      "png_sha256": "324bf8efc3e6b33b6ede6ae362fb1278be9c32131082216e4e4b0a41108ff3d6",
+      "indexed": "sprit3-000-01-00.raw.idx",
+      "indexed_sha256": "7fd1d91793a8e13a96a34c431b92b4328bc92424aa807d41a05ead9efa3ea007",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 0,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "0095320000180d2f05",
+          "offset": 13068,
+          "packed_size": 1327,
+          "decoded_size": 3352,
+          "decoded_sha256": "c242feaa07cd2964001966c554fe86e91731e9c525ce50e178756da577bf07be",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-000-02-00",
+      "size": [
+        24,
+        49
+      ],
+      "png": "sprit3-000-02-00.png",
+      "png_sha256": "95658028b19d83ed08cdbcb0f732a1db65534c2aa2d99628b799738aea19ecbc",
+      "indexed": "sprit3-000-02-00.raw.idx",
+      "indexed_sha256": "c0445fe7fb99b5524f662bec747879dbaa56256fa03675549949f7760f1c3e67",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 0,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "0095320000180d2f05",
+          "offset": 13068,
+          "packed_size": 1327,
+          "decoded_size": 3352,
+          "decoded_sha256": "c242feaa07cd2964001966c554fe86e91731e9c525ce50e178756da577bf07be",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-022-00-00",
+      "size": [
+        72,
+        80
+      ],
+      "png": "sprit3-022-00-00.png",
+      "png_sha256": "4cc186dbc392128912b2b34b9f3b696047f23308f632d1373e0fd3ee3834c6c3",
+      "indexed": "sprit3-022-00-00.raw.idx",
+      "indexed_sha256": "84e2e5d8f3b6469664797c67ad7de9efd54e67b1e5dc9f96b70f37326860e6f3",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 22,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "16c5450000e013c30c",
+          "offset": 17980,
+          "packed_size": 3267,
+          "decoded_size": 5088,
+          "decoded_sha256": "77526df58826d714bde6b03e74b2c947d2cb70f9d7c578eddbe08b663604939f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            1,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        32,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-022-01-00",
+      "size": [
+        40,
+        73
+      ],
+      "png": "sprit3-022-01-00.png",
+      "png_sha256": "4fd3c03f6c411cc46c8bd8c4fd39d618deb60b12d38dc7421080d1b964feeee2",
+      "indexed": "sprit3-022-01-00.raw.idx",
+      "indexed_sha256": "47ef27c13773e06374fc8d8f216fa4dffdae06e74bd481a7d128c3eda988fba0",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 22,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "16c5450000e013c30c",
+          "offset": 17980,
+          "packed_size": 3267,
+          "decoded_size": 5088,
+          "decoded_sha256": "77526df58826d714bde6b03e74b2c947d2cb70f9d7c578eddbe08b663604939f",
+          "frame": 1,
+          "item": 0,
+          "header_xy": [
+            3,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        48,
+        32
+      ]
+    },
+    {
+      "key": "sprit3-022-02-00",
+      "size": [
+        24,
+        57
+      ],
+      "png": "sprit3-022-02-00.png",
+      "png_sha256": "6a302f6247df5ea037b72240cc73e525a7934e03d91064e9f97d2ec6287895b3",
+      "indexed": "sprit3-022-02-00.raw.idx",
+      "indexed_sha256": "31befb8224faf70d2292e0e8f5c6e8c62a6a82806129575c926a94396c23263b",
+      "sources": [
+        {
+          "file": "SPRIT3.DAX",
+          "file_sha256": "2cd809baa9eb6bc8485562775c753a256b0dd0b4416bfa9ab93bb3a8c5892d24",
+          "block": 22,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "16c5450000e013c30c",
+          "offset": 17980,
+          "packed_size": 3267,
+          "decoded_size": 5088,
+          "decoded_sha256": "77526df58826d714bde6b03e74b2c947d2cb70f9d7c578eddbe08b663604939f",
+          "frame": 2,
+          "item": 0,
+          "header_xy": [
+            4,
+            1
+          ]
+        }
+      ],
+      "batch": "b11",
+      "runtime_evidence": "unobserved",
+      "position": [
+        56,
+        32
+      ]
+    }
+  ]
+}

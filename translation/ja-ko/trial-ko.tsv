@@ -1,0 +1,47 @@
+key	original	target	note
+ecl.2.48.04071	ONE OF THEM ASKS WHAT YOU'RE DOING.	그중 한 명이 일행에게 무엇을 하느냐고 물었다.	
+ecl.1.16.02232	YOU THE HOSPITALITY OF THEIR CAMP. DO YOU ACCEPT?	야영지의 환대를 제안했다. 받아들이겠는가?	앞 조각(누가 제안하는지)과 이어 읽힘을 전제로 함. 앞 조각에 "일행에게"가 필요할 수 있음
+ecl.3.80.06929	 SHE HANDS YOU A PAPER THAT YOU RECORD	그녀가 종이 한 장을 건넸다. 일행은 그 내용을	다음 조각(일지 기록 위치)이 "기록했다"로 끝나야 이어짐. 다음 조각 미확인
+ecl.3.98.01970	MESSENGERS WILL STILL FLY. I HAVE LOST, BUT SO HAS 	전령들은 그래도 날아갈 것이다. 나는 졌지만 너희의	다음 조각이 "~도 졌다/잃었다"로 받아야 함
+ecl.1.17.01978	'WE WILL STORE MONEY FOR YOU. WE ONLY ACCEPT 	"돈을 맡아 드리겠습니다. 단, 저희가 받는 것은	은행 NPC 존댓말. 다음 조각이 "~뿐입니다"로 받아야 함
+ecl.1.34.02430	MOLDERING SKELETONS. YOU SEE A GLINT OF POLISHED	썩어 가는 해골들이다. 일행은 잘 닦인	Skeleton은 표에서 스켈레톤(몬스터명)이나 여기서는 유해 묘사라 해골로 씀. 표대로 통일할지 확인 필요
+ecl.2.49.02544	YOU FIND A MAN WHO IMMEDIATELY SHRINKS 	일행이 한 남자를 발견하자, 그는 곧바로	
+ecl.1.16.02836	WE ARE IMPRESSED WITH YOUR ACHIEVEMENTS. YOU 	그대들의 공적에 깊이 감탄했다. 그대들은	화자(기사단 측) 미확인. 격식 있는 NPC로 보고 그대들 사용
+ecl.1.17.05048	CONGRATULATIONS ON RECOVERING THE DRAGON EGGS 	드래곤 알을 되찾은 것을 축하한다.	다음 조각 미확인. 다음 조각이 이어지는 문장이면 마침표 제거 필요
+ecl.3.99.05028	THESE GUYS ARE IN ON THE PLOT. YOUR PLACE IS UP THE 	이놈들은 다 음모에 한패다. 너희가 갈 곳은	다음 조각(HALL 등)이 "복도 위쪽이다"처럼 받는 것을 전제로 함
+ecl.3.97.01544	ONE GROWLS, 'YOUR INFORMATION HAS BEEN VALUABLE. 	그중 하나가 으르렁거렸다. "너희 정보는 쓸모가 있었다.	
+ecl.1.33.04320	 AND RUN OUT. YOU HEAR THEM GOING TO THE NORTH AND WEST.	다시 뛰쳐나갔다. 일행은 그들이 북쪽과 서쪽으로 가는 소리를 들었다.	
+ecl.3.97.03737	THERE IS STILL A HUGE FORCE HERE. DO YOU FLEE?	이곳에는 아직 거대한 병력이 있다. 도주하겠는가?	
+ecl.2.66.02152	'GOOD WORK, ALL THE SLAVES ARE FREE. THERE IS 	"잘했다, 노예들이 모두 풀려났다. 듣자 하니	
+ecl.2.49.02577	AGAINST THE BACK WALL. SEEING THAT YOU ARE NOT 	뒷벽 쪽으로 움츠러들었다. 그는 일행이	다음 조각이 "~이 아님을 알아차리고"로 받아야 함
+ecl.1.32.06714	FROZEN BODIES OF HOBGOBLINS AND BAAZ LITTER THE FLOOR.	홉고블린과 바즈 드래코니언의 얼어붙은 시체가 바닥에 널려 있다.	
+ecl.2.64.03074	MOBATS HAVE BEEN LOCKED IN THIS ROOM. THEY LOOK 	모뱃들이 이 방에 갇혀 있다. 놈들은	다음 조각이 "~해 보인다"로 받아야 함
+ecl.2.68.05109	THE 'COMMANDANT' WAITING FOR YOU.	"사령관"이 일행을 기다리고 있다.	표의 Commandant=사령관실은 장소명. 여기서는 인물이라 사령관으로 씀. 확인 필요
+ecl.3.97.05921	AND SLAY ALL HUMANS BUT THESE.' THEY RUSH TO OBEY, 	이자들만 빼고 인간은 모두 죽여라." 그들은 서둘러 명령에 따랐고,	
+ecl.2.66.00183	IT WOULD ALSO LEAD TO THE DEATHS OF THE UNARMED SLAVES. 	그러면 무장하지 않은 노예들도 죽게 된다.	
+ecl.2.50.02707	 A FRIEND OF MINE LIVES THERE . . . '	그곳에 내 친구가 살고 있거든..."	
+ecl.2.67.00712	ABANDON YOUR TREASURE AND YOU WILL GAIN A QUICK 	보물을 내놓아라. 그러면 너희에게 빠른	다음 조각(DEATH 추정)이 "죽음을 주마"로 받는 것을 전제로 함
+ecl.2.49.06324	HIS MINIONS TURN TO PREVENT YOU FROM CAPTURING HIM.	그의 부하들이 돌아서서 일행이 그를 붙잡지 못하게 막았다.	
+ecl.2.64.03857	HE HAS BECOME LOST IN THIS MAZE AND DOES NOT KNOW 	그는 이 미로에서 길을 잃어,	DOES NOT KNOW는 한국어 어순상 다음 조각 끝의 "모른다"로 넘김
+ecl.2.49.01393	ONE OF THE SHAPES JERKS AND CRIES OUT A 	형체들 중 하나가 움찔하더니	다음 조각이 "~을 외쳤다"로 받아야 함
+ecl.2.48.03722	'YOU MUST FIND THE DRAGONLANCE.'	"너희는 드래곤랜스를 찾아야 한다."	
+ecl.2.66.00143	LEAVING THIS WAY WOULD GO AGAINST TANIS' ORDERS. 	이 길로 떠나면 태니스의 명령을 어기게 된다.	
+ecl.3.99.04205	THE ROOM IS FILLED WITH HANGING PIECES OF MEAT, 	방 안에는 매달린 고깃덩어리,	다음 조각이 나열을 이어 "~가 가득하다"로 받아야 함
+ui.53a33189ab7f	Cyrus Lum	Cyrus Lum	제작진 이름, 원문 유지
+ui.271c24e9ae7b	Spiritual	영체	Spiritual Hammer(영체 망치)의 앞부분으로 판단
+ui.83c519b42fab	Russ Brown	Russ Brown	제작진 이름, 원문 유지
+ui.86d864d10977	No Gems or Jewelry	보석도 장신구도 없음	
+ui.ea72375de926	     Bonus Spells	추가 주문	
+ui.4dd7612e9230	is forced to flee	어쩔 수 없이 도주했다	
+ui.23e3e052927b	Protection From Evil	악으로부터의 보호	
+ui.ba7ebb6c0b12	Pick Class	클래스 선택	
+ui.728baf5375e7	is afraid	겁에 질렸다	
+ui.4391105bd3a7	flees in panic	공포에 질려 도주했다	
+ui.11261a05f7cd	The Gods intervene!	신들이 개입했다!	
+ui.50b0613a9efc	OK buddy, who are you?	좋아 친구, 넌 누구지?	
+ui.618ae3799df9	(from behind) 	(뒤에서)	
+ui.dd6b632301cc	Unable to load monster	괴물 데이터 로드 실패	Monster는 표의 Charm Monsters(괴물 매혹)에 맞춰 괴물로 씀
+ui.34de4e86df99	breathes acid	산을 내뿜었다	
+ui.b9ec2686588d	~Yes ~No	예 아니오	
+ui.b38102de71ef	Avoids it	피했다	
+journal.51	"The worst monsters our scouts have reported anywhere in the area are hobgoblins. Draconians and evil dragons have long since abandoned this area to our forces. Still, be a little wary on your way to Throtl.\n"Also, be sure to report back here immediately, if anything unusual or dangerous occurs. This outpost depends on information brought back by patrols such as yours. Good luck and may Paladine watch over you."	"우리 정찰병들이 이 일대에서 보고한 가장 위험한 괴물은 홉고블린이다. 드래코니언과 사악한 드래곤들은 이미 오래전에 이 지역을 우리 군에 내주고 떠났다. 그래도 스로틀로 가는 길에는 조금 경계하도록.\n"또한 이상하거나 위험한 일이 생기면 즉시 이곳으로 돌아와 보고하도록. 이 전초기지는 그대들 같은 순찰대가 가져오는 정보에 의지하고 있다. 행운을 빈다. 팔라다인께서 그대들을 지켜 주시기를."	evil dragons=사악한 드래곤(표에 없음, 새 조합). 화자는 전초기지 지휘관으로 보고 그대들 사용

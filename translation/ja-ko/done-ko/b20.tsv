@@ -1,0 +1,131 @@
+key	translation	note
+ui.ae351f9a3fcd	성수	
+ui.108040ac289a	루비	
+ui.93fe3ac0ddb8	바위	
+ui.3b439567997b	드래곤 브레스	
+ui.f348fb4839ff	변위	
+ui.b053c961f2ac	가방	
+ui.a3e0b6a1c528	드로우	
+ui.6ddb1b49d365	엘프 체인	
+ui.dfccfbed6a52	얼음 폭풍	
+ui.87e376689f8a	사파이어	
+ui.af1ccb31304d	에메랄드	
+ui.e01ae25b03ab	마력	
+ui.25d16d4516b5	말벌집	
+ui.bf6c2c94e57c	후팍	
+ui.8a55e534e3ad	솔람니아 판금 갑옷	
+ui.a39e9ac3b463	드래곤랜스	
+ui.0aac4f3d8041	플레일	
+ui.60c397046c19	할버드	
+ui.a3ef91cb4236	건틀릿	
+ui.b1daf7d8771a	부적	
+ui.75a84e162ae7	독 방지	
+ui.aa70a305f3f2	분쇄	
+ui.fcfe1a334f70	오우거의 힘	
+ui.254d82b0f10c	요대	
+ui.668f8131b2e8	거인의 힘	
+ui.90fade6fb78e	거울	
+ui.6a88445bbf65	목걸이	
+ui.bbe963c645f0	드래곤	
+ui.a7008d8fa62b	대 파충류	
+ui.70807119543d	서리의 검	
+ui.143f40fdffa4	광전사	
+ui.b639c243cebd	다이아몬드	
+ui.41e68f2cdb38	번개	
+ui.73dda53255f5	화염구	
+ui.28391d3bc64e	의	"X of Y" 조합용. 한국어 어순(Y의 X)과 달라 "물약 의 속도"처럼 나올 수 있음. 조합 방식 확인 필요
+ui.a123dd728a7a	취약	
+ui.c372fee9b456	속도	Potion of Speed=신속의 물약 표기와 맞출지 확인 필요
+ui.2e4aaf05df1c	상급	新詞：Extra=상급 (Potion of Extra Healing=상급 치유 물약 기준)
+ui.44bc3799892c	치유	
+ui.140262b32b0c	공포	
+ui.c83cfaf4080c	마법 화살	
+ui.8b4c3701309d	투사체	
+ui.fcdfcb21ab14	주문 1개	
+ui.4dc5cfc054ce	주문 2개	
+ui.05b44ae47de4	주문 3개	
+ui.cb96521ce500	마비	
+ui.d53895c6eb78	투명화	
+ui.92ecb2f088b1	보병용	
+ui.6891a569c292	AC 10	
+ui.6b19f0a49196	AC 6	
+ui.8a21969b3d68	AC 4	
+ui.d1965cb2d2e5	AC 3	
+ui.1922ea761b22	AC 2	
+ui.271c24e9ae7b	영체	Spiritual Hammer(영체 망치)의 앞부분
+ui.5108a0f0dc36	보석	
+ui.d539cd97ca1a	북동	
+ui.f031b70a2653	남동	
+ui.072f005fc3f2	남서	
+ui.c1fcf83e875d	북서	
+ui.b97410f97c75	디스크 2를 넣으십시오. 드라이브:	드라이브 문자가 뒤에 붙는 문장이라 어순을 바꿈
+ui.3995fd69e31b	디스크 3을 넣으십시오. 드라이브:	드라이브 문자가 뒤에 붙는 문장이라 어순을 바꿈
+ui.f499c0e6f8ea	디스크 4를 넣으십시오. 드라이브:	드라이브 문자가 뒤에 붙는 문장이라 어순을 바꿈
+ui.3abbd69ed48b	축복	
+ui.88b3d8eed54f	저주	
+ui.d52b96d2ce02	경상 가해	
+ui.d69eecab2f76	마법 탐지	
+ui.23e3e052927b	악으로부터의 보호	
+ui.aa433e0ea3c6	선으로부터의 보호	
+ui.263bc44ae6ee	냉기 저항	
+ui.35dc00703dc4	타오르는 손길	
+ui.939473c4290e	인간형 매혹	
+ui.a1c1212619a3	거대화	
+ui.42412678202e	축소화	
+ui.bd104d1b98d0	친밀화	
+ui.111a74afc067	마법 화살	
+ui.5021111cfddc	선으로부터의 보호	
+ui.d6186a504f76	마법 판독	
+ui.8eaa4fbfbbfa	전격의 손아귀	
+ui.d466bcf52eb6	수면	
+ui.b4eb600e2bd2	함정 탐지	
+ui.f0d35390cb24	인간형 포박	
+ui.b67514c6d13f	화염 저항	
+ui.e864a8c0c782	반경 15ft 침묵	
+ui.93022dfd9b34	독 지연	
+ui.ed044e582700	뱀 매혹	
+ui.69686409f3e8	영체 망치	
+ui.7e4f7d7e6c00	투명체 감지	
+ui.61622162cdb3	문열기	
+ui.1624e5bc418d	거울 분신	
+ui.f11aa46e52cb	무력화 광선	
+ui.1d9f00d3365b	악취 구름	
+ui.63ee3a1b965a	괴력	
+ui.5a36e355b239	사체 조종	
+ui.e66ad0bcb4ad	실명 부여	
+ui.37aa87a44f5f	질병 부여	
+ui.d004ff3c3b43	마법 무효화	
+ui.6e399f2787a0	기도	
+ui.a824f34f6cbe	저주 부여	
+ui.a37430e22cd0	점멸	
+ui.cc173df6702c	화염구	
+ui.de3b46da4da8	가속	
+ui.69ec6af313aa	반경 10ft 투명화	
+ui.6501d6e4ac16	번개	
+ui.3f0c88ea43ad	반경 10ft 악으로부터의 보호	
+ui.7084340de831	반경 10ft 선으로부터의 보호	新詞：Protection From Good, 10' Radius=반경 10ft 선으로부터의 보호 (표의 Evil 항목 기준)
+ui.c9e47f12e274	일반 투사체로부터의 보호	
+ui.4b2bebbf33ae	저속화	
+ui.6a3c6c77892d	상급 회복	
+ui.61e932cd1783	중상 가해	
+ui.d5a78b996fe6	독	
+ui.e718fa37db3b	반경 10ft 악으로부터의 보호	
+ui.56d88a11d595	막대기를 뱀으로	
+ui.f791fef558be	치명상 가해	
+ui.59b74e17ac37	악 퇴치	
+ui.5a0009478568	화염 직격	
+ui.22cd189987e0	생명 말살	
+ui.45fe07b35406	얽혀듬	
+ui.f64fa5018db4	요정 불꽃	
+ui.d5eb90184aff	동물 대상 투명화	
+ui.963a606aee50	괴물 매혹	
+ui.9507ad17d71f	혼란	
+ui.45f3b27f0f45	차원문	
+ui.b970634c8409	화염 방패	
+ui.19fee74864a2	헛손질	
+ui.87d6ec410a8b	하급 무적의 구체	
+ui.a7290a044b25	죽음구름	
+ui.9d6a11309ab7	냉기 분사	
+ui.dcddc47e957c	저능화	
+ui.81910caf6e3a	괴물 포박	
+ui.ab0f2b906319	반경 10ft 악으로부터의 보호	

@@ -1,0 +1,131 @@
+key	original	prev	next	zh
+ui.12e9a0c0cda7	 Done	Move/Attack, Move Left = 	Flee:	完成
+ui.637c8ce00e81	Flee:	 Done	can't go there	逃跑：
+ui.c4ff4a77d890	can't go there	Flee:	Not with that weapon	不能去那裡
+ui.94be0417569f	Not with that weapon	can't go there	Guard 	這把武器辦不到
+ui.b9d05f332634	Guard 	Not with that weapon	Delay Quit 	守衛
+ui.f9b8e202385e	Delay Quit 	Guard 	Bandage 	延後 棄權
+ui.430ea16f1ff6	Bandage 	Delay Quit 	Auto Speed Exit	包紮
+ui.5c2e73b9229d	Auto Speed Exit	Bandage 	GameSpeed (	自動 改變遊戲速度 離開
+ui.e2491eec6c44	GameSpeed (	Auto Speed Exit	Slower 	遊戲速度（
+ui.8879ab4f6391	Slower 	GameSpeed (	Faster 	較慢
+ui.c2144e87fdf4	Faster 	Slower 	flees in panic	較快
+ui.4391105bd3a7	flees in panic	Faster 	is forced to flee	驚慌逃走
+ui.4dd7612e9230	is forced to flee	flees in panic	Surrenders	被迫逃跑
+ui.0d0ae56ee488	Surrenders	is forced to flee	vG	投降了
+ui.d91e43895d60	A battle begins...	uu	COMSPR	戰鬥開始了……
+ui.d5bed51cd121	is Paralyzed	ITEMS	is fighting with snakes	被麻痺了
+ui.a3d5382fff70	is fighting with snakes	is Paralyzed	bad news	正與蛇搏鬥
+ui.b370fd5fed0b	bad news	is fighting with snakes	goes mad!	壞消息
+ui.b3ac0c907f0b	goes mad!	bad news	is silenced	發狂了！
+ui.d4c766f7a1fd	is silenced	goes mad!	dies from poison	被沉靜了
+ui.3b3a7629d93f	dies from poison	is silenced	Gains an item	毒發身亡
+ui.335328d0950d	Gains an item	dies from poison	lost an image	得到一件物品
+ui.8f17aeef225d	lost an image	Gains an item	is coughing	失去一個幻影
+ui.4994cb288152	is coughing	lost an image	Arises in a new form	正在咳嗽
+ui.cdfbf57b7d97	Arises in a new form	is coughing	runs away	以新的形態重生
+ui.0485df8c54f4	runs away	Arises in a new form	is confused	逃走了
+ui.b17ae4e8dd75	is confused	runs away	goes berserk	感到混亂
+ui.58814d4cbc04	goes berserk	is confused	is enraged	變得狂暴
+ui.c4774fc6d0d8	is enraged	goes berserk	ages	被激怒了
+ui.ba24b7992d5d	ages	is enraged	The air clears a little...	變老了
+ui.2c234a550746	The air clears a little...	ages	Avoids it	空氣稍微清新了一些……
+ui.b38102de71ef	Avoids it	The air clears a little...	is weakened	躲過了
+ui.f839023a6d2e	is weakened	Avoids it	immolates	變虛弱了
+ui.216a83ec3e38	immolates	is weakened	explodes!	自焚了
+ui.eaca812fbb25	explodes!	immolates	is stunned	爆炸了！
+ui.ea42b3d67cea	is stunned	explodes!	is Poisoned	被擊暈了
+ui.10e51a565fd3	is Poisoned	is stunned	is killed	中毒了
+ui.a95140d02db9	is killed	is Poisoned	gets zapped!	被殺死了
+ui.ade38ca9f73c	gets zapped!	is killed	loses his weapon	被電到了！
+ui.8acea952864e	loses his weapon	gets zapped!	dissolves into acid!	失去了武器
+ui.a62ba7f80094	dissolves into acid!	loses his weapon	reflects the spell	化為一灘酸液！
+ui.e78cbf4eb76b	reflects the spell	dissolves into acid!	is terrified	反射了法術
+ui.fb0d083b55a8	is terrified	reflects the spell	is unaffected	嚇壞了
+ui.931eb807b63f	is unaffected	is terrified	gates in	不受影響
+ui.98a2052f16f7	gates in	is unaffected	emits an evil stench	穿過時空之門而來
+ui.364728379c5a	emits an evil stench	gates in	is affected	發出邪惡的惡臭
+ui.8f324fb8d441	is affected	emits an evil stench	The acid drains away..	受到影響
+ui.8421b34e6c23	The acid drains away..	is affected	is afraid	酸液流乾了……
+ui.728baf5375e7	is afraid	The acid drains away..	gets zapped	感到害怕
+ui.75c0ba1cdca8	gets zapped	is afraid	is disrupted	被電到了
+ui.8400e60db7ca	is disrupted	gets zapped	-Backstabs-	被打亂了
+ui.038686f70c2d	-Backstabs-	is disrupted	slays helpless	-背刺-
+ui.e948f1f230fc	slays helpless	-Backstabs-	Attacks	殺死無助的
+ui.1e3a955bd202	Attacks	slays helpless	(from behind) 	攻擊
+ui.618ae3799df9	(from behind) 	Attacks	with one cruel blow	（從背後）
+ui.2c063fc99025	with one cruel blow	(from behind) 	Hitting for 	以殘酷的一擊
+ui.560c5f3c8b5b	Hitting for 	with one cruel blow	 point 	命中，傷害
+ui.840bee47957d	 point 	Hitting for 	 points 	點
+ui.c08b2b9e8fbd	 points 	 point 	of damage	點
+ui.b0b3678b4c63	of damage	 points 	and Misses	點傷害
+ui.3d07afbdb11d	and Misses	of damage	lost a spell	但沒有命中
+ui.e6f16936a01e	lost a spell	and Misses	goes down	失去一個法術
+ui.bcf47e35fc5f	goes down	lost a spell	and is Dying	倒下了
+ui.4c07a5e27143	and is Dying	goes down	Got Away	並且垂死
+ui.a3c6a0e36a49	Got Away	and is Dying	Escape is blocked	逃脫了
+ui.688449dc6f1d	Escape is blocked	Got Away	sweeps	去路被擋住了
+ui.14d67424e599	sweeps	Escape is blocked	turns undead...	橫掃
+ui.96626dd4be2c	turns undead...	sweeps	is turned	超渡不死怪物……
+ui.f2764d5f52fb	is turned	turns undead...	Is destroyed	被超渡
+ui.24478a7c0f45	Is destroyed	is turned	Nothing Happens...	被摧毀了
+ui.a804b8f44ebe	Nothing Happens...	Is destroyed	Already been targeted	什麼事也沒發生……
+ui.c5432cc858f5	Already been targeted	Nothing Happens...	Cannot target yourself	已選為目標
+ui.e5282f4df0a5	Cannot target yourself	Already been targeted	Camp Only Spell	不能選自己為目標
+ui.c03e83a9774a	Camp Only Spell	Cannot target yourself	Begins Casting	紮營專用法術
+ui.efb9cda48d9d	Begins Casting	Camp Only Spell	<CuD	開始施法
+ui.eb45597f7b2c	Attack Ally: 	<CuD	Range = 	攻擊盟友：
+ui.e913d0b16469	Range = 	Attack Ally: 	Target 	範圍 =
+ui.e420dd994483	Target 	Range = 	Next Prev Manual 	選定目標
+ui.6bd1127b18aa	Next Prev Manual 	Target 	Center Exit	下一個 前一個 手動瞄準
+ui.02492c9d09d4	Center Exit	Next Prev Manual 	Aim:	移到畫面中央 離開
+ui.e1e5a4931ff6	Aim:	Center Exit	Target	瞄準：
+ui.978354db0c00	Target	Aim:	(Use Cursor keys) 	選定目標
+ui.5e9fc445ff43	(Use Cursor keys) 	Target	<Tu_	（用方向鍵）
+ui.11261a05f7cd	The Gods intervene!	<Tu_	Move Area Cast View Encamp Search Look	眾神介入！
+ui.4fbac6d75981	Move Area Cast View Encamp Search Look	The Gods intervene!	Area Cast View Encamp Search Loo	移動 地圖切換 施法 檢視人物 紮營 搜尋 檢視環境
+ui.7f94b4b11a1d	Area Cast View Encamp Search Loo	Move Area Cast View Encamp Search Look	Not Here	地圖切換 施法 檢視人物 紮營 搜尋 檢視環境
+ui.44592af7565b	Not Here	Area Cast View Encamp Search Loo	Move Encamp	此處不可
+ui.61bc0b5f3924	Move Encamp	Not Here	Bash	移動 紮營
+ui.d1e9567da9a8	Bash	Move Encamp	 Pick	猛擊
+ui.0f2958102b8f	 Pick	Bash	 Knock	撬鎖
+ui.37193853a694	 Knock	 Pick	Locked. 	敲門
+ui.46d70e7d2926	Locked. 	 Knock	 after the heading 	鎖住了。
+ui.39ce92102d66	 after the heading 	Locked. 	after the heading "             	於標題之後
+ui.1a587084469f	after the heading "             	 after the heading 	the heading "                   	於標題之後
+ui.cc15607b461e	 (rule book, page 	heading "                       	uq	（規則書，頁
+ui.add58d08294b	cannot cast spells in this area	uq	is in no condition to 	此處無法施法
+ui.7cbba619e3ba	is in no condition to 	cannot cast spells in this area	cast any spells	狀況不佳，無法
+ui.fa23d2522252	cast any spells	is in no condition to 	memorize spells	施展任何法術
+ui.7d08b2536e65	memorize spells	cast any spells	scribe any scrolls	記憶法術
+ui.dddde79baf4c	scribe any scrolls	memorize spells	has no spells memorized	抄寫任何卷軸。
+ui.f5312298209e	has no spells memorized	scribe any scrolls	    Cleric Spells:	沒有記憶任何法術
+ui.e155361c7f5d	    Cleric Spells:	has no spells memorized	     Druid Spells:	牧師法術：
+ui.3411c79aeedd	     Druid Spells:	    Cleric Spells:	   Special Spells:	得魯依法術：
+ui.4f8a51fd0b1c	   Special Spells:	     Druid Spells:	Magic-User Spells:	特殊法術：
+ui.9ce61a439558	Magic-User Spells:	   Special Spells:	     Bonus Spells	魔法師法術：
+ui.ea72375de926	     Bonus Spells	Magic-User Spells:	Memorize These Spells? 	額外法術
+ui.f92b6804d576	Memorize These Spells? 	     Bonus Spells	cannot memorize any spells	要記憶這些法術嗎？
+ui.95e71ac192ed	cannot memorize any spells	Memorize These Spells? 	Memorize these spells? 	無法記憶任何法術
+ui.c590c2ac22d4	Memorize these spells? 	cannot memorize any spells	Scribe These Spells? 	要記憶這些法術嗎？
+ui.b46d015704ec	Scribe These Spells? 	Memorize these spells? 	has no copyable scrolls	要抄寫這些法術嗎？
+ui.ac7104fc4031	has no copyable scrolls	Scribe These Spells? 	You already know that spell	沒有可抄寫的卷軸
+ui.812d570d8988	You already know that spell	has no copyable scrolls	already know that spell"You are 	已經學會這個法術了。
+ui.8588955900e4	You are already scibing that spell	spell"You are already scibing th	You can not scribe that spell.	已經在抄寫這個法術了。
+ui.379385551034	You can not scribe that spell.	You are already scibing that spell	Scribe these spells? 	無法抄寫這個法術。
+ui.2f5809efd162	Scribe these spells? 	You can not scribe that spell.	Funky--	要抄寫這些法術嗎？
+ui.ddf77ddccbc7	Fumbling	Funky--	Helpless	笨拙
+ui.736c6c9e4924	Helpless	Fumbling	Confused	無助
+ui.ea41abe045db	Confused	Helpless	Hot Fire Shield	混亂
+ui.7a44906cbe68	Hot Fire Shield	Confused	Cold Fire Shield	熱火盾牌
+ui.81fd6926a24c	Cold Fire Shield	Hot Fire Shield	Poisoned	冷火盾牌
+ui.6dc21afe4ede	Poisoned	Cold Fire Shield	Regenerating	中毒
+ui.a9f72cd0b8a2	Regenerating	Poisoned	Fire Resistance	再生中
+ui.e23621e57725	Fire Resistance	Regenerating	Minor Globe of Invulnerability	抗火
+ui.dd751c4d0018	Minor Globe of Invulnerability	Fire Resistance	enfeebled	小型魔法防護罩
+ui.17799e76b378	enfeebled	Minor Globe of Invulnerability	invisible to animals	衰弱
+ui.737108f33c35	invisible to animals	enfeebled	Invisible	對動物隱形
+ui.4ee447c54034	Invisible	invisible to animals	Camouflaged	隱形
+ui.21db684dca81	Camouflaged	Invisible	protected from dragon breath	偽裝
+ui.9ada56224d0b	protected from dragon breath	Camouflaged	berserk	免受龍息傷害
+ui.30282be22ebd	berserk	protected from dragon breath	Displaced	狂暴

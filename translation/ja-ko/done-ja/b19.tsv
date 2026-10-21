@@ -1,0 +1,131 @@
+key	translation	note
+ui.67abe0afb7d7	部位 1色目 2色目 大小 終了	
+ui.ca4d5dab9791	頭 武器 終了	
+ui.f8e9641e3a5a	武器 胴 xxxx 盾 腕 脚 終了	xxxx 為原文佔位，保留
+ui.6bed4a4b0f2d	残す 終了	
+ui.3a3bf7a09be2	次 前 残す 終了	
+ui.997c544f1be0	特殊呪文	
+ui.183cb292f370	第1レベル	
+ui.fee1e0c181cf	第2レベル	
+ui.228265bc1e9e	第3レベル	
+ui.54a2eee8a8af	第4レベル	
+ui.ac1f2683d765	第5レベル	
+ui.85b9417a7c41	第6レベル	
+ui.12577141602b	第7レベル	
+ui.38d99bc52505	第8レベル	
+ui.dfa14d065fe1	第9レベル	
+ui.356e7e8add97	クレリック	
+ui.274814f1a96f	ドルイド	
+ui.fe5b48644212	ファイター	
+ui.a7d973a732d0	パラディン	
+ui.e6cd637f954b	レンジャー	
+ui.e181bc015be0	魔術師	
+ui.2fd478c88ca0	シーフ	
+ui.f24b52468bfa	騎士	
+ui.f005dc729cc9	クレリック/ファイター	
+ui.1dddfa7fc08c	クレリック/ファイター/魔術師	
+ui.99c4cc7855b7	クレリック/レンジャー	
+ui.4382d5e51bac	クレリック/魔術師	
+ui.65a856807cd8	クレリック/シーフ	
+ui.995c038a6623	ファイター/魔術師	
+ui.52b785e40b86	ファイター/シーフ	
+ui.d65cab4bfd56	ファイター/魔術師/シーフ	
+ui.6c0bd5eba822	魔術師/シーフ	
+ui.50b0613a9efc	さて相棒、あんたは誰だ？	試譯定案（trial-ja）沿用
+ui.e5320c614271	シルヴァネスティ・エルフ	
+ui.dbdad44271b9	クォリネスティ・エルフ	
+ui.64f4e5d464ae	ハーフ・エルフ	
+ui.675f1f81fe21	山ドワーフ	
+ui.938134818dcb	丘ドワーフ	
+ui.a681116d0f70	ケンダー	
+ui.9ffa865f2bc6	人間	
+ui.3a241d59687b	モンスター	術語表無 Monster，採通用片假名
+ui.205c9cf60516	秩序にして善	
+ui.7ac6561f7ff4	秩序にして中立	
+ui.7b682d92b448	秩序にして悪	
+ui.7bfdfa1353ed	中立にして善	
+ui.6c8e3155e463	真なる中立	
+ui.59e74f11c96a	中立にして悪	
+ui.53916d1113a3	混沌にして善	
+ui.dfc5d1c129a5	混沌にして中立	
+ui.6d88eb730ffb	混沌にして悪	
+ui.dc937b598926	なし	
+ui.16d58af88764	パラダイン	
+ui.66279f5a7114	マジェーレ	
+ui.8168693b9714	キリ・ジョリス	
+ui.793e1cf7b3d2	ミシャカル	
+ui.aa4400500190	シリオン	
+ui.2138b8ca3a69	レオルクス	
+ui.041ecee8a387	シナーレ	
+ui.3495e757855a	白	
+ui.ba19e9c3d5f4	赤	
+ui.c6cfe6e4f129	黒	
+ui.03f8c1273e3d	男	
+ui.e8cca808ae5a	女	
+ui.a0b43df06f52	銀貨	
+ui.d35b0efe2128	銅貨	術語表無 Copper，比照 Silver=銀貨、Bronze=青銅貨
+ui.d916515d826c	青銅貨	
+ui.5a98505ed913	白金貨	
+ui.ea9973d1460e	鋼貨	
+ui.6024329694ab	宝石	
+ui.7afde2cf9e6c	装飾品	
+ui.16584052fd33	健在	
+ui.d1d632796f8a	傀儡	
+ui.f4ccae29e1bb	逃走	
+ui.daf064fe39bd	気絶	
+ui.e07f87e5bf6f	瀕死	
+ui.ec9b10a4a79c	死亡	
+ui.60f83bf1e1cf	石化	術語表無 Stoned，狀態名採「石化」
+ui.55f6a88dc025	消滅	
+ui.218e607c02c8	バトルアックス	
+ui.c600613067cb	ハンドアックス	
+ui.72e81feaa8a1	クラブ	
+ui.5679daa7c55d	ダガー	
+ui.5a5c3f75ebce	ダーツ	
+ui.c157cbf647f5	ハンマー	
+ui.3331d5456d2d	ジャベリン	
+ui.6659c4ca6420	メイス	
+ui.ca949ab43e76	モーニングスター	
+ui.19dd0c4eb6b7	ミリタリー・ピック	
+ui.32f6c2ed53d7	オール・パイク	
+ui.7fbe1537394e	クォレル	
+ui.e188d7831c07	シミター	
+ui.c71c66ea7e4c	スピア	
+ui.1d992b785bf9	クォータースタッフ	
+ui.9760e90581ce	バスタードソード	
+ui.b59528a9bc9f	ブロードソード	
+ui.cab923a670e4	ロングソード	
+ui.07467b84a7ed	ショートソード	
+ui.e3e1e619a1c8	ツーハンデッドソード	
+ui.71c095b134e2	トライデント	
+ui.842c3f9a9151	コンポジット・ロングボウ	
+ui.b55d3062e7db	コンポジット・ショートボウ	
+ui.4cf469d6ea54	ロングボウ	
+ui.bc0f80620ba6	ショートボウ	
+ui.fa67303aecda	上質の	
+ui.90d8d6de638c	ライトクロスボウ	
+ui.892b3e482474	スリング	
+ui.681927e34b77	スタッフ	
+ui.05800e70aa10	アロー	
+ui.e8e775159a57	レザー	術語表無單獨 Leather，取自 Leather Armor=レザーアーマー
+ui.b3f952e8b678	リング	
+ui.f102986b39ef	スケイル	
+ui.dae0896cbc2c	チェイン	
+ui.5253705f15ab	バンデッド	
+ui.a7cd5d8f8422	プレート	術語表無單獨 Plate，取自 Plate Mail=プレートメイル
+ui.480d4be7d61f	盾	道具名中的 Shield（非法術シールド）
+ui.58851b8fac82	聖職者	Cler 為 4 格縮寫，疑為 Cler Scroll 之一部分；術語表 Clerical Scroll=クレリックの巻物 放不進 4 格，暫用「聖職者」，待確認
+ui.291873e31ccb	巻物	
+ui.cd9bcf31a14e	魔術師の巻物	MU Scroll，比照術語表 Mage Scroll
+ui.7e94675ff2de	ヘルム	
+ui.eeebd533ebee	ベルト	
+ui.9fc3eff8f2ea	ローブ	
+ui.8d77768365dd	クローク	
+ui.929433e4be1d	ブーツ	
+ui.07ed6ccf6bf6	メイル	
+ui.a592855d0508	アーマー	
+ui.6f7418045e72	オブ・プロテ	Of Prot 為 7 格縮寫（Of Protection），術語表 リング・オブ・プロテクション 放不進，暫用截斷寫法，待確認
+ui.e00b7065984d	ブレーサー	
+ui.3e7962d21cc5	ワンド	
+ui.e721e319e5f9	アミュレット	
+ui.41e4ae984c22	ポーション	

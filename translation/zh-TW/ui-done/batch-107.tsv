@@ -1,0 +1,40 @@
+key	translation	note
+ui.73c0b0b807a4	-	
+ui.4e8dbd1e2def	-	
+ui.cb8dc406f5ea	-	
+ui.3c01374a220b	-	
+ui.529b57f0e0db	-	
+ui.55091b94b6fb	-	
+ui.b6fbd675f98e	-	
+ui.4cf2381cda99	記憶法術 抄寫法術 顯示法術 休息 離開	選單項以空白分隔，Exi 推定為 Exit
+ui.dd4e144bbc0f	排列次序 丟棄隊員 訊息速度 人物造形 圖像 難度 離開	Speed 依字數限制縮為訊息速度；Level 在 Alter 選單為遊戲困難度，縮為難度；新詞：Pics=圖像
+ui.a4d9c62a66cc	選擇 離開	
+ui.311f423fde0b	放置 離開	
+ui.1ae9ab54cdc0	改變騎士職業	新詞：Knight Change Classes=改變騎士職業（術語表 Knight Change Order 為改變騎士等級）
+ui.22d6186bb653	#部位	用途不明
+ui.f8e9641e3a5a	武器 身體 xxxx 盾牌 手臂 腳部 離開	xxxx 為程式代入的部位名，原樣保留
+ui.6bed4a4b0f2d	保留 離開	
+ui.50b0613a9efc	好了老兄，你是誰？	疑為除錯或彩蛋字串
+ui.86aa38c2f7cb	-	
+ui.75372bcd9ea0	-	
+ui.f1816659532b	-	
+ui.f4b13e93df07	-	
+ui.2886954bdb23	-	
+ui.948bd02aee52	-	
+ui.4a2d3f9a2c67	-	
+ui.2560d940847d	-	
+ui.6a7f7ad4e3d3	-	
+ui.512357ca10b5	-	
+ui.fab979e292a8	-	
+ui.eb8b4ca98d0d	-	
+ui.88b3d8eed54f	詛咒術	新詞：Curse=詛咒術
+ui.d52b96d2ce02	引發輕傷	新詞：Cause Light Wounds=引發輕傷
+ui.aa433e0ea3c6	免受善良傷害	
+ui.5021111cfddc	免受善良傷害	
+ui.5a36e355b239	活化死者	新詞：Animate Dead=活化死者
+ui.7084340de831	半徑10呎內免受善良傷害	新詞：Protection From Good, 10' Radius=半徑10呎內免受善良傷害
+ui.61e932cd1783	引發重傷	新詞：Cause Serious Wounds=引發重傷
+ui.f791fef558be	引發致命傷	新詞：Cause Critical Wounds=引發致命傷
+ui.70a4dd2b41a6	-	
+ui.52cdcd1c397d	-	
+ui.e26c93d1bccd	-	

@@ -1,0 +1,131 @@
+key	translation	note
+ui.f5fbe5aaf483	決鬥者獲得	後接點數
+ui.366dc8f46f54	每位人物獲得	後接點數
+ui.fabb9e2392ab	點經驗。按 <Enter> 鍵繼續	原文截斷於 t，推定為 to continue；DKK 作「點經驗。」
+ui.eadd361adaa7	物品：	
+ui.e52a3fb722bd	拾取：	
+ui.bce9e63c661b	檢視人物 集中財物 離開	
+ui.93f97649cdeb	偵測 離開	
+ui.9305d3a8e566	檢視人物 拾取 集中財物 均分	
+ui.1a794bb3020f	檢視人物 拾取 集中財物	
+ui.5a7dff7cd74c	還有寶藏沒有拿完。	
+ui.7d7e2afe17cd	-	
+ui.74733abbd9aa	-	
+ui.e39a3170023c	-	
+ui.aa3afc59d4b9	-	
+ui.7b78d9c6ec7a	-	
+ui.51fbab69e0f5	-	
+ui.9f26ae58edbe	-	
+ui.bd89d0b81174	要回去取走你們的寶藏嗎？	
+ui.101bece1a076	-	
+ui.f8e6ea54efd1	-	
+ui.9b85b8569648	-	
+ui.7a0f482c9801	-	
+ui.1d1c7913869b	拿走並藏起了	前接人物名，後接 his／her 與 share
+ui.73c9c98668a3	他的	
+ui.1a82b7ad5db1	那一份。	
+ui.354cbfc81426	她的	
+ui.b11529a1854f	隊伍已被消滅，怪物歡呼雀躍。	
+ui.6b1fef9fbea8	-	
+ui.662a7561ce61	-	
+ui.8a1e48f5104a	-	
+ui.64b9370e4ffa	超載	
+ui.cdbf2aad986c	金錢不足。	
+ui.16d4625e4e14	購買 檢視人物 集中財物 鑑定 離開	
+ui.bab60b4fb025	-	
+ui.528e6cd82712	離開時，店主說：「不好意思，你們把一些錢留在這裡了。」	此句有許多重疊片段且沒有乾淨起點，整句放在此列
+ui.4b8428cd010c	-	
+ui.c08fa66506c8	-	
+ui.2f4851c599eb	-	
+ui.4fa78ca28693	-	
+ui.3a68ff1e0799	-	
+ui.c4e8c0fd83df	-	
+ui.3ec6c8c8ced9	-	
+ui.bb74e61b0d1b	-	
+ui.e7c4954f0790	-	
+ui.934727db12d1	-	
+ui.656f8143fa15	-	
+ui.ff8c81df6d0e	-	
+ui.6e9bbe8d40ed	-	
+ui.a8accc8cbc98	-	
+ui.e078aa30cdf3	-	
+ui.9ed735a61a72	-	
+ui.df233fd48468	-	
+ui.59bfc5e80fe3	-	
+ui.ad3c92130074	-	
+ui.7e9f09c355e1	-	
+ui.637324080626	-	
+ui.53c3a7249b13	-	
+ui.6adf71c478fa	-	
+ui.f0e791ada740	要回去拿你們的錢嗎？	
+ui.dfa5818ca2f4	-	
+ui.85446beb32e1	-	
+ui.7ab1fe96128a	-	
+ui.440c01125ee5	-	
+ui.ec859655f60b	-	
+ui.6ad39835c3d6	-	
+ui.93515f638926	點傷害。按 <Enter> 鍵繼續	原文截斷於 /，推定為 press <enter>/<return> to continue；DKK 作「點傷害。」
+ui.74442adc65dc	-	
+ui.2949ca20b0db	-	
+ui.f6410fb009d4	魔法開啟	
+ui.629ffe46b6a0	魔法關閉	
+ui.46e50b3cdce8	這樣行不通。	
+ui.c848bff204f4	移動	
+ui.00813b28c9bc	檢視人物 瞄準	
+ui.bb33dbdb2f21	使用	
+ui.d61160238799	施法	
+ui.38ff7074c72d	超渡	
+ui.104b7e4ac60a	叫罵	
+ui.50e28de96686	你的隊員垂死了。	
+ui.73967b10f229	繼續戰鬥：	
+ui.12e9a0c0cda7	完成	
+ui.637c8ce00e81	逃跑：	
+ui.c4ff4a77d890	不能去那裡	
+ui.94be0417569f	這把武器辦不到	
+ui.b9d05f332634	守衛	
+ui.f9b8e202385e	延後 棄權	Quit 依術語表 End 譯「棄權」，未實測
+ui.430ea16f1ff6	包紮	
+ui.5c2e73b9229d	自動 改變遊戲速度 離開	
+ui.e2491eec6c44	遊戲速度（	
+ui.8879ab4f6391	較慢	
+ui.c2144e87fdf4	較快	
+ui.4391105bd3a7	驚慌逃走	
+ui.0d0ae56ee488	投降了	
+ui.90abedebaa29	-	
+ui.a68af08a9994	-	
+ui.71e9a983951f	-	
+ui.9a1ce076d023	-	
+ui.cf0e06cd4619	-	
+ui.5afab9a620f6	-	
+ui.d91e43895d60	戰鬥開始了……	
+ui.11adf8e3d38b	-	
+ui.05f514fae7ca	-	
+ui.46a4eebd20d8	-	
+ui.29880ed052f6	-	
+ui.d5bed51cd121	被麻痺了	
+ui.b370fd5fed0b	壞消息	用途不明，直譯
+ui.b3ac0c907f0b	發狂了！	
+ui.3b3a7629d93f	毒發身亡	
+ui.335328d0950d	得到一件物品	
+ui.cdfbf57b7d97	以新的形態重生	
+ui.2c234a550746	空氣稍微清新了一些……	
+ui.b38102de71ef	躲過了	
+ui.216a83ec3e38	自焚了	
+ui.eaca812fbb25	爆炸了！	
+ui.10e51a565fd3	中毒了	
+ui.ade38ca9f73c	被電到了！	
+ui.8acea952864e	失去了武器	
+ui.a62ba7f80094	化為一灘酸液！	
+ui.98a2052f16f7	穿過時空之門而來	
+ui.8421b34e6c23	酸液流乾了……	
+ui.728baf5375e7	感到害怕	
+ui.038686f70c2d	-背刺-	
+ui.1e3a955bd202	攻擊	
+ui.618ae3799df9	（從背後）	
+ui.b0b3678b4c63	點傷害	前接數字
+ui.3d07afbdb11d	但沒有命中	
+ui.4c07a5e27143	並且垂死	
+ui.a3c6a0e36a49	逃脫了	
+ui.688449dc6f1d	去路被擋住了	
+ui.24478a7c0f45	被摧毀了	
+ui.a804b8f44ebe	什麼事也沒發生……	

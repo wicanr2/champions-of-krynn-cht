@@ -1,0 +1,95 @@
+Attack Ally: ||| 攻擊盟友：
+Range = ||| 範圍 =
+Target ||| 選定目標
+Next Prev Manual ||| 下一個 前一個 手動瞄準
+Center Exit ||| 移到畫面中央 離開
+Aim: ||| 瞄準：
+(Use Cursor keys) ||| （用方向鍵）
+Area Cast View Encamp Search Loo ||| 地圖切換 施法 檢視人物 紮營 搜尋 檢視環境 ||| 原文截斷於 Loo，推定為 Look
+Not Here ||| 此處不可
+Move Encamp ||| 移動 紮營
+Bash ||| 猛擊
+Pick ||| 撬鎖
+Knock ||| 敲門
+Locked. ||| 鎖住了。
+after the heading " ||| 於標題之後 ||| 原文為防拷問答提示，後接動態標題；其餘重疊片段寫 -
+cannot cast spells in this area ||| 此處無法施法
+is in no condition to ||| 狀況不佳，無法 ||| 前接人物名，與下一則接成「某某狀況不佳，無法抄寫任何卷軸。」
+scribe any scrolls ||| 抄寫任何卷軸。
+Cleric Spells: ||| 牧師法術：
+Druid Spells: ||| 得魯依法術：
+Special Spells: ||| 特殊法術：
+Magic-User Spells: ||| 魔法師法術：
+Bonus Spells ||| 額外法術
+Memorize These Spells? ||| 要記憶這些法術嗎？
+Memorize these spells? ||| 要記憶這些法術嗎？
+Scribe These Spells? ||| 要抄寫這些法術嗎？
+You already know that spell ||| 已經學會這個法術了。
+You are already scibing that spell ||| 已經在抄寫這個法術了。 ||| 原文 scibing 為拼字錯誤
+You can not scribe that spell. ||| 無法抄寫這個法術。
+Scribe these spells? ||| 要抄寫這些法術嗎？
+Regenerating ||| 再生中
+Minor Globe of Invulnerability ||| 小型魔法防護罩
+Party Order: ||| 隊伍次序：
+quit TO DOS: ||| 離開遊戲：
+will be gone ||| 將會消失 ||| 前接人物名
+Game Speed = ||| 遊戲速度 =
+(0=fastest 9=slowest) ||| （0=最快 9=最慢）
+Faster ||| 較快
+Slower ||| 較慢
+Game Speed: ||| 遊戲速度：
+Pics on ||| 圖像開啟
+Animation on ||| 動畫開啟
+Animation off ||| 動畫關閉
+Pics off ||| 圖像關閉
+The party makes camp... ||| 隊伍紮營了……
+Quit TO DOS ||| 離開遊戲
+from saved game ||| 來自已儲存的遊戲 ||| 用途不明，推定接在人物名之後
+Is your save disk in drive ||| 請將存檔磁片放入磁碟機 ||| 後接磁碟機代號；原文為疑問句，沿用 DKK 句式
+Unexpected error during save: ||| 儲存時發生意外錯誤：
+Can't save.  No room on this disk. ||| 無法儲存。磁片空間不足。
+Lose character? ||| 要失去人物嗎？
+Ok  Try another disk ||| 確定 換另一片磁片
+Overwrite ||| 覆寫
+New file name: ||| 新檔名：
+Unable to load monster ||| 無法載入怪物資料
+Load Which Game: ||| 載入哪個遊戲：
+Save Which Game: ||| 儲存哪個遊戲：
+..Please Wait"WARNING: Problem Saving Characte ||| ……請稍候 ||| 與下一則警告以換行相接的重疊片段，此列只承載「請稍候」
+WARNING: Problem Saving Characters ||| 警告：儲存人物時發生問題
+Choose a FUNCTION ||| 選擇功能
+Select ||| 選擇
+Game NOT saved.  Quit anyway? ||| 遊戲尚未儲存。仍要離開嗎？
+Free training on ||| 免費訓練開啟
+Free training off ||| 免費訓練關閉
+Pick God ||| 選擇信仰
+Reroll stats? ||| 要重擲屬性嗎？
+Character name: ||| 人物姓名：
+Save ||| 儲存
+Drop ||| 要永遠放棄 ||| 前接人物名；與下一則接成「要永遠放棄某某嗎？」
+forever? ||| 嗎？
+You dump ||| 你們把 ||| 後接人物名
+out back. ||| 丟到後面去了。
+breathes a sigh of relief. ||| 鬆了一口氣。
+Modify: ||| 調整：
+Add a character: ||| 加入人物：
+Add ||| 加入
+paladins do not join with evil scum ||| 聖騎士不與邪惡的渣滓為伍。 ||| 此句有重疊片段，整句放在此列
+too many rangers in party ||| 隊伍中的遊俠太多了。
+will tolerate no evil! ||| 絕不容忍邪惡！ ||| 前接人物名
+Small ||| 小
+Large ||| 大
+Sorry, not in CGA ||| 抱歉，CGA 模式無此功能。
+Hair ||| 頭髮
+Face ||| 臉部
+Is this icon ok? ||| 這個造形可以嗎？
+We don't train that class here ||| 我們這裡不訓練那個職業。
+Not Enough Experience ||| 經驗不足
+Do you wish to train? ||| 你想接受訓練嗎？
+Congratulations... ||| 恭喜……
+Knight Of The ||| 騎士階級： ||| 原文結尾是空白，後接動態文字（推定 Crown，DKK 有獨立字串「皇冠」）；若不是動態接續需改為「皇冠騎士」
+is too inexperienced. ||| 經驗太淺了。 ||| 前接人物名
+is too inexperienced ||| 經驗太淺了 ||| 前接人物名；與上一則僅差句點
+Knight Of The Sword ||| 聖劍騎士
+Knight Of The Rose ||| 玫瑰騎士
+mouse ON ||| 滑鼠開啟

@@ -1,0 +1,131 @@
+key	original	prev	next	zh
+ui.27f004b67f24	was going to scribe from that sc	 was going to scribe from that scroll	going to scribe from that scroll	原本打算從那張卷軸抄寫法術，
+ui.814d608d6c4d	is it Okay to lose it? 	going to scribe from that scroll	itemptr:      	失去它也沒關係嗎？
+ui.6b0e38e88d73	press a key	item type :    	View Ready	按任意鍵
+ui.d93c6868d131	View Ready	press a key	Ready	檢視備妥
+ui.5fa7aac5375c	Ready	View Ready	 Use	備妥
+ui.bb4e56df6695	 Use	Ready	 Trade	使用
+ui.c2753bcb60bc	 Trade	 Use	 Drop	交易
+ui.54b6b6331136	 Drop	 Trade	 Halve	丟棄
+ui.72114d9f7221	 Halve	 Drop	 Join	分半
+ui.418b784a860f	 Join	 Halve	 Sell	集合物品
+ui.1520b330a354	 Sell	 Join	 Id	變賣物品
+ui.a3237f49325a	 Id	 Sell	Items	驗証
+ui.fb8e7a1a3cb7	Items	 Id	Ready Item	物品
+ui.0f7b79cee0ba	Ready Item	Items	Must be Readied	備妥物品
+ui.d6be94e808f0	Must be Readied	Ready Item	Your 	必須先備妥
+ui.b46fe55938ec	Your 	Must be Readied	will be gone forever	你的
+ui.07d4f0d9ade4	will be gone forever	Your 	Drop It? 	將永遠消失
+ui.b9267e64e341	Drop It? 	will be gone forever	It's Cursed	丟棄嗎？
+ui.b879ba1b6add	It's Cursed	Drop It? 	Wrong Class	已被詛咒
+ui.9a1cce7fcc35	Wrong Class	It's Cursed	already using 	職業不符
+ui.6852e524971b	already using 	Wrong Class	Your hands are full!	已在使用
+ui.edb9de30ada2	Your hands are full!	already using 	Wrong Magical Order	你的雙手已滿！
+ui.066ee45ed434	Wrong Magical Order	Your hands are full!	Usable Only By Kender	魔法派別不符
+ui.e75e05069bb4	Usable Only By Kender	Wrong Magical Order	Trade with Whom?	僅限坎德人使用
+ui.eb5ce7d3c9df	Trade with Whom?	Usable Only By Kender	Overloaded	與誰交易？
+ui.b991604729c6	Overloaded	Trade with Whom?	Can't halve that	超載
+ui.f5a329b998d9	Can't halve that	Overloaded	uses an item	無法分半
+ui.c8d3812485c0	uses an item	Can't halve that	Item:	使用物品
+ui.fe95d23deff6	Item:	uses an item	oops!	物品：
+ui.20691bd0739f	oops!	Item:	I'll give you 	糟糕！
+ui.a3bf67830817	I'll give you 	oops!	 steel pieces for your 	我出
+ui.b327d99c300f	 steel pieces for your 	I'll give you 	Is It a Deal? 	鋼幣買你的
+ui.0d3f5e18425a	Is It a Deal? 	 steel pieces for your 	Sold!	成交嗎？
+ui.94c736fde0c8	Sold!	Is It a Deal? 	'Overloaded.  Money will be put i	已賣出！
+ui.5971145b42aa	Overloaded.  Money will be put in pool.	'Overloaded.  Money will be put i	For 100 steel pieces I'll identify your 	超出負重，金錢將放入集中財物。
+ui.3325d0b241c1	For 100 steel pieces I'll identify your 	Overloaded.  Money will be put in pool.	100 steel pieces I'll identify y	只要 100 枚鋼幣，我就替你驗証你的
+ui.84e79ec5c06b	Not Enough Money	steel pieces I'll identify your 	Enough Money%I can't tell anythi	金錢不足
+ui.0ec329bcd4dc	I can't tell anything new about your 	Money%I can't tell anything new 	can't tell anything new about yo	我看不出更多有關你的
+ui.ae48de661444	It looks like some sort of 	can't tell anything new about yo	Trade to?	它看起來像是某種
+ui.72f5a9907af4	Trade to?	It looks like some sort of 	Select type of coin 	交易給誰？
+ui.d3e4217f335c	Select type of coin 	Trade to?	 Select	選擇錢幣種類
+ui.1d7961e4ed0d	 Select	Select type of coin 	How much 	選擇
+ui.838bb792ae73	How much 	 Select	will you trade? 	請問
+ui.7935c6648824	will you trade? 	How much 	will you drop? 	要交易多少？
+ui.d520d4a25f73	will you drop? 	will you trade? 	in Memory	要丟棄多少？
+ui.323d3bd94dc3	in Memory	will you drop? 	in Grimoire	記憶中
+ui.85508313b762	in Grimoire	in Memory	on Scroll	法術書中
+ui.5b7ea832e1b1	on Scroll	in Grimoire	on Scrolls	卷軸上
+ui.e0cf46fc6a62	on Scrolls	on Scroll	to Choose	卷軸上
+ui.1303d3de9773	to Choose	on Scrolls	to Memorize	待選擇
+ui.12ca55d7e7e9	to Memorize	to Choose	to Scribe	待記憶
+ui.ebe2888cf1da	to Scribe	to Memorize	Pick Character 	待抄寫
+ui.aa67752cdcbc	Pick Character 	to Scribe	Rest Time:	選擇人物
+ui.3836f8c4efdd	Rest Time:	Pick Character 	Rest Days Hours Mins Add Subtract Exit	休息時間：
+ui.3eb4db249b6e	Rest Days Hours Mins Add Subtract Exit	Rest Time:	Days Hours Mins Add Subtract Exi	休息 天 時 分 增加 減少 離開
+ui.81a66e3516e8	Days Hours Mins Add Subtract Exi	Rest Days Hours Mins Add Subtract Exit	The Whole Party Is Healed	日 時 分 加 減 離開
+ui.1325fc582bac	The Whole Party Is Healed	Days Hours Mins Add Subtract Exi	has memorized	全隊已治癒
+ui.5c4efffc1a54	has memorized	The Whole Party Is Healed	has scribed	已記憶
+ui.20a26081e1d6	has scribed	has memorized	Stop Resting? 	已抄寫
+ui.a719751ac171	Stop Resting? 	has scribed	Resting? $Your repose is suddenl	停止休息嗎？
+ui.088721ec6d4a	Your repose is suddenly interrupted!	$Your repose is suddenly interru	repose is suddenly interrupted!U	你們的休息被突然打斷了！
+ui.729dccf7638c	Overloaded.  Money will be put in Pool.	repose is suddenly interrupted!U	Gems 	超出負重，金錢將放入集中財物。
+ui.373447f83c3b	Gems 	Overloaded.  Money will be put in Pool.	platinum 	寶石
+ui.d0b494caae7e	platinum 	Gems 	bronze 	白金幣
+ui.723e24cd425b	bronze 	platinum 	silver 	青銅幣
+ui.1b9adc638021	silver 	bronze 	steel 	銀幣
+ui.4dc6ae7b6f7d	steel 	silver 	Copper 	鋼幣
+ui.901bc8dfb280	Copper 	steel 	Jewelry 	銅幣
+ui.d5cc133735e7	Jewelry 	Copper 	How Many 	珠寶
+ui.4f4ab16743c0	How Many 	Jewelry 	 will you take? 	數量？
+ui.23542cb0bb46	 will you take? 	How Many 	No Gems or Jewelry	要拿多少？
+ui.86d864d10977	No Gems or Jewelry	 will you take? 	 Gem	沒有寶石或珠寶
+ui.8be91414fd53	 Gem	No Gems or Jewelry	 Gems	顆寶石
+ui.c8c487bf9b56	 Gems	 Gem	 piece of Jewelry	顆寶石
+ui.1c893adcd5ec	 piece of Jewelry	 Gems	 pieces of Jewelry	件珠寶
+ui.9d8e4869a5ce	 pieces of Jewelry	 piece of Jewelry	You have a fine collection of:	件珠寶
+ui.4bebe28dca57	You have a fine collection of:	 pieces of Jewelry	  Gems	你擁有一批精美的收藏：
+ui.762226aafd83	  Gems	You have a fine collection of:	  Jewelry	寶石
+ui.36ba3f71ad6e	  Jewelry	  Gems	Appraise : 	珠寶
+ui.b979617559ad	Appraise : 	  Jewelry	The Gem is Valued at 	鑑定：
+ui.d0291caff432	The Gem is Valued at 	Appraise : 	 steel.	這顆寶石價值
+ui.61f23b5499d0	 steel.	The Gem is Valued at 	Sell	鋼幣。
+ui.2ec1e2815946	Sell	 steel.	Sell Keep	變賣物品
+ui.d28b15c6a6d9	Sell Keep	Sell	You can : 	變賣物品 保留
+ui.1b060046c58b	You can : 	Sell Keep	The Jewel is Valued at 	你可以：
+ui.b3063dda39ee	The Jewel is Valued at 	You can : 	<Jt	這件珠寶價值
+ui.150040557337	Cast	ug	Memorize	施法
+ui.ad1096e9f7c3	Memorize	Cast	Scribe	記憶法術
+ui.77bf07480400	Scribe	Memorize	Learn	抄寫法術
+ui.ce78afd0e6a2	Learn	Scribe	Choose Spell: 	學習
+ui.00d0fa5542f1	Choose Spell: 	Learn	Cast Spell on whom	選擇法術：
+ui.fbd6007fa4e6	Cast Spell on whom	Choose Spell: 	uS	對誰施法
+ui.0101e4ce36f7	can't be cast here...	uS	Lose it? 	無法在這裡施放……
+ui.4a24b8af9cec	Lose it? 	can't be cast here...	That Item	要丟掉嗎？
+ui.29ea779dcb6a	That Item	Lose it? 	is a combat-only item...	那件物品
+ui.23ffe2ed4c9b	is a combat-only item...	That Item	Use it? 	只能在戰鬥中使用……
+ui.8d06f22a0748	Use it? 	is a combat-only item...	miscasts	要使用嗎？
+ui.c16b1d325028	miscasts	Use it? 	casts	施法失敗
+ui.0653216d8920	casts	miscasts	Abort Spell? 	施放
+ui.aa537527975c	Abort Spell? 	casts	Spell Aborted	中止施法嗎？
+ui.624a5b72859b	Spell Aborted	Abort Spell? 	is Blessed	法術已中止
+ui.44c3b4f71a5c	is Blessed	Spell Aborted	is Cursed	受到祝福
+ui.68423657b7c7	is Cursed	is Blessed	is protected	受到詛咒
+ui.866ae4750924	is protected	is Cursed	is cold-resistant	受到保護
+ui.8250c2c4f12a	is cold-resistant	is protected	is charmed	具有抗寒能力
+ui.6a198c100d8c	is charmed	is cold-resistant	is stronger	被迷惑了
+ui.abf5c0694d45	is stronger	is charmed	has been reduced	變強壯了
+ui.63b579c5009b	has been reduced	is stronger	is friendly	被縮小了
+ui.1084266e89ee	is friendly	has been reduced	is shielded	變得友善
+ui.8d69b49af8e4	is shielded	is friendly	falls asleep	受到盾牌保護
+ui.e77b0d967b7c	falls asleep	is shielded	is held	睡著了
+ui.8c3c927feb92	is held	falls asleep	is fire resistant	被束縛了
+ui.325563121a6d	is fire resistant	is held	is invisible	具有抗火能力
+ui.481cb0fe2b2c	is invisible	is fire resistant	Knock-Knock	隱形了
+ui.effd09803c06	Knock-Knock	is invisible	is duplicated	叩叩
+ui.62a61d211285	is duplicated	Knock-Knock	Creates a noxious cloud	被複製了
+ui.d119669b1a25	Creates a noxious cloud	is duplicated	can see	產生一團毒雲
+ui.ba77b08db988	can see	Creates a noxious cloud	is blind	看得見了
+ui.e35ab226a22a	is blind	can see	is diseased	失明了
+ui.1b161713df5c	is diseased	is blind	is praying	染上疾病
+ui.a22d9fc5be57	is praying	is diseased	is un-cursed	正在祈禱
+ui.1a9e62ad568b	is un-cursed	is praying	has an item un-cursed	解除了詛咒
+ui.97b83b7e68be	has an item un-cursed	is un-cursed	has been cursed!	有一件物品解除了詛咒
+ui.6503fd1bd5d2	has been cursed!	has an item un-cursed	is blinking	被詛咒了！
+ui.22ed2f2c4af7	is blinking	has been cursed!	is Hasted	正在閃爍
+ui.d95ff49dc502	is Hasted	is blinking	is Slowed	動作加倍
+ui.eb320b192b6a	is Slowed	is Hasted	is Speedy	動作減慢
+ui.a8e7482dbad8	is Speedy	is Slowed	is paralyzed	速度加快
+ui.c478e4d87da2	is paralyzed	is Speedy	is Healed	被麻痺了
+ui.eb05ac334a9f	is Healed	is paralyzed	is unpoisoned	已治癒

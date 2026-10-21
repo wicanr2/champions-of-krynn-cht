@@ -1,0 +1,131 @@
+key	translation	note
+ui.73aacaa0a21a	滑鼠關閉	
+ui.0dc5be426a8c	搖桿開啟	
+ui.c46f278027d6	搖桿關閉	
+ui.fe6c9d4d8e5b	啟動滑鼠和搖桿：	
+ui.a29e9feca009	將搖桿 #1 推到最左上角位置，然後按下按鈕讀取搖桿	真字串被拆成 upper／left position… 兩段，完整語意放此則，其餘片段寫 -
+ui.8d900e13200a	-	
+ui.179e5bcb16b2	-	
+ui.91d3d9bf3a44	-	
+ui.b1a3a46551f8	-	
+ui.1d73a53519fa	-	
+ui.62105f238559	-	
+ui.b399d4b83bfb	-	
+ui.fb2e35076462	-	
+ui.fce34ec19e9f	-	
+ui.51b5cacb4abd	-	
+ui.faee4715888d	將搖桿 #1 推到最右下角位置，然後按下按鈕讀取搖桿	同上，lower／right position
+ui.ab30aeacf633	-	
+ui.d1546d6d7cea	-	
+ui.7a755e4e7a7d	-	
+ui.048a6e74fa6b	-	
+ui.5e2eb4291363	-	
+ui.f0f3182bd865	-	
+ui.d9e49b4654c3	-	
+ui.3a0c33cd44ae	-	
+ui.23697e5652eb	-	
+ui.2aaf9bfd20c4	物品	
+ui.7996af070c23	交易	
+ui.0d20c6ca62b0	治療	
+ui.42b745650343	治病	
+ui.5dc385a11b83	-	
+ui.880e01cc2c99	-	
+ui.27f004b67f24	原本打算從那張卷軸抄寫法術，	真字串為「 was going to scribe from that scroll」，前接人物名；與下一則接成「…原本打算從那張卷軸抄寫法術，失去它也沒關係嗎？」
+ui.a0110bf32cd0	-	
+ui.814d608d6c4d	失去它也沒關係嗎？	
+ui.bc14e88ce9d2	-	
+ui.8e969cba5d9e	-	
+ui.23002b0d17ae	-	
+ui.afffeae257cc	-	
+ui.820cb48cd39a	-	
+ui.8be662b34731	-	
+ui.deda4c164ab4	-	
+ui.1e1eace04773	-	
+ui.1bc7a93c8ada	-	
+ui.03ad4ce53868	-	
+ui.227542401f01	-	
+ui.3f1c4ef7c62c	-	
+ui.132aa6e13b4f	-	
+ui.1cb02ae85950	-	
+ui.5612de13f769	-	
+ui.df530c17da20	-	
+ui.6b0e38e88d73	按任意鍵	前後是物品除錯欄位（itemptr、namenum…），疑為開發用畫面，欄位標籤列寫 -
+ui.d93c6868d131	檢視備妥	
+ui.5fa7aac5375c	備妥	
+ui.bb4e56df6695	使用	
+ui.c2753bcb60bc	交易	
+ui.54b6b6331136	丟棄	
+ui.72114d9f7221	分半	術語表 Halve 為「物品數量分半」，超過字數限制，縮為「分半」
+ui.418b784a860f	集合物品	
+ui.1520b330a354	變賣物品	
+ui.a3237f49325a	驗証	
+ui.d6be94e808f0	必須先備妥	
+ui.b9267e64e341	丟棄嗎？	
+ui.0d3f5e18425a	成交嗎？	
+ui.94c736fde0c8	已賣出！	
+ui.b44b41b19267	-	
+ui.5971145b42aa	超出負重，金錢將放入集中財物。	
+ui.3325d0b241c1	只要 100 枚鋼幣，我就替你驗証你的	後接物品名
+ui.e2f1b545fac0	-	
+ui.c41a124f7ca5	-	
+ui.84e79ec5c06b	金錢不足	
+ui.dd48b6386318	-	
+ui.8933906f343d	-	
+ui.0ec329bcd4dc	我看不出更多有關你的	後接物品名；與下一則「它看起來像是某種」相連
+ui.7ab4fb9c13c2	-	
+ui.ae48de661444	它看起來像是某種	後接物品類別名
+ui.72f5a9907af4	交易給誰？	
+ui.d3e4217f335c	選擇錢幣種類	
+ui.1d7961e4ed0d	選擇	
+ui.81a66e3516e8	日 時 分 加 減 離開	原文截斷於 Exi，推定為 Exit；選單項以空白分隔，各項縮為單字
+ui.1325fc582bac	全隊已治癒	
+ui.a719751ac171	停止休息嗎？	
+ui.198293e77e7a	-	
+ui.3da436a157f7	-	
+ui.088721ec6d4a	你們的休息被突然打斷了！	
+ui.6713d8d20402	-	
+ui.729dccf7638c	超出負重，金錢將放入集中財物。	
+ui.373447f83c3b	寶石	
+ui.d0b494caae7e	白金幣	
+ui.723e24cd425b	青銅幣	
+ui.1b9adc638021	銀幣	
+ui.4dc6ae7b6f7d	鋼幣	
+ui.901bc8dfb280	銅幣	新詞：Copper=銅幣
+ui.d5cc133735e7	珠寶	
+ui.4f4ab16743c0	數量？	
+ui.86d864d10977	沒有寶石或珠寶	
+ui.8be91414fd53	顆寶石	前接數字
+ui.c8c487bf9b56	顆寶石	前接數字
+ui.1c893adcd5ec	件珠寶	前接數字
+ui.9d8e4869a5ce	件珠寶	前接數字
+ui.762226aafd83	寶石	
+ui.36ba3f71ad6e	珠寶	
+ui.d0291caff432	這顆寶石價值	
+ui.2ec1e2815946	變賣物品	
+ui.1b060046c58b	你可以：	
+ui.b3063dda39ee	這件珠寶價值	
+ui.db5cd94e8690	-	
+ui.a05572586232	-	
+ui.00d0fa5542f1	選擇法術：	
+ui.fbd6007fa4e6	對誰施法	
+ui.2996ef92b7e2	-	
+ui.0101e4ce36f7	無法在這裡施放……	前接法術名
+ui.29ea779dcb6a	那件物品	
+ui.23ffe2ed4c9b	只能在戰鬥中使用……	接在「那件物品」之後
+ui.c16b1d325028	施法失敗	前接人物名
+ui.aa537527975c	中止施法嗎？	
+ui.44c3b4f71a5c	受到祝福	
+ui.68423657b7c7	受到詛咒	
+ui.325563121a6d	具有抗火能力	
+ui.effd09803c06	叩叩	疑為 Knock 法術的開門音效訊息
+ui.d119669b1a25	產生一團毒雲	
+ui.1b161713df5c	染上疾病	
+ui.1a9e62ad568b	解除了詛咒	
+ui.6503fd1bd5d2	被詛咒了！	
+ui.d95ff49dc502	動作加倍	Haste 術語表為加倍術
+ui.eb320b192b6a	動作減慢	
+ui.a8e7482dbad8	速度加快	
+ui.eb05ac334a9f	已治癒	
+ui.8575fa9ba811	驚恐逃跑	
+ui.f06c19b93b2c	火焰種類：	可能是除錯欄位，未確認
+ui.6bdc33eef062	中止施法嗎？	

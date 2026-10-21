@@ -1,0 +1,74 @@
+The duelist receives ||| 決鬥者獲得 ||| 後接點數
+Each character receives ||| 每位人物獲得 ||| 後接點數
+points."press <enter>/<return> t ||| 點經驗。按 <Enter> 鍵繼續 ||| 原文截斷於 t，推定為 to continue；DKK 作「點經驗。」
+Items: ||| 物品：
+Take: ||| 拾取：
+View Pool Exit ||| 檢視人物 集中財物 離開
+Detect Exit ||| 偵測 離開
+View Take Pool Share ||| 檢視人物 拾取 集中財物 均分
+View Take Pool ||| 檢視人物 拾取 集中財物
+There is still treasure left. ||| 還有寶藏沒有拿完。
+Do you want to go back and claim your treasure? ||| 要回去取走你們的寶藏嗎？
+takes and hides ||| 拿走並藏起了 ||| 前接人物名，後接 his／her 與 share
+his ||| 他的
+share. ||| 那一份。
+her ||| 她的
+The monsters rejoice for the party has been destroyed ||| 隊伍已被消滅，怪物歡呼雀躍。
+OverLoaded ||| 超載
+Not enough Money. ||| 金錢不足。
+Buy View Pool Appraise Exit ||| 購買 檢視人物 集中財物 鑑定 離開
+oRAs you Leave the Shopkeeper says, "Excuse me but you have Left Some Money he ||| 離開時，店主說：「不好意思，你們把一些錢留在這裡了。」 ||| 此句有許多重疊片段且沒有乾淨起點，整句放在此列
+Do you want to go back and get your Money? ||| 要回去拿你們的錢嗎？
+points of Damage."press <enter>/ ||| 點傷害。按 <Enter> 鍵繼續 ||| 原文截斷於 /，推定為 press <enter>/<return> to continue；DKK 作「點傷害。」
+Magic On ||| 魔法開啟
+Magic Off ||| 魔法關閉
+That doesn't work ||| 這樣行不通。
+Move ||| 移動
+View Aim ||| 檢視人物 瞄準
+Use ||| 使用
+Cast ||| 施法
+Turn ||| 超渡
+Yell ||| 叫罵
+Your Teammate is Dying ||| 你的隊員垂死了。
+Continue Battle: ||| 繼續戰鬥：
+Done ||| 完成
+Flee: ||| 逃跑：
+can't go there ||| 不能去那裡
+Not with that weapon ||| 這把武器辦不到
+Guard ||| 守衛
+Delay Quit ||| 延後 棄權 ||| Quit 依術語表 End 譯「棄權」，未實測
+Bandage ||| 包紮
+Auto Speed Exit ||| 自動 改變遊戲速度 離開
+GameSpeed ( ||| 遊戲速度（
+Slower ||| 較慢
+Faster ||| 較快
+flees in panic ||| 驚慌逃走
+Surrenders ||| 投降了
+A battle begins... ||| 戰鬥開始了……
+is Paralyzed ||| 被麻痺了
+bad news ||| 壞消息 ||| 用途不明，直譯
+goes mad! ||| 發狂了！
+dies from poison ||| 毒發身亡
+Gains an item ||| 得到一件物品
+Arises in a new form ||| 以新的形態重生
+The air clears a little... ||| 空氣稍微清新了一些……
+Avoids it ||| 躲過了
+immolates ||| 自焚了
+explodes! ||| 爆炸了！
+is Poisoned ||| 中毒了
+gets zapped! ||| 被電到了！
+loses his weapon ||| 失去了武器
+dissolves into acid! ||| 化為一灘酸液！
+gates in ||| 穿過時空之門而來
+The acid drains away.. ||| 酸液流乾了……
+is afraid ||| 感到害怕
+-Backstabs- ||| -背刺-
+Attacks ||| 攻擊
+(from behind) ||| （從背後）
+of damage ||| 點傷害 ||| 前接數字
+and Misses ||| 但沒有命中
+and is Dying ||| 並且垂死
+Got Away ||| 逃脫了
+Escape is blocked ||| 去路被擋住了
+Is destroyed ||| 被摧毀了
+Nothing Happens... ||| 什麼事也沒發生……

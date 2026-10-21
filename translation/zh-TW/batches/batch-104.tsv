@@ -1,0 +1,131 @@
+key	original	prev	next	tier	source
+ui.73aacaa0a21a	mouse OFF	mouse ON	joystick ON	-	GAME.OVR:155261
+ui.0dc5be426a8c	joystick ON	mouse OFF	joystick OFF	-	GAME.OVR:155271
+ui.c46f278027d6	joystick OFF	joystick ON	Init Mouse/Joystick: 	-	GAME.OVR:155283
+ui.fe6c9d4d8e5b	Init Mouse/Joystick: 	joystick OFF	Push JOYSTICK #1 to the extreme upper	-	GAME.OVR:155309
+ui.a29e9feca009	Push JOYSTICK #1 to the extreme upper	Init Mouse/Joystick: 	#1 to the extreme upper"left pos	-	GAME.OVR:156907
+ui.8d900e13200a	#1 to the extreme upper"left pos	Push JOYSTICK #1 to the extreme upper	1 to the extreme upper"left positio	-	GAME.OVR:156921
+ui.179e5bcb16b2	1 to the extreme upper"left positio	#1 to the extreme upper"left pos	 to the extreme upper"left position and press but	-	GAME.OVR:156922
+ui.91d3d9bf3a44	 to the extreme upper"left position and press but	1 to the extreme upper"left positio	to the extreme upper"left positi	-	GAME.OVR:156923
+ui.b1a3a46551f8	to the extreme upper"left positi	 to the extreme upper"left position and press but	the extreme upper"left position 	-	GAME.OVR:156924
+ui.1d73a53519fa	the extreme upper"left position 	to the extreme upper"left positi	extreme upper"left position and 	-	GAME.OVR:156927
+ui.62105f238559	extreme upper"left position and 	the extreme upper"left position 	upper"left position and press bu	-	GAME.OVR:156931
+ui.b399d4b83bfb	upper"left position and press bu	extreme upper"left position and 	to read joystick%Push JOYSTICK #	-	GAME.OVR:156939
+ui.fb2e35076462	to read joystick%Push JOYSTICK #	upper"left position and press bu	read joystick%Push JOYSTICK #1 t	-	GAME.OVR:156987
+ui.fce34ec19e9f	read joystick%Push JOYSTICK #1 t	to read joystick%Push JOYSTICK #	joystick%Push JOYSTICK #1 to the	-	GAME.OVR:156990
+ui.51b5cacb4abd	joystick%Push JOYSTICK #1 to the	read joystick%Push JOYSTICK #1 t	Push JOYSTICK #1 to the extreme lower	-	GAME.OVR:156995
+ui.faee4715888d	Push JOYSTICK #1 to the extreme lower	joystick%Push JOYSTICK #1 to the	#1 to the extreme lower#right po	-	GAME.OVR:157004
+ui.ab30aeacf633	#1 to the extreme lower#right po	Push JOYSTICK #1 to the extreme lower	1 to the extreme lower#right positi	-	GAME.OVR:157018
+ui.d1546d6d7cea	1 to the extreme lower#right positi	#1 to the extreme lower#right po	 to the extreme lower#right position and press bu	-	GAME.OVR:157019
+ui.7a755e4e7a7d	 to the extreme lower#right position and press bu	1 to the extreme lower#right positi	to the extreme lower#right posit	-	GAME.OVR:157020
+ui.048a6e74fa6b	to the extreme lower#right posit	 to the extreme lower#right position and press bu	the extreme lower#right position	-	GAME.OVR:157021
+ui.5e2eb4291363	the extreme lower#right position	to the extreme lower#right posit	extreme lower#right position and	-	GAME.OVR:157024
+ui.f0f3182bd865	extreme lower#right position and	the extreme lower#right position	lower#right position and press b	-	GAME.OVR:157028
+ui.d9e49b4654c3	lower#right position and press b	extreme lower#right position and	a;a@a`aea	-	GAME.OVR:157036
+ui.3a0c33cd44ae	a;a@a`aea	lower#right position and press b	d&d+dFdKdgd	-	GAME.OVR:158971
+ui.23697e5652eb	d&d+dFdKdgd	a;a@a`aea	Items 	-	GAME.OVR:159021
+ui.2aaf9bfd20c4	Items 	d&d+dFdKdgd	Trade 	-	GAME.OVR:162450
+ui.7996af070c23	Trade 	Items 	Heal 	-	GAME.OVR:162465
+ui.0d20c6ca62b0	Heal 	Trade 	Cure 	-	GAME.OVR:162478
+ui.42b745650343	Cure 	Heal 	be unreadied% was going to scrib	-	GAME.OVR:162484
+ui.5dc385a11b83	be unreadied% was going to scrib	Cure 	unreadied% was going to scribe f	-	GAME.OVR:163307
+ui.880e01cc2c99	unreadied% was going to scribe f	be unreadied% was going to scrib	was going to scribe from that sc	-	GAME.OVR:163310
+ui.27f004b67f24	was going to scribe from that sc	unreadied% was going to scribe f	going to scribe from that scroll	-	GAME.OVR:163321
+ui.a0110bf32cd0	going to scribe from that scroll	was going to scribe from that sc	is it Okay to lose it? 	-	GAME.OVR:163325
+ui.814d608d6c4d	is it Okay to lose it? 	going to scribe from that scroll	itemptr:      	-	GAME.OVR:163358
+ui.bc14e88ce9d2	itemptr:      	is it Okay to lose it? 	namenum(1):   	-	GAME.OVR:163628
+ui.8e969cba5d9e	namenum(1):   	itemptr:      	namenum(2):   	-	GAME.OVR:163643
+ui.23002b0d17ae	namenum(2):   	namenum(1):   	namenum(3):   	-	GAME.OVR:163658
+ui.afffeae257cc	namenum(3):   	namenum(2):   	plus:         	-	GAME.OVR:163673
+ui.820cb48cd39a	plus:         	namenum(3):   	plussave:     	-	GAME.OVR:163688
+ui.8be662b34731	plussave:     	plus:         	ready:        	-	GAME.OVR:163703
+ui.deda4c164ab4	ready:        	plussave:     	identified:   	-	GAME.OVR:163718
+ui.1e1eace04773	identified:   	ready:        	cursed:       	-	GAME.OVR:163733
+ui.1bc7a93c8ada	cursed:       	identified:   	value:        	-	GAME.OVR:163748
+ui.03ad4ce53868	value:        	cursed:       	special(1):   	-	GAME.OVR:163763
+ui.227542401f01	special(1):   	value:        	special(2):   	-	GAME.OVR:163778
+ui.3f1c4ef7c62c	special(2):   	special(1):   	special(3):   	-	GAME.OVR:163793
+ui.132aa6e13b4f	special(3):   	special(2):   	missile type: 	-	GAME.OVR:163808
+ui.1cb02ae85950	missile type: 	special(3):   	max range :   	-	GAME.OVR:163823
+ui.5612de13f769	max range :   	missile type: 	item type :    	-	GAME.OVR:163838
+ui.df530c17da20	item type :    	max range :   	press a key	-	GAME.OVR:163853
+ui.6b0e38e88d73	press a key	item type :    	View Ready	-	GAME.OVR:163869
+ui.d93c6868d131	View Ready	press a key	Ready	-	GAME.OVR:165092
+ui.5fa7aac5375c	Ready	View Ready	 Use	-	GAME.OVR:165103
+ui.bb4e56df6695	 Use	Ready	 Trade	-	GAME.OVR:165109
+ui.c2753bcb60bc	 Trade	 Use	 Drop	-	GAME.OVR:165114
+ui.54b6b6331136	 Drop	 Trade	 Halve	-	GAME.OVR:165121
+ui.72114d9f7221	 Halve	 Drop	 Join	-	GAME.OVR:165127
+ui.418b784a860f	 Join	 Halve	 Sell	-	GAME.OVR:165134
+ui.1520b330a354	 Sell	 Join	 Id	-	GAME.OVR:165140
+ui.a3237f49325a	 Id	 Sell	Must be Readied	-	GAME.OVR:165146
+ui.d6be94e808f0	Must be Readied	 Id	Drop It? 	-	GAME.OVR:165167
+ui.b9267e64e341	Drop It? 	Must be Readied	Is It a Deal? 	-	GAME.OVR:165210
+ui.0d3f5e18425a	Is It a Deal? 	Drop It? 	Sold!	-	GAME.OVR:169296
+ui.94c736fde0c8	Sold!	Is It a Deal? 	'Overloaded.  Money will be put i	-	GAME.OVR:169311
+ui.b44b41b19267	'Overloaded.  Money will be put i	Sold!	Overloaded.  Money will be put in pool.	-	GAME.OVR:169316
+ui.5971145b42aa	Overloaded.  Money will be put in pool.	'Overloaded.  Money will be put i	For 100 steel pieces I'll identify your 	-	GAME.OVR:169317
+ui.3325d0b241c1	For 100 steel pieces I'll identify your 	Overloaded.  Money will be put in pool.	100 steel pieces I'll identify y	-	GAME.OVR:169785
+ui.e2f1b545fac0	100 steel pieces I'll identify y	For 100 steel pieces I'll identify your 	steel pieces I'll identify your 	-	GAME.OVR:169789
+ui.c41a124f7ca5	steel pieces I'll identify your 	100 steel pieces I'll identify y	Not Enough Money	-	GAME.OVR:169793
+ui.84e79ec5c06b	Not Enough Money	steel pieces I'll identify your 	Enough Money%I can't tell anythi	-	GAME.OVR:169841
+ui.dd48b6386318	Enough Money%I can't tell anythi	Not Enough Money	Money%I can't tell anything new 	-	GAME.OVR:169845
+ui.8933906f343d	Money%I can't tell anything new 	Enough Money%I can't tell anythi	I can't tell anything new about your 	-	GAME.OVR:169852
+ui.0ec329bcd4dc	I can't tell anything new about your 	Money%I can't tell anything new 	can't tell anything new about yo	-	GAME.OVR:169858
+ui.7ab4fb9c13c2	can't tell anything new about yo	I can't tell anything new about your 	It looks like some sort of 	-	GAME.OVR:169860
+ui.ae48de661444	It looks like some sort of 	can't tell anything new about yo	Trade to?	-	GAME.OVR:169896
+ui.72f5a9907af4	Trade to?	It looks like some sort of 	Select type of coin 	-	GAME.OVR:170396
+ui.d3e4217f335c	Select type of coin 	Trade to?	 Select	-	GAME.OVR:170408
+ui.1d7961e4ed0d	 Select	Select type of coin 	Days Hours Mins Add Subtract Exi	-	GAME.OVR:170429
+ui.81a66e3516e8	Days Hours Mins Add Subtract Exi	 Select	The Whole Party Is Healed	-	GAME.OVR:176316
+ui.1325fc582bac	The Whole Party Is Healed	Days Hours Mins Add Subtract Exi	Stop Resting? 	-	GAME.OVR:176692
+ui.a719751ac171	Stop Resting? 	The Whole Party Is Healed	Resting? $Your repose is suddenl	-	GAME.OVR:177768
+ui.198293e77e7a	Resting? $Your repose is suddenl	Stop Resting? 	$Your repose is suddenly interru	-	GAME.OVR:177773
+ui.3da436a157f7	$Your repose is suddenly interru	Resting? $Your repose is suddenl	Your repose is suddenly interrupted!	-	GAME.OVR:177782
+ui.088721ec6d4a	Your repose is suddenly interrupted!	$Your repose is suddenly interru	repose is suddenly interrupted!U	-	GAME.OVR:177783
+ui.6713d8d20402	repose is suddenly interrupted!U	Your repose is suddenly interrupted!	Overloaded.  Money will be put in Pool.	-	GAME.OVR:177788
+ui.729dccf7638c	Overloaded.  Money will be put in Pool.	repose is suddenly interrupted!U	Gems 	-	GAME.OVR:178876
+ui.373447f83c3b	Gems 	Overloaded.  Money will be put in Pool.	platinum 	-	GAME.OVR:181327
+ui.d0b494caae7e	platinum 	Gems 	bronze 	-	GAME.OVR:181333
+ui.723e24cd425b	bronze 	platinum 	silver 	-	GAME.OVR:181343
+ui.1b9adc638021	silver 	bronze 	steel 	-	GAME.OVR:181351
+ui.4dc6ae7b6f7d	steel 	silver 	Copper 	-	GAME.OVR:181359
+ui.901bc8dfb280	Copper 	steel 	Jewelry 	-	GAME.OVR:181366
+ui.d5cc133735e7	Jewelry 	Copper 	How Many 	-	GAME.OVR:181374
+ui.4f4ab16743c0	How Many 	Jewelry 	No Gems or Jewelry	-	GAME.OVR:181710
+ui.86d864d10977	No Gems or Jewelry	How Many 	 Gem	-	GAME.OVR:184646
+ui.8be91414fd53	 Gem	No Gems or Jewelry	 Gems	-	GAME.OVR:184665
+ui.c8c487bf9b56	 Gems	 Gem	 piece of Jewelry	-	GAME.OVR:184670
+ui.1c893adcd5ec	 piece of Jewelry	 Gems	 pieces of Jewelry	-	GAME.OVR:184676
+ui.9d8e4869a5ce	 pieces of Jewelry	 piece of Jewelry	  Gems	-	GAME.OVR:184694
+ui.762226aafd83	  Gems	 pieces of Jewelry	  Jewelry	-	GAME.OVR:184744
+ui.36ba3f71ad6e	  Jewelry	  Gems	The Gem is Valued at 	-	GAME.OVR:184751
+ui.d0291caff432	The Gem is Valued at 	  Jewelry	Sell	-	GAME.OVR:184779
+ui.2ec1e2815946	Sell	The Gem is Valued at 	You can : 	-	GAME.OVR:184809
+ui.1b060046c58b	You can : 	Sell	The Jewel is Valued at 	-	GAME.OVR:184824
+ui.b3063dda39ee	The Jewel is Valued at 	You can : 	<Jt	-	GAME.OVR:184835
+ui.db5cd94e8690	<Jt	The Jewel is Valued at 	ug	-	GAME.OVR:186175
+ui.a05572586232	ug	<Jt	Choose Spell: 	-	GAME.OVR:187572
+ui.00d0fa5542f1	Choose Spell: 	ug	Cast Spell on whom	-	GAME.OVR:187958
+ui.fbd6007fa4e6	Cast Spell on whom	Choose Spell: 	uS	-	GAME.OVR:192118
+ui.2996ef92b7e2	uS	Cast Spell on whom	can't be cast here...	-	GAME.OVR:192215
+ui.0101e4ce36f7	can't be cast here...	uS	That Item	-	GAME.OVR:192425
+ui.29ea779dcb6a	That Item	can't be cast here...	is a combat-only item...	-	GAME.OVR:192457
+ui.23ffe2ed4c9b	is a combat-only item...	That Item	miscasts	-	GAME.OVR:192467
+ui.c16b1d325028	miscasts	is a combat-only item...	Abort Spell? 	-	GAME.OVR:192501
+ui.aa537527975c	Abort Spell? 	miscasts	is Blessed	-	GAME.OVR:192516
+ui.44c3b4f71a5c	is Blessed	Abort Spell? 	is Cursed	-	GAME.OVR:195323
+ui.68423657b7c7	is Cursed	is Blessed	is fire resistant	-	GAME.OVR:195373
+ui.325563121a6d	is fire resistant	is Cursed	Knock-Knock	-	GAME.OVR:197234
+ui.effd09803c06	Knock-Knock	is fire resistant	Creates a noxious cloud	-	GAME.OVR:197887
+ui.d119669b1a25	Creates a noxious cloud	Knock-Knock	is diseased	-	GAME.OVR:198097
+ui.1b161713df5c	is diseased	Creates a noxious cloud	is un-cursed	-	GAME.OVR:199971
+ui.1a9e62ad568b	is un-cursed	is diseased	has been cursed!	-	GAME.OVR:201181
+ui.6503fd1bd5d2	has been cursed!	is un-cursed	is Hasted	-	GAME.OVR:201471
+ui.d95ff49dc502	is Hasted	has been cursed!	is Slowed	-	GAME.OVR:202130
+ui.eb320b192b6a	is Slowed	is Hasted	is Speedy	-	GAME.OVR:203103
+ui.a8e7482dbad8	is Speedy	is Slowed	is Healed	-	GAME.OVR:203164
+ui.eb05ac334a9f	is Healed	is Speedy	runs in terror	-	GAME.OVR:203620
+ui.8575fa9ba811	runs in terror	is Healed	flame type: 	-	GAME.OVR:205019
+ui.f06c19b93b2c	flame type: 	runs in terror	Abort spell? 	-	GAME.OVR:205343
+ui.6bdc33eef062	Abort spell? 	flame type: 	Breathes!	-	GAME.OVR:205379

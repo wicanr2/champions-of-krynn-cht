@@ -1,0 +1,54 @@
+key	original	prev	next	zh
+ui.3e772edeeb89	is unpoisoned	is Healed	smashes them flat	毒已解除
+ui.2cef23028b6d	smashes them flat	is unpoisoned	teleports	把他們壓扁了
+ui.595ba83def48	teleports	smashes them flat	runs in terror	傳送了
+ui.8575fa9ba811	runs in terror	teleports	flame type: 	驚恐逃跑
+ui.f06c19b93b2c	flame type: 	runs in terror	Hot Cold	火焰種類：
+ui.38d9edf514a9	Hot Cold	flame type: 	Abort spell? 	熱焰 冷焰
+ui.6bdc33eef062	Abort spell? 	Hot Cold	Yes No	中止施法嗎？
+ui.63783b1ec102	Yes No	Abort spell? 	is clumsy	是 否
+ui.a47547af2017	is clumsy	Yes No	is slowed	變得笨手笨腳
+ui.ce690cd0c4fa	is slowed	is clumsy	Breathes!	被減速了
+ui.6bb4327fa15a	Breathes!	is slowed	is blinded	噴出氣息！
+ui.42cbbfc27a4d	is blinded	Breathes!	Fires An Energy Bolt!	失明了
+ui.e800a6dfe581	Fires An Energy Bolt!	is blinded	throws a fireball	射出能量箭！
+ui.58b2b3e0f21f	throws a fireball	Fires An Energy Bolt!	breathes poison	擲出火球
+ui.d26017d8ab4d	breathes poison	throws a fireball	breathes acid	噴出毒氣
+ui.34de4e86df99	breathes acid	breathes poison	cold	噴出酸液
+ui.e272deecde72	cold	breathes acid	Fire	寒冰
+ui.c141faa80e43	Fire	cold	breathes 	火焰
+ui.e1f3cf2badbf	breathes 	Fire	<Su1	吐出
+ui.8cd68723841c	Casts a Spell	<Su1	Spell:	施放法術
+ui.d17044a2f3d3	Spell:	Casts a Spell	FlF	法術：
+ui.70b79e8927e9	wants to kill 	FlF	uW	想殺死
+ui.72839726ec25	starts to cough	uW	chokes and gags from nausea	開始咳嗽
+ui.431f23d55810	chokes and gags from nausea	starts to cough	is Cured	噁心得乾嘔窒息
+ui.906fe79445af	is Cured	chokes and gags from nausea	takes 	已痊癒
+ui.4219be8c1840	takes 	is Cured	 points of damage 	受到
+ui.f5e1d63728c2	 points of damage 	takes 	takes 1 point of damage 	點傷害
+ui.accf5e41d3a8	takes 1 point of damage 	 points of damage 	from Fire	受到1點傷害
+ui.15834b2c3777	from Fire	takes 1 point of damage 	from Cold	火焰所致
+ui.546fc10be49b	from Cold	from Fire	from Electricity	寒冰所致
+ui.746ea349ca6f	from Electricity	from Cold	from Acid	電擊所致
+ui.f9137bd3fdae	from Acid	from Electricity	from Magic	酸液所致
+ui.61e52adc2174	from Magic	from Acid	Goes Down	魔法所致
+ui.fd5da56f78ed	Goes Down	from Magic	, and is Dying	倒下了
+ui.8e3e8d7a009c	, and is Dying	Goes Down	is Unaffected	，並且垂死
+ui.4b7899783330	is Unaffected	, and is Dying	explodes.	不受影響
+ui.6023d3cce98d	explodes.	is Unaffected	uk	爆炸了。
+ui.7f7a297e2c31	 Yes  	uk	 No   	是
+ui.0b05e966e945	 No   	 Yes  	Name	否
+ui.dcd1d5223f73	Name	 No   	AC  HP	姓名
+ui.d60cd2e0bb8c	AC  HP	Name	Hitpoints	防護 生命力
+ui.c35ed1964164	Hitpoints	AC  HP	AC	生命力
+ui.472e73d796e2	AC	Hitpoints	(Helpless)	防護
+ui.ac08bed00d4d	(Helpless)	AC	(Casting)	（無力反抗）
+ui.9e5d3472e05f	(Casting)	(Helpless)	Nil Item pointer...	（施法中）
+ui.6ac8fcdfb8e4	is fully healed	to Lose item & couldn't find it!	is partially healed	完全痊癒
+ui.f8e1a5e2c265	is partially healed	is fully healed	Guarding	部分痊癒
+ui.0323473424f1	Guarding	is partially healed	uv	守衛中
+ui.58f6ffe741db	 camping	uv	 search	紮營中
+ui.c5031dcec9ef	 search	 camping	is bandaged	搜尋中
+ui.1116c3efebb0	is bandaged	 search	 Next	已包紮
+ui.2fa787bb6baf	 Next	is bandaged	 Prev	下一個
+ui.4abb1289fa79	 Prev	 Next	FINAL	前一個

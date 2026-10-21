@@ -1,0 +1,131 @@
+key	original	prev	next	zh
+ui.fa4791077ad5	Silence 15' radius	Protection From Evil 10' Radius	Z4ZCZb	半徑15呎的沉靜術
+ui.3dd5d43f43a7	WARNING: Insufficient Memory	q#qXqkq{	 Insufficient Memory$Insufficient Memory. Exiting ProgramU	警告：記憶體不足
+ui.57cf485824df	 Insufficient Memory$Insufficient Memory. Exiting ProgramU	WARNING: Insufficient Memory	Insufficient Memory$Insufficient	記憶體不足$記憶體不足，程式結束。
+ui.099d027ca3b5	Insufficient Memory. Exiting Program	Memory$Insufficient Memory. Exit	based on an original story by:	記憶體不足，程式結束。
+ui.073939be1ea4	based on an original story by:	Insufficient Memory. Exiting Program	Jim Ward	原創故事：
+ui.70d00aad3b51	Jim Ward	based on an original story by:	Victor Penman,	Jim Ward
+ui.d5d56ec05001	Victor Penman,	Jim Ward	and	Victor Penman,
+ui.6201111b83a0	and	Victor Penman,	Dave Shelley	及
+ui.433429f7d12c	Dave Shelley	and	game created by:	Dave Shelley
+ui.f340e8d20774	game created by:	Dave Shelley	SSI Special Projects	遊戲製作：
+ui.173162217929	SSI Special Projects	game created by:	Project Director:	SSI Special Projects
+ui.362825bf06b1	Project Director:	SSI Special Projects	Programming	專案總監：
+ui.e6aba2bd5a6b	Programming	Project Director:	Victor Penman	程式設計
+ui.be057371a9ba	Victor Penman	Programming	Russ Brown	Victor Penman
+ui.83c519b42fab	Russ Brown	Victor Penman	Scot Bayless	Russ Brown
+ui.09b9f8622ac7	Scot Bayless	Russ Brown	Graphic Arts:	Scot Bayless
+ui.70be2a9d7c9c	Graphic Arts:	Scot Bayless	Tom Wahl	美術設計：
+ui.3581aabee3ca	Tom Wahl	Graphic Arts:	Encounter Design	Tom Wahl
+ui.65ebeeba7880	Encounter Design	Tom Wahl	Fred Butts	遭遇設計
+ui.0dd635c636cd	Fred Butts	Encounter Design	Mark Johnson	Fred Butts
+ui.080cb09b9a95	Mark Johnson	Fred Butts	Michael Mancuso	Mark Johnson
+ui.8248fe0af52a	Michael Mancuso	Mark Johnson	Cyrus Lum	Michael Mancuso
+ui.53a33189ab7f	Cyrus Lum	Michael Mancuso	Ken Humphries	Cyrus Lum
+ui.406eec9126ed	Ken Humphries	Cyrus Lum	Susan Manley	Ken Humphries
+ui.8e8bcedc6f14	Susan Manley	Ken Humphries	playtest:	Susan Manley
+ui.c8ed26fc0fb3	playtest:	Susan Manley	Rick White,Don Mc Clure,	測試人員：
+ui.490dd4c44847	Rick White,Don Mc Clure,	playtest:	White,Don Mc Clure,#Mike Bench,C	Rick White,Don Mc Clure,
+ui.6e63772e539d	Mike Bench,Cliff Mann, Rick Wilson,	#Mike Bench,Cliff Mann, Rick Wilson,$Erik Fl	Bench,Cliff Mann, Rick Wilson,$E	Mike Bench,Cliff Mann, Rick Wilson,
+ui.bf2475195a4a	Erik Flom,James Young,Graeme Bayless	Wilson,$Erik Flom,James Young,Gr	Musical Score:	Erik Flom,James Young,Graeme Bayless
+ui.6ca94c9f8a62	Musical Score:	Erik Flom,James Young,Graeme Bayless	Musical Driver:	配樂：
+ui.532c7e0084da	Musical Driver:	Musical Score:	John Halbleib	音樂驅動程式：
+ui.99b4eba4e920	John Halbleib	Musical Driver:	Electronic Arts	John Halbleib
+ui.328b53003a80	Electronic Arts	John Halbleib	title	Electronic Arts
+ui.de1e334ce4b4	PRESS BUTTON OR RETURN TO CONTINUE.	PIC	BUTTON OR RETURN TO CONTINUE."PR	按下按鈕或 <Enter> 鍵繼續。
+ui.ebc583583e1a	PRESS <ENTER>/<RETURN> TO CONTINUE	CONTINUE."PRESS <ENTER>/<RETURN>	ITEM	按 <Enter> 鍵繼續
+ui.34695f140781	Unable to find item file	ITEM	~COMBAT ~WAIT ~FLEE ~PARLAY	找不到物品檔案
+ui.bec2538a4c67	~COMBAT ~WAIT ~FLEE ~PARLAY	Unable to find item file	~COMBAT ~WAIT ~FLEE ~ADVANCE	戰鬥 等待 逃跑 談判
+ui.466738c48568	~COMBAT ~WAIT ~FLEE ~ADVANCE	~COMBAT ~WAIT ~FLEE ~PARLAY	Both sides wait.	戰鬥 等待 逃跑 前進
+ui.002c9650368c	Both sides wait.	~COMBAT ~WAIT ~FLEE ~ADVANCE	The monsters flee.	雙方按兵不動。
+ui.cbefa25e9f4e	The monsters flee.	Both sides wait.	~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE	怪物逃走了。
+ui.543df38bbe50	~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE	The monsters flee.	The entire party is killed!	傲慢 狡詐 友善 謙卑 辱罵
+ui.08fc07e88648	The entire party is killed!	~HAUGHTY ~SLY ~NICE ~MEEK ~ABUSIVE	entire party is killed!"press <e	全隊覆沒！
+ui.30c0783e66a7	entire party is killed!"press <e	The entire party is killed!	party is killed!"press <enter>/<	全隊覆沒！按 <Enter> 鍵繼續
+ui.254153c4b85f	press <enter>/<return> to continue	"press <enter>/<return> to contin	spell	按 <Enter> 鍵繼續
+ui.8f4a0aaa62c4	spell	press <enter>/<return> to continue	Congratulations the party gains experience!	法術
+ui.e26c6f94d702	Congratulations the party gains experience!	spell	Congratulations 	恭喜，隊伍獲得經驗！
+ui.0ae630e4f1dd	Congratulations 	Congratulations the party gains experience!	 gains experience!	恭喜
+ui.ebb4cacf2286	 gains experience!	Congratulations 	 what is word # 	獲得經驗！
+ui.3cf3aa82aeb1	 what is word # 	 gains experience!	 of journal entry # 	請問字序 #
+ui.cd29a99041b6	 of journal entry # 	 what is word # 	 (journal, page 	屬於旅行手札 #
+ui.16ff676853e2	 (journal, page 	 of journal entry # 	 of tavern tale # 	（手札，頁
+ui.94c9f9f80b24	 of tavern tale # 	 (journal, page 	Enter 	屬於酒店傳聞 #
+ui.1d174814bac2	Enter 	 of tavern tale # 	cast cure anyway: 	輸入
+ui.f99222122177	cast cure anyway: 	Enter 	 will only cost 	仍要施展治療術：
+ui.08ac4a5f6ce6	 will only cost 	cast cure anyway: 	 steel pieces.	只需
+ui.2b770e03b085	 steel pieces.	 will only cost 	pay for cure 	鋼幣。
+ui.fdca9980f11f	pay for cure 	 steel pieces.	Not enough money.	支付治療費用
+ui.19f27030a2e1	Not enough money.	pay for cure 	is cured.	金錢不足。
+ui.c9d58272a014	is cured.	Not enough money.	is not blind.	已治癒。
+ui.ad96bf258370	is not blind.	is cured.	is not Diseased.	沒有失明。
+ui.1537c7fd9f65	is not Diseased.	is not blind.	uK	沒有染病。
+ui.0e3dfc592d73	cannot be raised	uK	is not dead.	無法復活。
+ui.4c2c1aae96f7	is not dead.	cannot be raised	is not poisoned.	沒有死亡。
+ui.e514a637da16	is not poisoned.	is not dead.	is not cursed.	沒有中毒。
+ui.2f4c6d25053a	is not cursed.	is not poisoned.	is not stoned.	沒有被詛咒。
+ui.26400797a39c	is not stoned.	is not cursed.	, how can we help you?	沒有石化。
+ui.8be704dd2de1	, how can we help you?	is not stoned.	Heal Exit	，有什麼需要幫忙的嗎？
+ui.b21d60d3c86e	Heal Exit	, how can we help you?	Heal View Take Pool Share Appraise Exit	治療 離開
+ui.351beff47541	Heal View Take Pool Share Appraise Exit	Heal Exit	View Take Pool Share Appraise Ex	治療 檢視人物 拾取 集中財物 均分 鑑定 離開
+ui.eb0b6be42cae	View Take Pool Share Appraise Ex	Heal View Take Pool Share Appraise Exit	Heal View Pool Appraise Exit	檢視人物 拾取 集中財物 均分 鑑定 離開
+ui.3dd4009a9b56	Heal View Pool Appraise Exit	View Take Pool Share Appraise Ex	~Yes ~No	治療 檢視人物 集中財物 鑑定 離開
+ui.b9ec2686588d	~Yes ~No	Heal View Pool Appraise Exit	~NoJAs you leave a priest says, 	是 否
+ui.ca82600f30f3	As you leave a priest says, "Excuse me but you have left some money here" 	oJAs you leave a priest says, "Excuse me but you have left some money here" /D	s you leave a priest says, "Excuse me but you have left some mone	離開時，一名祭司說：「不好意思，你們把一些錢留在這裡了。」
+ui.7558c8476131	Do you want to go back and retrieve your money?	/Do you want to go back and retr	you want to go back and retrieve	要回去取回你們的錢嗎？
+ui.1a4b1e57ec5a	The party has fled.	go back and retrieve your money?	You have lost the fight.	隊伍逃走了。
+ui.488eda7de4cb	You have lost the fight.	The party has fled.	You have won the duel.	你們輸掉了這場戰鬥。
+ui.3cf31df67fb7	You have won the duel.	You have lost the fight.	The party has won.	你們贏得了這場決鬥。
+ui.bc4ac4b84ba5	The party has won.	You have won the duel.	party has won.%The party makes a	隊伍獲勝。
+ui.99ef77603df2	The party makes a withdrawl.  A small	%The party makes a withdrawl.  A small"fee has	party makes a withdrawl.  A smal	隊伍提了款。
+ui.3221280f22c4	A small"fee has been assessed by	 A small"fee has been assessed b	small"fee has been assessed by t	已酌收少許手續費。
+ui.e1b7002772b5	fee has been assessed by the bank.	small"fee has been assessed by t	The party has found Treasure!	手續費。
+ui.ee223764db80	The party has found Treasure!	fee has been assessed by the bank.	The duelist receives 	隊伍發現了寶藏！
+ui.f5fbe5aaf483	The duelist receives 	The party has found Treasure!	Each character receives 	決鬥者獲得
+ui.366dc8f46f54	Each character receives 	The duelist receives 	experience points.	每位人物獲得
+ui.7313f57bf6d1	experience points.	Each character receives 	points."press <enter>/<return> t	點經驗。
+ui.fabb9e2392ab	points."press <enter>/<return> t	experience points.	Items: 	點經驗。按 <Enter> 鍵繼續
+ui.eadd361adaa7	Items: 	points."press <enter>/<return> t	Take	物品：
+ui.8b862ba45dce	Take	Items: 	Take: 	拾取
+ui.e52a3fb722bd	Take: 	Take	Money Items Exit	拾取：
+ui.a1e592fecee5	Money Items Exit	Take: 	View Pool Exit	金錢 物品 離開
+ui.bce9e63c661b	View Pool Exit	Money Items Exit	 Exit	檢視人物 集中財物 離開
+ui.f65f10298556	 Exit	View Pool Exit	 Detect Exit	離開
+ui.93f97649cdeb	 Detect Exit	 Exit	View Take Pool Share	偵測 離開
+ui.9305d3a8e566	View Take Pool Share	 Detect Exit	View Take Pool	檢視人物 拾取 集中財物 均分
+ui.1a794bb3020f	View Take Pool	View Take Pool Share	There is still treasure left.  	檢視人物 拾取 集中財物
+ui.5a7dff7cd74c	There is still treasure left.  	View Take Pool	is still treasure left.  /Do you	還有寶藏沒有拿完。
+ui.bd89d0b81174	Do you want to go back and claim your treasure?	/Do you want to go back and clai	you want to go back and claim yo	要回去取走你們的寶藏嗎？
+ui.1d1c7913869b	 takes and hides 	go back and claim your treasure?	his	拿走並藏起了
+ui.73c9c98668a3	his	 takes and hides 	 share.	他的
+ui.1a82b7ad5db1	 share.	his	her	那一份。
+ui.354cbfc81426	her	 share.	The monsters rejoice for the party has been destroyed	她的
+ui.b11529a1854f	The monsters rejoice for the party has been destroyed	her	monsters rejoice for the party h	隊伍已被消滅，怪物歡呼雀躍。
+ui.64e3cb0e4960	Buy	for the party has been destroyed	OverLoaded	購買
+ui.64b9370e4ffa	OverLoaded	Buy	 buys 	超載
+ui.74bc11c5490c	 buys 	OverLoaded	 buys a 	買了
+ui.1ed8f78de4b4	 buys a 	 buys 	Not enough Money.	買了一個
+ui.cdbf2aad986c	Not enough Money.	 buys a 	Buy View Take Pool Share Appraise Exit	金錢不足。
+ui.94390fc2be66	Buy View Take Pool Share Appraise Exit	Not enough Money.	Buy View Pool Appraise Exit	購買 檢視人物 拾取 集中財物 均分 鑑定 離開
+ui.16d4625e4e14	Buy View Pool Appraise Exit	Buy View Take Pool Share Appraise Exit	~NoRAs you Leave the Shopkeeper 	購買 檢視人物 集中財物 鑑定 離開
+ui.528e6cd82712	oRAs you Leave the Shopkeeper says, "Excuse me but you have Left Some Money he	~NoRAs you Leave the Shopkeeper 	s you Leave the Shopkeeper says, "Excuse me but you have Left Som	離開時，店主說：「不好意思，你們把一些錢留在這裡了。」
+ui.f0e791ada740	Do you want to go back and get your Money?	*Do you want to go back and get 	you want to go back and get your	要回去拿你們的錢嗎？
+ui.e920b38b45dd	Loading...Please Wait	want to go back and get your Mon	ECL	載入中……請稍候
+ui.2a78025de6aa	Select	uo	 dies. 	選擇
+ui.80a02596ee54	 dies. 	Select	 is hit FOR 	死亡。
+ui.354888db7e7a	 is hit FOR 	 dies. 	 points of Damage.	受到
+ui.72403cdf00a1	 points of Damage.	 is hit FOR 	points of Damage."press <enter>/	點傷害。
+ui.93515f638926	points of Damage."press <enter>/	 points of Damage.	of Damage."press <enter>/<return	點傷害。按 <Enter> 鍵繼續
+ui.f6410fb009d4	Magic On	Damage."press <enter>/<return> t	Magic Off	魔法開啟
+ui.629ffe46b6a0	Magic Off	Magic On	That doesn't work	魔法關閉
+ui.46e50b3cdce8	That doesn't work	Magic Off	Move 	這樣行不通。
+ui.c848bff204f4	Move 	That doesn't work	View Aim 	移動
+ui.00813b28c9bc	View Aim 	Move 	Use 	檢視人物 瞄準
+ui.bb33dbdb2f21	Use 	View Aim 	Cast 	使用
+ui.d61160238799	Cast 	Use 	Turn 	施法
+ui.38ff7074c72d	Turn 	Cast 	Yell 	超渡
+ui.104b7e4ac60a	Yell 	Turn 	Done	叫罵
+ui.11a6767d5674	Done	Yell 	Your Teammate is Dying	完成
+ui.50e28de96686	Your Teammate is Dying	Done	Continue Battle:	你的隊員垂死了。
+ui.73967b10f229	Continue Battle:	Your Teammate is Dying	Move/Attack, Move Left = 	繼續戰鬥：
+ui.5af65b05298f	Move/Attack, Move Left = 	Continue Battle:	 Done	移動／攻擊，剩餘移動力 =

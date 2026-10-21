@@ -1,0 +1,131 @@
+key	original	prev	next	zh
+ui.ff5804bd833f	Displaced	berserk	 <No Spell Effects>	位移
+ui.07259b8cfb9f	 <No Spell Effects>	Displaced	tZ	<無法術效果>
+ui.0e04961c51ea	Party Order: 	tZ	has been selected	隊伍次序：
+ui.95a0c6cfd7d2	has been selected	Party Order: 	quit TO DOS: 	已被選取
+ui.f34a08403165	quit TO DOS: 	has been selected	will be gone	離開遊戲：
+ui.9ab184b85e05	will be gone	quit TO DOS: 	Drop from party? 	將會消失
+ui.443204696da2	Drop from party? 	will be gone	bids you farewell	丟棄隊員？
+ui.32679609640d	bids you farewell	Drop from party? 	is dumped in a ditch	向你告別
+ui.b0a3e9daee9d	is dumped in a ditch	bids you farewell	Breathes A sigh of relief	被丟進溝裡
+ui.6f5f6a7876cf	Breathes A sigh of relief	is dumped in a ditch	Game Speed = 	鬆了一口氣
+ui.1d60a3338962	Game Speed = 	Breathes A sigh of relief	 (0=fastest 9=slowest)	遊戲速度 =
+ui.ec1d85c28e73	 (0=fastest 9=slowest)	Game Speed = 	 Faster	（0=最快 9=最慢）
+ui.9a5253015a01	 Faster	 (0=fastest 9=slowest)	 Slower	較快
+ui.3faa383606fc	 Slower	 Faster	Game Speed:	較慢
+ui.5e88d3982ab7	Game Speed:	 Slower	Pics on  	遊戲速度：
+ui.a5c730d6127b	Pics on  	Game Speed:	Animation on  	圖像開啟
+ui.8a1b78216a61	Animation on  	Pics on  	Animation off  	動畫開啟
+ui.ab0a55d5f6b3	Animation off  	Animation on  	Pics off  	動畫關閉
+ui.474287e99ea4	Pics off  	Animation off  	The party makes camp...	圖像關閉
+ui.a47214d1d511	The party makes camp...	Pics off  	Quit TO DOS 	隊伍紮營了……
+ui.de5a971d55c5	Quit TO DOS 	The party makes camp...	.SAV	離開遊戲
+ui.2246705b46f3	from saved game 	.SAV	uB	來自已儲存的遊戲
+ui.f0d155c43ee0	Put save disk in 	CHAMP	Is your save disk in drive 	請將存檔磁片放入磁碟機
+ui.7308fcc58956	Is your save disk in drive 	Put save disk in 	Unexpected error during save: 	請將存檔磁片放入磁碟機
+ui.aee3b8154004	Unexpected error during save: 	Is your save disk in drive 	hali	儲存時發生意外錯誤：
+ui.9ae5a4479a81	Can't save.  No room on this disk.	.sfx	Lose character? 	無法儲存。磁片空間不足。
+ui.278253d44e93	Lose character? 	Can't save.  No room on this disk.	Ok  Try another disk	要失去人物嗎？
+ui.735b64972b07	Ok  Try another disk	Lose character? 	.sav	確定 換另一片磁片
+ui.38301f8e6c25	Overwrite 	.sav	New file name: 	覆寫
+ui.5250b5de07b3	New file name: 	Overwrite 	MON	新檔名：
+ui.dd6b632301cc	Unable to load monster	CHA	SPC	無法載入怪物資料
+ui.b1edfd1bc6f9	Load Which Game: 	.dat	Save Which Game: 	載入哪個遊戲：
+ui.6eac636b81bf	Save Which Game: 	Load Which Game: 	Saving...Please Wait	儲存哪個遊戲：
+ui.5db98e7af406	Saving...Please Wait	Save Which Game: 	..Please Wait"WARNING: Problem Saving Characte	儲存中……請稍候
+ui.3a2157e63ae3	..Please Wait"WARNING: Problem Saving Characte	Saving...Please Wait	.Please Wait"WARNING: Problem Saving Character	……請稍候
+ui.df4f6c72ae34	WARNING: Problem Saving Characters	Wait"WARNING: Problem Saving Cha	CHRDAT	警告：儲存人物時發生問題
+ui.925f9d446890	Choose a FUNCTION 	CHRDAT	Select 	選擇功能
+ui.1f7133c21072	Select 	Choose a FUNCTION 	Quit to DOS 	選擇
+ui.c38a51535885	Quit to DOS 	Select 	Game NOT saved.  Quit anyway? 	離開遊戲
+ui.35023ac32083	Game NOT saved.  Quit anyway? 	Quit to DOS 	Free training on	遊戲尚未儲存。仍要離開嗎？
+ui.d6d123e2e8ce	Free training on	Game NOT saved.  Quit anyway? 	Free training off	免費訓練開啟
+ui.204a2f952b3e	Free training off	Free training on	Pick Race	免費訓練關閉
+ui.e932f4664fa9	Pick Race	Free training off	Pick Gender	選擇種族
+ui.d6359f6ff9fc	Pick Gender	Pick Race	Pick Class	選擇性別
+ui.ba7ebb6c0b12	Pick Class	Pick Gender	Pick God	選擇職業
+ui.12d61f44905b	Pick God	Pick Class	Pick Alignment	選擇信仰
+ui.0224e7c79995	Pick Alignment	Pick God	Reroll stats? 	選擇陣營
+ui.d88ade772ab3	Reroll stats? 	Pick Alignment	Character name: 	要重擲屬性嗎？
+ui.246a64eabf86	Character name: 	Reroll stats? 	Save 	人物姓名：
+ui.f5f25c5769e6	Save 	Character name: 	Drop 	儲存
+ui.6ae066ae37be	Drop 	Save 	 forever? 	要永遠放棄
+ui.188cac7e138b	 forever? 	Drop 	Are you sure? 	嗎？
+ui.7c2da26ef6e0	Are you sure? 	 forever? 	You dump 	確定嗎？
+ui.b507eb205317	You dump 	Are you sure? 	 out back.	你們把
+ui.4d09b992377b	 out back.	You dump 	 bids you farewell.	丟到後面去了。
+ui.d4769daf9f05	 bids you farewell.	 out back.	 breathes a sigh of relief.	向你告別。
+ui.3cfa88873404	 breathes a sigh of relief.	 bids you farewell.	 can't be modified.	鬆了一口氣。
+ui.9e2bbca238ae	 can't be modified.	 breathes a sigh of relief.	Modify: 	無法調整。
+ui.b156b926dc3a	Modify: 	 can't be modified.	Add Subtract Keep Exit	調整：
+ui.43ae65428a8f	Add Subtract Keep Exit	Modify: 	Add a character: 	增加 減少 保留 離開
+ui.adfe0feb6f39	Add a character: 	Add Subtract Keep Exit	Add 	加入人物：
+ui.8d89e4a829ae	Add 	Add a character: 	#paladins do not join with evil 	加入
+ui.36851157efde	paladins do not join with evil scum	#paladins do not join with evil 	too many rangers in party	聖騎士不與邪惡的渣滓為伍。
+ui.7bd75e5bf8f3	too many rangers in party	paladins do not join with evil scum	 will tolerate no evil!	隊伍中的遊俠太多了。
+ui.a0323615baef	 will tolerate no evil!	too many rangers in party	old	絕不容忍邪惡！
+ui.cba06b5736fa	old	 will tolerate no evil!	ready   action	舊
+ui.7c6cfd76225a	ready   action	old	new	備妥   動作
+ui.11507a0e2f5e	new	ready   action	Small	新
+ui.5263293fc202	Small	new	Large	小
+ui.ab80540d98d2	Large	Small	Sorry, not in CGA	大
+ui.50522ed6b01a	Sorry, not in CGA	Large	Hair	抱歉，CGA 模式無此功能。
+ui.ababed4823ab	Hair	Sorry, not in CGA	Face	頭髮
+ui.304afc32b7ff	Face	Hair	Is this icon ok? 	臉部
+ui.7425046ea84b	Is this icon ok? 	Face	PU	這個造形可以嗎？
+ui.59d6cf4f638f	we only train conscious people	PU	We don't train that class here	我們只訓練神智清醒的人
+ui.a56df8de4062	We don't train that class here	we only train conscious people	Not Enough Experience	我們這裡不訓練那個職業。
+ui.bc15529dc7b3	Not Enough Experience	We don't train that class here	 will become:	經驗不足
+ui.dc0c1dbcae76	 will become:	Not Enough Experience	    a level 	將成為：
+ui.f2fbdfd7c100	    a level 	 will become:	and a level 	等級
+ui.803a155fcf80	and a level 	    a level 	Do you wish to train? 	以及等級
+ui.0befe68474e9	Do you wish to train? 	and a level 	Congratulations...	你想接受訓練嗎？
+ui.5392c12fa251	Congratulations...	Do you wish to train? 	is petitioning to become a	恭喜……
+ui.3600952e2943	is petitioning to become a	Congratulations...	sword	請求成為
+ui.a44c47b1ee24	sword	is petitioning to become a	rose	聖劍
+ui.618d663af0f1	rose	sword	Knight Of The 	玫瑰
+ui.b03578c1ebc4	Knight Of The 	rose	 is too inexperienced.	騎士階級：
+ui.f0275105a953	 is too inexperienced.	Knight Of The 	 does not qualify.	經驗太淺了。
+ui.8b2ffdc98579	 does not qualify.	 is too inexperienced.	 may become a	不符資格。
+ui.e186c12f3ef1	 may become a	 does not qualify.	Knight Of The Sword	可以成為
+ui.137405043c32	Knight Of The Sword	 may become a	Change Exit	聖劍騎士
+ui.d49562742155	Change Exit	Knight Of The Sword	 is too inexperienced	更改 離開
+ui.6ec6ae52db55	 is too inexperienced	Change Exit	Knight Of The Rose	經驗太淺了
+ui.4a2d595a8d23	Knight Of The Rose	 is too inexperienced	mouse ON	玫瑰騎士
+ui.700ceab2be74	mouse ON	Knight Of The Rose	mouse OFF	滑鼠開啟
+ui.73aacaa0a21a	mouse OFF	mouse ON	joystick ON	滑鼠關閉
+ui.0dc5be426a8c	joystick ON	mouse OFF	joystick OFF	搖桿開啟
+ui.c46f278027d6	joystick OFF	joystick ON	disable both	搖桿關閉
+ui.65cb8bc4d032	disable both	joystick OFF	Init Mouse/Joystick: 	全部停用
+ui.fe6c9d4d8e5b	Init Mouse/Joystick: 	disable both	Push JOYSTICK #1 to the extreme upper	啟動滑鼠和搖桿：
+ui.a29e9feca009	Push JOYSTICK #1 to the extreme upper	Init Mouse/Joystick: 	#1 to the extreme upper"left pos	將搖桿 #1 推到最左上角位置，然後按下按鈕讀取搖桿
+ui.be547a8c19df	left position and press button #1.	upper"left position and press bu	Unable to read joystick	的位置，然後按下1號按鈕。
+ui.542599d6762b	Unable to read joystick	left position and press button #1.	to read joystick%Push JOYSTICK #	無法讀取搖桿
+ui.faee4715888d	Push JOYSTICK #1 to the extreme lower	joystick%Push JOYSTICK #1 to the	#1 to the extreme lower#right po	將搖桿 #1 推到最右下角位置，然後按下按鈕讀取搖桿
+ui.e4cba1c76c15	right position and press button #1.	lower#right position and press b	a;a@a`aea	的位置，然後按下1號按鈕。
+ui.755c8b2a9fb1	Status:	d&d+dFdKdgd	 years	狀況：
+ui.9596e8d6030b	 years	Status:	 of the Crown	歲
+ui.fb620a982a5c	 of the Crown	 years	 of the Sword	皇冠
+ui.6e30dd4787fe	 of the Sword	 of the Crown	 of the Rose	聖劍
+ui.ffb770a75172	 of the Rose	 of the Sword	Level	玫瑰
+ui.1709305c9fa9	Level	 of the Rose	Experience 	等級
+ui.1ddcb2c6551d	Experience 	Level	STR 	經驗
+ui.68945ce37c83	STR 	Experience 	INT 	力量
+ui.908881ec8eb9	INT 	STR 	WIS 	智慧
+ui.65a45b3db080	WIS 	INT 	DEX 	睿智
+ui.a793518be0c2	DEX 	WIS 	CON 	敏捷
+ui.fc0615ed1942	CON 	DEX 	CHA 	體質
+ui.735b03a3f745	CHA 	CON 	Hit Points 	魅力
+ui.47e1a40ec961	Hit Points 	CHA 	Armor Class	生命力
+ui.a24f89fb7eb3	Armor Class	Hit Points 	Encumbrance	防護力
+ui.7c0376ae0ea9	Encumbrance	Armor Class	THAC0   	負重
+ui.4c644b040133	THAC0   	Encumbrance	Movement	攻擊命中率
+ui.49ba63e89af6	Movement	THAC0   	Damage	移動力
+ui.0c874f581a45	Damage	Movement	Items 	傷害力
+ui.2aaf9bfd20c4	Items 	Damage	Spells 	物品
+ui.9c87350ca200	Spells 	Items 	Trade 	法術
+ui.7996af070c23	Trade 	Spells 	Heal 	交易
+ui.0d20c6ca62b0	Heal 	Trade 	Cure 	治療
+ui.42b745650343	Cure 	Heal 	Must be unreadied	治病
+ui.3aaab8a73c8f	Must be unreadied	Cure 	be unreadied% was going to scrib	須先解除備妥
+ui.32c9fd9a0415	 was going to scribe from that scroll	unreadied% was going to scribe f	was going to scribe from that sc	本來要從那卷軸抄寫

@@ -1,0 +1,4880 @@
+{
+  "spec": "docs/spec/010-hd-theme.md",
+  "issue": "#12",
+  "scale": 3,
+  "items": [
+    {
+      "key": "title",
+      "batch": "b01",
+      "screen_rect": [
+        0,
+        0,
+        320,
+        200
+      ],
+      "png": "title.png",
+      "png_sha256": "bd573c20201b862db97e811da3d8523f48ebeb4de8788999b3364474dccdb8eb",
+      "indexed": "title.idx",
+      "indexed_sha256": "b9ab08db19748d706586650141f6b34b07dd7782e9647af365c6047d497fa4bd",
+      "sources": [
+        {
+          "file": "TITLE.DAX",
+          "file_sha256": "5276ba718f3c31018c25852f0b6858a292aed5a94f8bd938803961bb1ade0a00",
+          "block": 2,
+          "offset": 9754,
+          "packed_size": 26220,
+          "decoded_size": 32017,
+          "decoded_sha256": "969c8e42b9c885af221b4f47505f49c7b8f845eb35f5c7e98ef01f422bbd242b",
+          "rows_used": [
+            0,
+            200
+          ],
+          "placed_at": [
+            0,
+            0
+          ],
+          "block_size": [
+            320,
+            200
+          ]
+        },
+        {
+          "file": "TITLE.DAX",
+          "file_sha256": "5276ba718f3c31018c25852f0b6858a292aed5a94f8bd938803961bb1ade0a00",
+          "block": 3,
+          "offset": 35974,
+          "packed_size": 9749,
+          "decoded_size": 10577,
+          "decoded_sha256": "145b95153c90a395f0aa525a39a0809ecd2e973fbcba8ef724f4f99e080c6499",
+          "rows_used": [
+            0,
+            88
+          ],
+          "placed_at": [
+            40,
+            8
+          ],
+          "block_size": [
+            240,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/../hd/screens/title.bin"
+    },
+    {
+      "key": "camp",
+      "batch": "b01",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "camp.png",
+      "png_sha256": "eb5fa0b1a6873261d5d0753ee6cb7b9cf662b6397fca6990a906a08acfca5201",
+      "indexed": "camp.idx",
+      "indexed_sha256": "95f460cc87fbe7485d1bc839d9db3fbe8e15838e05050cc76d6a194dfb9a9c8f",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 59,
+          "offset": 17541,
+          "packed_size": 2590,
+          "decoded_size": 3894,
+          "decoded_sha256": "795149f8458b559d72a34e13b004ddc4f06c8c6916a6d96fa4e2160d5c5a1866",
+          "rows_used": [
+            0,
+            88
+          ],
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/../hd/screens/camp.bin"
+    },
+    {
+      "key": "outpost",
+      "batch": "b01",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "outpost.png",
+      "png_sha256": "816031521a3e1a5ebcfa79162b9fc0132daf0271aaeb0457154b7d9a4fca801c",
+      "indexed": "outpost.idx",
+      "indexed_sha256": "d5813cf10025922da54e981f7d007c7a3bd97d82ea88022864cbddf198a41694",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 57,
+          "offset": 4702,
+          "packed_size": 3030,
+          "decoded_size": 3894,
+          "decoded_sha256": "e27c3c34f760d8cde8cf7f227c8dc21fdac3d919a94143fdb408d95075b5d5dc",
+          "rows_used": [
+            0,
+            88
+          ],
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/../hd/screens/outpost.bin"
+    },
+    {
+      "key": "solace",
+      "batch": "b01",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "solace.png",
+      "png_sha256": "563ea9d886074fdfad477c90770d71ba81fea677fcc26a6a2067f83e9041c7cb",
+      "indexed": "solace.idx",
+      "indexed_sha256": "cbc10d91eeec0b8d4a9dc4e6ee827e71ee7c78699d2710f9567e82e614e8c93c",
+      "sources": [
+        {
+          "file": "BIGPIC1.DAX",
+          "file_sha256": "34cf5207584cb859817e1fc9b579cd51beea2e00e3393adbdc251e07f93483ec",
+          "block": 112,
+          "offset": 35985,
+          "packed_size": 16477,
+          "decoded_size": 18257,
+          "decoded_sha256": "55dc8ba7aa1ee670574a55e1a390b54e4b6fbacdecad41dff374bb5d53ed263b",
+          "rows_used": [
+            0,
+            120
+          ],
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/../hd/screens/solace.bin"
+    },
+    {
+      "key": "caravan",
+      "batch": "b01",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "caravan.png",
+      "png_sha256": "57729456f7f6928e8ea3487a390a9fe7e997eb42dc37400abb6a54224f821e85",
+      "indexed": "caravan.idx",
+      "indexed_sha256": "6a10c506bed574facb48856246c12e79c4e864501e690f9b9fa69de79d6e453b",
+      "sources": [
+        {
+          "file": "BIGPIC1.DAX",
+          "file_sha256": "34cf5207584cb859817e1fc9b579cd51beea2e00e3393adbdc251e07f93483ec",
+          "block": 114,
+          "offset": 38,
+          "packed_size": 17169,
+          "decoded_size": 18257,
+          "decoded_sha256": "7ff458d604556e54a5b430c37364a2f766421d73d0c3087378445e58bd8b3e73",
+          "rows_used": [
+            0,
+            120
+          ],
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/../hd/screens/caravan.bin"
+    },
+    {
+      "key": "bigpic1-115",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic1-115.png",
+      "png_sha256": "6fa6da92d15742fe9d96e2a04b0332119afd1efbf3f839ad048ee3bcfd6363fb",
+      "indexed": "bigpic1-115.idx",
+      "indexed_sha256": "fab74f94483efd3668aeba249bd3f8a9cac504311c5f3fc2a5242c88ba5a78f2",
+      "sources": [
+        {
+          "file": "BIGPIC1.DAX",
+          "file_sha256": "34cf5207584cb859817e1fc9b579cd51beea2e00e3393adbdc251e07f93483ec",
+          "block": 115,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 52462,
+          "packed_size": 13232,
+          "decoded_size": 18257,
+          "decoded_sha256": "2cd941f3598ab7e93c94b0ee7767992737eb980ae42f2873ed5c277790774567",
+          "raw_frame_sha256": "fab74f94483efd3668aeba249bd3f8a9cac504311c5f3fc2a5242c88ba5a78f2",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "bigpic1-121",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic1-121.png",
+      "png_sha256": "ac827abb32d7acd77a452d554fee1e2ae4b7e04f924a4af479345da4e15aece0",
+      "indexed": "bigpic1-121.idx",
+      "indexed_sha256": "f44de0a16e1ddf56ad88bd7d34ac4d267e6f691b3f348b0cf80a71f0cf0f1917",
+      "sources": [
+        {
+          "file": "BIGPIC1.DAX",
+          "file_sha256": "34cf5207584cb859817e1fc9b579cd51beea2e00e3393adbdc251e07f93483ec",
+          "block": 121,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 17207,
+          "packed_size": 18778,
+          "decoded_size": 18257,
+          "decoded_sha256": "62b78a91d3e1b876f15ef70396c87b03279a996b22b5a16f781208f9bea0b395",
+          "raw_frame_sha256": "f44de0a16e1ddf56ad88bd7d34ac4d267e6f691b3f348b0cf80a71f0cf0f1917",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "bigpic2-116",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic2-116.png",
+      "png_sha256": "4ca3edda3d53209d59401aee364332fe02712fbafd151159af7b25b54c42bbf7",
+      "indexed": "bigpic2-116.idx",
+      "indexed_sha256": "4f9999c9b7d1e14a171ce466f51df8324c1a63fd383471b7f5de1a2a879fb172",
+      "sources": [
+        {
+          "file": "BIGPIC2.DAX",
+          "file_sha256": "553dc458be8209bea0ca5f1dea6406b5cd8a96750d3badc05658f5a8ef241f0a",
+          "block": 116,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 20,
+          "packed_size": 16535,
+          "decoded_size": 18257,
+          "decoded_sha256": "9c2f3cfc44bd9f04ad7703e00e59a887b385f2b3d3051ead6128d5fa587847fd",
+          "raw_frame_sha256": "4f9999c9b7d1e14a171ce466f51df8324c1a63fd383471b7f5de1a2a879fb172",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "bigpic2-119",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic2-119.png",
+      "png_sha256": "27f7e9cc532c6ec347f8c790d870b5a05d0624d0187dd1056734b7569d4fa083",
+      "indexed": "bigpic2-119.idx",
+      "indexed_sha256": "8ea57dcaa1d327e1a57f8c5cc9f012e99770cbff57607432016510422a174d04",
+      "sources": [
+        {
+          "file": "BIGPIC2.DAX",
+          "file_sha256": "553dc458be8209bea0ca5f1dea6406b5cd8a96750d3badc05658f5a8ef241f0a",
+          "block": 119,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 16555,
+          "packed_size": 14350,
+          "decoded_size": 18257,
+          "decoded_sha256": "680ea0f1c832000902ebf3fa828d785600b2e5893879317921517467f7db94c9",
+          "raw_frame_sha256": "8ea57dcaa1d327e1a57f8c5cc9f012e99770cbff57607432016510422a174d04",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "bigpic3-117",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic3-117.png",
+      "png_sha256": "46080be1259625a9b412ad78b0f88fb94c95c5968772baeb61c502d5aa743bac",
+      "indexed": "bigpic3-117.idx",
+      "indexed_sha256": "f4b7c225a88f225071e2f82bc5658ed4fef95eb72a3135db84158fcc3743d5e0",
+      "sources": [
+        {
+          "file": "BIGPIC3.DAX",
+          "file_sha256": "2be3773e7f4ed0611c8e7d36ee1593160756ab2742c458d6adc7d14fd0900f25",
+          "block": 117,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 29,
+          "packed_size": 11254,
+          "decoded_size": 18257,
+          "decoded_sha256": "24c87e74c9c7983817a344aa2bf4ce230050985665448636fc65313c84cd6f79",
+          "raw_frame_sha256": "f4b7c225a88f225071e2f82bc5658ed4fef95eb72a3135db84158fcc3743d5e0",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "bigpic3-118",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic3-118.png",
+      "png_sha256": "8aa11dad993aec2d24d33a2d75b65be36a5b98fe22cc087fe32eb28c379e4fe0",
+      "indexed": "bigpic3-118.idx",
+      "indexed_sha256": "9e092408817a1242be981de707d4af4f551c58aa319d66e8255b66fe89588997",
+      "sources": [
+        {
+          "file": "BIGPIC3.DAX",
+          "file_sha256": "2be3773e7f4ed0611c8e7d36ee1593160756ab2742c458d6adc7d14fd0900f25",
+          "block": 118,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 11283,
+          "packed_size": 14532,
+          "decoded_size": 18257,
+          "decoded_sha256": "3a77e9d1ded231e882e1a6667e9de72cd362fc672ac0ca052e195d7e3195999c",
+          "raw_frame_sha256": "9e092408817a1242be981de707d4af4f551c58aa319d66e8255b66fe89588997",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "bigpic3-120",
+      "batch": "b02",
+      "screen_rect": [
+        8,
+        8,
+        304,
+        120
+      ],
+      "png": "bigpic3-120.png",
+      "png_sha256": "7c742cfb48a431027387aada96732da1096234e13bfed47f1b04f9b12920b717",
+      "indexed": "bigpic3-120.idx",
+      "indexed_sha256": "a3236562d82f6a4531d9f60d755a67bce93bede52d5261448d95706fb24a3e09",
+      "sources": [
+        {
+          "file": "BIGPIC3.DAX",
+          "file_sha256": "2be3773e7f4ed0611c8e7d36ee1593160756ab2742c458d6adc7d14fd0900f25",
+          "block": 120,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 25815,
+          "packed_size": 11680,
+          "decoded_size": 18257,
+          "decoded_sha256": "715d14887d17d968ee912940667f6b3e5f5d9bdef91145351f27e39181125c1e",
+          "raw_frame_sha256": "a3236562d82f6a4531d9f60d755a67bce93bede52d5261448d95706fb24a3e09",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            8,
+            8
+          ],
+          "block_size": [
+            304,
+            120
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-001@0",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-001@0.png",
+      "png_sha256": "7e23bcf0938c1d66771d9ef1b3ec3fab16a4eb75958c11691f1c59d34bfe70b0",
+      "indexed": "pic1-001@0.idx",
+      "indexed_sha256": "9dc6db29a2f2d4612dabd9a160c66bcdf66e5484ce698bf29709328c92d8fa25",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 1,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 24152,
+          "packed_size": 2985,
+          "decoded_size": 3894,
+          "decoded_sha256": "06d8151f9ada9f1bc99d0b94c9a55cc7faa68fe55894a451cb452c1ba13ef739",
+          "raw_frame_sha256": "9dc6db29a2f2d4612dabd9a160c66bcdf66e5484ce698bf29709328c92d8fa25",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 1,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 236,
+          "packed_size": 2985,
+          "decoded_size": 3894,
+          "decoded_sha256": "06d8151f9ada9f1bc99d0b94c9a55cc7faa68fe55894a451cb452c1ba13ef739",
+          "raw_frame_sha256": "9dc6db29a2f2d4612dabd9a160c66bcdf66e5484ce698bf29709328c92d8fa25",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-008@0",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-008@0.png",
+      "png_sha256": "2a444b77d8ca66d33e7b60e71242fda2db74e3f85ccb9a7482c6fee8c2a78a8d",
+      "indexed": "pic1-008@0.idx",
+      "indexed_sha256": "e14c3ee90d17a2ea7cf23acafdfa6ec33400819c54390be876ac187ed5ca3563",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 8,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 27137,
+          "packed_size": 3711,
+          "decoded_size": 3894,
+          "decoded_sha256": "7472709526f469d2a3570f0ddcd9421defd046e60ec3bda19b124d22683383c1",
+          "raw_frame_sha256": "e14c3ee90d17a2ea7cf23acafdfa6ec33400819c54390be876ac187ed5ca3563",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 8,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 14875,
+          "packed_size": 3711,
+          "decoded_size": 3894,
+          "decoded_sha256": "7472709526f469d2a3570f0ddcd9421defd046e60ec3bda19b124d22683383c1",
+          "raw_frame_sha256": "e14c3ee90d17a2ea7cf23acafdfa6ec33400819c54390be876ac187ed5ca3563",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-012@0",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-012@0.png",
+      "png_sha256": "de805ec611af01d388e0a09f3539f53c694ea96241795847b60b70e82bc778f3",
+      "indexed": "pic1-012@0.idx",
+      "indexed_sha256": "c4dd43ff829b5986cb0d8dfae318f6ad7dc782d3035913115fb0ef66059187f8",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 12,
+          "frame": 0,
+          "frames": 4,
+          "animated": true,
+          "offset": 30848,
+          "packed_size": 6750,
+          "decoded_size": 15573,
+          "decoded_sha256": "e52bc0def2d98c8da93bb8483d9ec61bb79fef27ca3095cd305f604737785451",
+          "raw_frame_sha256": "c4dd43ff829b5986cb0d8dfae318f6ad7dc782d3035913115fb0ef66059187f8",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-012@1",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-012@1.png",
+      "png_sha256": "4d469efcd931ca2482e6470995a2133ff3d9a76eafd062c7b211e77138ce346b",
+      "indexed": "pic1-012@1.idx",
+      "indexed_sha256": "a040f3f21314fe029c60adf17dab698c5e886559e205a661a73cda9e307b2fdc",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 12,
+          "frame": 1,
+          "frames": 4,
+          "animated": true,
+          "offset": 30848,
+          "packed_size": 6750,
+          "decoded_size": 15573,
+          "decoded_sha256": "e52bc0def2d98c8da93bb8483d9ec61bb79fef27ca3095cd305f604737785451",
+          "raw_frame_sha256": "b0e95481012ed49bfb1d303583624f1a93175b387a2bd9f4adaac5f59efb4b59",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "b0e95481012ed49bfb1d303583624f1a93175b387a2bd9f4adaac5f59efb4b59",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-012@2",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-012@2.png",
+      "png_sha256": "c833c2cd1acb78d66e98c73c9c89204cba03a562c9c3f7870b26eb0c0688e1c1",
+      "indexed": "pic1-012@2.idx",
+      "indexed_sha256": "4119cdf7808024838de017f53d5bd52885211c2665c973da0e3c7609e28c7cd4",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 12,
+          "frame": 2,
+          "frames": 4,
+          "animated": true,
+          "offset": 30848,
+          "packed_size": 6750,
+          "decoded_size": 15573,
+          "decoded_sha256": "e52bc0def2d98c8da93bb8483d9ec61bb79fef27ca3095cd305f604737785451",
+          "raw_frame_sha256": "0156086056feea180435376e702bc33a71c70e4beed252dccece9b173e33b06e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "0156086056feea180435376e702bc33a71c70e4beed252dccece9b173e33b06e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-012@3",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-012@3.png",
+      "png_sha256": "06b91ce8cd2216de3d315dde746298a96cff2cb7f09f34239519f6c7f9a87e5d",
+      "indexed": "pic1-012@3.idx",
+      "indexed_sha256": "755d6ae15b373f98de9112aa656f17de96e810d2d5559cbd9ac7a15c391fadf8",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 12,
+          "frame": 3,
+          "frames": 4,
+          "animated": true,
+          "offset": 30848,
+          "packed_size": 6750,
+          "decoded_size": 15573,
+          "decoded_sha256": "e52bc0def2d98c8da93bb8483d9ec61bb79fef27ca3095cd305f604737785451",
+          "raw_frame_sha256": "0782bb909fac74b4dcd3d9a87101dbe9b7fc32dc82185d00dad6066d4b76521b",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "0782bb909fac74b4dcd3d9a87101dbe9b7fc32dc82185d00dad6066d4b76521b",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-015@0",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-015@0.png",
+      "png_sha256": "6024961e12fc0b65477b37e92dfdbec26a6045979a0c67d9fd2e1e0a0ff26b5b",
+      "indexed": "pic1-015@0.idx",
+      "indexed_sha256": "448d8802243a519a7db762771536e1215f3ae8e0c2364f3607517487b99149b4",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 15,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 37598,
+          "packed_size": 2760,
+          "decoded_size": 3894,
+          "decoded_sha256": "0423639c6fb334dd51c1b0234926b200fcaf39c58e70562042c788b27b8fabd5",
+          "raw_frame_sha256": "448d8802243a519a7db762771536e1215f3ae8e0c2364f3607517487b99149b4",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-018@0",
+      "batch": "b02",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-018@0.png",
+      "png_sha256": "92b1df6685478e544e4173835063fade483af01f1c2ca67e3375442f11ec35d5",
+      "indexed": "pic1-018@0.idx",
+      "indexed_sha256": "efe6c30b038ff963be824ed871746bcbfc7aad186d4e9c4e490a9a88d642eba3",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 18,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 14386,
+          "packed_size": 3155,
+          "decoded_size": 3894,
+          "decoded_sha256": "682f6487982df42f3dfe2ef294441f67eebc6caad737b1d83bce7c9a2d7a91b0",
+          "raw_frame_sha256": "efe6c30b038ff963be824ed871746bcbfc7aad186d4e9c4e490a9a88d642eba3",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 18,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 65057,
+          "packed_size": 3155,
+          "decoded_size": 3894,
+          "decoded_sha256": "682f6487982df42f3dfe2ef294441f67eebc6caad737b1d83bce7c9a2d7a91b0",
+          "raw_frame_sha256": "efe6c30b038ff963be824ed871746bcbfc7aad186d4e9c4e490a9a88d642eba3",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-023@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-023@0.png",
+      "png_sha256": "911022bec8cf91706e5c89499d47b53de51fa566c28a9064e34acc1f7b129c14",
+      "indexed": "pic1-023@0.idx",
+      "indexed_sha256": "da6072ec1ae35fe9f2789073ccd7566ba5aef94c73b271a64eae88925231c446",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 0,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "da6072ec1ae35fe9f2789073ccd7566ba5aef94c73b271a64eae88925231c446",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 3,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 5,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 0,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "da6072ec1ae35fe9f2789073ccd7566ba5aef94c73b271a64eae88925231c446",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 3,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 5,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ad0f7f9197b5b43549fa37f98743ad635df67190b0ad816d0a3d8313073a1d8c",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/demolong/d4-base.png"
+    },
+    {
+      "key": "pic1-023@1",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-023@1.png",
+      "png_sha256": "20358361abe436e47ab31dd14b9b01fa7ce3bfa512710c08b9fc9eaefdb9a2d5",
+      "indexed": "pic1-023@1.idx",
+      "indexed_sha256": "008585249dc6f477c205767d51736a0774a18862ed387c3e0c056df7683f042d",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 1,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 4,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 7,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 1,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 4,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 7,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "ed58c5c16428b001dbaa139ea06da5db472dff2ea807ed2b8b75ae70149d4b75",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-023@2",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-023@2.png",
+      "png_sha256": "38a2183cb7915629c5dd2f3922c40c8af857c9bc430fa8dbad5d4c4717e620e9",
+      "indexed": "pic1-023@2.idx",
+      "indexed_sha256": "84a582029796ec427d9fe8cf407044d5299a0239e060aff1ec9efbff5d3bf0ed",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 2,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 23,
+          "frame": 6,
+          "frames": 8,
+          "animated": true,
+          "offset": 164,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 2,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 23,
+          "frame": 6,
+          "frames": 8,
+          "animated": true,
+          "offset": 74511,
+          "packed_size": 4538,
+          "decoded_size": 31145,
+          "decoded_sha256": "2a10157f1f46017a10c0053fd8fb101167e6a811441eacaf5952ca2a450333fa",
+          "raw_frame_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "6994d8cc865c30f0be1d4003384c3d509dd31e9bfb4bd3abbf57dd076a44018e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-030@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-030@0.png",
+      "png_sha256": "7bc415ce81cf2b271fdcfb605dcc1e16204fba5aea708aa45657bc9660ef8747",
+      "indexed": "pic1-030@0.idx",
+      "indexed_sha256": "f1cd8387b906ba590205c55ec3be744ab4744793a59a5e88f6fb016442805d62",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 30,
+          "frame": 0,
+          "frames": 4,
+          "animated": true,
+          "offset": 40358,
+          "packed_size": 6872,
+          "decoded_size": 15573,
+          "decoded_sha256": "aa87321c3b6ca33df9c5e5820752af4bab68e2bdf3e7f246df70f043e1029cfb",
+          "raw_frame_sha256": "f1cd8387b906ba590205c55ec3be744ab4744793a59a5e88f6fb016442805d62",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-030@1",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-030@1.png",
+      "png_sha256": "3aab06f1a0828d7e085f83e3df07ad96661ac879559ff52101279b91313429b1",
+      "indexed": "pic1-030@1.idx",
+      "indexed_sha256": "e668af031699e2e5f8ceb4e8c0a3ed7adb8eac3b0012333a81bea9ddb91f81f4",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 30,
+          "frame": 1,
+          "frames": 4,
+          "animated": true,
+          "offset": 40358,
+          "packed_size": 6872,
+          "decoded_size": 15573,
+          "decoded_sha256": "aa87321c3b6ca33df9c5e5820752af4bab68e2bdf3e7f246df70f043e1029cfb",
+          "raw_frame_sha256": "f29912f092637db7a3fb39669a38b262e35e37fb4173fce2572c818aa8ea1cc1",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "f29912f092637db7a3fb39669a38b262e35e37fb4173fce2572c818aa8ea1cc1",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-030@2",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-030@2.png",
+      "png_sha256": "c317e30f3d0289680f4d8429d28c92f810fa487a0efe1d33c3257ffbfeb9bb8b",
+      "indexed": "pic1-030@2.idx",
+      "indexed_sha256": "e74a5467b4297714d5bcfd9ab6e4dc023772a4fc26d2e5d6bf823b2c76d41cf0",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 30,
+          "frame": 2,
+          "frames": 4,
+          "animated": true,
+          "offset": 40358,
+          "packed_size": 6872,
+          "decoded_size": 15573,
+          "decoded_sha256": "aa87321c3b6ca33df9c5e5820752af4bab68e2bdf3e7f246df70f043e1029cfb",
+          "raw_frame_sha256": "336f6237d3366d0dc3901c241c2dbc812797f884561175f6d182b6ba96ca3e57",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "336f6237d3366d0dc3901c241c2dbc812797f884561175f6d182b6ba96ca3e57",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-030@3",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-030@3.png",
+      "png_sha256": "0c388a6e165ce9596b1b19692d80f50e8f622068bc5761921b85e902367ef914",
+      "indexed": "pic1-030@3.idx",
+      "indexed_sha256": "df9ee964971c52df7f5df95ea4e7ad374c57962fec44e800bb3bbad5e7d0e2f2",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 30,
+          "frame": 3,
+          "frames": 4,
+          "animated": true,
+          "offset": 40358,
+          "packed_size": 6872,
+          "decoded_size": 15573,
+          "decoded_sha256": "aa87321c3b6ca33df9c5e5820752af4bab68e2bdf3e7f246df70f043e1029cfb",
+          "raw_frame_sha256": "0d33d65db2e7c17c9f5fee6fa1857099d771aeb1ad8574e14223c8659e28d411",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "0d33d65db2e7c17c9f5fee6fa1857099d771aeb1ad8574e14223c8659e28d411",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-034@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-034@0.png",
+      "png_sha256": "fce55bb54fdd0975f680632543e9b0bf540a714e7701f6d1b9f5d311fd2cb1fd",
+      "indexed": "pic1-034@0.idx",
+      "indexed_sha256": "d82af55b5816288318cc601c8a2f708bc0b32f227961a4634255f17652db8e09",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 34,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 47230,
+          "packed_size": 3226,
+          "decoded_size": 3894,
+          "decoded_sha256": "1d62db854295d7075c6ea64d2fab165ea96e3276152810ae3329bd56210ff0bf",
+          "raw_frame_sha256": "d82af55b5816288318cc601c8a2f708bc0b32f227961a4634255f17652db8e09",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 34,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 47230,
+          "packed_size": 3226,
+          "decoded_size": 3894,
+          "decoded_sha256": "1d62db854295d7075c6ea64d2fab165ea96e3276152810ae3329bd56210ff0bf",
+          "raw_frame_sha256": "d82af55b5816288318cc601c8a2f708bc0b32f227961a4634255f17652db8e09",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 34,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 91464,
+          "packed_size": 3226,
+          "decoded_size": 3894,
+          "decoded_sha256": "1d62db854295d7075c6ea64d2fab165ea96e3276152810ae3329bd56210ff0bf",
+          "raw_frame_sha256": "d82af55b5816288318cc601c8a2f708bc0b32f227961a4634255f17652db8e09",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-035@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-035@0.png",
+      "png_sha256": "bec8ed02281e0fba0e6cbb8c6d035ede6ccfd21bba33e94bcad0bb8c196f6bc7",
+      "indexed": "pic1-035@0.idx",
+      "indexed_sha256": "03a465010ca717fbc702d17a462266ea7917ed013c6042e2b63f143daafffdd1",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 35,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 50456,
+          "packed_size": 2569,
+          "decoded_size": 3894,
+          "decoded_sha256": "9e8e6c53455ed66384d2208506827ba3281491d3bde480e40b6788006a02ae75",
+          "raw_frame_sha256": "03a465010ca717fbc702d17a462266ea7917ed013c6042e2b63f143daafffdd1",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 35,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 33033,
+          "packed_size": 2569,
+          "decoded_size": 3894,
+          "decoded_sha256": "9e8e6c53455ed66384d2208506827ba3281491d3bde480e40b6788006a02ae75",
+          "raw_frame_sha256": "03a465010ca717fbc702d17a462266ea7917ed013c6042e2b63f143daafffdd1",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 35,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 33117,
+          "packed_size": 2569,
+          "decoded_size": 3894,
+          "decoded_sha256": "9e8e6c53455ed66384d2208506827ba3281491d3bde480e40b6788006a02ae75",
+          "raw_frame_sha256": "03a465010ca717fbc702d17a462266ea7917ed013c6042e2b63f143daafffdd1",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-041@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-041@0.png",
+      "png_sha256": "9f1090c66d4cdd10d7bb693882dee443df9664aff23e608f6c2aae617ee12aeb",
+      "indexed": "pic1-041@0.idx",
+      "indexed_sha256": "d5c7a4ecf07fe32aa0891874ec92ef2f5c876056f6b2939dfba12bbe76a38e4a",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 41,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 53025,
+          "packed_size": 2575,
+          "decoded_size": 3894,
+          "decoded_sha256": "9610442952ca8a376693f6f8971335022c890d86b4b76c482a684165dc9e0db9",
+          "raw_frame_sha256": "d5c7a4ecf07fe32aa0891874ec92ef2f5c876056f6b2939dfba12bbe76a38e4a",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 41,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 35602,
+          "packed_size": 2575,
+          "decoded_size": 3894,
+          "decoded_sha256": "9610442952ca8a376693f6f8971335022c890d86b4b76c482a684165dc9e0db9",
+          "raw_frame_sha256": "d5c7a4ecf07fe32aa0891874ec92ef2f5c876056f6b2939dfba12bbe76a38e4a",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-058@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-058@0.png",
+      "png_sha256": "489e8ad492537e9d20ae757fbadc8b480b7d05d30dc9a9dcd6b0ace384386836",
+      "indexed": "pic1-058@0.idx",
+      "indexed_sha256": "22db945e9f0327ecc8e39b205987f7388c8b4f1307e6bd6bac536a8addbac302",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 58,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 7732,
+          "packed_size": 3428,
+          "decoded_size": 3894,
+          "decoded_sha256": "c856b5763e14bed82ee1fedd687456d750ea0d234c9ed2fa8cda05e960b7d618",
+          "raw_frame_sha256": "22db945e9f0327ecc8e39b205987f7388c8b4f1307e6bd6bac536a8addbac302",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/cok-camp/camp-base.png"
+    },
+    {
+      "key": "pic1-060@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-060@0.png",
+      "png_sha256": "151807449532aba28d2856a0465a62b4d1bf77820b177a2f9ebba41e7aad111a",
+      "indexed": "pic1-060@0.idx",
+      "indexed_sha256": "c66a115fc4b361a4027a15d2e4e1520fcb2342a52ac09666b3de6a446a8c6b3c",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 60,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 20131,
+          "packed_size": 4021,
+          "decoded_size": 3894,
+          "decoded_sha256": "546951fa17f84da3a55a50562f126fb99795bb3901906bb69bb071ddeb30db49",
+          "raw_frame_sha256": "c66a115fc4b361a4027a15d2e4e1520fcb2342a52ac09666b3de6a446a8c6b3c",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 60,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 54571,
+          "packed_size": 4021,
+          "decoded_size": 3894,
+          "decoded_sha256": "546951fa17f84da3a55a50562f126fb99795bb3901906bb69bb071ddeb30db49",
+          "raw_frame_sha256": "c66a115fc4b361a4027a15d2e4e1520fcb2342a52ac09666b3de6a446a8c6b3c",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 60,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 53898,
+          "packed_size": 4021,
+          "decoded_size": 3894,
+          "decoded_sha256": "546951fa17f84da3a55a50562f126fb99795bb3901906bb69bb071ddeb30db49",
+          "raw_frame_sha256": "c66a115fc4b361a4027a15d2e4e1520fcb2342a52ac09666b3de6a446a8c6b3c",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-061@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-061@0.png",
+      "png_sha256": "2e0fa9cf9db257ff13bd3eee0c0fe40e34a042d6c35d45a835853bc82f0a335e",
+      "indexed": "pic1-061@0.idx",
+      "indexed_sha256": "5f98cdd790188a5b4e8c81095f5b5a839f84d0557a068383e66d1147869a06eb",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 61,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 55600,
+          "packed_size": 3683,
+          "decoded_size": 3894,
+          "decoded_sha256": "a3089e85d7732f14d2eb773d6054eb63d96c6ab4f13b0b49cc9f797f8da464f8",
+          "raw_frame_sha256": "5f98cdd790188a5b4e8c81095f5b5a839f84d0557a068383e66d1147869a06eb",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-062@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-062@0.png",
+      "png_sha256": "7709cb8da3778148ae463ed8711cf9424d3a5c7305293235c81a24888fea920c",
+      "indexed": "pic1-062@0.idx",
+      "indexed_sha256": "3cd3b5f86216c5955a5497c9cc682d8f5121aeebaedefb62fa12fa6d857b6b54",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 62,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 59283,
+          "packed_size": 3846,
+          "decoded_size": 3894,
+          "decoded_sha256": "410e2b6501fc8623caca32d81161bb6516849e206464e23774ec28ee1bb7e5cd",
+          "raw_frame_sha256": "3cd3b5f86216c5955a5497c9cc682d8f5121aeebaedefb62fa12fa6d857b6b54",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic1-063@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic1-063@0.png",
+      "png_sha256": "2369af572899aee28c67aaf1c7c5a0c6440491bfce1172afca4eebf90632ed04",
+      "indexed": "pic1-063@0.idx",
+      "indexed_sha256": "268e88d233f86105c4c7189fd82b1ac6c98290be0848b2bed081f13029cb3669",
+      "sources": [
+        {
+          "file": "PIC1.DAX",
+          "file_sha256": "2f62dab8b7f776226d6c6c35847382de3baa758a836220639d2c46c2dd74ae97",
+          "block": 63,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 63129,
+          "packed_size": 3607,
+          "decoded_size": 3894,
+          "decoded_sha256": "3b63a6eda6d988edd58d0f21800208c717169caf23ab228c93dd927a33e7fd26",
+          "raw_frame_sha256": "268e88d233f86105c4c7189fd82b1ac6c98290be0848b2bed081f13029cb3669",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-002@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-002@0.png",
+      "png_sha256": "dc818e7e1981281229c381ab570ae45609dc859f9f53a580eaf87e11a438a6f7",
+      "indexed": "pic2-002@0.idx",
+      "indexed_sha256": "991389677d40fe45fb59113546e79c9b53af3ceb47eff573bdb4cf80d4d8d832",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 2,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 3221,
+          "packed_size": 3899,
+          "decoded_size": 3894,
+          "decoded_sha256": "0bd5d3e1a3e40a9206045b3b9844711a276730e10c5fd00f39c7c911a9c10bec",
+          "raw_frame_sha256": "991389677d40fe45fb59113546e79c9b53af3ceb47eff573bdb4cf80d4d8d832",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-004@0",
+      "batch": "b03",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-004@0.png",
+      "png_sha256": "1bd69b6b13999508946bf71f8164509d721b33b1b9a9dc0ae5d89df2d3fc52b1",
+      "indexed": "pic2-004@0.idx",
+      "indexed_sha256": "8b9190223b3bb416a5774f5d8648c143cdf6b7cf12e00217f7e908f59080cfc4",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 4,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 58592,
+          "packed_size": 3749,
+          "decoded_size": 3894,
+          "decoded_sha256": "5f076b06c764565f44d17c7efe235f2f59288160628f2f23dff0ee65cc089b94",
+          "raw_frame_sha256": "8b9190223b3bb416a5774f5d8648c143cdf6b7cf12e00217f7e908f59080cfc4",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 4,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 61308,
+          "packed_size": 3749,
+          "decoded_size": 3894,
+          "decoded_sha256": "5f076b06c764565f44d17c7efe235f2f59288160628f2f23dff0ee65cc089b94",
+          "raw_frame_sha256": "8b9190223b3bb416a5774f5d8648c143cdf6b7cf12e00217f7e908f59080cfc4",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-005@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-005@0.png",
+      "png_sha256": "3fe91d9239a31b6baafc1c30bf5b9546399b207f4dc22d5410bb25881333ebab",
+      "indexed": "pic2-005@0.idx",
+      "indexed_sha256": "4ed680088b880f9481c9249c79e52fc0c9b25924e3edb81286787be2decf4544",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 5,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 7120,
+          "packed_size": 2999,
+          "decoded_size": 3894,
+          "decoded_sha256": "8faf165273b3f76e598cc0f1169f12f0fe2ecdb0830e293a9e3077d5c205839d",
+          "raw_frame_sha256": "4ed680088b880f9481c9249c79e52fc0c9b25924e3edb81286787be2decf4544",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-006@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-006@0.png",
+      "png_sha256": "bdb5e0e7456c77894e6a94e598f72f524cb9ca1e5282bd6be8b9559d2e6d57d4",
+      "indexed": "pic2-006@0.idx",
+      "indexed_sha256": "b3252f44c911072ded56f9f7353ee1fccb9bd40a8b48cdf36a6d43b001d95822",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 6,
+          "frame": 0,
+          "frames": 4,
+          "animated": true,
+          "offset": 10119,
+          "packed_size": 4756,
+          "decoded_size": 15573,
+          "decoded_sha256": "683a0395790877c90cf0c7f09c4ba0f482b7f6c9bb1fda21cb22511c916c770b",
+          "raw_frame_sha256": "b3252f44c911072ded56f9f7353ee1fccb9bd40a8b48cdf36a6d43b001d95822",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-006@1",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-006@1.png",
+      "png_sha256": "6fb08066a3c6c0492f8d589d852e1f78e4d9cb59916f679d5c33988d6825d75a",
+      "indexed": "pic2-006@1.idx",
+      "indexed_sha256": "59a54571a5442b9bc7861098d6f9cb193396930c956562a430a3b41e9ef6d280",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 6,
+          "frame": 1,
+          "frames": 4,
+          "animated": true,
+          "offset": 10119,
+          "packed_size": 4756,
+          "decoded_size": 15573,
+          "decoded_sha256": "683a0395790877c90cf0c7f09c4ba0f482b7f6c9bb1fda21cb22511c916c770b",
+          "raw_frame_sha256": "fc6ffdd0a328788a9a5ac5e317a14a48a46de1bb20769bc4ab01bc65bbcaeb5e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "fc6ffdd0a328788a9a5ac5e317a14a48a46de1bb20769bc4ab01bc65bbcaeb5e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 6,
+          "frame": 3,
+          "frames": 4,
+          "animated": true,
+          "offset": 10119,
+          "packed_size": 4756,
+          "decoded_size": 15573,
+          "decoded_sha256": "683a0395790877c90cf0c7f09c4ba0f482b7f6c9bb1fda21cb22511c916c770b",
+          "raw_frame_sha256": "fc6ffdd0a328788a9a5ac5e317a14a48a46de1bb20769bc4ab01bc65bbcaeb5e",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "fc6ffdd0a328788a9a5ac5e317a14a48a46de1bb20769bc4ab01bc65bbcaeb5e",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-006@2",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-006@2.png",
+      "png_sha256": "be5c39102621fc493e787688bdd7e33d9201ada7acf445d6bbca42b74ceca5a5",
+      "indexed": "pic2-006@2.idx",
+      "indexed_sha256": "3d6fc2f1a301daf9e8edf6b3ced28018a81bc595bec4298342013c7fd8aef407",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 6,
+          "frame": 2,
+          "frames": 4,
+          "animated": true,
+          "offset": 10119,
+          "packed_size": 4756,
+          "decoded_size": 15573,
+          "decoded_sha256": "683a0395790877c90cf0c7f09c4ba0f482b7f6c9bb1fda21cb22511c916c770b",
+          "raw_frame_sha256": "4244e73496103d08d36d61219c7c6cac1846d69c3615de31654cda57b5504f1b",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "4244e73496103d08d36d61219c7c6cac1846d69c3615de31654cda57b5504f1b",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-010@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-010@0.png",
+      "png_sha256": "a8f05318ab4ce61492aee2ed748ef7175b3db78173dfb7c254765a588c7af89d",
+      "indexed": "pic2-010@0.idx",
+      "indexed_sha256": "64397ef4c8e4b08f98430ae9557c3f62f216b6c4cdc0cbdfe3c4518c49f49b2d",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 10,
+          "frame": 0,
+          "frames": 6,
+          "animated": true,
+          "offset": 62341,
+          "packed_size": 4685,
+          "decoded_size": 23359,
+          "decoded_sha256": "357249e69d258441dab7d6783e5b505d9be994afe9383a160846b68da60dd13c",
+          "raw_frame_sha256": "64397ef4c8e4b08f98430ae9557c3f62f216b6c4cdc0cbdfe3c4518c49f49b2d",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/demolong/d7-base.png"
+    },
+    {
+      "key": "pic2-010@1",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-010@1.png",
+      "png_sha256": "2e746e173560dfefa46bd1615087e70fdfc46b0f6257dc00d2f34547146f4463",
+      "indexed": "pic2-010@1.idx",
+      "indexed_sha256": "ad33ce09fc8af6b422aafa614a31266243e01b4b152e73264071d3c3baa82ae7",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 10,
+          "frame": 1,
+          "frames": 6,
+          "animated": true,
+          "offset": 62341,
+          "packed_size": 4685,
+          "decoded_size": 23359,
+          "decoded_sha256": "357249e69d258441dab7d6783e5b505d9be994afe9383a160846b68da60dd13c",
+          "raw_frame_sha256": "205fea44806f8dc1166e25ef58f65320ab824eb1ea98d4ebf2b6e984dc4f53c7",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "205fea44806f8dc1166e25ef58f65320ab824eb1ea98d4ebf2b6e984dc4f53c7",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-010@2",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-010@2.png",
+      "png_sha256": "37169bd73c51f499dfac0b9b75086690a57a94e377c8b3bd81978ee43edda8e3",
+      "indexed": "pic2-010@2.idx",
+      "indexed_sha256": "65fd3a88c173cadd11a56a35ad2b54f9590affa2b4c1447ad507fd0ae31135bc",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 10,
+          "frame": 2,
+          "frames": 6,
+          "animated": true,
+          "offset": 62341,
+          "packed_size": 4685,
+          "decoded_size": 23359,
+          "decoded_sha256": "357249e69d258441dab7d6783e5b505d9be994afe9383a160846b68da60dd13c",
+          "raw_frame_sha256": "41d762c127cfd147db86b051b978a5145db2ded8be70762277e2ba1acfa9e8e1",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "41d762c127cfd147db86b051b978a5145db2ded8be70762277e2ba1acfa9e8e1",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/demolong/d1-base.png"
+    },
+    {
+      "key": "pic2-010@3",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-010@3.png",
+      "png_sha256": "d427cbb5b3e3d76302187e216921c5f3d76a232e7a5f2e848c16e7aa41e0556a",
+      "indexed": "pic2-010@3.idx",
+      "indexed_sha256": "7a4bea0658c7b500b289559b10a41527ebd3dc707be26308c6df1289b005d237",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 10,
+          "frame": 3,
+          "frames": 6,
+          "animated": true,
+          "offset": 62341,
+          "packed_size": 4685,
+          "decoded_size": 23359,
+          "decoded_sha256": "357249e69d258441dab7d6783e5b505d9be994afe9383a160846b68da60dd13c",
+          "raw_frame_sha256": "428f63cc0a319d0c7416212bd328c70b83c0e4413e4db7da47dfeee05fc659f2",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "428f63cc0a319d0c7416212bd328c70b83c0e4413e4db7da47dfeee05fc659f2",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-010@4",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-010@4.png",
+      "png_sha256": "6c20a0ecfa25c9bcd983d7579eab35e1cfd59a3f26cfbdf1e9d8d24bdf110342",
+      "indexed": "pic2-010@4.idx",
+      "indexed_sha256": "d979fcd5cb3b89bb82385abc2bef3915ae60cf1dda0d25e3dcd82812ba1116ec",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 10,
+          "frame": 4,
+          "frames": 6,
+          "animated": true,
+          "offset": 62341,
+          "packed_size": 4685,
+          "decoded_size": 23359,
+          "decoded_sha256": "357249e69d258441dab7d6783e5b505d9be994afe9383a160846b68da60dd13c",
+          "raw_frame_sha256": "2233b281251b7d5b3a95855704ea3c125dcd099b72c0275b59e541b3fffc602a",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "2233b281251b7d5b3a95855704ea3c125dcd099b72c0275b59e541b3fffc602a",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-010@5",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-010@5.png",
+      "png_sha256": "887c9a456ed63e74b1cdc482b85483813511db34b465ad0aa31d940faea201fa",
+      "indexed": "pic2-010@5.idx",
+      "indexed_sha256": "cf949569575694dca003307362b6b90a4d0ac808e27282d9de546cadfe21262e",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 10,
+          "frame": 5,
+          "frames": 6,
+          "animated": true,
+          "offset": 62341,
+          "packed_size": 4685,
+          "decoded_size": 23359,
+          "decoded_sha256": "357249e69d258441dab7d6783e5b505d9be994afe9383a160846b68da60dd13c",
+          "raw_frame_sha256": "8f3ed5e41656d57727afc1bc1724da83114fa900a4b2e9c6928706381d6c8bfd",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "8f3ed5e41656d57727afc1bc1724da83114fa900a4b2e9c6928706381d6c8bfd",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-014@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-014@0.png",
+      "png_sha256": "4ac81f3e4365604aef3a91545c1a640b3e8c9e79e025c633b745642648e45ca4",
+      "indexed": "pic2-014@0.idx",
+      "indexed_sha256": "5e343f470750575d666cd980aa30741914bd65101c35e2ec487a16316777d96f",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 14,
+          "frame": 0,
+          "frames": 5,
+          "animated": true,
+          "offset": 18586,
+          "packed_size": 9505,
+          "decoded_size": 19466,
+          "decoded_sha256": "6d056bcbe5f81790180b44d5e08e78999d80faa47f7eda03d50ba9c81e8055fd",
+          "raw_frame_sha256": "5e343f470750575d666cd980aa30741914bd65101c35e2ec487a16316777d96f",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-014@1",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-014@1.png",
+      "png_sha256": "d97e9a6f5fcc9c07f6b674c2ffbe848f19447d5caaf38a1fca402e2f4257596f",
+      "indexed": "pic2-014@1.idx",
+      "indexed_sha256": "2526f13685c19244bddbb38463499df9673581a1b801375675c0114c3cdea2c4",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 14,
+          "frame": 1,
+          "frames": 5,
+          "animated": true,
+          "offset": 18586,
+          "packed_size": 9505,
+          "decoded_size": 19466,
+          "decoded_sha256": "6d056bcbe5f81790180b44d5e08e78999d80faa47f7eda03d50ba9c81e8055fd",
+          "raw_frame_sha256": "f9b1a7b1ad2290c12026b1ad660c5994316882555fc6761b9264ee659fbf982a",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "f9b1a7b1ad2290c12026b1ad660c5994316882555fc6761b9264ee659fbf982a",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-014@2",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-014@2.png",
+      "png_sha256": "03742b189f9a0245a03d92b5cb54a94a936c51b440cba70f8b18dde30fe7b337",
+      "indexed": "pic2-014@2.idx",
+      "indexed_sha256": "d08a95a2ade4cd0d3a123ba5f522baa08708d7ffbf3d6459220b9778fab5d586",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 14,
+          "frame": 2,
+          "frames": 5,
+          "animated": true,
+          "offset": 18586,
+          "packed_size": 9505,
+          "decoded_size": 19466,
+          "decoded_sha256": "6d056bcbe5f81790180b44d5e08e78999d80faa47f7eda03d50ba9c81e8055fd",
+          "raw_frame_sha256": "17fa06664f93bdea02a16cc464ce68ec6b548dfb023b359a097d17b06cca9b54",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "17fa06664f93bdea02a16cc464ce68ec6b548dfb023b359a097d17b06cca9b54",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-014@3",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-014@3.png",
+      "png_sha256": "58caa5ce9e686521a7f58de484bbe249f1c2adaadb4f23d4f153ea7d4dc61e81",
+      "indexed": "pic2-014@3.idx",
+      "indexed_sha256": "aa8f4f41a6956e7928cbf7306d0bf0bb6ad69b7709c758d04e2c2f72df14422a",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 14,
+          "frame": 3,
+          "frames": 5,
+          "animated": true,
+          "offset": 18586,
+          "packed_size": 9505,
+          "decoded_size": 19466,
+          "decoded_sha256": "6d056bcbe5f81790180b44d5e08e78999d80faa47f7eda03d50ba9c81e8055fd",
+          "raw_frame_sha256": "7cd28bcc22c8f56ebf87fbc8aaef1b4f8eb15e33324dc37711dad237bee7bd74",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "7cd28bcc22c8f56ebf87fbc8aaef1b4f8eb15e33324dc37711dad237bee7bd74",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-014@4",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-014@4.png",
+      "png_sha256": "99c554ddc384b8bed8709995d8283978b871f85467ba63b52399e3610f5fc9da",
+      "indexed": "pic2-014@4.idx",
+      "indexed_sha256": "e62174e4f66432349312f8eba7be1df9adc58e3c158ed459e89d16051f0b8edd",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 14,
+          "frame": 4,
+          "frames": 5,
+          "animated": true,
+          "offset": 18586,
+          "packed_size": 9505,
+          "decoded_size": 19466,
+          "decoded_sha256": "6d056bcbe5f81790180b44d5e08e78999d80faa47f7eda03d50ba9c81e8055fd",
+          "raw_frame_sha256": "9cf3c6f08c9b661f4980baed537c545546b265b966794cfacf54eace2ee8106f",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "9cf3c6f08c9b661f4980baed537c545546b265b966794cfacf54eace2ee8106f",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-017@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-017@0.png",
+      "png_sha256": "3aad9f598dd9459c3785eff7502b1bf8be1d546cc8e2d4893bf8d53df954cdee",
+      "indexed": "pic2-017@0.idx",
+      "indexed_sha256": "b786f99b9acd5ff9cafd654b94bee222262801088d0cfa5c5c55605d3dda2a7a",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 17,
+          "frame": 0,
+          "frames": 3,
+          "animated": true,
+          "offset": 67026,
+          "packed_size": 7485,
+          "decoded_size": 11680,
+          "decoded_sha256": "15953634e56d81ed9d8f7a07993b093ad191a38819e0f537257da81ba4ae331d",
+          "raw_frame_sha256": "b786f99b9acd5ff9cafd654b94bee222262801088d0cfa5c5c55605d3dda2a7a",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 17,
+          "frame": 0,
+          "frames": 3,
+          "animated": true,
+          "offset": 10358,
+          "packed_size": 7485,
+          "decoded_size": 11680,
+          "decoded_sha256": "15953634e56d81ed9d8f7a07993b093ad191a38819e0f537257da81ba4ae331d",
+          "raw_frame_sha256": "b786f99b9acd5ff9cafd654b94bee222262801088d0cfa5c5c55605d3dda2a7a",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-017@1",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-017@1.png",
+      "png_sha256": "10597a3d938d7c34dac694ebe3f11f513b01c84d67edc8a93b0449faf772f0b4",
+      "indexed": "pic2-017@1.idx",
+      "indexed_sha256": "01d50ed80b600599a3bbd3e70d74afe052fc4785d75b98baa6b6dadb7040a608",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 17,
+          "frame": 1,
+          "frames": 3,
+          "animated": true,
+          "offset": 67026,
+          "packed_size": 7485,
+          "decoded_size": 11680,
+          "decoded_sha256": "15953634e56d81ed9d8f7a07993b093ad191a38819e0f537257da81ba4ae331d",
+          "raw_frame_sha256": "68524c1a8b1a1833df627d1b646eeb3532f0612d389d758ac246ea38a5497a54",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "68524c1a8b1a1833df627d1b646eeb3532f0612d389d758ac246ea38a5497a54",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 17,
+          "frame": 1,
+          "frames": 3,
+          "animated": true,
+          "offset": 10358,
+          "packed_size": 7485,
+          "decoded_size": 11680,
+          "decoded_sha256": "15953634e56d81ed9d8f7a07993b093ad191a38819e0f537257da81ba4ae331d",
+          "raw_frame_sha256": "68524c1a8b1a1833df627d1b646eeb3532f0612d389d758ac246ea38a5497a54",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "68524c1a8b1a1833df627d1b646eeb3532f0612d389d758ac246ea38a5497a54",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-017@2",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-017@2.png",
+      "png_sha256": "ed0381f63d20430c1a0d90a5037fe26afc980159ae5746e9ea89d98611d20cdb",
+      "indexed": "pic2-017@2.idx",
+      "indexed_sha256": "3bf5cc572abd6e9b7563cac40780be8b515fa6a80347bac53cf6dbfdcb6c7b72",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 17,
+          "frame": 2,
+          "frames": 3,
+          "animated": true,
+          "offset": 67026,
+          "packed_size": 7485,
+          "decoded_size": 11680,
+          "decoded_sha256": "15953634e56d81ed9d8f7a07993b093ad191a38819e0f537257da81ba4ae331d",
+          "raw_frame_sha256": "e76ef63ac119f465de56d425427895c7d721ca66c01b815f6e5c30c371ca13fa",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "e76ef63ac119f465de56d425427895c7d721ca66c01b815f6e5c30c371ca13fa",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 17,
+          "frame": 2,
+          "frames": 3,
+          "animated": true,
+          "offset": 10358,
+          "packed_size": 7485,
+          "decoded_size": 11680,
+          "decoded_sha256": "15953634e56d81ed9d8f7a07993b093ad191a38819e0f537257da81ba4ae331d",
+          "raw_frame_sha256": "e76ef63ac119f465de56d425427895c7d721ca66c01b815f6e5c30c371ca13fa",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "e76ef63ac119f465de56d425427895c7d721ca66c01b815f6e5c30c371ca13fa",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-019@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-019@0.png",
+      "png_sha256": "7b5fac2303fa477d4aaab535a6adb1f7421ec18cdf57e47c89729d07bbd5539e",
+      "indexed": "pic2-019@0.idx",
+      "indexed_sha256": "55d9c4da4b8b138f0f19bf6e365faa313b11d1c420c0c2a5377ddd6873a85a8b",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 19,
+          "frame": 0,
+          "frames": 3,
+          "animated": true,
+          "offset": 28091,
+          "packed_size": 4942,
+          "decoded_size": 11680,
+          "decoded_sha256": "c0ff702341df5f3e5d4bec3adac6119dca04ab3886366b886cdacce5112e7070",
+          "raw_frame_sha256": "55d9c4da4b8b138f0f19bf6e365faa313b11d1c420c0c2a5377ddd6873a85a8b",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 19,
+          "frame": 0,
+          "frames": 3,
+          "animated": true,
+          "offset": 68212,
+          "packed_size": 4942,
+          "decoded_size": 11680,
+          "decoded_sha256": "c0ff702341df5f3e5d4bec3adac6119dca04ab3886366b886cdacce5112e7070",
+          "raw_frame_sha256": "55d9c4da4b8b138f0f19bf6e365faa313b11d1c420c0c2a5377ddd6873a85a8b",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-019@1",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-019@1.png",
+      "png_sha256": "3dffce26cce131675e978a27eb3db7ee0f2f08cf1ce82f04bf9d779e5d066daf",
+      "indexed": "pic2-019@1.idx",
+      "indexed_sha256": "7d6d8a3b7fc20f371801376b22941412a1fa1f2db2bb7f5233446541ed2e0c15",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 19,
+          "frame": 1,
+          "frames": 3,
+          "animated": true,
+          "offset": 28091,
+          "packed_size": 4942,
+          "decoded_size": 11680,
+          "decoded_sha256": "c0ff702341df5f3e5d4bec3adac6119dca04ab3886366b886cdacce5112e7070",
+          "raw_frame_sha256": "bed7294e64c74fabc26e7d43ad4149ca427b61fe905d3eeea6a53d79b547ce05",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "bed7294e64c74fabc26e7d43ad4149ca427b61fe905d3eeea6a53d79b547ce05",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 19,
+          "frame": 1,
+          "frames": 3,
+          "animated": true,
+          "offset": 68212,
+          "packed_size": 4942,
+          "decoded_size": 11680,
+          "decoded_sha256": "c0ff702341df5f3e5d4bec3adac6119dca04ab3886366b886cdacce5112e7070",
+          "raw_frame_sha256": "bed7294e64c74fabc26e7d43ad4149ca427b61fe905d3eeea6a53d79b547ce05",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "bed7294e64c74fabc26e7d43ad4149ca427b61fe905d3eeea6a53d79b547ce05",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-019@2",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-019@2.png",
+      "png_sha256": "64da5abb3a1ee3cc7b9f3c9c4f3e8fa154974f13a139a29c91110a64d45bf770",
+      "indexed": "pic2-019@2.idx",
+      "indexed_sha256": "6824b6bf6ad7579bcb4ab487f01c5f1f678375bab55ba20cfb5d0062db1c97c0",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 19,
+          "frame": 2,
+          "frames": 3,
+          "animated": true,
+          "offset": 28091,
+          "packed_size": 4942,
+          "decoded_size": 11680,
+          "decoded_sha256": "c0ff702341df5f3e5d4bec3adac6119dca04ab3886366b886cdacce5112e7070",
+          "raw_frame_sha256": "56e48fadcab80198c71fcd4d20aafda968ab0be2776b8572fd235369df25dbce",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "56e48fadcab80198c71fcd4d20aafda968ab0be2776b8572fd235369df25dbce",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 19,
+          "frame": 2,
+          "frames": 3,
+          "animated": true,
+          "offset": 68212,
+          "packed_size": 4942,
+          "decoded_size": 11680,
+          "decoded_sha256": "c0ff702341df5f3e5d4bec3adac6119dca04ab3886366b886cdacce5112e7070",
+          "raw_frame_sha256": "56e48fadcab80198c71fcd4d20aafda968ab0be2776b8572fd235369df25dbce",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "56e48fadcab80198c71fcd4d20aafda968ab0be2776b8572fd235369df25dbce",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-025@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-025@0.png",
+      "png_sha256": "95381742d3ebbb11fb4e1ad686b0796e6efc45998409c2867a421d55cdf7558b",
+      "indexed": "pic2-025@0.idx",
+      "indexed_sha256": "77d07ef700def3dfa6998c9f5733efe76907eabb072f419d43a87204359e9ab4",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 25,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 79049,
+          "packed_size": 3702,
+          "decoded_size": 3894,
+          "decoded_sha256": "3d35f0bdc1f5411e1cdc31be1f18c5288dcba06a5b7e23a6c87552a1ef414224",
+          "raw_frame_sha256": "77d07ef700def3dfa6998c9f5733efe76907eabb072f419d43a87204359e9ab4",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 25,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 23562,
+          "packed_size": 3702,
+          "decoded_size": 3894,
+          "decoded_sha256": "3d35f0bdc1f5411e1cdc31be1f18c5288dcba06a5b7e23a6c87552a1ef414224",
+          "raw_frame_sha256": "77d07ef700def3dfa6998c9f5733efe76907eabb072f419d43a87204359e9ab4",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-028@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-028@0.png",
+      "png_sha256": "4bc9aee9f8713beab826eced5fdb7db6a406e1aa7d8d15ce4243f9940e1c2aa5",
+      "indexed": "pic2-028@0.idx",
+      "indexed_sha256": "0cdb513854535e1f582b38264f4a2e8b44912853d6b58f620b1880a953498659",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 28,
+          "frame": 0,
+          "frames": 2,
+          "animated": true,
+          "offset": 82751,
+          "packed_size": 5105,
+          "decoded_size": 7787,
+          "decoded_sha256": "cb25d4dd8e86dcbac25791157d1dabed6598a3063d127745cfcfcc7067dd9479",
+          "raw_frame_sha256": "0cdb513854535e1f582b38264f4a2e8b44912853d6b58f620b1880a953498659",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-028@1",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-028@1.png",
+      "png_sha256": "2812fd8bc611eca6aa6b36d157c2a93aa680c106e29da6a7f375f269e5d36bc7",
+      "indexed": "pic2-028@1.idx",
+      "indexed_sha256": "628a283dfa5dd45a458dff5ed80ed75562d3ab665fbef7c59a20886784a3af69",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 28,
+          "frame": 1,
+          "frames": 2,
+          "animated": true,
+          "offset": 82751,
+          "packed_size": 5105,
+          "decoded_size": 7787,
+          "decoded_sha256": "cb25d4dd8e86dcbac25791157d1dabed6598a3063d127745cfcfcc7067dd9479",
+          "raw_frame_sha256": "7cf392a8b396564a4e5f74aab963ccc183c1f1529e5dacf1294ce683d7de5309",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "7cf392a8b396564a4e5f74aab963ccc183c1f1529e5dacf1294ce683d7de5309",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-033@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-033@0.png",
+      "png_sha256": "85f1cb546258c26a084f683900100182a079b8763b3c46a3c8ff5386cea4c38f",
+      "indexed": "pic2-033@0.idx",
+      "indexed_sha256": "4dbb8baa5baa633dbadbb9f8f38462323d952234b1b7ed19854359a5a260d3c5",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 33,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 87856,
+          "packed_size": 3608,
+          "decoded_size": 3894,
+          "decoded_sha256": "285e6952d1d92e75d0111f80263cdad69d281aeec550da8d77a458b8fd927f67",
+          "raw_frame_sha256": "4dbb8baa5baa633dbadbb9f8f38462323d952234b1b7ed19854359a5a260d3c5",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-044@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-044@0.png",
+      "png_sha256": "ca68230e3f7f80e1e00594de6b4e73d75e868ee5d1f30dcbc9ed053b481aa1ee",
+      "indexed": "pic2-044@0.idx",
+      "indexed_sha256": "719daf1901b70f10dc713e0534c3289e5d640de26c49ef23c2fb21f56c537ce9",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 44,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 38177,
+          "packed_size": 3078,
+          "decoded_size": 3894,
+          "decoded_sha256": "6618386ecfb333c040bcc86a8811558b53fd2ca948e4781ff2a630c796e41d7f",
+          "raw_frame_sha256": "719daf1901b70f10dc713e0534c3289e5d640de26c49ef23c2fb21f56c537ce9",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 44,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 35686,
+          "packed_size": 3078,
+          "decoded_size": 3894,
+          "decoded_sha256": "6618386ecfb333c040bcc86a8811558b53fd2ca948e4781ff2a630c796e41d7f",
+          "raw_frame_sha256": "719daf1901b70f10dc713e0534c3289e5d640de26c49ef23c2fb21f56c537ce9",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-048@0",
+      "batch": "b04",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-048@0.png",
+      "png_sha256": "826aba8cf059af74e42d721bc3804cb353f6115f78cdd816da23a51e6c78694d",
+      "indexed": "pic2-048@0.idx",
+      "indexed_sha256": "53078de62f72425c933b080aae50324e1245a118b090dd9c1ed30cb225090ef6",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 48,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 41255,
+          "packed_size": 2230,
+          "decoded_size": 3894,
+          "decoded_sha256": "9f0fb85aa28735f2f324268a9a5bc180d3e53554702fb02cc27d7c138680327b",
+          "raw_frame_sha256": "53078de62f72425c933b080aae50324e1245a118b090dd9c1ed30cb225090ef6",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 48,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 38764,
+          "packed_size": 2230,
+          "decoded_size": 3894,
+          "decoded_sha256": "9f0fb85aa28735f2f324268a9a5bc180d3e53554702fb02cc27d7c138680327b",
+          "raw_frame_sha256": "53078de62f72425c933b080aae50324e1245a118b090dd9c1ed30cb225090ef6",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-051@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-051@0.png",
+      "png_sha256": "2db068ad12a452ace06e9d431c42771383757ac07adb4c1c153a362c9f7d804f",
+      "indexed": "pic2-051@0.idx",
+      "indexed_sha256": "9e746c1468e6aea4c8386a632d39ee61b2d81093aa24c6677ea18125231c432b",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 51,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 43485,
+          "packed_size": 2541,
+          "decoded_size": 3894,
+          "decoded_sha256": "1f8f12738bae33b808be6be3bb25bf1a7e0ca7f765dd9f5793b4e5b29333fc6e",
+          "raw_frame_sha256": "9e746c1468e6aea4c8386a632d39ee61b2d81093aa24c6677ea18125231c432b",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-054@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-054@0.png",
+      "png_sha256": "c3e4a73cf460625d15ce5de84e8e812770d00658959ac8d0f2eba968b568d853",
+      "indexed": "pic2-054@0.idx",
+      "indexed_sha256": "51cd07bdfe1813c8794c16291a01a0ed993281b545f5394f186f001515fe3312",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 54,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 46026,
+          "packed_size": 2215,
+          "decoded_size": 3894,
+          "decoded_sha256": "10335922197aca4845de77b1f60ed8e7623303d3694c5acaa83f50b03401cb46",
+          "raw_frame_sha256": "51cd07bdfe1813c8794c16291a01a0ed993281b545f5394f186f001515fe3312",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-056@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-056@0.png",
+      "png_sha256": "d087f0cd918bccafc2570e4aeae27f0830f8bbcecd4f07e2397c7e57140cc08f",
+      "indexed": "pic2-056@0.idx",
+      "indexed_sha256": "217d32e23fb81cf99669aa84b1a5d462925681e1e22c9e68fd49499689453894",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 56,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 94690,
+          "packed_size": 2834,
+          "decoded_size": 3894,
+          "decoded_sha256": "c1ea8c009f4a4ba8daabb3c28f80bb0c0f73f86f02f54ae68289b1f8cb57434d",
+          "raw_frame_sha256": "217d32e23fb81cf99669aa84b1a5d462925681e1e22c9e68fd49499689453894",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-067@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-067@0.png",
+      "png_sha256": "667b47a6c80cd6b5e6a4c91a0d34dc5fb0e60d77504bc8e02d5dd4278667435a",
+      "indexed": "pic2-067@0.idx",
+      "indexed_sha256": "f80ca3c812fc919f4ac908cb142479e9fae5796977d4363ec68d8e025bc49e36",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 67,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 48241,
+          "packed_size": 3740,
+          "decoded_size": 3894,
+          "decoded_sha256": "f886c7fb688efd947ae397d619ed276dde548233ec8672dcfb435a9705e463b0",
+          "raw_frame_sha256": "f80ca3c812fc919f4ac908cb142479e9fae5796977d4363ec68d8e025bc49e36",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 67,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 40994,
+          "packed_size": 3740,
+          "decoded_size": 3894,
+          "decoded_sha256": "f886c7fb688efd947ae397d619ed276dde548233ec8672dcfb435a9705e463b0",
+          "raw_frame_sha256": "f80ca3c812fc919f4ac908cb142479e9fae5796977d4363ec68d8e025bc49e36",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic2-070@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic2-070@0.png",
+      "png_sha256": "be10785fff1f3971df037e4e9b79a24c3cbaa2b9cfca79bd934a61f698f4abb4",
+      "indexed": "pic2-070@0.idx",
+      "indexed_sha256": "2146ba6ce606a83ddfae84a7ceb55b306b1e12dd48dc4e25c814a72b63ef3458",
+      "sources": [
+        {
+          "file": "PIC2.DAX",
+          "file_sha256": "b4c07f963edcb88973ba7f3caa80cbcae4c88b3c71aa4c7ad3132ccbed1dbc51",
+          "block": 70,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 97524,
+          "packed_size": 3942,
+          "decoded_size": 3894,
+          "decoded_sha256": "2c5abdae637317882e9ae0b57fa08ed6ef5bebd521ba5132bc01c546f10d981d",
+          "raw_frame_sha256": "2146ba6ce606a83ddfae84a7ceb55b306b1e12dd48dc4e25c814a72b63ef3458",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/cok-demo/d300-base.png"
+    },
+    {
+      "key": "pic3-000@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-000@0.png",
+      "png_sha256": "edf1c57689da56aa642fbc225da3fb7104d0f699237a6196a8ca0d202f69399e",
+      "indexed": "pic3-000@0.idx",
+      "indexed_sha256": "161ebe6aa0368eda2047eb400939ba5cf6b090f220a4600f4c8e3aa88fa0afb9",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 0,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 57919,
+          "packed_size": 3389,
+          "decoded_size": 3894,
+          "decoded_sha256": "ee8307317e06851db97c060ea9933ada262cf8b4087977bf22516ebe0cd16c1d",
+          "raw_frame_sha256": "161ebe6aa0368eda2047eb400939ba5cf6b090f220a4600f4c8e3aa88fa0afb9",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-003@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-003@0.png",
+      "png_sha256": "0c2e52ec0c5980df3501999a30740e8bcc5b7e0b84e1346094070c7280f736aa",
+      "indexed": "pic3-003@0.idx",
+      "indexed_sha256": "e5749e573796d00c7a32c68e87fc72247208026698565c0748bc56002b72674e",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 3,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 218,
+          "packed_size": 3328,
+          "decoded_size": 3894,
+          "decoded_sha256": "03d8f969d5c82bcc775f54444ec8876148fbcfe4d89d28da7940d4405319f20b",
+          "raw_frame_sha256": "e5749e573796d00c7a32c68e87fc72247208026698565c0748bc56002b72674e",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-016@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-016@0.png",
+      "png_sha256": "def3596e1a1b97a95c4a725597e4c0337b7afbecc81a782f5589f3fc77cfd751",
+      "indexed": "pic3-016@0.idx",
+      "indexed_sha256": "d11c1435c000f07a4dbf913523b2179e51db25ab675301887fa770a48fa89e36",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 16,
+          "frame": 0,
+          "frames": 2,
+          "animated": true,
+          "offset": 3546,
+          "packed_size": 6812,
+          "decoded_size": 7787,
+          "decoded_sha256": "f2ead2bf52e776d817092bcbc9f3cb29444348c9b87015e090c1f85504b973f8",
+          "raw_frame_sha256": "d11c1435c000f07a4dbf913523b2179e51db25ab675301887fa770a48fa89e36",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-016@1",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-016@1.png",
+      "png_sha256": "722ae448dfbd85e6567bf4f8b52de5aa825d081d6886fa5982536ebc3949c917",
+      "indexed": "pic3-016@1.idx",
+      "indexed_sha256": "19c2c28edea41dcbb70ce7f999ae9270adbdfc52f781de5df2c9b9af3d47b232",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 16,
+          "frame": 1,
+          "frames": 2,
+          "animated": true,
+          "offset": 3546,
+          "packed_size": 6812,
+          "decoded_size": 7787,
+          "decoded_sha256": "f2ead2bf52e776d817092bcbc9f3cb29444348c9b87015e090c1f85504b973f8",
+          "raw_frame_sha256": "c781ab62f5e7ee250f5edc1ff4f788a285566d5c3f4491fd986231a5271317ca",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "c781ab62f5e7ee250f5edc1ff4f788a285566d5c3f4491fd986231a5271317ca",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@0.png",
+      "png_sha256": "ee75b8b08e95a425a2d0cbfb62d24168389b5315b04c4def292d5353aa03024d",
+      "indexed": "pic3-022@0.idx",
+      "indexed_sha256": "bdd282c8f0692b413d5c2005b62a380f669652bddf8a0c48eef90952db246993",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 0,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "bdd282c8f0692b413d5c2005b62a380f669652bddf8a0c48eef90952db246993",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@1",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@1.png",
+      "png_sha256": "14a9dccdbe1f8bdac428c266d6aaab55cfbb9cf5a175c63231103a35c43b2123",
+      "indexed": "pic3-022@1.idx",
+      "indexed_sha256": "3b7803a77f7567771c162dc3c7513b8c2ce311f3aadd6f2489df5eca8cf63474",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 1,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "acafb79fc8903f5718ad60b94de461ce50023d7bebe7e226c03d1ad437406a90",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "acafb79fc8903f5718ad60b94de461ce50023d7bebe7e226c03d1ad437406a90",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@2",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@2.png",
+      "png_sha256": "68b86f8802549c944b13c518dbe6930308556986ac722ed12d99c9d503f2565f",
+      "indexed": "pic3-022@2.idx",
+      "indexed_sha256": "754a333849e89c11e7ff1f82b0cab59e5670af503e3445d831e61e6b21284364",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 2,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "098fa35fff860dc87db34a4b86367d26641bc1f40ff315b716f199e11dfe3928",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "098fa35fff860dc87db34a4b86367d26641bc1f40ff315b716f199e11dfe3928",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@3",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@3.png",
+      "png_sha256": "d0f02e974f7fe496a873df29c7d9c7671823528e0d64922148d8144a1c707706",
+      "indexed": "pic3-022@3.idx",
+      "indexed_sha256": "f403c2fac4ceb67d180bd45abce3d6308ce261ffbc27cb80fefc502773ae9a3d",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 3,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "51916561ffa7ab57685b8a12a08df9dd523bf094a148c6882fba8bfb29cd2699",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "51916561ffa7ab57685b8a12a08df9dd523bf094a148c6882fba8bfb29cd2699",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@4",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@4.png",
+      "png_sha256": "2c4522058f1a4cfd42d88a7fa02bb9c1563e063cd07285637bc68f5d448b7f4b",
+      "indexed": "pic3-022@4.idx",
+      "indexed_sha256": "ae4bf94658d744027e6a5e200b31d0f6f5b07a18d987553c666ce2dfcc6510d7",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 4,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "2d1c306126bbf6aab1661f82bed161aaa8741d88d78074c18d9ab66e3a3a6391",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "2d1c306126bbf6aab1661f82bed161aaa8741d88d78074c18d9ab66e3a3a6391",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@5",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@5.png",
+      "png_sha256": "729b6865602ecb476698539b08c590dd4938560144e4edfdbb9cf1a0295acb2e",
+      "indexed": "pic3-022@5.idx",
+      "indexed_sha256": "75d7b389ba7fedef7819155a79b1fcd30115fdcda0db1f58bdfdd8389e1e070a",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 5,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "f82b18419f09186a221255735e8b509684c8230467eae58ac48455d1c4a67f40",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "f82b18419f09186a221255735e8b509684c8230467eae58ac48455d1c4a67f40",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 7,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "f82b18419f09186a221255735e8b509684c8230467eae58ac48455d1c4a67f40",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "f82b18419f09186a221255735e8b509684c8230467eae58ac48455d1c4a67f40",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-022@6",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-022@6.png",
+      "png_sha256": "c187abc6a59734851df3d97140e0ef8a0dde6e4bb614d8a4fcd0452093a8133e",
+      "indexed": "pic3-022@6.idx",
+      "indexed_sha256": "b7dbdbed76e5855c9e17787dc48c5eadeae58b63da0f196e2e34bba3f853713b",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 22,
+          "frame": 6,
+          "frames": 8,
+          "animated": true,
+          "offset": 73154,
+          "packed_size": 6232,
+          "decoded_size": 31145,
+          "decoded_sha256": "337630abbcc999d80903a8b142c12dce5837d80ed977b5948ecd99c42d7b7120",
+          "raw_frame_sha256": "41504c81455f7edad5e667e4c18463a46c8be6c950efa3033ffc9e4ad90f7801",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "41504c81455f7edad5e667e4c18463a46c8be6c950efa3033ffc9e4ad90f7801",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-024@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-024@0.png",
+      "png_sha256": "ff6b5a57279d14c1f83e94baa20c75a25429619a5ed9d0cad97e344c9679ca93",
+      "indexed": "pic3-024@0.idx",
+      "indexed_sha256": "22dca97036b31ba47ac523185011601e1a3657ad07eee021759dd7e4cb71ea2f",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 24,
+          "frame": 0,
+          "frames": 4,
+          "animated": true,
+          "offset": 17843,
+          "packed_size": 5719,
+          "decoded_size": 15573,
+          "decoded_sha256": "2070ac140af98b0d32302fcfa1e7f94a7ae3f29087cd41eb5c8e3ffa1bf80705",
+          "raw_frame_sha256": "22dca97036b31ba47ac523185011601e1a3657ad07eee021759dd7e4cb71ea2f",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-024@1",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-024@1.png",
+      "png_sha256": "9409e52fa373101245264c9194686223b7c30a2be971779ce774dfbd409d34f2",
+      "indexed": "pic3-024@1.idx",
+      "indexed_sha256": "23670e322a83f3377a2e7b80e9ab0f817e20d5a5bb64e9c9527c1b2005d78743",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 24,
+          "frame": 1,
+          "frames": 4,
+          "animated": true,
+          "offset": 17843,
+          "packed_size": 5719,
+          "decoded_size": 15573,
+          "decoded_sha256": "2070ac140af98b0d32302fcfa1e7f94a7ae3f29087cd41eb5c8e3ffa1bf80705",
+          "raw_frame_sha256": "1b77c27bf80764a2988245defb6b681147aba0f4357369563127bf169805c8d2",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "1b77c27bf80764a2988245defb6b681147aba0f4357369563127bf169805c8d2",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-024@2",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-024@2.png",
+      "png_sha256": "47e61c0b933763ea71a3776ed6ac4c7a63d1b8e121acc1bbb7f413190faffd3f",
+      "indexed": "pic3-024@2.idx",
+      "indexed_sha256": "b07ae2092d5128048c218355df2261c5cdc56c4772f45f7c474067e8e75923e4",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 24,
+          "frame": 2,
+          "frames": 4,
+          "animated": true,
+          "offset": 17843,
+          "packed_size": 5719,
+          "decoded_size": 15573,
+          "decoded_sha256": "2070ac140af98b0d32302fcfa1e7f94a7ae3f29087cd41eb5c8e3ffa1bf80705",
+          "raw_frame_sha256": "0597ffd77a6219d900d6ff998cbe7f789c3c2e29ff55296ec38a9dd061c587fe",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "0597ffd77a6219d900d6ff998cbe7f789c3c2e29ff55296ec38a9dd061c587fe",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-024@3",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-024@3.png",
+      "png_sha256": "a123a29a7cb019e63abe1580594ffc52629afd05bdf28bd5289f2adcd8136c91",
+      "indexed": "pic3-024@3.idx",
+      "indexed_sha256": "ee2c7f3a3e4edcaac763feb6c7aad55a241c5ee4a600ef1fcf8d752e29e37e3e",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 24,
+          "frame": 3,
+          "frames": 4,
+          "animated": true,
+          "offset": 17843,
+          "packed_size": 5719,
+          "decoded_size": 15573,
+          "decoded_sha256": "2070ac140af98b0d32302fcfa1e7f94a7ae3f29087cd41eb5c8e3ffa1bf80705",
+          "raw_frame_sha256": "a5eb787db9a5ec34c53f3165a94230919443871c977354544cac5d08fc9a9434",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "a5eb787db9a5ec34c53f3165a94230919443871c977354544cac5d08fc9a9434",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-026@0",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-026@0.png",
+      "png_sha256": "d5c3e0ed0214fa169246939e9e5c3cd51ec539087f7250a72c8f9551b61110f4",
+      "indexed": "pic3-026@0.idx",
+      "indexed_sha256": "1805301a6182e2cd7a261e9e06e79a5b7be415e70c04d70bd3be68e4b0420409",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 26,
+          "frame": 0,
+          "frames": 6,
+          "animated": true,
+          "offset": 27264,
+          "packed_size": 5853,
+          "decoded_size": 23359,
+          "decoded_sha256": "6e284cefcdd4b2d44e3f26916570a62ab7544b1f0adae3d397842792960b9cb0",
+          "raw_frame_sha256": "1805301a6182e2cd7a261e9e06e79a5b7be415e70c04d70bd3be68e4b0420409",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-026@1",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-026@1.png",
+      "png_sha256": "8d09db3176d7e48f8e503de24480fd1a93c5ce58ad336283484796a9c3bc8dd3",
+      "indexed": "pic3-026@1.idx",
+      "indexed_sha256": "6d72208fbf7433bc019811d37f28fe45674a2d9fa98781a2d6cf9ea4b4154ee2",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 26,
+          "frame": 1,
+          "frames": 6,
+          "animated": true,
+          "offset": 27264,
+          "packed_size": 5853,
+          "decoded_size": 23359,
+          "decoded_sha256": "6e284cefcdd4b2d44e3f26916570a62ab7544b1f0adae3d397842792960b9cb0",
+          "raw_frame_sha256": "d145aee5eb256a0c97ea5eff49ff2577c56824c6a764d278c6816ebaa8ea30e8",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "d145aee5eb256a0c97ea5eff49ff2577c56824c6a764d278c6816ebaa8ea30e8",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 26,
+          "frame": 5,
+          "frames": 6,
+          "animated": true,
+          "offset": 27264,
+          "packed_size": 5853,
+          "decoded_size": 23359,
+          "decoded_sha256": "6e284cefcdd4b2d44e3f26916570a62ab7544b1f0adae3d397842792960b9cb0",
+          "raw_frame_sha256": "d145aee5eb256a0c97ea5eff49ff2577c56824c6a764d278c6816ebaa8ea30e8",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "d145aee5eb256a0c97ea5eff49ff2577c56824c6a764d278c6816ebaa8ea30e8",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-026@2",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-026@2.png",
+      "png_sha256": "ebc71a33b41cc62fc153ceec030b7cf62e856f4cd7298cb6cedf3efd4ff10c02",
+      "indexed": "pic3-026@2.idx",
+      "indexed_sha256": "439598794852ec73094c50d5f0c9b7e29ca229bf6ebee3ff9db050822182dc67",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 26,
+          "frame": 2,
+          "frames": 6,
+          "animated": true,
+          "offset": 27264,
+          "packed_size": 5853,
+          "decoded_size": 23359,
+          "decoded_sha256": "6e284cefcdd4b2d44e3f26916570a62ab7544b1f0adae3d397842792960b9cb0",
+          "raw_frame_sha256": "4467c2af78dbdaa21fe9815311e91f1e4d02b00feee96d8deefd2af3d45b9498",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "4467c2af78dbdaa21fe9815311e91f1e4d02b00feee96d8deefd2af3d45b9498",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        },
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 26,
+          "frame": 4,
+          "frames": 6,
+          "animated": true,
+          "offset": 27264,
+          "packed_size": 5853,
+          "decoded_size": 23359,
+          "decoded_sha256": "6e284cefcdd4b2d44e3f26916570a62ab7544b1f0adae3d397842792960b9cb0",
+          "raw_frame_sha256": "4467c2af78dbdaa21fe9815311e91f1e4d02b00feee96d8deefd2af3d45b9498",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "4467c2af78dbdaa21fe9815311e91f1e4d02b00feee96d8deefd2af3d45b9498",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-026@3",
+      "batch": "b05",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-026@3.png",
+      "png_sha256": "0bed84b6181b1d1b033b9d1742ed588d76ec905f66654e77a26847ef1833a5c4",
+      "indexed": "pic3-026@3.idx",
+      "indexed_sha256": "46106fc84e2f5f99fe587d4ec451400be69f6fc6b35dc56172a841e2583cbb7d",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 26,
+          "frame": 3,
+          "frames": 6,
+          "animated": true,
+          "offset": 27264,
+          "packed_size": 5853,
+          "decoded_size": 23359,
+          "decoded_sha256": "6e284cefcdd4b2d44e3f26916570a62ab7544b1f0adae3d397842792960b9cb0",
+          "raw_frame_sha256": "89cdb81866b14d784d7d947706c59f9a9570f02677393522770fc6af508fc26a",
+          "state_rule": "base XOR raw_frame",
+          "mask_sha256": "89cdb81866b14d784d7d947706c59f9a9570f02677393522770fc6af508fc26a",
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-032@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-032@0.png",
+      "png_sha256": "6dcbfe6f2efd6eb42ee033c85c6655ed7b96af8620272836a4ad81a02fe7d480",
+      "indexed": "pic3-032@0.idx",
+      "indexed_sha256": "48c1b7cfd98968c2270f356c7fbcffa6c4a6bd7e2084b707f144d60ade0e5465",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 32,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 79386,
+          "packed_size": 4098,
+          "decoded_size": 3894,
+          "decoded_sha256": "df10fb104f3d2ad4f9b7b1b3ef4327942d5445f64e55aced24858c341dccc612",
+          "raw_frame_sha256": "48c1b7cfd98968c2270f356c7fbcffa6c4a6bd7e2084b707f144d60ade0e5465",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-064@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-064@0.png",
+      "png_sha256": "06df9ce1579f3c98f215dd0a3afd8e0961ad5b5f42d16171cb49b563bcbd5b23",
+      "indexed": "pic3-064@0.idx",
+      "indexed_sha256": "ff9d5d4b29b56ca8eb52e50c76d68c95f038fbe9547b2f05cedfe5b25e27494d",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 64,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 83484,
+          "packed_size": 3568,
+          "decoded_size": 3894,
+          "decoded_sha256": "982c359a007c0b8df4e5203fe9d29ab7d877ebc31e9b77719202e7b89068219d",
+          "raw_frame_sha256": "ff9d5d4b29b56ca8eb52e50c76d68c95f038fbe9547b2f05cedfe5b25e27494d",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-065@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-065@0.png",
+      "png_sha256": "0556defeac46254d41fdaa846de74b46dade3a304903f534f9f3364cf7e8f763",
+      "indexed": "pic3-065@0.idx",
+      "indexed_sha256": "01e7ac076a30f8fef12b0ce2fceb7460e11e764f4ff47b8f8c14f84caac014fb",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 65,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 87052,
+          "packed_size": 3669,
+          "decoded_size": 3894,
+          "decoded_sha256": "65134b3a85a729cc90c48b3e489a53fcb396752fd6a19d695d62d4ec5e51f1e5",
+          "raw_frame_sha256": "01e7ac076a30f8fef12b0ce2fceb7460e11e764f4ff47b8f8c14f84caac014fb",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-066@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-066@0.png",
+      "png_sha256": "f21a66d339a6f4b7e3565dd9c20fbddf63e93d8a11a2f54043287bc049eed12f",
+      "indexed": "pic3-066@0.idx",
+      "indexed_sha256": "c8494f694be7df70cc310ae5bfd53a277072bd16b4e683139065e8d5b3849d8d",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 66,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 94017,
+          "packed_size": 3615,
+          "decoded_size": 3894,
+          "decoded_sha256": "82e31b10aba4f10b2ac99ea234a613a35bedb5bf0b31478a0432de558530002c",
+          "raw_frame_sha256": "c8494f694be7df70cc310ae5bfd53a277072bd16b4e683139065e8d5b3849d8d",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-071@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-071@0.png",
+      "png_sha256": "a041441217456f03fffe24de6bf96ae368f5e3d74bc70005713abe8d834cc756",
+      "indexed": "pic3-071@0.idx",
+      "indexed_sha256": "427d962c47928b2cbb9108372a4ef102ae0ddb22f548f899226a0481b6e48242",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 71,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 90721,
+          "packed_size": 3296,
+          "decoded_size": 3894,
+          "decoded_sha256": "a690d2e97154856b5050ed3ff5022b0450a3650d570f10cdf89ab1c8e9906912",
+          "raw_frame_sha256": "427d962c47928b2cbb9108372a4ef102ae0ddb22f548f899226a0481b6e48242",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-072@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-072@0.png",
+      "png_sha256": "592a5ecbbac300a1323a0feaecda418ac3d29ec284215b0e2b7361fb9d1378d4",
+      "indexed": "pic3-072@0.idx",
+      "indexed_sha256": "c4b3e8d97202217cfd26ca3aa3e9e0edefc9bf80ef47931041fdf15af396ce3a",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 72,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 44734,
+          "packed_size": 2580,
+          "decoded_size": 3894,
+          "decoded_sha256": "a9c26f18b7635cc82e0b0c96111b0af7e7db28de6fd96b03ef851ca639f2ab90",
+          "raw_frame_sha256": "c4b3e8d97202217cfd26ca3aa3e9e0edefc9bf80ef47931041fdf15af396ce3a",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "pic3-073@0",
+      "batch": "b06",
+      "screen_rect": [
+        24,
+        24,
+        88,
+        88
+      ],
+      "png": "pic3-073@0.png",
+      "png_sha256": "a3184c9d42e085e514485e798571d155c575130729c24c934f5640d656637471",
+      "indexed": "pic3-073@0.idx",
+      "indexed_sha256": "0a9338b40b36f5cb993d90077614bbcb54115152bea985653e98358636c77c50",
+      "sources": [
+        {
+          "file": "PIC3.DAX",
+          "file_sha256": "21d5a2bfc40041611657c2a4a9f6de0f3edd67bb5c9692b61cf2007060d6cfa4",
+          "block": 73,
+          "frame": 0,
+          "frames": 1,
+          "animated": true,
+          "offset": 47314,
+          "packed_size": 3994,
+          "decoded_size": 3894,
+          "decoded_sha256": "62af100e2ffb8e4cea49ea0b824e63f708f7a88b50d625b9059bbb4d465bc634",
+          "raw_frame_sha256": "0a9338b40b36f5cb993d90077614bbcb54115152bea985653e98358636c77c50",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            24,
+            24
+          ],
+          "block_size": [
+            88,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "evidence_screen": null
+    },
+    {
+      "key": "title-001",
+      "batch": "b06",
+      "screen_rect": [
+        0,
+        0,
+        320,
+        200
+      ],
+      "png": "title-001.png",
+      "png_sha256": "e5eb8624e9564a6c35440f077346219b5703c7de8173c84a69d9efc5b077d6c8",
+      "indexed": "title-001.idx",
+      "indexed_sha256": "4279519d89a061f337df4c478ca777f631f8afc1a4e2001e1b1f60c7ba7d94ad",
+      "sources": [
+        {
+          "file": "TITLE.DAX",
+          "file_sha256": "5276ba718f3c31018c25852f0b6858a292aed5a94f8bd938803961bb1ade0a00",
+          "block": 1,
+          "frame": 0,
+          "frames": 1,
+          "animated": false,
+          "offset": 38,
+          "packed_size": 9716,
+          "decoded_size": 32017,
+          "decoded_sha256": "bc05bf3e127ab1e17f91f66881680e5c14cf91732a892d1595b25552c0be9b4d",
+          "raw_frame_sha256": "4279519d89a061f337df4c478ca777f631f8afc1a4e2001e1b1f60c7ba7d94ad",
+          "state_rule": "base",
+          "mask_sha256": null,
+          "placed_at": [
+            0,
+            0
+          ],
+          "block_size": [
+            320,
+            200
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/probe/g2b/s050.bin"
+    },
+    {
+      "key": "title-dragonlance",
+      "batch": "b06",
+      "screen_rect": [
+        0,
+        0,
+        320,
+        200
+      ],
+      "png": "title-dragonlance.png",
+      "png_sha256": "1c90b6dc64380a1069c2aa50624127af51d7b7727e58fb9259baf6fe3f403ad8",
+      "indexed": "title-dragonlance.idx",
+      "indexed_sha256": "e103101f0c98a0d95f9a916147083447f237617f44c4e8c3de5cde57c45536c6",
+      "sources": [
+        {
+          "file": "TITLE.DAX",
+          "file_sha256": "5276ba718f3c31018c25852f0b6858a292aed5a94f8bd938803961bb1ade0a00",
+          "block": 2,
+          "offset": 9754,
+          "packed_size": 26220,
+          "decoded_size": 32017,
+          "decoded_sha256": "969c8e42b9c885af221b4f47505f49c7b8f845eb35f5c7e98ef01f422bbd242b",
+          "placed_at": [
+            0,
+            0
+          ],
+          "block_size": [
+            320,
+            200
+          ]
+        },
+        {
+          "file": "TITLE.DAX",
+          "file_sha256": "5276ba718f3c31018c25852f0b6858a292aed5a94f8bd938803961bb1ade0a00",
+          "block": 4,
+          "offset": 45723,
+          "packed_size": 11805,
+          "decoded_size": 14097,
+          "decoded_sha256": "682fb3d5276bc646df03852ac7f8eee90765ec012a2068a5f356fa11719d1cb4",
+          "placed_at": [
+            0,
+            8
+          ],
+          "block_size": [
+            320,
+            88
+          ]
+        }
+      ],
+      "runtime_evidence": "observed",
+      "evidence_screen": "workplace/hd/screens/title750.bin"
+    }
+  ]
+}

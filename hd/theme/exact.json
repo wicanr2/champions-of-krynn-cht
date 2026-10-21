@@ -1,0 +1,1774 @@
+{
+  "version": 1,
+  "scale": 3,
+  "kind": "complete-source-patterns",
+  "items": [
+    {
+      "key": "head2-068-00",
+      "family": "portrait-head",
+      "size": [
+        88,
+        40
+      ],
+      "indexed": "head2-068-00.idx",
+      "indexed_sha256": "4cbcaadc191dc40e154720599f9ef7bb4d7c3f5c629c8a8bfb4455fae39391e2",
+      "png": "head2-068-00.png",
+      "png_sha256": "ced6220a48b749a990246d48ff8e6cfc210b76f98fe83caa6006a43f1a41a4a9",
+      "sources": [
+        {
+          "file": "HEAD2.DAX",
+          "file_sha256": "9b26657869b3d033866de66ace9e8ebde3dedfcdae5ed05fa00fc9d00bbec27b",
+          "block": 68,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "4400000000f1067f06",
+          "offset": 20,
+          "packed_size": 1663,
+          "decoded_size": 1777,
+          "decoded_sha256": "38a9f50a03e8029d955b8d8c409870b2fd4c45fa2371da8ef21a240d4357c48e",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "HEAD3.DAX",
+          "file_sha256": "9b26657869b3d033866de66ace9e8ebde3dedfcdae5ed05fa00fc9d00bbec27b",
+          "block": 68,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "4400000000f1067f06",
+          "offset": 20,
+          "packed_size": 1663,
+          "decoded_size": 1777,
+          "decoded_sha256": "38a9f50a03e8029d955b8d8c409870b2fd4c45fa2371da8ef21a240d4357c48e",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b15"
+    },
+    {
+      "key": "head2-069-00",
+      "family": "portrait-head",
+      "size": [
+        88,
+        40
+      ],
+      "indexed": "head2-069-00.idx",
+      "indexed_sha256": "ac0b4484a7a214b35dca86aeeed074cbef73e9edda3774b6afb86b000a511e81",
+      "png": "head2-069-00.png",
+      "png_sha256": "1978067a9d4a94876cf4cf6d689d60f8fddf0b548bc8b8e5cc134b64423b2819",
+      "sources": [
+        {
+          "file": "HEAD2.DAX",
+          "file_sha256": "9b26657869b3d033866de66ace9e8ebde3dedfcdae5ed05fa00fc9d00bbec27b",
+          "block": 69,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "457f060000f106bb06",
+          "offset": 1683,
+          "packed_size": 1723,
+          "decoded_size": 1777,
+          "decoded_sha256": "ca9d8db91a83c7acb85583dff49d495cb311d48a394efb8f8c9bbe5342905425",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "HEAD3.DAX",
+          "file_sha256": "9b26657869b3d033866de66ace9e8ebde3dedfcdae5ed05fa00fc9d00bbec27b",
+          "block": 69,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "457f060000f106bb06",
+          "offset": 1683,
+          "packed_size": 1723,
+          "decoded_size": 1777,
+          "decoded_sha256": "ca9d8db91a83c7acb85583dff49d495cb311d48a394efb8f8c9bbe5342905425",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "observed-pattern-alias-selection-unknown",
+      "batch": "b15"
+    },
+    {
+      "key": "body2-068-00",
+      "family": "portrait-body",
+      "size": [
+        88,
+        48
+      ],
+      "indexed": "body2-068-00.idx",
+      "indexed_sha256": "7f12c6e4b7ff656e8539a66296e7c05dc4ea53cf6364272399409af1f021ac09",
+      "png": "body2-068-00.png",
+      "png_sha256": "d2c8746cf8c69c5c43b7ba9ef747f11bc94683b6d332051c48cb94a87a7df402",
+      "sources": [
+        {
+          "file": "BODY2.DAX",
+          "file_sha256": "7edd8e0841581b1643828a21787594f6c96dddc1718710de9a8159575bef467f",
+          "block": 68,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "44000000005108f606",
+          "offset": 11,
+          "packed_size": 1782,
+          "decoded_size": 2129,
+          "decoded_sha256": "ef02943328a8ba0cc54e9135655bff74788a3a4b47dcc11a92df617c17f26490",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        },
+        {
+          "file": "BODY3.DAX",
+          "file_sha256": "7edd8e0841581b1643828a21787594f6c96dddc1718710de9a8159575bef467f",
+          "block": 68,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "44000000005108f606",
+          "offset": 11,
+          "packed_size": 1782,
+          "decoded_size": 2129,
+          "decoded_sha256": "ef02943328a8ba0cc54e9135655bff74788a3a4b47dcc11a92df617c17f26490",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "observed-pattern-alias-selection-unknown",
+      "batch": "b15"
+    },
+    {
+      "key": "tiles-001-00",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-00.idx",
+      "indexed_sha256": "1bbd3cc74c9aac9e70ba2b17cb025b9b7888a48cabcafb64de6b0000f4912999",
+      "png": "tiles-001-00.png",
+      "png_sha256": "a2921ea7802f940c58cdebf7e47ca852c39275762c1c08592d6dac9301a68207",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-01",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-01.idx",
+      "indexed_sha256": "c4be6fe23e12747314dff187a7c7cb06a14e5dba9d8024167eda6d3dd710d6ff",
+      "png": "tiles-001-01.png",
+      "png_sha256": "2e3384f0004a264e36f8c1ca00dc966e50468cbc1f92c11ebf329b002e7c7241",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 1,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-02",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-02.idx",
+      "indexed_sha256": "bd0becb98e43cb89aa4a0ac787b305ce6872778a4194c0749ccc407f6b0a8bc3",
+      "png": "tiles-001-02.png",
+      "png_sha256": "3d2054e272b34292a129dfc238f7e9fe1d3637e1578dd8f147eb3324062e39fa",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 2,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-03",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-03.idx",
+      "indexed_sha256": "ca679f0c43006ed7fd2d034bf42d41ccca8fb63e797706d31d8552bd2bf5384f",
+      "png": "tiles-001-03.png",
+      "png_sha256": "8da9337a729af8761b951208a4989591341d303c577b1f10808f9782315201ce",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 3,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-04",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-04.idx",
+      "indexed_sha256": "80cc00a4081ae4cc9164a88369e6a4a3e83f815287b529146b16a53d0043d599",
+      "png": "tiles-001-04.png",
+      "png_sha256": "d0fc63980cfd0e9434b0e5382897e61d4e750a5657dd00c3996b974087f61c16",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 4,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-05",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-05.idx",
+      "indexed_sha256": "85eddb249017bcc2d36eb1651442a4eeb297185bfb1f7101ed0326acc16000b6",
+      "png": "tiles-001-05.png",
+      "png_sha256": "31286b0d37515c508e0284b328893fec6e783497a4347575d674444c8cb79ac6",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 5,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-06",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-06.idx",
+      "indexed_sha256": "a9151218489a425807d55b1ad40b2eda8481db71ce9c70ee8b39c3b7b062c1dc",
+      "png": "tiles-001-06.png",
+      "png_sha256": "b4703c7ce1e226240e9f1d667468320f20700140d6d7a79b2bf8912bdc0eccc1",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 6,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-07",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-07.idx",
+      "indexed_sha256": "ee548d66381b660f56d7aefa1fe9d1e8a3ad0a08068585311ee4aa1af9189eec",
+      "png": "tiles-001-07.png",
+      "png_sha256": "9aae207c35beb5f94179fec54d8758168818cd1c8374d4db7bed1b47cce43035",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 7,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-08",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-08.idx",
+      "indexed_sha256": "fd8f871c990f4ea36676ad1c6a57f02f02a5dab73f8adc730d989e3e4affa12a",
+      "png": "tiles-001-08.png",
+      "png_sha256": "eba680ea3e4d84322ddfe5477461c545af02bb02c78a4828df19cd9cdda091df",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 8,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-09",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-09.idx",
+      "indexed_sha256": "851003f8ab0ee4e21dcf8f9d79fc4ad74d83718c2a4ab2b74432f6e591034fcd",
+      "png": "tiles-001-09.png",
+      "png_sha256": "5aae9a26ce986694b3386f9c25f171cb2e69578561924c0715fbce91f72bb2b0",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 9,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-10",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-10.idx",
+      "indexed_sha256": "2189cb79761e200981afb9953c83675ecf0dba09a9b28baa84d69777ffb9ef30",
+      "png": "tiles-001-10.png",
+      "png_sha256": "86fc1d55f8820d41ed9a7dbee688edd11004722802405bd2b4352c87695d2b89",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 10,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-11",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-11.idx",
+      "indexed_sha256": "6a283e6a6bf84d8a0172bbc99f17cf57154a5e26e588ad16c0ca9838268ab1dc",
+      "png": "tiles-001-11.png",
+      "png_sha256": "62cb77119894777fdc3ddc87b7b10f182655cac6ef4801179da5eaaece3843ed",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 11,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-12",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-12.idx",
+      "indexed_sha256": "ca2cf57eb26ab2b9893ae5370386ecfb6153cce59ab4277d933b7e80e99103ee",
+      "png": "tiles-001-12.png",
+      "png_sha256": "2a77d831ec95aba52f934bb9f556a15ece90f1a9732c9be9913ebf9765e43661",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 12,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-13",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-13.idx",
+      "indexed_sha256": "22424d49b689fdb0682981f84e7853295fd8064bc8be38b56f9c3b9c1a4e0f9e",
+      "png": "tiles-001-13.png",
+      "png_sha256": "66cc6d378d79fe10bee4605534f7aeca7e0d71d2740a8184a8857072b98358c7",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 13,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-14",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-14.idx",
+      "indexed_sha256": "e3e9d602c21147203569296c4ffe79512b506f5ef9df4ad1c7af551ac25a0233",
+      "png": "tiles-001-14.png",
+      "png_sha256": "c1daf97809751e5518bca2e8aa153b2debe9e611ef3298c0b1d5935c4451ce8c",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 14,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-15",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-15.idx",
+      "indexed_sha256": "7d2b3c136bbf591796513384c83e9422fd49893bb72684519ca32b6d9488b284",
+      "png": "tiles-001-15.png",
+      "png_sha256": "af3dc8d597df05cd3ad793c731761326b4f1cd0069ef5a73b0715db052634107",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 15,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-16",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-16.idx",
+      "indexed_sha256": "95053cbda26e136b1e3c9472dd99267fe791fcaa4abadf2f79ff6571179cff8e",
+      "png": "tiles-001-16.png",
+      "png_sha256": "3b720e27e03ed771baca60bc7b0a67da05c2c77fa225673bc50c39c10fbeea26",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 16,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-17",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-17.idx",
+      "indexed_sha256": "86783b554ba6bf227403b411c4d62363df8dfdf644c77e3978c2198b7414d774",
+      "png": "tiles-001-17.png",
+      "png_sha256": "5218b695cb25b63734768a4153cc26bc2d339bd97a7bb9997925d791c47f91fe",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 17,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-18",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-18.idx",
+      "indexed_sha256": "2c0971ccb772f3114a75ea87624de9f06d2c25914d74d6ac7166b2e853e9e0cb",
+      "png": "tiles-001-18.png",
+      "png_sha256": "37c40410192084b530f25c3a0072da10cae10592cd6a2159fde549d568e7d203",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 18,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-19",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-19.idx",
+      "indexed_sha256": "99392b12d82778ff9a504ff9583f864a80fe0e478bbe0bf54b7abc27c55ef474",
+      "png": "tiles-001-19.png",
+      "png_sha256": "6b540dd57b9665a02fe01d6bc3e2baa08dce5ca582442915a8cf0ed01bf2167e",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 19,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-20",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-20.idx",
+      "indexed_sha256": "41bdae4d85f586f39822c79edbeed2227c3eeb650b5c561ce91167dfde171de1",
+      "png": "tiles-001-20.png",
+      "png_sha256": "44f60e239c19a4d7d12b29435944961d05f66700b282aa6c9ae378743a9298ad",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 20,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-21",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-21.idx",
+      "indexed_sha256": "c355b0280340d168159784be92c7255b367fc2a5489ce1cd30ef088363e9936b",
+      "png": "tiles-001-21.png",
+      "png_sha256": "b97778f4e127f6e556760cdd5bfbc8df4903362e0f948eacf6997587c44b81c2",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 21,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-22",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-22.idx",
+      "indexed_sha256": "0a75b9dc54251737f2f2530ed298d136f8b1b04d39f87bb4bbb6585a62e3a88e",
+      "png": "tiles-001-22.png",
+      "png_sha256": "aba920532b633ff5dff18e22a84da8ec53d48858c42e91b9428f7ff696d7e8ce",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 22,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-23",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-23.idx",
+      "indexed_sha256": "dc6e73b8936bbcaead6153823cc6049b948b60d148430d10d305f2d8fbf556a1",
+      "png": "tiles-001-23.png",
+      "png_sha256": "5899b05cdc681927abea0a8c050ca7febc94d30869ce7c3815d6b1f588bdcc40",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 23,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-24",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-24.idx",
+      "indexed_sha256": "6313e8e6d39b20f167c47026c394ff89efdb5e6845c4a7727f211d2a9fc1c512",
+      "png": "tiles-001-24.png",
+      "png_sha256": "c462c39f28b3a08c9222e1d445be115554dcbd8ae5f8028ac5c5e7e12e10dd27",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 24,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-001-25",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-001-25.idx",
+      "indexed_sha256": "bb7cbbbcbe44f954046e73dfa3614ad2b9787ef8169af9917d60bde4c2d6582f",
+      "png": "tiles-001-25.png",
+      "png_sha256": "0145498cb8aae8d5ae66d918e99062c7df5db85cd31ff889883b1fe38aad5e51",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "0100000000511d6b1c",
+          "offset": 20,
+          "packed_size": 7275,
+          "decoded_size": 7505,
+          "decoded_sha256": "2aa1f1589fbded35480e2f960440f1db5516223cfb9e7ab171bd0cb20af64256",
+          "item": 25,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-00",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-00.idx",
+      "indexed_sha256": "83a119aa2bf9f96626d5cfbeb5b8414eb3cd37b21364e545bd117fdb27ed6e13",
+      "png": "tiles-002-00.png",
+      "png_sha256": "fc14e5085a4f8bba5230e230866079cf577dea8c405e6f82d4139041e301561e",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-01",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-01.idx",
+      "indexed_sha256": "726ad1ac46691ddf26e198e8d8456dd50507e2d5eef0ba5034f7feaa55a58396",
+      "png": "tiles-002-01.png",
+      "png_sha256": "4a55dcd5e85fe46d1ccbca0c2a732764a7421e518deaf4909c40b75b4ec1ed94",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 1,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-02",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-02.idx",
+      "indexed_sha256": "67ef594a06fa28ee5c14a8e48e85cc7017fd4ab7b0e46f7419658d1a59988f1d",
+      "png": "tiles-002-02.png",
+      "png_sha256": "56560af5da716036cc059b1031a92438676dcec0b11a2ce23ea69d73ccbbe0ae",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 2,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-03",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-03.idx",
+      "indexed_sha256": "90e436e6bcab8f0ca9a98fbead80c347951c5a04a1641cf6ea08b193f24791a4",
+      "png": "tiles-002-03.png",
+      "png_sha256": "9ddbcc50d3f9b5863d4ae005fc5e9859c7bea8e8afeff607f8fde85d94967aad",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 3,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-04",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-04.idx",
+      "indexed_sha256": "935a5bb3055cf49a4478ac02a05e59c05a4d2ba1a37bad5a0f7896f92e480a7b",
+      "png": "tiles-002-04.png",
+      "png_sha256": "abf04588a4efea2fe48b971497ab75619ce0916045a76317b086fa523c0a982d",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 4,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-05",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-05.idx",
+      "indexed_sha256": "ffb06b725222b21d2b214f714a72a30c1c3aa688b483f0ab48077ac7dc9acd94",
+      "png": "tiles-002-05.png",
+      "png_sha256": "1c8384f41426076c937e3722edd02d0e70d392e42c9f5f5645197471cb8d1ca0",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 5,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-06",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-06.idx",
+      "indexed_sha256": "1d21704eba5e9a605497ca052a1e547ecc68f66541dd47579cbad04474dcc29b",
+      "png": "tiles-002-06.png",
+      "png_sha256": "3bb3d726985ec997a6825a4f1139fa6fb4c5e79b9938bfb41726e60ecc7a15cc",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 6,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-07",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-07.idx",
+      "indexed_sha256": "d25290935cefa54fe1d6f8c8414b98bbd432369b6ec4617aaa20628281c3bc5c",
+      "png": "tiles-002-07.png",
+      "png_sha256": "7c91b304519ea38896516f05ce3dcee09a2e94ee3a0431bc2e7e823f69d6b0f0",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 7,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-08",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-08.idx",
+      "indexed_sha256": "48f81fa934b84fed271f8f5d3a802efaddb57ac2a2469a1a064c7c6b904f72c8",
+      "png": "tiles-002-08.png",
+      "png_sha256": "743c3379097a2664c4c7ae55a666da055e6b4af9d0f44411b81d9b3ad9579fe1",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 8,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-09",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-09.idx",
+      "indexed_sha256": "f7fcbe6b1aa910bb0872c373537ed1d2f5e4a0ea9d3153cce5e7d96a5c14dd78",
+      "png": "tiles-002-09.png",
+      "png_sha256": "74827e264da655451282ceafd8fc862573a32c06f9a61148e70cbabd69c5a119",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 9,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-10",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-10.idx",
+      "indexed_sha256": "a4faf2d6e86fcfa20faabf1cd5287527e8dbe4a64b795c3ae81bce6b51871999",
+      "png": "tiles-002-10.png",
+      "png_sha256": "5af440cb1773c15fbbab82ac7ca6d4a910d5887b95a7875568180d4de4bdc025",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 10,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-11",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-11.idx",
+      "indexed_sha256": "07d46d80f8773dd23467edd41b5da887ae9cfe0c4e9e9e623ff2ce1beb68b1e6",
+      "png": "tiles-002-11.png",
+      "png_sha256": "074507600be06c069fc7a081009a9631054711f9984740fbecef55815be89352",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 11,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-12",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-12.idx",
+      "indexed_sha256": "0227df638471c0cf847cf51bc07e659519e906751af13c19f877e461d1c20bf5",
+      "png": "tiles-002-12.png",
+      "png_sha256": "63496673a7d9f44972fd6d3eb15861fc0594cc8c54434c18b06a09104f78646a",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 12,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-13",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-13.idx",
+      "indexed_sha256": "c5183e68b7be0613b106cb7fe394f0e851e72395968b39cf47b8a6ff9236467e",
+      "png": "tiles-002-13.png",
+      "png_sha256": "42434b17854b328664cc4e33b768fbd96b36e6c05dc9386a8d1598eafe970f7b",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 13,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-14",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-14.idx",
+      "indexed_sha256": "56972cddc1255b8a49cf97301425e40556a8a5a17fcc63e9a9db49086e5f4cb5",
+      "png": "tiles-002-14.png",
+      "png_sha256": "efb1eb72fd2d493c6b89c5eea50f33dbad9fbecff22dc8e5c007c98adb77cfff",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 14,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-15",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-15.idx",
+      "indexed_sha256": "ceeefdb9e512222abd033f11d159965dcbd104584d2ca7dd4994e7712a0c29b0",
+      "png": "tiles-002-15.png",
+      "png_sha256": "e80f0c599db8baf4b5134304dbc3a6be0da854cadec00a9def01d147aad3cf2b",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 15,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-16",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-16.idx",
+      "indexed_sha256": "05e7ec9f75b341535c76665a7de9aa79f9fa5146b0af70833ce462ba5d658a9c",
+      "png": "tiles-002-16.png",
+      "png_sha256": "de69bee8d2ea656f007b66f5a01882b02f5ce5c2edf0428bb3a078ddccbac1d2",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 16,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-17",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-17.idx",
+      "indexed_sha256": "c035fba0b1150e9657b871e64ea64eff46d6db8d438ff8cd993fdb182f7c98d2",
+      "png": "tiles-002-17.png",
+      "png_sha256": "ba5dd5bfa983180748997441704d7dfd7e6efe54995fc9ea4b53d1f4b8dc4a2e",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 17,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-18",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-18.idx",
+      "indexed_sha256": "3534bf4241abc698ceb6e8298e9edf8dca290aeefa083fc0966d0ecc236ba593",
+      "png": "tiles-002-18.png",
+      "png_sha256": "2866df1aa8e48191abb6fff651bb9158eef5d255661ed0b01d10893834fb1c33",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 18,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-19",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-19.idx",
+      "indexed_sha256": "e3d9af640112fd748d47428d2288d9e8fec7e3b21a100bcf9c92c2ff4264982c",
+      "png": "tiles-002-19.png",
+      "png_sha256": "344e6ca74294b3a815aa90f765aa69d6d8c98a18fa58abd6ef83c5114e86de34",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 19,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-20",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-20.idx",
+      "indexed_sha256": "86b2cd4e159e6df8212c42066eeae1abcb86359542e9f10c3575978f757c74b7",
+      "png": "tiles-002-20.png",
+      "png_sha256": "42fb58ef35e3fdb0c3cc4a2c01133bf60fd1c84e28d42a88953d30b01e3d9138",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 20,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "tiles-002-21",
+      "family": "tiles",
+      "size": [
+        24,
+        24
+      ],
+      "indexed": "tiles-002-21.idx",
+      "indexed_sha256": "76e7da033a22217680611b57d3a3d42cdd0fac96725444db40b5b78c8f1a2846",
+      "png": "tiles-002-21.png",
+      "png_sha256": "be5489da8481f60ab2313814107b6d95ded50bc6e60ab65cdb4ff4f84f5495c0",
+      "sources": [
+        {
+          "file": "TILES.DAX",
+          "file_sha256": "9e383adc1638e6202726df41a8c42640e446a17c8a9c1e9df45b8ba0d478b205",
+          "block": 2,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "026b1c0000d1183118",
+          "offset": 7295,
+          "packed_size": 6193,
+          "decoded_size": 6353,
+          "decoded_sha256": "2acda205bf4d84c12069e1e9319ed83a168fc3f7cef722f8225927c2c089943c",
+          "item": 21,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "runtime_evidence": "unobserved",
+      "batch": "b16"
+    },
+    {
+      "key": "cursor-001-00",
+      "size": [
+        8,
+        8
+      ],
+      "indexed": "symbols/cursor-001-00.idx",
+      "indexed_sha256": "ebaf73e8abda1aa087f6c2961bf8d514d6cc92098cb65be0e4297a102b7abaf7",
+      "png": "symbols/cursor-001-00.png",
+      "png_sha256": "6238cfcf457782606711cf38048ac617f870ddb62465e461dad6d01cb7bbb788",
+      "algorithm": "scale3x",
+      "family": "cursor",
+      "batch": "b18",
+      "sources": [
+        {
+          "file": "CURSOR.DAX",
+          "file_sha256": "0d47e2fabc26b4e4dbea63fa034ec1c075e7031401536cea5171c40bd1307c00",
+          "block": 1,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "010000000031003300",
+          "offset": 11,
+          "packed_size": 51,
+          "decoded_size": 49,
+          "decoded_sha256": "a27c92d460257b077261b26d3f21698b7e9886b134c7be7d351ee33787382eb2",
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ]
+    }
+  ]
+}

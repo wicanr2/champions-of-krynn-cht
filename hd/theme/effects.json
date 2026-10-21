@@ -1,0 +1,876 @@
+{
+  "version": 1,
+  "scale": 3,
+  "kind": "combat-effects",
+  "grid": [
+    8,
+    8,
+    7,
+    7,
+    24
+  ],
+  "background_index": 8,
+  "request_manifest_sha256": "000f5971dac4c8158b6f54cd0457ad88f1eb9a810d6073216832d9e486225ad5",
+  "validation_sha256": "ae6187caae57ea6b0cdc7bf4fb0ffed6959b65c50eb30316b62e49619a6ff6b6",
+  "visual_review_sha256": "95dc4a08f8f620166c732618f1798eb4f508a1b255542db75007afcce28a2181",
+  "items": [
+    {
+      "key": "comspr-000-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-000-00-00.png",
+      "png_sha256": "bea0c1836ceb841a9fb1e3da0b1ab680a16b18cf47028850f2016edc7f8bdea0",
+      "indexed": "comspr-000-00-00.idx",
+      "indexed_sha256": "cfb8ed22c4234147775e4f8d4f5418f48c4bdcdbf27443e1d0fa2695f292ecd8",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 0,
+          "record_index": 0,
+          "entry_offset": 2,
+          "entry_bytes": "000000000031016000",
+          "offset": 236,
+          "packed_size": 96,
+          "decoded_size": 305,
+          "decoded_sha256": "d69e79fa703a12089bd935c5da3aec1feb8c504dfc17ceb534f07107fb4f7c60",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-128-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-128-00-00.png",
+      "png_sha256": "63fd39cb2c9e0695e06772d93b16a1b7a1aa8751fc1c8ed45435e6fe9df526a2",
+      "indexed": "comspr-128-00-00.idx",
+      "indexed_sha256": "7963628c5811d90169bc16b5fc518821d8406925df853b26ef3e22672eb2e73f",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 128,
+          "record_index": 1,
+          "entry_offset": 11,
+          "entry_bytes": "806000000031016000",
+          "offset": 332,
+          "packed_size": 96,
+          "decoded_size": 305,
+          "decoded_sha256": "8bdd6e067e5d36dda0abccb03a6d9837e1a0f0d29464b64b651d51789f0cba88",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-001-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-001-00-00.png",
+      "png_sha256": "2c16e8ea477a97fee5c931578b26e77e3bd9b5c65d595af145ab044f2eede075",
+      "indexed": "comspr-001-00-00.idx",
+      "indexed_sha256": "2bb1a2b47ae09644b1cca90cf3ddf802c7e991bb776f0aedad1da3de263b88a0",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 1,
+          "record_index": 2,
+          "entry_offset": 20,
+          "entry_bytes": "01c000000031015900",
+          "offset": 428,
+          "packed_size": 89,
+          "decoded_size": 305,
+          "decoded_sha256": "5bdc6220c9906c9aa707fbe9eeabf2d5e4eccc33ec9bde71686ceab02f7d1b24",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-129-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-129-00-00.png",
+      "png_sha256": "7364bd79d2714af238da115d71069747632dffba31487f722167c28adf05d3e2",
+      "indexed": "comspr-129-00-00.idx",
+      "indexed_sha256": "18cdbcf83da4f7e78f1ae6c4cc7ddfb065d152e67b9256408d70e7c8a985edc7",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 129,
+          "record_index": 3,
+          "entry_offset": 29,
+          "entry_bytes": "811901000031015900",
+          "offset": 517,
+          "packed_size": 89,
+          "decoded_size": 305,
+          "decoded_sha256": "eba4d4677db1b70957b5b7368833a6a6dc9f375c83901b41d2e10286d4e8ccfe",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-002-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-002-00-00.png",
+      "png_sha256": "1460970f1baf49eec9de382d1988a462eda931d1b8e1d57fa2f1adabfe1da62e",
+      "indexed": "comspr-002-00-00.idx",
+      "indexed_sha256": "c2f490f369588b48942fa9e8e46b6b0e54fd87ed35d78a64972c37c8d2b9051c",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 2,
+          "record_index": 4,
+          "entry_offset": 38,
+          "entry_bytes": "027201000031014900",
+          "offset": 606,
+          "packed_size": 73,
+          "decoded_size": 305,
+          "decoded_sha256": "7010719ab97ef86ed47f848c67e1819f31b3b34c9331aa0c81f02554bcc24398",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-130-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-130-00-00.png",
+      "png_sha256": "6bf071a2417d9e1a8f40d48c0ccfaef3de1ac63282d6464cd715ad80634f338d",
+      "indexed": "comspr-130-00-00.idx",
+      "indexed_sha256": "33a7596224041270f21361262e78452b9f7b5c8f107df748ce3f8a9d7d52bc6f",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 130,
+          "record_index": 5,
+          "entry_offset": 47,
+          "entry_bytes": "82bb01000031014900",
+          "offset": 679,
+          "packed_size": 73,
+          "decoded_size": 305,
+          "decoded_sha256": "b269f296ad82be3be03cc7c772e00387dcdbb04f9498746feac866c28cc20f00",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-003-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-003-00-00.png",
+      "png_sha256": "4ab9a0c2250d0144078cd12d67e53ba7b1fc838cc4d0906e85c04a70b0b5815d",
+      "indexed": "comspr-003-00-00.idx",
+      "indexed_sha256": "16d3352529f846e730e2e511f6934b5913005f2af18fa21f1be431a396570a5a",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 3,
+          "record_index": 6,
+          "entry_offset": 56,
+          "entry_bytes": "030402000031017c00",
+          "offset": 752,
+          "packed_size": 124,
+          "decoded_size": 305,
+          "decoded_sha256": "c078d01b00f5f4b392ad31ff3b6153fb78138ad0907a23c9b2a75fbf4b0ded83",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-131-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-131-00-00.png",
+      "png_sha256": "aa6f069bebfa7ddd1036a84b79cd199ff5b59d9204e2d22e4eaad60c5a2cd5da",
+      "indexed": "comspr-131-00-00.idx",
+      "indexed_sha256": "07287631b50f9714116b9abaec3916fef51074356d5295ac6dcb6dccb0de28ed",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 131,
+          "record_index": 7,
+          "entry_offset": 65,
+          "entry_bytes": "838002000031017900",
+          "offset": 876,
+          "packed_size": 121,
+          "decoded_size": 305,
+          "decoded_sha256": "b21ee99e1c4e6f11fe1cef0241475a0f9b1a7e8c57b09f85137a3c43256a3c57",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-004-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-004-00-00.png",
+      "png_sha256": "4ae6c325b4089081a1efd2411704b7dc95a12cff15b625b913fc6cb7cc479ebb",
+      "indexed": "comspr-004-00-00.idx",
+      "indexed_sha256": "3c38b62da72a878c741f61c1a784b47465f1cd8bacd37607e5cb9a453e3551f3",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 4,
+          "record_index": 8,
+          "entry_offset": 74,
+          "entry_bytes": "04f902000031015200",
+          "offset": 997,
+          "packed_size": 82,
+          "decoded_size": 305,
+          "decoded_sha256": "a505746585a28396011103c008c03d389f1a6abf8a132d110dc4d76cf214d99c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-132-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-132-00-00.png",
+      "png_sha256": "3c80f135dc265c938c6ac1f8fb09c80ab39cf8272f757a34f7f08928eea23b9f",
+      "indexed": "comspr-132-00-00.idx",
+      "indexed_sha256": "5484235bf472a7ae7061f65902eecdd54f1ac7e39041c0552d6fae12bdb92375",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 132,
+          "record_index": 9,
+          "entry_offset": 83,
+          "entry_bytes": "844b03000031015a00",
+          "offset": 1079,
+          "packed_size": 90,
+          "decoded_size": 305,
+          "decoded_sha256": "4e87cd7b71b115c084a128d9109e9391a8a9c58c1c655f0470208c40dfc7e91c",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-005-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-005-00-00.png",
+      "png_sha256": "100d1d3bb4410ffbd8d29d1db123d22c57bfe97678e0de9f2acb4ada73ae5f3f",
+      "indexed": "comspr-005-00-00.idx",
+      "indexed_sha256": "92e8a3756a3b9ae39e1aeb587b29bd19085f253839f2ceb5f5e797d82b6cc0f4",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 5,
+          "record_index": 10,
+          "entry_offset": 92,
+          "entry_bytes": "05a503000031017e00",
+          "offset": 1169,
+          "packed_size": 126,
+          "decoded_size": 305,
+          "decoded_sha256": "87738079cda33458ece082a5b68be3fcdd70537b66769c8ad5bc8f635dca63f7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-133-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-133-00-00.png",
+      "png_sha256": "962be2b9ac433bb955f8f3364397b29b06d1bcdd7c44a9f38ebfde3979837e41",
+      "indexed": "comspr-133-00-00.idx",
+      "indexed_sha256": "0afd5b0019d55a5f88cd16ef5369ad6d6b62d8551a59a30f045c166c6daabff0",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 133,
+          "record_index": 11,
+          "entry_offset": 101,
+          "entry_bytes": "852304000031017e00",
+          "offset": 1295,
+          "packed_size": 126,
+          "decoded_size": 305,
+          "decoded_sha256": "1649b72d4fafbb21904ca1562af6d50ed0258c30e46157c71a843863f0470853",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-006-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-006-00-00.png",
+      "png_sha256": "9a940e25d8a6d610e6030a1df5377c83447651955463e213df70dafc4b5edc4c",
+      "indexed": "comspr-006-00-00.idx",
+      "indexed_sha256": "e03d9d133a945da0d84d974e118935ef9c22747c5d7208cec9004c82304def7d",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 6,
+          "record_index": 12,
+          "entry_offset": 110,
+          "entry_bytes": "06a10400003101ab00",
+          "offset": 1421,
+          "packed_size": 171,
+          "decoded_size": 305,
+          "decoded_sha256": "78a84103fc3a02fea445081551049b6d225e90e1323a440f7d580b602202e5fd",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-134-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-134-00-00.png",
+      "png_sha256": "ea50f829f8ca2c5303edf2e0e9bb26e080bbc605e666ef83d57a21d082e300b8",
+      "indexed": "comspr-134-00-00.idx",
+      "indexed_sha256": "72b04cdf1f6d70eec3198d3bb01db6246c4a10ee88dbd19a553dacb43e406bb6",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 134,
+          "record_index": 13,
+          "entry_offset": 119,
+          "entry_bytes": "864c0500003101bf00",
+          "offset": 1592,
+          "packed_size": 191,
+          "decoded_size": 305,
+          "decoded_sha256": "b234b12b13021ab509cd95599d1c92ba28e751b5af1c30ed2e1a81ac1f42009e",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-007-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-007-00-00.png",
+      "png_sha256": "6092bfa4118d0d68ec230f6404d43723d6f4391ce2106e34814c844eb41f3816",
+      "indexed": "comspr-007-00-00.idx",
+      "indexed_sha256": "805ca2082cd30360ca1a714c55500ff485eac41829e454198d745bf0483105b4",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 7,
+          "record_index": 14,
+          "entry_offset": 128,
+          "entry_bytes": "070b06000031019100",
+          "offset": 1783,
+          "packed_size": 145,
+          "decoded_size": 305,
+          "decoded_sha256": "b5668ca976ab8e558a83d8aabf81d4cf13658da5fe7a3b2ab6b8eb2f3333c044",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-135-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-135-00-00.png",
+      "png_sha256": "38a3e72b7806c5bf3c460d3ab0f83c29bc6d691b3b8119776631abee4b0a6acf",
+      "indexed": "comspr-135-00-00.idx",
+      "indexed_sha256": "bc73dec9f4a374c5f1d59f94570d48d2f58c96831770aa407b5b31445eedf785",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 135,
+          "record_index": 15,
+          "entry_offset": 137,
+          "entry_bytes": "879c06000031019400",
+          "offset": 1928,
+          "packed_size": 148,
+          "decoded_size": 305,
+          "decoded_sha256": "24ef570400478442873563c257b8e1de3007b9fd14e687b1d7928fa1874ae47f",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-008-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-008-00-00.png",
+      "png_sha256": "1e50fb4b49a079f9cc23c8429dc4444167ca05211b8a1259c35c1f7309343125",
+      "indexed": "comspr-008-00-00.idx",
+      "indexed_sha256": "c860daf6754ef4fcf8012615223e632aaa6242aa2a4e5c9ba5c5fda87c2854d5",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 8,
+          "record_index": 16,
+          "entry_offset": 146,
+          "entry_bytes": "083007000031012500",
+          "offset": 2076,
+          "packed_size": 37,
+          "decoded_size": 305,
+          "decoded_sha256": "b5d246908d0ba68d12e4a435ac189ad6201f0eb896aceb18699f636eb2670286",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-136-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-136-00-00.png",
+      "png_sha256": "2fc40a437ec2ee487e7a701b22b7faeab9ce1dca15487daa3dad3a8438d47a94",
+      "indexed": "comspr-136-00-00.idx",
+      "indexed_sha256": "44646f1ae608b91824ff19e99b49d79b1843850fbcc740f77941fcd8b75919e7",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 136,
+          "record_index": 17,
+          "entry_offset": 155,
+          "entry_bytes": "885507000031012500",
+          "offset": 2113,
+          "packed_size": 37,
+          "decoded_size": 305,
+          "decoded_sha256": "e8c2e81233a82cf4bd93785be54f436f458559cc58875d77845c94ef7c7e7aec",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-009-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-009-00-00.png",
+      "png_sha256": "f0812f86555aa06bf92ea71adb7d8de65201812c4d911fa947a6f690ed26cfab",
+      "indexed": "comspr-009-00-00.idx",
+      "indexed_sha256": "96e61fb6f7eec17b1646dd91b16f3889dabf48ed3cb716881eaa1b51c7b9cd9f",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 9,
+          "record_index": 18,
+          "entry_offset": 164,
+          "entry_bytes": "097a0700003101a700",
+          "offset": 2150,
+          "packed_size": 167,
+          "decoded_size": 305,
+          "decoded_sha256": "986fbca853ffdc19e427a10fd67162a1ad1fb3ac43f24010a80b812fc6505b57",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-137-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-137-00-00.png",
+      "png_sha256": "1f994c55c37515fc5ef421bfe960342ff2e06ea2961ca4c83ad5c27121acf6da",
+      "indexed": "comspr-137-00-00.idx",
+      "indexed_sha256": "e9acb8d8add73d51c29bbbcffe904455fb0f54947221daa9f21e3f6313878669",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 137,
+          "record_index": 19,
+          "entry_offset": 173,
+          "entry_bytes": "89210800003101a400",
+          "offset": 2317,
+          "packed_size": 164,
+          "decoded_size": 305,
+          "decoded_sha256": "ec39d40f93b417a000845af07c3e4ddbb58da1ee5ff6fcb2ee8e02e7e537eb20",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-010-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-010-00-00.png",
+      "png_sha256": "d1c6d4ef3f076111e9484d0aa067b097b07cce0bd9300f57c11812e0d693917c",
+      "indexed": "comspr-010-00-00.idx",
+      "indexed_sha256": "3469fe33e706e4ecdc84fc8b92f1e83f3584d52de107ad7cb64c8c1973034dcd",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 10,
+          "record_index": 20,
+          "entry_offset": 182,
+          "entry_bytes": "0ac508000031014700",
+          "offset": 2481,
+          "packed_size": 71,
+          "decoded_size": 305,
+          "decoded_sha256": "299209de273519d93e5ac576d3dc507ccd35bf89813178f3c790561973963da9",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-138-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-138-00-00.png",
+      "png_sha256": "7501861cf582c3997afacd813abe4090346eab15cd376c3e6fc9776ac67fb0de",
+      "indexed": "comspr-138-00-00.idx",
+      "indexed_sha256": "42b6dea31d8dc8a10e108fa24c84ff658e4de1c4d670ab90bc179f6c175b7e13",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 138,
+          "record_index": 21,
+          "entry_offset": 191,
+          "entry_bytes": "8a0c09000031011c01",
+          "offset": 2552,
+          "packed_size": 284,
+          "decoded_size": 305,
+          "decoded_sha256": "7e233f9fa33bbf7e66e11a2ba61fb7eba0063bf150494d327ed964c708e3c1e7",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-011-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-011-00-00.png",
+      "png_sha256": "87d04714c5d44f59816247ea5678cf773a1e03da191c1ad16bc3a4c5813cc0f3",
+      "indexed": "comspr-011-00-00.idx",
+      "indexed_sha256": "9e590e35d79b07e0c45baf3cbf68f6add8c8e2520d5f90ad3460b019a5d230f8",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 11,
+          "record_index": 22,
+          "entry_offset": 200,
+          "entry_bytes": "0b280a00003101fe00",
+          "offset": 2836,
+          "packed_size": 254,
+          "decoded_size": 305,
+          "decoded_sha256": "d3dfc2c27932d2e4ab74df4011ce1d85e936338d12110b90c9fac401e6fe3bb6",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-139-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-139-00-00.png",
+      "png_sha256": "028d50ca292660733e30319c23d3eb83c0a5f2dcffd5e4a98d9f7f911eadeb5b",
+      "indexed": "comspr-139-00-00.idx",
+      "indexed_sha256": "df182e1fa274c3b7c28ee8a13f0bf21c584bd5a26347e7e624913cacd9f306e8",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 139,
+          "record_index": 23,
+          "entry_offset": 209,
+          "entry_bytes": "8b260b00003101fe00",
+          "offset": 3090,
+          "packed_size": 254,
+          "decoded_size": 305,
+          "decoded_sha256": "460bf2762115c0bc6830f11fcff8aeefe584f54b77216ef70a1b89d399df4265",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-025-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-025-00-00.png",
+      "png_sha256": "b7c4d14fadbdea2890d29a5f176c1509f6668c2a549717e049a841c00cccdb59",
+      "indexed": "comspr-025-00-00.idx",
+      "indexed_sha256": "1280ecd76417f1c55ac51e04284476d3d88f2906afa18c1547478af7a21eacad",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 25,
+          "record_index": 24,
+          "entry_offset": 218,
+          "entry_bytes": "19240c000031018600",
+          "offset": 3344,
+          "packed_size": 134,
+          "decoded_size": 305,
+          "decoded_sha256": "2c0b0afd1b59157549f36961a64518d903b728b3cbc859f0b11c32d255be1495",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    },
+    {
+      "key": "comspr-153-00-00",
+      "size": [
+        24,
+        24
+      ],
+      "png": "comspr-153-00-00.png",
+      "png_sha256": "7852520984de8048f0ea0d00dfb273d3cf7dfd9a69082094730eefb8704b789a",
+      "indexed": "comspr-153-00-00.idx",
+      "indexed_sha256": "485fb94257960288790f736f0701e465da162f2caa1e50db2bfccbf5636fb131",
+      "sources": [
+        {
+          "file": "COMSPR.DAX",
+          "file_sha256": "6bff177f6776339a627be3c0199518a41330f01f462e8994f649804e488a86d5",
+          "block": 153,
+          "record_index": 25,
+          "entry_offset": 227,
+          "entry_bytes": "99aa0c000031018600",
+          "offset": 3478,
+          "packed_size": 134,
+          "decoded_size": 305,
+          "decoded_sha256": "8b4f2b3f86265cf405d8d119b9f8ea4ddec94e2b81ac327ffa5b86ba89ec013b",
+          "frame": 0,
+          "item": 0,
+          "header_xy": [
+            0,
+            0
+          ]
+        }
+      ],
+      "batch": "b10",
+      "runtime_evidence": "unobserved"
+    }
+  ]
+}
