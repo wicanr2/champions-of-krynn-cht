@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # 推廣影片單段錄製（規格 016）：tools/promo-rec.sh 段名 狀態目錄 狀態檔 開始步數 結束步數 [cok-promo 其餘參數…]
 # 狀態目錄要有 scratch/；每次從乾淨的 scratch 副本開始。輸出 workplace/promo/seg/<段名>/。
+# PROMO_NOHD=1 不載入 HD 主題（原版對照段，給 HD 切換示範用）；PROMO_FONT 換字型。
 set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 W="$ROOT/workplace"; BIN="$W/dosgolem/workplace/bin/cok-promo"
@@ -16,7 +17,7 @@ timeout "${PROMO_TIMEOUT:-40m}" docker run --rm --init --network none -u "$(id -
   -v "$W/input/dos/ckrynn:/orig:ro" -v "$sd:/st:ro" -v "$THEME:/hd:ro" -v "$W/font:/font:ro" -v "$ROOT/text:/text:ro" \
   -v "$W/music/out:/music:ro" -v "$BIN:/app/cok-promo:ro" -v "$OUT:/out" \
   --entrypoint /app/cok-promo cok-img:r1 -state "/st/$st" -root /orig -scratch /out/scratch -out /out \
-  -font "/font/$FONT" -text-dir /text -hd /hd -music-dir /music -lang-fonts "$LF" \
+  -font "/font/$FONT" -text-dir /text ${PROMO_NOHD:+-hd-off} -hd /hd -music-dir /music -lang-fonts "$LF" \
   -from "$from" -until "$until" "$@" > "$OUT/log.txt" 2>&1 || { tail -5 "$OUT/log.txt" >&2; exit 1; }
 rm -rf "$OUT/scratch"
 tail -1 "$OUT/log.txt"

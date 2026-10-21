@@ -16,17 +16,22 @@ dosgolem `cmd/cok-promo` 從既有狀態檔續跑，逐格輸出覆繪後的 3 �
 
 ## 2. 分鏡
 
-`tools/promo.sh` 錄五段，`tools/promo-build.sh` 依剪輯表剪接。
+`tools/promo.sh` 錄八段，`tools/promo-build.sh` 依剪輯表剪接，成品約 83 秒。使用者 2026-10-21 要求加入故事背景介紹與 HD 切換示範。
 
 | 段 | 狀態檔 | 步數 | 內容 |
 |---|---|---|---|
 | title | `probe/g2-receipt/start-200m.state` | 1.870e9–1.995e9 | SSI、HD 主標題、DragonLance、原版標題曲 |
 | open | `probe/g3-party/5-opening.state` | 2.45e9–2.95e9，Enter 從 2.51e9 每 6e7 | 旅店、大地圖、卡爾爵士、手札第 51 則、屯墾區選單 |
 | throtl | `probe/throtl1/end.state` | 1.985e10–2.023e10；E 三次（第一個被吃掉，第二個紮營、第三個離開）、M 回移動模式，再走六步 | 斯拉托 3D 牆面 HD、地圖疊層全圖、攻略第 2 章 |
+| throtl-nohd | 同 throtl，`PROMO_NOHD=1`（cok-promo `-hd-off`） | 同上，不做面板動作 | HD 切換示範的原版側 |
 | battle | `probe/demo3d/d450.state` | 錄 1.46e9–1.60e9 | demo 戰鬥，HD 戰鬥圖塊、音譯隊員名 |
+| battle-nohd | 同 battle，`PROMO_NOHD=1` | 同上 | HD 切換示範的原版側 |
+| f12 | 同 open | 2.64e9–2.71e9，2.672e9 切原版、2.695e9 切回中文 | 卡爾爵士對話的中文與英文原版切換 |
 | langs | 同 open | 2.64e9–2.72e9 | 卡爾爵士對話依序換成简中、日文、韓文、英文、繁中 |
 
-原版開場劇情沒有音樂（規格 014 §1），open 的前四個片段以 `sanctuary`、langs 以 `outpost` 的渲染檔墊底，與遊戲音效混音，同一首跨片段接續。其餘片段是遊戲本身的 AdLib 與配樂。片尾 6 秒字卡配 `finale` 開頭。
+剪輯順序：標題 8 秒 → 故事字卡四張各 3.6 秒（底圖取標題、旅店、卡爾爵士、斯拉托畫格，模糊壓暗後疊旁白，配 `occupied`）→ 開場五片段 → 3D 探索 → 3D 的 HD 切換（同時間軸的原版段與 HD 段，40% 處以 1.2 秒由左往右擦除切到 HD）→ 自動地圖 → 攻略 → 戰鬥 → 戰鬥的 HD 切換 → F12 切換 → 五語言 → 片尾 6 秒。
+
+原版開場劇情沒有音樂（規格 014 §1），open 的前四個片段與 f12 以 `sanctuary`、langs 以 `outpost` 的渲染檔墊底，與遊戲音效混音，同一首跨片段接續。其餘片段是遊戲本身的 AdLib 與配樂。
 
 ## 3. 編碼
 
@@ -34,9 +39,10 @@ dosgolem `cmd/cok-promo` 從既有狀態檔續跑，逐格輸出覆繪後的 3 �
 
 ## 4. 收據（2026-10-20）
 
-- 成品 66.0 秒，H.264 1920×1200 30 fps 加 AAC，SHA-256 `ea8721e90fca…`（2026-10-21 以 v1.0.1 的繁中圓體、HD 主題 1,984 項五段全部重錄）。
+- 成品 82.8 秒，H.264 1920×1200 30 fps 加 AAC，SHA-256 `bcc32d498960…`（2026-10-21，繁中圓體、HD 主題 1,984 項）。
 - title、langs、battle、throtl 各重錄一次，畫格與音訊 SHA-256 完全相同。
 - 全片的隊伍欄、戰鬥面板與劇情文字都是覆繪後的文字（分鏡檢查 `tools/promo-sheet.sh`）。
 - 每段 `audio_seconds` 等於 `video_seconds`；各段沒有缺字。
-- 片段平均音量 -24 到 -32 dB，沒有靜音片段。
+- 片段平均音量 -23 到 -32 dB，沒有靜音片段。
+- HD 切換示範的原版段 `HD=0`，與 HD 段的差異只在 3D 視窗內（第 480 格差異範圍 (73,73)–(336,336)）。
 - 配樂確實混入（以前一版 battle 段量測，該段由 issue13 的 battle.state 起跑）：battle 段與不給 `-music-dir` 的同段相減，差值每秒 -29 到 -31 dB，12 秒全程都有；throtl 段前 9 秒開配樂 -29.5 dB、不開 -35.9 dB。
