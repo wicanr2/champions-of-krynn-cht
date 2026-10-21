@@ -20,5 +20,5 @@
 | [013-player-name.md](013-player-name.md) | CONFORMED | #6 | 玩家角色名自動音譯 |
 | [014-in-game-music.md](014-in-game-music.md) | CONFORMED | #16 | 遊戲中配樂 |
 | [015-multilingual.md](015-multilingual.md) | CONFORMED | #17–#20 | 多語系：簡中、日文、韓文、英文 |
-| [016-promo-video.md](016-promo-video.md) | READY | #15 | 推廣影片 |
+| [016-promo-video.md](016-promo-video.md) | CONFORMED | #15 | 推廣影片 |
 | [017-cheat-invincible.md](017-cheat-invincible.md) | CONFORMED | — | 作弊：我方無敵 |

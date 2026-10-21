@@ -67,7 +67,7 @@
 | 配樂 | 規格 014 CONFORMED；12 首新編曲，使用者試聽通過 |
 | 多語系 | 規格 015 CONFORMED；繁中、简中、日文、韓文、英文，第一次執行依系統語言；简中大陸字形、日文日本字形 |
 | 作弊 | 規格 017 CONFORMED；我方無敵（F1，預設關），`tools/g10-cheat-receipt.sh` |
-| 推廣影片 | 規格 016 READY（待使用者觀看）；`workplace/promo/cok-promo.mp4` 66 秒（`tools/promo.sh`） |
+| 推廣影片 | 規格 016 CONFORMED；`workplace/promo/cok-promo.mp4` 82.8 秒（`tools/promo.sh`） |
 | 跨區盤點 | 斯拉托、蓋加斯（只到城門）、桑克申抽樣，補 8 個怪物名、背後攻擊模板、數量＋物品規則後缺口 0（docs/re/008、009）；其餘 12 張地圖沒有實機進入 |
 | 城鎮服務 | 酒店傳聞、神殿、金庫、訓練選單、法術記憶與抄寫、旅店盤點缺口 0；切換列規格 011 CONFORMED。訓練只到選單，沒有實際升級 |
 
