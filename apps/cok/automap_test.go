@@ -136,7 +136,7 @@ func TestAutoMapQuadrants(t *testing.T) {
 		if p := a.VisiblePoints(); len(p) != 1 || p[0].Label != c.label {
 			t.Errorf("(%d,%d) 可見點：%+v", c.x, c.y, p)
 		}
-		if l := a.Lines(); string(l[0]) != c.title || string(l[3]) != string(PackHalfWidth([]rune("1 "+c.label))) {
+		if l := a.Lines(); string(l[0]) != c.title || string(l[3]) != string(PackHalfWidth([]rune(" 1 "+c.label))) {
 			t.Errorf("(%d,%d) 清單：%q %q", c.x, c.y, string(l[0]), string(l[3]))
 		}
 	}
@@ -176,5 +176,20 @@ func TestAutoMapEclQualifiedKey(t *testing.T) {
 	lg, err := LoadMapGuideDir(dir)
 	if err != nil || lg.ByHash[sum] != "3/50" || lg.Titles["3/50@51"] != "達西默" {
 		t.Fatalf("載入：%+v %v", lg, err)
+	}
+}
+
+// 3 倍小字版面：22 欄、36 列；編號固定兩格，一位數與兩位數的名稱對齊。
+func TestAutoMapCompactLayout(t *testing.T) {
+	cols, rows, cell := listLayout(3)
+	if cols != 22 || rows != 36 || cell != 16 {
+		t.Fatalf("3 倍版面 %d×%d、%d 像素", cols, rows, cell)
+	}
+	if c, r, _ := listLayout(2); c != listW || r != listRows {
+		t.Fatal("2 倍版面要維持原狀")
+	}
+	a, b := PackHalfWidth([]rune(" 1 甲")), PackHalfWidth([]rune("10 甲"))
+	if len(a) != len(b) || a[len(a)-1] != b[len(b)-1] {
+		t.Fatalf("編號沒有對齊：%q %q", string(a), string(b))
 	}
 }

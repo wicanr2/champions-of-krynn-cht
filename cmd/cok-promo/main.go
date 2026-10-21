@@ -99,6 +99,7 @@ func main() {
 	fontPath := flag.String("font", "", "16×16 GOLEMFNT（繁中）")
 	textDir := flag.String("text-dir", "", "譯文目錄")
 	hdDir := flag.String("hd", "", "HD 主題目錄（只在 3× 顯示）")
+	hdOff := flag.Bool("hd-off", false, "不載入 HD 主題（原版對照段，給 HD 切換示範用；其餘參數與 HD 段相同）")
 	musicDir := flag.String("music-dir", "", "配樂目錄（music.tsv 與 <曲目>.opl）；選曲表讀 text-dir 的 music-cues.tsv")
 	langFonts := flag.String("lang-fonts", "", "繁中以外語言的字型：代碼=路徑，逗號分隔；同目錄 <名稱>-3x.golemfnt 當 3 倍字模")
 	langCode := flag.String("lang", "zh-TW", "起始語言")
@@ -175,7 +176,7 @@ func main() {
 		fail(err)
 	}
 	live := cok.NewLive(font, ui, ecl)
-	if *hdDir != "" {
+	if *hdDir != "" && !*hdOff {
 		if err := live.AddHD(*hdDir); err != nil {
 			fail(err)
 		}

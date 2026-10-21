@@ -313,11 +313,24 @@ var (
 	mapPoint = [3]uint8{255, 85, 255}
 )
 
-// Lines 回右側清單（測試與繪製共用）。
-func (m *AutoMap) Lines() [listRows][]rune {
-	var out [listRows][]rune
+// listLayout 回右側清單的欄數、列數與每格裝置像素：3 倍時改用 16 像素小字（使用者 2026-10-21 指示），
+// 22 欄、36 列，攻略點一頁列得完；其他倍率維持 8 邏輯像素一格（15 欄、24 列）。
+func listLayout(scale int) (cols, rows, cell int) {
+	if scale == 3 {
+		return (320 - listX) * 3 / 16, 192 * 3 / 16, 16
+	}
+	return listW, listRows, 8 * scale
+}
+
+// Lines 回 2 倍版面的右側清單（測試用）。
+func (m *AutoMap) Lines() [][]rune { return m.LinesFor(listW, listRows) }
+
+// LinesFor 回 cols 欄、rows 列的右側清單：標題、座標、攻略點清單（編號固定兩格，名稱對齊），
+// 所在格有攻略點時底部留給說明（依說明長度，最多三分之一），最後一列是提示。
+func (m *AutoMap) LinesFor(cols, rows int) [][]rune {
+	out := make([][]rune, rows)
 	put := func(row int, s string) {
-		if row < listRows {
+		if row < rows {
 			out[row] = PackHalfWidth([]rune(s))
 		}
 	}
@@ -334,8 +347,8 @@ func (m *AutoMap) Lines() [listRows][]rune {
 	row := 3
 	pts := m.VisiblePoints()
 	if m.Key == "" || m.Guide == nil || len(m.Guide.Points[m.Key]) == 0 {
-		for _, l := range wrapCols(m.Format.NoData, listW) {
-			if row < listRows-4 {
+		for _, l := range wrapCols(m.Format.NoData, cols) {
+			if row < rows-4 {
 				out[row] = l
 				row++
 			}
@@ -343,19 +356,21 @@ func (m *AutoMap) Lines() [listRows][]rune {
 	}
 	listed := map[int]bool{} // 同一編號標在多格（塔樓樓梯、前門）只列一次
 	var items []string
-	here := false
+	var summary [][]rune
 	for _, p := range pts {
-		if p.X == m.X && p.Y == m.Y {
-			here = true
+		if p.X == m.X && p.Y == m.Y && summary == nil {
+			summary = wrapCols(fmt.Sprintf("%2d %s", p.N, p.Summary), cols)
 		}
 		if !listed[p.N] {
 			listed[p.N] = true
-			items = append(items, fmt.Sprintf("%d %s", p.N, p.Label))
+			items = append(items, fmt.Sprintf("%2d %s", p.N, p.Label))
 		}
 	}
-	end := listRows - 1 // 清單可用到這列之前；所在格有攻略點時留 4 列給說明
-	if here {
-		end = listRows - 5
+	end := rows - 1 // 清單可用到這列之前
+	if summary != nil {
+		n := min(len(summary), max(4, rows/3))
+		summary = summary[:n]
+		end = rows - 2 - n // 清單與說明之間空一列
 	}
 	per := max(1, end-row)
 	pages := (len(items) + per - 1) / per
@@ -364,14 +379,8 @@ func (m *AutoMap) Lines() [listRows][]rune {
 		put(row, items[i])
 		row++
 	}
-	for _, p := range pts {
-		if p.X == m.X && p.Y == m.Y {
-			for i, l := range wrapCols(fmt.Sprintf("%d %s", p.N, p.Summary), listW) {
-				if listRows-5+i < listRows-1 {
-					out[listRows-5+i] = l
-				}
-			}
-		}
+	for i, l := range summary {
+		out[rows-1-len(summary)+i] = l
 	}
 	hint := m.Format.Hint
 	if m.reveal {
@@ -380,7 +389,7 @@ func (m *AutoMap) Lines() [listRows][]rune {
 	if pages > 1 && m.Format.More != "" {
 		hint = strings.NewReplacer("{page}", strconv.Itoa(m.listPage+1), "{pages}", strconv.Itoa(pages)).Replace(m.Format.More)
 	}
-	put(listRows-1, hint)
+	put(rows-1, hint)
 	return out
 }
 
@@ -451,14 +460,43 @@ func (m *AutoMap) Draw(dst []uint8, scale int, font *xlate.Font, missing func(ru
 			putRGB(dst, w, x, y, mapParty)
 		}
 	}
-	for row, line := range m.Lines() {
+	cols, rows, cell := listLayout(scale)
+	for row, line := range m.LinesFor(cols, rows) {
 		c := journalText
 		if row == 0 {
 			c = journalTitle
-		} else if row == listRows-1 {
+		} else if row == rows-1 {
 			c = journalPage
 		}
-		drawLine(dst, scale, font, listX, row*8, listW, line, c, missing)
+		if cell == 8*scale {
+			drawLine(dst, scale, font, listX, row*8, cols, line, c, missing)
+		} else {
+			drawLinePx(dst, w, font, listX*scale, row*cell, cols, cell, line, c, missing)
+		}
+	}
+}
+
+// drawLinePx 以字型原尺寸（不放大）畫一列，每字佔 cell 裝置像素；給 3 倍的小字清單用。
+func drawLinePx(dst []uint8, w int, font *xlate.Font, x0, y0, cols, cell int, line []rune, c [3]uint8, missing func(rune)) {
+	rb := (font.W + 7) / 8
+	for col, r := range line {
+		if col >= cols || r == ' ' {
+			continue
+		}
+		g, ok := font.Glyphs[r]
+		if !ok {
+			if missing != nil {
+				missing(r)
+			}
+			continue
+		}
+		for gy := 0; gy < font.H && gy < cell; gy++ {
+			for gx := 0; gx < font.W && gx < cell; gx++ {
+				if g[gy*rb+gx/8]&(0x80>>uint(gx%8)) != 0 {
+					putRGB(dst, w, x0+col*cell+gx, y0+gy, c)
+				}
+			}
+		}
 	}
 }
 
