@@ -108,6 +108,15 @@ for ui in text/ui-text.*.tsv; do
     --out "/stage/common/font/cok-$code.golemfnt"
   echo "[package] 語言 $code 字型：${#LANG_CATALOGS[@]} 份表，$hex"
 done
+# 繁中圓體（使用者 2026-10-21 指示）：源泉圓體 GenSenRounded2 TW（OFL），2 倍 Medium 16×16、3 倍 Bold 24×24；
+# cok-play 發行模式優先使用 font/cok-rounded.golemfnt
+ROUNDED="$W/fonts-rounded"
+for f in GenSenRounded2TW-M.otf GenSenRounded2TW-B.otf SIL_Open_Font_License_1.1.txt; do [[ -f "$ROUNDED/$f" ]] || die "缺圓體來源 $ROUNDED/$f"; done
+docker image inspect cok-img:r1 >/dev/null 2>&1 || die "缺映像 cok-img:r1"
+dr -v "$ROOT/tools:/tools:ro" -v "$ROOT/text:/text:ro" -v "$ROUNDED:/f:ro" -v "$UNI:/uni:ro" -v "$STAGE:/stage" -w /text cok-img:r1 sh -c "
+  python -I /tools/rounded_font.py ${CATALOGS[*]} --otf /f/GenSenRounded2TW-M.otf --cell 16 --fallback /uni/font/precompiled/unifont_t-17.0.05.hex --out /stage/common/font/cok-rounded.golemfnt &&
+  python -I /tools/rounded_font.py ${CATALOGS[*]} --otf /f/GenSenRounded2TW-B.otf --cell 24 --fallback /uni/font/precompiled/unifont_t-17.0.05.hex --out /stage/common/font/cok-rounded-3x.golemfnt"
+cp "$ROUNDED/SIL_Open_Font_License_1.1.txt" "$STAGE/common/font/OFL-GenSenRounded.txt"
 # 規格 015 §3.1：英文版字型由 Courier Prime Bold（OFL）產生，2 倍 16×16、3 倍 24×24
 if [[ -f text/host-text.en.tsv ]]; then
   COURIER="$W/fonts-en/courierprime__CourierPrime-Bold.ttf"
@@ -152,6 +161,10 @@ printf '另含 Go 標準程式庫與執行期（%s，BSD-3-Clause，licenses/go-
 printf '%s\n' "" "另含玩家名音譯資料（規格 013）：" \
   "- CMU 發音詞典（text/cmudict/，BSD 式授權，見 text/cmudict/LICENSE）" \
   "- 英語人名譯音表（text/translit-table.tsv，改作自中文維基百科，CC BY-SA 4.0，見 text/LICENSE-translit-table.md）" >> "$STAGE/common/THIRD-PARTY.md"
+printf '%s\n' "" "另含字型：" \
+  "- 源泉圓體 GenSenRounded2 TW v2.100（github.com/ButTaiwan/gensen-font，SIL OFL 1.1，見 font/OFL-GenSenRounded.txt），轉為點陣 font/cok-rounded*.golemfnt" \
+  "- Courier Prime Bold（SIL OFL 1.1，見 font/OFL-CourierPrime.txt），轉為點陣 font/cok-en*.golemfnt" \
+  "- GNU Unifont 17.0.05（GPLv2+ 附字型例外／SIL OFL 1.1，見 font/COPYING-unifont、font/OFL-1.1.txt）" >> "$STAGE/common/THIRD-PARTY.md"
 
 # payload <目標目錄> <版別>：HD 版放主題；完整版另放原版、倚天字型與本機自用說明。
 payload() {
@@ -164,7 +177,7 @@ payload() {
   cp -r "$ORIG_TREE"/. "$1/original/"
   cp "$STAGE/leak/eten/cok-eten.golemfnt" "$1/font/cok-eten.golemfnt"
   printf '%s\n' "本機自用完整版：內含原版遊戲《Champions of Krynn》，著作權屬原權利人。" \
-    "內附倚天中文字型（購買授權，限本機使用），預設優先使用；刪除 font/cok-eten.golemfnt 即改用 GNU Unifont。" \
+    "內附倚天中文字型（購買授權，限本機使用）；預設使用圓體 font/cok-rounded.golemfnt，刪除它即改用倚天。" \
     "請勿散布、上傳或分享本檔案。" > "$1/本機自用-請勿散布.txt"
 }
 scan() {  # scan <解開目錄>：禁止來源為原版、倚天來源與本機倚天字型

@@ -11,7 +11,7 @@ set -euo pipefail
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 DG="$ROOT/workplace/dosgolem"
 ORIG="$ROOT/workplace/input/dos/ckrynn"
-FONT="$ROOT/workplace/font/cok-eten.golemfnt"
+FONT="$ROOT/workplace/font/${PLAY_FONT:-cok-rounded.golemfnt}"
 DATA="$ROOT/workplace/play"
 THEME="$ROOT/workplace/hd/theme"
 IMAGE=dosgolem-go-ebiten:1.24-r1
@@ -33,4 +33,4 @@ exec timeout 12h docker run --rm --network none --memory 2g --cpus 2 --pids-limi
   -v "$DG/workplace/bin":/app:ro -v "$ORIG":/orig:ro -v "$ROOT/text":/text:ro \
   -v "$ROOT/workplace/font":/font:ro "${HD[@]}" -v "$DATA":/data \
   --entrypoint /app/cok-play "$IMAGE" \
-  -original /orig -save /data/save -text-dir /text -font /font/cok-eten.golemfnt -audio=false "${HDFLAG[@]}" "$@"
+  -original /orig -save /data/save -text-dir /text -font "/font/$(basename "$FONT")" -audio=false "${HDFLAG[@]}" "$@"
